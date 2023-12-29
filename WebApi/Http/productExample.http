@@ -1,0 +1,14 @@
+@hostname = https://localhost:5001
+
+###
+POST {{hostname}}/api/productExample 
+Content-Type: application/json
+
+{
+    "name": "test",
+    "description": "123 456",
+    "price": 100
+}
+
+###
+GET {{hostname}}/api/productExample

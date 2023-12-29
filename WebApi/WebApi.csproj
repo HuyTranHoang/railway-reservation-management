@@ -23,4 +23,8 @@
     <None Include="wwwroot\.gitkeep" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Http\" />
+  </ItemGroup>
+
 </Project>
