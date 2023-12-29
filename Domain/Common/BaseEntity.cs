@@ -1,12 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Domain.Common
+namespace Domain.Common;
+
+public class BaseEntity
 {
-    internal class BaseEntity
-    {
-    }
+    public int Id { get; set; }
+
+    [Column(Order = 997)]
+    public bool IsDeleted { get; set; }
+
+    [Column(Order = 998)]
+    public DateTime CreatedAt { get; set; } = DateTime.Now;
+
+    [Column(Order = 999)]
+    public DateTime? UpdatedAt { get; set; }
 }
