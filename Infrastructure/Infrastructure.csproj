@@ -19,10 +19,4 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.25" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Data\Configurations\" />
-    <Folder Include="Data\Migrations\" />
-    <Folder Include="Persistence\" />
-  </ItemGroup>
-
 </Project>
