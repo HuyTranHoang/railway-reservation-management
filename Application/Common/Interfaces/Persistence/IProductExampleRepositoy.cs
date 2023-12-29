@@ -1,6 +1,10 @@
-﻿namespace Application.Common.Interfaces.Persistence;
+﻿using Domain.Entities;
 
-public interface ProductExampleRepositoy
+namespace Application.Common.Interfaces.Persistence;
+
+public interface IProductExampleRepositoy
 {
-    
+    Task<List<ProductExample>> GetAllAsync();
+    Task<ProductExample> GetByIdAsync(int id);
+    void Add(ProductExample productExample);
 }

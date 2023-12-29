@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Application.Common.Interfaces.Persistence;
 
-namespace Application.Common.Interfaces.Persistence
+
+public interface IUnitOfWork : IDisposable
 {
-    internal interface IUnitOfWork
-    {
-    }
+    Task<int> SaveChangesAsync();
 }

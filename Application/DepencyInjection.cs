@@ -1,4 +1,5 @@
 ﻿
+using Application.Common.Interfaces.Persistence;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Application;
