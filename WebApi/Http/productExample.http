@@ -1,7 +1,7 @@
-@hostname = https://localhost:5001
+@url = https://localhost:5001
 
 ###
-POST {{hostname}}/api/productExample 
+POST {{url}}/api/productExample
 Content-Type: application/json
 
 {
@@ -11,4 +11,4 @@ Content-Type: application/json
 }
 
 ###
-GET {{hostname}}/api/productExample
+GET {{url}}/api/productExample

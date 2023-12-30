@@ -1,0 +1,29 @@
+﻿@url = https://localhost:5001
+
+###
+
+# 401 - unauthorized
+GET {{url}}/api/buggy/auth
+
+###
+
+# 404 - endpoint does not exist
+GET {{url}}/api/buggy/endpointdoesnotexist
+
+###
+
+# Get Bad Request Error (400)
+GET {{url}}/api/buggy/bad-request
+
+###
+
+# 400 - bad request validation wrong input type
+GET {{url}}/api/buggy/bad-request/one
+
+###
+
+# 500 - server error
+GET {{url}}/api/buggy/server-error
+
+###
+
