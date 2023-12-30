@@ -23,4 +23,8 @@
     <None Include="wwwroot\.gitkeep" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Serilog.AspNetCore" Version="8.0.0" />
+  </ItemGroup>
+
 </Project>

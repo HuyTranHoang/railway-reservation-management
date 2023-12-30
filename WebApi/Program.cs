@@ -1,6 +1,6 @@
 using Application;
 using Infrastructure;
-using WebApi;
+using Serilog;
 using WebApi.Extensions;
 using WebApi.Middleware;
 
@@ -15,9 +15,17 @@ builder.Services
     .AddInfrastructure(builder.Configuration)
     .AddWebApi(builder.Configuration);
 
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration)
+    .CreateLogger();
+
+builder.Host.UseSerilog();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+
+app.UseSerilogRequestLogging();
 
 app.UseMiddleware<ExceptionMiddleware>();
 app.UseStatusCodePagesWithReExecute("/errors/{0}");
