@@ -1,0 +1,19 @@
+<header class="d-flex flex-row align-items-center justify-content-between p-3 px-4 mb-3 bg-white border-bottom fixed-top shadow">
+  <img src="https://designs.vn/wp-content/images/09-08-2013/logo_lagi_8_resize.JPG" class="logo" alt="logo" style="max-height: 70px">
+
+  <nav class="my-2 text-uppercase fs-4">
+    <a class="p-2" routerLink="/"
+       [routerLinkActiveOptions]="{exact: true}"
+       routerLinkActive="active">Home</a>
+    <a class="p-2" routerLink="/test-error" routerLinkActive="active">Errors</a>
+  </nav>
+
+  <div class="d-flex align-items-center">
+    <a class="position-relative">
+      <i class="fa fa-shopping-cart fa-2x me-5 text-dark"></i>
+      <span class="cart-no">5</span>
+    </a>
+    <a class="btn btn-outline-secondary me-2">Login</a>
+    <a class="btn btn-outline-secondary me-3">Sign up</a>
+  </div>
+</header>

@@ -1,1 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Importing Bootstrap SCSS file. */
+@import "node_modules/bootstrap/scss/bootstrap";
+
+/* Importing Font Awesome CSS file. */
+@import "https://site-assets.fontawesome.com/releases/v6.3.0/css/all.css";
+
+/* Importing ngx-spinner CSS file. */
+@import "node_modules/ngx-spinner/animations/line-scale-party.css";
+
+/* Importing Datepicker SCSS file. */
+@import "node_modules/ngx-bootstrap/datepicker/bs-datepicker";
