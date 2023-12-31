@@ -1,4 +1,4 @@
-﻿using Application.Common.Interfaces.Persistence;
+﻿using Application.Common.Interfaces.Services;
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,33 +6,33 @@ namespace WebApi.Controllers;
 
 public class ProductExampleController : BaseApiController
 {
-    private readonly IUnitOfWork _unitOfWork;
-    private readonly IProductExampleRepositoy _repositoy;
+    private readonly IProductExampleService _productExampleService;
 
-    public ProductExampleController(IUnitOfWork unitOfWork, IProductExampleRepositoy repositoy)
+
+    public ProductExampleController(IProductExampleService productExampleService)
     {
-        _unitOfWork = unitOfWork;
-        _repositoy = repositoy;
+        _productExampleService = productExampleService;
     }
 
     [HttpGet]
     public async Task<ActionResult<List<ProductExample>>> GetAll()
     {
-        return await _repositoy.GetAllAsync();
+        var productExamples = await _productExampleService.GetAllAsync();
+        return Ok(productExamples);
     }
 
     [HttpGet("{id}")]
     public async Task<ActionResult<ProductExample>> GetById(int id)
     {
-        return await _repositoy.GetByIdAsync(id);
+        var productExample = await _productExampleService.GetByIdAsync(id);
+        return Ok(productExample);
     }
 
     [HttpPost]
     public async Task<ActionResult> Create(ProductExample productExample)
     {
-        _repositoy.Add(productExample);
-        await _unitOfWork.SaveChangesAsync();
-        return Ok();
+        await _productExampleService.AddAsync(productExample);
+
+        return CreatedAtAction("GetById", new { id = productExample.Id }, productExample);
     }
-    
 }
