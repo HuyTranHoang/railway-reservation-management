@@ -5,8 +5,6 @@ namespace Domain.Common;
 
 public class BaseEntity
 {
-    public int Id { get; set; }
-
     [Column(Order = 997)]
     public bool IsDeleted { get; set; } = false;
 
