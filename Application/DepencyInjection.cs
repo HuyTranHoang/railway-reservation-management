@@ -1,5 +1,5 @@
 ﻿
-using Application.Common.Interfaces.Persistence;
+using System.Reflection;
 using Application.Common.Interfaces.Services;
 using Application.Services;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,6 +10,7 @@ public static class DepencyInjection
 {
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
+        services.AddAutoMapper(Assembly.GetExecutingAssembly());
         services.AddScoped<IProductExampleService, ProductExampleService>();
         return services;
     }

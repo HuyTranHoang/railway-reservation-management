@@ -1,5 +1,7 @@
 ﻿using Application.Common.Interfaces.Persistence;
 using Application.Common.Interfaces.Services;
+using Application.Common.Models;
+using AutoMapper;
 using Domain.Entities;
 
 namespace Application.Services;
@@ -8,21 +10,25 @@ public class ProductExampleService : IProductExampleService
 {
     private readonly IProductExampleRepositoy _repositoy;
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IMapper _mapper;
 
-    public ProductExampleService(IProductExampleRepositoy repositoy, IUnitOfWork unitOfWork)
+    public ProductExampleService(IProductExampleRepositoy repositoy, IUnitOfWork unitOfWork, IMapper mapper)
     {
         _repositoy = repositoy;
         _unitOfWork = unitOfWork;
+        _mapper = mapper;
     }
 
-    public async Task<List<ProductExample>> GetAllAsync()
+    public async Task<List<ProductExampleDto>> GetAllAsync()
     {
-        return await _repositoy.GetAllAsync();
+        var productExamples = await _repositoy.GetAllAsync();
+        return _mapper.Map<List<ProductExampleDto>>(productExamples);
     }
 
-    public async Task<ProductExample> GetByIdAsync(int id)
+    public async Task<ProductExampleDto> GetByIdAsync(int id)
     {
-        return await _repositoy.GetByIdAsync(id);
+        var productExample = await _repositoy.GetByIdAsync(id);
+        return _mapper.Map<ProductExampleDto>(productExample);
     }
 
     public async Task AddAsync(ProductExample productExample)

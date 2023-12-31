@@ -1,4 +1,5 @@
 ﻿using Application.Common.Interfaces.Services;
+using Application.Common.Models;
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,14 +16,14 @@ public class ProductExampleController : BaseApiController
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<ProductExample>>> GetAll()
+    public async Task<ActionResult<List<ProductExampleDto>>> GetAll()
     {
         var productExamples = await _productExampleService.GetAllAsync();
         return Ok(productExamples);
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<ProductExample>> GetById(int id)
+    public async Task<ActionResult<ProductExampleDto>> GetById(int id)
     {
         var productExample = await _productExampleService.GetByIdAsync(id);
         return Ok(productExample);
