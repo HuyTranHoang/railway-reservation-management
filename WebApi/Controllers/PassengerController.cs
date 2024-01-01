@@ -1,4 +1,5 @@
-﻿using Application.Common.Interfaces.Services;
+﻿using Application.Common.Exceptions;
+using Application.Common.Interfaces.Services;
 using Application.Common.Models;
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -54,16 +55,9 @@ public class PassengerController : BaseApiController
         {
             await _passengerService.UpdatePassengerAsync(passenger);
         }
-        catch (DbUpdateConcurrencyException)
+        catch (NotFoundException ex)
         {
-            if (!PassengerExists(id))
-            {
-                return NotFound(new ErrorResponse(404));
-            }
-            else
-            {
-                throw;
-            }
+            return NotFound(new ErrorResponse(404, ex.Message));
         }
 
         return NoContent();

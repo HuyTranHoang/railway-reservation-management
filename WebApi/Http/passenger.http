@@ -31,15 +31,15 @@ GET {{url}}/api/passenger/{{id}}
 
 ### 
 
-# @name UpdatePassenger
-@updateId = 3
+# @name updatePassenger
+@updateId = 55
 
 PUT {{url}}/api/passenger/{{updateId}}
 Content-Type: application/json
 
 {
   "Id": {{updateId}},
-  "Name": "test update test 1111111",
+  "Name": "test update test 1111111test update",
   "Age": 22,
   "Gender": "Male",
   "Phone": "123 456 7890",
@@ -49,7 +49,7 @@ Content-Type: application/json
 
 ### 
 
-# @name SoftDeletePassenger
+# @name softDeletePassenger
 @deleteId = 2
 
 PATCH {{url}}/api/passenger/{{deleteId}}

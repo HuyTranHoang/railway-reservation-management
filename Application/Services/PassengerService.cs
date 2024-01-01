@@ -1,4 +1,5 @@
-﻿using Application.Common.Interfaces.Persistence;
+﻿using Application.Common.Exceptions;
+using Application.Common.Interfaces.Persistence;
 using Application.Common.Interfaces.Services;
 using Application.Common.Models;
 using AutoMapper;
@@ -44,9 +45,21 @@ public class PassengerService : IPassengerService
 
     public async Task UpdatePassengerAsync(Passenger passenger)
     {
-        passenger.CreatedAt = _reponsitory.GetOldCreatedDate(passenger.Id);
-        passenger.UpdatedAt = DateTime.Now;
-        _reponsitory.Update(passenger);
+        var passengerInDb = await _reponsitory.GetByIdAsync(passenger.Id);
+
+        if (passengerInDb == null)
+        {
+            throw new NotFoundException(nameof(Passenger), passenger.Id);
+        }
+
+        passengerInDb.Name = passenger.Name;
+        passengerInDb.Age = passenger.Age;
+        passengerInDb.Gender = passenger.Gender;
+        passengerInDb.Phone = passenger.Phone;
+        passengerInDb.Email = passenger.Email;
+        passengerInDb.UpdatedAt = DateTime.Now;
+
+        _reponsitory.Update(passengerInDb);
         await _unitOfWork.SaveChangesAsync();
     }
 

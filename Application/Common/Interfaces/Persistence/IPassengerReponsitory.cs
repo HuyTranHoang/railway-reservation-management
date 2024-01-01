@@ -10,5 +10,4 @@ public interface IPassengerReponsitory
     void Update(Passenger passenger);
     void Delete(Passenger passenger);
     void SoftDelete(Passenger passenger);
-    DateTime GetOldCreatedDate(int id);
 }

@@ -48,14 +48,4 @@ public class PassengerReponsitory : IPassengerReponsitory
         passenger.IsDeleted = true;
         _context.Entry(passenger).State = EntityState.Modified;
     }
-
-    public DateTime GetOldCreatedDate(int id)
-    {
-        var passenger = _context.Passengers
-            .Where(p => p.Id == id)
-            .Select(p => new { p.CreatedAt })
-            .FirstOrDefault();
-
-        return passenger?.CreatedAt ?? DateTime.Now;
-    }
 }
