@@ -23,18 +23,44 @@ namespace Infrastructure.Persistence
             _context.Trains.Add(train);
         }
 
-        public async Task<List<Train>> GetAllAsync()
+        public void Delete(Train train)
         {
-            return await _context.Trains
-                .Where(x => x.IsDeleted == false)
-                .ToListAsync();
+            _context.Trains.Remove(train);
+        }
+
+        public async Task<IEnumerable<Train>> GetAllAsync()
+        {
+           return await _context.Trains
+                 .Where(x => x.IsDeleted == false)
+                 .ToListAsync();
         }
 
         public async Task<Train> GetByIdAsync(int id)
         {
             return await _context.Trains
-                .FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == false);
+                .Where(p => p.IsDeleted == false)
+                .FirstOrDefaultAsync(x => x.Id == id);
+        }
 
+        public DateTime GetOldCreatedDate(int id)
+        {
+            var train = _context.TrainCompanies
+            .Where(p => p.Id == id)
+            .Select(p => new { p.CreatedAt })
+            .FirstOrDefault();
+
+            return train?.CreatedAt ?? DateTime.Now;
+        }
+
+        public void SoftDelete(Train train)
+        {
+            train.IsDeleted = true;
+            _context.Entry(train).State = EntityState.Modified;
+        }
+
+        public void Update(Train train)
+        {
+            _context.Entry(train).State = EntityState.Modified;
         }
     }
 }

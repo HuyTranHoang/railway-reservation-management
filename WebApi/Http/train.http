@@ -1,14 +1,51 @@
 @url = https://localhost:5001
 
-###
+### 
+
+# @name addTrain
 POST {{url}}/api/trains
 Content-Type: application/json
 
 {
-    "name": "test",
-    "TrainCompanyId" : 5,
-    "status": "test"
+  "Name": "Aduvip",
+  "TrainCompanyId" : 11,
+  "Status" : "Hekekeke"
 }
 
-###
+
+### 
+
+# @name getListOfTrain
 GET {{url}}/api/trains
+
+
+### 
+
+# @name getTrainById
+@id = 13
+
+GET {{url}}/api/trains/{{id}}
+
+
+### 
+
+# @name UpdateTrain
+@updateId = 13
+
+PUT {{url}}/api/trains/{{updateId}}
+Content-Type: application/json
+
+{
+  "Id": {{updateId}},
+  "Name": "da sua",
+  "trainCompanyId" : 11,
+  "status" : "Vai Thiet"
+}
+
+
+### 
+
+# @name SoftDeleteTrain
+@deleteId = 12
+
+DELETE  {{url}}/api/trains/{{deleteId}}

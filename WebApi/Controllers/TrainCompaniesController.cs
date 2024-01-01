@@ -85,7 +85,7 @@ namespace WebApi.Controllers
                 return NotFound(new ErrorResponse(404));
             }
 
-            await _trainCompanySerivce.DeleteCompanyAsync(trainCompany);
+            await _trainCompanySerivce.SoftDeleteCompanyAsync(trainCompany);
 
             return NoContent();
         }

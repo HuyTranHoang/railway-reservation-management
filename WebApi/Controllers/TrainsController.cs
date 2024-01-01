@@ -3,41 +3,97 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Application.Common.Interfaces.Persistence;
+using Application.Common.Interfaces.Services;
+using Application.Common.Models;
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using WebApi.Exceptions;
 
 namespace WebApi.Controllers
 {
     public class TrainsController : BaseApiController
     {
 
-        private readonly IUnitOfWork _unitOfWork;
-
-        private readonly ITrainRepository _repository;
-        public TrainsController(IUnitOfWork unitOfWork, ITrainRepository repository)
+        private readonly ITrainService _trainService;
+        public TrainsController(ITrainService trainService)
         {
-            _unitOfWork = unitOfWork;
-            _repository = repository;
+            _trainService = trainService;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Train>>> GetAll()
+        public async Task<ActionResult<IEnumerable<TrainDto>>> GetTrains()
         {
-            return await _repository.GetAllAsync();
+            var trainsDto = await _trainService.GetAllTrainDtoAsync();
+            return Ok(trainsDto);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Train>> GetById(int id)
+        public async Task<ActionResult<TrainDto>> GetTrain(int id)
         {
-            return await _repository.GetByIdAsync(id);
+            var trains = await _trainService.GetTrainDtoByIdAsync(id);
+
+            if (trains == null)
+            {
+                return NotFound(new ErrorResponse(404));
+            }
+
+            return Ok(trains);
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create (Train train)
+        public async Task<IActionResult> PostTrain([FromBody] Train train)
         {
-            _repository.Add(train);
-            await _unitOfWork.SaveChangesAsync();
-            return Ok();
+            await _trainService.AddTrainAsync(train);
+            return CreatedAtAction("GetTrain", new { id = train.Id }, train);
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutTrainCompany(int id, [FromBody] Train train)
+        {
+
+            if (id != train.Id)
+            {
+                return BadRequest(new ErrorResponse(400));
+            }
+
+            try
+            {
+                await _trainService.UpdateTrainAsync(train);
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!trainsExists(id))
+                {
+                    return NotFound(new ErrorResponse(404));
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteTrain(int id)
+        {
+            var train = await _trainService.GetTrainByIdAsync(id);
+            if (train == null)
+            {
+                return NotFound(new ErrorResponse(404));
+            }
+
+            await _trainService.SoftDeleteTrainAsync(train);
+
+            return NoContent();
+        }
+
+        private bool trainsExists(int id)
+        {
+            return _trainService.GetTrainByIdAsync(id) != null;
+        }
+
     }
 }

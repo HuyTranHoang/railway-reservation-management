@@ -1,5 +1,4 @@
-﻿using Domain.Entities;
-using Infrastructure.Data;
+﻿using Infrastructure.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Exceptions;
@@ -44,7 +43,7 @@ public class BuggyController : BaseApiController
     [HttpGet("server-error")]
     public async Task<IActionResult> GetServerError()
     {
-        var thing = await _context.ProductExamples.FindAsync(9999);
+        var thing = await _context.Passengers.FindAsync(9999);
         var thingToReturn = thing.ToString();
         return Ok();
     }

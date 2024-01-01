@@ -23,6 +23,7 @@ namespace Application.Services
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
+
         public async Task AddCompanyAsync(TrainCompany trainCompany)
         {
             _reponsitory.Add(trainCompany);
@@ -33,7 +34,6 @@ namespace Application.Services
         {
             _reponsitory.Delete(trainCompany);
             await _unitOfWork.SaveChangesAsync();
-
         }
         public async Task<List<TrainCompanyDto>> GetAllCompanyDtoAsync()
         {

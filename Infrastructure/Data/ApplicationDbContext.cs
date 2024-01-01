@@ -11,6 +11,6 @@ public class ApplicationDbContext : DbContext
     }
     public DbSet<TrainCompany> TrainCompanies { get; set; }
     public DbSet<Train> Trains { get; set; }
-    public DbSet<ProductExample> ProductExamples { get; set; }
+    public DbSet<Passenger> Passengers { get; set; }
 
 }

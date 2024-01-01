@@ -17,7 +17,7 @@ public static class DepencyInjection
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-        services.AddScoped<IProductExampleRepositoy, ProductExampleRepositoy>();
+        services.AddScoped<IPassengerReponsitory, PassengerReponsitory>();
 
         services.AddScoped<ITrainCompanyRepository, TrainCompanyRepository>();
         

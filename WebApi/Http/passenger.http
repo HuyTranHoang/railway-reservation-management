@@ -1,0 +1,55 @@
+﻿@url = https://localhost:5001
+
+### 
+
+# @name addPassenger
+POST {{url}}/api/passenger
+Content-Type: application/json
+
+{
+  "Name": "test new nek",
+  "Age": 18,
+  "Gender": "Male",
+  "Phone": "123 456 7890",
+  "Email": "test@gmail.com"
+}
+
+
+### 
+
+# @name getListOfPassengers
+GET {{url}}/api/passenger
+
+
+### 
+
+# @name getPassengerById
+@id = 1
+
+GET {{url}}/api/passenger/{{id}}
+
+
+### 
+
+# @name UpdatePassenger
+@updateId = 3
+
+PUT {{url}}/api/passenger/{{updateId}}
+Content-Type: application/json
+
+{
+  "Id": {{updateId}},
+  "Name": "test update test 1111111",
+  "Age": 22,
+  "Gender": "Male",
+  "Phone": "123 456 7890",
+  "Email": "test@gmail.com"
+}
+
+
+### 
+
+# @name SoftDeletePassenger
+@deleteId = 2
+
+PATCH {{url}}/api/passenger/{{deleteId}}
