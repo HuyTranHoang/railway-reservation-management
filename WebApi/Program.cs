@@ -1,5 +1,6 @@
 using Application;
 using Infrastructure;
+using Infrastructure.Data;
 using Serilog;
 using WebApi.Extensions;
 using WebApi.Middleware;
@@ -38,5 +39,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MigrateAndSeedDatabase();
 
 app.Run();
