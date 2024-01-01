@@ -3,7 +3,6 @@ using Application.Common.Interfaces.Services;
 using Application.Common.Models;
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using WebApi.Exceptions;
 
 namespace WebApi.Controllers;
@@ -89,10 +88,5 @@ public class PassengerController : BaseApiController
         await _passengerService.SoftDeletePassengerAsync(passenger);
 
         return Ok();
-    }
-
-    private bool PassengerExists(int id)
-    {
-        return _passengerService.GetPassgenerByIdAsync(id) != null;
     }
 }
