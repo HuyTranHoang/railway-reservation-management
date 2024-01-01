@@ -5,8 +5,26 @@
     <a class="p-2" routerLink="/"
        [routerLinkActiveOptions]="{exact: true}"
        routerLinkActive="active">Home</a>
-    <a class="p-2" routerLink="/test-error" routerLinkActive="active">Errors</a>
+    <a class="p-2" routerLink="/test-error" routerLinkActive="active"[routerLinkActiveOptions]="{exact: true}"
+   >Errors</a>
+    <a class="me-3 py-2 text-decoration-none" routerLink="/booking-train"[routerLinkActiveOptions]="{exact: true}"
+    routerLinkActive="active" >TRAIN TICKET</a>
+    <a class="me-3 py-2 text-decoration-none" routerLink="" [routerLinkActiveOptions]="{exact: true}"
+    routerLinkActive="active" >PNR STATUS</a>
+    <a class="me-3 py-2 text-decoration-none" routerLink=""[routerLinkActiveOptions]="{exact: true}"
+    routerLinkActive="active">TRAIN RUNNING STATUS</a>
+    <a class="me-3 py-2 text-decoration-none" routerLink=""[routerLinkActiveOptions]="{exact: true}"
+    routerLinkActive="active" >BLOGS</a>
+    <div class="dropdown text-decoration-none" style="background: #fff;">
+      <a class="dropbtn ">MORES <i class="fa-solid fa-caret-down"></i></a>
+      <div class="dropdown-content">
+        <a href="#"><i class="fa-solid fa-circle-exclamation"></i> TRAIN ENQUIRY </a>
+        <a href="#"><i class="fa-solid fa-cube"></i> Bulk Orders</a>
+        <a href="#"><i class="fa-solid fa-headphones"></i> Help</a>
+      </div>
+    </div>
   </nav>
+  
 
   <div class="d-flex align-items-center">
     <a class="position-relative">

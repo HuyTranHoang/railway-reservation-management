@@ -9,12 +9,15 @@ import { ErrorInterceptor }                    from './core/interceptors/error.i
 import { CoreModule }                          from './core/core.module'
 import { AppComponent }                        from './app.component';
 import { AppRoutingModule }                    from './app-routing.module';
+import { BookingTrainComponent } from './booking-train/booking-train.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    BookingTrainComponent,
+
   ],
   imports: [
     BrowserModule,
