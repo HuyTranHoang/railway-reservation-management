@@ -1,36 +1,42 @@
 <header class="d-flex flex-row align-items-center justify-content-between p-3 px-4 mb-3 bg-white border-bottom fixed-top shadow">
-  <img src="https://designs.vn/wp-content/images/09-08-2013/logo_lagi_8_resize.JPG" class="logo" alt="logo" style="max-height: 70px">
+  <div class="d-flex align-items-center">
+    <h2>RailTicket<b class="small">Hub</b></h2>
+  </div>
 
   <nav class="my-2 text-uppercase fs-4">
     <a class="p-2" routerLink="/"
        [routerLinkActiveOptions]="{exact: true}"
        routerLinkActive="active">Home</a>
-    <a class="p-2" routerLink="/test-error" routerLinkActive="active"[routerLinkActiveOptions]="{exact: true}"
-   >Errors</a>
-    <a class="me-3 py-2 text-decoration-none" routerLink="/booking-train"[routerLinkActiveOptions]="{exact: true}"
-    routerLinkActive="active" >TRAIN TICKET</a>
-    <a class="me-3 py-2 text-decoration-none" routerLink="" [routerLinkActiveOptions]="{exact: true}"
-    routerLinkActive="active" >PNR STATUS</a>
-    <a class="me-3 py-2 text-decoration-none" routerLink=""[routerLinkActiveOptions]="{exact: true}"
-    routerLinkActive="active">TRAIN RUNNING STATUS</a>
-    <a class="me-3 py-2 text-decoration-none" routerLink=""[routerLinkActiveOptions]="{exact: true}"
-    routerLinkActive="active" >BLOGS</a>
+    <a class="p-2" routerLink="/test-error" routerLinkActive="active">Errors</a>
+
+    <a class="me-3 py-2 text-decoration-none"
+       routerLink="/booking-train"
+       routerLinkActive="active" >Train ticket</a>
+
+    <a class="me-3 py-2 text-decoration-none"
+       routerLink="/not-implemented"
+       routerLinkActive="active" >PNR Status</a>
+
+    <a class="me-3 py-2 text-decoration-none"
+       routerLink="/not-implemented"
+       routerLinkActive="active">Train running status</a>
+
+    <a class="me-3 py-2 text-decoration-none"
+       routerLink="/not-implemented"
+       routerLinkActive="active" >Blogs</a>
+
     <div class="dropdown text-decoration-none" style="background: #fff;">
-      <a class="dropbtn ">MORES <i class="fa-solid fa-caret-down"></i></a>
+      <a>Mores <i class="fa-solid fa-caret-down"></i></a>
       <div class="dropdown-content">
-        <a href="#"><i class="fa-solid fa-circle-exclamation"></i> TRAIN ENQUIRY </a>
-        <a href="#"><i class="fa-solid fa-cube"></i> Bulk Orders</a>
-        <a href="#"><i class="fa-solid fa-headphones"></i> Help</a>
+        <a><i class="fa fa-circle-exclamation"></i> Train Enquiry </a>
+        <a><i class="fa fa-cube"></i> Bulk Orders</a>
+        <a><i class="fa fa-headphones"></i> Help</a>
       </div>
     </div>
   </nav>
-  
+
 
   <div class="d-flex align-items-center">
-    <a class="position-relative">
-      <i class="fa fa-shopping-cart fa-2x me-5 text-dark"></i>
-      <span class="cart-no">5</span>
-    </a>
     <a class="btn btn-outline-secondary me-2">Login</a>
     <a class="btn btn-outline-secondary me-3">Sign up</a>
   </div>
