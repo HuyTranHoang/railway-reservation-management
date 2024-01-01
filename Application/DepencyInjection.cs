@@ -12,6 +12,7 @@ public static class DepencyInjection
     {
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
         services.AddScoped<IProductExampleService, ProductExampleService>();
+        services.AddScoped<IPassengerService, PassengerService>();
         return services;
     }
 }
