@@ -17,6 +17,7 @@ public class Passenger : BaseEntity
     public string Gender { get; set; }
 
     [Required]
+    [StringLength(256)]
     public string Phone { get; set; }
 
     [EmailAddress]

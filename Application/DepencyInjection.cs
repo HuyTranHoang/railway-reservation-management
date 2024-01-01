@@ -11,7 +11,6 @@ public static class DepencyInjection
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
-        services.AddScoped<IProductExampleService, ProductExampleService>();
         services.AddScoped<IPassengerService, PassengerService>();
         return services;
     }

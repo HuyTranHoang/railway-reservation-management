@@ -56,7 +56,8 @@ namespace Infrastructure.Data.Migrations
 
                     b.Property<string>("Phone")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2")
@@ -65,42 +66,6 @@ namespace Infrastructure.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Passengers");
-                });
-
-            modelBuilder.Entity("Domain.Entities.ProductExample", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(998);
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(997);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(12,8)");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(999);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ProductExamples");
                 });
 #pragma warning restore 612, 618
         }
