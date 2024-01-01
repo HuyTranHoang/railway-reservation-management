@@ -1,0 +1,14 @@
+@url = https://localhost:5001
+
+###
+POST {{url}}/api/trains
+Content-Type: application/json
+
+{
+    "name": "test",
+    "TrainCompanyId" : 5,
+    "status": "test"
+}
+
+###
+GET {{url}}/api/trains

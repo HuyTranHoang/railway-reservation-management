@@ -9,7 +9,6 @@ public class ProductExampleController : BaseApiController
 {
     private readonly IProductExampleService _productExampleService;
 
-
     public ProductExampleController(IProductExampleService productExampleService)
     {
         _productExampleService = productExampleService;

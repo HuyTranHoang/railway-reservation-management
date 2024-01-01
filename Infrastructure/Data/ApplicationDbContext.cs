@@ -9,7 +9,8 @@ public class ApplicationDbContext : DbContext
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {
     }
-
+    public DbSet<TrainCompany> TrainCompanies { get; set; }
+    public DbSet<Train> Trains { get; set; }
     public DbSet<ProductExample> ProductExamples { get; set; }
 
 }

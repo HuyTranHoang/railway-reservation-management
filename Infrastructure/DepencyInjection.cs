@@ -19,6 +19,11 @@ public static class DepencyInjection
 
         services.AddScoped<IProductExampleRepositoy, ProductExampleRepositoy>();
 
+        services.AddScoped<ITrainCompanyRepository, TrainCompanyRepository>();
+        
+        services.AddScoped<ITrainRepository, TrainRepository>();
+
+
         return services;
     }
 }
