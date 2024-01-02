@@ -4,7 +4,7 @@ namespace Application.Common.Interfaces.Persistence;
 
 public interface IPassengerReponsitory
 {
-    Task<IQueryable<Passenger>> GetAllAsync();
+    Task<IQueryable<Passenger>> GetQueryAsync();
     Task<Passenger> GetByIdAsync(int id);
     void Add(Passenger passenger);
     void Update(Passenger passenger);

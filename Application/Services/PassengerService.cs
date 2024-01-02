@@ -23,7 +23,7 @@ public class PassengerService : IPassengerService
 
     public async Task<PagedList<PassengerDto>> GetAllPassengerDtoAsync(QueryParams queryParams)
     {
-        var query = await _reponsitory.GetAllAsync();
+        var query = await _reponsitory.GetQueryAsync();
 
         if (!string.IsNullOrEmpty(queryParams.SearchTerm))
         {
@@ -39,18 +39,9 @@ public class PassengerService : IPassengerService
             _ => query.OrderBy(p => p.CreatedAt)
         };
 
-        if (queryParams.PageNumber != 0 && queryParams.PageSize != 0)
-        {
-            query = query.Skip((queryParams.PageNumber - 1) * queryParams.PageSize).Take(queryParams.PageSize);
-        }
+        var passengerDtoQuery = query.Select(p => _mapper.Map<PassengerDto>(p));
 
-        var passengers = await query.ToListAsync();
-
-        var count = await query.CountAsync();
-
-        var passengersDto = _mapper.Map<List<PassengerDto>>(passengers);
-
-        return new PagedList<PassengerDto>(passengersDto, count, queryParams.PageNumber, queryParams.PageSize);
+        return await PagedList<PassengerDto>.CreateAsync(passengerDtoQuery, queryParams.PageNumber, queryParams.PageSize);
     }
 
     public async Task<PassengerDto> GetPassgenerDtoByIdAsync(int id)

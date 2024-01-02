@@ -14,7 +14,7 @@ public class PassengerReponsitory : IPassengerReponsitory
         _context = context;
     }
 
-    public async Task<IQueryable<Passenger>> GetAllAsync()
+    public async Task<IQueryable<Passenger>> GetQueryAsync()
     {
         return await Task.FromResult(_context.Passengers
             .Where(p => !p.IsDeleted)
