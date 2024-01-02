@@ -70,8 +70,13 @@ public class TrainCompanyService : ITrainCompanyService
 
     public async Task UpdateCompanyAsync(TrainCompany trainCompany)
     {
-        trainCompany.UpdatedAt = DateTime.Now;
-        _repository.Update(trainCompany);
+        var trainCompanyInDb = await _repository.GetByIdAsync(trainCompany.Id);
+
+        if (trainCompanyInDb == null) throw new NotFoundException(nameof(Passenger), trainCompany.Id);
+
+        trainCompanyInDb.Name = trainCompany.Name;
+        trainCompanyInDb.UpdatedAt = DateTime.Now;
+
         await _unitOfWork.SaveChangesAsync();
     }
 
