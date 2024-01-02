@@ -7,12 +7,11 @@ namespace Infrastructure.Data;
 
 public static class Seed
 {
+    private const string PassengerData = "Passenger.json";
     private static readonly JsonSerializerOptions JsonOptions = new() { PropertyNameCaseInsensitive = true };
     private static string BaseDirectory => Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
     private static string ProjectRoot => Directory.GetParent(BaseDirectory)!.Parent!.Parent!.Parent!.FullName;
     private static string DataPath => Path.Combine(ProjectRoot, @"Infrastructure\Data\SeedData\");
-
-    private const string PassengerData = "Passenger.json";
 
     public static async Task SeedPassenger(ApplicationDbContext context)
     {
@@ -26,5 +25,4 @@ public static class Seed
 
         await context.SaveChangesAsync();
     }
-
 }

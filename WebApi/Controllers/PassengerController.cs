@@ -34,10 +34,7 @@ public class PassengerController : BaseApiController
     public async Task<ActionResult<PassengerDto>> GetPassenger(int id)
     {
         var passenger = await _passengerService.GetPassgenerDtoByIdAsync(id);
-        if (passenger == null)
-        {
-            return NotFound(new ErrorResponse(404));
-        }
+        if (passenger == null) return NotFound(new ErrorResponse(404));
 
         return Ok(passenger);
     }
@@ -52,10 +49,7 @@ public class PassengerController : BaseApiController
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdatePassenger(int id, [FromBody] Passenger passenger)
     {
-        if (id != passenger.Id)
-        {
-            return BadRequest(new ErrorResponse(400));
-        }
+        if (id != passenger.Id) return BadRequest(new ErrorResponse(400));
 
         try
         {
@@ -73,10 +67,7 @@ public class PassengerController : BaseApiController
     public async Task<IActionResult> DeletePassenger(int id)
     {
         var passenger = await _passengerService.GetPassgenerByIdAsync(id);
-        if (passenger == null)
-        {
-            return NotFound(new ErrorResponse(404));
-        }
+        if (passenger == null) return NotFound(new ErrorResponse(404));
 
         await _passengerService.DeletePassengerAsync(passenger);
 
@@ -87,10 +78,7 @@ public class PassengerController : BaseApiController
     public async Task<IActionResult> SoftDeletePassenger(int id)
     {
         var passenger = await _passengerService.GetPassgenerByIdAsync(id);
-        if (passenger == null)
-        {
-            return NotFound(new ErrorResponse(404));
-        }
+        if (passenger == null) return NotFound(new ErrorResponse(404));
 
         await _passengerService.SoftDeletePassengerAsync(passenger);
 

@@ -48,5 +48,4 @@ public class PassengerReponsitory : IPassengerReponsitory
         passenger.IsDeleted = true;
         _context.Entry(passenger).State = EntityState.Modified;
     }
-
 }

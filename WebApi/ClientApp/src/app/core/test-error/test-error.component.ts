@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { environment } from '../../../environments/environment.development'
-import { HttpClient } from '@angular/common/http'
+import {Component} from '@angular/core';
+import {environment} from '../../../environments/environment.development'
+import {HttpClient} from '@angular/common/http'
 
 @Component({
   selector: 'app-test-error',
@@ -11,7 +11,8 @@ export class TestErrorComponent {
   baseUrl = environment.apiUrl
   validationErrors: string[] = []
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   get404Error() {
     this.http.get(this.baseUrl + 'buggy/end-point-does-not-exist').subscribe({

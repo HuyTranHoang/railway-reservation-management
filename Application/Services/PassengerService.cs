@@ -4,15 +4,14 @@ using Application.Common.Interfaces.Services;
 using Application.Common.Models;
 using AutoMapper;
 using Domain.Entities;
-using Microsoft.EntityFrameworkCore;
 
 namespace Application.Services;
 
 public class PassengerService : IPassengerService
 {
+    private readonly IMapper _mapper;
     private readonly IPassengerReponsitory _reponsitory;
     private readonly IUnitOfWork _unitOfWork;
-    private readonly IMapper _mapper;
 
     public PassengerService(IPassengerReponsitory reponsitory, IUnitOfWork unitOfWork, IMapper mapper)
     {
@@ -26,9 +25,7 @@ public class PassengerService : IPassengerService
         var query = await _reponsitory.GetQueryAsync();
 
         if (!string.IsNullOrEmpty(queryParams.SearchTerm))
-        {
             query = query.Where(p => p.Name.Contains(queryParams.SearchTerm));
-        }
 
         query = queryParams.Sort switch
         {
@@ -41,7 +38,8 @@ public class PassengerService : IPassengerService
 
         var passengerDtoQuery = query.Select(p => _mapper.Map<PassengerDto>(p));
 
-        return await PagedList<PassengerDto>.CreateAsync(passengerDtoQuery, queryParams.PageNumber, queryParams.PageSize);
+        return await PagedList<PassengerDto>.CreateAsync(passengerDtoQuery, queryParams.PageNumber,
+            queryParams.PageSize);
     }
 
     public async Task<PassengerDto> GetPassgenerDtoByIdAsync(int id)
@@ -65,10 +63,7 @@ public class PassengerService : IPassengerService
     {
         var passengerInDb = await _reponsitory.GetByIdAsync(passenger.Id);
 
-        if (passengerInDb == null)
-        {
-            throw new NotFoundException(nameof(Passenger), passenger.Id);
-        }
+        if (passengerInDb == null) throw new NotFoundException(nameof(Passenger), passenger.Id);
 
         passengerInDb.Name = passenger.Name;
         passengerInDb.Age = passenger.Age;

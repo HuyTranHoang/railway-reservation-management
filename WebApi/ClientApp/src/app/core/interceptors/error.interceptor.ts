@@ -1,14 +1,15 @@
-import Swal                                                                        from 'sweetalert2'
-import { catchError, Observable, throwError }                                      from 'rxjs'
-import { NavigationExtras, Router }                                                from '@angular/router'
-import { Injectable }                                                              from '@angular/core'
-import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http'
+import Swal from 'sweetalert2'
+import {catchError, Observable, throwError} from 'rxjs'
+import {NavigationExtras, Router} from '@angular/router'
+import {Injectable} from '@angular/core'
+import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http'
 
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+  }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return next.handle(request).pipe(

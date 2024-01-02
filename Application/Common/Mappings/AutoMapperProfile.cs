@@ -12,6 +12,5 @@ public class AutoMapperProfile : Profile
         CreateMap<Train, TrainDto>();
         CreateMap<Passenger, PassengerDto>();
         CreateMap<SeatType, SeatTypeDto>();
-
     }
 }

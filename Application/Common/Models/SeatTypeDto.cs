@@ -7,6 +7,6 @@ public class SeatTypeDto
 
     public double ServiceCharge { get; set; }
 
-    public string Status {get;set;}
+    public string Status { get; set; }
     public bool IsDeleted { get; set; }
 }

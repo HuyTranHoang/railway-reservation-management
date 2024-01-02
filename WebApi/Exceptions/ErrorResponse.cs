@@ -2,15 +2,15 @@
 
 public class ErrorResponse
 {
-    public int StatusCode { get; set; }
-
-    public string Message { get; set; }
-
     public ErrorResponse(int statusCode, string message = null)
     {
         StatusCode = statusCode;
         Message = message ?? GetDefaultMessageForStatusCode(statusCode);
     }
+
+    public int StatusCode { get; set; }
+
+    public string Message { get; set; }
 
     private string GetDefaultMessageForStatusCode(int statusCode)
     {

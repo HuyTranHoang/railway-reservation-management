@@ -1,5 +1,4 @@
-﻿
-using Application.Common.Interfaces.Persistence;
+﻿using Application.Common.Interfaces.Persistence;
 using Infrastructure.Data;
 using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
@@ -21,7 +20,7 @@ public static class DepencyInjection
 
         services.AddScoped<ITrainCompanyRepository, TrainCompanyRepository>();
         services.AddScoped<ISeatTypeRepository, SeatTypeRepository>();
-        
+
         services.AddScoped<ITrainRepository, TrainRepository>();
 
 

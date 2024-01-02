@@ -19,10 +19,14 @@ Content-Type: application/json
 
 # @name getListOfPassengers
 GET {{url}}/api/passenger?
-  &pageNumber=2
-  &pageSize=3
-  # &searchTerm=Pokimane
-  # &sort=ageDesc
+&
+pageNumber = 2
+    &
+pageSize = 3
+  # &
+searchTerm = Pokimane
+  # &
+sort = ageDesc
 
 
 ### 

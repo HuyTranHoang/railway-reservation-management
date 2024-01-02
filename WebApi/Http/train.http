@@ -8,8 +8,8 @@ Content-Type: application/json
 
 {
   "Name": "Aduvip",
-  "TrainCompanyId" : 11,
-  "Status" : "Hekekeke"
+  "TrainCompanyId": 11,
+  "Status": "Hekekeke"
 }
 
 

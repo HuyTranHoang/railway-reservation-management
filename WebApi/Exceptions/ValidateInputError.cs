@@ -2,8 +2,6 @@
 
 public class ValidateInputError : ErrorResponse
 {
-    public IEnumerable<string> Errors { get; set; }
-
     public ValidateInputError(int statusCode, IEnumerable<string> errors) : base(statusCode)
     {
         Errors = errors;
@@ -13,4 +11,6 @@ public class ValidateInputError : ErrorResponse
     {
         Errors = new List<string> { error };
     }
+
+    public IEnumerable<string> Errors { get; set; }
 }
