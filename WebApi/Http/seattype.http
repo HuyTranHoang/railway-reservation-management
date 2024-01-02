@@ -1,0 +1,46 @@
+@url = https://localhost:5001
+
+### 
+
+# @name Create
+POST {{url}}/api/seattype
+Content-Type: application/json
+
+
+{
+  "Name": "test",
+  "ServiceCharge": 18,
+  "Status": "Male"
+}
+
+
+# @name GetById
+@id = 1
+GET {{url}}/api/seattype?id={id}
+
+
+# @name GetAll
+GET {{url}}/api/seattype
+
+
+### 
+
+# @name Update
+@updateId = 1
+
+PUT {{url}}/api/seattype?{{updateId}}
+Content-Type: application/json
+
+{
+  "Name": "test update",
+  "ServiceCharge": 18,
+  "Status": "Male"
+}
+
+
+### 
+
+# @name Delete
+@deleteId = 1
+
+PATCH {{url}}/api/seattype/{{deleteId}}

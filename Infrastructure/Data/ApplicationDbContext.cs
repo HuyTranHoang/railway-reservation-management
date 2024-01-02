@@ -13,6 +13,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<TrainCompany> TrainCompanies { get; set; }
     public DbSet<Train> Trains { get; set; }
     public DbSet<Passenger> Passengers { get; set; }
+    public DbSet<SeatType> SeatTypes { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
