@@ -12,6 +12,7 @@ const routes: Routes = [
   {path: 'test-error', component: TestErrorComponent},
   {path: 'not-found', component: NotFoundComponent},
   {path: 'server-error', component: ServerErrorComponent},
+  {path: 'not-implemented', redirectTo:'', pathMatch: 'full'},
   {path: 'booking-train', component: BookingTrainComponent}
 ]
 
