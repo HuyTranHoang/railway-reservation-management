@@ -18,6 +18,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<Compartment> Compartments { get; set; }
     public DbSet<Seat> Seats { get; set; }
     public DbSet<TrainStation> TrainStations { get; set; }
+    public DbSet<DistanceFare> DistanceFares { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
