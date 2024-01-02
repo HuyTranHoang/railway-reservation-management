@@ -9,7 +9,7 @@ namespace Domain.Entities
 
         [Required] [StringLength(100)] public string Name { get; set; }
 
-        public int CarriageId { get; set; }
+        [Required] public int CarriageId { get; set; }
         public Carriage Carriage { get; set; }
 
         [Required] public int NumberOfSeats { get; set; }

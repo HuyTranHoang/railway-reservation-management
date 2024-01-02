@@ -7,10 +7,10 @@ namespace Domain.Entities
     {
         public int Id { get; set; }
         
-        public int SeatTypeId { get; set; }
+        [Required] public int SeatTypeId { get; set; }
         public SeatType SeatType { get; set; }
 
-        public int CompartmentId { get; set; }
+        [Required] public int CompartmentId { get; set; }
         public Compartment Compartment { get; set; }
 
         [StringLength(100)] public string Status { get; set; }

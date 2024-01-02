@@ -20,6 +20,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<TrainStation> TrainStations { get; set; }
     public DbSet<DistanceFare> DistanceFares { get; set; }
     public DbSet<Schedule> Schedules { get; set; }
+    public DbSet<Ticket> Tickets { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

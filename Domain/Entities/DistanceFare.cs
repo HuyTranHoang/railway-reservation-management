@@ -7,12 +7,14 @@ namespace Domain.Entities
     {
         public int Id { get; set; }
         
-        public int TrainId { get; set; }
+        [Required] public int TrainId { get; set; }
         public Train Train { get; set; }
 
-        public int DepartureStationId { get; set; }
-        public int ArrivalStationId { get; set; }
-        public TrainStation TrainStation { get; set; }
+        [Required] public int DepartureStationId { get; set; }
+        public TrainStation DepartureStation { get; set; }
+
+        [Required] public int ArrivalStationId { get; set; }
+        public TrainStation ArrivalStation { get; set; }
 
         [Required] public int Distance { get; set; }
 

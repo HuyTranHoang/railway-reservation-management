@@ -9,6 +9,7 @@ public class Train : BaseEntity
 
     [Required] [StringLength(100)] public string Name { get; set; }
 
+    [Required]
     public int TrainCompanyId { get; set; }
     public TrainCompany TrainCompany { get; set; }
 
