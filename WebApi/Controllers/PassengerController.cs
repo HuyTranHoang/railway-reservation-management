@@ -1,6 +1,8 @@
 ﻿using Application.Common.Exceptions;
 using Application.Common.Interfaces.Services;
 using Application.Common.Models;
+using Application.Common.Models.Pagination;
+using Application.Common.Models.QueryParams;
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Exceptions;
@@ -34,7 +36,7 @@ public class PassengerController : BaseApiController
     public async Task<ActionResult<PassengerDto>> GetPassenger(int id)
     {
         var passenger = await _passengerService.GetPassgenerDtoByIdAsync(id);
-        if (passenger == null) return NotFound(new ErrorResponse(404));
+        if (passenger is null) return NotFound(new ErrorResponse(404));
 
         return Ok(passenger);
     }
@@ -78,7 +80,7 @@ public class PassengerController : BaseApiController
     public async Task<IActionResult> SoftDeletePassenger(int id)
     {
         var passenger = await _passengerService.GetPassgenerByIdAsync(id);
-        if (passenger == null) return NotFound(new ErrorResponse(404));
+        if (passenger is null) return NotFound(new ErrorResponse(404));
 
         await _passengerService.SoftDeletePassengerAsync(passenger);
 

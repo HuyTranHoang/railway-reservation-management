@@ -2,6 +2,7 @@ using Application.Common.Exceptions;
 using Application.Common.Interfaces.Persistence;
 using Application.Common.Interfaces.Services;
 using Application.Common.Models;
+using Application.Common.Models.QueryParams;
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Exceptions;

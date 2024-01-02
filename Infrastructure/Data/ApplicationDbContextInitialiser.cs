@@ -16,6 +16,7 @@ public static class ApplicationDbContextInitialiser
             var context = services.GetRequiredService<ApplicationDbContext>();
             await context.Database.MigrateAsync();
             await Seed.SeedPassenger(context);
+            await Seed.SeedTrainCompany(context);
         }
         catch (Exception ex)
         {

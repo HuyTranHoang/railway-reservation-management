@@ -2,6 +2,8 @@
 using Application.Common.Interfaces.Persistence;
 using Application.Common.Interfaces.Services;
 using Application.Common.Models;
+using Application.Common.Models.Pagination;
+using Application.Common.Models.QueryParams;
 using AutoMapper;
 using Domain.Entities;
 
@@ -10,19 +12,19 @@ namespace Application.Services;
 public class PassengerService : IPassengerService
 {
     private readonly IMapper _mapper;
-    private readonly IPassengerReponsitory _reponsitory;
+    private readonly IPassengerReponsitory _repository;
     private readonly IUnitOfWork _unitOfWork;
 
-    public PassengerService(IPassengerReponsitory reponsitory, IUnitOfWork unitOfWork, IMapper mapper)
+    public PassengerService(IPassengerReponsitory repository, IUnitOfWork unitOfWork, IMapper mapper)
     {
-        _reponsitory = reponsitory;
+        _repository = repository;
         _unitOfWork = unitOfWork;
         _mapper = mapper;
     }
 
     public async Task<PagedList<PassengerDto>> GetAllPassengerDtoAsync(QueryParams queryParams)
     {
-        var query = await _reponsitory.GetQueryAsync();
+        var query = await _repository.GetQueryAsync();
 
         if (!string.IsNullOrEmpty(queryParams.SearchTerm))
             query = query.Where(p => p.Name.Contains(queryParams.SearchTerm));
@@ -44,24 +46,24 @@ public class PassengerService : IPassengerService
 
     public async Task<PassengerDto> GetPassgenerDtoByIdAsync(int id)
     {
-        var passenger = await _reponsitory.GetByIdAsync(id);
+        var passenger = await _repository.GetByIdAsync(id);
         return _mapper.Map<PassengerDto>(passenger);
     }
 
     public async Task<Passenger> GetPassgenerByIdAsync(int id)
     {
-        return await _reponsitory.GetByIdAsync(id);
+        return await _repository.GetByIdAsync(id);
     }
 
     public async Task AddPassengerAsync(Passenger passenger)
     {
-        _reponsitory.Add(passenger);
+        _repository.Add(passenger);
         await _unitOfWork.SaveChangesAsync();
     }
 
     public async Task UpdatePassengerAsync(Passenger passenger)
     {
-        var passengerInDb = await _reponsitory.GetByIdAsync(passenger.Id);
+        var passengerInDb = await _repository.GetByIdAsync(passenger.Id);
 
         if (passengerInDb == null) throw new NotFoundException(nameof(Passenger), passenger.Id);
 
@@ -72,19 +74,19 @@ public class PassengerService : IPassengerService
         passengerInDb.Email = passenger.Email;
         passengerInDb.UpdatedAt = DateTime.Now;
 
-        _reponsitory.Update(passengerInDb);
+        _repository.Update(passengerInDb);
         await _unitOfWork.SaveChangesAsync();
     }
 
     public async Task DeletePassengerAsync(Passenger passenger)
     {
-        _reponsitory.Delete(passenger);
+        _repository.Delete(passenger);
         await _unitOfWork.SaveChangesAsync();
     }
 
     public async Task SoftDeletePassengerAsync(Passenger passenger)
     {
-        _reponsitory.SoftDelete(passenger);
+        _repository.SoftDelete(passenger);
         await _unitOfWork.SaveChangesAsync();
     }
 }

@@ -1,4 +1,6 @@
 ﻿using Application.Common.Models;
+using Application.Common.Models.Pagination;
+using Application.Common.Models.QueryParams;
 using Domain.Entities;
 
 namespace Application.Common.Interfaces.Services;

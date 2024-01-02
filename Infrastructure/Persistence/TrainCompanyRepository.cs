@@ -25,9 +25,9 @@ public class TrainCompanyRepository : ITrainCompanyRepository
         _context.SaveChanges();
     }
 
-    public async Task<IEnumerable<TrainCompany>> GetAllAsync()
+    public async Task<IQueryable<TrainCompany>> GetQueryAsync()
     {
-        return await _context.TrainCompanies.ToListAsync();
+        return await Task.FromResult(_context.TrainCompanies.AsQueryable());
     }
 
     public async Task<TrainCompany> GetByIdAsync(int id)
@@ -45,15 +45,5 @@ public class TrainCompanyRepository : ITrainCompanyRepository
     {
         trainCompany.IsDeleted = true;
         _context.Entry(trainCompany).State = EntityState.Modified;
-    }
-
-    public DateTime GetOldCreatedDate(int id)
-    {
-        var trainCompany = _context.TrainCompanies
-            .Where(p => p.Id == id)
-            .Select(p => new { p.CreatedAt })
-            .FirstOrDefault();
-
-        return trainCompany?.CreatedAt ?? DateTime.Now;
     }
 }

@@ -7,20 +7,24 @@ POST {{url}}/api/traincompanies
 Content-Type: application/json
 
 {
-  "Name": "test new nek"
+  "Name": "New Train Company"
 }
 
 
 ### 
 
 # @name getListOfTrainCompany
-GET {{url}}/api/traincompanies
+GET {{url}}/api/traincompanies?
+  &pageNumber=1
+  &pageSize=3
+  # &searchTerm=New Train
+  # &sort=nameDesc
 
 
 ### 
 
 # @name getTrainCompanyById
-@id = 13
+@id = 1
 
 GET {{url}}/api/traincompanies/{{id}}
 
@@ -28,7 +32,7 @@ GET {{url}}/api/traincompanies/{{id}}
 ### 
 
 # @name UpdateTrainCompany
-@updateId = 13
+@updateId = 1
 
 PUT {{url}}/api/traincompanies/{{updateId}}
 Content-Type: application/json
@@ -42,6 +46,6 @@ Content-Type: application/json
 ### 
 
 # @name SoftDeleteTrainCompany
-@deleteId = 13
+@deleteId = 1
 
 DELETE  {{url}}/api/traincompanies/{{deleteId}}

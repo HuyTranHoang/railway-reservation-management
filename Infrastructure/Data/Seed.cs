@@ -8,10 +8,12 @@ namespace Infrastructure.Data;
 public static class Seed
 {
     private const string PassengerData = "Passenger.json";
+    private const string TrainCompanyData = "TrainCompany.json";
     private static readonly JsonSerializerOptions JsonOptions = new() { PropertyNameCaseInsensitive = true };
     private static string BaseDirectory => Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
     private static string ProjectRoot => Directory.GetParent(BaseDirectory)!.Parent!.Parent!.Parent!.FullName;
     private static string DataPath => Path.Combine(ProjectRoot, @"Infrastructure\Data\SeedData\");
+
 
     public static async Task SeedPassenger(ApplicationDbContext context)
     {
@@ -22,6 +24,19 @@ public static class Seed
         var passengers = JsonSerializer.Deserialize<List<Passenger>>(passengerData, JsonOptions);
 
         context.Passengers.AddRange(passengers);
+
+        await context.SaveChangesAsync();
+    }
+
+    public static async Task SeedTrainCompany(ApplicationDbContext context)
+    {
+        if (await context.TrainCompanies.AnyAsync()) return;
+
+        var data = await File.ReadAllTextAsync(DataPath + TrainCompanyData);
+
+        var trainCompanies = JsonSerializer.Deserialize<List<TrainCompany>>(data, JsonOptions);
+
+        context.TrainCompanies.AddRange(trainCompanies);
 
         await context.SaveChangesAsync();
     }

@@ -1,9 +1,12 @@
+using Application.Common.Exceptions;
 using Application.Common.Interfaces.Services;
 using Application.Common.Models;
+using Application.Common.Models.Pagination;
+using Application.Common.Models.QueryParams;
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using WebApi.Exceptions;
+using WebApi.Extensions;
 
 namespace WebApi.Controllers;
 
@@ -17,9 +20,17 @@ public class TrainCompaniesController : BaseApiController
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<TrainCompanyDto>>> GetTrainCompanies()
+    public async Task<ActionResult<IEnumerable<TrainCompanyDto>>> GetTrainCompanies(
+        [FromQuery] QueryParams queryParams)
     {
-        var trainCompaniesDto = await _trainCompanySerivce.GetAllCompanyDtoAsync();
+        var trainCompaniesDto = await _trainCompanySerivce.GetAllCompanyDtoAsync(queryParams);
+
+        var paginationHeader = new PaginationHeader(
+            trainCompaniesDto.CurrentPage, trainCompaniesDto.PageSize,
+            trainCompaniesDto.TotalCount, trainCompaniesDto.TotalPages);
+
+        Response.AddPaginationHeader(paginationHeader);
+
         return Ok(trainCompaniesDto);
     }
 
@@ -28,7 +39,8 @@ public class TrainCompaniesController : BaseApiController
     {
         var trainCompanies = await _trainCompanySerivce.GetCompanyDtoByIdAsync(id);
 
-        if (trainCompanies == null) return NotFound(new ErrorResponse(404));
+        if (trainCompanies is null)
+            return NotFound(new ErrorResponse(404));
 
         return Ok(trainCompanies);
     }
@@ -36,7 +48,21 @@ public class TrainCompaniesController : BaseApiController
     [HttpPost]
     public async Task<IActionResult> PostTrainCompany([FromBody] TrainCompany trainCompany)
     {
-        await _trainCompanySerivce.AddCompanyAsync(trainCompany);
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        try
+        {
+            await _trainCompanySerivce.AddCompanyAsync(trainCompany);
+        }
+        catch (BadRequestException ex)
+        {
+            var errorResponse = new ValidateInputError(400, new List<string> { ex.Message });
+            return BadRequest(errorResponse);
+        }
+
         return CreatedAtAction("GetTrainCompany", new { id = trainCompany.Id }, trainCompany);
     }
 
@@ -49,11 +75,9 @@ public class TrainCompaniesController : BaseApiController
         {
             await _trainCompanySerivce.UpdateCompanyAsync(trainCompany);
         }
-        catch (DbUpdateConcurrencyException)
+        catch (NotFoundException ex)
         {
-            if (!trainCompaniesExists(id))
-                return NotFound(new ErrorResponse(404));
-            throw;
+            return NotFound(new ErrorResponse(404, ex.Message));
         }
 
         return NoContent();
@@ -63,15 +87,11 @@ public class TrainCompaniesController : BaseApiController
     public async Task<IActionResult> DeleteTrainCompany(int id)
     {
         var trainCompany = await _trainCompanySerivce.GetCompanyByIdAsync(id);
-        if (trainCompany == null) return NotFound(new ErrorResponse(404));
+        if (trainCompany is null)
+            return NotFound(new ErrorResponse(404));
 
         await _trainCompanySerivce.SoftDeleteCompanyAsync(trainCompany);
 
         return NoContent();
-    }
-
-    private bool trainCompaniesExists(int id)
-    {
-        return _trainCompanySerivce.GetCompanyByIdAsync(id) != null;
     }
 }
