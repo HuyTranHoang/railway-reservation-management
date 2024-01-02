@@ -1,37 +1,163 @@
 ﻿[
   {
-    "Name": "John Cena",
+    "Name": "Lucille Cleveland",
+    "Age": 35,
+    "Gender": "female",
+    "Phone": "+1 (950) 448-2399",
+    "Email": "lucillecleveland@koffee.com"
+  },
+  {
+    "Name": "Randi Stone",
+    "Age": 38,
+    "Gender": "female",
+    "Phone": "+1 (949) 498-2232",
+    "Email": "randistone@koffee.com"
+  },
+  {
+    "Name": "Mitchell Webster",
+    "Age": 19,
+    "Gender": "male",
+    "Phone": "+1 (825) 486-2292",
+    "Email": "mitchellwebster@koffee.com"
+  },
+  {
+    "Name": "Kasey Lewis",
+    "Age": 26,
+    "Gender": "female",
+    "Phone": "+1 (931) 535-2419",
+    "Email": "kaseylewis@koffee.com"
+  },
+  {
+    "Name": "Rachel Vargas",
+    "Age": 20,
+    "Gender": "female",
+    "Phone": "+1 (891) 446-2862",
+    "Email": "rachelvargas@koffee.com"
+  },
+  {
+    "Name": "Casey Maddox",
+    "Age": 26,
+    "Gender": "female",
+    "Phone": "+1 (962) 473-2794",
+    "Email": "caseymaddox@koffee.com"
+  },
+  {
+    "Name": "Buckley Cross",
+    "Age": 36,
+    "Gender": "male",
+    "Phone": "+1 (804) 475-3269",
+    "Email": "buckleycross@koffee.com"
+  },
+  {
+    "Name": "Wilkerson Ortiz",
+    "Age": 36,
+    "Gender": "male",
+    "Phone": "+1 (864) 506-3374",
+    "Email": "wilkersonortiz@koffee.com"
+  },
+  {
+    "Name": "Lorene Wise",
+    "Age": 26,
+    "Gender": "female",
+    "Phone": "+1 (832) 474-3959",
+    "Email": "lorenewise@koffee.com"
+  },
+  {
+    "Name": "Jami Kelly",
     "Age": 18,
-    "Gender": "Male",
-    "Phone": "1234567890",
-    "Email": "JohnCena@gmail.com"
+    "Gender": "female",
+    "Phone": "+1 (871) 484-3005",
+    "Email": "jamikelly@koffee.com"
   },
   {
-    "Name": "Lily Pichu",
-    "Age": 22,
-    "Gender": "Female",
-    "Phone": "1112223330",
-    "Email": "Lily@gmail.com"
-  },
-  {
-    "Name": "Michael Reeves",
-    "Age": 25,
-    "Gender": "Male",
-    "Phone": "2223334449",
-    "Email": "Michael@gmail.com"
-  },
-  {
-    "Name": "Pokimane",
-    "Age": 23,
-    "Gender": "Female",
-    "Phone": "3344556678",
-    "Email": "Poki@gmail.com"
-  },
-  {
-    "Name": "Disguised Toast",
+    "Name": "Corrine Barton",
     "Age": 27,
-    "Gender": "Male",
-    "Phone": "4455667789",
-    "Email": "Toast@gmail.com"
+    "Gender": "female",
+    "Phone": "+1 (902) 415-2812",
+    "Email": "corrinebarton@koffee.com"
+  },
+  {
+    "Name": "Gracie Davidson",
+    "Age": 37,
+    "Gender": "female",
+    "Phone": "+1 (874) 549-2838",
+    "Email": "graciedavidson@koffee.com"
+  },
+  {
+    "Name": "Corine Burke",
+    "Age": 26,
+    "Gender": "female",
+    "Phone": "+1 (847) 417-2317",
+    "Email": "corineburke@koffee.com"
+  },
+  {
+    "Name": "Bowen Ballard",
+    "Age": 25,
+    "Gender": "male",
+    "Phone": "+1 (843) 492-2958",
+    "Email": "bowenballard@koffee.com"
+  },
+  {
+    "Name": "Goff Saunders",
+    "Age": 26,
+    "Gender": "male",
+    "Phone": "+1 (947) 428-3089",
+    "Email": "goffsaunders@koffee.com"
+  },
+  {
+    "Name": "Valencia Moss",
+    "Age": 28,
+    "Gender": "male",
+    "Phone": "+1 (999) 465-3620",
+    "Email": "valenciamoss@koffee.com"
+  },
+  {
+    "Name": "Nichole Finch",
+    "Age": 37,
+    "Gender": "female",
+    "Phone": "+1 (835) 503-2644",
+    "Email": "nicholefinch@koffee.com"
+  },
+  {
+    "Name": "Roxie Beard",
+    "Age": 40,
+    "Gender": "female",
+    "Phone": "+1 (970) 423-3941",
+    "Email": "roxiebeard@koffee.com"
+  },
+  {
+    "Name": "Bright Alford",
+    "Age": 29,
+    "Gender": "male",
+    "Phone": "+1 (955) 588-3881",
+    "Email": "brightalford@koffee.com"
+  },
+  {
+    "Name": "Perkins Le",
+    "Age": 31,
+    "Gender": "male",
+    "Phone": "+1 (983) 408-3745",
+    "Email": "perkinsle@koffee.com"
+  },
+  {
+    "Name": "Carissa Holder",
+    "Age": 23,
+    "Gender": "female",
+    "Phone": "+1 (872) 448-3752",
+    "Email": "carissaholder@koffee.com"
+  },
+  {
+    "Name": "Autumn Mullins",
+    "Age": 30,
+    "Gender": "female",
+    "Phone": "+1 (861) 419-3381",
+    "Email": "autumnmullins@koffee.com"
+  },
+  {
+    "Name": "Valarie Cannon",
+    "Age": 40,
+    "Gender": "female",
+    "Phone": "+1 (988) 533-2749",
+    "Email": "valariecannon@koffee.com"
   }
 ]
