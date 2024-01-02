@@ -1,25 +1,47 @@
-<div class="container">
-  <!-- Login Form Start -->
-  <div class="row justify-content-center">
-    <div class="col-md-6">
-      <div class="card mt-5">
-        <div class="card-body">
-          <h2 class="text-center">Login</h2>
-          <form>
-            <div class="form-group">
-              <label for="inputEmail">Email address</label>
-              <input aria-describedby="emailHelp" class="form-control" id="inputEmail" placeholder="Enter email"
-                     type="email">
-            </div>
-            <div class="form-group">
-              <label for="inputPassword">Password</label>
-              <input class="form-control" id="inputPassword" placeholder="Password" type="password">
-            </div>
-            <button class="btn btn-primary" type="submit">Login</button>
-          </form>
+<div class="form-wrapper shadow rounded-4">
+  <div class="signup-content row">
+
+    <div class="col signin-image">
+      <figure style="margin-bottom: 18px">
+        <img alt="sign up image" src="assets/signin-image.jpg">
+      </figure>
+      <a class="signup-image-link" routerLink="/auth/register">Create an account</a>
+    </div>
+
+    <div class="signup-form col">
+      <h2 class="form-title">Sign In</h2>
+
+      <form class="register-form" id="register-form" method="POST">
+        <div class="form-group">
+          <label for="email"><i class="fa-solid fa-envelope"></i></label>
+          <input id="email" name="email" placeholder="Your Email" type="email">
         </div>
+        <div class="form-group">
+          <label for="pass"><i class="fa-solid fa-lock"></i></label>
+          <input id="pass" name="pass" placeholder="Password" type="password">
+        </div>
+        <div class="form-group">
+          <input class="agree-term" id="agree-term" name="agree-term" type="checkbox">
+          <label class="label-agree-term" for="agree-term">
+            Remember me
+          </label>
+        </div>
+        <div class="form-group form-button">
+          <input class="form-submit" id="signIn" name="signIn" type="submit" value="Login">
+        </div>
+      </form>
+
+      <div style="margin-top: 80px" class="d-flex align-items-center">
+        <span class="social-label">Or login with</span>
+        <ul class="socials d-flex">
+          <li>
+            <a><i class="social-icon facebook fa-brands fa-facebook-f"></i></a>
+          </li>
+          <li>
+            <a><i class="social-icon google fa-brands fa-google"></i></a>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
-  <!-- Login Form End -->
 </div>
