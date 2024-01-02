@@ -15,6 +15,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<Passenger> Passengers { get; set; }
     public DbSet<SeatType> SeatTypes { get; set; }
     public DbSet<Carriage> Carriages { get; set; }
+    public DbSet<Compartment> Compartments { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
