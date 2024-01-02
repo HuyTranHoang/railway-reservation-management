@@ -3,7 +3,7 @@ a {
   text-decoration: none;
   color: #343a40;
   &.active {
-    color: #007bff;
+    color: #F79A24;
   }
 }
 
@@ -14,6 +14,27 @@ a {
 .dropdown {
   position: relative;
   display: inline-block;
+}
+
+nav {
+
+  > a:hover {
+    position: relative;
+    color: #F79A24;
+  }
+
+  > a:hover::after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 50%;
+    bottom: -5px;
+    width: 5px;
+    height: 5px;
+    background: #F79A24;
+    border-radius: 50%;
+    transform: translateX(-50%);
+  }
 }
 
 .dropdown-content {
@@ -41,10 +62,52 @@ a {
   display: block;
 }
 
+// Background color for logo
+
 b {
   background-color: #F79A24;
   padding: 5px;
   border-radius: 10px;
   margin-left: 3px;
+}
+
+
+// Icon for login and register
+.icon-wrapper {
+
+  .first-icon, .second-icon {
+    transition: all 0.3s ease-in-out;
+    font-size: 1.2rem;
+  }
+
+  .second-icon {
+    opacity: 0;
+  }
+
+  &:hover {
+    .first-icon {
+      opacity: 0;
+    }
+
+    .second-icon {
+      color: #F79A24;
+      opacity: 1;
+    }
+
+    span {
+      color: #F79A24;
+    }
+  }
+
+  i.icon {
+    position: absolute;
+    top: 5px;
+    right: 6px;
+  }
+}
+
+span {
+  transition: all 0.3s ease-in-out;
+  font-size: 1.2rem;
 }
 

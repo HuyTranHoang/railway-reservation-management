@@ -3,29 +3,33 @@
     <h2>RailTicket<b class="small">Hub</b></h2>
   </div>
 
-  <nav class="my-2 text-uppercase fs-4">
-    <a class="p-2" routerLink="/"
+  <nav class="my-2 text-uppercase fs-5">
+    <a class="p-2 mx-2 nav-item"
+      routerLink="/"
        [routerLinkActiveOptions]="{exact: true}"
        routerLinkActive="active">Home</a>
-    <a class="p-2" routerLink="/test-error" routerLinkActive="active">Errors</a>
 
-    <a class="me-3 py-2 text-decoration-none"
+    <a class="p-2 mx-2"
+       routerLink="/test-error"
+       routerLinkActive="active">Errors</a>
+
+    <a class="p-2 mx-2"
        routerLink="/booking-train"
        routerLinkActive="active" >Train ticket</a>
 
-    <a class="me-3 py-2 text-decoration-none"
+    <a class="p-2 mx-2"
        routerLink="/not-implemented"
        routerLinkActive="active" >PNR Status</a>
 
-    <a class="me-3 py-2 text-decoration-none"
+    <a class="p-2 mx-2"
        routerLink="/not-implemented"
        routerLinkActive="active">Train running status</a>
 
-    <a class="me-3 py-2 text-decoration-none"
+    <a class="p-2 mx-2"
        routerLink="/not-implemented"
        routerLinkActive="active" >Blogs</a>
 
-    <div class="dropdown text-decoration-none" style="background: #fff;">
+    <div class="p-2 mx-2 dropdown" style="background: #fff;">
       <a>Mores <i class="fa-solid fa-caret-down"></i></a>
       <div class="dropdown-content">
         <a><i class="fa fa-circle-exclamation"></i> Train Enquiry </a>
@@ -37,7 +41,20 @@
 
 
   <div class="d-flex align-items-center">
-    <a class="btn btn-outline-secondary me-2">Login</a>
-    <a class="btn btn-outline-secondary me-3">Sign up</a>
+    <a class="me-3 py-2 d-flex icon-wrapper"
+       routerLink="/auth/login"
+       routerLinkActive="active">
+       <div class="position-relative">
+          <i class="fa-light fa-right-to-bracket icon first-icon"></i>
+          <i class="fa-light fa-person-to-portal icon second-icon"></i>
+       </div>
+       <span>Login</span>
+    </a>
+
+    <a class="me-3 py-2 icon-wrapper"
+      routerLink="/auth/register"
+      routerLinkActive="active">
+      <span>Register</span>
+    </a>
   </div>
 </header>
