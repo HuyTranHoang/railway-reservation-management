@@ -57,6 +57,7 @@ namespace WebApi.Controllers
     public async Task<IActionResult> Update(int id, [FromBody] SeatType seatType)
     {
     if (id != seatType.Id)
+    
         {
             return BadRequest(new ErrorResponse(400));
         }
