@@ -9,8 +9,6 @@ namespace Infrastructure.Data.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "ProductExamples");
 
             migrationBuilder.AlterColumn<string>(
                 name: "Phone",
@@ -48,7 +46,6 @@ namespace Infrastructure.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductExamples", x => x.Id);
                 });
         }
     }
