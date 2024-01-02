@@ -5,7 +5,7 @@ namespace Application.Common.Interfaces.Services;
 
 public interface IPassengerService
 {
-    Task<List<PassengerDto>> GetAllPassengerDtoAsync();
+    Task<PagedList<PassengerDto>> GetAllPassengerDtoAsync(QueryParams queryParams);
     Task<PassengerDto> GetPassgenerDtoByIdAsync(int id);
     Task<Passenger> GetPassgenerByIdAsync(int id);
     Task AddPassengerAsync(Passenger passenger);

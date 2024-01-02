@@ -14,11 +14,11 @@ public class PassengerReponsitory : IPassengerReponsitory
         _context = context;
     }
 
-    public async Task<IEnumerable<Passenger>> GetAllAsync()
+    public async Task<IQueryable<Passenger>> GetAllAsync()
     {
-        return await _context.Passengers
+        return await Task.FromResult(_context.Passengers
             .Where(p => !p.IsDeleted)
-            .ToListAsync();
+            .AsQueryable());
     }
 
     public async Task<Passenger> GetByIdAsync(int id)
@@ -48,4 +48,5 @@ public class PassengerReponsitory : IPassengerReponsitory
         passenger.IsDeleted = true;
         _context.Entry(passenger).State = EntityState.Modified;
     }
+
 }

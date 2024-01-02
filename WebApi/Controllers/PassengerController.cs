@@ -4,6 +4,7 @@ using Application.Common.Models;
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Exceptions;
+using WebApi.Extensions;
 
 namespace WebApi.Controllers;
 
@@ -17,9 +18,15 @@ public class PassengerController : BaseApiController
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<PassengerDto>>> GetPassengers()
+    public async Task<ActionResult<List<PassengerDto>>> GetPassengers([FromQuery] QueryParams queryParams)
     {
-        var passengersDto = await _passengerService.GetAllPassengerDtoAsync();
+        var passengersDto = await _passengerService.GetAllPassengerDtoAsync(queryParams);
+
+        var paginationHeader = new PaginationHeader(queryParams.PageNumber, queryParams.PageSize,
+            passengersDto.TotalCount, passengersDto.TotalPages);
+
+        Response.AddPaginationHeader(paginationHeader);
+
         return Ok(passengersDto);
     }
 

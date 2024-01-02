@@ -18,7 +18,11 @@ Content-Type: application/json
 ### 
 
 # @name getListOfPassengers
-GET {{url}}/api/passenger
+GET {{url}}/api/passenger?
+  # &pageNumber=1
+  # &pageSize=2
+  # &searchTerm=Pokimane
+  # &sort=ageDesc
 
 
 ### 

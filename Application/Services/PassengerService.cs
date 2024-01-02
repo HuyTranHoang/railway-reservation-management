@@ -4,6 +4,7 @@ using Application.Common.Interfaces.Services;
 using Application.Common.Models;
 using AutoMapper;
 using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Services;
 
@@ -20,10 +21,36 @@ public class PassengerService : IPassengerService
         _mapper = mapper;
     }
 
-    public async Task<List<PassengerDto>> GetAllPassengerDtoAsync()
+    public async Task<PagedList<PassengerDto>> GetAllPassengerDtoAsync(QueryParams queryParams)
     {
-        var passengers = await _reponsitory.GetAllAsync();
-        return _mapper.Map<List<PassengerDto>>(passengers);
+        var query = await _reponsitory.GetAllAsync();
+
+        if (!string.IsNullOrEmpty(queryParams.SearchTerm))
+        {
+            query = query.Where(p => p.Name.Contains(queryParams.SearchTerm));
+        }
+
+        query = queryParams.Sort switch
+        {
+            "ageAsc" => query.OrderBy(p => p.Age),
+            "ageDesc" => query.OrderByDescending(p => p.Age),
+            "nameAsc" => query.OrderBy(p => p.Name),
+            "nameDesc" => query.OrderByDescending(p => p.Name),
+            _ => query.OrderBy(p => p.CreatedAt)
+        };
+
+        if (queryParams.PageNumber != 0 && queryParams.PageSize != 0)
+        {
+            query = query.Skip((queryParams.PageNumber - 1) * queryParams.PageSize).Take(queryParams.PageSize);
+        }
+
+        var passengers = await query.ToListAsync();
+
+        var count = await query.CountAsync();
+
+        var passengersDto = _mapper.Map<List<PassengerDto>>(passengers);
+
+        return new PagedList<PassengerDto>(passengersDto, count, queryParams.PageNumber, queryParams.PageSize);
     }
 
     public async Task<PassengerDto> GetPassgenerDtoByIdAsync(int id)
