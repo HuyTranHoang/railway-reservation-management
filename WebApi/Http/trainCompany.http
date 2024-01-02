@@ -1,0 +1,47 @@
+﻿@url = https://localhost:5001
+
+### 
+
+# @name addTrainCompany
+POST {{url}}/api/traincompanies
+Content-Type: application/json
+
+{
+  "Name": "test new nek"
+}
+
+
+### 
+
+# @name getListOfTrainCompany
+GET {{url}}/api/traincompanies
+
+
+### 
+
+# @name getTrainCompanyById
+@id = 13
+
+GET {{url}}/api/traincompanies/{{id}}
+
+
+### 
+
+# @name UpdateTrainCompany
+@updateId = 13
+
+PUT {{url}}/api/traincompanies/{{updateId}}
+Content-Type: application/json
+
+{
+  "Id": {{updateId}},
+  "Name": "test update test 1111111"
+}
+
+
+### 
+
+# @name SoftDeleteTrainCompany
+@deleteId = 13
+
+DELETE  {{url}}/api/traincompanies/{{deleteId}}

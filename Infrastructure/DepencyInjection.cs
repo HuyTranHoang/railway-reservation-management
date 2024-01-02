@@ -19,6 +19,11 @@ public static class DepencyInjection
 
         services.AddScoped<IPassengerReponsitory, PassengerReponsitory>();
 
+        services.AddScoped<ITrainCompanyRepository, TrainCompanyRepository>();
+        
+        services.AddScoped<ITrainRepository, TrainRepository>();
+
+
         return services;
     }
 }
