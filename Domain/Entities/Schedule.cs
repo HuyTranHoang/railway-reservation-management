@@ -3,7 +3,7 @@ using Domain.Common;
 
 namespace Domain.Entities
 {
-    public class DistanceFare : BaseEntity
+    public class Schedule : BaseEntity
     {
         public int Id { get; set; }
         
@@ -14,9 +14,11 @@ namespace Domain.Entities
         public int ArrivalStationId { get; set; }
         public TrainStation TrainStation { get; set; }
 
-        [Required] public int Distance { get; set; }
+        [Required] public DateTime DepartureTime { get; set; }
 
-        [Required] public double Price { get; set; }
-        
+        [Required] public int Duration { get; set; }
+
+        [StringLength(100)] public string Status { get; set; }
+
     }
 }
