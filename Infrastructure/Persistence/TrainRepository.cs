@@ -31,14 +31,12 @@ namespace Infrastructure.Persistence
         public async Task<IEnumerable<Train>> GetAllAsync()
         {
            return await _context.Trains
-                 .Where(x => x.IsDeleted == false)
                  .ToListAsync();
         }
 
         public async Task<Train> GetByIdAsync(int id)
         {
             return await _context.Trains
-                .Where(p => p.IsDeleted == false)
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
 
