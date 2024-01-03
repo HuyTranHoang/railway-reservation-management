@@ -21,6 +21,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<Schedule> Schedules { get; set; }
     public DbSet<Ticket> Tickets { get; set; }
     public DbSet<Payment> Payments { get; set; }
+    public DbSet<CancellationRule> CancellationRules { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
