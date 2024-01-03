@@ -18,13 +18,12 @@ public class SeatTypeRepository : ISeatTypeRepository
     public async Task<IQueryable<SeatType>> GetQueryAsync()
     {
         return await Task.FromResult(_context.SeatTypes
-            .Where(p => !p.IsDeleted)
             .AsQueryable());
     }
 
     public async Task<SeatType> GetByIdAsync(int id)
     {
-        return await _context.SeatTypes.Where(i => i.IsDeleted == false).FirstAsync(p => p.Id == id);
+        return await _context.SeatTypes.FirstOrDefaultAsync(p => p.Id == id);
     }
 
     public void Add(SeatType seatType)

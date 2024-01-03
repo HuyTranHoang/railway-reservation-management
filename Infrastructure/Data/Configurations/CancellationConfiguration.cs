@@ -1,17 +1,17 @@
-using Domain.Entities;
+﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructure.Data.Configurations;
 
-public class TrainConfiguration : IEntityTypeConfiguration<Train>
+public class CancellationConfiguration : IEntityTypeConfiguration<Cancellation>
 {
-    public void Configure(EntityTypeBuilder<Train> builder)
+    public void Configure(EntityTypeBuilder<Cancellation> builder)
     {
         builder.HasQueryFilter(e => !e.IsDeleted);
 
         builder
-            .HasOne(t => t.TrainCompany)
+            .HasOne(t => t.Ticket)
             .WithMany()
             .OnDelete(DeleteBehavior.Restrict);
     }

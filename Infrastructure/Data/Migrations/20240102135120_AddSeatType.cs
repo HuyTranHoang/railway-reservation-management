@@ -31,16 +31,7 @@ namespace Infrastructure.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Passengers");
-
-            migrationBuilder.DropTable(
                 name: "SeatTypes");
-
-            migrationBuilder.DropTable(
-                name: "Trains");
-
-            migrationBuilder.DropTable(
-                name: "TrainCompanies");
         }
     }
 }

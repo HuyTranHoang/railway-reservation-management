@@ -1,5 +1,4 @@
 ﻿using Domain.Entities;
-using Infrastructure.Data.Configurations;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data;
@@ -25,93 +24,9 @@ public class ApplicationDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfiguration(new TrainCompanyConfiguration());
-        modelBuilder.ApplyConfiguration(new TrainConfiguration());
-        modelBuilder.Entity<Train>()
-            .HasOne(t => t.TrainCompany)
-            .WithMany()
-            .OnDelete(DeleteBehavior.Restrict);
-            
-        modelBuilder.Entity<Carriage>()
-            .HasOne(t => t.Train)
-            .WithMany()
-            .OnDelete(DeleteBehavior.Restrict);
-            
-        modelBuilder.Entity<Compartment>()
-            .HasOne(t => t.Carriage)
-            .WithMany()
-            .OnDelete(DeleteBehavior.Restrict);
-            
-        modelBuilder.Entity<DistanceFare>()
-            .HasOne(t => t.Train)
-            .WithMany()
-            .OnDelete(DeleteBehavior.Restrict);
-            
-        modelBuilder.Entity<DistanceFare>()
-            .HasOne(t => t.DepartureStation)
-            .WithMany()
-            .OnDelete(DeleteBehavior.Restrict);
-            
-        modelBuilder.Entity<DistanceFare>()
-            .HasOne(t => t.ArrivalStation)
-            .WithMany()
-            .OnDelete(DeleteBehavior.Restrict);
-            
-        modelBuilder.Entity<Schedule>()
-            .HasOne(t => t.Train)
-            .WithMany()
-            .OnDelete(DeleteBehavior.Restrict);
-            
-        modelBuilder.Entity<Schedule>()
-            .HasOne(t => t.DepartureStation)
-            .WithMany()
-            .OnDelete(DeleteBehavior.Restrict);
-            
-        modelBuilder.Entity<Schedule>()
-            .HasOne(t => t.ArrivalStation)
-            .WithMany()
-            .OnDelete(DeleteBehavior.Restrict);
+        base.OnModelCreating(modelBuilder);
 
-
-        modelBuilder.Entity<Ticket>()
-            .HasOne(t => t.DistanceFare)
-            .WithMany()
-            .OnDelete(DeleteBehavior.Restrict);
-
-        modelBuilder.Entity<Ticket>()
-            .HasOne(t => t.Schedule)
-            .WithMany()
-            .OnDelete(DeleteBehavior.Restrict);
-
-        modelBuilder.Entity<Ticket>()
-            .HasOne(t => t.Seat)
-            .WithMany()
-            .OnDelete(DeleteBehavior.Restrict);
-            
-        modelBuilder.Entity<Ticket>()
-            .HasOne(t => t.Train)
-            .WithMany()
-            .OnDelete(DeleteBehavior.Restrict);
-
-        modelBuilder.Entity<Ticket>()
-            .HasOne(t => t.Carriage)
-            .WithMany()
-            .OnDelete(DeleteBehavior.Restrict);
-
-        modelBuilder.Entity<Payment>()
-            .HasOne(t => t.Passenger)
-            .WithMany()
-            .OnDelete(DeleteBehavior.Restrict);
-
-        modelBuilder.Entity<Payment>()
-            .HasOne(t => t.Ticket)
-            .WithMany()
-            .OnDelete(DeleteBehavior.Restrict);
-
-        modelBuilder.Entity<Cancellation>()
-            .HasOne(t => t.Ticket)
-            .WithMany()
-            .OnDelete(DeleteBehavior.Restrict);
-
+        // Sẽ apply hết tất cả config trong folder Configurations
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
     }
 }

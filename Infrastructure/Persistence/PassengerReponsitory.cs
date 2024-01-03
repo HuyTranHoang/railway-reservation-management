@@ -17,14 +17,12 @@ public class PassengerReponsitory : IPassengerReponsitory
     public async Task<IQueryable<Passenger>> GetQueryAsync()
     {
         return await Task.FromResult(_context.Passengers
-            .Where(p => !p.IsDeleted)
             .AsQueryable());
     }
 
     public async Task<Passenger> GetByIdAsync(int id)
     {
         return await _context.Passengers
-            .Where(p => !p.IsDeleted)
             .FirstOrDefaultAsync(p => p.Id == id);
     }
 
