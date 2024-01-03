@@ -61,7 +61,7 @@ public static class Seed
     {
         if (await context.Carriages.AnyAsync()) return;
 
-        var data = await File.ReadAllTextAsync(DataPath + TrainData);
+        var data = await File.ReadAllTextAsync(DataPath + Carriage);
 
         var carriages = JsonSerializer.Deserialize<List<Carriage>>(data, JsonOptions);
 
