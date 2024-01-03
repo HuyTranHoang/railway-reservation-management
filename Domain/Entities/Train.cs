@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Domain.Common;
 
 namespace Domain.Entities;
@@ -9,6 +10,8 @@ public class Train : BaseEntity
 
     [Required] [StringLength(100)] public string Name { get; set; }
 
+    [Required]
+    [ForeignKey("TrainCompanyId")]
     public int TrainCompanyId { get; set; }
     public TrainCompany TrainCompany { get; set; }
 

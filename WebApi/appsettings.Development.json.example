@@ -1,0 +1,29 @@
+{
+  "Serilog": {
+    "Using": [ "Serilog.Sinks.Console", "Serilog.Sinks.File", "Serilog.Sinks.Seq" ],
+    "WriteTo": [
+      {
+        "Name": "Console"
+      },
+      {
+        "Name": "File",
+        "Args": {
+          "path": "Logs/log.txt",
+          "rollingInterval": "Day",
+          "retainedFileCountLimit": 7
+        }
+      },
+        {
+            "Name": "Seq",
+            "Args": {
+            "serverUrl": "http://localhost:8081"
+            }
+        }
+    ]
+  },
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=127.0.0.1;Database=railway-reservation-management;ConnectRetryCount=0;User Id=sa;Password=Password.1",
+    "RedisConnection": "localhost:6379"
+  },
+  "ApiUrl": "https://localhost:5001/"
+}

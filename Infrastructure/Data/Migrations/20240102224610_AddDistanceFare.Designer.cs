@@ -4,6 +4,7 @@ using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240102224610_AddDistanceFare")]
+    partial class AddDistanceFare
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,47 +23,6 @@ namespace Infrastructure.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("Domain.Entities.Cancellation", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(998);
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(997);
-
-                    b.Property<string>("Reason")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("RefundAmount")
-                        .HasColumnType("float");
-
-                    b.Property<string>("Status")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<int>("TicketId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(999);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TicketId");
-
-                    b.ToTable("Cancellation");
-                });
 
             modelBuilder.Entity("Domain.Entities.Carriage", b =>
                 {
@@ -161,19 +122,11 @@ namespace Infrastructure.Data.Migrations
                     b.Property<int>("ArrivalStationId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(998);
-
                     b.Property<int>("DepartureStationId")
                         .HasColumnType("int");
 
                     b.Property<int>("Distance")
                         .HasColumnType("int");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(997);
 
                     b.Property<double>("Price")
                         .HasColumnType("float");
@@ -181,17 +134,14 @@ namespace Infrastructure.Data.Migrations
                     b.Property<int>("TrainId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(999);
+                    b.Property<int?>("TrainStationId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ArrivalStationId");
-
-                    b.HasIndex("DepartureStationId");
-
                     b.HasIndex("TrainId");
+
+                    b.HasIndex("TrainStationId");
 
                     b.ToTable("DistanceFares");
                 });
@@ -206,11 +156,6 @@ namespace Infrastructure.Data.Migrations
 
                     b.Property<int>("Age")
                         .HasColumnType("int");
-
-                    b.Property<string>("CardId")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2")
@@ -245,95 +190,6 @@ namespace Infrastructure.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Passengers");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Payment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(998);
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(997);
-
-                    b.Property<int>("PassengerId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Status")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<int>("TicketId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(999);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PassengerId");
-
-                    b.HasIndex("TicketId");
-
-                    b.ToTable("Payments");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Schedule", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("ArrivalStationId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(998);
-
-                    b.Property<int>("DepartureStationId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DepartureTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Duration")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(997);
-
-                    b.Property<string>("Status")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<int>("TrainId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(999);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ArrivalStationId");
-
-                    b.HasIndex("DepartureStationId");
-
-                    b.HasIndex("TrainId");
-
-                    b.ToTable("Schedules");
                 });
 
             modelBuilder.Entity("Domain.Entities.Seat", b =>
@@ -410,65 +266,6 @@ namespace Infrastructure.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("SeatTypes");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Ticket", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("CarriageId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(998);
-
-                    b.Property<int>("DistanceFareId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(997);
-
-                    b.Property<int>("PassengerId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ScheduleId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SeatId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Status")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<int>("TrainId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(999);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CarriageId");
-
-                    b.HasIndex("DistanceFareId");
-
-                    b.HasIndex("PassengerId");
-
-                    b.HasIndex("ScheduleId");
-
-                    b.HasIndex("SeatId");
-
-                    b.HasIndex("TrainId");
-
-                    b.ToTable("Tickets");
                 });
 
             modelBuilder.Entity("Domain.Entities.Train", b =>
@@ -585,23 +382,12 @@ namespace Infrastructure.Data.Migrations
                     b.ToTable("TrainStations");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Cancellation", b =>
-                {
-                    b.HasOne("Domain.Entities.Ticket", "Ticket")
-                        .WithMany()
-                        .HasForeignKey("TicketId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Ticket");
-                });
-
             modelBuilder.Entity("Domain.Entities.Carriage", b =>
                 {
                     b.HasOne("Domain.Entities.Train", "Train")
                         .WithMany()
                         .HasForeignKey("TrainId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Train");
@@ -612,7 +398,7 @@ namespace Infrastructure.Data.Migrations
                     b.HasOne("Domain.Entities.Carriage", "Carriage")
                         .WithMany()
                         .HasForeignKey("CarriageId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Carriage");
@@ -620,75 +406,19 @@ namespace Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Domain.Entities.DistanceFare", b =>
                 {
-                    b.HasOne("Domain.Entities.TrainStation", "ArrivalStation")
-                        .WithMany()
-                        .HasForeignKey("ArrivalStationId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Entities.TrainStation", "DepartureStation")
-                        .WithMany()
-                        .HasForeignKey("DepartureStationId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("Domain.Entities.Train", "Train")
                         .WithMany()
                         .HasForeignKey("TrainId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ArrivalStation");
-
-                    b.Navigation("DepartureStation");
+                    b.HasOne("Domain.Entities.TrainStation", "TrainStation")
+                        .WithMany()
+                        .HasForeignKey("TrainStationId");
 
                     b.Navigation("Train");
-                });
 
-            modelBuilder.Entity("Domain.Entities.Payment", b =>
-                {
-                    b.HasOne("Domain.Entities.Passenger", "Passenger")
-                        .WithMany()
-                        .HasForeignKey("PassengerId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Entities.Ticket", "Ticket")
-                        .WithMany()
-                        .HasForeignKey("TicketId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Passenger");
-
-                    b.Navigation("Ticket");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Schedule", b =>
-                {
-                    b.HasOne("Domain.Entities.TrainStation", "ArrivalStation")
-                        .WithMany()
-                        .HasForeignKey("ArrivalStationId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Entities.TrainStation", "DepartureStation")
-                        .WithMany()
-                        .HasForeignKey("DepartureStationId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Entities.Train", "Train")
-                        .WithMany()
-                        .HasForeignKey("TrainId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("ArrivalStation");
-
-                    b.Navigation("DepartureStation");
-
-                    b.Navigation("Train");
+                    b.Navigation("TrainStation");
                 });
 
             modelBuilder.Entity("Domain.Entities.Seat", b =>
@@ -710,63 +440,12 @@ namespace Infrastructure.Data.Migrations
                     b.Navigation("SeatType");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Ticket", b =>
-                {
-                    b.HasOne("Domain.Entities.Carriage", "Carriage")
-                        .WithMany()
-                        .HasForeignKey("CarriageId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Entities.DistanceFare", "DistanceFare")
-                        .WithMany()
-                        .HasForeignKey("DistanceFareId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Entities.Passenger", "Passenger")
-                        .WithMany()
-                        .HasForeignKey("PassengerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Entities.Schedule", "Schedule")
-                        .WithMany()
-                        .HasForeignKey("ScheduleId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Entities.Seat", "Seat")
-                        .WithMany()
-                        .HasForeignKey("SeatId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Entities.Train", "Train")
-                        .WithMany()
-                        .HasForeignKey("TrainId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Carriage");
-
-                    b.Navigation("DistanceFare");
-
-                    b.Navigation("Passenger");
-
-                    b.Navigation("Schedule");
-
-                    b.Navigation("Seat");
-
-                    b.Navigation("Train");
-                });
-
             modelBuilder.Entity("Domain.Entities.Train", b =>
                 {
                     b.HasOne("Domain.Entities.TrainCompany", "TrainCompany")
                         .WithMany()
                         .HasForeignKey("TrainCompanyId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("TrainCompany");
