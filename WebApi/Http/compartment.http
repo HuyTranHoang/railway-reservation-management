@@ -1,0 +1,58 @@
+@url = https://localhost:5001
+
+### 
+
+# @name addCompartment
+POST {{url}}/api/compartments
+Content-Type: application/json
+
+{
+  "name" : "Khoang 2",
+  "carriageId" : 1,
+  "numberOfSeats" : 1,
+  "Status" : "Test"
+}
+
+
+### 
+
+# @name getListOfCompartment
+GET {{url}}/api/compartments?
+  &pageNumber=1
+  &pageSize=5
+  #&searchTerm=Khoang 1
+  #&sort=numberOfSeatsAsc
+  #&carriageId=1
+
+
+### 
+
+# @name getCompartmentById
+@id = 3
+
+GET {{url}}/api/compartments/{{id}}
+
+
+### 
+
+# @name UpdateCompartment
+@updateId = 3
+
+PUT {{url}}/api/compartments/{{updateId}}
+Content-Type: application/json
+
+{
+  "Id" : {{updateId}},
+  "name" : "Khoang 3",
+  "carriageId" : 2,
+  "numberOfSeats" : 50,
+  "Status" : "Da Sua"
+}
+
+
+### 
+
+# @name SoftDeleteCompartment
+@deleteId = 3
+
+PATCH {{url}}/api/compartments/{{deleteId}}
