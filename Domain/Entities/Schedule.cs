@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Domain.Common;
 
 namespace Domain.Entities
@@ -7,13 +8,19 @@ namespace Domain.Entities
     {
         public int Id { get; set; }
         
-        [Required] public int TrainId { get; set; }
+        [Required]
+        [ForeignKey("TrainId")]
+        public int TrainId { get; set; }
         public Train Train { get; set; }
 
-        [Required] public int DepartureStationId { get; set; }
+        [Required]
+        [ForeignKey("DepartureStationId")]
+        public int DepartureStationId { get; set; }
         public TrainStation DepartureStation { get; set; }
 
-        [Required] public int ArrivalStationId { get; set; }
+        [Required]
+        [ForeignKey("ArrivalStationId")]
+        public int ArrivalStationId { get; set; }
         public TrainStation ArrivalStation { get; set; }
 
         [Required] public DateTime DepartureTime { get; set; }

@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Domain.Common;
 
 namespace Domain.Entities
@@ -7,10 +8,14 @@ namespace Domain.Entities
     {
         public int Id { get; set; }
         
-        [Required] public int SeatTypeId { get; set; }
+        [Required]
+        [ForeignKey("SeatTypeId")]
+         public int SeatTypeId { get; set; }
         public SeatType SeatType { get; set; }
 
-        [Required] public int CompartmentId { get; set; }
+        [Required]
+        [ForeignKey("CompartmentId")]
+        public int CompartmentId { get; set; }
         public Compartment Compartment { get; set; }
 
         [StringLength(100)] public string Status { get; set; }
