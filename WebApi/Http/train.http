@@ -27,7 +27,7 @@ GET {{url}}/api/trains?
 ### 
 
 # @name getTrainById
-@id = 1
+@id = 6
 
 GET {{url}}/api/trains/{{id}}
 
