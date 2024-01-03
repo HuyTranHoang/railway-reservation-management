@@ -17,7 +17,7 @@ namespace Domain.Entities
 
         [Required]
         [ForeignKey("CarriageTypeId")]
-         public int CarriageTypeId { get; set; }
+        public int CarriageTypeId { get; set; }
         public CarriageType CarriageType { get; set; }
 
         [Required] public int NumberOfCompartment { get; set; }
