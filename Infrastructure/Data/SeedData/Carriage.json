@@ -1,0 +1,37 @@
+[
+  {
+    "name": "AC1",
+    "trainId": 1,
+    "numberOfCompartments": 2,
+    "serviceCharge": 40,
+    "status": ""
+  },
+  {
+    "name": "AC2",
+    "trainId": 2,
+    "numberOfCompartments": 2,
+    "serviceCharge": 30,
+    "status": ""
+  },
+  {
+    "name": "AC3",
+    "trainId": 3,
+    "numberOfCompartments": 2,
+    "serviceCharge": 10,
+    "status": ""
+  },
+  {
+    "name": "Sleeper",
+    "trainId": 4,
+    "numberOfCompartments": 6,
+    "serviceCharge": 50,
+    "status": ""
+  },
+  {
+    "name": "General",
+    "trainId": 4,
+    "numberOfCompartments": 2,
+    "serviceCharge": 10,
+    "status": ""
+  }
+]
