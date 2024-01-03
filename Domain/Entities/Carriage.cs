@@ -15,9 +15,12 @@ namespace Domain.Entities
          public int TrainId { get; set; }
         public Train Train { get; set; }
 
-        [Required] public int NumberOfCompartment { get; set; }
+        [Required]
+        [ForeignKey("CarriageTypeId")]
+         public int CarriageTypeId { get; set; }
+        public CarriageType CarriageType { get; set; }
 
-        [Required] public double ServiceCharge { get; set; }
+        [Required] public int NumberOfCompartment { get; set; }
 
         [StringLength(100)] public string Status { get; set; }
 
