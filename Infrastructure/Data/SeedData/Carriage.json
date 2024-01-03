@@ -1,0 +1,44 @@
+[
+  {
+    "name": "Seating Car",
+    "trainId": "1",
+    "numberOfCompartments": 1,
+    "serviceCharge": 1,
+    "status": ""
+  },
+  {
+    "name": "Sleeper Car",
+    "trainId": "2",
+    "numberOfCompartments": 2,
+    "serviceCharge": 1.5,
+    "status": ""
+  },
+  {
+    "name": "Dining Car",
+    "trainId": "3",
+    "numberOfCompartments": 1,
+    "serviceCharge": 2,
+    "status": ""
+  },
+  {
+    "name": "Entertainment Car",
+    "trainId": "4",
+    "numberOfCompartments": 1,
+    "serviceCharge": 1.8,
+    "status": ""
+  },
+  {
+    "name": "Family Car",
+    "trainId": "5",
+    "numberOfCompartments": 3,
+    "serviceCharge": 2.2,
+    "status": ""
+  },
+  {
+    "name": "Accessible Car",
+    "trainId": "6",
+    "numberOfCompartments": 1,
+    "serviceCharge": 1.5,
+    "status": ""
+  }
+]
