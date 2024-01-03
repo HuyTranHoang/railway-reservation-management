@@ -12,6 +12,11 @@ namespace Domain.Entities
         [ForeignKey("TicketId")]
         public int TicketId { get; set; }
         public Ticket Ticket { get; set; }
+        
+        [Required]
+        [ForeignKey("CancellationRuleId")]
+        public int CancellationRuleId { get; set; }
+        public CancellationRule CancellationRule { get; set; }
 
         [Required] [StringLength(450)] public string Reason { get; set; }
 

@@ -14,5 +14,10 @@ public class CancellationConfiguration : IEntityTypeConfiguration<Cancellation>
             .HasOne(t => t.Ticket)
             .WithMany()
             .OnDelete(DeleteBehavior.Restrict);
+
+        builder
+            .HasOne(t => t.CancellationRule)
+            .WithMany()
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }
