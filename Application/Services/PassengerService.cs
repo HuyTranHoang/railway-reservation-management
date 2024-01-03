@@ -68,6 +68,7 @@ public class PassengerService : IPassengerService
         if (passengerInDb == null) throw new NotFoundException(nameof(Passenger), passenger.Id);
 
         passengerInDb.Name = passenger.Name;
+        passengerInDb.CardId = passenger.CardId;
         passengerInDb.Age = passenger.Age;
         passengerInDb.Gender = passenger.Gender;
         passengerInDb.Phone = passenger.Phone;

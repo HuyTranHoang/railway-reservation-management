@@ -42,8 +42,8 @@ Content-Type: application/json
 
 {
   "Id": {{updateId}},
-  "Name": "Train updated 3",
-  "trainCompanyId" : 3,
+  "Name": "New Train 233",
+  "trainCompanyId" : 1,
   "status" : ""
 }
 

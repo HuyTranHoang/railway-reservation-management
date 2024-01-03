@@ -8,6 +8,7 @@ Content-Type: application/json
 
 {
   "Name": "test new nek",
+  "CardId": "1234 4321 1234",
   "Age": 18,
   "Gender": "Male",
   "Phone": "123 456 7890",
@@ -20,7 +21,7 @@ Content-Type: application/json
 # @name getListOfPassengers
 GET {{url}}/api/passenger?
   &pageNumber=1
-  &pageSize=2
+  &pageSize=10
   # &searchTerm=Pokimane
   # &sort=ageDesc
 
@@ -44,6 +45,7 @@ Content-Type: application/json
 {
   "Id": {{updateId}},
   "Name": "test update test 1111111test update",
+  "CardId": "1234 4321 1234",
   "Age": 22,
   "Gender": "Male",
   "Phone": "123 456 7890",
