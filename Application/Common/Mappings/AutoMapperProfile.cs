@@ -17,5 +17,9 @@ public class AutoMapperProfile : Profile
         CreateMap<Passenger, PassengerDto>();
 
         CreateMap<SeatType, SeatTypeDto>();
+
+        CreateMap<Carriage, CarriageDto>()
+            .ForMember(dest => dest.TrainName,
+                otp => otp.MapFrom(src => src.Train.Name));
     }
 }
