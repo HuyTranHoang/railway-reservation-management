@@ -7,22 +7,27 @@ POST {{url}}/api/trains
 Content-Type: application/json
 
 {
-  "Name": "Aduvip",
-  "TrainCompanyId": 11,
-  "Status": "Hekekeke"
+  "Name": "New Train 23",
+  "TrainCompanyId": 2,
+  "Status": ""
 }
 
 
 ### 
 
 # @name getListOfTrain
-GET {{url}}/api/trains
+GET {{url}}/api/trains?
+  &pageNumber=1
+  &pageSize=3
+  # &searchTerm=New Train
+  # &sort=nameDesc
+  # &trainCompanyId=2
 
 
 ### 
 
 # @name getTrainById
-@id = 13
+@id = 1
 
 GET {{url}}/api/trains/{{id}}
 
@@ -30,22 +35,22 @@ GET {{url}}/api/trains/{{id}}
 ### 
 
 # @name UpdateTrain
-@updateId = 13
+@updateId = 1
 
 PUT {{url}}/api/trains/{{updateId}}
 Content-Type: application/json
 
 {
   "Id": {{updateId}},
-  "Name": "da sua",
-  "trainCompanyId" : 11,
-  "status" : "Vai Thiet"
+  "Name": "Train updated",
+  "trainCompanyId" : 2,
+  "status" : ""
 }
 
 
 ### 
 
 # @name SoftDeleteTrain
-@deleteId = 12
+@deleteId = 1
 
-DELETE  {{url}}/api/trains/{{deleteId}}
+PATCH {{url}}/api/trains/{{deleteId}}

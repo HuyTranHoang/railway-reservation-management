@@ -1,9 +1,12 @@
+using Application.Common.Exceptions;
 using Application.Common.Interfaces.Services;
 using Application.Common.Models;
+using Application.Common.Models.Pagination;
+using Application.Common.Models.QueryParams;
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using WebApi.Exceptions;
+using WebApi.Extensions;
 
 namespace WebApi.Controllers;
 
@@ -17,9 +20,15 @@ public class TrainsController : BaseApiController
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<TrainDto>>> GetTrains()
+    public async Task<ActionResult<IEnumerable<TrainDto>>> GetTrains([FromQuery] TrainQueryParams queryParams)
     {
-        var trainsDto = await _trainService.GetAllTrainDtoAsync();
+        var trainsDto = await _trainService.GetAllTrainDtoAsync(queryParams);
+
+        var paginationHeader = new PaginationHeader(queryParams.PageNumber, queryParams.PageSize,
+            trainsDto.TotalCount, trainsDto.TotalPages);
+
+        Response.AddPaginationHeader(paginationHeader);
+
         return Ok(trainsDto);
     }
 
@@ -28,7 +37,7 @@ public class TrainsController : BaseApiController
     {
         var trains = await _trainService.GetTrainDtoByIdAsync(id);
 
-        if (trains == null) return NotFound(new ErrorResponse(404));
+        if (trains is null) return NotFound(new ErrorResponse(404));
 
         return Ok(trains);
     }
@@ -36,7 +45,22 @@ public class TrainsController : BaseApiController
     [HttpPost]
     public async Task<IActionResult> PostTrain([FromBody] Train train)
     {
-        await _trainService.AddTrainAsync(train);
+
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        try
+        {
+            await _trainService.AddTrainAsync(train);
+        }
+        catch (BadRequestException ex)
+        {
+            var errorResponse = new ValidateInputError(400, new List<string> { ex.Message });
+            return BadRequest(errorResponse);
+        }
+
         return CreatedAtAction("GetTrain", new { id = train.Id }, train);
     }
 
@@ -49,29 +73,22 @@ public class TrainsController : BaseApiController
         {
             await _trainService.UpdateTrainAsync(train);
         }
-        catch (DbUpdateConcurrencyException)
+        catch (NotFoundException ex)
         {
-            if (!trainsExists(id))
-                return NotFound(new ErrorResponse(404));
-            throw;
+            return NotFound(new ErrorResponse(404, ex.Message));
         }
 
         return NoContent();
     }
 
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteTrain(int id)
+    [HttpPatch("{id}")]
+    public async Task<IActionResult> SoftDeleteTrain(int id)
     {
         var train = await _trainService.GetTrainByIdAsync(id);
-        if (train == null) return NotFound(new ErrorResponse(404));
+        if (train is null) return NotFound(new ErrorResponse(404));
 
         await _trainService.SoftDeleteTrainAsync(train);
 
         return NoContent();
-    }
-
-    private bool trainsExists(int id)
-    {
-        return _trainService.GetTrainByIdAsync(id) != null;
     }
 }

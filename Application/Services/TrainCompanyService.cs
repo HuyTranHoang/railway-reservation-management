@@ -22,7 +22,6 @@ public class TrainCompanyService : ITrainCompanyService
         _mapper = mapper;
     }
 
-
     public async Task<PagedList<TrainCompanyDto>> GetAllCompanyDtoAsync(QueryParams queryParams)
     {
         var query = await _repository.GetQueryAsync();

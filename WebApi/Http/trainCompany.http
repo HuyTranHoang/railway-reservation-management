@@ -48,4 +48,4 @@ Content-Type: application/json
 # @name SoftDeleteTrainCompany
 @deleteId = 1
 
-DELETE  {{url}}/api/traincompanies/{{deleteId}}
+PATCH {{url}}/api/traincompanies/{{deleteId}}

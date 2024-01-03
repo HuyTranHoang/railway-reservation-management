@@ -83,8 +83,8 @@ public class TrainCompaniesController : BaseApiController
         return NoContent();
     }
 
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteTrainCompany(int id)
+    [HttpPatch("{id}")]
+    public async Task<IActionResult> SoftDeleteTrainCompany(int id)
     {
         var trainCompany = await _trainCompanySerivce.GetCompanyByIdAsync(id);
         if (trainCompany is null)

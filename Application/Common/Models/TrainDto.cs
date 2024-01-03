@@ -8,7 +8,7 @@ public class TrainDto
 
     public int TrainCompanyId { get; set; }
 
-    public string TrainCompany { get; set; }
+    public string TrainCompanyName { get; set; }
 
     public string Status { get; set; }
 }

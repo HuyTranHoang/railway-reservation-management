@@ -9,5 +9,9 @@ public class TrainCompanyConfiguration : IEntityTypeConfiguration<TrainCompany>
     public void Configure(EntityTypeBuilder<TrainCompany> builder)
     {
         builder.HasQueryFilter(e => !e.IsDeleted);
+
+        builder
+            .HasIndex(e => e.Name, "IX_TrainCompanies_Name")
+            .IsUnique();
     }
 }

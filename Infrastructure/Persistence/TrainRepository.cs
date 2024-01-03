@@ -24,26 +24,24 @@ public class TrainRepository : ITrainRepository
         _context.Trains.Remove(train);
     }
 
-    public async Task<IEnumerable<Train>> GetAllAsync()
+    public async Task<IQueryable<Train>> GetQueryAsync()
     {
-        return await _context.Trains
-            .ToListAsync();
+        return await Task.FromResult(
+            _context.Trains.AsQueryable());
+    }
+
+    public async Task<IQueryable<Train>> GetQueryWithTrainCompanyAsync()
+    {
+        return await Task.FromResult(
+            _context.Trains
+                .Include(t => t.TrainCompany)
+                .AsQueryable());
     }
 
     public async Task<Train> GetByIdAsync(int id)
     {
         return await _context.Trains
             .FirstOrDefaultAsync(x => x.Id == id);
-    }
-
-    public DateTime GetOldCreatedDate(int id)
-    {
-        var train = _context.TrainCompanies
-            .Where(p => p.Id == id)
-            .Select(p => new { p.CreatedAt })
-            .FirstOrDefault();
-
-        return train?.CreatedAt ?? DateTime.Now;
     }
 
     public void SoftDelete(Train train)
