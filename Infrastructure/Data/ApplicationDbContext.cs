@@ -21,6 +21,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<DistanceFare> DistanceFares { get; set; }
     public DbSet<Schedule> Schedules { get; set; }
     public DbSet<Ticket> Tickets { get; set; }
+    public DbSet<Payment> Payments { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -94,6 +95,16 @@ public class ApplicationDbContext : DbContext
 
         modelBuilder.Entity<Ticket>()
             .HasOne(t => t.Carriage)
+            .WithMany()
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Payment>()
+            .HasOne(t => t.Passenger)
+            .WithMany()
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Payment>()
+            .HasOne(t => t.Ticket)
             .WithMany()
             .OnDelete(DeleteBehavior.Restrict);
 
