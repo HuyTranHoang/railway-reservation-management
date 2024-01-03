@@ -16,7 +16,7 @@ public class CompartmentConfiguration : IEntityTypeConfiguration<Compartment>
             .OnDelete(DeleteBehavior.Restrict);
 
         builder
-        .HasIndex(e => e.Name, "IX_TrainCompanies_Name")
+        .HasIndex(e => e.Name, "IX_Compartments_Name")
         .IsUnique();
     }
 }
