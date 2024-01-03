@@ -1,37 +1,65 @@
 [
   {
-    "name": "Seating Car",
-    "trainId": 2,
-    "numberOfCompartments": 1,
-    "serviceCharge": 1,
+    "name": "AC1 (First Class AC)",
+    "trainId": 1,
+    "numberOfCompartments": 20,
+    "serviceCharge": 3,
     "status": ""
   },
   {
-    "name": "Dining Car",
-    "trainId": 3,
-    "numberOfCompartments": 1,
+    "name": "AC2 (Second Class AC)",
+    "trainId": 2,
+    "numberOfCompartments": 30,
     "serviceCharge": 2,
     "status": ""
   },
   {
-    "name": "Entertainment Car",
-    "trainId": 4,
-    "numberOfCompartments": 1,
+    "name": "AC3 (Third Class AC)",
+    "trainId": 3,
+    "numberOfCompartments": 40,
     "serviceCharge": 1.8,
     "status": ""
   },
   {
-    "name": "Family Car",
-    "trainId": 5,
-    "numberOfCompartments": 3,
+    "name": "Sleeper Class",
+    "trainId": 4,
+    "numberOfCompartments": 10,
     "serviceCharge": 2.2,
     "status": ""
   },
   {
-    "name": "Accessible Car",
+    "name": "Chair Car",
+    "trainId": 5,
+    "numberOfCompartments": 50,
+    "serviceCharge": 0.5,
+    "status": ""
+  },
+  {
+    "name": "Executive Class",
     "trainId": 6,
-    "numberOfCompartments": 1,
+    "numberOfCompartments": 10,
     "serviceCharge": 1.5,
+    "status": ""
+  },
+  {
+    "name": "General Class",
+    "trainId": 7,
+    "numberOfCompartments": 50,
+    "serviceCharge": 1,
+    "status": ""
+  },
+  {
+    "name": "Economy Class",
+    "trainId": 8,
+    "numberOfCompartments": 30,
+    "serviceCharge": 2,
+    "status": ""
+  },
+  {
+    "name": "Dormitory/Third Class without Berth",
+    "trainId": 9,
+    "numberOfCompartments": 20,
+    "serviceCharge": 2,
     "status": ""
   }
 ]
