@@ -25,7 +25,7 @@ public class TrainService : ITrainService
 
     public async Task AddTrainAsync(Train train)
     {
-        if (NameExists(_repository, train.Name))
+        if (NameExists(_repository, train.Name, train.Id))
         {
             throw new BadRequestException(400, "Name already exists");
         }
@@ -89,6 +89,11 @@ public class TrainService : ITrainService
 
         if (trainInDb == null) throw new NotFoundException(nameof(Train), train.Id);
 
+        if (NameExists(_repository, train.Name, train.Id))
+        {
+            throw new BadRequestException(400, "Name already exists");
+        }
+
         trainInDb.Name = train.Name;
         trainInDb.TrainCompanyId = train.TrainCompanyId;
         trainInDb.UpdatedAt = DateTime.Now;
@@ -96,12 +101,14 @@ public class TrainService : ITrainService
         await _unitOfWork.SaveChangesAsync();
     }
 
+
     #region Private Helper Methods
 
-    private static bool NameExists(ITrainRepository repository, string name)
+    private static bool NameExists(ITrainRepository repository, string name, int trainId)
     {
-        return repository.GetQueryAsync().Result.Any(t => t.Name == name);
+        return repository.GetQueryAsync().Result.Any(t => t.Name == name && t.Id != trainId);
     }
+
 
     #endregion
 }

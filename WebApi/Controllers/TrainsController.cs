@@ -69,6 +69,11 @@ public class TrainsController : BaseApiController
     {
         if (id != train.Id) return BadRequest(new ErrorResponse(400));
 
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
         try
         {
             await _trainService.UpdateTrainAsync(train);
@@ -76,6 +81,11 @@ public class TrainsController : BaseApiController
         catch (NotFoundException ex)
         {
             return NotFound(new ErrorResponse(404, ex.Message));
+        }
+        catch (BadRequestException ex)
+        {
+            var errorResponse = new ValidateInputError(400, new List<string> { ex.Message });
+            return BadRequest(errorResponse);
         }
 
         return NoContent();

@@ -7,7 +7,7 @@ POST {{url}}/api/trains
 Content-Type: application/json
 
 {
-  "Name": "New Train 23",
+  "Name": "New Train test",
   "TrainCompanyId": 2,
   "Status": ""
 }
@@ -18,7 +18,7 @@ Content-Type: application/json
 # @name getListOfTrain
 GET {{url}}/api/trains?
   &pageNumber=1
-  &pageSize=3
+  &pageSize=5
   # &searchTerm=New Train
   # &sort=nameDesc
   # &trainCompanyId=2
@@ -35,15 +35,15 @@ GET {{url}}/api/trains/{{id}}
 ### 
 
 # @name UpdateTrain
-@updateId = 1
+@updateId = 6
 
 PUT {{url}}/api/trains/{{updateId}}
 Content-Type: application/json
 
 {
   "Id": {{updateId}},
-  "Name": "Train updated",
-  "trainCompanyId" : 2,
+  "Name": "Train updated 3",
+  "trainCompanyId" : 3,
   "status" : ""
 }
 
