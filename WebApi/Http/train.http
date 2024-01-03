@@ -35,7 +35,7 @@ GET {{url}}/api/trains/{{id}}
 ### 
 
 # @name UpdateTrain
-@updateId = 6
+@updateId = 1
 
 PUT {{url}}/api/trains/{{updateId}}
 Content-Type: application/json

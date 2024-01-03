@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using Application.Common.Interfaces.Persistence;
 using Application.Common.Interfaces.Services;
 using Application.Services;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +15,7 @@ public static class DepencyInjection
         services.AddScoped<IPassengerService, PassengerService>();
         services.AddScoped<ITrainService, TrainService>();
         services.AddScoped<ISeatTypeService, SeatTypeService>();
+        services.AddScoped<ICarriageService, CarriageService>();
         return services;
     }
 }

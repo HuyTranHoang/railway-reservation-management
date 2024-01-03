@@ -1,0 +1,60 @@
+@url = https://localhost:5001
+
+### 
+
+# @name addCarriage
+POST {{url}}/api/carriages
+Content-Type: application/json
+
+{
+  "Name" : "Test-4",
+  "TrainId" : 2,
+  "NumberOfCompartment" : 1,
+  "ServiceCharge" : 2.5,
+  "Status" : "Test"
+}
+
+
+### 
+
+# @name getListOfCarriage
+GET {{url}}/api/carriages?
+  &pageNumber=1
+  &pageSize=5
+  #&searchTerm=Test
+  #&sort=nameDesc
+  #&trainId=2
+
+
+### 
+
+# @name getCarriageById
+@id = 3
+
+GET {{url}}/api/carriages/{{id}}
+
+
+### 
+
+# @name UpdateCarriage
+@updateId = 3
+
+PUT {{url}}/api/carriages/{{updateId}}
+Content-Type: application/json
+
+{
+  "Id" : {{updateId}},
+  "Name" : "New Up",
+  "TrainId" : 1,
+  "NumberOfCompartment" : 1,
+  "ServiceCharge" : 2.5,
+  "Status" : "Test"
+}
+
+
+### 
+
+# @name SoftDeleteCarriage
+@deleteId = 3
+
+PATCH {{url}}/api/carriages/{{deleteId}}
