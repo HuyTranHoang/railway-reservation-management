@@ -108,5 +108,10 @@ public class ApplicationDbContext : DbContext
             .WithMany()
             .OnDelete(DeleteBehavior.Restrict);
 
+        modelBuilder.Entity<Cancellation>()
+            .HasOne(t => t.Ticket)
+            .WithMany()
+            .OnDelete(DeleteBehavior.Restrict);
+
     }
 }
