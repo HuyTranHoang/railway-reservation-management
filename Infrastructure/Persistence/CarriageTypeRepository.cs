@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Persistence;
 
-public class CarriageTypeReponsitory : ICarriageTypeReponsitory
+public class CarriageTypeRepository : ICarriageTypeRepository
 {
     private readonly ApplicationDbContext _context;
 
-    public CarriageTypeReponsitory(ApplicationDbContext context)
+    public CarriageTypeRepository(ApplicationDbContext context)
     {
         _context = context;
     }

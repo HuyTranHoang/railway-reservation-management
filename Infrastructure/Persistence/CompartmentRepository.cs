@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Persistence;
 
-public class CompartmentReponsitory : ICompartmentReponsitory
+public class CompartmentRepository : ICompartmentRepository
 {
     private readonly ApplicationDbContext _context;
 
-    public CompartmentReponsitory(ApplicationDbContext context)
+    public CompartmentRepository(ApplicationDbContext context)
     {
         _context = context;
     }

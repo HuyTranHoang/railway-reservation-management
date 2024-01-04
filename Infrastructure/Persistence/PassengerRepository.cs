@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Persistence;
 
-public class PassengerReponsitory : IPassengerReponsitory
+public class PassengerRepository : IPassengerRepository
 {
     private readonly ApplicationDbContext _context;
 
-    public PassengerReponsitory(ApplicationDbContext context)
+    public PassengerRepository(ApplicationDbContext context)
     {
         _context = context;
     }

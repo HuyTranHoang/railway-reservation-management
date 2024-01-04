@@ -1,6 +1,6 @@
 namespace Application.Common.Interfaces.Persistence;
 
-public interface ICarriageReponsitory : IReponsitory<Carriage>
+public interface ICarriageRepository : IRepository<Carriage>
 {
     Task<IQueryable<Carriage>> GetQueryWithTrainAsync();
 }

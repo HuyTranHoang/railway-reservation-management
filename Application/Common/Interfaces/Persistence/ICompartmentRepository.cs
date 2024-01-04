@@ -1,6 +1,6 @@
 namespace Application.Common.Interfaces.Persistence;
 
-public interface ICompartmentReponsitory : IReponsitory<Compartment>
+public interface ICompartmentRepository : IRepository<Compartment>
 {
     Task<IQueryable<Compartment>> GetQueryWithCarriageAsync();
 }
