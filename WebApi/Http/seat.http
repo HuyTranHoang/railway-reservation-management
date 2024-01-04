@@ -1,0 +1,20 @@
+@hostname = https://localhost:5001
+
+### 
+
+# @name AddSeat
+POST {{hostname}}/api/seat
+Content-Type: application/json
+
+{
+    "SeatTypeId" : 2,
+    "CompartmentId" : 2,
+    "Status" : "Test"
+}
+
+###
+
+# @name GetSeats
+GET {{hostname}}/api/seat
+
+###
