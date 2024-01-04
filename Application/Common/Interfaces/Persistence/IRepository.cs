@@ -1,6 +1,6 @@
 ﻿namespace Application.Common.Interfaces.Persistence;
 
-public interface IReponsitory<T> where T : class
+public interface IRepository<T> where T : class
 {
     Task<IQueryable<T>> GetQueryAsync();
     Task<T> GetByIdAsync(int id);

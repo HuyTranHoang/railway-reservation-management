@@ -1,5 +1,5 @@
 ﻿namespace Application.Common.Interfaces.Persistence;
 
-public interface ICarriageTypeRepository : IReponsitory<CarriageType>
+public interface ICarriageTypeRepository : IRepository<CarriageType>
 {
 }

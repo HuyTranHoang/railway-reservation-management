@@ -3,10 +3,10 @@
 public class PassengerService : IPassengerService
 {
     private readonly IMapper _mapper;
-    private readonly IPassengerReponsitory _repository;
+    private readonly IPassengerRepository _repository;
     private readonly IUnitOfWork _unitOfWork;
 
-    public PassengerService(IPassengerReponsitory repository, IUnitOfWork unitOfWork, IMapper mapper)
+    public PassengerService(IPassengerRepository repository, IUnitOfWork unitOfWork, IMapper mapper)
     {
         _repository = repository;
         _unitOfWork = unitOfWork;

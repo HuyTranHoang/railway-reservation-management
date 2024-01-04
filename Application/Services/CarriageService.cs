@@ -2,11 +2,11 @@ namespace Application.Services;
 
 public class CarriageService : ICarriageService
 {
-    private readonly ICarriageReponsitory _repository;
+    private readonly ICarriageRepository _repository;
     private readonly IMapper _mapper;
     private readonly IUnitOfWork _unitOfWork;
 
-    public CarriageService(ICarriageReponsitory repository, IUnitOfWork unitOfWork, IMapper mapper)
+    public CarriageService(ICarriageRepository repository, IUnitOfWork unitOfWork, IMapper mapper)
     {
         _repository = repository;
         _unitOfWork = unitOfWork;

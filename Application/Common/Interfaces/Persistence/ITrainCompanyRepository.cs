@@ -1,5 +1,5 @@
 namespace Application.Common.Interfaces.Persistence;
 
-public interface ITrainCompanyRepository : IReponsitory<TrainCompany>
+public interface ITrainCompanyRepository : IRepository<TrainCompany>
 {
 }

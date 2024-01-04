@@ -1,5 +1,5 @@
 namespace Application.Common.Interfaces.Persistence;
 
-public interface ISeatTypeRepository : IReponsitory<SeatType>
+public interface ISeatTypeRepository : IRepository<SeatType>
 {
 }

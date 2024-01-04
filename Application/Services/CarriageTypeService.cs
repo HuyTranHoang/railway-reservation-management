@@ -2,51 +2,81 @@
 
 public class CarriageTypeService : ICarriageTypeService
 {
-    private readonly ICarriageTypeReponsitory _reponsitory;
+    private readonly ICarriageTypeRepository _repository;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
 
-    public CarriageTypeService(ICarriageTypeReponsitory reponsitory, IUnitOfWork unitOfWork, IMapper mapper)
+    public CarriageTypeService(ICarriageTypeRepository repository, IUnitOfWork unitOfWork, IMapper mapper)
     {
-        _reponsitory = reponsitory;
+        _repository = repository;
         _unitOfWork = unitOfWork;
         _mapper = mapper;
     }
 
     public async Task<PagedList<CarriageTypeDto>> GetAllDtoAsync(QueryParams queryParams)
     {
-        throw new NotImplementedException();
+        var query = await _repository.GetQueryAsync();
+
+        if (!string.IsNullOrEmpty(queryParams.SearchTerm))
+            query = query.Where(ct => ct.Name.Contains(queryParams.SearchTerm));
+
+        query = queryParams.Sort switch
+        {
+            "serviceChargeAsc" => query.OrderBy(ct => ct.ServiceCharge),
+            "serviceChargeDesc" => query.OrderByDescending(ct => ct.ServiceCharge),
+            _ => query.OrderBy(ct => ct.CreatedAt)
+        };
+
+        var carriageTypeDtoQuery = query.Select(ct => _mapper.Map<CarriageTypeDto>(ct));
+
+        return await PagedList<CarriageTypeDto>.CreateAsync(carriageTypeDtoQuery, queryParams.PageNumber,
+            queryParams.PageSize);
     }
 
     public async Task<CarriageTypeDto> GetDtoByIdAsync(int id)
     {
-        throw new NotImplementedException();
+        var carriageType = await _repository.GetByIdAsync(id);
+        return _mapper.Map<CarriageTypeDto>(carriageType);
     }
 
 
     public async Task<CarriageType> GetByIdAsync(int id)
     {
-        throw new NotImplementedException();
+        return await _repository.GetByIdAsync(id);
     }
 
-    public async Task AddAsync(CarriageType t)
+    public async Task AddAsync(CarriageType carriageType)
     {
-        throw new NotImplementedException();
+        _repository.Add(carriageType);
+        await _unitOfWork.SaveChangesAsync();
     }
 
-    public async Task UpdateAsync(CarriageType t)
+    public async Task UpdateAsync(CarriageType carriageType)
     {
-        throw new NotImplementedException();
+        var carriageTypeInDb = await _repository.GetByIdAsync(carriageType.Id);
+
+        if (carriageTypeInDb == null) throw new NotFoundException(nameof(CarriageType), carriageType.Id);
+
+        carriageTypeInDb.Name = carriageType.Name;
+        carriageTypeInDb.ServiceCharge = carriageType.ServiceCharge;
+        carriageTypeInDb.Status = carriageType.Status;
+        carriageTypeInDb.UpdatedAt = DateTime.Now;
+
+        _repository.Update(carriageTypeInDb);
+
+        await _unitOfWork.SaveChangesAsync();
     }
 
-    public async Task DeleteAsync(CarriageType t)
+    public async Task DeleteAsync(CarriageType carriageType)
     {
-        throw new NotImplementedException();
+        _repository.Delete(carriageType);
+        await _unitOfWork.SaveChangesAsync();
     }
 
-    public async Task SoftDeleteAsync(CarriageType t)
+    public async Task SoftDeleteAsync(CarriageType carriageType)
     {
-        throw new NotImplementedException();
+        _repository.SoftDelete(carriageType);
+        await _unitOfWork.SaveChangesAsync();
     }
 
 }

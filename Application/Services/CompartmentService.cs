@@ -2,12 +2,12 @@ namespace Application.Services;
 
 public class CompartmentService : ICompartmentService
 {
-    private readonly ICompartmentReponsitory _repository;
+    private readonly ICompartmentRepository _repository;
 
     private readonly IMapper _mapper;
 
     private readonly IUnitOfWork _unitOfWork;
-    public CompartmentService(ICompartmentReponsitory repository, IMapper mapper, IUnitOfWork unitOfWork)
+    public CompartmentService(ICompartmentRepository repository, IMapper mapper, IUnitOfWork unitOfWork)
     {
         _repository = repository;
         _unitOfWork = unitOfWork;
@@ -101,7 +101,7 @@ public class CompartmentService : ICompartmentService
     }
 
 
-    private static bool NameExists(ICompartmentReponsitory repository, string name, int compartmentId)
+    private static bool NameExists(ICompartmentRepository repository, string name, int compartmentId)
     {
         return repository.GetQueryAsync().Result.Any(t => t.Name == name);
     }
