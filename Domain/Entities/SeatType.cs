@@ -9,7 +9,7 @@ public class SeatType : BaseEntity
 
     [Required] [StringLength(100)] public string Name { get; set; }
 
-    public double ServiceCharge { get; set; }
+    [Required] public double ServiceCharge { get; set; }
 
     [Required] public string Status { get; set; }
 }
