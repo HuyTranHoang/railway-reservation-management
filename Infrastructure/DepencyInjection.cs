@@ -15,13 +15,16 @@ public static class DepencyInjection
             options.UseSqlServer(config.GetConnectionString("DefaultConnection")));
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
-        services.AddScoped<IPassengerRepository, PassengerRepository>();
-        services.AddScoped<ITrainCompanyRepository, TrainCompanyRepository>();
-        services.AddScoped<ISeatTypeRepository, SeatTypeRepository>();
-        services.AddScoped<ITrainRepository, TrainRepository>();
+
         services.AddScoped<ICarriageRepository, CarriageRepository>();
-        services.AddScoped<ISeatRepository, SeatRepository>();
+        services.AddScoped<ICarriageTypeRepository, CarriageTypeRepository>();
         services.AddScoped<ICompartmentRepository, CompartmentRepository>();
+        services.AddScoped<IPassengerRepository, PassengerRepository>();
+        services.AddScoped<ISeatRepository, SeatRepository>();
+        services.AddScoped<ISeatTypeRepository, SeatTypeRepository>();
+        services.AddScoped<ITrainCompanyRepository, TrainCompanyRepository>();
+        services.AddScoped<ITrainRepository, TrainRepository>();
+
         return services;
     }
 }

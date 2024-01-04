@@ -58,13 +58,13 @@ Content-Type: application/json
 # @name softDeletePassenger
 @deleteId = 2
 
-PATCH {{url}}/api/passenger/{{deleteId}}
+PATCH {{url}}/api/passengers/{{deleteId}}
 
 
 ### 
 
 # @name addPassengerValidation
-POST {{url}}/api/passenger
+POST {{url}}/api/passengers
 Content-Type: application/json
 
 {

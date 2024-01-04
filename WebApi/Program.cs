@@ -2,7 +2,6 @@ using Application;
 using Infrastructure;
 using Infrastructure.Data;
 using Serilog;
-using WebApi.Extensions;
 using WebApi.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -31,7 +30,10 @@ app.UseSerilogRequestLogging();
 app.UseMiddleware<ExceptionMiddleware>();
 app.UseStatusCodePagesWithReExecute("/errors/{0}");
 
-app.UseCors(b => b.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("http://localhost:4200"));
+app.UseCors(b => b.AllowAnyHeader()
+    .AllowAnyMethod()
+    .AllowCredentials()
+    .WithOrigins("http://localhost:4200"));
 
 app.UseHttpsRedirection();
 
