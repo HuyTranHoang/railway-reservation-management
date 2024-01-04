@@ -34,12 +34,17 @@ public class SeatTypeController : ControllerBase
     public async Task<ActionResult<SeatTypeDto>> GetById(int id)
     {
         var seatTypes = await _seatTypeService.GetByIdDtoAsync(id);
+
+        if (seatTypes == null) return NotFound(new ErrorResponse(404));
+
         return Ok(seatTypes);
     }
 
     [HttpPost]
     public async Task<ActionResult> Create(SeatType seatType)
     {
+        if (!ModelState.IsValid) return BadRequest(ModelState);
+
         await _seatTypeService.AddAsync(seatType);
         return CreatedAtAction("GetById", new { id = seatType.Id }, seatType);
     }
@@ -57,6 +62,9 @@ public class SeatTypeController : ControllerBase
     public async Task<IActionResult> Update(int id, [FromBody] SeatType seatType)
     {
         if (id != seatType.Id) return BadRequest(new ErrorResponse(400));
+
+        if (!ModelState.IsValid) return BadRequest(ModelState);
+
         try
         {
             await _seatTypeService.UpdateAsync(seatType);
