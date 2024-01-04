@@ -7,8 +7,8 @@ POST {{url}}/api/carriages
 Content-Type: application/json
 
 {
-  "Name" : "Test-4",
-  "TrainId" : 2,
+  "Name" : "Test",
+  "TrainId" : "1",
   "NumberOfCompartment" : 1,
   "ServiceCharge" : 2.5,
   "Status" : "Test"
@@ -21,15 +21,15 @@ Content-Type: application/json
 GET {{url}}/api/carriages?
   &pageNumber=1
   &pageSize=5
-  #&searchTerm=Test
-  #&sort=nameDesc
-  #&trainId=2
+  # &searchTerm=New Train
+  # &sort=nameDesc
+  # &trainCompanyId=2
 
 
 ### 
 
-# @name getCarriageById
-@id = 3
+# @name getCarriagenById
+@id = 1
 
 GET {{url}}/api/carriages/{{id}}
 
@@ -37,24 +37,22 @@ GET {{url}}/api/carriages/{{id}}
 ### 
 
 # @name UpdateCarriage
-@updateId = 3
+@updateId = 6
 
 PUT {{url}}/api/carriages/{{updateId}}
 Content-Type: application/json
 
 {
-  "Id" : {{updateId}},
-  "Name" : "New Up",
-  "TrainId" : 1,
-  "NumberOfCompartment" : 1,
-  "ServiceCharge" : 2.5,
-  "Status" : "Test"
+  "Id": {{updateId}},
+  "Name": "New Train 233",
+  "trainCompanyId" : 1,
+  "status" : ""
 }
 
 
 ### 
 
 # @name SoftDeleteCarriage
-@deleteId = 3
+@deleteId = 1
 
 PATCH {{url}}/api/carriages/{{deleteId}}
