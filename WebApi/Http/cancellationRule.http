@@ -1,0 +1,69 @@
+﻿@url = https://localhost:5001
+@router = api/cancellationRules
+
+### 
+
+# @name addCancellationRule
+POST {{url}}/{{router}}
+Content-Type: application/json
+
+{
+  "DepartureDateDifference": 10,
+  "Fee": 50,
+  "Status": "Active"
+}
+
+
+### 
+
+# @name getListOfCancellationRules
+GET {{url}}/{{router}}?
+  &pageNumber=1
+  &pageSize=10
+  # &searchTerm=Pokimane
+  # &sort=ageDesc
+
+
+### 
+
+# @name getCancellationRuleById
+@id = 1
+
+GET {{url}}/{{router}}/{{id}}
+
+
+### 
+
+# @name updateCancellationRule
+@updateId = 1
+
+PUT {{url}}/{{router}}/{{updateId}}
+Content-Type: application/json
+
+{
+  "Id": {{updateId}},
+  "DepartureDateDifference": 22,
+  "Fee": 22,
+  "Status": "Active"
+}
+
+
+### 
+
+# @name softDeleteCancellationRule
+@deleteId = 2
+
+PATCH {{url}}/{{router}}/{{deleteId}}
+
+
+### 
+
+# @name addCancellationRuleValidation
+POST {{url}}/{{router}}
+Content-Type: application/json
+
+{
+  "DepartureDateDifference": 0,
+  "Fee": 0,
+  "Status": ""
+}
