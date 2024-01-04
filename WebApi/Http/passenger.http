@@ -59,3 +59,19 @@ Content-Type: application/json
 @deleteId = 2
 
 PATCH {{url}}/api/passenger/{{deleteId}}
+
+
+### 
+
+# @name addPassengerValidation
+POST {{url}}/api/passenger
+Content-Type: application/json
+
+{
+  "Name": "",
+  "CardId": "",
+  "Age": 0,
+  "Gender": "",
+  "Phone": "",
+  "Email": "asdasd@gmail.com"
+}
