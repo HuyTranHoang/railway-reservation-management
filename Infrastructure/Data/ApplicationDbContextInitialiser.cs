@@ -15,11 +15,7 @@ public static class ApplicationDbContextInitialiser
         {
             var context = services.GetRequiredService<ApplicationDbContext>();
             await context.Database.MigrateAsync();
-            await Seed.SeedPassenger(context);
-            await Seed.SeedTrainCompany(context);
-            await Seed.SeedTrain(context);
-            // await Seed.SeedCarriage(context);
-            await Seed.SeedSeatType(context);
+            await Seed.SeedAllData(context);
         }
         catch (Exception ex)
         {
