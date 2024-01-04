@@ -14,10 +14,12 @@ public class ApplicationDbContext : DbContext
     public DbSet<Passenger> Passengers { get; set; }
     public DbSet<SeatType> SeatTypes { get; set; }
     public DbSet<Carriage> Carriages { get; set; }
+    public DbSet<CarriageType> CarriageTypes { get; set; }
     public DbSet<Compartment> Compartments { get; set; }
     public DbSet<Seat> Seats { get; set; }
     public DbSet<TrainStation> TrainStations { get; set; }
     public DbSet<DistanceFare> DistanceFares { get; set; }
+    public DbSet<RoundTrip> RoundTrips { get; set; }
     public DbSet<Schedule> Schedules { get; set; }
     public DbSet<Ticket> Tickets { get; set; }
     public DbSet<Payment> Payments { get; set; }

@@ -86,7 +86,7 @@ public class CarriageService : ICarriageService
         carriageInDb.Name = carriage.Name;
         carriageInDb.TrainId = carriage.TrainId;
         carriageInDb.NumberOfCompartment = carriage.NumberOfCompartment;
-        carriageInDb.ServiceCharge = carriage.ServiceCharge;
+        // carriageInDb.ServiceCharge = carriage.ServiceCharge;
         carriageInDb.Status = carriage.Status;
         carriageInDb.UpdatedAt = DateTime.Now;
 

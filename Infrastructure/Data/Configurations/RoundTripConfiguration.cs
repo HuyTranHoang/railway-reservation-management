@@ -4,19 +4,14 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructure.Data.Configurations;
 
-public class CarriageConfiguration : IEntityTypeConfiguration<Carriage>
+public class RoundTripConfiguration : IEntityTypeConfiguration<RoundTrip>
 {
-    public void Configure(EntityTypeBuilder<Carriage> builder)
+    public void Configure(EntityTypeBuilder<RoundTrip> builder)
     {
         builder.HasQueryFilter(e => !e.IsDeleted);
 
         builder
-            .HasOne(t => t.Train)
-            .WithMany()
-            .OnDelete(DeleteBehavior.Restrict);
-
-        builder
-            .HasOne(t => t.CarriageType)
+            .HasOne(t => t.TrainCompany)
             .WithMany()
             .OnDelete(DeleteBehavior.Restrict);
     }
