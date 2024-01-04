@@ -56,3 +56,16 @@ Content-Type: application/json
 @deleteId = 3
 
 PATCH {{url}}/api/compartments/{{deleteId}}
+
+###
+
+# @name addCompartmentValidation
+POST {{url}}/api/compartments
+Content-Type: application/json
+
+{
+  "name" : "test",
+  "carriageId" : 1,
+  "numberOfSeats" : 1,
+  "Status" : ""
+}

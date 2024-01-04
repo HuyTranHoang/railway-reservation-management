@@ -21,7 +21,8 @@ public class CompartmentsController : BaseApiController
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<CompartmentDto>>> GetCompartments([FromQuery] CompartmentQueryParams queryParams)
+    public async Task<ActionResult<IEnumerable<CompartmentDto>>> GetCompartments(
+        [FromQuery] CompartmentQueryParams queryParams)
     {
         var compartmentDto = await _compartmentService.GetAllCompartmentDtoAsync(queryParams);
 
@@ -45,10 +46,7 @@ public class CompartmentsController : BaseApiController
     [HttpPost]
     public async Task<ActionResult> PostCompartment([FromBody] Compartment compartment)
     {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
+        if (!ModelState.IsValid) return BadRequest(ModelState);
 
         try
         {
@@ -67,6 +65,8 @@ public class CompartmentsController : BaseApiController
     public async Task<IActionResult> PutCompartment(int id, [FromBody] Compartment compartment)
     {
         if (id != compartment.Id) return BadRequest(new ErrorResponse(400));
+
+        if (!ModelState.IsValid) return BadRequest(ModelState);
 
         if (!ModelState.IsValid)
         {

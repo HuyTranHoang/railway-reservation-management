@@ -9,6 +9,7 @@ Content-Type: application/json
 {
   "Name" : "Test",
   "TrainId" : "1",
+  "CarriageTypeId" : "1",
   "NumberOfCompartment" : 1,
   "ServiceCharge" : 2.5,
   "Status" : "Test"
@@ -44,9 +45,12 @@ Content-Type: application/json
 
 {
   "Id": {{updateId}},
-  "Name": "New Train 233",
-  "trainCompanyId" : 1,
-  "status" : ""
+  "Name" : "Test",
+  "TrainId" : "1",
+  "CarriageTypeId" : "1",
+  "NumberOfCompartment" : 1,
+  "ServiceCharge" : 2.5,
+  "Status" : "Test"
 }
 
 
@@ -56,3 +60,19 @@ Content-Type: application/json
 @deleteId = 1
 
 PATCH {{url}}/api/carriages/{{deleteId}}
+
+
+### 
+
+# @name addCarriageValidation
+POST {{url}}/api/carriages
+Content-Type: application/json
+
+{
+  "Name" : "",
+  "TrainId" : "1",
+  "CarriageTypeId" : "1",
+  "NumberOfCompartment" : 0,
+  "ServiceCharge" : 0,
+  "Status" : "Test"
+}
