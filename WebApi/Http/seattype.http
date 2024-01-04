@@ -12,14 +12,20 @@ Content-Type: application/json
   "Status": ""
 }
 
+###
 
 # @name GetById
 @id = 1
 GET {{url}}/api/seattype?id={id}
 
+###
 
 # @name GetAll
-GET {{url}}/api/seattype
+GET {{url}}/api/seattype?
+  &pageNumber=1
+  &pageSize=2
+  # &searchTerm=Standard
+  &sort=serviceDesc
 
 
 ### 

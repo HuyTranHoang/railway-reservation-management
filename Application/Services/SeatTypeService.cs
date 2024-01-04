@@ -59,7 +59,7 @@ public class SeatTypeService : ISeatTypeService
         return await _repositoy.GetByIdDtoAsync(id);
     }
 
-    async Task<PagedList<SeatTypeDto>> ISeatTypeService.GetAllAsync(QueryParams queryParams)
+    async Task<PagedList<SeatTypeDto>> ISeatTypeService.GetAllDtoAsync(QueryParams queryParams)
     {
         var query = await _repositoy.GetQueryAsync();
 

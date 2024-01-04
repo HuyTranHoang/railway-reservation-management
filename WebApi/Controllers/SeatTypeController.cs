@@ -2,10 +2,12 @@ using Application.Common.Exceptions;
 using Application.Common.Interfaces.Persistence;
 using Application.Common.Interfaces.Services;
 using Application.Common.Models;
+using Application.Common.Models.Pagination;
 using Application.Common.Models.QueryParams;
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Exceptions;
+using WebApi.Extensions;
 
 namespace WebApi.Controllers;
 
@@ -26,8 +28,14 @@ public class SeatTypeController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<List<SeatTypeDto>>> GetAll([FromQuery] QueryParams queryParams)
     {
-        var seatTypes = await _seatTypeService.GetAllAsync(queryParams);
-        return Ok(seatTypes);
+        var seatTypesDto = await _seatTypeService.GetAllDtoAsync(queryParams);
+
+        var paginationHeader = new PaginationHeader(queryParams.PageNumber, queryParams.PageSize,
+            seatTypesDto.TotalCount, seatTypesDto.TotalPages);
+
+        Response.AddPaginationHeader(paginationHeader);
+
+        return Ok(seatTypesDto);
     }
 
     [HttpGet("{id}")]

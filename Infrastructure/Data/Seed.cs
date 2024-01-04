@@ -10,7 +10,8 @@ public static class Seed
     private const string PassengerData = "Passenger.json";
     private const string TrainCompanyData = "TrainCompany.json";
     private const string TrainData = "Train.json";
-    private const string Carriage = "Carriage.json";
+    private const string CarriageData = "Carriage.json";
+    private const string SeatTypeData = "SeatType.json";
 
     private static readonly JsonSerializerOptions JsonOptions = new() { PropertyNameCaseInsensitive = true };
     private static string BaseDirectory => Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
@@ -61,11 +62,24 @@ public static class Seed
     {
         if (await context.Carriages.AnyAsync()) return;
 
-        var data = await File.ReadAllTextAsync(DataPath + Carriage);
+        var data = await File.ReadAllTextAsync(DataPath + CarriageData);
 
         var carriages = JsonSerializer.Deserialize<List<Carriage>>(data, JsonOptions);
 
         context.Carriages.AddRange(carriages);
+
+        await context.SaveChangesAsync();
+    }
+
+    public static async Task SeedSeatType(ApplicationDbContext context)
+    {
+        if (await context.SeatTypes.AnyAsync()) return;
+
+        var data = await File.ReadAllTextAsync(DataPath + SeatTypeData);
+
+        var seatTypes = JsonSerializer.Deserialize<List<SeatType>>(data, JsonOptions);
+
+        context.SeatTypes.AddRange(seatTypes);
 
         await context.SaveChangesAsync();
     }

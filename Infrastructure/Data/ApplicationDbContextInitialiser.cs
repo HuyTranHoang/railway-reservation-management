@@ -19,6 +19,7 @@ public static class ApplicationDbContextInitialiser
             await Seed.SeedTrainCompany(context);
             await Seed.SeedTrain(context);
             // await Seed.SeedCarriage(context);
+            await Seed.SeedSeatType(context);
         }
         catch (Exception ex)
         {
