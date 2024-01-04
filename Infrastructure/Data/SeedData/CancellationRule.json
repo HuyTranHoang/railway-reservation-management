@@ -1,0 +1,22 @@
+[
+  {
+    "departureDateDifference": 30,
+    "fee": 0,
+    "status": "Active"
+  },
+  {
+    "departureDateDifference": 20,
+    "fee": 10,
+    "status": "Active"
+  },
+  {
+    "departureDateDifference": 10,
+    "fee": 20,
+    "status": "Active"
+  },
+  {
+    "departureDateDifference": 5,
+    "fee": 30,
+    "status": "Active"
+  }
+]

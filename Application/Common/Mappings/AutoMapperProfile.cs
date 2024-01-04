@@ -27,5 +27,6 @@ public class AutoMapperProfile : Profile
                 otp => otp.MapFrom(src => src.Carriage.Name));
 
         CreateMap<CarriageType, CarriageTypeDto>();
+        CreateMap<CancellationRule, CancellationRuleDto>();
     }
 }
