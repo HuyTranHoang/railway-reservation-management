@@ -1,4 +1,4 @@
-using System.Runtime.Serialization;
+using Application.Common.Exceptions;
 using Application.Common.Interfaces.Persistence;
 using Application.Common.Interfaces.Services;
 using Application.Common.Models;
@@ -38,7 +38,7 @@ public class SeatTypeService : ISeatTypeService
     {
         var seatTypeExis = await _repositoy.GetByIdAsync(seatType.Id);
 
-        if (seatTypeExis == null) throw new ServiceException("", "Not Found " + seatType.Id);
+        if (seatTypeExis == null) throw new NotFoundException(nameof(SeatType), seatType.Id);
 
         seatTypeExis.Name = seatType.Name;
         seatTypeExis.ServiceCharge = seatType.ServiceCharge;
@@ -78,34 +78,5 @@ public class SeatTypeService : ISeatTypeService
         var seatTypeDtos = query.Select(p => _mapper.Map<SeatTypeDto>(p));
 
         return await PagedList<SeatTypeDto>.CreateAsync(seatTypeDtos, queryParams.PageNumber, queryParams.PageSize);
-    }
-}
-
-[Serializable]
-internal class ServiceException : Exception
-{
-    private string v;
-    private object value;
-
-    public ServiceException()
-    {
-    }
-
-    public ServiceException(string message) : base(message)
-    {
-    }
-
-    public ServiceException(string v, object value)
-    {
-        this.v = v;
-        this.value = value;
-    }
-
-    public ServiceException(string message, Exception innerException) : base(message, innerException)
-    {
-    }
-
-    protected ServiceException(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
     }
 }
