@@ -1,0 +1,72 @@
+@url = https://localhost:5001
+@router = api/carriageTypes
+
+### 
+
+# @name addCarriageType
+POST {{url}}/api/carriageTypes
+Content-Type: application/json
+
+{
+  "Name": "New type",
+  "ServiceCharge": 123,
+  "Status": "Active"
+}
+
+
+### 
+
+# @name getListOfCarriageType
+GET {{url}}/{{router}}?
+  &pageNumber=1
+  &pageSize=10
+  # &searchTerm=Pokimane
+  # &sort=ageDesc
+
+
+### 
+
+# @name getCarriageTypeById
+@id = 1
+
+GET {{url}}/{{router}}/{{id}}
+
+
+### 
+
+# @name updateCarriageType
+@updateId = 1
+
+PUT {{url}}/{{router}}/{{updateId}}
+Content-Type: application/json
+
+{
+  "Id": {{updateId}},
+  "Name": "New type Update",
+  "ServiceCharge": 222,
+  "Status": "Active"
+}
+
+
+### 
+
+# @name softDeleteCarriageType
+@deleteId = 2
+
+PATCH {{url}}/{{router}}/{{deleteId}}
+
+
+### 
+
+# @name addCarriageTypeValidation
+POST {{url}}/{{router}}
+Content-Type: application/json
+
+{
+  "Name": "",
+  "CardId": "",
+  "Age": 0,
+  "Gender": "",
+  "Phone": "",
+  "Email": "asdasd@gmail.com"
+}
