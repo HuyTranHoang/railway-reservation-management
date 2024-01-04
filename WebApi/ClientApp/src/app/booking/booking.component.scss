@@ -1,0 +1,74 @@
+.progressbar {
+  list-style: none;
+  margin: auto;
+  padding: 0;
+  display: table;
+  width: 100%;
+  background: #687482;
+}
+
+.progress-bar-holder ul li {
+  height: 40px;
+  line-height: 40px;
+  position: relative;
+  display: table-cell;
+  white-space: nowrap;
+  text-align: center;
+  width: 14.28%;
+
+  a, span {
+    position: relative;
+    display: block;
+    height: 40px;
+    margin-right: 13px;
+    color: #bec2c7;
+    text-transform: uppercase;
+  }
+
+  &.current a, &.current span {
+    background: #2d3e52;
+    text-shadow: none;
+    color: #fb0;
+  }
+
+  &.active a, &.active span {
+    background: #2d3e52;
+    text-shadow: none;
+    color: #fff;
+  }
+
+  &:last-child .progress-bar-arrow {
+    background: 0 0;
+    height: 40px;
+  }
+
+  &.current:last-child .progress-bar-arrow {
+    background: #2d3e52;
+  }
+}
+
+
+.current .progress-bar-arrow, .progress-bar-arrow {
+  background: url("../../assets/bg-sprites.png") no-repeat;
+}
+
+.progress-bar-arrow {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 18px;
+  height: 41px;
+  background-position: -149px -135px;
+}
+
+.current .progress-bar-arrow {
+  background-position: -76px -135px;
+}
+
+.active .progress-bar-arrow {
+  width: 32px;
+  height: 40px;
+  border: none;
+  background-position: 5px -135px;
+}

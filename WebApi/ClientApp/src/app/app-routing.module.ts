@@ -9,6 +9,7 @@ import {BookingTrainComponent} from './booking-train/booking-train.component'
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'auth', loadChildren: () => import('./auth/auth.module').then(mod => mod.AuthModule)},
+  {path: 'booking', loadChildren: () => import('./booking/booking.module').then(mod => mod.BookingModule)},
   {path: 'test-error', component: TestErrorComponent},
   {path: 'not-found', component: NotFoundComponent},
   {path: 'server-error', component: ServerErrorComponent},

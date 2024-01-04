@@ -17,7 +17,6 @@ import {BookingTrainComponent} from './booking-train/booking-train.component';
     AppComponent,
     HomeComponent,
     BookingTrainComponent,
-
   ],
   imports: [
     BrowserModule,
