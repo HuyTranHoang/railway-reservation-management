@@ -104,6 +104,8 @@ public class CompartmentService : ICompartmentService
         compartmentInDb.Status = compartment.Status;
         compartmentInDb.UpdatedAt = compartment.UpdatedAt;
 
+        _repository.Update(compartmentInDb);
+
         await _unitOfWork.SaveChangesAsync();
     }
 
