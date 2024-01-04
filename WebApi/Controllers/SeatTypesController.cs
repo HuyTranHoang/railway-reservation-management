@@ -2,12 +2,12 @@ namespace WebApi.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class SeatTypeController : ControllerBase
+public class SeatTypesController : ControllerBase
 
 {
     private readonly ISeatTypeService _seatTypeService;
 
-    public SeatTypeController(ISeatTypeService seatTypeService)
+    public SeatTypesController(ISeatTypeService seatTypeService)
     {
         _seatTypeService = seatTypeService;
     }

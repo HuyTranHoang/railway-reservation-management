@@ -1,10 +1,10 @@
 namespace WebApi.Controllers;
 
-public class SeatController : BaseApiController
+public class SeatsController : BaseApiController
 {
     private readonly ISeatService _seatService;
 
-    public SeatController(ISeatService seatService)
+    public SeatsController(ISeatService seatService)
     {
         _seatService = seatService;
     }

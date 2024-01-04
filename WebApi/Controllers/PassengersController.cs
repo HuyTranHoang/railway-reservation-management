@@ -1,10 +1,10 @@
 ﻿namespace WebApi.Controllers;
 
-public class PassengerController : BaseApiController
+public class PassengersController : BaseApiController
 {
     private readonly IPassengerService _passengerService;
 
-    public PassengerController(IPassengerService passengerService)
+    public PassengersController(IPassengerService passengerService)
     {
         _passengerService = passengerService;
     }

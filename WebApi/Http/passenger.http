@@ -3,7 +3,7 @@
 ### 
 
 # @name addPassenger
-POST {{url}}/api/passenger
+POST {{url}}/api/passengers
 Content-Type: application/json
 
 {
@@ -19,7 +19,7 @@ Content-Type: application/json
 ### 
 
 # @name getListOfPassengers
-GET {{url}}/api/passenger?
+GET {{url}}/api/passengers?
   &pageNumber=1
   &pageSize=10
   # &searchTerm=Pokimane
@@ -31,7 +31,7 @@ GET {{url}}/api/passenger?
 # @name getPassengerById
 @id = 1
 
-GET {{url}}/api/passenger/{{id}}
+GET {{url}}/api/passengers/{{id}}
 
 
 ### 
@@ -39,7 +39,7 @@ GET {{url}}/api/passenger/{{id}}
 # @name updatePassenger
 @updateId = 55
 
-PUT {{url}}/api/passenger/{{updateId}}
+PUT {{url}}/api/passengers/{{updateId}}
 Content-Type: application/json
 
 {

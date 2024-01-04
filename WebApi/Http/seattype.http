@@ -3,7 +3,7 @@
 ### 
 
 # @name Create
-POST {{url}}/api/seattype
+POST {{url}}/api/seatTypes
 Content-Type: application/json
 
 {
@@ -16,12 +16,12 @@ Content-Type: application/json
 
 # @name GetById
 @id = 1
-GET {{url}}/api/seattype/{{id}}
+GET {{url}}/api/seatTypes/{{id}}
 
 ###
 
 # @name GetAll
-GET {{url}}/api/seattype?
+GET {{url}}/api/seatTypes?
   &pageNumber=1
   &pageSize=2
   # &searchTerm=Standard
@@ -33,7 +33,7 @@ GET {{url}}/api/seattype?
 # @name Update
 @updateId = 1
 
-PUT {{url}}/api/seattype/{{updateId}}
+PUT {{url}}/api/seatTypes/{{updateId}}
 Content-Type: application/json
 
 {
@@ -49,13 +49,13 @@ Content-Type: application/json
 # @name SoftDelete
 @deleteId = 1
 
-PATCH {{url}}/api/seattype/{{deleteId}}
+PATCH {{url}}/api/seatTypes/{{deleteId}}
 
 
 ### 
 
 # @name CreateValidation
-POST {{url}}/api/seattype
+POST {{url}}/api/seatTypes
 Content-Type: application/json
 
 {

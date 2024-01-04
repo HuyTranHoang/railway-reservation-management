@@ -3,7 +3,7 @@
 ### 
 
 # @name AddSeat
-POST {{hostname}}/api/seat
+POST {{hostname}}/api/seats
 Content-Type: application/json
 
 {
@@ -15,6 +15,6 @@ Content-Type: application/json
 ###
 
 # @name GetSeats
-GET {{hostname}}/api/seat
+GET {{hostname}}/api/seats
 
 ###
