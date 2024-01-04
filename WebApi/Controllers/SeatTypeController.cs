@@ -1,5 +1,4 @@
 using Application.Common.Exceptions;
-using Application.Common.Interfaces.Persistence;
 using Application.Common.Interfaces.Services;
 using Application.Common.Models;
 using Application.Common.Models.Pagination;
@@ -17,18 +16,16 @@ public class SeatTypeController : ControllerBase
 
 {
     private readonly ISeatTypeService _seatTypeService;
-    private readonly IUnitOfWork _unitofWork;
 
-    public SeatTypeController(ISeatTypeService seatTypeService, IUnitOfWork unitofWork)
+    public SeatTypeController(ISeatTypeService seatTypeService)
     {
         _seatTypeService = seatTypeService;
-        _unitofWork = unitofWork;
     }
 
     [HttpGet]
     public async Task<ActionResult<List<SeatTypeDto>>> GetAll([FromQuery] QueryParams queryParams)
     {
-        var seatTypesDto = await _seatTypeService.GetAllDtoAsync(queryParams);
+        var seatTypesDto = await _seatTypeService.GetAllSeatTypeDtoAsync(queryParams);
 
         var paginationHeader = new PaginationHeader(queryParams.PageNumber, queryParams.PageSize,
             seatTypesDto.TotalCount, seatTypesDto.TotalPages);
@@ -41,11 +38,11 @@ public class SeatTypeController : ControllerBase
     [HttpGet("{id}")]
     public async Task<ActionResult<SeatTypeDto>> GetById(int id)
     {
-        var seatTypes = await _seatTypeService.GetByIdDtoAsync(id);
+        var seatTypesDto = await _seatTypeService.GetSeatTypeDtoByIdAsync(id);
 
-        if (seatTypes == null) return NotFound(new ErrorResponse(404));
+        if (seatTypesDto == null) return NotFound(new ErrorResponse(404));
 
-        return Ok(seatTypes);
+        return Ok(seatTypesDto);
     }
 
     [HttpPost]
@@ -53,17 +50,29 @@ public class SeatTypeController : ControllerBase
     {
         if (!ModelState.IsValid) return BadRequest(ModelState);
 
-        await _seatTypeService.AddAsync(seatType);
+        await _seatTypeService.AddSeatTypeAsync(seatType);
         return CreatedAtAction("GetById", new { id = seatType.Id }, seatType);
     }
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
-        var seatType = await _seatTypeService.GetByIdAsync(id);
+        var seatType = await _seatTypeService.GetSeatTypeByIdAsync(id);
         if (seatType == null) return NotFound();
-        await _seatTypeService.DeleteAsync(seatType);
+        await _seatTypeService.DeleteSeatTypeAsync(seatType);
         return NoContent();
+    }
+
+    [HttpPatch("{id}")]
+    public async Task<IActionResult> SoftDeleteSeatType(int id)
+    {
+        var seatType = await _seatTypeService.GetSeatTypeByIdAsync(id);
+
+        if (seatType == null) return NotFound();
+
+        await _seatTypeService.SoftDeleteSeatTypeAsync(seatType);
+
+        return Ok();
     }
 
     [HttpPut("{id}")]
@@ -75,7 +84,7 @@ public class SeatTypeController : ControllerBase
 
         try
         {
-            await _seatTypeService.UpdateAsync(seatType);
+            await _seatTypeService.UpdateSeatTypeAsync(seatType);
         }
         catch (NotFoundException ex)
         {

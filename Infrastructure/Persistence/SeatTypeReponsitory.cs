@@ -17,13 +17,12 @@ public class SeatTypeRepository : ISeatTypeRepository
 
     public async Task<IQueryable<SeatType>> GetQueryAsync()
     {
-        return await Task.FromResult(_context.SeatTypes
-            .AsQueryable());
+        return await Task.FromResult(_context.SeatTypes.AsQueryable());
     }
 
     public async Task<SeatType> GetByIdAsync(int id)
     {
-        return await _context.SeatTypes.FirstOrDefaultAsync(p => p.Id == id);
+        return await _context.SeatTypes.FindAsync(id);
     }
 
     public void Add(SeatType seatType)
@@ -31,24 +30,19 @@ public class SeatTypeRepository : ISeatTypeRepository
         _context.SeatTypes.Add(seatType);
     }
 
-    public void Remove(SeatType seatType)
-    {
-        _context.SeatTypes.Remove(seatType);
-    }
-
     public void Update(SeatType seatType)
     {
         _context.Entry(seatType).State = EntityState.Modified;
     }
 
-    public void RemoveById(SeatType seatType)
+    public void Delete(SeatType seatType)
+    {
+        _context.SeatTypes.Remove(seatType);
+    }
+
+    public void SoftDelete(SeatType seatType)
     {
         seatType.IsDeleted = true;
         _context.Entry(seatType).State = EntityState.Modified;
-    }
-
-    public Task<SeatTypeDto> GetByIdDtoAsync(int id)
-    {
-        throw new NotImplementedException();
     }
 }

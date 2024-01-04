@@ -16,7 +16,7 @@ Content-Type: application/json
 
 # @name GetById
 @id = 1
-GET {{url}}/api/seattype?id={id}
+GET {{url}}/api/seattype/{{id}}
 
 ###
 
@@ -33,19 +33,20 @@ GET {{url}}/api/seattype?
 # @name Update
 @updateId = 1
 
-PUT {{url}}/api/seattype?{{updateId}}
+PUT {{url}}/api/seattype/{{updateId}}
 Content-Type: application/json
 
 {
+  "Id": {{updateId}},
   "Name": "test update",
   "ServiceCharge": 18,
-  "Status": "Male"
+  "Status": ""
 }
 
 
 ### 
 
-# @name Delete
+# @name SoftDelete
 @deleteId = 1
 
 PATCH {{url}}/api/seattype/{{deleteId}}

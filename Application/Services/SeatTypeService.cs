@@ -7,76 +7,82 @@ using Application.Common.Models.QueryParams;
 using AutoMapper;
 using Domain.Entities;
 
+
 namespace Application.Services;
 
 public class SeatTypeService : ISeatTypeService
 {
     private readonly IMapper _mapper;
-    private readonly ISeatTypeRepository _repositoy;
+    private readonly ISeatTypeRepository _repository;
     private readonly IUnitOfWork _unitOfWork;
 
-    public SeatTypeService(ISeatTypeRepository repositoy, IUnitOfWork unitOfWork, IMapper mapper)
+    public SeatTypeService(ISeatTypeRepository repository, IUnitOfWork unitOfWork, IMapper mapper)
     {
-        _repositoy = repositoy;
+        _repository = repository;
         _unitOfWork = unitOfWork;
         _mapper = mapper;
     }
 
-    public async Task AddAsync(SeatType seatType)
+    public async Task<PagedList<SeatTypeDto>> GetAllSeatTypeDtoAsync(QueryParams queryParams)
     {
-        _repositoy.Add(seatType);
-        await _unitOfWork.SaveChangesAsync();
-    }
-
-    public async Task DeleteAsync(SeatType seatType)
-    {
-        _repositoy.Remove(seatType);
-        await _unitOfWork.SaveChangesAsync();
-    }
-
-    public async Task UpdateAsync(SeatType seatType)
-    {
-        var seatTypeExis = await _repositoy.GetByIdAsync(seatType.Id);
-
-        if (seatTypeExis == null) throw new NotFoundException(nameof(SeatType), seatType.Id);
-
-        seatTypeExis.Name = seatType.Name;
-        seatTypeExis.ServiceCharge = seatType.ServiceCharge;
-        seatTypeExis.Status = seatType.Status;
-        seatTypeExis.UpdatedAt = DateTime.Now;
-
-        _repositoy.Update(seatTypeExis);
-        await _unitOfWork.SaveChangesAsync();
-    }
-
-    public async Task<SeatType> GetByIdAsync(int id)
-    {
-        return await _repositoy.GetByIdAsync(id);
-    }
-
-    public async Task<SeatTypeDto> GetByIdDtoAsync(int id)
-    {
-        return await _repositoy.GetByIdDtoAsync(id);
-    }
-
-    async Task<PagedList<SeatTypeDto>> ISeatTypeService.GetAllDtoAsync(QueryParams queryParams)
-    {
-        var query = await _repositoy.GetQueryAsync();
+        var query = await _repository.GetQueryAsync();
 
         if (!string.IsNullOrEmpty(queryParams.SearchTerm))
-            query = query.Where(p => p.Name.Contains(queryParams.SearchTerm));
+            query = query.Where(st => st.Name.Contains(queryParams.SearchTerm));
 
         query = queryParams.Sort switch
         {
-            "serviceAsc" => query.OrderBy(p => p.ServiceCharge),
-            "serviceDesc" => query.OrderByDescending(p => p.ServiceCharge),
-            "nameAsc" => query.OrderBy(p => p.Name),
-            "nameDesc" => query.OrderByDescending(p => p.Name),
-            _ => query.OrderBy(p => p.CreatedAt)
+            "serviceChargeAsc" => query.OrderBy(st => st.ServiceCharge),
+            "serviceChargeDesc" => query.OrderByDescending(st => st.ServiceCharge),
+            _ => query.OrderBy(st => st.CreatedAt)
         };
 
-        var seatTypeDtos = query.Select(p => _mapper.Map<SeatTypeDto>(p));
+        var seatTypeDtoQuery = query.Select(p => _mapper.Map<SeatTypeDto>(p));
 
-        return await PagedList<SeatTypeDto>.CreateAsync(seatTypeDtos, queryParams.PageNumber, queryParams.PageSize);
+        return await PagedList<SeatTypeDto>.CreateAsync(seatTypeDtoQuery, queryParams.PageNumber,
+            queryParams.PageSize);
+    }
+
+    public async Task<SeatTypeDto> GetSeatTypeDtoByIdAsync(int id)
+    {
+        var seatType = await _repository.GetByIdAsync(id);
+        return _mapper.Map<SeatTypeDto>(seatType);
+    }
+
+    public async Task<SeatType> GetSeatTypeByIdAsync(int id)
+    {
+        return await _repository.GetByIdAsync(id);
+    }
+
+    public async Task AddSeatTypeAsync(SeatType seatType)
+    {
+        _repository.Add(seatType);
+        await _unitOfWork.SaveChangesAsync();
+    }
+
+    public async Task UpdateSeatTypeAsync(SeatType seatType)
+    {
+        var seatTypeInDb = await _repository.GetByIdAsync(seatType.Id);
+
+        if (seatTypeInDb == null) throw new NotFoundException(nameof(Passenger), seatType.Id);
+
+        seatTypeInDb.Name = seatType.Name;
+        seatTypeInDb.ServiceCharge = seatType.ServiceCharge;
+        seatTypeInDb.UpdatedAt = DateTime.Now;
+
+        _repository.Update(seatTypeInDb);
+        await _unitOfWork.SaveChangesAsync();
+    }
+
+    public async Task DeleteSeatTypeAsync(SeatType seatType)
+    {
+        _repository.Delete(seatType);
+        await _unitOfWork.SaveChangesAsync();
+    }
+
+    public async Task SoftDeleteSeatTypeAsync(SeatType seatType)
+    {
+        _repository.SoftDelete(seatType);
+        await _unitOfWork.SaveChangesAsync();
     }
 }
