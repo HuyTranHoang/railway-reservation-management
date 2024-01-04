@@ -1,9 +1,10 @@
 ﻿@url = https://localhost:5001
+@router = api/passengers
 
 ### 
 
 # @name addPassenger
-POST {{url}}/api/passengers
+POST {{url}}/{{router}}
 Content-Type: application/json
 
 {
@@ -19,7 +20,7 @@ Content-Type: application/json
 ### 
 
 # @name getListOfPassengers
-GET {{url}}/api/passengers?
+GET {{url}}/{{router}}?
   &pageNumber=1
   &pageSize=10
   # &searchTerm=Pokimane
@@ -31,7 +32,7 @@ GET {{url}}/api/passengers?
 # @name getPassengerById
 @id = 1
 
-GET {{url}}/api/passengers/{{id}}
+GET {{url}}/{{router}}/{{id}}
 
 
 ### 
@@ -39,7 +40,7 @@ GET {{url}}/api/passengers/{{id}}
 # @name updatePassenger
 @updateId = 55
 
-PUT {{url}}/api/passengers/{{updateId}}
+PUT {{url}}/{{router}}/{{updateId}}
 Content-Type: application/json
 
 {
@@ -58,13 +59,13 @@ Content-Type: application/json
 # @name softDeletePassenger
 @deleteId = 2
 
-PATCH {{url}}/api/passengers/{{deleteId}}
+PATCH {{url}}/{{router}}/{{deleteId}}
 
 
 ### 
 
 # @name addPassengerValidation
-POST {{url}}/api/passengers
+POST {{url}}/{{router}}
 Content-Type: application/json
 
 {

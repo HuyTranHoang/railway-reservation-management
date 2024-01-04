@@ -1,9 +1,10 @@
 @url = https://localhost:5001
+@router = api/seatTypes
 
 ### 
 
 # @name Create
-POST {{url}}/api/seatTypes
+POST {{url}}/{{router}}
 Content-Type: application/json
 
 {
@@ -16,12 +17,12 @@ Content-Type: application/json
 
 # @name GetById
 @id = 1
-GET {{url}}/api/seatTypes/{{id}}
+GET {{url}}/{{router}}/{{id}}
 
 ###
 
 # @name GetAll
-GET {{url}}/api/seatTypes?
+GET {{url}}/{{router}}?
   &pageNumber=1
   &pageSize=2
   # &searchTerm=Standard
@@ -33,7 +34,7 @@ GET {{url}}/api/seatTypes?
 # @name Update
 @updateId = 1
 
-PUT {{url}}/api/seatTypes/{{updateId}}
+PUT {{url}}/{{router}}/{{updateId}}
 Content-Type: application/json
 
 {
@@ -49,13 +50,13 @@ Content-Type: application/json
 # @name SoftDelete
 @deleteId = 1
 
-PATCH {{url}}/api/seatTypes/{{deleteId}}
+PATCH {{url}}/{{router}}/{{deleteId}}
 
 
 ### 
 
 # @name CreateValidation
-POST {{url}}/api/seatTypes
+POST {{url}}/{{router}}
 Content-Type: application/json
 
 {

@@ -1,9 +1,10 @@
 @hostname = https://localhost:5001
+@router = api/seats
 
 ### 
 
 # @name AddSeat
-POST {{hostname}}/api/seats
+POST {{hostname}}/{{router}}
 Content-Type: application/json
 
 {
@@ -15,6 +16,6 @@ Content-Type: application/json
 ###
 
 # @name GetSeats
-GET {{hostname}}/api/seats
+GET {{hostname}}/{{router}}
 
 ###

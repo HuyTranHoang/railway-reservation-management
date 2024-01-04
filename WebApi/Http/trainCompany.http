@@ -1,9 +1,10 @@
 ﻿@url = https://localhost:5001
+@route = api/traincompanies
 
 ### 
 
 # @name addTrainCompany
-POST {{url}}/api/traincompanies
+POST {{url}}/{{route}}
 Content-Type: application/json
 
 {
@@ -14,7 +15,7 @@ Content-Type: application/json
 ### 
 
 # @name getListOfTrainCompany
-GET {{url}}/api/traincompanies?
+GET {{url}}/{{route}}?
   &pageNumber=1
   &pageSize=3
   # &searchTerm=New Train
@@ -26,7 +27,7 @@ GET {{url}}/api/traincompanies?
 # @name getTrainCompanyById
 @id = 1
 
-GET {{url}}/api/traincompanies/{{id}}
+GET {{url}}/{{route}}/{{id}}
 
 
 ### 
@@ -34,7 +35,7 @@ GET {{url}}/api/traincompanies/{{id}}
 # @name UpdateTrainCompany
 @updateId = 1
 
-PUT {{url}}/api/traincompanies/{{updateId}}
+PUT {{url}}/{{route}}/{{updateId}}
 Content-Type: application/json
 
 {
@@ -48,13 +49,13 @@ Content-Type: application/json
 # @name SoftDeleteTrainCompany
 @deleteId = 1
 
-PATCH {{url}}/api/traincompanies/{{deleteId}}
+PATCH {{url}}/{{route}}/{{deleteId}}
 
 
 ### 
 
 # @name addTrainCompanyValidation
-POST {{url}}/api/traincompanies
+POST {{url}}/{{route}}
 Content-Type: application/json
 
 {

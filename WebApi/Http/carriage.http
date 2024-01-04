@@ -1,9 +1,10 @@
 @url = https://localhost:5001
+@router = api/carriages
 
 ### 
 
 # @name addCarriage
-POST {{url}}/api/carriages
+POST {{url}}/{{router}}
 Content-Type: application/json
 
 {
@@ -19,7 +20,7 @@ Content-Type: application/json
 ### 
 
 # @name getListOfCarriage
-GET {{url}}/api/carriages?
+GET {{url}}/{{router}}?
   &pageNumber=1
   &pageSize=5
   # &searchTerm=New Train
@@ -32,7 +33,7 @@ GET {{url}}/api/carriages?
 # @name getCarriagenById
 @id = 1
 
-GET {{url}}/api/carriages/{{id}}
+GET {{url}}/{{router}}/{{id}}
 
 
 ### 
@@ -40,7 +41,7 @@ GET {{url}}/api/carriages/{{id}}
 # @name UpdateCarriage
 @updateId = 6
 
-PUT {{url}}/api/carriages/{{updateId}}
+PUT {{url}}/{{router}}/{{updateId}}
 Content-Type: application/json
 
 {
@@ -59,13 +60,13 @@ Content-Type: application/json
 # @name SoftDeleteCarriage
 @deleteId = 1
 
-PATCH {{url}}/api/carriages/{{deleteId}}
+PATCH {{url}}/{{router}}/{{deleteId}}
 
 
 ### 
 
 # @name addCarriageValidation
-POST {{url}}/api/carriages
+POST {{url}}/{{router}}
 Content-Type: application/json
 
 {
