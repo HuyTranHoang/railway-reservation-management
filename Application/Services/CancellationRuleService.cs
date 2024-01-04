@@ -1,4 +1,6 @@
-﻿namespace Application.Services;
+﻿using Domain.Exceptions;
+
+namespace Application.Services;
 
 public class CancellationRuleService : ICancellationRuleService
 {

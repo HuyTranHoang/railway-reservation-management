@@ -1,4 +1,6 @@
-﻿namespace WebApi.Extensions;
+﻿using Domain.Exceptions;
+
+namespace WebApi.Extensions;
 
 public static class WebApiServiceExtensions
 {

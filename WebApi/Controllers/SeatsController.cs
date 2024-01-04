@@ -1,3 +1,5 @@
+using Domain.Exceptions;
+
 namespace WebApi.Controllers;
 
 public class SeatsController : BaseApiController

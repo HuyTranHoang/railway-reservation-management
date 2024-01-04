@@ -1,3 +1,5 @@
+using Domain.Exceptions;
+
 namespace Application.Services;
 
 public class TrainService : ITrainService

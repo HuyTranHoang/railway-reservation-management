@@ -1,4 +1,6 @@
-﻿namespace WebApi.Controllers;
+﻿using Domain.Exceptions;
+
+namespace WebApi.Controllers;
 
 [ApiController]
 [Route("/errors/{code:int}")]

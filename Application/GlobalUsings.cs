@@ -1,5 +1,4 @@
-﻿global using Application.Common.Exceptions;
-global using Application.Common.Interfaces.Persistence;
+﻿global using Application.Common.Interfaces.Persistence;
 global using Application.Common.Interfaces.Services;
 global using Application.Common.Models;
 global using Application.Common.Models.Pagination;

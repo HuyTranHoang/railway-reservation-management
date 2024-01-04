@@ -1,4 +1,4 @@
-﻿namespace WebApi.Exceptions;
+﻿namespace Domain.Exceptions;
 
 public class ValidateInputError : ErrorResponse
 {

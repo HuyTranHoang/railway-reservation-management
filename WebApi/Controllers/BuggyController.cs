@@ -1,4 +1,5 @@
-﻿using Infrastructure.Data;
+﻿using Domain.Exceptions;
+using Infrastructure.Data;
 using Microsoft.AspNetCore.Authorization;
 namespace WebApi.Controllers;
 
