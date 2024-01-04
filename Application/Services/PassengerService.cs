@@ -27,14 +27,14 @@ public class PassengerService : IPassengerService
         var query = await _repository.GetQueryAsync();
 
         if (!string.IsNullOrEmpty(queryParams.SearchTerm))
-            query = query.Where(p => p.Name.Contains(queryParams.SearchTerm));
+            query = query.Where(p => p.FullName.Contains(queryParams.SearchTerm));
 
         query = queryParams.Sort switch
         {
             "ageAsc" => query.OrderBy(p => p.Age),
             "ageDesc" => query.OrderByDescending(p => p.Age),
-            "nameAsc" => query.OrderBy(p => p.Name),
-            "nameDesc" => query.OrderByDescending(p => p.Name),
+            "nameAsc" => query.OrderBy(p => p.FullName),
+            "nameDesc" => query.OrderByDescending(p => p.FullName),
             _ => query.OrderBy(p => p.CreatedAt)
         };
 
@@ -67,7 +67,7 @@ public class PassengerService : IPassengerService
 
         if (passengerInDb == null) throw new NotFoundException(nameof(Passenger), passenger.Id);
 
-        passengerInDb.Name = passenger.Name;
+        passengerInDb.FullName = passenger.FullName;
         passengerInDb.CardId = passenger.CardId;
         passengerInDb.Age = passenger.Age;
         passengerInDb.Gender = passenger.Gender;
