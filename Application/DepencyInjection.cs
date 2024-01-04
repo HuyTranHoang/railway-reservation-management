@@ -15,6 +15,8 @@ public static class DepencyInjection
         services.AddScoped<ITrainService, TrainService>();
         services.AddScoped<ISeatTypeService, SeatTypeService>();
         services.AddScoped<ICarriageService, CarriageService>();
+        services.AddScoped<ISeatService, SeatService>();
+        
         return services;
     }
 }

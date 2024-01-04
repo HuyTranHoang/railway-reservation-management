@@ -20,6 +20,7 @@ public static class DepencyInjection
         services.AddScoped<ISeatTypeRepository, SeatTypeRepository>();
         services.AddScoped<ITrainRepository, TrainRepository>();
         services.AddScoped<ICarriageReponsitory, CarriageReponsitory>();
+        services.AddScoped<ISeatRepository, SeatRepository>();
 
 
         return services;
