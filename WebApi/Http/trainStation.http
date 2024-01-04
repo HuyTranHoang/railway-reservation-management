@@ -1,0 +1,48 @@
+@url = https://localhost:5001
+@router = api/trainstation
+
+### 
+
+# @name addTrainStation
+POST {{url}}/{{router}}
+Content-Type: application/json
+
+{
+  "Name": "Station 1",
+  "Address": "123 SG",
+  "CoordinateValue": 10,
+  "Status": "Active"
+}
+
+### 
+
+# @name getListOfTrainStations
+GET {{url}}/{{router}}?
+  &pageNumber=1
+  &pageSize=10
+  # &searchTerm=Pokimane
+  # &sort=ageDesc
+
+
+### 
+
+# @name getTrainStationById
+@id = 1
+
+GET {{url}}/{{router}}/{{id}}
+
+### 
+
+# @name updateTrainStation
+@updateId = 1
+
+PUT {{url}}/{{router}}/{{updateId}}
+Content-Type: application/json
+
+{
+  "Id": {{updateId}},
+  "Name": "Station 0",
+  "Address": "123 SG",
+  "CoordinateValue": 10,
+  "Status": "Active"
+}

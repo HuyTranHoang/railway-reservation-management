@@ -10,7 +10,8 @@ public static class Seed
     private static readonly JsonSerializerOptions JsonOptions = new() { PropertyNameCaseInsensitive = true };
     private static string BaseDirectory => Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
     private static string ProjectRoot => Directory.GetParent(BaseDirectory)!.Parent!.Parent!.Parent!.FullName;
-    private static string DataPath => Path.Combine(ProjectRoot, @"Infrastructure\Data\SeedData\");
+    // private static string DataPath => Path.Combine(ProjectRoot, @"Infrastructure/Data/SeedData/");
+    private static string DataPath => Path.Combine(ProjectRoot, "Infrastructure", "Data", "SeedData");
 
     private static async Task SeedData<T>(ApplicationDbContext context, string fileName, Func<ApplicationDbContext, DbSet<T>> dbSetSelector) where T : class
     {
@@ -32,6 +33,7 @@ public static class Seed
         await SeedData<SeatType>(context, "SeatType.json", c => c.SeatTypes);
         await SeedData<CarriageType>(context, "CarriageType.json", c => c.CarriageTypes);
         await SeedData<CancellationRule>(context, "CancellationRule.json", c => c.CancellationRules);
+        await SeedData<TrainStation>(context, "TrainStation.json", c => c.TrainStations);
 
         // Bị lỗi vì thiếu CarriageTypeId
         // await SeedData<Carriage>(context, "Carriage.json", c => c.Carriages);

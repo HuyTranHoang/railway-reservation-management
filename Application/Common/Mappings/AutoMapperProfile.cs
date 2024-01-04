@@ -28,5 +28,7 @@ public class AutoMapperProfile : Profile
 
         CreateMap<CarriageType, CarriageTypeDto>();
         CreateMap<CancellationRule, CancellationRuleDto>();
+        CreateMap<TrainStation, TrainStationDto>();
+
     }
 }
