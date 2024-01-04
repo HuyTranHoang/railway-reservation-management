@@ -1,8 +1,5 @@
 ﻿using Infrastructure.Data;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using WebApi.Exceptions;
-
 namespace WebApi.Controllers;
 
 public class BuggyController : BaseApiController

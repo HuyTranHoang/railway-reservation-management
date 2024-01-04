@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using WebApi.Exceptions;
-
-namespace WebApi.Controllers;
+﻿namespace WebApi.Controllers;
 
 [ApiController]
 [Route("/errors/{code:int}")]

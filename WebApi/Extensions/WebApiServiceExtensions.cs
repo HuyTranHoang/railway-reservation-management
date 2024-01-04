@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using WebApi.Exceptions;
-
-namespace WebApi.Extensions;
+﻿namespace WebApi.Extensions;
 
 public static class WebApiServiceExtensions
 {
