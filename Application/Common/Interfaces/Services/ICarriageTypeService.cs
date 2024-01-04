@@ -5,8 +5,8 @@ using Domain.Entities;
 
 namespace Application.Common.Interfaces.Services;
 
-public interface IPassengerService : IService<Passenger>
+public interface ICarriageTypeService : IService<CarriageType>
 {
-    Task<PagedList<PassengerDto>> GetAllDtoAsync(QueryParams queryParams);
-    Task<PassengerDto> GetDtoByIdAsync(int id);
+    Task<PagedList<CarriageTypeDto>> GetAllDtoAsync(QueryParams queryParams);
+    Task<CarriageTypeDto> GetDtoByIdAsync(int id);
 }

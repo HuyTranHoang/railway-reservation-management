@@ -5,13 +5,8 @@ using Domain.Entities;
 
 namespace Application.Common.Interfaces.Services;
 
-public interface ICarriageService
+public interface ICarriageService : IService<Carriage>
 {
-    Task<PagedList<CarriageDto>> GetAllCarriageDtoAsync(CarriageQueryParams queryParams);
-    Task<CarriageDto> GetCarriageDtoByIdAsync(int id);
-    Task<Carriage> GetCarriageByIdAsync(int id);
-    Task AddCarriageAsync(Carriage carriage);
-    Task UpdateCarriageAsync(Carriage carriage);
-    Task DeleteCarriageAsync(Carriage carriage);
-    Task SoftDeleteCarriageAsync(Carriage carriage);
+    Task<PagedList<CarriageDto>> GetAllDtoAsync(CarriageQueryParams queryParams);
+    Task<CarriageDto> GetDtoByIdAsync(int id);
 }

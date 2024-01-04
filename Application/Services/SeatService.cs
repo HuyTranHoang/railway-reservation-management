@@ -22,7 +22,7 @@ public class SeatService : ISeatService
         _mapper = mapper;
     }
 
-    public async Task AddSeatAsync(Seat seat)
+    public async Task AddAsync(Seat seat)
     {
         if (NameExists(_repository, seat.Id))
         {
@@ -33,13 +33,13 @@ public class SeatService : ISeatService
         await _unitOfWork.SaveChangesAsync();
     }
 
-    public async Task DeleteSeatAsync(Seat seat)
+    public async Task DeleteAsync(Seat seat)
     {
         _repository.Delete(seat);
         await _unitOfWork.SaveChangesAsync();
     }
 
-    public async Task<PagedList<SeatDto>> GetAllSeatDtoAsync(SeatQueryParams queryParams)
+    public async Task<PagedList<SeatDto>> GetAllDtoAsync(SeatQueryParams queryParams)
     {
         var query = await _repository.GetQueryWithSeatTypeAndCompartmentAsync();
         
@@ -66,24 +66,24 @@ public class SeatService : ISeatService
             queryParams.PageSize);
     }
 
-    public async Task<Seat> GetSeatByIdAsync(int id)
+    public async Task<Seat> GetByIdAsync(int id)
     {
         return await _repository.GetByIdAsync(id);
     }
 
-    public async Task<SeatDto> GetSeatDtoByIdAsync(int id)
+    public async Task<SeatDto> GetDtoByIdAsync(int id)
     {
         var seatDto = await _repository.GetByIdAsync(id);
         return _mapper.Map<SeatDto>(seatDto);
     }
 
-    public async Task SoftDeleteSeatAsync(Seat seat)
+    public async Task SoftDeleteAsync(Seat seat)
     {
         _repository.SoftDelete(seat);
         await _unitOfWork.SaveChangesAsync();
     }
 
-    public async Task UpdateSeatAsync(Seat seat)
+    public async Task UpdateAsync(Seat seat)
     {
         var seatInDb = await _repository.GetByIdAsync(seat.Id);
 

@@ -12,7 +12,7 @@ public class TrainsController : BaseApiController
     [HttpGet]
     public async Task<ActionResult<IEnumerable<TrainDto>>> GetTrains([FromQuery] TrainQueryParams queryParams)
     {
-        var trainsDto = await _trainService.GetAllTrainDtoAsync(queryParams);
+        var trainsDto = await _trainService.GetAllDtoAsync(queryParams);
 
         var paginationHeader = new PaginationHeader(queryParams.PageNumber, queryParams.PageSize,
             trainsDto.TotalCount, trainsDto.TotalPages);
@@ -25,7 +25,7 @@ public class TrainsController : BaseApiController
     [HttpGet("{id}")]
     public async Task<ActionResult<TrainDto>> GetTrain(int id)
     {
-        var trains = await _trainService.GetTrainDtoByIdAsync(id);
+        var trains = await _trainService.GetDtoByIdAsync(id);
 
         if (trains is null) return NotFound(new ErrorResponse(404));
 
@@ -43,7 +43,7 @@ public class TrainsController : BaseApiController
 
         try
         {
-            await _trainService.AddTrainAsync(train);
+            await _trainService.AddAsync(train);
         }
         catch (BadRequestException ex)
         {
@@ -66,7 +66,7 @@ public class TrainsController : BaseApiController
 
         try
         {
-            await _trainService.UpdateTrainAsync(train);
+            await _trainService.UpdateAsync(train);
         }
         catch (NotFoundException ex)
         {
@@ -84,10 +84,10 @@ public class TrainsController : BaseApiController
     [HttpPatch("{id}")]
     public async Task<IActionResult> SoftDeleteTrain(int id)
     {
-        var train = await _trainService.GetTrainByIdAsync(id);
+        var train = await _trainService.GetByIdAsync(id);
         if (train is null) return NotFound(new ErrorResponse(404));
 
-        await _trainService.SoftDeleteTrainAsync(train);
+        await _trainService.SoftDeleteAsync(train);
 
         return NoContent();
     }

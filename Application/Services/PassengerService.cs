@@ -22,7 +22,7 @@ public class PassengerService : IPassengerService
         _mapper = mapper;
     }
 
-    public async Task<PagedList<PassengerDto>> GetAllPassengerDtoAsync(QueryParams queryParams)
+    public async Task<PagedList<PassengerDto>> GetAllDtoAsync(QueryParams queryParams)
     {
         var query = await _repository.GetQueryAsync();
 
@@ -44,24 +44,24 @@ public class PassengerService : IPassengerService
             queryParams.PageSize);
     }
 
-    public async Task<PassengerDto> GetPassgenerDtoByIdAsync(int id)
+    public async Task<PassengerDto> GetDtoByIdAsync(int id)
     {
         var passenger = await _repository.GetByIdAsync(id);
         return _mapper.Map<PassengerDto>(passenger);
     }
 
-    public async Task<Passenger> GetPassgenerByIdAsync(int id)
+    public async Task<Passenger> GetByIdAsync(int id)
     {
         return await _repository.GetByIdAsync(id);
     }
 
-    public async Task AddPassengerAsync(Passenger passenger)
+    public async Task AddAsync(Passenger passenger)
     {
         _repository.Add(passenger);
         await _unitOfWork.SaveChangesAsync();
     }
 
-    public async Task UpdatePassengerAsync(Passenger passenger)
+    public async Task UpdateAsync(Passenger passenger)
     {
         var passengerInDb = await _repository.GetByIdAsync(passenger.Id);
 
@@ -79,13 +79,13 @@ public class PassengerService : IPassengerService
         await _unitOfWork.SaveChangesAsync();
     }
 
-    public async Task DeletePassengerAsync(Passenger passenger)
+    public async Task DeleteAsync(Passenger passenger)
     {
         _repository.Delete(passenger);
         await _unitOfWork.SaveChangesAsync();
     }
 
-    public async Task SoftDeletePassengerAsync(Passenger passenger)
+    public async Task SoftDeleteAsync(Passenger passenger)
     {
         _repository.SoftDelete(passenger);
         await _unitOfWork.SaveChangesAsync();

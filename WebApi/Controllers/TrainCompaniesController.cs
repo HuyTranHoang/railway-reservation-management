@@ -13,7 +13,7 @@ public class TrainCompaniesController : BaseApiController
     public async Task<ActionResult<IEnumerable<TrainCompanyDto>>> GetTrainCompanies(
         [FromQuery] QueryParams queryParams)
     {
-        var trainCompaniesDto = await _trainCompanySerivce.GetAllCompanyDtoAsync(queryParams);
+        var trainCompaniesDto = await _trainCompanySerivce.GetAllDtoAsync(queryParams);
 
         var paginationHeader = new PaginationHeader(
             trainCompaniesDto.CurrentPage, trainCompaniesDto.PageSize,
@@ -27,7 +27,7 @@ public class TrainCompaniesController : BaseApiController
     [HttpGet("{id}")]
     public async Task<ActionResult<TrainCompanyDto>> GetTrainCompany(int id)
     {
-        var trainCompanies = await _trainCompanySerivce.GetCompanyDtoByIdAsync(id);
+        var trainCompanies = await _trainCompanySerivce.GetDtoByIdAsync(id);
 
         if (trainCompanies is null)
             return NotFound(new ErrorResponse(404));
@@ -42,7 +42,7 @@ public class TrainCompaniesController : BaseApiController
 
         try
         {
-            await _trainCompanySerivce.AddCompanyAsync(trainCompany);
+            await _trainCompanySerivce.AddAsync(trainCompany);
         }
         catch (BadRequestException ex)
         {
@@ -62,7 +62,7 @@ public class TrainCompaniesController : BaseApiController
 
         try
         {
-            await _trainCompanySerivce.UpdateCompanyAsync(trainCompany);
+            await _trainCompanySerivce.UpdateAsync(trainCompany);
         }
         catch (NotFoundException ex)
         {
@@ -75,11 +75,11 @@ public class TrainCompaniesController : BaseApiController
     [HttpPatch("{id}")]
     public async Task<IActionResult> SoftDeleteTrainCompany(int id)
     {
-        var trainCompany = await _trainCompanySerivce.GetCompanyByIdAsync(id);
+        var trainCompany = await _trainCompanySerivce.GetByIdAsync(id);
 
         if (trainCompany is null) return NotFound(new ErrorResponse(404));
 
-        await _trainCompanySerivce.SoftDeleteCompanyAsync(trainCompany);
+        await _trainCompanySerivce.SoftDeleteAsync(trainCompany);
 
         return NoContent();
     }

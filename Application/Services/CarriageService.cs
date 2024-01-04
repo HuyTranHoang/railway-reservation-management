@@ -21,19 +21,19 @@ public class CarriageService : ICarriageService
         _unitOfWork = unitOfWork;
         _mapper = mapper;
     }
-    public async Task AddCarriageAsync(Carriage carriage)
+    public async Task AddAsync(Carriage carriage)
     {
         _repository.Add(carriage);
         await _unitOfWork.SaveChangesAsync();
     }
 
-    public async Task DeleteCarriageAsync(Carriage carriage)
+    public async Task DeleteAsync(Carriage carriage)
     {
         _repository.Delete(carriage);
         await _unitOfWork.SaveChangesAsync();
     }
 
-    public async Task<PagedList<CarriageDto>> GetAllCarriageDtoAsync(CarriageQueryParams queryParams)
+    public async Task<PagedList<CarriageDto>> GetAllDtoAsync(CarriageQueryParams queryParams)
     {
         var query = await _repository.GetQueryWithTrainAsync();
 
@@ -60,24 +60,24 @@ public class CarriageService : ICarriageService
             queryParams.PageSize);
     }
 
-    public async Task<Carriage> GetCarriageByIdAsync(int id)
+    public async Task<Carriage> GetByIdAsync(int id)
     {
         return await _repository.GetByIdAsync(id);
     }
 
-    public async Task<CarriageDto> GetCarriageDtoByIdAsync(int id)
+    public async Task<CarriageDto> GetDtoByIdAsync(int id)
     {
         var carriageDto = await _repository.GetByIdAsync(id);
         return _mapper.Map<CarriageDto>(carriageDto);
     }
 
-    public async Task SoftDeleteCarriageAsync(Carriage carriage)
+    public async Task SoftDeleteAsync(Carriage carriage)
     {
         _repository.SoftDelete(carriage);
         await _unitOfWork.SaveChangesAsync();
     }
 
-    public async Task UpdateCarriageAsync(Carriage carriage)
+    public async Task UpdateAsync(Carriage carriage)
     {
         var carriageInDb = await _repository.GetByIdAsync(carriage.Id);
 

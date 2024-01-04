@@ -22,7 +22,7 @@ public class TrainCompanyService : ITrainCompanyService
         _mapper = mapper;
     }
 
-    public async Task<PagedList<TrainCompanyDto>> GetAllCompanyDtoAsync(QueryParams queryParams)
+    public async Task<PagedList<TrainCompanyDto>> GetAllDtoAsync(QueryParams queryParams)
     {
         var query = await _repository.GetQueryAsync();
 
@@ -44,18 +44,18 @@ public class TrainCompanyService : ITrainCompanyService
             .CreateAsync(trainCompaniesDtoQuery, queryParams.PageNumber, queryParams.PageSize);
     }
 
-    public async Task<TrainCompany> GetCompanyByIdAsync(int id)
+    public async Task<TrainCompany> GetByIdAsync(int id)
     {
         return await _repository.GetByIdAsync(id);
     }
 
-    public async Task<TrainCompanyDto> GetCompanyDtoByIdAsync(int id)
+    public async Task<TrainCompanyDto> GetDtoByIdAsync(int id)
     {
         var trainCompany = await _repository.GetByIdAsync(id);
         return _mapper.Map<TrainCompanyDto>(trainCompany);
     }
 
-    public async Task AddCompanyAsync(TrainCompany trainCompany)
+    public async Task AddAsync(TrainCompany trainCompany)
     {
 
         if (NameExists(_repository, trainCompany.Name))
@@ -67,7 +67,7 @@ public class TrainCompanyService : ITrainCompanyService
         await _unitOfWork.SaveChangesAsync();
     }
 
-    public async Task UpdateCompanyAsync(TrainCompany trainCompany)
+    public async Task UpdateAsync(TrainCompany trainCompany)
     {
         var trainCompanyInDb = await _repository.GetByIdAsync(trainCompany.Id);
 
@@ -80,13 +80,13 @@ public class TrainCompanyService : ITrainCompanyService
         await _unitOfWork.SaveChangesAsync();
     }
 
-    public async Task DeleteCompanyAsync(TrainCompany trainCompany)
+    public async Task DeleteAsync(TrainCompany trainCompany)
     {
         _repository.Delete(trainCompany);
         await _unitOfWork.SaveChangesAsync();
     }
 
-    public async Task SoftDeleteCompanyAsync(TrainCompany trainCompany)
+    public async Task SoftDeleteAsync(TrainCompany trainCompany)
     {
         _repository.SoftDelete(trainCompany);
         await _unitOfWork.SaveChangesAsync();

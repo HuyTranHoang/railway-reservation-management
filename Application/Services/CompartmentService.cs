@@ -23,7 +23,7 @@ public class CompartmentService : ICompartmentService
         _mapper = mapper;
     }
 
-    public async Task AddCompartmentAsync(Compartment compartment)
+    public async Task AddAsync(Compartment compartment)
     {
         if (NameExists(_repository, compartment.Name, compartment.Id))
         {
@@ -34,14 +34,14 @@ public class CompartmentService : ICompartmentService
         await _unitOfWork.SaveChangesAsync();
     }
 
-    public async Task DeleteCompartmentAsync(Compartment compartment)
+    public async Task DeleteAsync(Compartment compartment)
     {
 
         _repository.Delete(compartment);
         await _unitOfWork.SaveChangesAsync();
     }
 
-    public async Task<PagedList<CompartmentDto>> GetAllCompartmentDtoAsync(CompartmentQueryParams queryParams)
+    public async Task<PagedList<CompartmentDto>> GetAllDtoAsync(CompartmentQueryParams queryParams)
     {
         var query = await _repository.GetQueryWithCarriageAsync();
 
@@ -70,24 +70,24 @@ public class CompartmentService : ICompartmentService
         queryParams.PageSize);
     }
 
-    public async Task<Compartment> GetCompartmentByIdAsync(int id)
+    public async Task<Compartment> GetByIdAsync(int id)
     {
         return await _repository.GetByIdAsync(id);
     }
 
-    public async Task<CompartmentDto> GetCompartmentDtoByIdAsync(int id)
+    public async Task<CompartmentDto> GetDtoByIdAsync(int id)
     {
         var compartmentDto = await _repository.GetByIdAsync(id);
         return _mapper.Map<CompartmentDto>(compartmentDto);
     }
 
-    public async Task SoftDeleteCompartmentAsync(Compartment compartment)
+    public async Task SoftDeleteAsync(Compartment compartment)
     {
         _repository.SoftDelete(compartment);
         await _unitOfWork.SaveChangesAsync();
     }
 
-    public async Task UpdateCompartmentAsync(Compartment compartment)
+    public async Task UpdateAsync(Compartment compartment)
     {
         var compartmentInDb = await _repository.GetByIdAsync(compartment.Id);
 

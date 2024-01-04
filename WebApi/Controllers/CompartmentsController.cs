@@ -13,7 +13,7 @@ public class CompartmentsController : BaseApiController
     public async Task<ActionResult<IEnumerable<CompartmentDto>>> GetCompartments(
         [FromQuery] CompartmentQueryParams queryParams)
     {
-        var compartmentDto = await _compartmentService.GetAllCompartmentDtoAsync(queryParams);
+        var compartmentDto = await _compartmentService.GetAllDtoAsync(queryParams);
 
         var paginationHeader = new PaginationHeader(queryParams.PageNumber, queryParams.PageSize, compartmentDto.TotalCount, compartmentDto.TotalPages);
 
@@ -25,7 +25,7 @@ public class CompartmentsController : BaseApiController
     [HttpGet("{id}")]
     public async Task<ActionResult<CompartmentDto>> GetCompartment(int id)
     {
-        var compartmentDto = await _compartmentService.GetCompartmentDtoByIdAsync(id);
+        var compartmentDto = await _compartmentService.GetDtoByIdAsync(id);
 
         if (compartmentDto is null) return NotFound(new ErrorResponse(404));
 
@@ -39,7 +39,7 @@ public class CompartmentsController : BaseApiController
 
         try
         {
-            await _compartmentService.AddCompartmentAsync(compartment);
+            await _compartmentService.AddAsync(compartment);
         }
         catch (BadRequestException ex)
         {
@@ -64,7 +64,7 @@ public class CompartmentsController : BaseApiController
 
         try
         {
-            await _compartmentService.UpdateCompartmentAsync(compartment);
+            await _compartmentService.UpdateAsync(compartment);
         }
         catch (NotFoundException ex)
         {
@@ -82,11 +82,11 @@ public class CompartmentsController : BaseApiController
     [HttpPatch("{id}")]
     public async Task<IActionResult> SoftDeleteCompartment(int id)
     {
-        var compartment = await _compartmentService.GetCompartmentByIdAsync(id);
+        var compartment = await _compartmentService.GetByIdAsync(id);
 
         if (compartment is null) return NotFound(new ErrorResponse(404));
 
-        await _compartmentService.SoftDeleteCompartmentAsync(compartment);
+        await _compartmentService.SoftDeleteAsync(compartment);
 
         return NoContent();
     }

@@ -12,7 +12,7 @@ public class PassengerController : BaseApiController
     [HttpGet]
     public async Task<ActionResult<List<PassengerDto>>> GetPassengers([FromQuery] QueryParams queryParams)
     {
-        var passengersDto = await _passengerService.GetAllPassengerDtoAsync(queryParams);
+        var passengersDto = await _passengerService.GetAllDtoAsync(queryParams);
 
         var paginationHeader = new PaginationHeader(queryParams.PageNumber, queryParams.PageSize,
             passengersDto.TotalCount, passengersDto.TotalPages);
@@ -25,7 +25,7 @@ public class PassengerController : BaseApiController
     [HttpGet("{id}")]
     public async Task<ActionResult<PassengerDto>> GetPassenger(int id)
     {
-        var passenger = await _passengerService.GetPassgenerDtoByIdAsync(id);
+        var passenger = await _passengerService.GetDtoByIdAsync(id);
 
         if (passenger is null) return NotFound(new ErrorResponse(404));
 
@@ -37,7 +37,7 @@ public class PassengerController : BaseApiController
     {
         if (!ModelState.IsValid) return BadRequest(ModelState);
 
-        await _passengerService.AddPassengerAsync(passenger);
+        await _passengerService.AddAsync(passenger);
         return CreatedAtAction("GetPassenger", new { id = passenger.Id }, passenger);
     }
 
@@ -50,7 +50,7 @@ public class PassengerController : BaseApiController
 
         try
         {
-            await _passengerService.UpdatePassengerAsync(passenger);
+            await _passengerService.UpdateAsync(passenger);
         }
         catch (NotFoundException ex)
         {
@@ -63,11 +63,11 @@ public class PassengerController : BaseApiController
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeletePassenger(int id)
     {
-        var passenger = await _passengerService.GetPassgenerByIdAsync(id);
+        var passenger = await _passengerService.GetByIdAsync(id);
 
         if (passenger == null) return NotFound(new ErrorResponse(404));
 
-        await _passengerService.DeletePassengerAsync(passenger);
+        await _passengerService.DeleteAsync(passenger);
 
         return NoContent();
     }
@@ -75,11 +75,11 @@ public class PassengerController : BaseApiController
     [HttpPatch("{id}")]
     public async Task<IActionResult> SoftDeletePassenger(int id)
     {
-        var passenger = await _passengerService.GetPassgenerByIdAsync(id);
+        var passenger = await _passengerService.GetByIdAsync(id);
 
         if (passenger is null) return NotFound(new ErrorResponse(404));
 
-        await _passengerService.SoftDeletePassengerAsync(passenger);
+        await _passengerService.SoftDeleteAsync(passenger);
 
         return Ok();
     }

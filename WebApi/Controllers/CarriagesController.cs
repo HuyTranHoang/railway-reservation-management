@@ -12,7 +12,7 @@ public class CarriagesController : BaseApiController
     [HttpGet]
     public async Task<ActionResult<IEnumerable<CarriageDto>>> GetCarriages([FromQuery] CarriageQueryParams queryParams)
     {
-        var carriagesDto = await _carriageService.GetAllCarriageDtoAsync(queryParams);
+        var carriagesDto = await _carriageService.GetAllDtoAsync(queryParams);
 
         var paginationHeader = new PaginationHeader(queryParams.PageNumber, queryParams.PageSize, 
         carriagesDto.TotalCount, carriagesDto.TotalPages);
@@ -25,7 +25,7 @@ public class CarriagesController : BaseApiController
     [HttpGet("{id}")]
     public async Task<ActionResult<CarriageDto>> GetCarriage(int id)
     {
-        var carriagesDto = await _carriageService.GetCarriageDtoByIdAsync(id);
+        var carriagesDto = await _carriageService.GetDtoByIdAsync(id);
 
         if (carriagesDto is null) return NotFound(new ErrorResponse(404));
 
@@ -42,7 +42,7 @@ public class CarriagesController : BaseApiController
         
         try
         {
-            await _carriageService.AddCarriageAsync(carriage);
+            await _carriageService.AddAsync(carriage);
         }
         catch (BadRequestException ex)
         {
@@ -65,7 +65,7 @@ public class CarriagesController : BaseApiController
 
         try
         {
-            await _carriageService.UpdateCarriageAsync(carriage);
+            await _carriageService.UpdateAsync(carriage);
         }
         catch (NotFoundException ex)
         {
@@ -83,13 +83,13 @@ public class CarriagesController : BaseApiController
     [HttpPatch("{id}")]
     public async Task<IActionResult> SoftDeleteCarriage(int id)
     {
-        var carriage = await _carriageService.GetCarriageByIdAsync(id);
+        var carriage = await _carriageService.GetByIdAsync(id);
         if(carriage == null)
         {
             return NotFound(new ErrorResponse(404));
         }
 
-        await _carriageService.SoftDeleteCarriageAsync(carriage);
+        await _carriageService.SoftDeleteAsync(carriage);
 
         return NoContent();
     }

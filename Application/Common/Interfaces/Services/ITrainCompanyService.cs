@@ -5,13 +5,8 @@ using Domain.Entities;
 
 namespace Application.Common.Interfaces.Services;
 
-public interface ITrainCompanyService
+public interface ITrainCompanyService : IService<TrainCompany>
 {
-    Task<PagedList<TrainCompanyDto>> GetAllCompanyDtoAsync(QueryParams queryParams);
-    Task<TrainCompany> GetCompanyByIdAsync(int id);
-    Task<TrainCompanyDto> GetCompanyDtoByIdAsync(int id);
-    Task AddCompanyAsync(TrainCompany trainCompany);
-    Task UpdateCompanyAsync(TrainCompany trainCompany);
-    Task DeleteCompanyAsync(TrainCompany trainCompany);
-    Task SoftDeleteCompanyAsync(TrainCompany trainCompany);
+    Task<PagedList<TrainCompanyDto>> GetAllDtoAsync(QueryParams queryParams);
+    Task<TrainCompanyDto> GetDtoByIdAsync(int id);
 }

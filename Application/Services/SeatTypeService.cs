@@ -23,7 +23,7 @@ public class SeatTypeService : ISeatTypeService
         _mapper = mapper;
     }
 
-    public async Task<PagedList<SeatTypeDto>> GetAllSeatTypeDtoAsync(QueryParams queryParams)
+    public async Task<PagedList<SeatTypeDto>> GetAllDtoAsync(QueryParams queryParams)
     {
         var query = await _repository.GetQueryAsync();
 
@@ -43,24 +43,24 @@ public class SeatTypeService : ISeatTypeService
             queryParams.PageSize);
     }
 
-    public async Task<SeatTypeDto> GetSeatTypeDtoByIdAsync(int id)
+    public async Task<SeatTypeDto> GetDtoByIdAsync(int id)
     {
         var seatType = await _repository.GetByIdAsync(id);
         return _mapper.Map<SeatTypeDto>(seatType);
     }
 
-    public async Task<SeatType> GetSeatTypeByIdAsync(int id)
+    public async Task<SeatType> GetByIdAsync(int id)
     {
         return await _repository.GetByIdAsync(id);
     }
 
-    public async Task AddSeatTypeAsync(SeatType seatType)
+    public async Task AddAsync(SeatType seatType)
     {
         _repository.Add(seatType);
         await _unitOfWork.SaveChangesAsync();
     }
 
-    public async Task UpdateSeatTypeAsync(SeatType seatType)
+    public async Task UpdateAsync(SeatType seatType)
     {
         var seatTypeInDb = await _repository.GetByIdAsync(seatType.Id);
 
@@ -74,13 +74,13 @@ public class SeatTypeService : ISeatTypeService
         await _unitOfWork.SaveChangesAsync();
     }
 
-    public async Task DeleteSeatTypeAsync(SeatType seatType)
+    public async Task DeleteAsync(SeatType seatType)
     {
         _repository.Delete(seatType);
         await _unitOfWork.SaveChangesAsync();
     }
 
-    public async Task SoftDeleteSeatTypeAsync(SeatType seatType)
+    public async Task SoftDeleteAsync(SeatType seatType)
     {
         _repository.SoftDelete(seatType);
         await _unitOfWork.SaveChangesAsync();

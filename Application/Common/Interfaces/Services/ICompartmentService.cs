@@ -5,13 +5,8 @@ using Domain.Entities;
 
 namespace Application.Common.Interfaces.Services;
 
-public interface ICompartmentService
+public interface ICompartmentService : IService<Compartment>
 {
-    Task<PagedList<CompartmentDto>> GetAllCompartmentDtoAsync(CompartmentQueryParams queryParams);
-    Task<CompartmentDto> GetCompartmentDtoByIdAsync(int id);
-    Task<Compartment> GetCompartmentByIdAsync(int id);
-    Task AddCompartmentAsync(Compartment compartment);
-    Task UpdateCompartmentAsync(Compartment compartment);
-    Task DeleteCompartmentAsync(Compartment compartment);
-    Task SoftDeleteCompartmentAsync(Compartment compartment);
+    Task<PagedList<CompartmentDto>> GetAllDtoAsync(CompartmentQueryParams queryParams);
+    Task<CompartmentDto> GetDtoByIdAsync(int id);
 }

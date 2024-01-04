@@ -5,13 +5,8 @@ using Domain.Entities;
 
 namespace Application.Common.Interfaces.Services;
 
-public interface ISeatService
+public interface ISeatService : IService<Seat>
 {
-    Task<PagedList<SeatDto>> GetAllSeatDtoAsync(SeatQueryParams queryParams);
-    Task<SeatDto> GetSeatDtoByIdAsync(int id);
-    Task<Seat> GetSeatByIdAsync(int id);
-    Task AddSeatAsync(Seat seat);
-    Task UpdateSeatAsync(Seat seat);
-    Task DeleteSeatAsync(Seat seat);
-    Task SoftDeleteSeatAsync(Seat seat);
+    Task<PagedList<SeatDto>> GetAllDtoAsync(SeatQueryParams queryParams);
+    Task<SeatDto> GetDtoByIdAsync(int id);
 }

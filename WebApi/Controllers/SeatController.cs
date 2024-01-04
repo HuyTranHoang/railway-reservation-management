@@ -12,7 +12,7 @@ public class SeatController : BaseApiController
     [HttpGet]
     public async Task<ActionResult<IEnumerable<SeatDto>>> GetSeats([FromQuery] SeatQueryParams queryParams)
     {
-        var seatsDto = await _seatService.GetAllSeatDtoAsync(queryParams);
+        var seatsDto = await _seatService.GetAllDtoAsync(queryParams);
 
         var paginationHeader = new PaginationHeader(queryParams.PageNumber, queryParams.PageSize, 
         seatsDto.TotalCount, seatsDto.TotalPages);
@@ -25,7 +25,7 @@ public class SeatController : BaseApiController
     [HttpGet("{id}")]
     public async Task<ActionResult<SeatDto>> GetSeat(int id)
     {
-        var seatsDto = await _seatService.GetSeatDtoByIdAsync(id);
+        var seatsDto = await _seatService.GetDtoByIdAsync(id);
 
         if (seatsDto is null) return NotFound(new ErrorResponse(404));
 
@@ -42,7 +42,7 @@ public class SeatController : BaseApiController
         
         try
         {
-            await _seatService.AddSeatAsync(seat);
+            await _seatService.AddAsync(seat);
         }
         catch (BadRequestException ex)
         {
@@ -65,7 +65,7 @@ public class SeatController : BaseApiController
 
         try
         {
-            await _seatService.UpdateSeatAsync(seat);
+            await _seatService.UpdateAsync(seat);
         }
         catch (NotFoundException ex)
         {
@@ -83,13 +83,13 @@ public class SeatController : BaseApiController
     [HttpPatch("{id}")]
     public async Task<IActionResult> SoftDeleteSeat(int id)
     {
-        var seat = await _seatService.GetSeatByIdAsync(id);
+        var seat = await _seatService.GetByIdAsync(id);
         if(seat == null)
         {
             return NotFound(new ErrorResponse(404));
         }
 
-        await _seatService.SoftDeleteSeatAsync(seat);
+        await _seatService.SoftDeleteAsync(seat);
 
         return NoContent();
     }

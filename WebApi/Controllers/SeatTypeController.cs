@@ -15,7 +15,7 @@ public class SeatTypeController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<List<SeatTypeDto>>> GetAll([FromQuery] QueryParams queryParams)
     {
-        var seatTypesDto = await _seatTypeService.GetAllSeatTypeDtoAsync(queryParams);
+        var seatTypesDto = await _seatTypeService.GetAllDtoAsync(queryParams);
 
         var paginationHeader = new PaginationHeader(queryParams.PageNumber, queryParams.PageSize,
             seatTypesDto.TotalCount, seatTypesDto.TotalPages);
@@ -28,7 +28,7 @@ public class SeatTypeController : ControllerBase
     [HttpGet("{id}")]
     public async Task<ActionResult<SeatTypeDto>> GetById(int id)
     {
-        var seatTypesDto = await _seatTypeService.GetSeatTypeDtoByIdAsync(id);
+        var seatTypesDto = await _seatTypeService.GetDtoByIdAsync(id);
 
         if (seatTypesDto == null) return NotFound(new ErrorResponse(404));
 
@@ -40,27 +40,27 @@ public class SeatTypeController : ControllerBase
     {
         if (!ModelState.IsValid) return BadRequest(ModelState);
 
-        await _seatTypeService.AddSeatTypeAsync(seatType);
+        await _seatTypeService.AddAsync(seatType);
         return CreatedAtAction("GetById", new { id = seatType.Id }, seatType);
     }
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
-        var seatType = await _seatTypeService.GetSeatTypeByIdAsync(id);
+        var seatType = await _seatTypeService.GetByIdAsync(id);
         if (seatType == null) return NotFound();
-        await _seatTypeService.DeleteSeatTypeAsync(seatType);
+        await _seatTypeService.DeleteAsync(seatType);
         return NoContent();
     }
 
     [HttpPatch("{id}")]
     public async Task<IActionResult> SoftDeleteSeatType(int id)
     {
-        var seatType = await _seatTypeService.GetSeatTypeByIdAsync(id);
+        var seatType = await _seatTypeService.GetByIdAsync(id);
 
         if (seatType == null) return NotFound();
 
-        await _seatTypeService.SoftDeleteSeatTypeAsync(seatType);
+        await _seatTypeService.SoftDeleteAsync(seatType);
 
         return Ok();
     }
@@ -74,7 +74,7 @@ public class SeatTypeController : ControllerBase
 
         try
         {
-            await _seatTypeService.UpdateSeatTypeAsync(seatType);
+            await _seatTypeService.UpdateAsync(seatType);
         }
         catch (NotFoundException ex)
         {

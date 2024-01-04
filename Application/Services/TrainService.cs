@@ -23,7 +23,7 @@ public class TrainService : ITrainService
         _mapper = mapper;
     }
 
-    public async Task AddTrainAsync(Train train)
+    public async Task AddAsync(Train train)
     {
         if (NameExists(_repository, train.Name, train.Id))
         {
@@ -34,13 +34,13 @@ public class TrainService : ITrainService
         await _unitOfWork.SaveChangesAsync();
     }
 
-    public async Task DeleteTrainAsync(Train train)
+    public async Task DeleteAsync(Train train)
     {
         _repository.Delete(train);
         await _unitOfWork.SaveChangesAsync();
     }
 
-    public async Task<PagedList<TrainDto>> GetAllTrainDtoAsync(TrainQueryParams queryParams)
+    public async Task<PagedList<TrainDto>> GetAllDtoAsync(TrainQueryParams queryParams)
     {
         var query = await _repository.GetQueryWithTrainCompanyAsync();
 
@@ -66,24 +66,24 @@ public class TrainService : ITrainService
             queryParams.PageSize);
     }
 
-    public async Task<Train> GetTrainByIdAsync(int id)
+    public async Task<Train> GetByIdAsync(int id)
     {
         return await _repository.GetByIdAsync(id);
     }
 
-    public async Task<TrainDto> GetTrainDtoByIdAsync(int id)
+    public async Task<TrainDto> GetDtoByIdAsync(int id)
     {
         var trainDto = await _repository.GetByIdAsync(id);
         return _mapper.Map<TrainDto>(trainDto);
     }
 
-    public async Task SoftDeleteTrainAsync(Train train)
+    public async Task SoftDeleteAsync(Train train)
     {
         _repository.SoftDelete(train);
         await _unitOfWork.SaveChangesAsync();
     }
 
-    public async Task UpdateTrainAsync(Train train)
+    public async Task UpdateAsync(Train train)
     {
         var trainInDb = await _repository.GetByIdAsync(train.Id);
 
