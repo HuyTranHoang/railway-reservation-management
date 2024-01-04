@@ -1,13 +1,3 @@
-using Application.Common.Exceptions;
-using Application.Common.Interfaces.Services;
-using Application.Common.Models;
-using Application.Common.Models.Pagination;
-using Application.Common.Models.QueryParams;
-using Domain.Entities;
-using Microsoft.AspNetCore.Mvc;
-using WebApi.Exceptions;
-using WebApi.Extensions;
-
 namespace WebApi.Controllers;
 
 public class TrainsController : BaseApiController

@@ -1,6 +1,5 @@
 ﻿using System.Net;
 using System.Text.Json;
-using WebApi.Exceptions;
 
 namespace WebApi.Middleware;
 

@@ -1,6 +1,4 @@
 ﻿using System.Text.Json;
-using Application.Common.Models;
-using Application.Common.Models.Pagination;
 
 namespace WebApi.Extensions;
 
