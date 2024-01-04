@@ -18,7 +18,7 @@ public static class ApplicationDbContextInitialiser
             await Seed.SeedPassenger(context);
             await Seed.SeedTrainCompany(context);
             await Seed.SeedTrain(context);
-            await Seed.SeedCarriage(context);
+            // await Seed.SeedCarriage(context);
         }
         catch (Exception ex)
         {
