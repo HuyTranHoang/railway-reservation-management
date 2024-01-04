@@ -1,6 +1,6 @@
 ﻿[
   {
-    "name": "Koch Cruz",
+    "fullName": "Koch Cruz",
     "cardId": "1115 2148 8275",
     "age": 53,
     "gender": "male",
@@ -8,7 +8,7 @@
     "email": "kochcruz@goko.com"
   },
   {
-    "name": "Macias Craft",
+    "fullName": "Macias Craft",
     "cardId": "5725 9501 6780",
     "age": 27,
     "gender": "male",
@@ -16,7 +16,7 @@
     "email": "maciascraft@goko.com"
   },
   {
-    "name": "Peterson West",
+    "fullName": "Peterson West",
     "cardId": "2607 1785 2831",
     "age": 28,
     "gender": "male",
@@ -24,7 +24,7 @@
     "email": "petersonwest@goko.com"
   },
   {
-    "name": "Kemp Grant",
+    "fullName": "Kemp Grant",
     "cardId": "1937 7520 2127",
     "age": 33,
     "gender": "male",
@@ -32,7 +32,7 @@
     "email": "kempgrant@goko.com"
   },
   {
-    "name": "Mays Marsh",
+    "fullName": "Mays Marsh",
     "cardId": "8986 9932 4354",
     "age": 57,
     "gender": "male",
@@ -40,7 +40,7 @@
     "email": "maysmarsh@goko.com"
   },
   {
-    "name": "Dominique Kelley",
+    "fullName": "Dominique Kelley",
     "cardId": "2907 9070 3116",
     "age": 41,
     "gender": "female",
@@ -48,7 +48,7 @@
     "email": "dominiquekelley@goko.com"
   },
   {
-    "name": "Foster Joseph",
+    "fullName": "Foster Joseph",
     "cardId": "8392 8445 3839",
     "age": 37,
     "gender": "male",
@@ -56,7 +56,7 @@
     "email": "fosterjoseph@goko.com"
   },
   {
-    "name": "Knight Cardenas",
+    "fullName": "Knight Cardenas",
     "cardId": "6071 3325 9227",
     "age": 27,
     "gender": "male",
@@ -64,7 +64,7 @@
     "email": "knightcardenas@goko.com"
   },
   {
-    "name": "Melva Daniel",
+    "fullName": "Melva Daniel",
     "cardId": "7034 8379 7746",
     "age": 55,
     "gender": "female",
@@ -72,7 +72,7 @@
     "email": "melvadaniel@goko.com"
   },
   {
-    "name": "Keith Carroll",
+    "fullName": "Keith Carroll",
     "cardId": "1549 9955 5455",
     "age": 55,
     "gender": "male",
@@ -80,7 +80,7 @@
     "email": "keithcarroll@goko.com"
   },
   {
-    "name": "Etta Donovan",
+    "fullName": "Etta Donovan",
     "cardId": "2727 7878 5051",
     "age": 60,
     "gender": "female",
@@ -88,7 +88,7 @@
     "email": "ettadonovan@goko.com"
   },
   {
-    "name": "Park Patterson",
+    "fullName": "Park Patterson",
     "cardId": "5602 5610 4704",
     "age": 32,
     "gender": "male",
@@ -96,7 +96,7 @@
     "email": "parkpatterson@goko.com"
   },
   {
-    "name": "Genevieve Simmons",
+    "fullName": "Genevieve Simmons",
     "cardId": "5714 4101 7999",
     "age": 20,
     "gender": "female",
@@ -104,7 +104,7 @@
     "email": "genevievesimmons@goko.com"
   },
   {
-    "name": "Mills Norman",
+    "fullName": "Mills Norman",
     "cardId": "4066 9448 8181",
     "age": 54,
     "gender": "male",
@@ -112,7 +112,7 @@
     "email": "millsnorman@goko.com"
   },
   {
-    "name": "Shaw Best",
+    "fullName": "Shaw Best",
     "cardId": "1429 2275 7502",
     "age": 53,
     "gender": "male",
@@ -120,7 +120,7 @@
     "email": "shawbest@goko.com"
   },
   {
-    "name": "Stephens Emerson",
+    "fullName": "Stephens Emerson",
     "cardId": "7952 9271 3486",
     "age": 29,
     "gender": "male",
@@ -128,7 +128,7 @@
     "email": "stephensemerson@goko.com"
   },
   {
-    "name": "Bishop Barlow",
+    "fullName": "Bishop Barlow",
     "cardId": "7143 9378 1197",
     "age": 37,
     "gender": "male",
@@ -136,7 +136,7 @@
     "email": "bishopbarlow@goko.com"
   },
   {
-    "name": "Regina Rivas",
+    "fullName": "Regina Rivas",
     "cardId": "1757 6980 9736",
     "age": 25,
     "gender": "female",
@@ -144,7 +144,7 @@
     "email": "reginarivas@goko.com"
   },
   {
-    "name": "Heidi Ellis",
+    "fullName": "Heidi Ellis",
     "cardId": "9895 2483 8664",
     "age": 52,
     "gender": "female",
@@ -152,7 +152,7 @@
     "email": "heidiellis@goko.com"
   },
   {
-    "name": "Elvia Gregory",
+    "fullName": "Elvia Gregory",
     "cardId": "1695 7791 6819",
     "age": 41,
     "gender": "female",
@@ -160,7 +160,7 @@
     "email": "elviagregory@goko.com"
   },
   {
-    "name": "Stark Baird",
+    "fullName": "Stark Baird",
     "cardId": "1354 2828 2612",
     "age": 20,
     "gender": "male",
@@ -168,7 +168,7 @@
     "email": "starkbaird@goko.com"
   },
   {
-    "name": "Rios Callahan",
+    "fullName": "Rios Callahan",
     "cardId": "9737 5248 9653",
     "age": 43,
     "gender": "male",
@@ -176,7 +176,7 @@
     "email": "rioscallahan@goko.com"
   },
   {
-    "name": "Minnie Knowles",
+    "fullName": "Minnie Knowles",
     "cardId": "1475 9305 8918",
     "age": 38,
     "gender": "female",
@@ -184,7 +184,7 @@
     "email": "minnieknowles@goko.com"
   },
   {
-    "name": "Blake Mayer",
+    "fullName": "Blake Mayer",
     "cardId": "2831 1073 9558",
     "age": 37,
     "gender": "male",
@@ -192,7 +192,7 @@
     "email": "blakemayer@goko.com"
   },
   {
-    "name": "Hayden Myers",
+    "fullName": "Hayden Myers",
     "cardId": "1779 8684 4757",
     "age": 28,
     "gender": "male",
@@ -200,7 +200,7 @@
     "email": "haydenmyers@goko.com"
   },
   {
-    "name": "Whitaker Blackburn",
+    "fullName": "Whitaker Blackburn",
     "cardId": "9881 2764 8162",
     "age": 48,
     "gender": "male",
@@ -208,7 +208,7 @@
     "email": "whitakerblackburn@goko.com"
   },
   {
-    "name": "Baker Mullins",
+    "fullName": "Baker Mullins",
     "cardId": "4204 9659 4643",
     "age": 30,
     "gender": "male",
@@ -216,7 +216,7 @@
     "email": "bakermullins@goko.com"
   },
   {
-    "name": "Henderson Lindsay",
+    "fullName": "Henderson Lindsay",
     "cardId": "7869 9696 5475",
     "age": 43,
     "gender": "male",
@@ -224,7 +224,7 @@
     "email": "hendersonlindsay@goko.com"
   },
   {
-    "name": "Lolita Landry",
+    "fullName": "Lolita Landry",
     "cardId": "5397 6609 8831",
     "age": 39,
     "gender": "female",
@@ -232,7 +232,7 @@
     "email": "lolitalandry@goko.com"
   },
   {
-    "name": "Obrien Blevins",
+    "fullName": "Obrien Blevins",
     "cardId": "2980 6940 5952",
     "age": 43,
     "gender": "male",
@@ -240,7 +240,7 @@
     "email": "obrienblevins@goko.com"
   },
   {
-    "name": "Francine Riley",
+    "fullName": "Francine Riley",
     "cardId": "5294 7711 5133",
     "age": 38,
     "gender": "female",
@@ -248,7 +248,7 @@
     "email": "francineriley@goko.com"
   },
   {
-    "name": "Ford Le",
+    "fullName": "Ford Le",
     "cardId": "2857 8343 4941",
     "age": 24,
     "gender": "male",
@@ -256,7 +256,7 @@
     "email": "fordle@goko.com"
   },
   {
-    "name": "Janine Andrews",
+    "fullName": "Janine Andrews",
     "cardId": "3380 8786 8936",
     "age": 53,
     "gender": "female",
@@ -264,7 +264,7 @@
     "email": "janineandrews@goko.com"
   },
   {
-    "name": "Stokes Allison",
+    "fullName": "Stokes Allison",
     "cardId": "1468 4379 2236",
     "age": 20,
     "gender": "male",
@@ -272,7 +272,7 @@
     "email": "stokesallison@goko.com"
   },
   {
-    "name": "Shannon Ochoa",
+    "fullName": "Shannon Ochoa",
     "cardId": "6979 5086 9170",
     "age": 58,
     "gender": "male",
@@ -280,7 +280,7 @@
     "email": "shannonochoa@goko.com"
   },
   {
-    "name": "Fanny Lloyd",
+    "fullName": "Fanny Lloyd",
     "cardId": "5593 3518 2370",
     "age": 58,
     "gender": "female",
@@ -288,7 +288,7 @@
     "email": "fannylloyd@goko.com"
   },
   {
-    "name": "Tabitha Boone",
+    "fullName": "Tabitha Boone",
     "cardId": "5075 5335 4284",
     "age": 33,
     "gender": "female",
@@ -296,7 +296,7 @@
     "email": "tabithaboone@goko.com"
   },
   {
-    "name": "Gena Sharp",
+    "fullName": "Gena Sharp",
     "cardId": "7567 6237 9747",
     "age": 51,
     "gender": "female",
@@ -304,7 +304,7 @@
     "email": "genasharp@goko.com"
   },
   {
-    "name": "Nellie Valenzuela",
+    "fullName": "Nellie Valenzuela",
     "cardId": "1463 4930 5420",
     "age": 22,
     "gender": "female",
@@ -312,7 +312,7 @@
     "email": "nellievalenzuela@goko.com"
   },
   {
-    "name": "Hester Downs",
+    "fullName": "Hester Downs",
     "cardId": "9269 8582 2211",
     "age": 54,
     "gender": "female",
