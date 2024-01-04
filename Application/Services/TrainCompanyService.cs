@@ -76,6 +76,7 @@ public class TrainCompanyService : ITrainCompanyService
         trainCompanyInDb.Name = trainCompany.Name;
         trainCompanyInDb.UpdatedAt = DateTime.Now;
 
+        _repository.Update(trainCompanyInDb);
         await _unitOfWork.SaveChangesAsync();
     }
 

@@ -2,6 +2,7 @@
 
 namespace Application.Common.Interfaces.Persistence;
 
-public interface IPassengerReponsitory : IReponsitory<Passenger>
+public interface ICarriageTypeReponsitory : IReponsitory<CarriageType>
 {
+
 }
