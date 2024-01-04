@@ -1,13 +1,3 @@
-using Application.Common.Exceptions;
-using Application.Common.Interfaces.Persistence;
-using Application.Common.Interfaces.Services;
-using Application.Common.Models;
-using Application.Common.Models.Pagination;
-using Application.Common.Models.QueryParams;
-using AutoMapper;
-using Domain.Entities;
-
-
 namespace Application.Services;
 
 public class SeatTypeService : ISeatTypeService
