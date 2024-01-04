@@ -7,10 +7,11 @@ namespace Application.Common.Interfaces.Services;
 
 public interface ISeatTypeService
 {
-    Task<PagedList<SeatTypeDto>> GetAllAsync(QueryParams queryParams);
-    Task<SeatTypeDto> GetByIdDtoAsync(int id);
-    Task<SeatType> GetByIdAsync(int id);
-    Task AddAsync(SeatType seatType);
-    Task DeleteAsync(SeatType seatType);
-    Task UpdateAsync(SeatType seatType);
+    Task<PagedList<SeatTypeDto>> GetAllSeatTypeDtoAsync(QueryParams queryParams);
+    Task<SeatTypeDto> GetSeatTypeDtoByIdAsync(int id);
+    Task<SeatType> GetSeatTypeByIdAsync(int id);
+    Task AddSeatTypeAsync(SeatType seatType);
+    Task UpdateSeatTypeAsync(SeatType seatType);
+    Task DeleteSeatTypeAsync(SeatType seatType);
+    Task SoftDeleteSeatTypeAsync(SeatType seatType);
 }

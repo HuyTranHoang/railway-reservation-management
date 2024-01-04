@@ -7,7 +7,9 @@ namespace Domain.Entities
     public class Schedule : BaseEntity
     {
         public int Id { get; set; }
-        
+
+        [StringLength(100)] public string Name { get; set; }
+  
         [Required]
         [ForeignKey("TrainId")]
         public int TrainId { get; set; }

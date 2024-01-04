@@ -11,17 +11,8 @@ namespace Domain.Entities
         [Required]
         [ForeignKey("TrainId")]
         public int TrainId { get; set; }
+        
         public Train Train { get; set; }
-
-        [Required]
-        [ForeignKey("DepartureStationId")]
-        public int DepartureStationId { get; set; }
-        public TrainStation DepartureStation { get; set; }
-
-        [Required]
-        [ForeignKey("ArrivalStationId")]
-        public int ArrivalStationId { get; set; }
-        public TrainStation ArrivalStation { get; set; }
 
         [Required] public int Distance { get; set; }
 

@@ -14,5 +14,10 @@ public class CarriageConfiguration : IEntityTypeConfiguration<Carriage>
             .HasOne(t => t.Train)
             .WithMany()
             .OnDelete(DeleteBehavior.Restrict);
+
+        builder
+            .HasOne(t => t.CarriageType)
+            .WithMany()
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

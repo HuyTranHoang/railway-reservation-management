@@ -4,6 +4,7 @@ using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240103230550_AddCarriageType")]
+    partial class AddCarriageType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -112,9 +114,6 @@ namespace Infrastructure.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("CarriageTypeId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2")
                         .HasColumnOrder(998);
@@ -131,6 +130,9 @@ namespace Infrastructure.Data.Migrations
                     b.Property<int>("NumberOfCompartment")
                         .HasColumnType("int");
 
+                    b.Property<double>("ServiceCharge")
+                        .HasColumnType("float");
+
                     b.Property<string>("Status")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
@@ -143,8 +145,6 @@ namespace Infrastructure.Data.Migrations
                         .HasColumnOrder(999);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CarriageTypeId");
 
                     b.HasIndex("TrainId");
 
@@ -227,9 +227,6 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasIndex("CarriageId");
 
-                    b.HasIndex(new[] { "Name" }, "IX_Compartments_Name")
-                        .IsUnique();
-
                     b.ToTable("Compartments");
                 });
 
@@ -241,9 +238,15 @@ namespace Infrastructure.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int>("ArrivalStationId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2")
                         .HasColumnOrder(998);
+
+                    b.Property<int>("DepartureStationId")
+                        .HasColumnType("int");
 
                     b.Property<int>("Distance")
                         .HasColumnType("int");
@@ -263,6 +266,10 @@ namespace Infrastructure.Data.Migrations
                         .HasColumnOrder(999);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ArrivalStationId");
+
+                    b.HasIndex("DepartureStationId");
 
                     b.HasIndex("TrainId");
 
@@ -293,11 +300,6 @@ namespace Infrastructure.Data.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
                     b.Property<string>("Gender")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -305,6 +307,11 @@ namespace Infrastructure.Data.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit")
                         .HasColumnOrder(997);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("Phone")
                         .IsRequired()
@@ -359,39 +366,6 @@ namespace Infrastructure.Data.Migrations
                     b.ToTable("Payments");
                 });
 
-            modelBuilder.Entity("Domain.Entities.RoundTrip", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(998);
-
-                    b.Property<double>("Discount")
-                        .HasColumnType("float");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(997);
-
-                    b.Property<int>("TrainCompanyId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(999);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TrainCompanyId");
-
-                    b.ToTable("RoundTrips");
-                });
-
             modelBuilder.Entity("Domain.Entities.Schedule", b =>
                 {
                     b.Property<int>("Id")
@@ -419,10 +393,6 @@ namespace Infrastructure.Data.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit")
                         .HasColumnOrder(997);
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Status")
                         .HasMaxLength(100)
@@ -510,6 +480,7 @@ namespace Infrastructure.Data.Migrations
                         .HasColumnType("float");
 
                     b.Property<string>("Status")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -718,19 +689,11 @@ namespace Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Domain.Entities.Carriage", b =>
                 {
-                    b.HasOne("Domain.Entities.CarriageType", "CarriageType")
-                        .WithMany()
-                        .HasForeignKey("CarriageTypeId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("Domain.Entities.Train", "Train")
                         .WithMany()
                         .HasForeignKey("TrainId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.Navigation("CarriageType");
 
                     b.Navigation("Train");
                 });
@@ -748,11 +711,27 @@ namespace Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Domain.Entities.DistanceFare", b =>
                 {
+                    b.HasOne("Domain.Entities.TrainStation", "ArrivalStation")
+                        .WithMany()
+                        .HasForeignKey("ArrivalStationId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.TrainStation", "DepartureStation")
+                        .WithMany()
+                        .HasForeignKey("DepartureStationId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("Domain.Entities.Train", "Train")
                         .WithMany()
                         .HasForeignKey("TrainId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("ArrivalStation");
+
+                    b.Navigation("DepartureStation");
 
                     b.Navigation("Train");
                 });
@@ -774,17 +753,6 @@ namespace Infrastructure.Data.Migrations
                     b.Navigation("Passenger");
 
                     b.Navigation("Ticket");
-                });
-
-            modelBuilder.Entity("Domain.Entities.RoundTrip", b =>
-                {
-                    b.HasOne("Domain.Entities.TrainCompany", "TrainCompany")
-                        .WithMany()
-                        .HasForeignKey("TrainCompanyId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("TrainCompany");
                 });
 
             modelBuilder.Entity("Domain.Entities.Schedule", b =>

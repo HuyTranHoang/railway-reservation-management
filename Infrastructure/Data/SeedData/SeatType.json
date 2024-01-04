@@ -1,0 +1,27 @@
+﻿[
+  {
+    "Name": "Ghế Cửa Sổ (Window Seat)",
+    "ServiceCharge": 30.0,
+    "Status": ""
+  },
+  {
+    "Name": "Ghế Hành Lang (Aisle Seat)",
+    "ServiceCharge": 20.0,
+    "Status": ""
+  },
+  {
+    "Name": "Ghế Tiêu Chuẩn (Standard Seat)",
+    "ServiceCharge": 10.0,
+    "Status": ""
+  },
+  {
+    "Name": "Giường Tầng Dưới (Lower Berth)",
+    "ServiceCharge": 50.0,
+    "Status": ""
+  },
+  {
+    "Name": "Giường Tầng Trên (Upper Berth):",
+    "ServiceCharge": 40.0,
+    "Status": ""
+  }
+]

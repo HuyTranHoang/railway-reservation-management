@@ -13,7 +13,7 @@ public class CarriageDto
 
     public int NumberOfCompartment { get; set; }
 
-    public double ServiceCharge { get; set; }
+    // public double ServiceCharge { get; set; }
 
     public string Status { get; set; }
 }

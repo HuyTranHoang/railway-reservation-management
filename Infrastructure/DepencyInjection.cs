@@ -21,8 +21,7 @@ public static class DepencyInjection
         services.AddScoped<ITrainRepository, TrainRepository>();
         services.AddScoped<ICarriageReponsitory, CarriageReponsitory>();
         services.AddScoped<ISeatRepository, SeatRepository>();
-
-
+        services.AddScoped<ICompartmentReponsitory, CompartmentReponsitory>();
         return services;
     }
 }

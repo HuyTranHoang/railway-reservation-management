@@ -4,6 +4,7 @@ using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240103233055_UpdateDistanceFare")]
+    partial class UpdateDistanceFare
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -227,9 +229,6 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasIndex("CarriageId");
 
-                    b.HasIndex(new[] { "Name" }, "IX_Compartments_Name")
-                        .IsUnique();
-
                     b.ToTable("Compartments");
                 });
 
@@ -293,11 +292,6 @@ namespace Infrastructure.Data.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
                     b.Property<string>("Gender")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -305,6 +299,11 @@ namespace Infrastructure.Data.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit")
                         .HasColumnOrder(997);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("Phone")
                         .IsRequired()
@@ -359,39 +358,6 @@ namespace Infrastructure.Data.Migrations
                     b.ToTable("Payments");
                 });
 
-            modelBuilder.Entity("Domain.Entities.RoundTrip", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(998);
-
-                    b.Property<double>("Discount")
-                        .HasColumnType("float");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(997);
-
-                    b.Property<int>("TrainCompanyId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(999);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TrainCompanyId");
-
-                    b.ToTable("RoundTrips");
-                });
-
             modelBuilder.Entity("Domain.Entities.Schedule", b =>
                 {
                     b.Property<int>("Id")
@@ -419,10 +385,6 @@ namespace Infrastructure.Data.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit")
                         .HasColumnOrder(997);
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Status")
                         .HasMaxLength(100)
@@ -510,6 +472,7 @@ namespace Infrastructure.Data.Migrations
                         .HasColumnType("float");
 
                     b.Property<string>("Status")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -774,17 +737,6 @@ namespace Infrastructure.Data.Migrations
                     b.Navigation("Passenger");
 
                     b.Navigation("Ticket");
-                });
-
-            modelBuilder.Entity("Domain.Entities.RoundTrip", b =>
-                {
-                    b.HasOne("Domain.Entities.TrainCompany", "TrainCompany")
-                        .WithMany()
-                        .HasForeignKey("TrainCompanyId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("TrainCompany");
                 });
 
             modelBuilder.Entity("Domain.Entities.Schedule", b =>

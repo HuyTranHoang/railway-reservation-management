@@ -14,15 +14,5 @@ public class DistanceFareConfiguration : IEntityTypeConfiguration<DistanceFare>
             .HasOne(t => t.Train)
             .WithMany()
             .OnDelete(DeleteBehavior.Restrict);
-
-        builder
-            .HasOne(t => t.DepartureStation)
-            .WithMany()
-            .OnDelete(DeleteBehavior.Restrict);
-
-        builder
-            .HasOne(t => t.ArrivalStation)
-            .WithMany()
-            .OnDelete(DeleteBehavior.Restrict);
     }
 }

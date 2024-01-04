@@ -23,11 +23,6 @@ public class CarriageService : ICarriageService
     }
     public async Task AddCarriageAsync(Carriage carriage)
     {
-        if (NameExists(_repository, carriage.Name, carriage.Id))
-        {
-            throw new BadRequestException(400, "Name already exists");
-        }
-
         _repository.Add(carriage);
         await _unitOfWork.SaveChangesAsync();
     }
@@ -41,12 +36,12 @@ public class CarriageService : ICarriageService
     public async Task<PagedList<CarriageDto>> GetAllCarriageDtoAsync(CarriageQueryParams queryParams)
     {
         var query = await _repository.GetQueryWithTrainAsync();
-        
-         if (queryParams.TrainId != 0)
+
+        if (queryParams.TrainId != 0)
         {
             query = query.Where(t => t.TrainId == queryParams.TrainId);
         }
-        
+
         if (!string.IsNullOrEmpty(queryParams.SearchTerm))
             query = query.Where(p => p.Name.Contains(queryParams.SearchTerm));
 
@@ -88,23 +83,14 @@ public class CarriageService : ICarriageService
 
         if (carriageInDb == null) throw new NotFoundException(nameof(Passenger), carriage.Id);
 
-        if (NameExists(_repository, carriage.Name, carriage.Id))
-        {
-            throw new BadRequestException(400, "Name already exists");
-        }
-
         carriageInDb.Name = carriage.Name;
         carriageInDb.TrainId = carriage.TrainId;
         carriageInDb.NumberOfCompartment = carriage.NumberOfCompartment;
-        carriageInDb.ServiceCharge = carriage.ServiceCharge;
+        // carriageInDb.ServiceCharge = carriage.ServiceCharge;
         carriageInDb.Status = carriage.Status;
         carriageInDb.UpdatedAt = DateTime.Now;
 
         await _unitOfWork.SaveChangesAsync();
     }
 
-    private static bool NameExists(ICarriageReponsitory repository, string name, int carriageId)
-    {
-        return repository.GetQueryAsync().Result.Any(t => t.Name == name);
-    }
 }

@@ -54,3 +54,15 @@ Content-Type: application/json
 @deleteId = 1
 
 PATCH {{url}}/api/trains/{{deleteId}}
+
+### 
+
+# @name addTrainValidation
+POST {{url}}/api/trains
+Content-Type: application/json
+
+{
+  "Name": "123",
+  "TrainCompanyId": 0,
+  "Status": ""
+}
