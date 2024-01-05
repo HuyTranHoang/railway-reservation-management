@@ -34,6 +34,7 @@ public static class Seed
         await SeedData<CarriageType>(context, "CarriageType.json", c => c.CarriageTypes);
         await SeedData<CancellationRule>(context, "CancellationRule.json", c => c.CancellationRules);
         await SeedData<TrainStation>(context, "TrainStation.json", c => c.TrainStations);
+        await SeedData<RoundTrip>(context, "RoundTrip.json", c => c.RoundTrips);
 
         // Bị lỗi vì thiếu CarriageTypeId
         // await SeedData<Carriage>(context, "Carriage.json", c => c.Carriages);
