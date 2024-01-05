@@ -28,11 +28,16 @@ public class CarriageService : ICarriageService
 
     public async Task<PagedList<CarriageDto>> GetAllDtoAsync(CarriageQueryParams queryParams)
     {
-        var query = await _repository.GetQueryWithTrainAsync();
+        var query = await _repository.GetQueryWithTrainAndTypeAsync();
 
         if (queryParams.TrainId != 0)
         {
             query = query.Where(t => t.TrainId == queryParams.TrainId);
+        }
+
+        if (queryParams.CarriageTypeId != 0)
+        {
+            query = query.Where(t => t.CarriageTypeId == queryParams.CarriageTypeId);
         }
 
         if (!string.IsNullOrEmpty(queryParams.SearchTerm))
@@ -78,10 +83,12 @@ public class CarriageService : ICarriageService
 
         carriageInDb.Name = carriage.Name;
         carriageInDb.TrainId = carriage.TrainId;
+        carriageInDb.CarriageTypeId = carriage.CarriageTypeId;
         carriageInDb.NumberOfCompartment = carriage.NumberOfCompartment;
-        // carriageInDb.ServiceCharge = carriage.ServiceCharge;
         carriageInDb.Status = carriage.Status;
         carriageInDb.UpdatedAt = DateTime.Now;
+
+        _repository.Update(carriageInDb);
 
         await _unitOfWork.SaveChangesAsync();
     }

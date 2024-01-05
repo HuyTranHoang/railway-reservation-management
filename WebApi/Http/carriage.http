@@ -11,9 +11,8 @@ Content-Type: application/json
   "Name" : "Test",
   "TrainId" : "1",
   "CarriageTypeId" : "1",
-  "NumberOfCompartment" : 1,
-  "ServiceCharge" : 2.5,
-  "Status" : "Test"
+  "NumberOfCompartment" : 2,
+  "Status" : "Active"
 }
 
 
@@ -31,7 +30,7 @@ GET {{url}}/{{router}}?
 ### 
 
 # @name getCarriagenById
-@id = 1
+@id = 6
 
 GET {{url}}/{{router}}/{{id}}
 
@@ -46,12 +45,11 @@ Content-Type: application/json
 
 {
   "Id": {{updateId}},
-  "Name" : "Test",
-  "TrainId" : "1",
-  "CarriageTypeId" : "1",
-  "NumberOfCompartment" : 1,
-  "ServiceCharge" : 2.5,
-  "Status" : "Test"
+  "name": "Updated",
+  "trainId": 2,
+  "carriageTypeId": 2,
+  "numberOfCompartment": 3,
+  "status": "Active"
 }
 
 
@@ -73,7 +71,7 @@ Content-Type: application/json
   "Name" : "",
   "TrainId" : "1",
   "CarriageTypeId" : "1",
-  "NumberOfCompartment" : 0,
+  "NumberOfCompartment" : 1,
   "ServiceCharge" : 0,
   "Status" : "Test"
 }

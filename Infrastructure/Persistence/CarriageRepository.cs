@@ -36,11 +36,12 @@ public class CarriageRepository : ICarriageRepository
             .AsQueryable());
     }
 
-    public async Task<IQueryable<Carriage>> GetQueryWithTrainAsync()
+    public async Task<IQueryable<Carriage>> GetQueryWithTrainAndTypeAsync()
     {
         return await Task.FromResult(
         _context.Carriages
             .Include(t => t.Train)
+            .Include(t => t.CarriageType)
             .AsQueryable());
     }
 

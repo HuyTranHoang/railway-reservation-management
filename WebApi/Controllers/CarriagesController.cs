@@ -37,10 +37,7 @@ public class CarriagesController : BaseApiController
     [HttpPost]
     public async Task<ActionResult> PostCarriage([FromBody] Carriage carriage)
     {
-        if(!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
+        if(!ModelState.IsValid) return BadRequest(ModelState);
         
         try
         {
@@ -60,10 +57,7 @@ public class CarriagesController : BaseApiController
     {
         if (id != carriage.Id) return BadRequest(new ErrorResponse(400));
 
-        if(!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
+        if(!ModelState.IsValid) return BadRequest(ModelState);
 
         try
         {
@@ -86,10 +80,8 @@ public class CarriagesController : BaseApiController
     public async Task<IActionResult> SoftDeleteCarriage(int id)
     {
         var carriage = await _carriageService.GetByIdAsync(id);
-        if(carriage == null)
-        {
-            return NotFound(new ErrorResponse(404));
-        }
+
+        if(carriage == null) return NotFound(new ErrorResponse(404));
 
         await _carriageService.SoftDeleteAsync(carriage);
 
