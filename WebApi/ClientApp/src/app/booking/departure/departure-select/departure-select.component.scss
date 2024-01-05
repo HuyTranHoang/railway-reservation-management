@@ -1,0 +1,63 @@
+h4 {
+  margin-top: 30px;
+  margin-bottom: 15px;
+  font-size: 24px;
+  color: #49525b;
+}
+
+h5 {
+  color: #49525b;
+}
+
+.horizontal-devider {
+  background: #e0e0e0;
+  width: 100%;
+  height: 1px;
+  margin-top: 4px;
+  margin-bottom: 10px;
+}
+
+.blue-text {
+  color: #42c8f4;
+}
+
+.bold {
+  font-weight: 600;
+}
+
+// Table
+
+.table > thead th{
+  height: 60px;
+  padding: 0;
+  vertical-align: middle;
+  background: #e6e6e6;
+  color: #49525b;
+  border: none;
+  white-space: nowrap;
+}
+
+.table td {
+  display: table-cell;
+  vertical-align: middle !important;
+  height: 100%;
+  padding: 15px 0;
+  border-top: none;
+}
+
+.logo {
+  width: 90px;
+  margin-bottom: 3px;
+}
+
+.icon {
+  color: #428bca;
+  font-size: 18px;
+  padding: 0 5px;
+  margin: 0 5px;
+  vertical-align: 5px
+}
+
+.yellow-text {
+  color: #fb0;
+}
