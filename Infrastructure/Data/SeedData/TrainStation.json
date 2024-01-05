@@ -1,0 +1,69 @@
+[
+    {
+        "name": "Mumbai Central Station",
+        "address": "456 MG Road, Mumbai",
+        "coordinateValue": 0,
+        "status": "Operational"
+      },
+      {
+        "name": "Delhi Junction",
+        "address": "789 Chandni Chowk, New Delhi",
+        "coordinateValue": 100,
+        "status": "Operational"
+      },
+      {
+        "name": "Kolkata Terminus",
+        "address": "101 Howrah Bridge Rd, Kolkata",
+        "coordinateValue": 200,
+        "status": "Under Construction"
+      },
+      {
+        "name": "Bangalore City Junction",
+        "address": "202 Majestic Area, Bangalore",
+        "coordinateValue": 300,
+        "status": "Operational"
+      },
+      {
+        "name": "Chennai Central",
+        "address": "303 Poonamallee High Rd, Chennai",
+        "coordinateValue": 400,
+        "status": "Operational"
+      },
+      {
+        "name": "Hyderabad Deccan Station",
+        "address": "404 Nampally, Hyderabad",
+        "coordinateValue":500,
+        "status": "Under Renovation"
+      },
+      {
+        "name": "Ahmedabad Junction",
+        "address": "505 Kalupur, Ahmedabad",
+        "coordinateValue": 600,
+        "status": "Operational"
+      },
+      {
+        "name": "Pune Central",
+        "address": "606 MG Road, Pune",
+        "coordinateValue": 700,
+        "status": "Operational"
+      },
+      {
+        "name": "Jaipur Junction",
+        "address": "707 Station Rd, Jaipur",
+        "coordinateValue": 800,
+        "status": "Operational"
+      },
+      {
+        "name": "Lucknow Central",
+        "address": "808 Charbagh, Lucknow",
+        "coordinateValue": 900,
+        "status": "Operational"
+      },
+      {
+        "name": "Goa Terminal",
+        "address": "909 Margao, Goa",
+        "coordinateValue": 1000,
+        "status": "Operational"
+      }   
+      
+]

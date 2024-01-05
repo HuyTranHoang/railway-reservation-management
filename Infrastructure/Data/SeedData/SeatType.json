@@ -2,26 +2,31 @@
   {
     "Name": "Ghế Cửa Sổ (Window Seat)",
     "ServiceCharge": 30.0,
-    "Status": ""
+    "Status": "",
+    "Description": "Ghế ngồi gần cửa sổ, thường có giá cao hơn do khách hàng có thể ngắm cảnh qua cửa sổ."
   },
   {
     "Name": "Ghế Hành Lang (Aisle Seat)",
     "ServiceCharge": 20.0,
-    "Status": ""
+    "Status": "",
+    "Description": "Ghế ngồi gần lối đi, thuận tiện cho việc di chuyển."
   },
   {
     "Name": "Ghế Tiêu Chuẩn (Standard Seat)",
     "ServiceCharge": 10.0,
-    "Status": ""
+    "Status": "",
+    "Description": "Ghế thông thường không có các đặc điểm đặc biệt."
   },
   {
     "Name": "Giường Tầng Dưới (Lower Berth)",
     "ServiceCharge": 50.0,
-    "Status": ""
+    "Status": "",
+    "Description": "Đây là giường tầng dưới tiêu chuẩn, cung cấp mức độ thoải mái cơ bản và dễ dàng tiếp cận."
   },
   {
     "Name": "Giường Tầng Trên (Upper Berth):",
     "ServiceCharge": 40.0,
-    "Status": ""
+    "Status": "",
+    "Description": "Giường ở tầng trên, thường có giá thấp hơn do ít tiện lợi hơn so với giường tầng dưới."
   }
 ]

@@ -2,36 +2,43 @@
   {
     "Name": "First Class",
     "ServiceCharge": 14,
-    "Status": "Active"
+    "Status": "Active",
+    "Description": "First Class"
   },
   {
     "Name": "Second Class",
     "ServiceCharge": 10,
-    "Status": "Active"
+    "Status": "Active",
+    "Description": "Second Class"
   },
   {
     "Name": "Third Class",
     "ServiceCharge": 17,
-    "Status": "Inactive"
+    "Status": "Inactive",
+    "Description": "Third Class"
   },
   {
     "Name": "Sleeper",
     "ServiceCharge": 19,
-    "Status": "Inactive"
+    "Status": "Inactive",
+    "Description": "Sleeper"
   },
   {
     "Name": "Luxury",
     "ServiceCharge": 14,
-    "Status": "Active"
+    "Status": "Active",
+    "Description": "Luxury"
   },
   {
     "Name": "Economy",
     "ServiceCharge": 19,
-    "Status": "Inactive"
+    "Status": "Inactive",
+    "Description": "Economy"
   },
   {
     "Name": "Business",
     "ServiceCharge": 18,
-    "Status": "Active"
+    "Status": "Active",
+    "Description": "Business"
   }
 ]

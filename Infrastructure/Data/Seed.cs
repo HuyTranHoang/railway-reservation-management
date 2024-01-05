@@ -2,6 +2,7 @@
 using System.Text.Json;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 namespace Infrastructure.Data;
 
@@ -17,7 +18,7 @@ public static class Seed
     {
         if (await dbSetSelector(context).AnyAsync()) return;
 
-        var dataPath = DataPath + fileName;
+        var dataPath = Path.Combine(DataPath, fileName);
         var data = await File.ReadAllTextAsync(dataPath);
         var items = JsonSerializer.Deserialize<List<T>>(data, JsonOptions);
 
