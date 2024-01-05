@@ -49,7 +49,9 @@ public class CompartmentsController : BaseApiController
             return BadRequest(errorResponse);
         }
 
-        return CreatedAtAction("GetCompartment", new { id = compartment.Id }, compartment);
+        var compartmentDto = await _compartmentService.GetDtoByIdAsync(compartment.Id);
+
+        return CreatedAtAction("GetCompartment", new { id = compartment.Id }, compartmentDto);
     }
 
     [HttpPut("{id}")]

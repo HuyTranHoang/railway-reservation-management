@@ -9,16 +9,24 @@ Content-Type: application/json
 
 {
   "Name" : "Test",
-  "TrainId" : "1",
-  "CarriageTypeId" : "1",
-  "NumberOfCompartment" : 2,
+  "TrainId" : 1,
+  "CarriageTypeId" : 1,
+  "NumberOfCompartments" : 2,
   "Status" : "Active"
 }
 
 
 ### 
 
+# @name getNumberOfCompartmentsBelongsTo
+@idToCount = 2
+
+GET {{url}}/{{router}}/{{idToCount}}/compartments
+
+###
+
 # @name getListOfCarriage
+
 GET {{url}}/{{router}}?
   &pageNumber=1
   &pageSize=5
@@ -48,7 +56,7 @@ Content-Type: application/json
   "name": "Updated",
   "trainId": 2,
   "carriageTypeId": 2,
-  "numberOfCompartment": 3,
+  "NumberOfCompartments": 3,
   "status": "Active"
 }
 

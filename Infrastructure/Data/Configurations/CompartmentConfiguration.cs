@@ -12,7 +12,7 @@ public class CompartmentConfiguration : IEntityTypeConfiguration<Compartment>
 
         builder
             .HasOne(t => t.Carriage)
-            .WithMany()
+            .WithMany(t => t.Compartments)
             .OnDelete(DeleteBehavior.Restrict);
     }
 }

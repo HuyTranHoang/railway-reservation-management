@@ -9,6 +9,22 @@
   },
   {
     "name": "AC2",
+    "trainId": 1,
+    "CarriageTypeId": 2,
+    "numberOfCompartments": 2,
+    "serviceCharge": 30,
+    "status": ""
+  },
+  {
+    "name": "AC3",
+    "trainId": 1,
+    "CarriageTypeId": 3,
+    "numberOfCompartments": 2,
+    "serviceCharge": 20,
+    "status": ""
+  },
+  {
+    "name": "AC2",
     "trainId": 2,
     "CarriageTypeId": 2,
     "numberOfCompartments": 2,
@@ -17,23 +33,23 @@
   },
   {
     "name": "AC3",
-    "trainId": 3,
-    "CarriageTypeId": 3,
+    "trainId": 2,
+    "CarriageTypeId": 2,
     "numberOfCompartments": 2,
     "serviceCharge": 10,
     "status": ""
   },
   {
     "name": "Sleeper",
-    "trainId": 4,
-    "CarriageTypeId": 4,
-    "numberOfCompartments": 6,
+    "trainId": 2,
+    "CarriageTypeId": 2,
+    "numberOfCompartments": 2,
     "serviceCharge": 50,
     "status": ""
   },
   {
     "name": "General",
-    "trainId": 4,
+    "trainId": 2,
     "CarriageTypeId": 6,
     "numberOfCompartments": 2,
     "serviceCharge": 10,

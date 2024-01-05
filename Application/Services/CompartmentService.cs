@@ -5,13 +5,18 @@ namespace Application.Services;
 public class CompartmentService : ICompartmentService
 {
     private readonly ICompartmentRepository _repository;
+    private readonly ICarriageRepository _carriageRepository;
 
     private readonly IMapper _mapper;
 
     private readonly IUnitOfWork _unitOfWork;
-    public CompartmentService(ICompartmentRepository repository, IMapper mapper, IUnitOfWork unitOfWork)
+    public CompartmentService(ICompartmentRepository repository,
+        ICarriageRepository carriageRepository,
+        IMapper mapper,
+        IUnitOfWork unitOfWork)
     {
         _repository = repository;
+        _carriageRepository = carriageRepository;
         _unitOfWork = unitOfWork;
         _mapper = mapper;
     }
@@ -23,6 +28,18 @@ public class CompartmentService : ICompartmentService
 
     public async Task AddAsync(Compartment compartment)
     {
+        var carriage = await _carriageRepository.GetByIdWithCompartmentsAsync(compartment.CarriageId);
+
+        if (carriage == null)
+        {
+            throw new NotFoundException(nameof(Carriage), compartment.CarriageId);
+        }
+
+        if (carriage.Compartments.Count >= carriage.NumberOfCompartments)
+        {
+            throw new BadRequestException(400, "The number of compartments is full");
+        }
+
         _repository.Add(compartment);
         await _unitOfWork.SaveChangesAsync();
     }
@@ -61,7 +78,7 @@ public class CompartmentService : ICompartmentService
 
     public async Task<PagedList<CompartmentDto>> GetAllDtoAsync(CompartmentQueryParams queryParams)
     {
-        var query = await _repository.GetQueryAsync();
+        var query = await _repository.GetQueryWithCarriageAsync();
 
         if (!string.IsNullOrEmpty(queryParams.SearchTerm))
             query = query.Where(p => p.Name.Contains(queryParams.SearchTerm));
@@ -86,4 +103,5 @@ public class CompartmentService : ICompartmentService
         var compartment = await _repository.GetByIdAsync(id);
         return _mapper.Map<CompartmentDto>(compartment);
     }
+
 }
