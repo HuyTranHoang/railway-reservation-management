@@ -8,8 +8,8 @@ POST {{url}}/{{router}}
 Content-Type: application/json
 
 {
-  "Name": "Station 1",
-  "Address": "123 SG",
+  "Name": " 0 Station 2",
+  "Address": "123 HN",
   "CoordinateValue": 10,
   "Status": "Active"
 }
@@ -20,8 +20,8 @@ Content-Type: application/json
 GET {{url}}/{{router}}?
   &pageNumber=1
   &pageSize=10
-  # &searchTerm= 1
-  # &sort=nameDesc
+  # &searchTerm= 2
+  # &sort=coordinateValueDesc
 
 
 ### 
@@ -34,15 +34,15 @@ GET {{url}}/{{router}}/{{id}}
 ### 
 
 # @name updateTrainStation
-@updateId = 1
+@updateId = 2
 
 PUT {{url}}/{{router}}/{{updateId}}
 Content-Type: application/json
 
 {
   "Id": {{updateId}},
-  "Name": "Station 1",
-  "Address": "123 SG",
-  "CoordinateValue": 10,
+  "Name": "Station 2",
+  "Address": "123 HN",
+  "CoordinateValue": 20,
   "Status": "Active"
 }

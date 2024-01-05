@@ -44,6 +44,7 @@ namespace Application.Services
 
             if (!string.IsNullOrEmpty(queryParams.SearchTerm))
                 query = query.Where(t => t.TrainCompany.Name.Contains(queryParams.SearchTerm));
+                
 
             query = queryParams.Sort switch
             {
@@ -88,15 +89,15 @@ namespace Application.Services
 
         public async Task UpdateAsync(RoundTrip roundTrip)
         {
-            _repository.SoftDelete(roundTrip);
+            _repository.Update(roundTrip);
             await _unitOfWork.SaveChangesAsync();
         }
 
         #region Private Helper Methods
 
-        private static bool Exists(IRoundTripRepository repository, int roundTripId)
+        private static bool Exists(IRoundTripRepository repository, int trainCompanyId)
         {
-            return repository.GetQueryAsync().Result.Any(t => t.TrainCompany.Id == roundTripId);
+            return repository.GetQueryAsync().Result.Any(t => t.TrainCompanyId == trainCompanyId);
         }
 
 

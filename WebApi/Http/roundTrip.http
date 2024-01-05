@@ -8,8 +8,8 @@ POST {{url}}/{{router}}
 Content-Type: application/json
 
 {
-  "TrainCompanyId": 1,
-  "Discount": 100
+  "TrainCompanyId": 2,
+  "Discount": 200
 }
 
 ### 
@@ -18,9 +18,9 @@ Content-Type: application/json
 GET {{url}}/{{router}}?
   &pageNumber=1
   &pageSize=10
-  # &searchTerm=1
-  # &sort=discountDesc
-  # &trainCompanyId=1
+  # &searchTerm= 
+  # &sort= discountDesc
+###
 
 # @name getRoundTripById
 @id = 1
@@ -28,6 +28,7 @@ GET {{url}}/{{router}}?
 GET {{url}}/{{router}}/{{id}}
 
 ### 
+
 # @name updateRoundTrip
 @updateId = 1
 
@@ -36,6 +37,6 @@ Content-Type: application/json
 
 {
   "Id": {{updateId}},
-  "TrainCompanyId": 2,
-  "Discount": 200
+  "TrainCompanyId": 1,
+  "Discount": 100
 }

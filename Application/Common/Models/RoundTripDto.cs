@@ -8,6 +8,8 @@ namespace Application.Common.Models
 
         public string TrainCompanyName { get; set; }
 
+        public double Discount { get; set; }
+
         public string Status { get; set; }
     }
 }
