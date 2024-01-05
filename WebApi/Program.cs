@@ -42,6 +42,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.MigrateAndSeedDatabase();
+// app.MigrateAndSeedDatabase();
 
 app.Run();

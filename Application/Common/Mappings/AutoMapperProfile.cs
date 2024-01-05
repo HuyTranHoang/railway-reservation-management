@@ -34,5 +34,9 @@ public class AutoMapperProfile : Profile
         CreateMap<CancellationRule, CancellationRuleDto>();
         CreateMap<TrainStation, TrainStationDto>();
 
+        CreateMap<RoundTrip, RoundTripDto>()
+            .ForMember(dest => dest.TrainCompanyName,
+                opt => opt.MapFrom(src => src.TrainCompany.Name));
+
     }
 }
