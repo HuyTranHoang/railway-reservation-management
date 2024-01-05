@@ -35,7 +35,7 @@ public class CarriagesController : BaseApiController
     }
 
     [HttpGet("{id}/compartments")]
-    public async Task<ActionResult<IEnumerable<CompartmentDto>>> GetCompartmentsBelongToCarriage(int id)
+    public async Task<ActionResult<object>> GetNumberCompartmentsBelongToCarriage(int id)
     {
         var count = await _carriageService.GetCompartmentsBelongToCarriageCountAsync(id);
 
