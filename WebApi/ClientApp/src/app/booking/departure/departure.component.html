@@ -1,117 +1,43 @@
 <!-- Info -->
 
-<div id="search-modify" class="toggle-container">
-  <div class="row panel padded-panel">
-    <div class="col-xs-12">
-      <div class="usersearch-info-item" style="padding-left: 0">
-          <span>
-            From
-            <br>
-            <b class="super-bold">Hanoi</b>
-          </span>
-        <span><i class="fas fa-long-arrow-alt-right"></i></span>
-        <span>
-            To <br>
-            <b class="super-bold">Ho Chi Minh</b>
-          </span>
-      </div>
-
-      <div class="usersearch-info-item">
-          <span>
-            <i style="padding-right: 6px;" class="far fa-calendar-alt"></i>
-          </span>
-        <span>
-            Depart <br>
-            <b class="super-bold">We, 10/01 </b>
-          </span>
-      </div>
-
-      <div class="usersearch-info-item" style="border-right: none;">
-          <span>
-            <i style="padding-right: 6px;" class="fas fa-user"></i>
-          </span>
-        <span>
-            Passengers <br>
-            <b class="super-bold">1</b>
-          </span>
-      </div>
-
-      <div class="usersearch-info-item pull-right small-text" style="border-right: none; padding-right: 0">
-        <button id="modifyButton"
-                (click)="modifyButtonOnClick()"
-                class="btn icon-modify fixed-width btn-block"
-                [class.active]="modifyText === 'Close'"
-                type="submit" name="input" value="Search">
-          {{modifyText}}
-          <i class="fa-solid fa-caret-{{caretDirection}}"></i>
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
+<app-departure-info (modifyButtonClicked)="onModifyButtonClicked($event)"></app-departure-info>
 
 <!-- Form -->
 
+<!--<div class="form-container" [class.open]="isModify">-->
 
-<div class="form-container" [class.open]="modifyText === 'Close'">
-  <div class="row form-padding mt-4 bg-white">
+<div class="form-container open">
+
+  <div class="row form-padding mt-2 bg-white">
     <div class="col-8">
       <div class="row">
 
         <div class="col-6 row-padding">
-          <div class="form-group">
-            <label>FROM</label>
-            <div class="flex-nowrap">
-              <input type="text" class="form-control" placeholder="City, station..">
-              <button type="button" class="input-icon ">
-                <i class="fa-regular fa-location-dot"></i>
-              </button>
-            </div>
-          </div>
+          <app-departure-input-field label="FROM"
+                                     placeholder="City, station.."
+                                     icon="fa-location-dot">
+          </app-departure-input-field>
         </div>
 
         <div class="col-6 row-padding">
-          <div class="form-group">
-            <label>To</label>
-            <div class="flex-nowrap">
-              <input type="text" class="form-control" placeholder="City, station..">
-              <button type="button" class="input-icon ">
-                <i class="fa-regular fa-location-dot"></i>
-              </button>
-            </div>
-          </div>
+          <app-departure-input-field label="To"
+                                     placeholder="City, station.."
+                                     icon="fa-location-dot">
+          </app-departure-input-field>
         </div>
 
         <div class="col-6 row-padding">
-          <div class="form-group">
-            <label>Depart</label>
-            <div class="flex-nowrap">
-              <input type="text"
-                     class="form-control"
-                     placeholder="Departure date.."
-                     [bsConfig]="bsConfig"
-                     bsDatepicker>
-              <button type="button" class="input-icon ">
-                <i class="fa-regular fa-calendar-days"></i>
-              </button>
-            </div>
-          </div>
+          <app-departure-datepicker-field label="Depart"
+                                          placeholder="Departure date.."
+                                          icon="fa-calendar-days">
+          </app-departure-datepicker-field>
         </div>
 
         <div class="col-6 row-padding">
-          <div class="form-group">
-            <label>Return</label>
-            <div class="flex-nowrap">
-              <input type="text"
-                     class="form-control"
-                     placeholder="Return date.."
-                     [bsConfig]="bsConfig"
-                     bsDatepicker>
-              <button type="button" class="input-icon ">
-                <i class="fa-regular fa-calendar-days"></i>
-              </button>
-            </div>
-          </div>
+          <app-departure-datepicker-field label="Return"
+                                          placeholder="Return date.."
+                                          icon="fa-calendar-days">
+          </app-departure-datepicker-field>
         </div>
 
       </div>
