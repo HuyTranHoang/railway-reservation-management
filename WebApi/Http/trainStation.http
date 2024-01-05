@@ -20,8 +20,8 @@ Content-Type: application/json
 GET {{url}}/{{router}}?
   &pageNumber=1
   &pageSize=10
-  # &searchTerm=Pokimane
-  # &sort=ageDesc
+  # &searchTerm= 1
+  # &sort=nameDesc
 
 
 ### 
@@ -41,7 +41,7 @@ Content-Type: application/json
 
 {
   "Id": {{updateId}},
-  "Name": "Station 0",
+  "Name": "Station 1",
   "Address": "123 SG",
   "CoordinateValue": 10,
   "Status": "Active"
