@@ -14,33 +14,29 @@ public class CompartmentRepository : ICompartmentRepository
         _context = context;
     }
 
+    public async Task<IQueryable<Compartment>> GetQueryAsync()
+    {
+        return await Task.FromResult(_context.Compartments.AsQueryable());
+    }
+
+    public async Task<Compartment> GetByIdAsync(int id)
+    {
+        return await _context.Compartments.FindAsync(id);
+    }
+
     public void Add(Compartment compartment)
     {
         _context.Compartments.Add(compartment);
     }
 
+    public void Update(Compartment compartment)
+    {
+        _context.Entry(compartment).State = EntityState.Modified;
+    }
+
     public void Delete(Compartment compartment)
     {
         _context.Compartments.Remove(compartment);
-    }
-
-    public async Task<Compartment> GetByIdAsync(int id)
-    {
-        return await _context.Compartments.FirstOrDefaultAsync(p => p.Id == id);
-    }
-
-    public async Task<IQueryable<Compartment>> GetQueryAsync()
-    {
-        return await Task.FromResult(_context.Compartments
-        .AsQueryable());
-    }
-
-    public async Task<IQueryable<Compartment>> GetQueryWithCarriageAsync()
-    {
-        return await Task.FromResult(
-        _context.Compartments
-         .Include(c => c.Carriage)
-         .AsQueryable());
     }
 
     public void SoftDelete(Compartment compartment)
@@ -49,8 +45,8 @@ public class CompartmentRepository : ICompartmentRepository
         _context.Entry(compartment).State = EntityState.Modified;
     }
 
-    public void Update(Compartment compartment)
+    public async Task<IQueryable<Compartment>> GetQueryWithCarriageAsync()
     {
-        _context.Entry(compartment).State = EntityState.Modified;
+        return await Task.FromResult(_context.Compartments.Include(c => c.Carriage).AsQueryable());
     }
 }

@@ -18,11 +18,6 @@ public class CompartmentService : ICompartmentService
 
     public async Task AddAsync(Compartment compartment)
     {
-        if (NameExists(_repository, compartment.Name, compartment.Id))
-        {
-            throw new BadRequestException(400, "Name already exists");
-        }
-
         _repository.Add(compartment);
         await _unitOfWork.SaveChangesAsync();
     }
@@ -86,11 +81,6 @@ public class CompartmentService : ICompartmentService
 
         if (compartmentInDb is null) throw new NotFoundException(nameof(Passenger), compartment.Id);
 
-        if (NameExists(_repository, compartment.Name, compartment.Id))
-        {
-            throw new BadRequestException(400, "Name already exists");
-        }
-
         compartmentInDb.Name = compartment.Name;
         compartmentInDb.CarriageId = compartment.CarriageId;
         compartmentInDb.NumberOfSeats = compartment.NumberOfSeats;
@@ -102,9 +92,4 @@ public class CompartmentService : ICompartmentService
         await _unitOfWork.SaveChangesAsync();
     }
 
-
-    private static bool NameExists(ICompartmentRepository repository, string name, int compartmentId)
-    {
-        return repository.GetQueryAsync().Result.Any(t => t.Name == name);
-    }
 }
