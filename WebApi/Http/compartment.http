@@ -8,9 +8,9 @@ POST {{url}}/{{router}}
 Content-Type: application/json
 
 {
-  "name" : "Khoang 2",
-  "carriageId" : 1,
-  "numberOfSeats" : 1,
+  "Name" : "Khoang 3",
+  "CarriageId" : 10,
+  "NumberOfSeats" : 1,
   "Status" : "Test"
 }
 
@@ -27,6 +27,7 @@ GET {{url}}/{{router}}?
 
 
 ### 
+
 
 # @name getCompartmentById
 @id = 3

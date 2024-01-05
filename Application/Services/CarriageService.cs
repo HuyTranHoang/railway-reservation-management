@@ -28,11 +28,16 @@ public class CarriageService : ICarriageService
 
     public async Task<PagedList<CarriageDto>> GetAllDtoAsync(CarriageQueryParams queryParams)
     {
-        var query = await _repository.GetQueryWithTrainAsync();
+        var query = await _repository.GetQueryWithTrainAndTypeAsync();
 
         if (queryParams.TrainId != 0)
         {
             query = query.Where(t => t.TrainId == queryParams.TrainId);
+        }
+
+        if (queryParams.CarriageTypeId != 0)
+        {
+            query = query.Where(t => t.CarriageTypeId == queryParams.CarriageTypeId);
         }
 
         if (!string.IsNullOrEmpty(queryParams.SearchTerm))
@@ -42,8 +47,8 @@ public class CarriageService : ICarriageService
         {
             "nameAsc" => query.OrderBy(p => p.Name),
             "nameDesc" => query.OrderByDescending(p => p.Name),
-            "numberOfCompartmentAsc" => query.OrderBy(p => p.NumberOfCompartment),
-            "numberOfCompartmentDesc" => query.OrderByDescending(p => p.NumberOfCompartment),
+            "numberOfCompartmentAsc" => query.OrderBy(p => p.NumberOfCompartments),
+            "numberOfCompartmentDesc" => query.OrderByDescending(p => p.NumberOfCompartments),
             _ => query.OrderBy(p => p.CreatedAt)
         };
 
@@ -78,12 +83,26 @@ public class CarriageService : ICarriageService
 
         carriageInDb.Name = carriage.Name;
         carriageInDb.TrainId = carriage.TrainId;
-        carriageInDb.NumberOfCompartment = carriage.NumberOfCompartment;
-        // carriageInDb.ServiceCharge = carriage.ServiceCharge;
+        carriageInDb.CarriageTypeId = carriage.CarriageTypeId;
+        carriageInDb.NumberOfCompartments = carriage.NumberOfCompartments;
         carriageInDb.Status = carriage.Status;
         carriageInDb.UpdatedAt = DateTime.Now;
 
+        _repository.Update(carriageInDb);
+
         await _unitOfWork.SaveChangesAsync();
+    }
+
+    public async Task<int> GetCompartmentsBelongToCarriageCountAsync(int carriageId)
+    {
+        var carriage = await _repository.GetByIdWithCompartmentsAsync(carriageId);
+
+        if (carriage == null)
+        {
+            throw new NotFoundException(nameof(Carriage), carriageId);
+        }
+
+        return carriage.Compartments.Count;
     }
 
 }

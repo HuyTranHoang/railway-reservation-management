@@ -2,6 +2,7 @@
 using System.Text.Json;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 namespace Infrastructure.Data;
 
@@ -10,14 +11,13 @@ public static class Seed
     private static readonly JsonSerializerOptions JsonOptions = new() { PropertyNameCaseInsensitive = true };
     private static string BaseDirectory => Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
     private static string ProjectRoot => Directory.GetParent(BaseDirectory)!.Parent!.Parent!.Parent!.FullName;
-    // private static string DataPath => Path.Combine(ProjectRoot, @"Infrastructure/Data/SeedData/");
     private static string DataPath => Path.Combine(ProjectRoot, "Infrastructure", "Data", "SeedData");
 
     private static async Task SeedData<T>(ApplicationDbContext context, string fileName, Func<ApplicationDbContext, DbSet<T>> dbSetSelector) where T : class
     {
         if (await dbSetSelector(context).AnyAsync()) return;
 
-        var dataPath = DataPath + fileName;
+        var dataPath = Path.Combine(DataPath, fileName);
         var data = await File.ReadAllTextAsync(dataPath);
         var items = JsonSerializer.Deserialize<List<T>>(data, JsonOptions);
 
@@ -35,10 +35,6 @@ public static class Seed
         await SeedData<CancellationRule>(context, "CancellationRule.json", c => c.CancellationRules);
         await SeedData<TrainStation>(context, "TrainStation.json", c => c.TrainStations);
         await SeedData<RoundTrip>(context, "RoundTrip.json", c => c.RoundTrips);
-
-        // Bị lỗi vì thiếu CarriageTypeId
-        // await SeedData<Carriage>(context, "Carriage.json", c => c.Carriages);
-
-
+        await SeedData<Carriage>(context, "Carriage.json", c => c.Carriages);
     }
 }

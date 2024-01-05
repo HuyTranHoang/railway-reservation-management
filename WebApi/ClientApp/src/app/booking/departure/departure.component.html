@@ -1,110 +1,100 @@
-<div class="row form-padding mt-4 bg-white">
-  <div class="col-8">
-    <div class="row">
+<!-- Info -->
 
-      <div class="col-6 row-padding">
-        <div class="form-group">
-          <label>FROM</label>
-          <div class="flex-nowrap">
-            <input type="text" class="form-control" placeholder="City, station..">
-            <button type="button" class="input-icon ">
-              <i class="fa-regular fa-location-dot"></i>
-            </button>
-          </div>
+<app-departure-info (modifyButtonClicked)="onModifyButtonClicked($event)"></app-departure-info>
+
+<!-- Form -->
+
+<div class="form-container" [class.open]="isModify">
+  <div class="row form-padding mt-2 bg-white">
+    <div class="col-8">
+      <div class="row">
+
+        <div class="col-6 row-padding">
+          <app-departure-input-field label="FROM"
+                                     placeholder="City, station.."
+                                     icon="fa-location-dot">
+          </app-departure-input-field>
         </div>
-      </div>
 
-      <div class="col-6 row-padding">
-        <div class="form-group">
-          <label>To</label>
-          <div class="flex-nowrap">
-            <input type="text" class="form-control" placeholder="City, station..">
-            <button type="button" class="input-icon ">
-              <i class="fa-regular fa-location-dot"></i>
-            </button>
-          </div>
+        <div class="col-6 row-padding">
+          <app-departure-input-field label="To"
+                                     placeholder="City, station.."
+                                     icon="fa-location-dot">
+          </app-departure-input-field>
         </div>
-      </div>
 
-      <div class="col-6 row-padding">
-        <div class="form-group">
-          <label>Depart</label>
-          <div class="flex-nowrap">
-            <input type="text"
-                   class="form-control"
-                   placeholder="Departure date.."
-                   [bsConfig]="bsConfig"
-                   bsDatepicker>
-            <button type="button" class="input-icon ">
-              <i class="fa-regular fa-calendar-days"></i>
-            </button>
-          </div>
+        <div class="col-6 row-padding">
+          <app-departure-datepicker-field label="Depart"
+                                          placeholder="Departure date.."
+                                          icon="fa-calendar-days">
+          </app-departure-datepicker-field>
         </div>
-      </div>
 
-      <div class="col-6 row-padding">
-        <div class="form-group">
-          <label>Return</label>
-          <div class="flex-nowrap">
-            <input type="text"
-                   class="form-control"
-                   placeholder="Return date.."
-                   [bsConfig]="bsConfig"
-                   bsDatepicker>
-            <button type="button" class="input-icon ">
-              <i class="fa-regular fa-calendar-days"></i>
-            </button>
-          </div>
+        <div class="col-6 row-padding">
+          <app-departure-datepicker-field label="Return"
+                                          placeholder="Return date.."
+                                          icon="fa-calendar-days">
+          </app-departure-datepicker-field>
         </div>
-      </div>
 
+      </div>
     </div>
-  </div>
 
-  <div class="col-4">
-    <div class="row">
-      <div class="col-7">
-        <div class="form-group">
-          <label>JOURNEY</label>
-          <ul class="nav nav-pills">
-            <li class="">
-              <a class="roundtrip_selector" data-toggle="tab">Round trip</a>
-            </li>
-            <!--  Active thêm class vào li   -->
-            <li class="active">
-              <a class="roundtrip_selector" data-toggle="tab">One way</a>
-            </li>
-          </ul>
-
-        </div>
-      </div>
-
-      <div class="col-6">
-        <div class="form-group">
-          <label>PASSENGERS</label>
-
-          <div id="passenger_selector" class="input-group">
-            <ul>
-              <li><button type="button" class="btn-circle fas fa-minus" data-value="-1" data-target="#passengers_count" data-toggle="spinner">
-              </button></li>
-              <li><input id="passengers_count" type="text" readonly="" data-ride="spinner" name="passengers_count" class="input-number text-center" value="1" data-min="1" data-max="9"> </li>
-              <li><button type="button" class="btn-circle fas fa-plus" data-value="1" data-target="#passengers_count" data-toggle="spinner" data-on="mousehold"></button></li>
+    <div class="col-4">
+      <div class="row">
+        <div class="col-7">
+          <div class="form-group">
+            <label>JOURNEY</label>
+            <ul class="nav nav-pills">
+              <li class="">
+                <a>Round trip</a>
+              </li>
+              <!--  Active thêm class vào li   -->
+              <li class="active">
+                <a>One way</a>
+              </li>
             </ul>
+
           </div>
-
         </div>
-      </div>
 
-      <div class="col-6" style="margin-top: 33px">
-        <div class="form-group">
-          <button id="searchButton" class="btn icon-search fixed-width green btn-block bold"
-                  type="submit" name="input" value="Search">
-            SEARCH
-            <i class="fa-regular fa-magnifying-glass"></i>
-          </button>
+        <div class="col-6">
+          <div class="form-group">
+            <label>PASSENGERS</label>
+
+            <div id="passenger_selector" class="input-group">
+              <ul>
+                <li>
+                  <button type="button" class="btn-circle fas fa-minus" data-value="-1" data-target="#passengers_count"
+                          data-toggle="spinner">
+                  </button>
+                </li>
+                <li><input id="passengers_count" type="text" readonly="" data-ride="spinner" name="passengers_count"
+                           class="input-number text-center" value="1" data-min="1" data-max="9"></li>
+                <li>
+                  <button type="button" class="btn-circle fas fa-plus" data-value="1" data-target="#passengers_count"
+                          data-toggle="spinner" data-on="mousehold"></button>
+                </li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col-6" style="margin-top: 33px">
+          <div class="form-group">
+            <button id="searchButton" class="btn icon-search fixed-width green btn-block bold"
+                    type="submit" name="input" value="Search">
+              SEARCH
+              <i class="fa-regular fa-magnifying-glass"></i>
+            </button>
+          </div>
         </div>
       </div>
     </div>
-
   </div>
 </div>
+
+<!-- Select depart -->
+
+<app-departure-select></app-departure-select>

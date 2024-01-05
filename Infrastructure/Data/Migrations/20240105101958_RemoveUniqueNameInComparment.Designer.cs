@@ -4,6 +4,7 @@ using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240105101958_RemoveUniqueNameInComparment")]
+    partial class RemoveUniqueNameInComparment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -128,7 +130,7 @@ namespace Infrastructure.Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int>("NumberOfCompartments")
+                    b.Property<int>("NumberOfCompartment")
                         .HasColumnType("int");
 
                     b.Property<string>("Status")
@@ -745,7 +747,7 @@ namespace Infrastructure.Data.Migrations
             modelBuilder.Entity("Domain.Entities.Compartment", b =>
                 {
                     b.HasOne("Domain.Entities.Carriage", "Carriage")
-                        .WithMany("Compartments")
+                        .WithMany()
                         .HasForeignKey("CarriageId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -900,11 +902,6 @@ namespace Infrastructure.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("TrainCompany");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Carriage", b =>
-                {
-                    b.Navigation("Compartments");
                 });
 #pragma warning restore 612, 618
         }

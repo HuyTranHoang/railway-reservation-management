@@ -36,12 +36,20 @@ public class CarriageRepository : ICarriageRepository
             .AsQueryable());
     }
 
-    public async Task<IQueryable<Carriage>> GetQueryWithTrainAsync()
+    public async Task<IQueryable<Carriage>> GetQueryWithTrainAndTypeAsync()
     {
         return await Task.FromResult(
         _context.Carriages
             .Include(t => t.Train)
+            .Include(t => t.CarriageType)
             .AsQueryable());
+    }
+
+    public async Task<Carriage> GetByIdWithCompartmentsAsync(int id)
+    {
+        return await _context.Carriages
+            .Include(c => c.Compartments)
+            .FirstOrDefaultAsync(p => p.Id == id);
     }
 
     public void SoftDelete(Carriage carriage)

@@ -4,12 +4,15 @@ import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker'
 @Component({
   selector: 'app-departure',
   templateUrl: './departure.component.html',
-  styleUrls: ['./departure.component.scss']
+  styleUrls: ['./departure.component.scss', './departure.shared.scss']
 })
 export class DepartureComponent {
 
-  colorTheme = 'theme-orange';
 
-  bsConfig?: Partial<BsDatepickerConfig> = Object.assign({}, { containerClass: this.colorTheme });
+  isModify = false;
+
+  onModifyButtonClicked(isModified: boolean) {
+    this.isModify = isModified;
+  }
 
 }

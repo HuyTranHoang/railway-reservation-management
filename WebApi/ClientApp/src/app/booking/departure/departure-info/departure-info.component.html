@@ -1,0 +1,49 @@
+<div id="search-modify" class="toggle-container" style="margin-top: 20px">
+  <div class="row panel padded-panel">
+    <div class="col-xs-12">
+      <div class="usersearch-info-item" style="padding-left: 0">
+          <span>
+            From
+            <br>
+            <b class="super-bold">Hanoi</b>
+          </span>
+        <span><i class="fas fa-long-arrow-alt-right"></i></span>
+        <span>
+            To <br>
+            <b class="super-bold">Ho Chi Minh</b>
+          </span>
+      </div>
+
+      <div class="usersearch-info-item">
+          <span>
+            <i style="padding-right: 6px;" class="far fa-calendar-alt"></i>
+          </span>
+        <span>
+            Depart <br>
+            <b class="super-bold">We, 10/01 </b>
+          </span>
+      </div>
+
+      <div class="usersearch-info-item" style="border-right: none;">
+          <span>
+            <i style="padding-right: 6px;" class="fas fa-user"></i>
+          </span>
+        <span>
+            Passengers <br>
+            <b class="super-bold">1</b>
+          </span>
+      </div>
+
+      <div class="usersearch-info-item pull-right small-text" style="border-right: none; padding-right: 0">
+        <button id="modifyButton"
+                (click)="modifyButtonClickedHandler()"
+                class="btn icon-modify fixed-width btn-block"
+                [class.active]="isModify"
+                type="submit" name="input" value="Search">
+          {{isModify ? 'Close' : 'Modify'}}
+          <i class="fa-solid fa-caret-{{isModify ? 'up' : 'down'}}"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

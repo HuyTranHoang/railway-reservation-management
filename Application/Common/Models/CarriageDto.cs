@@ -11,9 +11,10 @@ public class CarriageDto
     
     public string TrainName { get; set; }
 
-    public int NumberOfCompartment { get; set; }
+    public int CarriageTypeId { get; set; }
+    public string CarriageTypeName { get; set; }
 
-    // public double ServiceCharge { get; set; }
+    public int NumberOfCompartments { get; set; }
 
     public string Status { get; set; }
 }

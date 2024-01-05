@@ -20,13 +20,17 @@ public class AutoMapperProfile : Profile
 
         CreateMap<Carriage, CarriageDto>()
             .ForMember(dest => dest.TrainName,
-                otp => otp.MapFrom(src => src.Train.Name));
+                otp => otp.MapFrom(src => src.Train.Name))
+            .ForMember(dest => dest.CarriageTypeName,
+                opt => opt.MapFrom(src => src.CarriageType.Name));
 
         CreateMap<Compartment, CompartmentDto>()
             .ForMember(dest => dest.CarriageName,
                 otp => otp.MapFrom(src => src.Carriage.Name));
 
         CreateMap<CarriageType, CarriageTypeDto>();
+
+
         CreateMap<CancellationRule, CancellationRuleDto>();
         CreateMap<TrainStation, TrainStationDto>();
 
