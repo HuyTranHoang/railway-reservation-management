@@ -11,6 +11,8 @@ namespace Domain.Entities
 
         public double ServiceCharge { get; set; }
 
+        [Required] [StringLength(450)] public string Description { get; set; }
+
         [Required] public string Status { get; set; }
     }
 }

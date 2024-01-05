@@ -11,5 +11,7 @@ public class SeatType : BaseEntity
 
     [Required] public double ServiceCharge { get; set; }
 
+    [Required] [StringLength(450)] public string Description { get; set; }
+
     public string Status { get; set; }
 }
