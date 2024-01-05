@@ -303,3 +303,15 @@ input[readonly] {
   transition: .3s;
 }
 
+.form-container {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease-out;
+}
+
+.form-container.open {
+  max-height: 300px;
+}
+
+
+
