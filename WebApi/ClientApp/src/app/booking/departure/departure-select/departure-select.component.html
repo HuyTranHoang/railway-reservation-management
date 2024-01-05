@@ -68,183 +68,188 @@
       </td>
 
       <td>
-        <i class="fa-solid fa-chevron-down" style="color: #65696e"></i>
+        <i class="fa-solid fa-chevron-{{isOpen ? 'up' : 'down'}}"
+           (click)="onChevronClick()"
+           style="color: #65696e; cursor: pointer"></i>
       </td>
     </tr>
 
     <tr>
-      <td colspan="7">
+      <td colspan="7" style="padding: 0">
+        <div class="table-container" [class.open]="isOpen">
+          <div style="color: #7a8085;">
+            <table>
+              <!-- Origin -->
+              <tbody>
+              <tr style="border:none">
+                <td style="width: 172px; height: 116px;"></td>
 
-        <div style="color: #7a8085;">
-          <table>
-            <!-- Origin -->
-            <tbody>
-            <tr style="border:none">
-              <td style="width: 172px; height: 116px;"></td>
+                <td class="text-end" style="width: 178px;">
+                  <span class="bold">19:20</span>
+                  <div>Th, 11/01</div>
+                </td>
 
-              <td class="text-end" style="width: 178px;">
-                <span class="bold">19:20</span>
-                <div>Th, 11/01</div>
-              </td>
+                <td class="relative text-center" style="width: 162px;">
+                  <div class="searchresult-timeline">
+                    <i class="fa-solid fa-hexagon icon-line-point inline line-bottom"></i>
+                  </div>
+                </td>
 
-              <td class="relative text-center" style="width: 162px;">
-                <div class="searchresult-timeline">
-                  <i class="fa-solid fa-hexagon icon-line-point inline line-bottom"></i>
-                </div>
-              </td>
+                <td colspan="4" class="padded-left padded-right" style="width: 509px;"><!-- style="border-right:1px solid #ddd;" -->
+                  <span class="text-uppercase bold">HANOI</span>
+                  <div>Hanoi Railway Station</div>
+                  <span style="font-size: 13px">120 Lê Duẩn, Quận Hoàn Kiếm, Hà Nội</span>
+                </td>
 
-              <td colspan="4" class="padded-left padded-right" style="width: 509px;"><!-- style="border-right:1px solid #ddd;" -->
-                <span class="text-uppercase bold">HANOI</span>
-                <div>Hanoi Railway Station</div>
-                <span style="font-size: 13px">120 Lê Duẩn, Quận Hoàn Kiếm, Hà Nội</span>
-              </td>
+                <!-- Fares -->
+                <td colspan="2" rowspan="3" style="padding: 10px 20px 10px 0; width: 618px;">
+                  <div class="fares" data-route="112973779">
+                    <div class="desktop-fares">
 
-              <!-- Fares -->
-              <td colspan="2" rowspan="3" style="padding: 10px 20px 10px 0; width: 618px;">
-                <div class="fares" data-route="112973779">
-                  <div class="desktop-fares">
+                      <div class="relative fares-choose-items active ">
 
-                    <div class="relative fares-choose-items active ">
-
-                      <div class="fares-choose radio">
-                        <input id="fare_1" type="radio" name="fare" class="fare_radio"  checked="">
-                        <label for="fare_1"></label>
-                      </div>
-
-                      <label class="fares-description">
-                        <p class="underline js-fare-info" style="margin: 0;">Soft seat Premium</p>
-                        <button class="js-fare-info" style="padding: 2px 0; background: transparent;">
-                          <i class="fas fa-times" style="font-size: 11px; padding: 0 1px;"></i>
-                          <span class="fare-info-summary">Change</span>
-                          <i class="fas fa-check" style="font-size: 11px;"></i>
-                          <span class="fare-info-summary">Cancellation</span>
-                        </button>
-
-                        <br>
-
-                        <div>
-                          <span class="yellow-text bold">{{99 | currency}}</span>
-                        </div>
-                      </label>
-                    </div>
-
-                    <div class="relative fares-choose-items">
-
-                      <div class="fares-choose radio">
-                        <input id="fare_2" type="radio" name="fare" class="fare_radio">
-                        <label for="fare_2"></label>
-                      </div>
-                      <label class="fares-description">
-                        <p class="underline js-fare-info" style="margin: 0;">Sleeper 6-Berth</p>
-                        <button class="js-fare-info" style="padding: 2px 0; background: transparent;">
-                          <i class="fas fa-times" style="font-size: 11px; padding: 0 1px;"></i>
-                          <span class="fare-info-summary">Change</span>
-                          <i class="fas fa-check" style="font-size: 11px;"></i>
-                          <span class="fare-info-summary">Cancellation</span>
-                        </button>
-                        <br>
-                        <div>
-                          <span class="yellow-text">{{159 | currency}}</span>
+                        <div class="fares-choose radio">
+                          <input id="fare_1" type="radio" name="fare" class="fare_radio"  checked="">
+                          <label for="fare_1"></label>
                         </div>
 
-                      </label>
-                    </div>
+                        <label class="fares-description">
+                          <p class="underline js-fare-info" style="margin: 0;">Soft seat Premium</p>
+                          <button class="js-fare-info" style="padding: 2px 0; background: transparent;">
+                            <i class="fas fa-times" style="font-size: 11px; padding: 0 1px;"></i>
+                            <span class="fare-info-summary">Change</span>
+                            <i class="fas fa-check" style="font-size: 11px;"></i>
+                            <span class="fare-info-summary">Cancellation</span>
+                          </button>
 
-                    <div class="relative fares-choose-items">
+                          <br>
 
-                      <div class="fares-choose radio">
-                        <input id="fare_3" type="radio" name="fare" class="fare_radio" >
-                        <label for="fare_3"></label>
+                          <div>
+                            <span class="yellow-text bold">{{99 | currency}}</span>
+                          </div>
+                        </label>
                       </div>
 
-                      <label class="fares-description">
-                        <p class="underline js-fare-info"  style="margin: 0;">Sleeper 4-Berth</p>
-                        <button class="js-fare-info" style="padding: 2px 0; background: transparent;">
-                          <i class="fas fa-times" style="font-size: 11px; padding: 0 1px;"></i>
-                          <span class="fare-info-summary">Change</span>
-                          <i class="fas fa-check" style="font-size: 11px;"></i>
-                          <span class="fare-info-summary">Cancellation</span>
-                        </button>
-                        <br>
-                        <div>
-                          <span class="yellow-text">{{174 | currency}}</span>
+                      <div class="relative fares-choose-items">
+
+                        <div class="fares-choose radio">
+                          <input id="fare_2" type="radio" name="fare" class="fare_radio">
+                          <label for="fare_2"></label>
+                        </div>
+                        <label class="fares-description">
+                          <p class="underline js-fare-info" style="margin: 0;">Sleeper 6-Berth</p>
+                          <button class="js-fare-info" style="padding: 2px 0; background: transparent;">
+                            <i class="fas fa-times" style="font-size: 11px; padding: 0 1px;"></i>
+                            <span class="fare-info-summary">Change</span>
+                            <i class="fas fa-check" style="font-size: 11px;"></i>
+                            <span class="fare-info-summary">Cancellation</span>
+                          </button>
+                          <br>
+                          <div>
+                            <span class="yellow-text">{{159 | currency}}</span>
+                          </div>
+
+                        </label>
+                      </div>
+
+                      <div class="relative fares-choose-items">
+
+                        <div class="fares-choose radio">
+                          <input id="fare_3" type="radio" name="fare" class="fare_radio" >
+                          <label for="fare_3"></label>
                         </div>
 
-                      </label>
+                        <label class="fares-description">
+                          <p class="underline js-fare-info"  style="margin: 0;">Sleeper 4-Berth</p>
+                          <button class="js-fare-info" style="padding: 2px 0; background: transparent;">
+                            <i class="fas fa-times" style="font-size: 11px; padding: 0 1px;"></i>
+                            <span class="fare-info-summary">Change</span>
+                            <i class="fas fa-check" style="font-size: 11px;"></i>
+                            <span class="fare-info-summary">Cancellation</span>
+                          </button>
+                          <br>
+                          <div>
+                            <span class="yellow-text">{{174 | currency}}</span>
+                          </div>
+
+                        </label>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </td>
-            </tr>
-            <!-- end Origin-->
+                </td>
+              </tr>
+              <!-- end Origin-->
 
-            <!-- Transport -->
-            <tr style="border:none">
-              <td class="text-center" style="width: 172px; height: 116px;">
-                &nbsp;
-              </td>
-              <td class="text-end" style="width: 178px;">
-                <i class="fa-solid fa-train"></i>
-                <div class="bold">2h 11m</div>
-              </td>
-              <td class="text-center" style="width: 162px;">
-                <div class="searchresult-timeline">
+              <!-- Transport -->
+              <tr style="border:none">
+                <td class="text-center" style="width: 172px; height: 116px;">
                   &nbsp;
-                </div>
-              </td>
-              <td colspan="2" class="padded-left padded-right" style="width: 509px;">
-                <button class="" style="padding: 0; background: transparent;">
-                  <img class="searchresult-thumb-logo" src="https://booking.baolau.com/images/logos/transports/thumb/logo-vr.png">
-                </button>
-                <div>
-                  <span class="bold underline " style="cursor: pointer;">Vietnam Railways</span>
-                  <span>SE3</span>
-                </div>
-                <button class="" style="padding: 4px 0; background: transparent;">
-                  <div class="rating yellow-text">
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star-half-alt" aria-hidden="true"></i>
-                    <i class="far fa-star" aria-hidden="true"></i>
+                </td>
+                <td class="text-end" style="width: 178px;">
+                  <i class="fa-solid fa-train"></i>
+                  <div class="bold">2h 11m</div>
+                </td>
+                <td class="text-center" style="width: 162px;">
+                  <div class="searchresult-timeline">
+                    &nbsp;
                   </div>
-                </button>
-              </td>
-            </tr> <!-- end Transport-->
+                </td>
+                <td colspan="2" class="padded-left padded-right" style="width: 509px;">
+                  <button class="" style="padding: 0; background: transparent;">
+                    <img class="searchresult-thumb-logo" src="https://booking.baolau.com/images/logos/transports/thumb/logo-vr.png">
+                  </button>
+                  <div>
+                    <span class="bold underline " style="cursor: pointer;">Vietnam Railways</span>
+                    <span> SE3</span>
+                  </div>
+                  <button class="" style="padding: 4px 0; background: transparent;">
+                    <div class="rating yellow-text">
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star-half-alt" aria-hidden="true"></i>
+                      <i class="far fa-star" aria-hidden="true"></i>
+                    </div>
+                  </button>
+                </td>
+              </tr> <!-- end Transport-->
 
-            <!--  Destination -->
-            <tr style="border:none">
-              <td style="width: 172px; height: 116px;"></td>
-              <td class="text-end" style="width: 178px;">
-                <span class="bold">21:31</span>
-                <div>Th, 11/01</div>
-              </td>
-              <td class="relative text-center" style="width: 162px;">
-                <div class="searchresult-timeline">
-                  <i class="fa-solid fa-hexagon icon-line-point inline line-top"></i>
-                </div>
-              </td>
-              <td colspan="2" class="padded-left padded-right" style="width: 509px;">
-                <span class="text-uppercase bold">NINH BINH</span>
-                <div>Ninh Binh Railway Station</div>
-                <span style="font-size: 13px">1 Ngõ 41 Hoàng Hoa Thám, Nam Bình, Ninh Bình</span>
-              </td>
-            </tr>
-            <!-- end Destination-->
+              <!--  Destination -->
+              <tr style="border:none">
+                <td style="width: 172px; height: 116px;"></td>
+                <td class="text-end" style="width: 178px;">
+                  <span class="bold">21:31</span>
+                  <div>Th, 11/01</div>
+                </td>
+                <td class="relative text-center" style="width: 162px;">
+                  <div class="searchresult-timeline">
+                    <i class="fa-solid fa-hexagon icon-line-point inline line-top"></i>
+                  </div>
+                </td>
+                <td colspan="2" class="padded-left padded-right" style="width: 509px;">
+                  <span class="text-uppercase bold">NINH BINH</span>
+                  <div>Ninh Binh Railway Station</div>
+                  <span style="font-size: 13px">1 Ngõ 41 Hoàng Hoa Thám, Nam Bình, Ninh Bình</span>
+                </td>
+              </tr>
+              <!-- end Destination-->
 
-            </tbody>
-          </table>
-          <!-- end Details -->
+              </tbody>
+            </table>
+            <!-- end Details -->
 
-        </div>
-
-        <div>
-          <a class="btn green w-100" href="https://booking.baolau.com/en/results?sess_key=e26c7f2d17c82e589a29ef649791b6b1&amp;departure=e65240e3fb7604e872cfc415b3907765" target="_self" data-way="departure" data-result="e65240e3fb7604e872cfc415b3907765">
-            <span class="bold">BOOK NOW</span>
-          </a>
+          </div>
+          <div>
+            <a class="btn green w-100" href="https://booking.baolau.com/en/results?sess_key=e26c7f2d17c82e589a29ef649791b6b1&amp;departure=e65240e3fb7604e872cfc415b3907765" target="_self" data-way="departure" data-result="e65240e3fb7604e872cfc415b3907765">
+              <span class="bold">BOOK NOW</span>
+            </a>
+          </div>
         </div>
       </td>
     </tr>
+
+
+  asdsadasd
 
   </tbody>
 </table>

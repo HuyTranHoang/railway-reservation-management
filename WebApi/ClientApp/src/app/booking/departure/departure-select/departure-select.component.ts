@@ -7,4 +7,12 @@ import { Component } from '@angular/core';
 })
 export class DepartureSelectComponent {
 
+
+  isOpen = false;
+
+
+  onChevronClick () {
+    this.isOpen = !this.isOpen;
+  }
+
 }
