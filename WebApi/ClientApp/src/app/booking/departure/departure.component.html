@@ -1,110 +1,177 @@
-<div class="row form-padding mt-4 bg-white">
-  <div class="col-8">
-    <div class="row">
+<!-- Info -->
 
-      <div class="col-6 row-padding">
-        <div class="form-group">
-          <label>FROM</label>
-          <div class="flex-nowrap">
-            <input type="text" class="form-control" placeholder="City, station..">
-            <button type="button" class="input-icon ">
-              <i class="fa-regular fa-location-dot"></i>
-            </button>
-          </div>
-        </div>
+<div id="search-modify" class="toggle-container">
+  <div class="row panel padded-panel">
+    <div class="col-xs-12">
+      <div class="usersearch-info-item" style="padding-left: 0">
+          <span>
+            From
+            <br>
+            <b class="super-bold">Hanoi</b>
+          </span>
+        <span><i class="fas fa-long-arrow-alt-right"></i></span>
+        <span>
+            To <br>
+            <b class="super-bold">Ho Chi Minh</b>
+          </span>
       </div>
 
-      <div class="col-6 row-padding">
-        <div class="form-group">
-          <label>To</label>
-          <div class="flex-nowrap">
-            <input type="text" class="form-control" placeholder="City, station..">
-            <button type="button" class="input-icon ">
-              <i class="fa-regular fa-location-dot"></i>
-            </button>
-          </div>
-        </div>
+      <div class="usersearch-info-item">
+          <span>
+            <i style="padding-right: 6px;" class="far fa-calendar-alt"></i>
+          </span>
+        <span>
+            Depart <br>
+            <b class="super-bold">We, 10/01 </b>
+          </span>
       </div>
 
-      <div class="col-6 row-padding">
-        <div class="form-group">
-          <label>Depart</label>
-          <div class="flex-nowrap">
-            <input type="text"
-                   class="form-control"
-                   placeholder="Departure date.."
-                   [bsConfig]="bsConfig"
-                   bsDatepicker>
-            <button type="button" class="input-icon ">
-              <i class="fa-regular fa-calendar-days"></i>
-            </button>
-          </div>
-        </div>
+      <div class="usersearch-info-item" style="border-right: none;">
+          <span>
+            <i style="padding-right: 6px;" class="fas fa-user"></i>
+          </span>
+        <span>
+            Passengers <br>
+            <b class="super-bold">1</b>
+          </span>
       </div>
 
-      <div class="col-6 row-padding">
-        <div class="form-group">
-          <label>Return</label>
-          <div class="flex-nowrap">
-            <input type="text"
-                   class="form-control"
-                   placeholder="Return date.."
-                   [bsConfig]="bsConfig"
-                   bsDatepicker>
-            <button type="button" class="input-icon ">
-              <i class="fa-regular fa-calendar-days"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <div class="col-4">
-    <div class="row">
-      <div class="col-7">
-        <div class="form-group">
-          <label>JOURNEY</label>
-          <ul class="nav nav-pills">
-            <li class="">
-              <a class="roundtrip_selector" data-toggle="tab">Round trip</a>
-            </li>
-            <!--  Active thêm class vào li   -->
-            <li class="active">
-              <a class="roundtrip_selector" data-toggle="tab">One way</a>
-            </li>
-          </ul>
-
-        </div>
-      </div>
-
-      <div class="col-6">
-        <div class="form-group">
-          <label>PASSENGERS</label>
-
-          <div id="passenger_selector" class="input-group">
-            <ul>
-              <li><button type="button" class="btn-circle fas fa-minus" data-value="-1" data-target="#passengers_count" data-toggle="spinner">
-              </button></li>
-              <li><input id="passengers_count" type="text" readonly="" data-ride="spinner" name="passengers_count" class="input-number text-center" value="1" data-min="1" data-max="9"> </li>
-              <li><button type="button" class="btn-circle fas fa-plus" data-value="1" data-target="#passengers_count" data-toggle="spinner" data-on="mousehold"></button></li>
-            </ul>
-          </div>
-
-        </div>
-      </div>
-
-      <div class="col-6" style="margin-top: 33px">
-        <div class="form-group">
-          <button id="searchButton" class="btn icon-search fixed-width green btn-block bold"
-                  type="submit" name="input" value="Search">
-            SEARCH
-            <i class="fa-regular fa-magnifying-glass"></i>
-          </button>
-        </div>
+      <div class="usersearch-info-item pull-right small-text" style="border-right: none; padding-right: 0">
+        <button id="modifyButton"
+                (click)="modifyButtonOnClick()"
+                class="btn icon-modify fixed-width btn-block"
+                [class.active]="modifyText === 'Close'"
+                type="submit" name="input" value="Search">
+          {{modifyText}}
+          <i class="fa-solid fa-caret-{{caretDirection}}"></i>
+        </button>
       </div>
     </div>
-
   </div>
 </div>
+
+<!-- Form -->
+
+
+<ng-template [ngIf]="modifyText == 'Close'">
+  <div class="row form-padding mt-4 bg-white">
+    <div class="col-8">
+      <div class="row">
+
+        <div class="col-6 row-padding">
+          <div class="form-group">
+            <label>FROM</label>
+            <div class="flex-nowrap">
+              <input type="text" class="form-control" placeholder="City, station..">
+              <button type="button" class="input-icon ">
+                <i class="fa-regular fa-location-dot"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6 row-padding">
+          <div class="form-group">
+            <label>To</label>
+            <div class="flex-nowrap">
+              <input type="text" class="form-control" placeholder="City, station..">
+              <button type="button" class="input-icon ">
+                <i class="fa-regular fa-location-dot"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6 row-padding">
+          <div class="form-group">
+            <label>Depart</label>
+            <div class="flex-nowrap">
+              <input type="text"
+                     class="form-control"
+                     placeholder="Departure date.."
+                     [bsConfig]="bsConfig"
+                     bsDatepicker>
+              <button type="button" class="input-icon ">
+                <i class="fa-regular fa-calendar-days"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6 row-padding">
+          <div class="form-group">
+            <label>Return</label>
+            <div class="flex-nowrap">
+              <input type="text"
+                     class="form-control"
+                     placeholder="Return date.."
+                     [bsConfig]="bsConfig"
+                     bsDatepicker>
+              <button type="button" class="input-icon ">
+                <i class="fa-regular fa-calendar-days"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="col-4">
+      <div class="row">
+        <div class="col-7">
+          <div class="form-group">
+            <label>JOURNEY</label>
+            <ul class="nav nav-pills">
+              <li class="">
+                <a>Round trip</a>
+              </li>
+              <!--  Active thêm class vào li   -->
+              <li class="active">
+                <a>One way</a>
+              </li>
+            </ul>
+
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="form-group">
+            <label>PASSENGERS</label>
+
+            <div id="passenger_selector" class="input-group">
+              <ul>
+                <li>
+                  <button type="button" class="btn-circle fas fa-minus" data-value="-1" data-target="#passengers_count"
+                          data-toggle="spinner">
+                  </button>
+                </li>
+                <li><input id="passengers_count" type="text" readonly="" data-ride="spinner" name="passengers_count"
+                           class="input-number text-center" value="1" data-min="1" data-max="9"></li>
+                <li>
+                  <button type="button" class="btn-circle fas fa-plus" data-value="1" data-target="#passengers_count"
+                          data-toggle="spinner" data-on="mousehold"></button>
+                </li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col-6" style="margin-top: 33px">
+          <div class="form-group">
+            <button id="searchButton" class="btn icon-search fixed-width green btn-block bold"
+                    type="submit" name="input" value="Search">
+              SEARCH
+              <i class="fa-regular fa-magnifying-glass"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</ng-template>
+
+Gura cuti 1 2 3

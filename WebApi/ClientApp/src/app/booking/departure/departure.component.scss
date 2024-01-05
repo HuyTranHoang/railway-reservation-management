@@ -8,6 +8,7 @@ $text-color: #a1a8ae;
 
 a {
   text-decoration: none;
+  cursor: pointer;
 }
 
 ul {
@@ -124,7 +125,7 @@ button {
 .nav-pills > li.active > a, .nav-pills > li.active > a:hover {
   color: #fff;
   background-color: #fb0;
-  font-weight: 900;
+  font-weight: 700;
   text-align: center;
 }
 
@@ -171,6 +172,25 @@ input[readonly] {
   background: #9ccd19;
 }
 
+.btn-confirmed:hover, .btn.green-hover:hover, .btn.green:hover {
+  background: #81b900;
+}
+
+.icon-search i {
+  position: absolute;
+  right: 0;
+  font-size: 14px;
+  color: #fff;
+  background-color: #81b900;
+  padding: 12px;
+  transition: .3s;
+}
+
+.btn.green:hover.icon-search i {
+  background-color: #70a100;
+}
+
+
 .btn.fixed-width {
   width: 150px;
 }
@@ -202,13 +222,84 @@ input[readonly] {
   text-align: center;
   font-size: 14px;
   font-weight: 600;
+
+  &:focus {
+    outline: 0;
+    color: #fff;
+    outline-offset: -2px;
+  }
 }
 
-.icon-search i {
+// Info Css
+
+#search-modify .padded-panel, #searchmodify-collapse.padded-panel {
+  padding: 20px 35px 15px;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+
+.panel {
+  background-color: #fff;
+  text-align: center;
+}
+
+.toggle-container .panel {
+  margin-bottom: 0;
+  box-shadow: none;
+  border-radius: 0;
+  border: none;
+  border-bottom: 4px solid #f5f5f5;
+  position: relative;
+  text-align: left;
+}
+
+.usersearch-info-item {
+  float: left;
+  border-right: 1px solid #eee;
+  padding: 0 3%;
+  height: 50px;
+  line-height: 50px;
+  color: #7a8085;
+}
+
+.usersearch-info-item > span {
+  line-height: 25px;
+  display: table-cell;
+  height: 50px;
+}
+
+.fa-exchange-alt, .fa-long-arrow-alt-right {
+  padding: 0 20px;
+  font-size: 18px;
+  color: #7a8085;
+  position: relative;
+  top: 10px;
+}
+
+.pull-right {
+  float: right !important;
+}
+
+.btn.active, .btn:hover {
+  color: #fff;
+  background-color: #2d3e52;
+}
+
+#modifyButton i {
+  background-color: #a1a1a1;
+}
+
+#modifyButton:hover i, #modifyButton.active i {
+  background-color: #2d3e52;
+}
+
+.icon-modify i {
   position: absolute;
   right: 0;
   font-size: 14px;
   color: #fff;
-  background-color: #81b900;
   padding: 12px;
+  transition: .3s;
 }
+
