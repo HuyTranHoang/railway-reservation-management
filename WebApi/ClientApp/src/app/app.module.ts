@@ -1,4 +1,3 @@
-import {NgxSpinnerModule} from 'ngx-spinner'
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
@@ -10,6 +9,7 @@ import {CoreModule} from './core/core.module'
 import {AppComponent} from './app.component';
 import {AppRoutingModule} from './app-routing.module';
 import {BookingTrainComponent} from './booking-train/booking-train.component';
+import { SharedModule } from './shared/shared.module'
 
 
 @NgModule({
@@ -24,7 +24,7 @@ import {BookingTrainComponent} from './booking-train/booking-train.component';
     BrowserAnimationsModule,
     HttpClientModule,
     CoreModule,
-    NgxSpinnerModule
+    SharedModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},

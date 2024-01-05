@@ -14,7 +14,8 @@ const routes: Routes = [
   {path: 'not-found', component: NotFoundComponent},
   {path: 'server-error', component: ServerErrorComponent},
   {path: 'not-implemented', redirectTo:'', pathMatch: 'full'},
-  {path: 'booking-train', component: BookingTrainComponent}
+  {path: 'booking-train', component: BookingTrainComponent},
+  {path: '**', component: NotFoundComponent, pathMatch: 'full'}
 ]
 
 @NgModule({

@@ -1,0 +1,214 @@
+$text-color: #a1a8ae;
+
+::placeholder {
+  color: $text-color;
+  opacity: 1;
+  font-style: italic;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+label {
+  display: block;
+  margin-bottom: 7px;
+  letter-spacing: .2px;
+  color: $text-color;
+  font-weight: 600;
+}
+
+
+button {
+  overflow: visible;
+  border: none;
+  border-radius: 0;
+  outline: 0 !important;
+  box-shadow: none !important;
+}
+
+
+.form-padding {
+  padding: 40px 35px 15px;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.row-padding {
+  position: relative;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.form-group {
+  position: relative;
+  margin-bottom: 40px;
+
+  .input-icon {
+    position: absolute;
+    top: 32px;
+    right: 0;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 22px;
+    background: #fb0;
+    color: #fff;
+    transition: .3s;
+    text-align: center;
+  }
+}
+
+
+.form-control {
+  height: 40px;
+  color: rgba(115,121,127,1);
+  font-size: 16px;
+  padding-left: 20px;
+  border-radius: 0;
+  border: 1px solid transparent;
+  box-shadow: none;
+  background: #f5f5f5;
+
+  &:focus, &:active {
+    box-shadow: none;
+    border: 2px solid #fb0;
+    transition: .3s;
+    -webkit-appearance: none;
+  }
+}
+
+
+.nav {
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+
+  > li {
+    position: relative;
+    display: block;
+  }
+
+  > li > a {
+    position: relative;
+    display: block;
+    padding: 0;
+    background-color: #f5f5f5;
+    color: rgba(115,121,127,.7);
+    font-weight: 400;
+    border-radius: 0;
+    text-align: center;
+  }
+}
+
+.nav-pills {
+  > li {
+    float: left;
+  }
+
+  li {
+    width: 50%;
+    a {
+      line-height: 40px;
+      height: 40px;
+    }
+  }
+}
+
+
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover {
+  color: #fff;
+  background-color: #fb0;
+  font-weight: 900;
+  text-align: center;
+}
+
+
+#passenger_selector ul li {
+  float: left;
+}
+
+#passenger_selector .btn-circle {
+  position: relative;
+}
+
+.btn-circle {
+  width: 40px;
+  height: 40px;
+  line-height: 38px;
+  background: #fb0;
+  color: #fff;
+  border-radius: 50%;
+}
+
+button {
+  overflow: visible;
+  border: none;
+  border-radius: 0;
+  outline: 0 !important;
+  box-shadow: none !important;
+}
+
+input[readonly] {
+  cursor: pointer !important;
+}
+
+.input-number {
+  height: 40px;
+  width: 40px;
+  color: rgba(115,121,127,.7);
+  border: 0;
+  margin: 0 10px;
+  -webkit-appearance: none;
+}
+
+.btn-confirmed, .btn.green {
+  background: #9ccd19;
+}
+
+.btn.fixed-width {
+  width: 150px;
+}
+
+.btn[class*=" icon-"], .btn[class*=" fa-"], .btn[class^="icon-"], .btn[class^="fa-"] {
+  padding-right: 36px;
+  padding-left: 0;
+  font-family: inherit;
+}
+
+.bold {
+  font-weight: 600;
+}
+
+.btn {
+  position: relative;
+  display: inline-block;
+  letter-spacing: 1px;
+  border-radius: 0;
+  border: 1px solid transparent;
+  height: 40px;
+  line-height: 40px;
+  transition: .3s;
+  text-transform: uppercase;
+  cursor: pointer;
+  background-color: #bababa;
+  color: #fff;
+  padding: 0 30px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.icon-search i {
+  position: absolute;
+  right: 0;
+  font-size: 14px;
+  color: #fff;
+  background-color: #81b900;
+  padding: 12px;
+}
