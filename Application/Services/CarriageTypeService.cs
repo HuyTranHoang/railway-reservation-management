@@ -61,6 +61,7 @@ public class CarriageTypeService : ICarriageTypeService
 
         carriageTypeInDb.Name = carriageType.Name;
         carriageTypeInDb.ServiceCharge = carriageType.ServiceCharge;
+        carriageTypeInDb.Description = carriageType.Description;
         carriageTypeInDb.Status = carriageType.Status;
         carriageTypeInDb.UpdatedAt = DateTime.Now;
 

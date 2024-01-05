@@ -60,6 +60,8 @@ public class SeatTypeService : ISeatTypeService
 
         seatTypeInDb.Name = seatType.Name;
         seatTypeInDb.ServiceCharge = seatType.ServiceCharge;
+        seatTypeInDb.Description = seatType.Description;
+        seatTypeInDb.Status = seatType.Status;
         seatTypeInDb.UpdatedAt = DateTime.Now;
 
         _repository.Update(seatTypeInDb);
