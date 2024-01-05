@@ -14,9 +14,5 @@ public class CompartmentConfiguration : IEntityTypeConfiguration<Compartment>
             .HasOne(t => t.Carriage)
             .WithMany()
             .OnDelete(DeleteBehavior.Restrict);
-
-        builder
-        .HasIndex(e => e.Name, "IX_Compartments_Name")
-        .IsUnique();
     }
 }
