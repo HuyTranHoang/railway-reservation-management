@@ -104,5 +104,23 @@ export class ManagementsComponent {
         },
       ],
     },
+    {
+      title: 'Payment and Cancellation',
+      icon: 'credit-card-outline',
+      children: [
+        {
+          title: 'Payment',
+          link: '/managements/payment-and-cancellation/payment',
+        },
+        {
+          title: 'Cancellation',
+          link: '/managements/payment-and-cancellation/cancellation',
+        },
+        {
+          title: 'Cancellation Rule',
+          link: '/managements/payment-and-cancellation/cancellation-rule',
+        },
+      ],
+    },
   ];
 }

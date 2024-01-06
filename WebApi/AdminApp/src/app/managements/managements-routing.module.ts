@@ -43,6 +43,11 @@ const routes: Routes = [{
         .then(m => m.PassengerAndTicketModule),
     },
     {
+      path: 'payment-and-cancellation',
+      loadChildren: () => import('./payment-and-cancellation/payment-and-cancellation.module')
+        .then(m => m.PaymentAndCancellationModule),
+    },
+    {
       path: '**',
       component: NotFoundComponent,
     },
