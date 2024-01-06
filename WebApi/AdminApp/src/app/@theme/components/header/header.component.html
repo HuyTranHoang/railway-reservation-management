@@ -12,6 +12,16 @@
              status="primary">
     <nb-option *ngFor="let theme of themes" [value]="theme.value"> {{ theme.name }}</nb-option>
   </nb-select>
+
+  <div class="ml-5">
+    <button routerLink="" class="mr-3" nbButton status="primary">
+      Xem components
+    </button>
+
+    <button nbButton status="primary">
+      Xem Managements
+    </button>
+  </div>
 </div>
 
 <div class="header-container">

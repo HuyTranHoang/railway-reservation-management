@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'ngx-railway',
-  template: `<router-outlet></router-outlet>`,
-
+  templateUrl: './railway.component.html',
+  styleUrls: ['./railway.component.scss']
 })
 export class RailwayComponent {
 
