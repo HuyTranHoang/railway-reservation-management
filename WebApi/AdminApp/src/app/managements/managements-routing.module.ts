@@ -38,6 +38,11 @@ const routes: Routes = [{
         .then(m => m.ScheduleAndTicketPricesModule),
     },
     {
+      path: 'passenger-and-ticket',
+      loadChildren: () => import('./passenger-and-ticket/passenger-and-ticket.module')
+        .then(m => m.PassengerAndTicketModule),
+    },
+    {
       path: '**',
       component: NotFoundComponent,
     },

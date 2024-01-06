@@ -90,5 +90,19 @@ export class ManagementsComponent {
         },
       ],
     },
+    {
+      title: 'Passenger and Ticket',
+      icon: 'people-outline',
+      children: [
+        {
+          title: 'Passenger',
+          link: '/managements/passenger-and-ticket/passenger',
+        },
+        {
+          title: 'Ticket',
+          link: '/managements/passenger-and-ticket/ticket',
+        },
+      ],
+    },
   ];
 }
