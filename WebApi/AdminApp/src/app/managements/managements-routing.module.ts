@@ -23,6 +23,11 @@ const routes: Routes = [{
         .then(m => m.RailwayModule),
     },
     {
+      path: 'train-and-carriage',
+      loadChildren: () => import('./train-and-carriage/train-and-carriage.module')
+        .then(m => m.TrainAndCarriageModule),
+    },
+    {
       path: '**',
       component: NotFoundComponent,
     },

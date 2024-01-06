@@ -36,5 +36,27 @@ export class ManagementsComponent {
         },
       ],
     },
+    {
+      title: 'Train & Carriage',
+      icon: 'car-outline',
+      children: [
+        {
+          title: 'Train',
+          link: '/managements/train-and-carriage/train',
+        },
+        {
+          title: 'Carriage',
+          link: '/managements/train-and-carriage/carriage',
+        },
+        {
+          title: 'Carriage Type',
+          link: '/managements/train-and-carriage/carriage-type',
+        },
+        {
+          title: 'Compartment',
+          link: '/managements/train-and-carriage/compartment',
+        },
+      ],
+    },
   ];
 }
