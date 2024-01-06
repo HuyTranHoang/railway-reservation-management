@@ -191,15 +191,15 @@ export const MENU_ITEMS: NbMenuItem[] = [
       {
         title: 'Ticket Management',
         link: '/pages/management/ticketmanagement',
-      },  
+      },
       {
         title: 'Schedule Management',
         link: '/pages/management/schedulemanagement',
-      },  
+      },
       {
         title: 'Train Management',
         link: '/pages/management/trainmanagement',
-      },  
+      },
     ],
   },
   {
@@ -209,10 +209,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
       {
         title: 'TinyMCE',
         link: '/pages/editors/tinymce',
-      },
-      {
-        title: 'CKEditor',
-        link: '/pages/editors/ckeditor',
       },
     ],
   },
