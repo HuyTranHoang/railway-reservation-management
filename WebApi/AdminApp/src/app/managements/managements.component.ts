@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import {MENU_ITEMS} from '../pages/pages-menu';
 import {NbMenuItem} from '@nebular/theme';
 
 @Component({
@@ -14,13 +13,28 @@ import {NbMenuItem} from '@nebular/theme';
 export class ManagementsComponent {
   menu: NbMenuItem[] = [
     {
+      title: 'Dashboard',
+      icon: 'layers-outline',
+      link: '/managements/dashboard',
+      home: true,
+    },
+    {
       title: 'MANAGEMENTS',
       group: true,
     },
     {
       title: 'Railway',
-      icon: 'home-outline',
-      link: '/managements/railway',
+      icon: 'backspace-outline',
+      children: [
+        {
+          title: 'Train Company',
+          link: '/managements/railway/train-company',
+        },
+        {
+          title: 'Train Station',
+          link: '/managements/railway/train-station',
+        },
+      ],
     },
   ];
 }
