@@ -12,7 +12,7 @@ import { FsIconComponent } from './tree-grid/tree-grid.component';
     NbTreeGridModule,
     NbIconModule,
     NbInputModule,
-    ThemeModule,
+    ThemeModule,  
     TablesRoutingModule,
     Ng2SmartTableModule,
   ],

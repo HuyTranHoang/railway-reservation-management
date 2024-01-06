@@ -184,11 +184,118 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
     ],
   },
-  {
-    title: 'Management',
-    icon: 'pie-chart-outline',
-    children: [
       {
+
+        title: 'Railway Management',
+        icon: 'message-square-outline',
+        link: '/pages/management/trainmanagement',
+        children :[
+          {
+            title: 'Train Station',
+            link: '/pages/railway/trainstation',
+          },
+          {
+            title: 'Train Company',
+            link: '/pages/railway/traincompany',
+          },
+        ]
+      },  
+      
+      {
+        title: 'Passenger & Ticket', 
+        icon: 'award-outline',
+        link: '/pages/management/passenger-ticket',
+        children :[
+          {
+            title: 'Passenger',
+            link: '/pages/passenger-ticket/passenger',
+          },
+          {
+            title: 'Ticket',
+            link: '/pages/passenger-ticket/ticket',
+          },
+        ]
+      },  
+      {
+        title: 'Schedule & Ticket Price',
+        icon: 'calendar-outline',
+        link: '/pages/management/schedule-ticketprice',
+        children :[
+          {
+            title: 'Schedule',
+            link: '/pages/schedule-ticketprice/schedule',
+          },
+          {
+            title: 'Ticket Price',
+            link: '/pages/schedule-ticketprice/ticketprice',
+          },
+        ]
+      },  
+      {
+        title: 'Seat & Seat Type',
+        icon : 'shopping-bag-outline',
+        link: '/pages/management/seat-seatype',
+        children :[
+          {
+            title: 'Seat',
+            link: '/pages/seat-seattype/seat',
+          },
+          {
+            title: 'Seat Type',
+            link: '/pages/seat-seattype/seattype',
+          },
+        ]
+      },  
+      {
+        title: 'Train & Carriage',
+        icon : 'swap-outline',
+        link: '/pages/management/train-carriage',
+        children :[
+          {
+            title: 'Train',
+            link: '/pages/train-carriage/train',
+          },
+          {
+            title: 'Carriage',
+            link: '/pages/train-carriage/carriage',
+          },
+        ]
+      },  
+      {
+        title: 'Payment & Cancellation',
+        icon : 'paper-plane-outline',
+        link: '/pages/management/payment-cancellation',
+        children :[
+          {
+            title: 'Payment',
+            link: '/pages/payment-cancellation/payment',
+          },
+          {
+            title: 'Cancellation',
+            link: '/pages/payment-cancellation/cancellation',
+          },
+        ]
+      },  
+      {
+        title: 'System Management',
+        icon : 'shield-outline',        
+        link: '/pages/system',
+      },  
+      {
+        title: 'Report & Statitics',
+        icon : 'pantone-outline',    
+        link: '/pages/management/report-statitics',
+        children :[
+          {
+            title: 'Report',
+            link: '/pages/report-statitics/report',
+          },
+          {
+            title: 'Statitics',
+            link: '/pages/report-statitics/statitics',
+          },
+        ]
+      },  
         title: 'Ticket Management',
         link: '/pages/management/ticketmanagement',
       },
@@ -202,6 +309,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
     ],
   },
+
   {
     title: 'Editors',
     icon: 'text-outline',

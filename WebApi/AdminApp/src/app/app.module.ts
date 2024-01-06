@@ -15,6 +15,7 @@ import {
   NbChatModule,
   NbDatepickerModule,
   NbDialogModule,
+  NbIconModule,
   NbMenuModule,
   NbSidebarModule,
   NbToastrModule,
@@ -37,6 +38,7 @@ import {
     NbChatModule.forRoot({
       messageGoogleMapKey: 'AIzaSyA_wNuCzia92MAmdLRzmqitRGvCF7wCZPY',
     }),
+    
     CoreModule.forRoot(),
     ThemeModule.forRoot(),
   ],
