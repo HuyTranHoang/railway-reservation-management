@@ -28,6 +28,11 @@ const routes: Routes = [{
         .then(m => m.TrainAndCarriageModule),
     },
     {
+      path: 'seat-and-seat-type',
+      loadChildren: () => import('./seat-and-seat-type/seat-and-seat-type.module')
+        .then(m => m.SeatAndSeatTypeModule),
+    },
+    {
       path: '**',
       component: NotFoundComponent,
     },

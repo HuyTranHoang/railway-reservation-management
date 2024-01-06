@@ -58,5 +58,19 @@ export class ManagementsComponent {
         },
       ],
     },
+    {
+      title: 'Seat and Seat Type',
+      icon: 'pantone-outline',
+      children: [
+        {
+          title: 'Seat',
+          link: '/managements/seat-and-seat-type/seat',
+        },
+        {
+          title: 'Train Station',
+          link: '/managements/seat-and-seat-type/seat-type',
+        },
+      ],
+    },
   ];
 }
