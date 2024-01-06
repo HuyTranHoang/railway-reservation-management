@@ -1,5 +1,3 @@
-
-
 using System.Globalization;
 using Domain.Exceptions;
 
@@ -41,24 +39,21 @@ public class SchedulesController : BaseApiController
     [HttpPost]
     public async Task<IActionResult> PostSchedule([FromBody] Schedule schedule)
     {
-        string dateString = "2024-01-05T11:00:00";
-        string dateString2 = "2024-01-05T15:30:00";
-        string dateString3 = "2024-01-05T11:10:00";
+        string dateString = "2024-01-07T15:00:00";
+        string dateString2 = "2024-01-07T16:00:00";
+        string dateString3 = "2024-01-07T15:00:00";
         DateTime dateTime = DateTime.ParseExact(dateString, "yyyy-MM-ddTHH:mm:ss", CultureInfo.InstalledUICulture);
         DateTime dateTime2 = DateTime.ParseExact(dateString2, "yyyy-MM-ddTHH:mm:ss", CultureInfo.InstalledUICulture);
         DateTime dateTime3 = DateTime.ParseExact(dateString3, "yyyy-MM-ddTHH:mm:ss", CultureInfo.InstalledUICulture);
         schedule.DepartureTime = dateTime;
         schedule.ArrivalDate = dateTime2;
         schedule.DepartureDate = dateTime3;
-
         if (!ModelState.IsValid)
         {
             return BadRequest(ModelState);
         }
-
         try
         {
-
             await _scheduleService.AddAsync(schedule);
         }
         catch (BadRequestException ex)

@@ -1,5 +1,3 @@
-
-using System.Globalization;
 using Domain.Exceptions;
 
 namespace Application.Services;
@@ -20,22 +18,15 @@ public class ScheduleService : IScheduleService
 
     public async Task AddAsync(Schedule schedule)
     {
-        var query = await _repository.GetQueryAsync();
 
         if (NameExists(_repository, schedule.Name, schedule.Id))
         {
             throw new BadRequestException(400, "Name already exists");
         }
-        // Kiểm tra xem có lịch trình nào trùng với điều kiện mới không
-        if (query.Any(s =>
-            s.TrainId == schedule.TrainId &&
-            s.DepartureDate == schedule.DepartureDate &&
-            ((s.DepartureTime >= schedule.DepartureTime && s.DepartureTime < schedule.ArrivalDate) ||
-             (s.ArrivalDate > schedule.DepartureTime && s.ArrivalDate <= schedule.ArrivalDate) ||
-             (s.DepartureTime <= schedule.DepartureTime && s.ArrivalDate >= schedule.ArrivalDate)) &&
-            s.Id != schedule.Id))
+
+        if (TrungLichTrinhHoacTrongThoiGianTauDangChay(_repository, schedule))
         {
-            throw new BadRequestException(400, "Duplicate schedule found");
+            throw new BadRequestException(400, "Trùng Lịch Trình Hoặc Thời Gian Chỉ Định Đã Có!!");
         }
 
         _repository.Add(schedule);
@@ -58,10 +49,9 @@ public class ScheduleService : IScheduleService
             ;
         }
 
-
         if (!string.IsNullOrEmpty(queryParams.SearchTerm))
         {
-            query = query.Where(p => p.Train.Name.Contains(queryParams.SearchTerm));
+            query = query.Where(p => p.Name.Contains(queryParams.SearchTerm));
         }
 
         query = queryParams.Sort switch
@@ -111,6 +101,12 @@ public class ScheduleService : IScheduleService
             throw new BadRequestException(400, "Name already exists");
         }
 
+        if (TrungLichTrinhHoacTrongThoiGianTauDangChay(_repository, schedule))
+        {
+            //Đặt lỗi english giúp emm ;.; dịch ngu quá
+            throw new BadRequestException(400, "Trùng Lịch Trình Hoặc Thời Gian Chỉ Định Đã Có!!");
+        }
+
         scheduleInDb.Name = schedule.Name;
         scheduleInDb.TrainId = schedule.TrainId;
         scheduleInDb.DepartureStationId = schedule.DepartureStationId;
@@ -126,6 +122,22 @@ public class ScheduleService : IScheduleService
     private static bool NameExists(IScheduleRepository repository, string name, int scheduleId)
     {
         return repository.GetQueryAsync().Result.Any(t => t.Name == name && t.Id != scheduleId);
+    }
+
+
+    //Đặt tên english giúp em ;.;
+    private static bool TrungLichTrinhHoacTrongThoiGianTauDangChay(IScheduleRepository repository, Schedule schedule)
+    {
+        return repository.GetQueryAsync().Result.Any(s =>
+                    s.TrainId != schedule.TrainId &&
+                    s.DepartureStationId == schedule.DepartureStationId ||
+                    s.ArrivalStationId == schedule.ArrivalStationId &&
+                        (
+                        (s.DepartureDate <= schedule.DepartureDate && s.ArrivalDate >= schedule.DepartureDate) ||
+                        (s.DepartureDate <= schedule.ArrivalDate && s.ArrivalDate >= schedule.ArrivalDate) ||
+                        (s.DepartureDate >= schedule.DepartureDate && s.ArrivalDate <= schedule.ArrivalDate)
+            )
+        );
     }
 
 }

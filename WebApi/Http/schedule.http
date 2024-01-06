@@ -8,13 +8,13 @@ POST {{url}}/{{router}}
 Content-Type: application/json
 
 {
-  "name": "MySche",
-  "trainId": 1,
-  "departureStationId": 2,
-  "arrivalStationId": 3,
-  "departure_date": "01-05-2024 09:00:00", 
-  "arrival_date": "01-05-2024 13:00:00",   
-  "departure_time": "01-05-2024 09:00:00",
+  "name": "Schedule-6",
+  "trainId": 5,
+  "departureStationId": 10,
+  "arrivalStationId": 11,
+  "departure_date": "2024-01-07T09:18:28", 
+  "arrival_date": "2024-01-07T13:18:28",   
+  "departure_time": "2024-01-07T09:18:28",
   "duration": 240,
   "status": "Scheduled"
 }
@@ -24,9 +24,9 @@ Content-Type: application/json
 
 # @name getListOfSchedule
 GET {{url}}/{{router}}?
-  &pageNumber=1
+  &pageNumber=2
   &pageSize=5
-  #&searchTerm=Khoang 1
+  #&searchTerm=Schedule-1
   #&sort=numberOfSeatsAsc
   #&carriageId=1
 
@@ -43,24 +43,29 @@ GET {{url}}/{{router}}/{{id}}
 ### 
 
 # @name UpdateSchedule
-@updateId = 1
+@updateId = 13
 
 PUT {{url}}/{{router}}/{{updateId}}
 Content-Type: application/json
 
 {
   "Id" : {{updateId}},
-  "name" : "Khoang",
-  "carriageId" : 2,
-  "numberOfSeats" : 50,
-  "Status" : "Da Sua"
+  "name": "Schedule-7",
+  "trainId": 5,
+  "departureStationId": 5,
+  "arrivalStationId": 9,
+  "departure_date": "2024-01-07T09:18:28", 
+  "arrival_date": "2024-01-07T13:18:28",   
+  "departure_time": "2024-01-07T09:18:28",
+  "duration": 240,
+  "status": "Scheduled"
 }
 
 
 ### 
 
 # @name SoftDeleteSchedule
-@deleteId = 3
+@deleteId = 13
 
 PATCH {{url}}/{{router}}/{{deleteId}}
 
@@ -71,8 +76,13 @@ POST {{url}}/{{router}}
 Content-Type: application/json
 
 {
-  "name" : "test",
-  "carriageId" : 1,
-  "numberOfSeats" : 1,
-  "Status" : ""
+  "name": "",
+  "trainId": 9,
+  "departureStationId": 0=5,
+  "arrivalStationId": 6,
+  "departure_date": "2024-01-07T09:18:28", 
+  "arrival_date": "2024-01-07T13:18:28",   
+  "departure_time": "2024-01-07T09:18:28",
+  "duration": 0,
+  "status": ""
 }
