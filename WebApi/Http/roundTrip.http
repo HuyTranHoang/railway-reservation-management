@@ -1,0 +1,42 @@
+@url = https://localhost:5001
+@router = api/roundtrip
+
+### 
+
+# @name addRoundTrip
+POST {{url}}/{{router}}
+Content-Type: application/json
+
+{
+  "TrainCompanyId": 2,
+  "Discount": 200
+}
+
+### 
+
+# @name getListOfRoundTrips
+GET {{url}}/{{router}}?
+  &pageNumber=1
+  &pageSize=10
+  # &searchTerm= 
+  # &sort= discountDesc
+###
+
+# @name getRoundTripById
+@id = 1
+
+GET {{url}}/{{router}}/{{id}}
+
+### 
+
+# @name updateRoundTrip
+@updateId = 1
+
+PUT {{url}}/{{router}}/{{updateId}}
+Content-Type: application/json
+
+{
+  "Id": {{updateId}},
+  "TrainCompanyId": 1,
+  "Discount": 100
+}

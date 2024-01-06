@@ -1,5 +1,10 @@
 $text-color: #a1a8ae;
 
+
+.toggle-container .panel {
+  text-align: left;
+}
+
 .btn[class*=" icon-"], .btn[class*=" fa-"], .btn[class^="icon-"], .btn[class^="fa-"] {
   padding-right: 36px;
   padding-left: 0;

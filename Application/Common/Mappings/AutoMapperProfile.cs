@@ -41,5 +41,16 @@ public class AutoMapperProfile : Profile
             otp => otp.MapFrom(src => src.DepartureStation.Name))
             .ForMember(dest => dest.ArrivalStationName,
             otp => otp.MapFrom(src => src.ArrivalStation.Name));
+
+        CreateMap<RoundTrip, RoundTripDto>()
+            .ForMember(dest => dest.TrainCompanyName,
+                opt => opt.MapFrom(src => src.TrainCompany.Name));
+
+        CreateMap<Seat, SeatDto>()
+            .ForMember(dest => dest.SeatTypeName,
+                opt => opt.MapFrom(src => src.SeatType.Name))
+            .ForMember(dest => dest.CompartmentName,
+                opt => opt.MapFrom(src => src.Compartment.Name));
+
     }
 }

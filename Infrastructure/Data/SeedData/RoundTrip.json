@@ -1,0 +1,23 @@
+[
+  {
+    "TrainCompanyId": 1,
+    "Discount": 100
+  },
+
+  {
+    "TrainCompanyId": 2,
+    "Discount": 200
+  },
+  {
+    "TrainCompanyId": 3,
+    "Discount": 150
+  },
+  {
+    "TrainCompanyId": 4,
+    "Discount": 80
+  },
+  {
+    "TrainCompanyId": 5,
+    "Discount": 130
+  }
+]

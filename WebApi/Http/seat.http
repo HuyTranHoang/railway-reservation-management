@@ -1,21 +1,75 @@
-@hostname = https://localhost:5001
+@url = https://localhost:5001
 @router = api/seats
 
 ### 
 
-# @name AddSeat
-POST {{hostname}}/{{router}}
+# @name addSeat
+POST {{url}}/{{router}}
 Content-Type: application/json
 
 {
-    "SeatTypeId" : 2,
-    "CompartmentId" : 2,
-    "Status" : "Test"
+  "SeatTypeId": 1,
+  "CompartmentId": 9,
+  "Status": "Available"
 }
 
-###
 
-# @name GetSeats
-GET {{hostname}}/{{router}}
+### 
 
-###
+# @name getListOfSeats
+GET {{url}}/{{router}}?
+  &pageNumber=1
+  &pageSize=10
+  # &searchTerm=Pokimane
+  # &sort=ageDesc
+
+
+### 
+
+# @name getSeatById
+@id = 1
+
+GET {{url}}/{{router}}/{{id}}
+
+
+### 
+
+# @name updateSeat
+@updateId = 55
+
+PUT {{url}}/{{router}}/{{updateId}}
+Content-Type: application/json
+
+{
+  "Id": {{updateId}},
+  "Name": "test update test 1111111test update",
+  "CardId": "1234 4321 1234",
+  "Age": 22,
+  "Gender": "Male",
+  "Phone": "123 456 7890",
+  "Email": "test@gmail.com"
+}
+
+
+### 
+
+# @name softDeleteSeat
+@deleteId = 2
+
+PATCH {{url}}/{{router}}/{{deleteId}}
+
+
+### 
+
+# @name addSeatValidation
+POST {{url}}/{{router}}
+Content-Type: application/json
+
+{
+  "Name": "",
+  "CardId": "",
+  "Age": 0,
+  "Gender": "",
+  "Phone": "",
+  "Email": "asdasd@gmail.com"
+}

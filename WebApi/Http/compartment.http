@@ -9,7 +9,7 @@ Content-Type: application/json
 
 {
   "Name" : "Khoang 3",
-  "CarriageId" : 1,
+  "CarriageId" : 10,
   "NumberOfSeats" : 1,
   "Status" : "Test"
 }
@@ -36,6 +36,13 @@ GET {{url}}/{{router}}/{{id}}
 
 
 ### 
+
+# @name getNumberOfCompartmentsBelongsTo
+@idToCount = 9
+
+GET {{url}}/{{router}}/{{idToCount}}/seats
+
+###
 
 # @name UpdateCompartment
 @updateId = 1
