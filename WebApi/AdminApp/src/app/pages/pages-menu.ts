@@ -185,6 +185,24 @@ export const MENU_ITEMS: NbMenuItem[] = [
     ],
   },
   {
+    title: 'Management',
+    icon: 'pie-chart-outline',
+    children: [
+      {
+        title: 'Ticket Management',
+        link: '/pages/management/ticketmanagement',
+      },  
+      {
+        title: 'Schedule Management',
+        link: '/pages/management/schedulemanagement',
+      },  
+      {
+        title: 'Train Management',
+        link: '/pages/management/trainmanagement',
+      },  
+    ],
+  },
+  {
     title: 'Editors',
     icon: 'text-outline',
     children: [
