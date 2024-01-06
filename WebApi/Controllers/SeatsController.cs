@@ -37,10 +37,7 @@ public class SeatsController : BaseApiController
     [HttpPost]
     public async Task<ActionResult> PostSeat([FromBody] Seat seat)
     {
-        if(!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
+        if(!ModelState.IsValid) return BadRequest(ModelState);
         
         try
         {
@@ -52,7 +49,9 @@ public class SeatsController : BaseApiController
             return BadRequest(errorResponse);
         }
 
-        return CreatedAtAction("GetSeat", new { id = seat.Id }, seat);
+        var seatDto = await _seatService.GetDtoByIdAsync(seat.Id);
+
+        return CreatedAtAction("GetSeat", new { id = seat.Id }, seatDto);
     }
 
     [HttpPut("{id}")]
@@ -60,10 +59,7 @@ public class SeatsController : BaseApiController
     {
         if (id != seat.Id) return BadRequest(new ErrorResponse(400));
 
-        if(!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
+        if(!ModelState.IsValid) return BadRequest(ModelState);
 
         try
         {
@@ -86,10 +82,8 @@ public class SeatsController : BaseApiController
     public async Task<IActionResult> SoftDeleteSeat(int id)
     {
         var seat = await _seatService.GetByIdAsync(id);
-        if(seat == null)
-        {
-            return NotFound(new ErrorResponse(404));
-        }
+
+        if(seat == null) return NotFound(new ErrorResponse(404));
 
         await _seatService.SoftDeleteAsync(seat);
 

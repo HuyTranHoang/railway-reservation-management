@@ -17,7 +17,7 @@ public class SeatConfiguration : IEntityTypeConfiguration<Seat>
 
         builder
             .HasOne(s => s.Compartment)
-            .WithMany()
+            .WithMany(c => c.Seats)
             .OnDelete(DeleteBehavior.Restrict);
     }
 }
