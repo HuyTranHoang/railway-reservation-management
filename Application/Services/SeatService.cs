@@ -84,10 +84,11 @@ public class SeatService : ISeatService
 
         if (NameExists(_repository, seat.Id))
         {
-            throw new BadRequestException(400, "Name already exists");
+            throw new BadRequestException(400, "Seat already exists");
         }
 
         seatInDb.SeatTypeId = seat.SeatTypeId;
+        seatInDb.Name = seat.Name;
         seatInDb.CompartmentId = seat.CompartmentId;
         seatInDb.UpdatedAt = DateTime.Now;
 

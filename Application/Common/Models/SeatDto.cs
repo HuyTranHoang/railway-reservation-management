@@ -8,6 +8,7 @@ namespace Application.Common.Models
     public class SeatDto
     {
         public int Id { get; set; }
+        public string Name { get; set; }
         public int SeatTypeId { get; set; }
         public string SeatTypeName { get; set; }
         public int CompartmentId { get; set; }

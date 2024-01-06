@@ -38,5 +38,17 @@ public class AutoMapperProfile : Profile
             .ForMember(dest => dest.TrainCompanyName,
                 opt => opt.MapFrom(src => src.TrainCompany.Name));
 
+        CreateMap<Ticket, TicketDto>()
+            .ForMember(dest => dest.PassengerName,
+                otp => otp.MapFrom(src => src.Passenger.FullName))
+            .ForMember(dest => dest.TrainName,
+                opt => opt.MapFrom(src => src.Train.Name))
+            .ForMember(dest => dest.CarriageName,
+                opt => opt.MapFrom(src => src.Carriage.Name))
+            .ForMember(dest => dest.SeatName,
+                opt => opt.MapFrom(src => src.Seat.Name))
+            .ForMember(dest => dest.ScheduleName,
+                opt => opt.MapFrom(src => src.Schedule.Name));
+
     }
 }
