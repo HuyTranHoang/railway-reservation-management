@@ -9,7 +9,7 @@ namespace Domain.Entities
         public int Id { get; set; }
 
         [StringLength(100)] public string Name { get; set; }
-  
+
         [Required]
         [ForeignKey("TrainId")]
         public int TrainId { get; set; }
@@ -24,6 +24,12 @@ namespace Domain.Entities
         [ForeignKey("ArrivalStationId")]
         public int ArrivalStationId { get; set; }
         public TrainStation ArrivalStation { get; set; }
+
+        [Required]
+        public DateTime DepartureDate { get; set; }
+
+        [Required]
+        public DateTime ArrivalDate { get; set; }
 
         [Required] public DateTime DepartureTime { get; set; }
 

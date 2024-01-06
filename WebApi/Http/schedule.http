@@ -1,23 +1,28 @@
 @url = https://localhost:5001
-@router = api/compartments
+@router = api/schedules
 
 ### 
 
-# @name addCompartment
+# @name addSchedule
 POST {{url}}/{{router}}
 Content-Type: application/json
 
 {
-  "Name" : "Khoang 3",
-  "CarriageId" : 1,
-  "NumberOfSeats" : 1,
-  "Status" : "Test"
+  "name": "MySche",
+  "trainId": 1,
+  "departureStationId": 2,
+  "arrivalStationId": 3,
+  "departure_date": "01-05-2024 09:00:00", 
+  "arrival_date": "01-05-2024 13:00:00",   
+  "departure_time": "01-05-2024 09:00:00",
+  "duration": 240,
+  "status": "Scheduled"
 }
 
 
 ### 
 
-# @name getListOfCompartment
+# @name getListOfSchedule
 GET {{url}}/{{router}}?
   &pageNumber=1
   &pageSize=5
@@ -29,7 +34,7 @@ GET {{url}}/{{router}}?
 ### 
 
 
-# @name getCompartmentById
+# @name getScheduleById
 @id = 1
 
 GET {{url}}/{{router}}/{{id}}
@@ -37,7 +42,7 @@ GET {{url}}/{{router}}/{{id}}
 
 ### 
 
-# @name UpdateCompartment
+# @name UpdateSchedule
 @updateId = 1
 
 PUT {{url}}/{{router}}/{{updateId}}
@@ -54,14 +59,14 @@ Content-Type: application/json
 
 ### 
 
-# @name SoftDeleteCompartment
+# @name SoftDeleteSchedule
 @deleteId = 3
 
 PATCH {{url}}/{{router}}/{{deleteId}}
 
 ###
 
-# @name addCompartmentValidation
+# @name addScheduleValidation
 POST {{url}}/{{router}}
 Content-Type: application/json
 

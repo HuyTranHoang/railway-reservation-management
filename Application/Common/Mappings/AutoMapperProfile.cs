@@ -34,5 +34,12 @@ public class AutoMapperProfile : Profile
         CreateMap<CancellationRule, CancellationRuleDto>();
         CreateMap<TrainStation, TrainStationDto>();
 
+        CreateMap<Schedule, ScheduleDto>()
+            .ForMember(dest => dest.TrainName,
+            otp => otp.MapFrom(src => src.Train.Name))
+            .ForMember(dest => dest.DepartureStationName,
+            otp => otp.MapFrom(src => src.DepartureStation.Name))
+            .ForMember(dest => dest.ArrivalStationName,
+            otp => otp.MapFrom(src => src.ArrivalStation.Name));
     }
 }
