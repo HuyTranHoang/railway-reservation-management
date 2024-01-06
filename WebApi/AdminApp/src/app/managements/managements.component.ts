@@ -72,5 +72,23 @@ export class ManagementsComponent {
         },
       ],
     },
+    {
+      title: 'Schedule and Ticket Prices',
+      icon: 'map-outline',
+      children: [
+        {
+          title: 'Schedule',
+          link: '/managements/schedule-and-ticket-prices/schedule',
+        },
+        {
+          title: 'Distance Fare',
+          link: '/managements/schedule-and-ticket-prices/distance-fare',
+        },
+        {
+          title: 'Round Trip',
+          link: '/managements/schedule-and-ticket-prices/round-trip',
+        },
+      ],
+    },
   ];
 }

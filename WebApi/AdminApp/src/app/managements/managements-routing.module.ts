@@ -33,6 +33,11 @@ const routes: Routes = [{
         .then(m => m.SeatAndSeatTypeModule),
     },
     {
+      path: 'schedule-and-ticket-prices',
+      loadChildren: () => import('./schedule-and-ticket-prices/schedule-and-ticket-prices.module')
+        .then(m => m.ScheduleAndTicketPricesModule),
+    },
+    {
       path: '**',
       component: NotFoundComponent,
     },
