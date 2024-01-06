@@ -27,7 +27,7 @@ public class SeatRepository : ISeatRepository
     public async Task<Seat> GetByIdAsync(int id)
     {
         return await _context.Seats
-            .FirstOrDefaultAsync(p => p.Id == id);
+            .FirstOrDefaultAsync(s => s.Id == id);
     }
 
     public async Task<IQueryable<Seat>> GetQueryAsync()
@@ -40,7 +40,7 @@ public class SeatRepository : ISeatRepository
     {
         return await Task.FromResult(
         _context.Seats
-            .Include(c => c.Compartment)
+            .Include(s => s.Compartment)
             .Include(s => s.SeatType)
             .AsQueryable());
     }

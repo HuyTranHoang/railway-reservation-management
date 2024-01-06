@@ -185,6 +185,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
     ],
   },
       {
+
         title: 'Railway Management',
         icon: 'message-square-outline',
         link: '/pages/management/trainmanagement',
@@ -295,6 +296,20 @@ export const MENU_ITEMS: NbMenuItem[] = [
           },
         ]
       },  
+        title: 'Ticket Management',
+        link: '/pages/management/ticketmanagement',
+      },
+      {
+        title: 'Schedule Management',
+        link: '/pages/management/schedulemanagement',
+      },
+      {
+        title: 'Train Management',
+        link: '/pages/management/trainmanagement',
+      },
+    ],
+  },
+
   {
     title: 'Editors',
     icon: 'text-outline',
@@ -302,10 +317,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
       {
         title: 'TinyMCE',
         link: '/pages/editors/tinymce',
-      },
-      {
-        title: 'CKEditor',
-        link: '/pages/editors/ckeditor',
       },
     ],
   },

@@ -104,4 +104,15 @@ public class CompartmentService : ICompartmentService
         return _mapper.Map<CompartmentDto>(compartment);
     }
 
+    public async Task<int> GetSeatsBelongToCompartmentCountAsync(int compartmentId)
+    {
+        var compartment = await _repository.GetByIdWithSeatsAsync(compartmentId);
+
+        if (compartment == null)
+        {
+            throw new NotFoundException(nameof(Carriage), compartmentId);
+        }
+
+        return compartment.Seats.Count;
+    }
 }
