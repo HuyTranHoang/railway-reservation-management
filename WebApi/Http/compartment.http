@@ -9,8 +9,8 @@ Content-Type: application/json
 
 {
   "Name" : "Khoang 3",
-  "CarriageId" : 1,
-  "NumberOfSeats" : 10,
+  "CarriageId" : 10,
+  "NumberOfSeats" : 1,
   "Status" : "Test"
 }
 
@@ -30,7 +30,7 @@ GET {{url}}/{{router}}?
 
 
 # @name getCompartmentById
-@id = 3
+@id = 1
 
 GET {{url}}/{{router}}/{{id}}
 
@@ -45,14 +45,14 @@ GET {{url}}/{{router}}/{{idToCount}}/seats
 ###
 
 # @name UpdateCompartment
-@updateId = 3
+@updateId = 1
 
 PUT {{url}}/{{router}}/{{updateId}}
 Content-Type: application/json
 
 {
   "Id" : {{updateId}},
-  "name" : "Khoang 3",
+  "name" : "Khoang",
   "carriageId" : 2,
   "numberOfSeats" : 50,
   "Status" : "Da Sua"
