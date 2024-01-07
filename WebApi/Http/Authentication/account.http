@@ -37,7 +37,7 @@ Authorization: Bearer {{authToken}}
 
 ###
 
-# @name Confirm Email
+# @name confirmEmail
 PUT {{url}}/{{router}}/confirm-email
 Content-Type: application/json
 
@@ -45,6 +45,12 @@ Content-Type: application/json
     "email": "nhokpio95@gmail.com",
     "token": "Q2ZESjhNZnZ5MkRhbzNwRnNnNVQ4aTk5WUhRLzJmOVFtS3pYd0Fhb2c0aUgwaU9hNzlMRitDeUxPekNrL205dVIwUEFCdEp2ZVZ5cEdSN0tUN2Y5TTE1ZDZjdTRUQzhMbXZyUWR2anJrRkoraGUwRlM2dzUzakdhdzNjVndVSzlta0wxZDlZbHhnbDd5ZVkvL1NOZUFrYnhRNzVLWGZvbkVadU5aZFhIbVR6NUZXOVpPMzE0MTZaTlNNL2pUQTcxMUVqRUlFajAvSVM1dzRYb3Y3bEEzQ25yKytNOW1tTEpzcHRyamR3QktZeVVJcEczUjBYbG1LRzdWRjd4OENRQi9XTHV5QT09"
 }
+
+###
+
+# @name resendEmailConfirmation
+@emailToResend=nhokpio95@gmail.com
+POST {{url}}/{{router}}/resend-email-confirmation-link/{{emailToResend}}
 
 ###
 

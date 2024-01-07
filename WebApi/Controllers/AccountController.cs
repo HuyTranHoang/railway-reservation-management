@@ -80,7 +80,7 @@ public class AccountController : BaseApiController
             return BadRequest(new ErrorResponse(400, "Failed to send email. Please contact support"));
 
         }
-        catch (Exception e)
+        catch (Exception)
         {
             return BadRequest(new ErrorResponse(400, "Failed to send email. Please contact support"));
         }
@@ -91,7 +91,7 @@ public class AccountController : BaseApiController
     {
         var user = await _userManager.FindByEmailAsync(confirmEmail.Email);
         if (user == null)
-            return Unauthorized(new ErrorResponse(400, "This email has not been registered"));
+            return Unauthorized(new ErrorResponse(401, "This email has not been registered"));
 
         if (user.EmailConfirmed)
             return BadRequest(new ErrorResponse(400, "This email has already been confirmed"));
@@ -107,15 +107,45 @@ public class AccountController : BaseApiController
             {
                 return Ok(new JsonResult(new { title = "Email Confirmed",message = "You can now login" }));
             }
-            
+
             return BadRequest(new ErrorResponse(400, "Invalid token. Please try again"));
         }
-        catch (Exception e)
+        catch (Exception)
         {
             return BadRequest(new ErrorResponse(400, "Invalid token. Please try again"));
         }
+    }
 
+    [HttpPost("resend-email-confirmation-link/{email}")]
+    public async Task<IActionResult> ResendEmailConfirmationLink(string email)
+    {
+        if (string.IsNullOrEmpty(email) || string.IsNullOrWhiteSpace(email))
+            return BadRequest(new ErrorResponse(400, "Invalid email address"));
 
+        var user = await _userManager.FindByEmailAsync(email);
+
+        if (user == null)
+            return Unauthorized(new ErrorResponse(401, "This email has not been registered"));
+
+        if (user.EmailConfirmed)
+            return BadRequest(new ErrorResponse(400, "This email has already been confirmed"));
+
+        try
+        {
+            if (await SendConfirmEmailAsync(user))
+            {
+                return Ok(new JsonResult(
+                    new { title = "Email Confirmation Link Sent",
+                        message = "Please check your email for confirmation link and login" }));
+            }
+
+            return BadRequest(new ErrorResponse(400, "Failed to send email. Please contact support"));
+
+        }
+        catch (Exception)
+        {
+            return BadRequest(new ErrorResponse(400, "Failed to send email. Please contact support"));
+        }
     }
 
     [Authorize]
