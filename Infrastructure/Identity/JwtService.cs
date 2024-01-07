@@ -25,7 +25,7 @@ public class JwtService
             new Claim(ClaimTypes.NameIdentifier, user.Id),
             new Claim(ClaimTypes.Email, user.Email),
             new Claim(ClaimTypes.GivenName, user.FirstName),
-            new Claim(ClaimTypes.Surname, user.LasteName),
+            new Claim(ClaimTypes.Surname, user.LastName),
         };
 
         var creadentials = new SigningCredentials(_jwtKey, SecurityAlgorithms.HmacSha512Signature);
