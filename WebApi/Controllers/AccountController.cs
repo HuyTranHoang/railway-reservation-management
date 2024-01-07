@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System.Globalization;
+using System.Security.Claims;
 using System.Text;
 using Application.Common.Models.Authentication;
 using Application.Services;
@@ -17,18 +18,21 @@ public class AccountController : BaseApiController
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly EmailService _emailService;
     private readonly IConfiguration _config;
+    private readonly IWebHostEnvironment _hostingEnvironment;
 
     public AccountController(JwtService jwtService,
         SignInManager<ApplicationUser> signInManager,
         UserManager<ApplicationUser> userManager,
         EmailService emailService,
-        IConfiguration config)
+        IConfiguration config,
+        IWebHostEnvironment hostingEnvironment)
     {
         _jwtService = jwtService;
         _signInManager = signInManager;
         _userManager = userManager;
         _emailService = emailService;
         _config = config;
+        _hostingEnvironment = hostingEnvironment;
     }
 
     [HttpPost("login")]
@@ -236,13 +240,18 @@ public class AccountController : BaseApiController
         token = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(token));
         var url = $"{_config["JWT:ClientUrl"]}/{_config["Email:ConfirmEmailPath"]}?email={user.Email}&token={token}";
 
-        var body = $"<h1>Hello: {user.FirstName} {user.LastName}" +
-                   $"<h3>Welcome to { _config["Email:ApplicationName"] }</h1>" +
-                   $"<p>Please confirm your email by <a href='{url}'>clicking here</a></p>" +
-                   $"<p> Thank your, </p>" +
-                   $"<br>{_config["Email:ApplicationName"]} Team";
+        var templatePath = Path.Combine(_hostingEnvironment.WebRootPath, "confirm_email_template.html");
 
-        var emailSend = new EmailSendDto(user.Email, "Confirm your email", body);
+        using var reader = new StreamReader(templatePath);
+        var emailTemplate = await reader.ReadToEndAsync();
+
+        emailTemplate = emailTemplate.Replace("{FirstName}", CultureInfo.CurrentCulture.TextInfo.ToTitleCase(user.FirstName));
+        emailTemplate = emailTemplate.Replace("{LastName}", CultureInfo.CurrentCulture.TextInfo.ToTitleCase(user.LastName));
+
+        emailTemplate = emailTemplate.Replace("{ApplicationName}", _config["Email:ApplicationName"]);
+        emailTemplate = emailTemplate.Replace("{ConfirmationLink}", url);
+
+        var emailSend = new EmailSendDto(user.Email, "Confirm your email", emailTemplate);
 
         return await _emailService.SendEmailAsync(emailSend);
     }
@@ -252,14 +261,23 @@ public class AccountController : BaseApiController
         var token = await _userManager.GeneratePasswordResetTokenAsync(user);
         token = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(token));
         var url = $"{_config["JWT:ClientUrl"]}/{_config["Email:ResetPasswordPath"]}?email={user.Email}&token={token}";
+        var subject = $"Confirm Your Password for {_config["Email:ApplicationName"]} Registration";
 
-        var body = $"<h1>Hello: {user.FirstName} {user.LastName}" +
-                   $"<h3>Reset your password for { _config["Email:ApplicationName"] }</h1>" +
-                   $"<p>Please reset your password by <a href='{url}'>clicking here</a></p>" +
-                   $"<p> Thank your, </p>" +
-                   $"<br>{_config["Email:ApplicationName"]} Team";
+        var templatePath = Path.Combine(_hostingEnvironment.WebRootPath, "confirm_email_template.html");
 
-        var emailSend = new EmailSendDto(user.Email, "Reset your password", body);
+        string emailTemplate;
+
+        using (var reader = new StreamReader(templatePath))
+        {
+            emailTemplate = await reader.ReadToEndAsync();
+        }
+
+        emailTemplate = emailTemplate.Replace("{UserFirstName}", user.FirstName);
+        emailTemplate = emailTemplate.Replace("{UserLastName}", user.LastName);
+        emailTemplate = emailTemplate.Replace("{ApplicationName}", _config["Email:ApplicationName"]);
+        emailTemplate = emailTemplate.Replace("{ConfirmationLink}", url);
+
+        var emailSend = new EmailSendDto(user.Email, subject, emailTemplate);
 
         return await _emailService.SendEmailAsync(emailSend);
     }
