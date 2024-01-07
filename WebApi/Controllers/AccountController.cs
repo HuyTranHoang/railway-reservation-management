@@ -27,7 +27,7 @@ public class AccountController : BaseApiController
     {
         var user = await _userManager.FindByNameAsync(loginDto.UserName);
 
-        if (user == null) return Unauthorized("Invalid username or password");
+        if (user == null) return Unauthorized(new ErrorResponse(401, "Invalid username or password"));
 
         if (user.EmailConfirmed == false) return Unauthorized("Email not confirmed");
 
@@ -74,7 +74,6 @@ public class AccountController : BaseApiController
 
         return CreateApplicationUserDto(user);
     }
-
 
     #region Private Helper Methods
     private UserDto CreateApplicationUserDto(ApplicationUser user)

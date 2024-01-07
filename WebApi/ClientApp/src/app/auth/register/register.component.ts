@@ -60,12 +60,10 @@ export class RegisterComponent implements OnInit {
           icon: 'success',
           title: res.value.title,
           text: res.value.message,
-          showConfirmButton: false,
-          timer: 2000
-        }).then(() => {
-          this.router.navigate(['auth//login'])
+          showConfirmButton: true
         })
 
+        this.router.navigate(['auth/login'])
         this.errorMessages = []
         this.submitted = false
         this.registerForm.reset()
