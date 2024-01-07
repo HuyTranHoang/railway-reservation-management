@@ -5,6 +5,7 @@ import {TestErrorComponent} from './core/test-error/test-error.component'
 import {NotFoundComponent} from './core/not-found/not-found.component'
 import {ServerErrorComponent} from './core/server-error/server-error.component'
 import {BookingTrainComponent} from './booking-train/booking-train.component'
+import { AuthorizationGuard } from './core/guards/authorization.guard'
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -14,7 +15,12 @@ const routes: Routes = [
   {path: 'not-found', component: NotFoundComponent},
   {path: 'server-error', component: ServerErrorComponent},
   {path: 'not-implemented', redirectTo:'', pathMatch: 'full'},
-  {path: 'booking-train', component: BookingTrainComponent},
+  {
+    path: 'booking-train',
+    runGuardsAndResolvers: 'always',
+    canActivate: [AuthorizationGuard],
+    component: BookingTrainComponent
+  },
   {path: '**', component: NotFoundComponent, pathMatch: 'full'}
 ]
 

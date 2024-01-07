@@ -3,6 +3,7 @@ import { AuthService } from '../auth.service'
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms'
 import Swal from 'sweetalert2'
 import { Router } from '@angular/router'
+import { take } from 'rxjs'
 
 @Component({
   selector: 'app-register',
@@ -14,7 +15,13 @@ export class RegisterComponent implements OnInit {
   submitted = false
   errorMessages: string[] = []
 
-  constructor(private authService: AuthService, private fb: FormBuilder, private router: Router) { }
+  constructor(private authService: AuthService, private fb: FormBuilder, private router: Router) {
+    this.authService.user$.pipe(take(1)).subscribe({
+      next: (user) => {
+        if (user) this.router.navigateByUrl('/')
+      }
+    })
+  }
 
   ngOnInit(): void {
     this.initializeForm()

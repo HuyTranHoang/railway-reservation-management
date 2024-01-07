@@ -10,6 +10,8 @@ import {AppComponent} from './app.component';
 import {AppRoutingModule} from './app-routing.module';
 import {BookingTrainComponent} from './booking-train/booking-train.component';
 import { SharedModule } from './shared/shared.module'
+import { NgxSpinnerModule } from 'ngx-spinner'
+import { JwtInterceptor } from './core/interceptors/jwt.interceptor'
 
 
 @NgModule({
@@ -24,11 +26,13 @@ import { SharedModule } from './shared/shared.module'
     BrowserAnimationsModule,
     HttpClientModule,
     CoreModule,
-    SharedModule
+    SharedModule,
+    NgxSpinnerModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })

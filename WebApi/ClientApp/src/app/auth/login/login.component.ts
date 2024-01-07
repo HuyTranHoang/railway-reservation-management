@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { AuthService } from '../auth.service'
-import { Router } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 import Swal from 'sweetalert2'
+import { take } from 'rxjs'
 
 @Component({
   selector: 'app-login',
@@ -13,8 +14,25 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup = new FormGroup({})
   submitted = false
   errorMessages: string[] = []
+  returnUrl: string = ''
 
-  constructor(private authService: AuthService, private fb: FormBuilder, private router: Router) {}
+  constructor(private authService: AuthService,
+              private fb: FormBuilder,
+              private activatedRouter: ActivatedRoute,
+              private router: Router) {
+    this.authService.user$.pipe(take(1)).subscribe({
+      next: (user) => {
+        if (user)
+          this.router.navigateByUrl('/')
+        else {
+          const returnUrl = this.activatedRouter.snapshot.queryParams['returnUrl']
+          if (returnUrl) {
+            this.returnUrl = returnUrl
+          }
+        }
+      }
+    })
+  }
 
   ngOnInit(): void {
     this.initializeForm()
@@ -37,7 +55,6 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(this.loginForm.value).subscribe({
       next: (res: any) => {
-        console.log("login.component.ts >", res)
         Swal.fire({
           position: 'center',
           icon: 'success',
@@ -45,6 +62,9 @@ export class LoginComponent implements OnInit {
           showConfirmButton: false,
           timer: 1500
         })
+        if (this.returnUrl)
+          this.router.navigateByUrl(this.returnUrl)
+          else
         this.router.navigateByUrl('/')
       },
       error: (err) => {

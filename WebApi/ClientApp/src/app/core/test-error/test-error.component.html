@@ -4,6 +4,7 @@
   <button (click)="get400Error()" class="btn btn-outline-primary me-3">Test 400 error</button>
   <button (click)="get400ValidationError()" class="btn btn-outline-primary me-3">Test 400 validation error</button>
   <button (click)="get401Error()" class="btn btn-outline-primary me-3">Test 401 error</button>
+  <button (click)="get401Redirect()" class="btn btn-outline-primary me-3">Test 401 error (redirect to booking-train)</button>
 
   <div *ngIf="validationErrors.length > 0" class="row mt-5">
     <ul>
