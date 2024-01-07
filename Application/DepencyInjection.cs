@@ -8,7 +8,13 @@ public static class DepencyInjection
 {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
+          //Email Service
+          services.AddScoped<EmailService>();
+
+          //AutoMapper Service
           services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
+          //Persistence Services
           services.AddScoped<ICarriageService, CarriageService>();
           services.AddScoped<ICarriageTypeService, CarriageTypeService>();
           services.AddScoped<ICompartmentService, CompartmentService>();
