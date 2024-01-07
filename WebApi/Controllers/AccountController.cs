@@ -1,5 +1,7 @@
-﻿using Application.Common.Models.Authentication;
+﻿using System.Security.Claims;
+using Application.Common.Models.Authentication;
 using Infrastructure.Identity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 
 namespace WebApi.Controllers;
@@ -58,6 +60,17 @@ public class AccountController : BaseApiController
 
         return Ok("Your account has been created successfully");
 
+    }
+
+    [Authorize]
+    [HttpGet("refresh-user-token")]
+    public async Task<ActionResult<UserDto>> RefreshUserToken()
+    {
+        var user = await _userManager.FindByNameAsync(User.FindFirstValue(ClaimTypes.Email));
+
+        if (user == null) return Unauthorized("Invalid username or password");
+
+        return CreateApplicationUserDto(user);
     }
 
 
