@@ -19,7 +19,7 @@ namespace Application.Common.Models
 
         public int DistanceFareId { get; set; }
 
-        public int SeadId { get; set; }
+        public int SeatId { get; set; }
 
         public string SeatName { get; set; }
 

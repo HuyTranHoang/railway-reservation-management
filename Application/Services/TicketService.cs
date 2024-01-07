@@ -75,7 +75,7 @@ namespace Application.Services
                 "seatNameAsc" => query.OrderBy(p => p.Seat.Name),
                 "seatNameDesc" => query.OrderByDescending(p => p.Seat.Name),
                 "scheduleNameAsc" => query.OrderBy(p => p.Schedule.Name),
-                "schoduleNameDesc" => query.OrderByDescending(p => p.Schedule.Name),
+                "scheduleNameDesc" => query.OrderByDescending(p => p.Schedule.Name),
                 _ => query.OrderBy(p => p.CreatedAt)
             };
 
