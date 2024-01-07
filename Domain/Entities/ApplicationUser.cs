@@ -9,5 +9,5 @@ public class ApplicationUser : IdentityUser
     public string FirstName { get; set; }
     [Required]
     public string LastName { get; set; }
-    public DateTime DateCreated { get; set; } = DateTime.UtcNow;
+    public DateTime DateCreated { get; set; } = DateTime.Now;
 }
