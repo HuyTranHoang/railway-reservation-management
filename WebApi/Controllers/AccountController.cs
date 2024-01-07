@@ -1,5 +1,6 @@
 ﻿using System.Security.Claims;
 using Application.Common.Models.Authentication;
+using Domain.Exceptions;
 using Infrastructure.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -42,7 +43,7 @@ public class AccountController : BaseApiController
     {
         if (await CheckEmailExists(registerDto.Email))
         {
-            return BadRequest($"An account with the email address {registerDto.Email} already exists");
+            return BadRequest(new ValidateInputError(400, "Email already exists"));
         }
 
         var user = new ApplicationUser
@@ -58,7 +59,8 @@ public class AccountController : BaseApiController
 
         if (!result.Succeeded) return BadRequest(result.Errors);
 
-        return Ok("Your account has been created successfully");
+        return Ok(new JsonResult(
+            new { title = "Account Created", message = "Please check your email for confirmation link and login" }));
 
     }
 

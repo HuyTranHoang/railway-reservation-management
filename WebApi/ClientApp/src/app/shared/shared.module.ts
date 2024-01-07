@@ -7,9 +7,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker'
   declarations: [],
   imports: [
     NgxSpinnerModule,
-    BsDatepickerModule.forRoot(
-
-    )
+    BsDatepickerModule.forRoot()
   ],
   exports: [
     NgxSpinnerModule,

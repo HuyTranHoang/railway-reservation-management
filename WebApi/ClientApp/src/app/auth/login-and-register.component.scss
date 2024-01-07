@@ -32,6 +32,26 @@ input {
   box-sizing: border-box;
 }
 
+input.is-invalid {
+  border-bottom: 1px solid rgb(220, 53, 69);
+}
+
+.is-invalid::placeholder {
+  color: rgb(220, 53, 69);
+  opacity: 1; /* Firefox */
+}
+
+.invalid-icon {
+  display: none;
+  position: absolute;
+  top: 25%;
+  right: 0;
+}
+
+.is-invalid + .invalid-icon {
+  display: block;
+}
+
 .form-title {
   margin-bottom: 33px;
 }
