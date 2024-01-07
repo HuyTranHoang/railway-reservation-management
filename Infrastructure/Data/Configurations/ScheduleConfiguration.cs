@@ -24,5 +24,9 @@ public class ScheduleConfiguration : IEntityTypeConfiguration<Schedule>
             .HasOne(t => t.ArrivalStation)
             .WithMany()
             .OnDelete(DeleteBehavior.Restrict);
+
+        builder
+            .HasIndex(s => new { s.TrainId, s.DepartureDate, s.DepartureTime })
+            .IsUnique();
     }
 }

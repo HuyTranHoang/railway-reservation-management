@@ -6,7 +6,6 @@ public class CompartmentService : ICompartmentService
 {
     private readonly ICompartmentRepository _repository;
     private readonly ICarriageRepository _carriageRepository;
-
     private readonly IMapper _mapper;
 
     private readonly IUnitOfWork _unitOfWork;

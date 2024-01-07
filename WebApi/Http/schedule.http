@@ -1,0 +1,88 @@
+@url = https://localhost:5001
+@router = api/schedules
+
+### 
+
+# @name addSchedule
+POST {{url}}/{{router}}
+Content-Type: application/json
+
+{
+  "name": "Schedule-6",
+  "trainId": 5,
+  "departureStationId": 10,
+  "arrivalStationId": 11,
+  "departure_date": "2024-01-07T09:18:28", 
+  "arrival_date": "2024-01-07T13:18:28",   
+  "departure_time": "2024-01-07T09:18:28",
+  "duration": 240,
+  "status": "Scheduled"
+}
+
+
+### 
+
+# @name getListOfSchedule
+GET {{url}}/{{router}}?
+  &pageNumber=2
+  &pageSize=5
+  #&searchTerm=Schedule-1
+  #&sort=numberOfSeatsAsc
+  #&carriageId=1
+
+
+### 
+
+
+# @name getScheduleById
+@id = 1
+
+GET {{url}}/{{router}}/{{id}}
+
+
+### 
+
+# @name UpdateSchedule
+@updateId = 13
+
+PUT {{url}}/{{router}}/{{updateId}}
+Content-Type: application/json
+
+{
+  "Id" : {{updateId}},
+  "name": "Schedule-7",
+  "trainId": 5,
+  "departureStationId": 5,
+  "arrivalStationId": 9,
+  "departure_date": "2024-01-07T09:18:28", 
+  "arrival_date": "2024-01-07T13:18:28",   
+  "departure_time": "2024-01-07T09:18:28",
+  "duration": 240,
+  "status": "Scheduled"
+}
+
+
+### 
+
+# @name SoftDeleteSchedule
+@deleteId = 13
+
+PATCH {{url}}/{{router}}/{{deleteId}}
+
+###
+
+# @name addScheduleValidation
+POST {{url}}/{{router}}
+Content-Type: application/json
+
+{
+  "name": "",
+  "trainId": 9,
+  "departureStationId": 0=5,
+  "arrivalStationId": 6,
+  "departure_date": "2024-01-07T09:18:28", 
+  "arrival_date": "2024-01-07T13:18:28",   
+  "departure_time": "2024-01-07T09:18:28",
+  "duration": 0,
+  "status": ""
+}
