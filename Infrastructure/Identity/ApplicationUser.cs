@@ -1,5 +1,13 @@
-﻿namespace Infrastructure.Identity;
+﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity;
 
-internal class ApplicationUser
+namespace Infrastructure.Identity;
+
+public class ApplicationUser : IdentityUser
 {
+    [Required]
+    public string FirstName { get; set; }
+    [Required]
+    public string LasteName { get; set; }
+    public DateTime DateCreated { get; set; } = DateTime.UtcNow;
 }
