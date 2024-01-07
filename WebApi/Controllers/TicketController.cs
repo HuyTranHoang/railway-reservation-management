@@ -5,6 +5,7 @@ namespace WebApi.Controllers
     public class TicketController : BaseApiController
     {
         private readonly ITicketService _ticketService;
+        
 
         public TicketController(ITicketService ticketService)
         {
