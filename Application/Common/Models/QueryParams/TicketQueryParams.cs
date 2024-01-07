@@ -8,5 +8,6 @@ namespace Application.Common.Models.QueryParams
         public int CarriageId { get; set; }
         public int SeatId { get; set; }
         public int ScheduleId { get; set; }
+        public int PaymentId { get; set; }
     }
 }

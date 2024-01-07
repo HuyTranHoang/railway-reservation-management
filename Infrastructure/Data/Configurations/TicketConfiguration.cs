@@ -34,5 +34,10 @@ public class TicketConfiguration : IEntityTypeConfiguration<Ticket>
             .HasOne(t => t.Carriage)
             .WithMany()
             .OnDelete(DeleteBehavior.Restrict);
+
+        builder
+            .HasOne(t => t.Payment)
+            .WithMany()
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

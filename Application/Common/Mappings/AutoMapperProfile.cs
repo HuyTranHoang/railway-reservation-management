@@ -48,7 +48,9 @@ public class AutoMapperProfile : Profile
             .ForMember(dest => dest.SeatName,
                 opt => opt.MapFrom(src => src.Seat.Name))
             .ForMember(dest => dest.ScheduleName,
-                opt => opt.MapFrom(src => src.Schedule.Name));
+                opt => opt.MapFrom(src => src.Schedule.Name))
+            .ForMember(dest => dest.PassengerId,
+                opt => opt.MapFrom(src => src.Payment.Id));
 
     }
 }

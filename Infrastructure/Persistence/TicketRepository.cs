@@ -43,6 +43,7 @@ namespace Infrastructure.Persistence
                 .Include(t => t.Carriage)
                 .Include(t => t.Seat)
                 .Include(t => t.Schedule)
+                .Include(t => t.Payment)
                 .AsQueryable());
         }
         

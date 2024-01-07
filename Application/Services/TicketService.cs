@@ -61,6 +61,11 @@ namespace Application.Services
                 query = query.Where(t => t.ScheduleId == queryParams.ScheduleId);
             }
 
+            if (queryParams.PaymentId != 0)
+            {
+                query = query.Where(t => t.PaymentId == queryParams.PaymentId);
+            }
+
             if (!string.IsNullOrEmpty(queryParams.SearchTerm))
                 query = query.Where(p => p.Passenger.FullName.Contains(queryParams.SearchTerm));
 
@@ -114,6 +119,7 @@ namespace Application.Services
             ticketInDb.DistanceFareId = ticket.DistanceFareId;
             ticketInDb.SeatId = ticket.SeatId;
             ticketInDb.ScheduleId = ticket.ScheduleId;
+            ticketInDb.PaymentId = ticket.PaymentId;
             ticketInDb.Status = ticket.Status;
             ticketInDb.UpdatedAt = DateTime.Now;
 
