@@ -87,9 +87,9 @@ public class AccountController : BaseApiController
     }
 
     [HttpPut("confirm-email")]
-    public async Task<IActionResult> ConfirmEmail(ConfirmEmailDto confirmEmail)
+    public async Task<IActionResult> ConfirmEmail(ConfirmEmailDto confirmEmailDto)
     {
-        var user = await _userManager.FindByEmailAsync(confirmEmail.Email);
+        var user = await _userManager.FindByEmailAsync(confirmEmailDto.Email);
         if (user == null)
             return Unauthorized(new ErrorResponse(401, "This email has not been registered"));
 
@@ -98,7 +98,7 @@ public class AccountController : BaseApiController
 
         try
         {
-            var decodedTokenBytes = WebEncoders.Base64UrlDecode(confirmEmail.Token);
+            var decodedTokenBytes = WebEncoders.Base64UrlDecode(confirmEmailDto.Token);
             var decodedToken = Encoding.UTF8.GetString(decodedTokenBytes);
 
             var result = await _userManager.ConfirmEmailAsync(user, decodedToken);
@@ -148,6 +148,61 @@ public class AccountController : BaseApiController
         }
     }
 
+    [HttpPost("forgot-password/{email}")]
+    public async Task<IActionResult> ForgotPassword(string email)
+    {
+        if (string.IsNullOrEmpty(email) || string.IsNullOrWhiteSpace(email))
+            return BadRequest(new ErrorResponse(400, "Invalid email address"));
+
+        var user = await _userManager.FindByEmailAsync(email);
+
+        if (user == null)
+            return Unauthorized(new ErrorResponse(401, "This email has not been registered"));
+
+        try
+        {
+            if (await SendForgotPasswordEmailAsync(user))
+            {
+                return Ok(new JsonResult(
+                    new { title = "Reset Password Link Sent",
+                        message = "Please check your email for reset password link" }));
+            }
+            return BadRequest(new ErrorResponse(400, "Failed to send email. Please contact support"));
+
+        }
+        catch (Exception)
+        {
+            return BadRequest(new ErrorResponse(400, "Failed to send email. Please contact support"));
+        }
+    }
+
+    [HttpPut("reset-password")]
+    public async Task<IActionResult> ResetPassword(ResetPasswordDto resetPasswordDto)
+    {
+        var user = await _userManager.FindByEmailAsync(resetPasswordDto.Email);
+        if (user == null)
+            return Unauthorized(new ErrorResponse(401, "This email has not been registered"));
+
+        try
+        {
+            var decodedTokenBytes = WebEncoders.Base64UrlDecode(resetPasswordDto.Token);
+            var decodedToken = Encoding.UTF8.GetString(decodedTokenBytes);
+
+            var result = await _userManager.ResetPasswordAsync(user, decodedToken, resetPasswordDto.NewPassword);
+
+            if (result.Succeeded)
+            {
+                return Ok(new JsonResult(new { title = "Password Reset Success",message = "You can now login" }));
+            }
+
+            return BadRequest(new ErrorResponse(400, "Invalid token. Please try again"));
+        }
+        catch (Exception)
+        {
+            return BadRequest(new ErrorResponse(400, "Invalid token. Please try again"));
+        }
+    }
+
     [Authorize]
     [HttpGet("refresh-user-token")]
     public async Task<ActionResult<UserDto>> RefreshUserToken()
@@ -181,8 +236,8 @@ public class AccountController : BaseApiController
         token = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(token));
         var url = $"{_config["JWT:ClientUrl"]}/{_config["Email:ConfirmEmailPath"]}?email={user.Email}&token={token}";
 
-        var body = $"<h3>Hello: {user.FirstName} {user.LastName}" +
-                   $"<h5>Welcome to { _config["Email:ApplicationName"] }</h1>" +
+        var body = $"<h1>Hello: {user.FirstName} {user.LastName}" +
+                   $"<h3>Welcome to { _config["Email:ApplicationName"] }</h1>" +
                    $"<p>Please confirm your email by <a href='{url}'>clicking here</a></p>" +
                    $"<p> Thank your, </p>" +
                    $"<br>{_config["Email:ApplicationName"]} Team";
@@ -190,7 +245,23 @@ public class AccountController : BaseApiController
         var emailSend = new EmailSendDto(user.Email, "Confirm your email", body);
 
         return await _emailService.SendEmailAsync(emailSend);
+    }
 
+    private async Task<bool> SendForgotPasswordEmailAsync(ApplicationUser user)
+    {
+        var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+        token = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(token));
+        var url = $"{_config["JWT:ClientUrl"]}/{_config["Email:ResetPasswordPath"]}?email={user.Email}&token={token}";
+
+        var body = $"<h1>Hello: {user.FirstName} {user.LastName}" +
+                   $"<h3>Reset your password for { _config["Email:ApplicationName"] }</h1>" +
+                   $"<p>Please reset your password by <a href='{url}'>clicking here</a></p>" +
+                   $"<p> Thank your, </p>" +
+                   $"<br>{_config["Email:ApplicationName"]} Team";
+
+        var emailSend = new EmailSendDto(user.Email, "Reset your password", body);
+
+        return await _emailService.SendEmailAsync(emailSend);
     }
     #endregion
 }

@@ -49,8 +49,26 @@ Content-Type: application/json
 ###
 
 # @name resendEmailConfirmation
-@emailToResend=nhokpio95@gmail.com
-POST {{url}}/{{router}}/resend-email-confirmation-link/{{emailToResend}}
+@emailResendConfirm=nhokpio95@gmail.com
+POST {{url}}/{{router}}/resend-email-confirmation-link/{{emailResendConfirm}}
+
+###
+
+# @name forgotPassword
+@emailForgotPassword=nhokpio95@gmail.com
+POST {{url}}/{{router}}/forgot-password/{{emailForgotPassword}}
+
+###
+
+# @name resetPassword
+PUT {{url}}/{{router}}/reset-password
+Content-Type: application/json
+
+{
+    "email": "nhokpio95@gmail.com",
+    "token": "Q2ZESjhNZnZ5MkRhbzNwRnNnNVQ4aTk5WUhUckpHNzVUUmExN1NDVmovR1BqdzdqUmVOam9QZWh3VXc4OUVhRnNXSmhBZGtxMVhpRUdFc3hPTmIzMWsvcEdmWWpaUHBERTlTako3a3BxaENxSkl0cXllbWkvbUJITnJkb2FuaDN1QjQ1Qzl6YzdkeTF2bnlRaWpqbmtLc0orQWUrejVzMGhaSHV3RWl5c1VwSnJQRHVKUTFMU2FqVVh1R2lEYVdxV2JhaEk4bUFsQjI4WUdCL0t4WXQ2OEpqN2lnSFVzcmJackRUdGxWejdzRzU5dzg0",
+    "newPassword": "321321"
+}
 
 ###
 
