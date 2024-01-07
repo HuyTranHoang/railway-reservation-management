@@ -38,6 +38,11 @@ namespace Domain.Entities
         public int ScheduleId { get; set; }
         public Schedule Schedule { get; set; }
 
+        [Required]
+        [ForeignKey("PaymentId")]
+        public int PaymentId { get; set; }
+        public Payment Payment { get; set; }
+
         [StringLength(100)] public string Status { get; set; }
     }
 }
