@@ -35,6 +35,31 @@ public class AccountController : BaseApiController
         return CreateApplicationUserDto(user);
     }
 
+    [HttpPost("register")]
+    public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
+    {
+        if (await CheckEmailExists(registerDto.Email))
+        {
+            return BadRequest($"An account with the email address {registerDto.Email} already exists");
+        }
+
+        var user = new ApplicationUser
+        {
+            FirstName = registerDto.FirstName.ToLower(),
+            LastName = registerDto.LastName.ToLower(),
+            Email = registerDto.Email.ToLower(),
+            UserName = registerDto.Email.ToLower(),
+            EmailConfirmed = true
+        };
+
+        var result = await _userManager.CreateAsync(user, registerDto.Password);
+
+        if (!result.Succeeded) return BadRequest(result.Errors);
+
+        return Ok("Your account has been created successfully");
+
+    }
+
 
     #region Private Helper Methods
     private UserDto CreateApplicationUserDto(ApplicationUser user)
@@ -45,6 +70,11 @@ public class AccountController : BaseApiController
             LastName = user.LastName,
             Jwt = _jwtService.GenerateJwtToken(user)
         };
+    }
+
+    private async Task<bool> CheckEmailExists(string email)
+    {
+        return await _userManager.FindByEmailAsync(email) != null;
     }
     #endregion
 }
