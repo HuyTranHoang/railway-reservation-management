@@ -45,7 +45,7 @@ export class RegisterComponent implements OnInit {
     if (this.registerForm.invalid) {
       return
     }
-    
+
     const formData = {
       firstName: this.registerForm.value.firstName,
       lastName: this.registerForm.value.lastName,
