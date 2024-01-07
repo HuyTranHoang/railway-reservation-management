@@ -20,5 +20,7 @@ namespace Domain.Entities
         public int NumberOfSeats { get; set; }
 
         [StringLength(100)] public string Status { get; set; }
+
+        public ICollection<Seat> Seats { get; set; }
     }
 }

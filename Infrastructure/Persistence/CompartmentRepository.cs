@@ -49,4 +49,11 @@ public class CompartmentRepository : ICompartmentRepository
     {
         return await Task.FromResult(_context.Compartments.Include(c => c.Carriage).AsQueryable());
     }
+
+    public async Task<Compartment> GetByIdWithSeatsAsync(int id)
+    {
+        return await _context.Compartments
+            .Include(c => c.Seats)
+            .FirstOrDefaultAsync(c => c.Id == id);
+    }
 }

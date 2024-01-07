@@ -50,5 +50,11 @@ public class AutoMapperProfile : Profile
             .ForMember(dest => dest.ScheduleName,
                 opt => opt.MapFrom(src => src.Schedule.Name));
 
+        CreateMap<Seat, SeatDto>()
+            .ForMember(dest => dest.SeatTypeName,
+                opt => opt.MapFrom(src => src.SeatType.Name))
+            .ForMember(dest => dest.CompartmentName,
+                opt => opt.MapFrom(src => src.Compartment.Name));
+
     }
 }

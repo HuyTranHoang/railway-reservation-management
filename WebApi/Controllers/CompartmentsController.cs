@@ -34,6 +34,18 @@ public class CompartmentsController : BaseApiController
         return Ok(compartmentDto);
     }
 
+    [HttpGet("{id}/seats")]
+    public async Task<ActionResult<object>> GetNumberSeatsBelongToCompartment(int id)
+    {
+        var count = await _compartmentService.GetSeatsBelongToCompartmentCountAsync(id);
+
+        return Ok(new
+        {
+            Id = id,
+            NumberOfCompartments = count
+        });
+    }
+
     [HttpPost]
     public async Task<ActionResult> PostCompartment([FromBody] Compartment compartment)
     {
