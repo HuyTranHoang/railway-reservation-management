@@ -1,0 +1,66 @@
+@url = https://localhost:5001
+@router = api/distancefares
+
+### 
+
+# @name addDistanceFare
+POST {{url}}/{{router}}
+Content-Type: application/json
+
+{
+  "TrainCompanyId": 5,
+  "Distance": 999,
+  "Price": 999
+}
+
+
+### 
+
+# @name getListOfDistanceFare
+GET {{url}}/{{router}}?
+  &pageNumber=1
+  &pageSize=10
+  # &sort=trainCompanyNameDesc
+  # &trainCompanyId=2
+### 
+
+# @name getDistanceFareById
+@id = 2
+
+GET {{url}}/{{router}}/{{id}}
+
+
+### 
+
+# @name UpdateDistanceFare
+@updateId = 11
+
+PUT {{url}}/{{router}}/{{updateId}}
+Content-Type: application/json
+
+{
+  "Id": {{updateId}},
+  "TrainCompanyId": 10,
+  "Distance": 1,
+  "Price": 1
+}
+
+
+### 
+
+# @name SoftDeleteDistanceFare
+@deleteId = 10
+
+PATCH {{url}}/{{router}}/{{deleteId}}
+
+### 
+
+# @name addDistanceFareValidation
+POST {{url}}/{{router}}
+Content-Type: application/json
+
+{
+  "TrainCompanyId": 2,
+  "Distance": 2000,
+  "Price": 2000
+}

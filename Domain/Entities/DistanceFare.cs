@@ -9,10 +9,10 @@ namespace Domain.Entities
         public int Id { get; set; }
         
         [Required]
-        [ForeignKey("TrainId")]
-        public int TrainId { get; set; }
+        [ForeignKey("TrainCompanyId")]
+        public int TrainCompanyId { get; set; }
         
-        public Train Train { get; set; }
+        public TrainCompany TrainCompany { get; set; }
 
         [Required] public int Distance { get; set; }
 
