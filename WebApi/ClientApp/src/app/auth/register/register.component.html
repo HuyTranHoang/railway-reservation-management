@@ -4,27 +4,127 @@
     <div class="signup-form col">
       <h2 class="form-title">Sign up</h2>
 
-      <form class="register-form" id="register-form" method="POST">
-        <div class="form-group">
-          <label for="name"><i class="fa-solid fa-user"></i></label>
-          <input id="name" name="name" placeholder="Your Name" type="text">
+      <form id="register-form"
+            [formGroup]="registerForm"
+            (ngSubmit)="onSubmit()"
+            autocomplete="off"
+            class="register-form">
+        <div class="row">
+          <div class="col-6">
+            <div class="form-group mb-2 position-relative">
+              <label for="firstName"><i class="fa-solid fa-user"></i></label>
+              <input id="firstName" name="firstName" placeholder="First Name"
+                     formControlName="firstName"
+                     [class.is-invalid]="submitted && registerForm.get('firstName')?.errors"
+                     type="text">
+              <span class="text-danger invalid-icon">
+                <i class="fa-light fa-hexagon-exclamation"></i>
+              </span>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="form-group mb-2 position-relative">
+              <input id="lastName" name="lastName" placeholder="Last Name" type="text"
+                     formControlName="lastName"
+                     [class.is-invalid]="submitted && registerForm.get('lastName')?.errors"
+                     class="ps-0">
+              <span class="text-danger invalid-icon">
+                <i class="fa-light fa-hexagon-exclamation"></i>
+              </span>
+            </div>
+          </div>
+
+          <span class="text-danger" style="font-size: 15px;"
+                *ngIf="submitted && registerForm.get('firstName')?.hasError('required')
+                || submitted && registerForm.get('lastName')?.hasError('required')">
+                First and last name is required
+          </span>
+          <span class="text-danger" style="font-size: 15px;"
+                *ngIf="submitted && registerForm.get('firstName')?.hasError('minlength')
+                || submitted && registerForm.get('lastName')?.hasError('minlength')
+                || submitted && registerForm.get('firstName')?.hasError('maxlength')
+                || submitted && registerForm.get('lastName')?.hasError('maxlength') ">
+                First and last name must be at least 3, and maximum 15 characters
+          </span>
         </div>
-        <div class="form-group">
-          <label for="email"><i class="fa-solid fa-envelope"></i></label>
-          <input id="email" name="email" placeholder="Your Email" type="email">
+
+        <div class="mt-2">
+          <div class="form-group mb-2 position-relative">
+            <label for="email"><i class="fa-solid fa-envelope"></i></label>
+            <input id="email" name="email" placeholder="Your Email"
+                   formControlName="email"
+                   [class.is-invalid]="submitted && registerForm.get('email')?.errors"
+                   type="text">
+            <span class="text-danger invalid-icon">
+                <i class="fa-light fa-hexagon-exclamation"></i>
+            </span>
+          </div>
+          <span class="text-danger" style="font-size: 15px;"
+                *ngIf="submitted && registerForm.get('email')?.hasError('required')">
+                Email is required
+          </span>
+          <span class="text-danger" style="font-size: 15px;"
+                *ngIf="submitted && registerForm.get('email')?.hasError('pattern')">
+                Invalid email address
+          </span>
         </div>
-        <div class="form-group">
-          <label for="pass"><i class="fa-solid fa-lock"></i></label>
-          <input id="pass" name="pass" placeholder="Password" type="password">
+
+        <div class="mt-3">
+          <div class="form-group mb-2 position-relative">
+            <label for="password"><i class="fa-solid fa-lock"></i></label>
+            <input id="password" name="password" placeholder="Password"
+                   formControlName="password"
+                   [class.is-invalid]="submitted && registerForm.get('password')?.errors"
+                   type="password">
+            <span class="text-danger invalid-icon">
+                <i class="fa-light fa-hexagon-exclamation"></i>
+            </span>
+          </div>
+          <span class="text-danger" style="font-size: 15px;"
+                *ngIf="submitted && registerForm.get('password')?.hasError('required')">
+                Password is required
+          </span>
+          <span class="text-danger" style="font-size: 15px;"
+                *ngIf="submitted && registerForm.get('password')?.hasError('minlength')
+                || submitted && registerForm.get('password')?.hasError('maxlength')">
+                Password must be at least 6, and maximum 15 characters
+          </span>
         </div>
-        <div class="form-group">
-          <label for="re_pass"><i class="fa-regular fa-lock"></i></label>
-          <input id="re_pass" name="re_pass" placeholder="Repeat your password" type="password">
+
+        <div class="mt-3">
+          <div class="form-group mb-2 position-relative">
+            <label for="confirmPassword"><i class="fa-regular fa-lock"></i></label>
+            <input id="confirmPassword" name="confirmPassword" placeholder="Repeat your password"
+                   formControlName="confirmPassword"
+                   [class.is-invalid]="submitted && registerForm.get('confirmPassword')?.errors"
+                   type="password">
+            <span class="text-danger invalid-icon">
+                <i class="fa-light fa-hexagon-exclamation"></i>
+            </span>
+          </div>
+          <span class="text-danger" style="font-size: 15px;"
+                *ngIf="submitted && registerForm.get('confirmPassword')?.hasError('required')">
+                Confirm password is required
+          </span>
+          <span class="text-danger" style="font-size: 15px;"
+                *ngIf="submitted && !registerForm.get('confirmPassword')?.hasError('required')
+                && registerForm.get('confirmPassword')?.hasError('mismatch')">
+                Password mismatch
+          </span>
         </div>
-        <div class="form-group">
+
+
+        <div class="form-group mt-3">
           <input class="agree-term" id="agree-term" name="agree-term" type="checkbox">
           <label class="label-agree-term" for="agree-term">
             I agree all statements in <a class="term-service">Terms of service</a></label>
+        </div>
+
+        <div>
+          <ul class="text-danger" *ngIf="errorMessages">
+            <li *ngFor="let error of errorMessages">{{error}}</li>
+          </ul>
         </div>
         <div class="form-group form-button">
           <input class="form-submit" id="signup" name="signup" type="submit" value="Register">
@@ -41,4 +141,6 @@
       <a class="signup-image-link" routerLink="/auth/login">I am already member</a>
     </div>
   </div>
+
 </div>
+
