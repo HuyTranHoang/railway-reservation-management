@@ -36,6 +36,8 @@ public static class Seed
         await SeedData<TrainStation>(context, "TrainStation.json", c => c.TrainStations);
         await SeedData<RoundTrip>(context, "RoundTrip.json", c => c.RoundTrips);
         await SeedData<Carriage>(context, "Carriage.json", c => c.Carriages);
-        await SeedData<Ticket>(context, "Ticket.json", c => c.Tickets);
+
+        // Chưa tạo
+        // await SeedData<Ticket>(context, "Ticket.json", c => c.Tickets);
     }
 }

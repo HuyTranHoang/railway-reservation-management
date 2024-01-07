@@ -99,12 +99,6 @@ public class SeatService : ISeatService
 
         if (seatInDb == null) throw new NotFoundException(nameof(Seat), seat.Id);
 
-        if (NameExists(_repository, seat.Id))
-        {
-            throw new BadRequestException(400, "Seat already exists");
-        }
-
-
         seatInDb.SeatTypeId = seat.SeatTypeId;
         seatInDb.Name = seat.Name;
         seatInDb.CompartmentId = seat.CompartmentId;

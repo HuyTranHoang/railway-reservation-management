@@ -45,8 +45,17 @@ public class ScheduleService : IScheduleService
 
         if (queryParams.TrainId != 0)
         {
-            query = query.Where(t => t.TrainId == queryParams.TrainId)
-            ;
+            query = query.Where(t => t.TrainId == queryParams.TrainId);
+        }
+
+        if (queryParams.DepartureStationId != 0)
+        {
+            query = query.Where(t => t.DepartureStationId == queryParams.DepartureStationId);
+        }
+
+        if (queryParams.ArrivalStationId != 0)
+        {
+            query = query.Where(t => t.ArrivalStationId == queryParams.ArrivalStationId);
         }
 
         if (!string.IsNullOrEmpty(queryParams.SearchTerm))
@@ -56,8 +65,8 @@ public class ScheduleService : IScheduleService
 
         query = queryParams.Sort switch
         {
-            "nameScheduleAsc" => query.OrderBy(p => p.Name),
-            "nameScheduleDesc" => query.OrderByDescending(p => p.Name),
+            "scheduleNameAsc" => query.OrderBy(p => p.Name),
+            "scheduleNameDesc" => query.OrderByDescending(p => p.Name),
             "departureTimeAsc" => query.OrderBy(p => p.DepartureTime),
             "departureTimeDesc" => query.OrderByDescending(p => p.DepartureTime),
             _ => query.OrderBy(p => p.CreatedAt)
@@ -71,11 +80,6 @@ public class ScheduleService : IScheduleService
     public Task<Schedule> GetByIdAsync(int id)
     {
         return _repository.GetByIdAsync(id);
-    }
-
-    public Task<int> GetCompartmentsBelongToCarriageCountAsync(int scheduleId)
-    {
-        throw new NotImplementedException();
     }
 
     public async Task<ScheduleDto> GetDtoByIdAsync(int id)
@@ -128,7 +132,10 @@ public class ScheduleService : IScheduleService
     //Đặt tên english giúp em ;.;
     private static bool TrungLichTrinhHoacTrongThoiGianTauDangChay(IScheduleRepository repository, Schedule schedule)
     {
-        return repository.GetQueryAsync().Result.Any(s =>
+        return repository
+            .GetQueryAsync()
+            .Result
+            .Any(s =>
                     s.TrainId != schedule.TrainId &&
                     s.DepartureStationId == schedule.DepartureStationId ||
                     s.ArrivalStationId == schedule.ArrivalStationId &&
