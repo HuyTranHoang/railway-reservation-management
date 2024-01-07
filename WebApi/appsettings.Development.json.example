@@ -1,6 +1,10 @@
 {
   "Serilog": {
-    "Using": [ "Serilog.Sinks.Console", "Serilog.Sinks.File", "Serilog.Sinks.Seq" ],
+    "Using": [
+      "Serilog.Sinks.Console",
+      "Serilog.Sinks.File",
+      "Serilog.Sinks.Seq"
+    ],
     "WriteTo": [
       {
         "Name": "Console"
@@ -13,17 +17,23 @@
           "retainedFileCountLimit": 7
         }
       },
-        {
-            "Name": "Seq",
-            "Args": {
-            "serverUrl": "http://localhost:8081"
-            }
+      {
+        "Name": "Seq",
+        "Args": {
+          "serverUrl": "http://localhost:8081"
         }
+      }
     ]
   },
   "ConnectionStrings": {
-    "DefaultConnection": "Server=127.0.0.1;Database=railway-reservation-management;ConnectRetryCount=0;User Id=sa;Password=Password.1",
+    "DefaultConnection": "Server=.,1433;Database=railway-reservation-management;User Id=sa;Password=25091995;Trusted_Connection=True;TrustServerCertificate=True",
     "RedisConnection": "localhost:6379"
   },
-  "ApiUrl": "https://localhost:5001/"
+  "ApiUrl": "https://localhost:5001/",
+  "JWT": {
+    "Key" : "17A6B269E2C27FC8553D2F7FA486A-CFB5BC8E363ECA2F6E31E7FA37A82",
+    "ExpiresInDays": 15,
+    "Issuer": "https://localhost:5001/",
+    "Audience": "http://localhost:4200/"
+  }
 }
