@@ -4,6 +4,7 @@ using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240107000314_AddColumnNameIntoSeat")]
+    partial class AddColumnNameIntoSeat
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -66,7 +68,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasIndex("TicketId");
 
-                    b.ToTable("Cancellation", (string)null);
+                    b.ToTable("Cancellation");
                 });
 
             modelBuilder.Entity("Domain.Entities.CancellationRule", b =>
@@ -101,7 +103,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CancellationRules", (string)null);
+                    b.ToTable("CancellationRules");
                 });
 
             modelBuilder.Entity("Domain.Entities.Carriage", b =>
@@ -148,7 +150,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasIndex("TrainId");
 
-                    b.ToTable("Carriages", (string)null);
+                    b.ToTable("Carriages");
                 });
 
             modelBuilder.Entity("Domain.Entities.CarriageType", b =>
@@ -190,7 +192,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CarriageTypes", (string)null);
+                    b.ToTable("CarriageTypes");
                 });
 
             modelBuilder.Entity("Domain.Entities.Compartment", b =>
@@ -232,7 +234,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasIndex("CarriageId");
 
-                    b.ToTable("Compartments", (string)null);
+                    b.ToTable("Compartments");
                 });
 
             modelBuilder.Entity("Domain.Entities.DistanceFare", b =>
@@ -268,7 +270,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasIndex("TrainId");
 
-                    b.ToTable("DistanceFares", (string)null);
+                    b.ToTable("DistanceFares");
                 });
 
             modelBuilder.Entity("Domain.Entities.Passenger", b =>
@@ -319,7 +321,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Passengers", (string)null);
+                    b.ToTable("Passengers");
                 });
 
             modelBuilder.Entity("Domain.Entities.Payment", b =>
@@ -358,7 +360,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasIndex("TicketId");
 
-                    b.ToTable("Payments", (string)null);
+                    b.ToTable("Payments");
                 });
 
             modelBuilder.Entity("Domain.Entities.RoundTrip", b =>
@@ -391,7 +393,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasIndex("TrainCompanyId");
 
-                    b.ToTable("RoundTrips", (string)null);
+                    b.ToTable("RoundTrips");
                 });
 
             modelBuilder.Entity("Domain.Entities.Schedule", b =>
@@ -402,18 +404,12 @@ namespace Infrastructure.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<DateTime>("ArrivalDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<int>("ArrivalStationId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2")
                         .HasColumnOrder(998);
-
-                    b.Property<DateTime>("DepartureDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<int>("DepartureStationId")
                         .HasColumnType("int");
@@ -449,10 +445,9 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasIndex("DepartureStationId");
 
-                    b.HasIndex("TrainId", "DepartureDate", "DepartureTime")
-                        .IsUnique();
+                    b.HasIndex("TrainId");
 
-                    b.ToTable("Schedules", (string)null);
+                    b.ToTable("Schedules");
                 });
 
             modelBuilder.Entity("Domain.Entities.Seat", b =>
@@ -495,7 +490,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasIndex("SeatTypeId");
 
-                    b.ToTable("Seats", (string)null);
+                    b.ToTable("Seats");
                 });
 
             modelBuilder.Entity("Domain.Entities.SeatType", b =>
@@ -536,7 +531,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SeatTypes", (string)null);
+                    b.ToTable("SeatTypes");
                 });
 
             modelBuilder.Entity("Domain.Entities.Ticket", b =>
@@ -595,7 +590,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasIndex("TrainId");
 
-                    b.ToTable("Tickets", (string)null);
+                    b.ToTable("Tickets");
                 });
 
             modelBuilder.Entity("Domain.Entities.Train", b =>
@@ -637,7 +632,7 @@ namespace Infrastructure.Data.Migrations
                     b.HasIndex(new[] { "Name" }, "IX_Trains_Name")
                         .IsUnique();
 
-                    b.ToTable("Trains", (string)null);
+                    b.ToTable("Trains");
                 });
 
             modelBuilder.Entity("Domain.Entities.TrainCompany", b =>
@@ -670,7 +665,7 @@ namespace Infrastructure.Data.Migrations
                     b.HasIndex(new[] { "Name" }, "IX_TrainCompanies_Name")
                         .IsUnique();
 
-                    b.ToTable("TrainCompanies", (string)null);
+                    b.ToTable("TrainCompanies");
                 });
 
             modelBuilder.Entity("Domain.Entities.TrainStation", b =>
@@ -712,7 +707,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TrainStations", (string)null);
+                    b.ToTable("TrainStations");
                 });
 
             modelBuilder.Entity("Domain.Entities.Cancellation", b =>

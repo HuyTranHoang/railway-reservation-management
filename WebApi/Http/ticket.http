@@ -1,0 +1,68 @@
+@url = https://localhost:5001
+@router = api/ticket
+
+### 
+
+# @name addTicket
+POST {{url}}/{{router}}
+Content-Type: application/json
+
+{
+  "PassengerId" : 1 ,
+  "TrainId" : 1,
+  "CarriageId" : 1,
+  "DistanceFareId" : 1,
+  "SeadId" : 1,
+  "ScheduleId" : 1,
+  "Status" : "Active"
+}
+
+
+###
+
+# @name getListOfTickets
+
+GET {{url}}/{{router}}?
+  &pageNumber=1
+  &pageSize=5
+  # &searchTerm=
+  # &sort=nameDesc
+  # &trainCompanyId=2
+
+
+### 
+
+# @name getTicketById
+@id = 11
+
+GET {{url}}/{{router}}/{{id}}
+
+
+### 
+
+# @name UpdateTicket
+@updateId = 11
+
+PUT {{url}}/{{router}}/{{updateId}}
+Content-Type: application/json
+
+{
+  "Id": {{updateId}},
+  "PassengerId" : 2 ,
+  "TrainId" : 1,
+  "CarriageId" : 1,
+  "DistanceFareId" : 1,
+  "SeatId" : 2,
+  "ScheduleId" : 1,
+  "Status" : "Active"
+}
+
+### 
+
+# @name SoftDeleteTicket
+@deleteId = 1
+
+PATCH {{url}}/{{router}}/{{deleteId}}
+
+
+### 

@@ -10,7 +10,9 @@ namespace Domain.Entities
         
         [Required]
         [ForeignKey("SeatTypeId")]
-         public int SeatTypeId { get; set; }
+        public int SeatTypeId { get; set; }
+        [StringLength(100)] public string Name { get; set; }
+
         public SeatType SeatType { get; set; }
 
         [Required]

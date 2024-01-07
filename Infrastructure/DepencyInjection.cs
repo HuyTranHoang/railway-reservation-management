@@ -27,7 +27,10 @@ public static class DepencyInjection
         services.AddScoped<ICancellationRuleRepository, CancellationRuleRepository>();
         services.AddScoped<ITrainStationRepository, TrainStationRepository>();
         services.AddScoped<IRoundTripRepository, RoundTripRepository>();
+        services.AddScoped<ITicketRepository, TicketRepository>();
         services.AddScoped<IScheduleRepository, ScheduleRepository>();
         return services;
+
+
     }
 }
