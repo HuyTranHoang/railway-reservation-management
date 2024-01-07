@@ -34,8 +34,10 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.invalid) {
       return
     }
+
     this.authService.login(this.loginForm.value).subscribe({
       next: (res: any) => {
+        console.log("login.component.ts >", res)
         Swal.fire({
           position: 'center',
           icon: 'success',
@@ -43,7 +45,6 @@ export class LoginComponent implements OnInit {
           showConfirmButton: false,
           timer: 1500
         })
-        localStorage.setItem('token', res.token)
         this.router.navigateByUrl('/')
       },
       error: (err) => {

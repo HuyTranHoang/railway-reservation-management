@@ -33,7 +33,7 @@ public class AccountController : BaseApiController
 
         var result = await _signInManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
 
-        if (!result.Succeeded) return Unauthorized("Invalid username or password");
+        if (!result.Succeeded) return Unauthorized(new ErrorResponse(401, "Invalid username or password"));
 
         return CreateApplicationUserDto(user);
     }
