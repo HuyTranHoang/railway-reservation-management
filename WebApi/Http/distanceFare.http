@@ -33,16 +33,16 @@ GET {{url}}/{{router}}/{{id}}
 ### 
 
 # @name UpdateDistanceFare
-@updateId = 11
+@updateId = 1
 
 PUT {{url}}/{{router}}/{{updateId}}
 Content-Type: application/json
 
 {
   "Id": {{updateId}},
-  "TrainCompanyId": 10,
-  "Distance": 1,
-  "Price": 1
+  "TrainCompanyId": 1,
+  "Distance": "999999",
+  "Price": "999999"
 }
 
 

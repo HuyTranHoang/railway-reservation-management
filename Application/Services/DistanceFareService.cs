@@ -79,7 +79,7 @@ public class DistanceFareService : IDistanceFareService
 
         distanceFareInDb.TrainCompanyId = distanceFare.TrainCompanyId;
         distanceFareInDb.Distance = distanceFare.Distance;
-        distanceFare.Price = distanceFare.Price;
+        distanceFareInDb.Price = distanceFare.Price;
         distanceFareInDb.UpdatedAt = DateTime.Now;
 
         await _unitOfWork.SaveChangesAsync();
