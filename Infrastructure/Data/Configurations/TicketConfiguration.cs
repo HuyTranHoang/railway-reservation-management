@@ -10,6 +10,8 @@ public class TicketConfiguration : IEntityTypeConfiguration<Ticket>
     {
         builder.HasQueryFilter(e => !e.IsDeleted);
 
+        builder.HasIndex(e => e.Code).IsUnique();
+
         builder
             .HasOne(t => t.DistanceFare)
             .WithMany()
