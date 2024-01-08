@@ -276,13 +276,13 @@ public class AccountController : BaseApiController
         using var reader = new StreamReader(templatePath);
         var emailTemplate = await reader.ReadToEndAsync();
 
-        var body = $"<h1>Hello: {user.FirstName} {user.LastName}" +
-                   $"<h3>Reset your password for {_config["Email:ApplicationName"]}</h1>" +
-                   $"<p>Please reset your password by <a href='{url}'>clicking here</a></p>" +
-                   $"<p> Thank your, </p>" +
-                   $"<br>{_config["Email:ApplicationName"]} Team";
+        emailTemplate = emailTemplate.Replace("{FirstName}", CultureInfo.CurrentCulture.TextInfo.ToTitleCase(user.FirstName));
+        emailTemplate = emailTemplate.Replace("{LastName}", CultureInfo.CurrentCulture.TextInfo.ToTitleCase(user.LastName));
 
-        var emailSend = new EmailSendDto(user.Email, "Reset your password", body);
+        emailTemplate = emailTemplate.Replace("{ApplicationName}", _config["Email:ApplicationName"]);
+        emailTemplate = emailTemplate.Replace("{ResetPasswordLink}", url);
+
+        var emailSend = new EmailSendDto(user.Email, "Reset your password", emailTemplate);
 
         return await _emailService.SendEmailAsync(emailSend);
     }
