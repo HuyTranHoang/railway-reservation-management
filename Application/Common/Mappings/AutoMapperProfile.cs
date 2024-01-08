@@ -66,5 +66,8 @@ public class AutoMapperProfile : Profile
             .ForMember(dest => dest.CompartmentName,
                 opt => opt.MapFrom(src => src.Compartment.Name));
 
+        CreateMap<Payment, PaymentDto>()
+            .ForMember(dest => dest.UserId,
+                opt => opt.MapFrom(src => src.UserId));
     }
 }
