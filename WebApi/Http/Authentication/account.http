@@ -10,9 +10,9 @@ POST {{url}}/{{router}}/register
 Content-Type: application/json
 
 {
-    "firstName": "Huy",
-    "lastName": "Tran",
-    "email": "nhokpio95@gmail.com",
+    "firstName": "Huynh",
+    "lastName": "Bao",
+    "email": "huynhbao0626@gmail.com",
     "password": "123456"
 }
 

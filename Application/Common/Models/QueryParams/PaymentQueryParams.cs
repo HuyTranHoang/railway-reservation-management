@@ -7,6 +7,6 @@ namespace Application.Common.Models.QueryParams
 {
     public class PaymentQueryParams : QueryParams
     {
-        public string UserId { get; set; }
+        public string AspNetUserId { get; set; }
     }
 }

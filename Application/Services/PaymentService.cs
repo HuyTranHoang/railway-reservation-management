@@ -14,6 +14,7 @@ public class PaymentService : IPaymentService
         _unitOfWork = unitOfWork;
         _mapper = mapper;
     }
+
     public async Task AddAsync(Payment payment)
     {
         _repository.Add(payment);
@@ -28,20 +29,20 @@ public class PaymentService : IPaymentService
 
     public async Task<PagedList<PaymentDto>> GetAllDtoAsync(PaymentQueryParams queryParams)
     {
-        var query = await _repository.GetQueryAsync();
+        var query = await _repository.GetQueryWithAspNetUserAsync();
 
-        if (queryParams.UserId != null)
+        if (queryParams.AspNetUserId != null)
         {
-            query = query.Where(t => t.UserId == queryParams.UserId);
+            query = query.Where(t => t.AspNetUserId == queryParams.AspNetUserId);
         }
 
         if (!string.IsNullOrEmpty(queryParams.SearchTerm))
-            query = query.Where(t => t.UserId.Contains(queryParams.SearchTerm));
+            query = query.Where(t => t.AspNetUserId.Contains(queryParams.SearchTerm));
 
         query = queryParams.Sort switch
         {
-            "userIdAsc" => query.OrderBy(t => t.UserId),
-            "userIdDesc" => query.OrderByDescending(t => t.UserId),
+            "aspUserAsc" => query.OrderBy(t => t.AspNetUserId),
+            "aspUserDesc" => query.OrderByDescending(t => t.AspNetUserId),
             _ => query.OrderBy(t => t.CreatedAt)
         };
 
@@ -75,7 +76,7 @@ public class PaymentService : IPaymentService
 
         if (paymentInDb == null) throw new NotFoundException(nameof(Payment), payment.Id);
 
-        paymentInDb.UserId = payment.UserId;
+        paymentInDb.AspNetUserId = payment.AspNetUserId;
         paymentInDb.UpdatedAt = DateTime.Now;
 
         await _unitOfWork.SaveChangesAsync();

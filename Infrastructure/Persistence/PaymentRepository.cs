@@ -36,6 +36,13 @@ public class PaymentRepository : IPaymentRepository
             _context.Payments.AsQueryable());
     }
 
+    public async Task<IQueryable<Payment>> GetQueryWithAspNetUserAsync()
+    {
+        return await Task.FromResult(_context.Payments
+                                .Include(p => p.AspNetUser)
+                                .AsQueryable());
+    }
+
     public void SoftDelete(Payment payment)
     {
         payment.IsDeleted = true;

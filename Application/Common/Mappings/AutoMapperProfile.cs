@@ -66,13 +66,12 @@ public class AutoMapperProfile : Profile
             .ForMember(dest => dest.CompartmentName,
                 opt => opt.MapFrom(src => src.Compartment.Name));
 
-        CreateMap<Payment, PaymentDto>()
-            .ForMember(dest => dest.UserId,
-                opt => opt.MapFrom(src => src.UserId));
-
         CreateMap<DistanceFare, DistanceFareDto>()
             .ForMember(dest => dest.TrainCompanyName,
                 opt => opt.MapFrom(src => src.TrainCompany.Name));
 
+        CreateMap<Payment, PaymentDto>()
+            .ForMember(dest => dest.AspNetUserName,
+                otp => otp.MapFrom(src => src.AspNetUser.FirstName + src.AspNetUser.LastName));
     }
 }

@@ -7,7 +7,8 @@ namespace Domain.Entities
     public class Payment : BaseEntity
     {
         [Required] public int Id { get; set; }
-        [Required] public string UserId { get; set; }
+        [Required] public string AspNetUserId { get; set; }
+        [Required] public ApplicationUser AspNetUser { get; set; }
         [StringLength(100)] public string Status { get; set; }
     }
 }

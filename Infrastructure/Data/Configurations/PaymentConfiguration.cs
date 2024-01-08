@@ -10,5 +10,9 @@ public class PaymentConfiguration : IEntityTypeConfiguration<Payment>
     {
         builder.HasQueryFilter(e => !e.IsDeleted);
 
+        builder
+            .HasOne(t => t.AspNetUser)
+            .WithMany()
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }
