@@ -3,6 +3,8 @@ namespace Application.Common.Models
     public class TicketDto
     {
         public int Id { get; set; }
+
+        public string Code { get; set; }
         
         public int PassengerId { get; set; }
 
