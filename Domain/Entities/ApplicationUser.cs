@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
 
-namespace Infrastructure.Identity;
+namespace Domain.Entities;
 
 public class ApplicationUser : IdentityUser
 {
@@ -9,5 +9,5 @@ public class ApplicationUser : IdentityUser
     public string FirstName { get; set; }
     [Required]
     public string LastName { get; set; }
-    public DateTime DateCreated { get; set; } = DateTime.UtcNow;
+    public DateTime DateCreated { get; set; } = DateTime.Now;
 }

@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using Application.Common.Interfaces.Persistence;
+using Domain.Entities;
 using Infrastructure.Data;
 using Infrastructure.Identity;
 using Infrastructure.Persistence;
@@ -67,7 +68,6 @@ public static class DepencyInjection
         services.AddScoped<IRoundTripRepository, RoundTripRepository>();
         services.AddScoped<ITicketRepository, TicketRepository>();
         services.AddScoped<IScheduleRepository, ScheduleRepository>();
-        services.AddScoped<IPaymentRepository, PaymentRepository>();
 
         return services;
     }

@@ -5,27 +5,75 @@
       <figure style="margin-bottom: 18px">
         <img alt="sign up image" src="assets/signin-image.jpg">
       </figure>
-      <a class="signup-image-link" routerLink="/auth/register">Create an account</a>
+      <div class="d-flex">
+        <a class="signup-image-link me-3" routerLink="/auth/register">Create an account</a>
+        <a class="signup-image-link" routerLink="/auth/send-email/forgot-password">Forgot password</a>
+      </div>
     </div>
 
     <div class="signup-form col">
       <h2 class="form-title">Sign In</h2>
 
-      <form class="register-form" id="register-form" method="POST">
-        <div class="form-group">
-          <label for="email"><i class="fa-solid fa-envelope"></i></label>
-          <input id="email" name="email" placeholder="Your Email" type="email">
+      <form class="login-form"
+            [formGroup]="loginForm"
+            (ngSubmit)="onSubmit()"
+            autocomplete="off"
+            id="login-form">
+
+        <div class="mt-2">
+          <div class="form-group mb-2 position-relative">
+            <label for="userName"><i class="fa-solid fa-envelope"></i></label>
+            <input id="userName" name="userName" placeholder="Your Email"
+                   formControlName="userName"
+                   [class.is-invalid]="submitted && loginForm.get('userName')?.errors"
+                   type="text">
+            <span class="text-danger invalid-icon">
+                <i class="fa-light fa-hexagon-exclamation"></i>
+            </span>
+          </div>
+          <span class="text-danger" style="font-size: 15px;"
+                *ngIf="submitted && loginForm.get('userName')?.hasError('required')">
+                Username is required
+          </span>
         </div>
-        <div class="form-group">
-          <label for="pass"><i class="fa-solid fa-lock"></i></label>
-          <input id="pass" name="pass" placeholder="Password" type="password">
+
+        <div class="mt-2">
+          <div class="form-group mb-2 position-relative">
+            <label for="password"><i class="fa-solid fa-lock"></i></label>
+            <input id="password" name="password" placeholder="Password"
+                   formControlName="password"
+                   [class.is-invalid]="submitted && loginForm.get('password')?.errors"
+                   type="password">
+            <span class="text-danger invalid-icon">
+                <i class="fa-light fa-hexagon-exclamation"></i>
+            </span>
+          </div>
+          <span class="text-danger" style="font-size: 15px;"
+                *ngIf="submitted && loginForm.get('password')?.hasError('required')">
+                Password is required
+          </span>
         </div>
+
         <div class="form-group">
           <input class="agree-term" id="agree-term" name="agree-term" type="checkbox">
           <label class="label-agree-term" for="agree-term">
             Remember me
           </label>
         </div>
+
+        <div>
+          <ul class="text-danger" *ngIf="errorMessages">
+            <li *ngFor="let error of errorMessages">{{error}}</li>
+          </ul>
+
+          <a class="signup-image-link text-start text-danger"
+             *ngIf="isResendEmail"
+             (click)="resendEmailConfirmationLink()">
+            Resend email confirmation
+          </a>
+
+        </div>
+
         <div class="form-group form-button">
           <input class="form-submit" id="signIn" name="signIn" type="submit" value="Login">
         </div>

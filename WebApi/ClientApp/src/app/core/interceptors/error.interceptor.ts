@@ -29,10 +29,10 @@ export class ErrorInterceptor implements HttpInterceptor {
           case 401:
             Swal.fire({
               icon: 'error',
-              title: error.status.toString(),
+              title: 'Unauthorized',
               text: error.error.message
             })
-            break
+            throw error.error
           case 404:
             this.router.navigateByUrl('/not-found')
             break

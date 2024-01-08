@@ -69,5 +69,10 @@ public class AutoMapperProfile : Profile
         CreateMap<Payment, PaymentDto>()
             .ForMember(dest => dest.UserId,
                 opt => opt.MapFrom(src => src.UserId));
+
+        CreateMap<DistanceFare, DistanceFareDto>()
+            .ForMember(dest => dest.TrainCompanyName,
+                opt => opt.MapFrom(src => src.TrainCompany.Name));
+
     }
 }

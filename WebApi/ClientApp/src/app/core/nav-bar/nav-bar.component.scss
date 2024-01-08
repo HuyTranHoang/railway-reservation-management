@@ -112,3 +112,31 @@ span {
   font-size: 1.2rem;
 }
 
+strong {
+  font-size: 1.2rem;
+
+  &:hover {
+    color: #F79A24;
+  }
+}
+
+.line-border-right::after {
+  content: '';
+  position: absolute;
+  top: 25%;
+  right: -8px;
+  width: 1px;
+  height: 55%;
+  background: #bababa;
+}
+
+.hover-color {
+
+  i {
+    transition: all 0.3s ease-in-out;
+  }
+
+  &:hover {
+    color: #F79A24;
+  }
+}

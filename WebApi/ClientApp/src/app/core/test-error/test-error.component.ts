@@ -1,6 +1,8 @@
 import {Component} from '@angular/core';
 import {environment} from '../../../environments/environment.development'
 import {HttpClient} from '@angular/common/http'
+import Swal from 'sweetalert2'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-test-error',
@@ -11,7 +13,7 @@ export class TestErrorComponent {
   baseUrl = environment.apiUrl
   validationErrors: string[] = []
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
   }
 
   get404Error() {
@@ -47,9 +49,21 @@ export class TestErrorComponent {
 
   get401Error() {
     this.http.get(this.baseUrl + 'buggy/auth').subscribe({
-      next: response => console.log(response),
+      next: (res: any) => {
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: res.value.message,
+          showConfirmButton: false,
+          timer: 2000
+        })
+      },
       error: err => console.log(err)
     })
+  }
+
+  get401Redirect() {
+    this.router.navigateByUrl('/booking-train')
   }
 
 }

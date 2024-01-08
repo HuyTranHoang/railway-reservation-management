@@ -66,7 +66,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasIndex("TicketId");
 
-                    b.ToTable("Cancellation");
+                    b.ToTable("Cancellation", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.CancellationRule", b =>
@@ -101,7 +101,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CancellationRules");
+                    b.ToTable("CancellationRules", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Carriage", b =>
@@ -148,7 +148,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasIndex("TrainId");
 
-                    b.ToTable("Carriages");
+                    b.ToTable("Carriages", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.CarriageType", b =>
@@ -190,7 +190,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CarriageTypes");
+                    b.ToTable("CarriageTypes", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Compartment", b =>
@@ -232,7 +232,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasIndex("CarriageId");
 
-                    b.ToTable("Compartments");
+                    b.ToTable("Compartments", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.DistanceFare", b =>
@@ -257,7 +257,7 @@ namespace Infrastructure.Data.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.Property<int>("TrainId")
+                    b.Property<int>("TrainCompanyId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -266,9 +266,9 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TrainId");
+                    b.HasIndex("TrainCompanyId");
 
-                    b.ToTable("DistanceFares");
+                    b.ToTable("DistanceFares", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Passenger", b =>
@@ -319,7 +319,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Passengers");
+                    b.ToTable("Passengers", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Payment", b =>
@@ -352,7 +352,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Payments");
+                    b.ToTable("Payments", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.RoundTrip", b =>
@@ -385,7 +385,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasIndex("TrainCompanyId");
 
-                    b.ToTable("RoundTrips");
+                    b.ToTable("RoundTrips", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Schedule", b =>
@@ -447,7 +447,7 @@ namespace Infrastructure.Data.Migrations
                     b.HasIndex("TrainId", "DepartureDate", "DepartureTime")
                         .IsUnique();
 
-                    b.ToTable("Schedules");
+                    b.ToTable("Schedules", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Seat", b =>
@@ -490,7 +490,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasIndex("SeatTypeId");
 
-                    b.ToTable("Seats");
+                    b.ToTable("Seats", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.SeatType", b =>
@@ -531,7 +531,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SeatTypes");
+                    b.ToTable("SeatTypes", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Ticket", b =>
@@ -595,7 +595,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasIndex("TrainId");
 
-                    b.ToTable("Tickets");
+                    b.ToTable("Tickets", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Train", b =>
@@ -637,7 +637,7 @@ namespace Infrastructure.Data.Migrations
                     b.HasIndex(new[] { "Name" }, "IX_Trains_Name")
                         .IsUnique();
 
-                    b.ToTable("Trains");
+                    b.ToTable("Trains", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.TrainCompany", b =>
@@ -670,7 +670,7 @@ namespace Infrastructure.Data.Migrations
                     b.HasIndex(new[] { "Name" }, "IX_TrainCompanies_Name")
                         .IsUnique();
 
-                    b.ToTable("TrainCompanies");
+                    b.ToTable("TrainCompanies", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.TrainStation", b =>
@@ -712,7 +712,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TrainStations");
+                    b.ToTable("TrainStations", (string)null);
                 });
 
             modelBuilder.Entity("Infrastructure.Identity.ApplicationUser", b =>
@@ -975,13 +975,13 @@ namespace Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Domain.Entities.DistanceFare", b =>
                 {
-                    b.HasOne("Domain.Entities.Train", "Train")
+                    b.HasOne("Domain.Entities.TrainCompany", "TrainCompany")
                         .WithMany()
-                        .HasForeignKey("TrainId")
+                        .HasForeignKey("TrainCompanyId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Train");
+                    b.Navigation("TrainCompany");
                 });
 
             modelBuilder.Entity("Domain.Entities.RoundTrip", b =>

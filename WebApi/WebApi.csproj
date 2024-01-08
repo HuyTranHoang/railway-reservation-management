@@ -20,10 +20,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <None Include="wwwroot\.gitkeep" />
-    </ItemGroup>
-
-    <ItemGroup>
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.25" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.25" />
         <PackageReference Include="Serilog.AspNetCore" Version="8.0.0" />

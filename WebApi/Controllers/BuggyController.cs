@@ -20,7 +20,7 @@ public class BuggyController : BaseApiController
     [HttpGet("auth")]
     public ActionResult<string> GetSecret()
     {
-        return "secret text";
+        return Ok(new JsonResult(new {message = "Secret message from server to authorized users only"}));
     }
 
     // 400 bad request

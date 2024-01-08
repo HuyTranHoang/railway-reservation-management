@@ -19,6 +19,5 @@ public class RegisterDto
 
     [Required]
     [StringLength(15, MinimumLength = 6, ErrorMessage = "Password must be at least {2}, and maximum {1} characters.")]
-
     public string Password { get; set; }
 }

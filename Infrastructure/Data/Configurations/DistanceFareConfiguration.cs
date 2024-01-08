@@ -11,7 +11,7 @@ public class DistanceFareConfiguration : IEntityTypeConfiguration<DistanceFare>
         builder.HasQueryFilter(e => !e.IsDeleted);
 
         builder
-            .HasOne(t => t.Train)
+            .HasOne(t => t.TrainCompany)
             .WithMany()
             .OnDelete(DeleteBehavior.Restrict);
     }

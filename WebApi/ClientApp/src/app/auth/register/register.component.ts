@@ -3,6 +3,7 @@ import { AuthService } from '../auth.service'
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms'
 import Swal from 'sweetalert2'
 import { Router } from '@angular/router'
+import { take } from 'rxjs'
 
 @Component({
   selector: 'app-register',
@@ -14,7 +15,13 @@ export class RegisterComponent implements OnInit {
   submitted = false
   errorMessages: string[] = []
 
-  constructor(private authService: AuthService, private fb: FormBuilder, private router: Router) { }
+  constructor(private authService: AuthService, private fb: FormBuilder, private router: Router) {
+    this.authService.user$.pipe(take(1)).subscribe({
+      next: (user) => {
+        if (user) this.router.navigateByUrl('/')
+      }
+    })
+  }
 
   ngOnInit(): void {
     this.initializeForm()
@@ -45,7 +52,7 @@ export class RegisterComponent implements OnInit {
     if (this.registerForm.invalid) {
       return
     }
-    
+
     const formData = {
       firstName: this.registerForm.value.firstName,
       lastName: this.registerForm.value.lastName,
@@ -60,12 +67,10 @@ export class RegisterComponent implements OnInit {
           icon: 'success',
           title: res.value.title,
           text: res.value.message,
-          showConfirmButton: false,
-          timer: 2000
-        }).then(() => {
-          this.router.navigate(['auth//login'])
+          showConfirmButton: true
         })
 
+        this.router.navigate(['auth/login'])
         this.errorMessages = []
         this.submitted = false
         this.registerForm.reset()
