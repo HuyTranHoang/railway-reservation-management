@@ -32,7 +32,7 @@ export class ErrorInterceptor implements HttpInterceptor {
               title: 'Unauthorized',
               text: error.error.message
             })
-            break
+            throw error.error
           case 404:
             this.router.navigateByUrl('/not-found')
             break

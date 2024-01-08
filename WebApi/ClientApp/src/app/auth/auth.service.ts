@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { environment } from '../../environments/environment.development'
-import { Register } from '../core/models/register'
-import { Login } from '../core/models/login'
-import { User } from '../core/models/user'
+import { Register } from '../core/models/auth/register'
+import { Login } from '../core/models/auth/login'
+import { User } from '../core/models/auth/user'
 import { map, of, ReplaySubject } from 'rxjs'
 import { Router } from '@angular/router'
+import { ConfirmEmail } from '../core/models/auth/confirmEmail'
 
 @Injectable({
   providedIn: 'root'
@@ -66,6 +67,14 @@ export class AuthService {
     }
 
     return null
+  }
+
+  confirmEmail(model: ConfirmEmail) {
+    return this.http.put(this.baseUrl + 'account/confirm-email', model)
+  }
+
+  resendEmailConfirmation(email: string) {
+    return this.http.post(this.baseUrl + `account/resend-email-confirmation-link/${email}`, {})
   }
 
   private setUser(user: User) {

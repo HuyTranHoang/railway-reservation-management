@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
   submitted = false
   errorMessages: string[] = []
   returnUrl: string = ''
+  isResendEmail = false
 
   constructor(private authService: AuthService,
               private fb: FormBuilder,
@@ -48,6 +49,7 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.submitted = true
     this.errorMessages = []
+    this.isResendEmail = false
 
     if (this.loginForm.invalid) {
       return
@@ -67,9 +69,15 @@ export class LoginComponent implements OnInit {
           else
         this.router.navigateByUrl('/')
       },
-      error: (err) => {
-        console.log(err)
+      error: (err: any) => {
+        if (err.statusCode === 401) {
+          this.isResendEmail = true
+        }
       }
     })
+  }
+
+  resendEmailConfirmationLink() {
+    this.router.navigateByUrl('/auth/send-email/resend-email-confirmation-link');
   }
 }

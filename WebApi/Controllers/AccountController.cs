@@ -77,8 +77,11 @@ public class AccountController : BaseApiController
             if (await SendConfirmEmailAsync(user))
             {
                 return Ok(new JsonResult(
-                    new { title = "Account Created",
-                        message = "Please check your email for confirmation link and login" }));
+                    new
+                    {
+                        title = "Account Created",
+                        message = "Please check your email for confirmation link and login"
+                    }));
             }
 
             return BadRequest(new ErrorResponse(400, "Failed to send email. Please contact support"));
@@ -109,7 +112,7 @@ public class AccountController : BaseApiController
 
             if (result.Succeeded)
             {
-                return Ok(new JsonResult(new { title = "Email Confirmed",message = "You can now login" }));
+                return Ok(new JsonResult(new { title = "Email Confirmed", message = "You can now login" }));
             }
 
             return BadRequest(new ErrorResponse(400, "Invalid token. Please try again"));
@@ -139,8 +142,11 @@ public class AccountController : BaseApiController
             if (await SendConfirmEmailAsync(user))
             {
                 return Ok(new JsonResult(
-                    new { title = "Email Confirmation Link Sent",
-                        message = "Please check your email for confirmation link and login" }));
+                    new
+                    {
+                        title = "Email Confirmation Link Sent",
+                        message = "Please check your email for confirmation link and login"
+                    }));
             }
 
             return BadRequest(new ErrorResponse(400, "Failed to send email. Please contact support"));
@@ -168,8 +174,11 @@ public class AccountController : BaseApiController
             if (await SendForgotPasswordEmailAsync(user))
             {
                 return Ok(new JsonResult(
-                    new { title = "Reset Password Link Sent",
-                        message = "Please check your email for reset password link" }));
+                    new
+                    {
+                        title = "Reset Password Link Sent",
+                        message = "Please check your email for reset password link"
+                    }));
             }
             return BadRequest(new ErrorResponse(400, "Failed to send email. Please contact support"));
 
@@ -196,7 +205,7 @@ public class AccountController : BaseApiController
 
             if (result.Succeeded)
             {
-                return Ok(new JsonResult(new { title = "Password Reset Success",message = "You can now login" }));
+                return Ok(new JsonResult(new { title = "Password Reset Success", message = "You can now login" }));
             }
 
             return BadRequest(new ErrorResponse(400, "Invalid token. Please try again"));
