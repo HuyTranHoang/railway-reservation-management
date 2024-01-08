@@ -34,6 +34,6 @@
     "Key" : "17A6B269E2C27FC8553D2F7FA486A-CFB5BC8E363ECA2F6E31E7FA37A82",
     "ExpiresInDays": 15,
     "Issuer": "https://localhost:5001/",
-    "Audience": "http://localhost:4200/"
+    "ClientUrl": "http://localhost:4200/"
   }
 }

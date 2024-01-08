@@ -271,7 +271,7 @@ public class AccountController : BaseApiController
         token = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(token));
         var url = $"{_config["JWT:ClientUrl"]}/{_config["Email:ResetPasswordPath"]}?email={user.Email}&token={token}";
 
-        var templatePath = Path.Combine(_hostingEnvironment.WebRootPath, "forogt_password_template.html");
+        var templatePath = Path.Combine(_hostingEnvironment.WebRootPath, "forgot_password_template.html");
 
         using var reader = new StreamReader(templatePath);
         var emailTemplate = await reader.ReadToEndAsync();
