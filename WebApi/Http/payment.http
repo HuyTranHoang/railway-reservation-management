@@ -1,0 +1,67 @@
+@url = https://localhost:5001
+@router = api/payments
+
+### 
+
+# @name addPayment
+POST {{url}}/{{router}}
+Content-Type: application/json
+
+{
+  "UserId": "New Payment",
+  "Status": ""
+}
+
+
+### 
+
+# @name getListOfPayment
+GET {{url}}/{{router}}?
+  &pageNumber=1
+  &pageSize=5
+  # &searchTerm=New Payment
+  #&sort=nameDesc
+  # &PaymentCompanyId=2
+
+
+### 
+
+# @name getPaymentById
+@id = 1
+
+GET {{url}}/{{router}}/{{id}}
+
+
+### 
+
+# @name UpdatePayment
+@updateId = 1
+
+PUT {{url}}/{{router}}/{{updateId}}
+Content-Type: application/json
+
+{
+  "Id": {{updateId}},
+  "UserId": "Update Payment",
+  "Status": ""
+}
+
+
+### 
+
+# @name SoftDeletePayment
+@deleteId = 2
+
+PATCH {{url}}/{{router}}/{{deleteId}}
+
+### 
+
+# @name addPaymentValidation
+POST {{url}}/{{router}}
+Content-Type: application/json
+
+{
+  "Name": "123",
+  "PaymentCompanyId": 0,
+  "Status": ""
+}

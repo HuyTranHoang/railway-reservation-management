@@ -70,5 +70,8 @@ public class AutoMapperProfile : Profile
             .ForMember(dest => dest.TrainCompanyName,
                 opt => opt.MapFrom(src => src.TrainCompany.Name));
 
+        CreateMap<Payment, PaymentDto>()
+            .ForMember(dest => dest.AspNetUserName,
+                otp => otp.MapFrom(src => src.AspNetUser.FirstName + src.AspNetUser.LastName));
     }
 }

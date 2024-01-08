@@ -6,20 +6,9 @@ namespace Domain.Entities
 {
     public class Payment : BaseEntity
     {
-        public int Id { get; set; }
-
-        [Required]
-        [ForeignKey("PassengerId")]
-        public int PassengerId { get; set; }
-        public Passenger Passenger { get; set; }
-
-        [Required]
-        [ForeignKey("TicketId")]
-        public int TicketId { get; set; }
-        public Ticket Ticket { get; set; }
-
+        [Required] public int Id { get; set; }
+        [Required] public string AspNetUserId { get; set; }
+        [Required] public ApplicationUser AspNetUser { get; set; }
         [StringLength(100)] public string Status { get; set; }
-
-        
     }
 }
