@@ -37,12 +37,11 @@ public class PaymentService : IPaymentService
         }
 
         if (!string.IsNullOrEmpty(queryParams.SearchTerm))
-            query = query.Where(t => t.AspNetUserId.Contains(queryParams.SearchTerm));
+            query = query.Where(t => t.AspNetUser.Email.Contains(queryParams.SearchTerm));
 
         query = queryParams.Sort switch
         {
-            "aspUserAsc" => query.OrderBy(t => t.AspNetUserId),
-            "aspUserDesc" => query.OrderByDescending(t => t.AspNetUserId),
+            "createAtDesc" => query.OrderByDescending(t => t.CreatedAt),
             _ => query.OrderBy(t => t.CreatedAt)
         };
 
@@ -60,8 +59,8 @@ public class PaymentService : IPaymentService
 
     public async Task<PaymentDto> GetDtoByIdAsync(int id)
     {
-        var paymentDto = await _repository.GetByIdAsync(id);
-        return _mapper.Map<PaymentDto>(paymentDto);
+        var payment = await _repository.GetByIdAsync(id);
+        return _mapper.Map<PaymentDto>(payment);
     }
 
     public async Task SoftDeleteAsync(Payment payment)
@@ -77,6 +76,7 @@ public class PaymentService : IPaymentService
         if (paymentInDb == null) throw new NotFoundException(nameof(Payment), payment.Id);
 
         paymentInDb.AspNetUserId = payment.AspNetUserId;
+        paymentInDb.Status = payment.Status;
         paymentInDb.UpdatedAt = DateTime.Now;
 
         await _unitOfWork.SaveChangesAsync();

@@ -8,8 +8,8 @@ POST {{url}}/{{router}}
 Content-Type: application/json
 
 {
-  "UserId": "New Payment",
-  "Status": ""
+  "AspNetUserId": "47cf951d-9a88-4245-9fab-31f65b8086db",
+  "Status": "Thiếu tiền"
 }
 
 
@@ -42,15 +42,15 @@ Content-Type: application/json
 
 {
   "Id": {{updateId}},
-  "UserId": "Update Payment",
-  "Status": ""
+  "AspNetUserId": "47cf951d-9a88-4245-9fab-31f65b8086db",
+  "Status": "Đã thanh toán"
 }
 
 
 ### 
 
 # @name SoftDeletePayment
-@deleteId = 2
+@deleteId = 1
 
 PATCH {{url}}/{{router}}/{{deleteId}}
 

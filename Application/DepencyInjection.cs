@@ -29,6 +29,7 @@ public static class DepencyInjection
     services.AddScoped<ITicketService, TicketService>();
     services.AddScoped<IScheduleService, ScheduleService>();
     services.AddScoped<IDistanceFareService, DistanceFareService>();
+    services.AddScoped<IPaymentService, PaymentService>();
     return services;
   }
 }

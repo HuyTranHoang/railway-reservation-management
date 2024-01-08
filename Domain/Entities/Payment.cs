@@ -8,7 +8,7 @@ namespace Domain.Entities
     {
         [Required] public int Id { get; set; }
         [Required] public string AspNetUserId { get; set; }
-        [Required] public ApplicationUser AspNetUser { get; set; }
+        public ApplicationUser AspNetUser { get; set; }
         [StringLength(100)] public string Status { get; set; }
     }
 }
