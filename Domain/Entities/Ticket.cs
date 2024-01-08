@@ -46,19 +46,5 @@ namespace Domain.Entities
         public Payment Payment { get; set; }
 
         [StringLength(100)] public string Status { get; set; }
-
-        public Ticket()
-        {
-            Code = GenerateUniqueCode();
-        }
-
-        private string GenerateUniqueCode()
-        {
-            Guid guid = Guid.NewGuid();
-            
-            string code = guid.ToString().Replace("-", "").Substring(0, 10);
-            
-            return code;
-        }
     }
 }

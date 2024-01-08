@@ -17,6 +17,8 @@ namespace Application.Services
         }
         public async Task AddAsync(Ticket ticket)
         {
+            ticket.Code = GenerateUniqueCode();
+            ticket.Status = "Completed";
             _repository.Add(ticket);
             await _unitOfWork.SaveChangesAsync();
         }
@@ -127,5 +129,17 @@ namespace Application.Services
 
             await _unitOfWork.SaveChangesAsync();
         }
+
+        private static string GenerateUniqueCode()
+        {
+            Guid guid = Guid.NewGuid();
+            DateTime currentDate = DateTime.Now;
+
+            string datePart = currentDate.ToString("ddMMyy");
+            string code = datePart + guid.ToString("N").Substring(0, 10 - datePart.Length);
+
+            return code;
+        }
+
     }
 }
