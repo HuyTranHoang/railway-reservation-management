@@ -6,7 +6,8 @@ import {ShopRoutingModule} from './auth-routing.module';
 import { ReactiveFormsModule } from '@angular/forms'
 import { HttpClientModule } from '@angular/common/http';
 import { ConfirmEmailComponent } from './confirm-email/confirm-email.component';
-import { SendEmailComponent } from './send-email/send-email.component'
+import { SendEmailComponent } from './send-email/send-email.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component'
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { SendEmailComponent } from './send-email/send-email.component'
     LoginComponent,
     RegisterComponent,
     ConfirmEmailComponent,
-    SendEmailComponent
+    SendEmailComponent,
+    ResetPasswordComponent
   ],
   imports: [
     CommonModule,

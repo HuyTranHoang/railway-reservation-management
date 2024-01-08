@@ -77,6 +77,10 @@ export class AuthService {
     return this.http.post(this.baseUrl + `account/resend-email-confirmation-link/${email}`, {})
   }
 
+  forgotPassword(email: string) {
+    return this.http.post(this.baseUrl + `account/forgot-password/${email}`, {})
+  }
+
   private setUser(user: User) {
     localStorage.setItem(environment.userKey, JSON.stringify(user))
     this.userSource.next(user)

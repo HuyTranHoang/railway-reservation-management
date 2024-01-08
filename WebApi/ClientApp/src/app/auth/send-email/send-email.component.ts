@@ -72,6 +72,22 @@ export class SendEmailComponent implements OnInit{
           this.errorMessages = err.errors
         }
       })
+    } else if (this.mode.includes('forgot-password')) {
+      this.authService.forgotPassword(this.emailForm.get('email')?.value).subscribe({
+        next: (res: any) => {
+          Swal.fire({
+            title: 'Email Sent!',
+            text: res.value.message,
+            icon: 'success',
+            confirmButtonText: 'Ok'
+          })
+
+          this.router.navigateByUrl('/auth/login')
+        },
+        error: (err: any) => {
+          this.errorMessages = err.errors
+        }
+      })
     }
 
 

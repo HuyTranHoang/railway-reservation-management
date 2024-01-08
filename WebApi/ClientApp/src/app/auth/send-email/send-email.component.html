@@ -9,7 +9,14 @@
     </div>
 
     <div class="signup-form col">
-      <h2 class="form-title">Resend email confirmation</h2>
+      <h2 class="form-title"
+          *ngIf="mode.includes('resend-email-confirmation-link')">
+        Resend email confirmation
+      </h2>
+      <h2 class="form-title"
+          *ngIf="mode.includes('forgot-password')">
+        Forgot password
+      </h2>
 
       <form class="register-form"
             autocomplete="off"
