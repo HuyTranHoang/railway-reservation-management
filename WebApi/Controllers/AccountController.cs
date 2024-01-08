@@ -271,6 +271,11 @@ public class AccountController : BaseApiController
         token = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(token));
         var url = $"{_config["JWT:ClientUrl"]}/{_config["Email:ResetPasswordPath"]}?email={user.Email}&token={token}";
 
+        var templatePath = Path.Combine(_hostingEnvironment.WebRootPath, "forogt_password_template.html");
+
+        using var reader = new StreamReader(templatePath);
+        var emailTemplate = await reader.ReadToEndAsync();
+
         var body = $"<h1>Hello: {user.FirstName} {user.LastName}" +
                    $"<h3>Reset your password for {_config["Email:ApplicationName"]}</h1>" +
                    $"<p>Please reset your password by <a href='{url}'>clicking here</a></p>" +
