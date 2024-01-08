@@ -69,6 +69,7 @@ public static class DepencyInjection
         services.AddScoped<ITicketRepository, TicketRepository>();
         services.AddScoped<IScheduleRepository, ScheduleRepository>();
         services.AddScoped<IDistanceFareRepository, DistanceFareRepository>();
+        services.AddScoped<IPaymentRepository, PaymentRepository>();
         return services;
     }
 }
