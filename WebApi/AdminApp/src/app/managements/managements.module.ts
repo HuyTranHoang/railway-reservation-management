@@ -8,6 +8,7 @@ import {ECommerceModule} from '../pages/e-commerce/e-commerce.module';
 import {MiscellaneousModule} from '../pages/miscellaneous/miscellaneous.module';
 import {ManagementsRoutingModule} from './managements-routing.module';
 import {DashboardComponent} from './dashboard/dashboard.component';
+import {HttpClientModule} from '@angular/common/http';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import {DashboardComponent} from './dashboard/dashboard.component';
   ],
   imports: [
     CommonModule,
+    HttpClientModule,
     ManagementsRoutingModule,
     ThemeModule,
     NbMenuModule,

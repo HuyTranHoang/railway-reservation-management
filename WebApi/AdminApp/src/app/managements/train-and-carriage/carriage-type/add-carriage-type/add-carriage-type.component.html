@@ -1,0 +1,70 @@
+<div class="col-md-6">
+
+  <div class="bg-white p-3 d-flex justify-content-end">
+    <button type="submit" nbButton
+            routerLink="/managements/train-and-carriage/carriage-type"
+            status="info">Back to list</button>
+  </div>
+
+  <nb-card>
+    <nb-card-header>Add carriage type form</nb-card-header>
+    <nb-card-body>
+      <form [formGroup]="carriageTypeForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="name" class="label">Name</label>
+          <input type="text" nbInput fullWidth id="name"
+                 [class.status-danger]="carriageTypeForm.get('name').invalid && carriageTypeForm.get('name').touched"
+                 formControlName="name"
+                 placeholder="Name of carriage type..">
+          <span class="text-danger"
+            *ngIf="carriageTypeForm.get('name').hasError('required')
+              && carriageTypeForm.get('name').touched">
+            Name is required
+          </span>
+        </div>
+        <div class="form-group">
+          <label for="serviceCharge" class="label">Service Charge</label>
+          <input type="text" nbInput fullWidth id="serviceCharge"
+                 [class.status-danger]="carriageTypeForm.get('serviceCharge').invalid && carriageTypeForm.get('serviceCharge').touched"
+                 formControlName="serviceCharge"
+                 placeholder="Service charge..">
+          <span class="text-danger"
+                *ngIf="carriageTypeForm.get('serviceCharge').hasError('required')
+                  && carriageTypeForm.get('serviceCharge').touched">
+            Service charge is required
+          </span>
+          <span class="text-danger"
+                *ngIf="carriageTypeForm.get('serviceCharge').hasError('min')
+                  && carriageTypeForm.get('serviceCharge').touched">
+            Service charge must be greater than 0
+          </span>
+        </div>
+        <div class="form-group">
+          <label for="status" class="label">Status</label>
+          <input type="text" nbInput fullWidth id="status"
+                  [class.status-danger]="carriageTypeForm.get('status').invalid && carriageTypeForm.get('status').touched"
+                 formControlName="status"
+                 placeholder="Status..">
+          <span class="text-danger"
+                *ngIf="carriageTypeForm.get('status').hasError('required')
+                  && carriageTypeForm.get('status').touched">
+            Status is required
+          </span>
+        </div>
+        <div class="form-group">
+          <label for="description" class="label">Description</label>
+          <textarea nbInput fullWidth id="description"
+                    [class.status-danger]="carriageTypeForm.get('description').invalid && carriageTypeForm.get('description').touched"
+                    formControlName="description"
+                    placeholder="Description.."></textarea>
+          <span class="text-danger"
+                *ngIf="carriageTypeForm.get('description').hasError('required')
+                  && carriageTypeForm.get('description').touched">
+            Description is required
+          </span>
+        </div>
+        <button type="submit" nbButton status="danger">Submit</button>
+      </form>
+    </nb-card-body>
+  </nb-card>
+</div>

@@ -10,7 +10,8 @@ Content-Type: application/json
 {
   "Name": "New type",
   "ServiceCharge": 123,
-  "Status": "Active"
+  "Status": "Active",
+  "Description": "New type description"
 }
 
 
@@ -64,9 +65,7 @@ Content-Type: application/json
 
 {
   "Name": "",
-  "CardId": "",
-  "Age": 0,
-  "Gender": "",
-  "Phone": "",
-  "Email": "asdasd@gmail.com"
+  "ServiceCharge": 0,
+  "Status": "",
+  "Description": ""
 }
