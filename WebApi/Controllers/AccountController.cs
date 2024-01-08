@@ -271,13 +271,18 @@ public class AccountController : BaseApiController
         token = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(token));
         var url = $"{_config["JWT:ClientUrl"]}/{_config["Email:ResetPasswordPath"]}?email={user.Email}&token={token}";
 
-        var body = $"<h1>Hello: {user.FirstName} {user.LastName}" +
-                   $"<h3>Reset your password for {_config["Email:ApplicationName"]}</h1>" +
-                   $"<p>Please reset your password by <a href='{url}'>clicking here</a></p>" +
-                   $"<p> Thank your, </p>" +
-                   $"<br>{_config["Email:ApplicationName"]} Team";
+        var templatePath = Path.Combine(_hostingEnvironment.WebRootPath, "forgot_password_template.html");
 
-        var emailSend = new EmailSendDto(user.Email, "Reset your password", body);
+        using var reader = new StreamReader(templatePath);
+        var emailTemplate = await reader.ReadToEndAsync();
+
+        emailTemplate = emailTemplate.Replace("{FirstName}", CultureInfo.CurrentCulture.TextInfo.ToTitleCase(user.FirstName));
+        emailTemplate = emailTemplate.Replace("{LastName}", CultureInfo.CurrentCulture.TextInfo.ToTitleCase(user.LastName));
+
+        emailTemplate = emailTemplate.Replace("{ApplicationName}", _config["Email:ApplicationName"]);
+        emailTemplate = emailTemplate.Replace("{ResetPasswordLink}", url);
+
+        var emailSend = new EmailSendDto(user.Email, "Reset your password", emailTemplate);
 
         return await _emailService.SendEmailAsync(emailSend);
     }
