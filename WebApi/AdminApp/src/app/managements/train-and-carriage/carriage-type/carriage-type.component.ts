@@ -6,6 +6,9 @@ import {PaginatedResult} from '../../../@models/paginatedResult';
 import {QueryParams} from '../../../@models/params/queryParams';
 import {NbDialogService} from '@nebular/theme';
 import {ShowCarriageTypeComponent} from './show-carriage-type/show-carriage-type.component';
+import {
+  ConfirmDeleteCarriageTypeComponent,
+} from './confirm-delete-carriage-type/confirm-delete-carriage-type.component';
 
 @Component({
   selector: 'ngx-carriage-type',
@@ -47,8 +50,6 @@ export class CarriageTypeComponent implements OnInit {
         this.carriageTypes = res.result;
         this.pagination = res.pagination;
       },
-      error: (err) => {
-      },
     });
   }
 
@@ -87,10 +88,11 @@ export class CarriageTypeComponent implements OnInit {
 
 
   openShowDialog(id: number) {
-    const carriageType = this.carriageTypeService.getCarriageTypeById(id).subscribe({
+    this.carriageTypeService.getCarriageTypeById(id).subscribe({
       next: (res: CarriageType) => {
-        this.dialogService.open(ShowCarriageTypeComponent, {
+        const dialogRef = this.dialogService.open(ShowCarriageTypeComponent, {
           context: {
+            id: res.id,
             name: res.name,
             serviceCharge: res.serviceCharge,
             description: res.description,
@@ -98,10 +100,26 @@ export class CarriageTypeComponent implements OnInit {
             createdAt: res.createdAt,
           },
         });
-      },
-      error: (err) => {
+
+        dialogRef.componentRef.instance.onShowDelete.subscribe(obj => {
+          this.openConfirmDialog(obj.id, obj.name);
+        });
       },
     });
 
   }
+
+  openConfirmDialog(id: number, name: string) {
+    const dialogRef = this.dialogService.open(ConfirmDeleteCarriageTypeComponent, {
+      context: {
+        id,
+        name,
+      },
+    });
+
+    dialogRef.componentRef.instance.onConfirmDelete.subscribe(_ => {
+      this.getAllCarriageType();
+    });
+  }
+
 }

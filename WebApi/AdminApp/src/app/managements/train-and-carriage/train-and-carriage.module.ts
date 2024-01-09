@@ -18,6 +18,8 @@ import { AddCarriageTypeComponent } from './carriage-type/add-carriage-type/add-
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { ShowCarriageTypeComponent } from './carriage-type/show-carriage-type/show-carriage-type.component';
 import {SharedModule} from '../shared/shared.module';
+import { EditCarriageTypeComponent } from './carriage-type/edit-carriage-type/edit-carriage-type.component';
+import { ConfirmDeleteCarriageTypeComponent } from './carriage-type/confirm-delete-carriage-type/confirm-delete-carriage-type.component';
 
 
 @NgModule({
@@ -29,6 +31,8 @@ import {SharedModule} from '../shared/shared.module';
     CompartmentComponent,
     AddCarriageTypeComponent,
     ShowCarriageTypeComponent,
+    EditCarriageTypeComponent,
+    ConfirmDeleteCarriageTypeComponent,
   ],
   imports: [
     CommonModule,

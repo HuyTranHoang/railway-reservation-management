@@ -10,12 +10,14 @@ import {
   NbInputModule,
   NbRadioModule,
 } from '@nebular/theme';
+import {HttpClientModule} from '@angular/common/http';
 
 
 @NgModule({
   declarations: [InputFieldComponent],
   imports: [
     CommonModule,
+    HttpClientModule,
     ReactiveFormsModule,
     NbButtonModule,
     NbCardModule,
