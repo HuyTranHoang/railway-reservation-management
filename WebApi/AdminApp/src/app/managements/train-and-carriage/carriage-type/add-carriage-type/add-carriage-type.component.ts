@@ -41,17 +41,17 @@ export class AddCarriageTypeComponent implements OnInit {
     if (this.carriageTypeForm.valid) {
       this.carriageTypeService.addCarriageType(this.carriageTypeForm.value).subscribe({
         next: (res) => {
-          this.showToast('success', 'Add carriage type successfully!');
+          this.showToast('success', 'Success', 'Add carriage type successfully!');
           this.carriageTypeForm.reset();
         },
         error: (err) => {
-          this.showToast('danger', 'Add carriage type failed!');
+          this.showToast('danger', 'Failed', 'Add carriage type failed!');
         },
       });
     }
   }
 
-  private showToast(type: string, body: string) {
+  private showToast(type: string, title: string, body: string) {
     const config = {
       status: type,
       destroyByClick: true,
@@ -61,7 +61,7 @@ export class AddCarriageTypeComponent implements OnInit {
     };
     this.toastrService.show(
       body,
-      'Success',
+      title,
       config);
   }
 }

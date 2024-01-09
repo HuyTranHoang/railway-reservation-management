@@ -61,10 +61,11 @@
           <button nbButton status="info" class="mr-3" (click)="openShowDialog(item.id)">
             <nb-icon icon="eye-outline" pack="eva"></nb-icon>
           </button>
-          <button nbButton status="primary" class="mr-3">
+          <button nbButton status="primary" class="mr-3"
+                  routerLink="/managements/train-and-carriage/carriage-type/{{item.id}}/edit">
             <nb-icon icon="edit-outline" pack="eva"></nb-icon>
           </button>
-          <button nbButton status="danger">
+          <button nbButton status="danger" (click)="openConfirmDialog(item.id, item.name)">
             <nb-icon icon="trash-outline" pack="eva"></nb-icon>
           </button>
         </td>

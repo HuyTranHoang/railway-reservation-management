@@ -5,6 +5,7 @@ import {CarriageType} from '../../../@models/carriageType';
 import {PaginatedResult} from '../../../@models/paginatedResult';
 import {map} from 'rxjs/operators';
 import {QueryParams} from '../../../@models/params/queryParams';
+import {PaginationService} from '../../shared/pagination.service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,11 +15,12 @@ import {QueryParams} from '../../../@models/params/queryParams';
 export class CarriageTypeService {
   baseUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private paginationService: PaginationService) {
   }
 
   getAllCarriageType(queryParams: QueryParams) {
-    let params = this.getPaginationHeaders(queryParams.pageNumber, queryParams.pageSize);
+    let params = this.paginationService
+      .getPaginationHeaders(queryParams.pageNumber, queryParams.pageSize);
 
     if (queryParams.searchTerm) {
       params = params.append('searchTerm', queryParams.searchTerm);
@@ -28,7 +30,8 @@ export class CarriageTypeService {
       params = params.append('sort', queryParams.sort);
     }
 
-    return this.getPaginatedResult<CarriageType[]>(this.baseUrl + '/carriageTypes', params);
+    return this.paginationService
+      .getPaginatedResult<CarriageType[]>(this.baseUrl + '/carriageTypes', params);
   }
 
   getCarriageTypeById(id: number) {
@@ -39,31 +42,14 @@ export class CarriageTypeService {
     return this.http.post<CarriageType>(this.baseUrl + '/carriageTypes', carriageType);
   }
 
-  private getPaginatedResult<T>(url: string, params: HttpParams) {
-    const paginatedResult: PaginatedResult<T> = new PaginatedResult<T>();
-
-    return this.http.get<T>(url, {observe: 'response', params}).pipe(
-      map(response => {
-        if (response.body) {
-          paginatedResult.result = response.body;
-        }
-
-        const pagination = response.headers.get('Pagination');
-        if (pagination) {
-          paginatedResult.pagination = JSON.parse(pagination);
-        }
-        return paginatedResult;
-      }),
-    );
+  updateCarriageType(carriageType: CarriageType) {
+    return this.http.put<CarriageType>(this.baseUrl + '/carriageTypes/' + carriageType.id, carriageType);
   }
 
-  private getPaginationHeaders(pageNumber: number, pageSize: number) {
-    let params = new HttpParams();
-
-    params = params.append('pageNumber', pageNumber);
-    params = params.append('pageSize', pageSize);
-
-    return params;
+  deleteCarriageType(id: number) {
+    return this.http.patch(this.baseUrl + '/carriageTypes/' + id, {});
   }
+
+
 
 }

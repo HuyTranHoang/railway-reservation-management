@@ -1,0 +1,49 @@
+<div class="col-md-6">
+
+  <nb-card>
+    <nb-card-header>
+      <div class="d-flex justify-content-between">
+        Edit Carriage Type
+        <button type="submit" nbButton
+                routerLink="/managements/train-and-carriage/carriage-type"
+                status="primary">Back to list
+        </button>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <form [formGroup]="carriageTypeForm" (ngSubmit)="onSubmit()">
+
+        <input type="hidden" formControlName="id">
+
+        <ngx-input-field [control]="carriageTypeForm.get('name')"
+                         [label]="'Name'"
+                         [placeholder]="'Name of carriage type..'">
+        </ngx-input-field>
+
+        <ngx-input-field [control]="carriageTypeForm.get('serviceCharge')"
+                         [label]="'Service Charge'"
+                         [placeholder]="'Service charge..'">
+        </ngx-input-field>
+
+        <ngx-input-field [control]="carriageTypeForm.get('status')"
+                         [label]="'Status'"
+                         [placeholder]="'Status.'">
+        </ngx-input-field>
+
+        <div class="form-group">
+          <label for="description" class="label">Description</label>
+          <textarea nbInput fullWidth id="description"
+                    [class.status-danger]="carriageTypeForm.get('description').invalid && carriageTypeForm.get('description').touched"
+                    formControlName="description"
+                    placeholder="Description.."></textarea>
+          <span class="text-danger"
+                *ngIf="carriageTypeForm.get('description').hasError('required')
+                  && carriageTypeForm.get('description').touched">
+            Description is required
+          </span>
+        </div>
+        <button type="submit" nbButton status="success" class="float-right">Save</button>
+      </form>
+    </nb-card-body>
+  </nb-card>
+</div>
