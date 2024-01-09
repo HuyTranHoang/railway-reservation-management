@@ -57,7 +57,7 @@ export class EditCarriageTypeComponent implements OnInit {
     if (this.carriageTypeForm.valid) {
       this.carriageTypeService.updateCarriageType(this.carriageTypeForm.value).subscribe({
         next: (res) => {
-          this.showToast('success', 'Success', 'Add carriage type successfully!');
+          this.showToast('success', 'Success', 'Update carriage type successfully!');
         },
         error: (err) => {
           this.showToast('danger', 'Failed', 'Update carriage type failed!');
