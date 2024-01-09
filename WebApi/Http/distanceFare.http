@@ -25,7 +25,7 @@ GET {{url}}/{{router}}?
 ### 
 
 # @name getDistanceFareById
-@id = 2
+@id = 1
 
 GET {{url}}/{{router}}/{{id}}
 

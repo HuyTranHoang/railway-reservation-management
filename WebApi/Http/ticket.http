@@ -10,10 +10,11 @@ Content-Type: application/json
 {
   "PassengerId" : 1 ,
   "TrainId" : 1,
-  "CarriageId" : 1,
   "DistanceFareId" : 1,
-  "SeadId" : 1,
+  "CarriageId" : 1,
+  "SeatId" : 1,
   "ScheduleId" : 1,
+  "PaymentId": 2,
   "Status" : "Active"
 }
 

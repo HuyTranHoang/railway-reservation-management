@@ -8,13 +8,13 @@ namespace Domain.Entities
     {
         public int Id { get; set; }
 
-        [Required] public string Code { get; set; }
+        public string Code { get; set; }
 
         [Required]
         [ForeignKey("PassengerId")]
         public int PassengerId { get; set; }
         public Passenger Passenger { get; set; }
-        
+
         [Required]
         [ForeignKey("TrainId")]
         public int TrainId { get; set; }

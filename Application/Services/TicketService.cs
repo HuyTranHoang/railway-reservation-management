@@ -18,7 +18,6 @@ namespace Application.Services
         public async Task AddAsync(Ticket ticket)
         {
             ticket.Code = GenerateUniqueCode();
-            ticket.Status = "Completed";
             _repository.Add(ticket);
             await _unitOfWork.SaveChangesAsync();
         }

@@ -38,7 +38,7 @@ GET {{url}}/{{router}}?
 ### 
 
 # @name getCarriagenById
-@id = 6
+@id = 1
 
 GET {{url}}/{{router}}/{{id}}
 
