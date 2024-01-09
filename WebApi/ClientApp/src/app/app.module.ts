@@ -11,7 +11,9 @@ import {AppRoutingModule} from './app-routing.module';
 import {BookingTrainComponent} from './booking-train/booking-train.component';
 import { SharedModule } from './shared/shared.module'
 import { NgxSpinnerModule } from 'ngx-spinner'
-import { JwtInterceptor } from './core/interceptors/jwt.interceptor'
+import { JwtInterceptor } from './core/interceptors/jwt.interceptor';
+import { ContactComponent } from './contact/contact.component';
+import { AboutComponent } from './about/about.component'
 
 
 @NgModule({
@@ -19,6 +21,8 @@ import { JwtInterceptor } from './core/interceptors/jwt.interceptor'
     AppComponent,
     HomeComponent,
     BookingTrainComponent,
+    ContactComponent,
+    AboutComponent,
   ],
   imports: [
     BrowserModule,
