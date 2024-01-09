@@ -1,11 +1,14 @@
-<ngx-spinner [fullScreen]="true" bdColor="rgba(0, 0, 0, 0.8)" color="#fff" size="medium" type="line-scale-party">
-  <p style="color: white"> Loading... </p>
-</ngx-spinner>
+<div class="d-flex flex-column vh-100">
+  <ngx-spinner [fullScreen]="true" bdColor="rgba(0, 0, 0, 0.8)" color="#fff" size="medium" type="line-scale-party">
+    <p style="color: white"> Loading... </p>
+  </ngx-spinner>
 
-<app-nav-bar></app-nav-bar>
+  <app-nav-bar></app-nav-bar>
 
-<div style="margin-top: 130px ;">
-  <router-outlet></router-outlet>
+  <div class="flex-grow-1" style="margin-top: 90px;">
+    <router-outlet></router-outlet>
+  </div>
+
+  <app-footer></app-footer>
+
 </div>
-
-<app-footer></app-footer>
