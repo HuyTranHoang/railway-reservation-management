@@ -1,0 +1,51 @@
+<div class="d-flex justify-content-between align-items-center">
+
+  <div>
+    <label>Items per page:</label>
+    <nb-select selected="2"
+               class="ml-2"
+               size="small"
+               (selectedChange)="changePageSize($event)">
+      <nb-option value="2">2 (for testing)</nb-option>
+      <nb-option value="5">5</nb-option>
+      <nb-option value="10">10</nb-option>
+    </nb-select>
+  </div>
+
+  <div class="d-flex align-items-center" style="margin-right: 12px">
+    <span *ngIf="pagination" [class.mr-3]="pagination.totalPages > 1">
+     Showing {{ (pagination.currentPage - 1) * pagination.itemsPerPage + 1 }}
+      - {{ pagination.currentPage * pagination.itemsPerPage > pagination.totalItems ? pagination.totalItems : pagination.currentPage * pagination.itemsPerPage }}
+      of {{ pagination.totalItems }}
+    </span>
+
+    <nav *ngIf="pagination && pagination.totalPages > 1">
+      <ul class="pagination m-0">
+        <li class="page-item" [class.disabled]="pagination.currentPage === 1" (click)="previousPage()">
+          <a class="page-link">Previous</a>
+        </li>
+
+        <li class="page-item" *ngIf="getDisplayedPages()[0] > 1">
+          <a class="page-link">...</a>
+        </li>
+
+        <li class="page-item"
+            [class.active]="pagination.currentPage === page"
+            *ngFor="let page of getDisplayedPages()"
+            (click)="changePage(page)">
+          <a class="page-link">{{ page }}</a>
+        </li>
+
+        <li class="page-item" *ngIf="getDisplayedPages().slice(-1)[0] < pagination.totalPages">
+          <a class="page-link">...</a>
+        </li>
+
+        <li class="page-item" [class.disabled]="pagination.currentPage === pagination.totalPages" (click)="nextPage()">
+          <a class="page-link">Next</a>
+        </li>
+      </ul>
+
+    </nav>
+  </div>
+
+</div>

@@ -13,20 +13,20 @@
     <nb-card-body>
       <form [formGroup]="carriageTypeForm" (ngSubmit)="onSubmit()">
 
-        <ngx-input-field [control]="carriageTypeForm.get('name')"
+        <app-input-field [control]="carriageTypeForm.get('name')"
                          [label]="'Name'"
                          [placeholder]="'Name of carriage type..'">
-        </ngx-input-field>
+        </app-input-field>
 
-        <ngx-input-field [control]="carriageTypeForm.get('serviceCharge')"
+        <app-input-field [control]="carriageTypeForm.get('serviceCharge')"
                          [label]="'Service Charge'"
                          [placeholder]="'Service charge..'">
-        </ngx-input-field>
+        </app-input-field>
 
-        <ngx-input-field [control]="carriageTypeForm.get('status')"
+        <app-input-field [control]="carriageTypeForm.get('status')"
                          [label]="'Status'"
                          [placeholder]="'Status.'">
-        </ngx-input-field>
+        </app-input-field>
 
         <div class="form-group">
           <label for="description" class="label">Description</label>

@@ -32,7 +32,7 @@ export class CarriageTypeComponent implements OnInit {
 
   queryParams: QueryParams = {
     pageNumber: 1,
-    pageSize: 10,
+    pageSize: 2,
     searchTerm: '',
     sort: '',
   };
@@ -55,6 +55,7 @@ export class CarriageTypeComponent implements OnInit {
 
   onSearch() {
     this.queryParams.searchTerm = this.currentSearchTerm;
+    this.queryParams.pageNumber = 1;
     this.getAllCarriageType();
   }
 
@@ -83,6 +84,7 @@ export class CarriageTypeComponent implements OnInit {
 
     this.currentSort = this.queryParams.sort;
 
+    this.queryParams.pageNumber = 1;
     this.getAllCarriageType();
   }
 
@@ -121,5 +123,16 @@ export class CarriageTypeComponent implements OnInit {
       this.getAllCarriageType();
     });
   }
+
+  onPageChanged(newPage: number) {
+    this.queryParams.pageNumber = newPage;
+    this.getAllCarriageType();
+  }
+
+  onPageSizeChanged(newSize: number) {
+    this.queryParams.pageSize = newSize;
+    this.getAllCarriageType();
+  }
+
 
 }
