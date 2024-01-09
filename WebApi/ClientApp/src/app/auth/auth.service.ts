@@ -7,6 +7,7 @@ import { User } from '../core/models/auth/user'
 import { map, of, ReplaySubject } from 'rxjs'
 import { Router } from '@angular/router'
 import { ConfirmEmail } from '../core/models/auth/confirmEmail'
+import { ResetPassword } from '../core/models/auth/resetPassword'
 
 @Injectable({
   providedIn: 'root'
@@ -79,6 +80,9 @@ export class AuthService {
 
   forgotPassword(email: string) {
     return this.http.post(this.baseUrl + `account/forgot-password/${email}`, {})
+  }
+  resetPassword(model: ResetPassword) {
+    return this.http.put(this.baseUrl + 'account/reset-password', model)
   }
 
   private setUser(user: User) {

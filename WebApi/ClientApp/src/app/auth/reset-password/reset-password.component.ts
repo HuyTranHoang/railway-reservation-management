@@ -3,11 +3,13 @@ import { AuthService } from '../auth.service'
 import { ActivatedRoute, Router } from '@angular/router'
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms'
 import { take } from 'rxjs'
+import { ResetPassword } from '../../core/models/auth/resetPassword'
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-reset-password',
   templateUrl: './reset-password.component.html',
-  styleUrls: ['./reset-password.component.scss']
+  styleUrls: ['../login-and-register.component.scss']
 })
 export class ResetPasswordComponent implements OnInit {
 
@@ -57,6 +59,40 @@ export class ResetPasswordComponent implements OnInit {
       return { 'mismatch': true };
     }
     return null;
+  }
+
+  onSubmit() {
+    this.submitted = true
+    this.errorMessages = []
+
+    if (this.resetPasswordForm.invalid) {
+      return
+    }
+
+    const resetPasswordData: ResetPassword = {
+      token: this.token!,
+      email: this.email!,
+      newPassword: this.resetPasswordForm.value.password
+    }
+
+    this.authService.resetPassword(resetPasswordData).subscribe({
+      next: (res: any) => {
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: res.value.title,
+          text: res.value.message,
+          showConfirmButton: true
+        })
+
+        this.router.navigate(['auth/login'])
+        this.errorMessages = []
+      },
+      error: (err) => {
+        this.errorMessages = err.errors
+      }
+    })
+
   }
 
 }
