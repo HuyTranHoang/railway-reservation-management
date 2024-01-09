@@ -6,9 +6,17 @@ import { CarriageComponent } from './carriage/carriage.component';
 import { CarriageTypeComponent } from './carriage-type/carriage-type.component';
 import { CompartmentComponent } from './compartment/compartment.component';
 import {TrainAndCarriageRoutingModule} from './train-and-carriage-routing.module';
-import {NbButtonModule, NbCardModule, NbCheckboxModule, NbIconModule, NbInputModule} from '@nebular/theme';
+import {
+  NbButtonModule,
+  NbCardModule,
+  NbCheckboxModule,
+  NbIconModule,
+  NbInputModule,
+  NbRadioModule,
+} from '@nebular/theme';
 import { AddCarriageTypeComponent } from './carriage-type/add-carriage-type/add-carriage-type.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { ShowCarriageTypeComponent } from './carriage-type/show-carriage-type/show-carriage-type.component';
 
 
 @NgModule({
@@ -19,18 +27,20 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     CarriageTypeComponent,
     CompartmentComponent,
     AddCarriageTypeComponent,
+    ShowCarriageTypeComponent,
   ],
-    imports: [
-        CommonModule,
-        TrainAndCarriageRoutingModule,
-        NbButtonModule,
-        FormsModule,
-        ReactiveFormsModule,
-        NbCardModule,
-        NbCheckboxModule,
-        NbInputModule,
-        NbIconModule,
-    ],
+  imports: [
+    CommonModule,
+    TrainAndCarriageRoutingModule,
+    NbButtonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NbCardModule,
+    NbCheckboxModule,
+    NbInputModule,
+    NbIconModule,
+    NbRadioModule,
+  ],
 })
 export class TrainAndCarriageModule {
 }

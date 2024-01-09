@@ -4,6 +4,8 @@ import {CarriageType} from '../../../@models/carriageType';
 import {Pagination} from '../../../@models/pagination';
 import {PaginatedResult} from '../../../@models/paginatedResult';
 import {QueryParams} from '../../../@models/params/queryParams';
+import {NbDialogService} from '@nebular/theme';
+import {ShowCarriageTypeComponent} from './show-carriage-type/show-carriage-type.component';
 
 @Component({
   selector: 'ngx-carriage-type',
@@ -32,7 +34,7 @@ export class CarriageTypeComponent implements OnInit {
     sort: '',
   };
 
-  constructor(private carriageTypeService: CarriageTypeService) {
+  constructor(private carriageTypeService: CarriageTypeService, private dialogService: NbDialogService) {
   }
 
   ngOnInit(): void {
@@ -84,6 +86,22 @@ export class CarriageTypeComponent implements OnInit {
   }
 
 
+  openShowDialog(id: number) {
+    const carriageType = this.carriageTypeService.getCarriageTypeById(id).subscribe({
+      next: (res: CarriageType) => {
+        this.dialogService.open(ShowCarriageTypeComponent, {
+          context: {
+            name: res.name,
+            serviceCharge: res.serviceCharge,
+            description: res.description,
+            status: res.status,
+            createdAt: res.createdAt,
+          },
+        });
+      },
+      error: (err) => {
+      },
+    });
 
-
+  }
 }

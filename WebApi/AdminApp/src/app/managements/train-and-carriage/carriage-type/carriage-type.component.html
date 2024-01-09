@@ -58,7 +58,7 @@
         <td>{{item.serviceCharge | currency}}</td>
         <td>{{item.createdAt |date: 'medium'}}</td>
         <td>
-          <button nbButton status="info" class="mr-3">
+          <button nbButton status="info" class="mr-3" (click)="openShowDialog(item.id)">
             <nb-icon icon="eye-outline" pack="eva"></nb-icon>
           </button>
           <button nbButton status="primary" class="mr-3">
