@@ -5,6 +5,7 @@ import {CarriageComponent} from './carriage/carriage.component';
 import {CarriageTypeComponent} from './carriage-type/carriage-type.component';
 import {CompartmentComponent} from './compartment/compartment.component';
 import {TrainComponent} from './train/train.component';
+import {AddCarriageTypeComponent} from './carriage-type/add-carriage-type/add-carriage-type.component';
 
 const routes: Routes = [{
   path: '',
@@ -21,6 +22,10 @@ const routes: Routes = [{
     {
       path: 'carriage-type',
       component: CarriageTypeComponent,
+    },
+    {
+      path: 'carriage-type/add',
+      component: AddCarriageTypeComponent,
     },
     {
       path: 'compartment',

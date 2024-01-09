@@ -26,6 +26,9 @@ public class CarriageTypeService : ICarriageTypeService
         {
             "serviceChargeAsc" => query.OrderBy(ct => ct.ServiceCharge),
             "serviceChargeDesc" => query.OrderByDescending(ct => ct.ServiceCharge),
+            "nameAsc" => query.OrderBy(ct => ct.Name),
+            "nameDesc" => query.OrderByDescending(ct => ct.Name),
+            "createdAtDesc" => query.OrderByDescending(ct => ct.CreatedAt),
             _ => query.OrderBy(ct => ct.CreatedAt)
         };
 

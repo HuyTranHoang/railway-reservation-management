@@ -6,6 +6,18 @@ import { CarriageComponent } from './carriage/carriage.component';
 import { CarriageTypeComponent } from './carriage-type/carriage-type.component';
 import { CompartmentComponent } from './compartment/compartment.component';
 import {TrainAndCarriageRoutingModule} from './train-and-carriage-routing.module';
+import {
+  NbButtonModule,
+  NbCardModule,
+  NbCheckboxModule,
+  NbIconModule,
+  NbInputModule,
+  NbRadioModule,
+} from '@nebular/theme';
+import { AddCarriageTypeComponent } from './carriage-type/add-carriage-type/add-carriage-type.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { ShowCarriageTypeComponent } from './carriage-type/show-carriage-type/show-carriage-type.component';
+import {SharedModule} from '../shared/shared.module';
 
 
 @NgModule({
@@ -15,10 +27,14 @@ import {TrainAndCarriageRoutingModule} from './train-and-carriage-routing.module
     CarriageComponent,
     CarriageTypeComponent,
     CompartmentComponent,
+    AddCarriageTypeComponent,
+    ShowCarriageTypeComponent,
   ],
   imports: [
     CommonModule,
     TrainAndCarriageRoutingModule,
+    FormsModule,
+    SharedModule,
   ],
 })
 export class TrainAndCarriageModule {

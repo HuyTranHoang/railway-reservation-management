@@ -1,0 +1,15 @@
+import {Component, Input} from '@angular/core';
+import {AbstractControl} from '@angular/forms';
+
+@Component({
+  selector: 'ngx-input-field',
+  templateUrl: './input-field.component.html',
+  styleUrls: ['./input-field.component.scss'],
+})
+export class InputFieldComponent {
+  @Input() control: AbstractControl;
+  @Input() label: string;
+  @Input() placeholder: string;
+  @Input() type: string = 'text';
+
+}
