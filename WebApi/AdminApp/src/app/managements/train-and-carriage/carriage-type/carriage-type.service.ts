@@ -18,7 +18,16 @@ export class CarriageTypeService {
   }
 
   getAllCarriageType(queryParams: QueryParams) {
-    const params = this.getPaginationHeaders(queryParams.pageNumber, queryParams.pageSize);
+    let params = this.getPaginationHeaders(queryParams.pageNumber, queryParams.pageSize);
+
+    if (queryParams.searchTerm) {
+      params = params.append('searchTerm', queryParams.searchTerm);
+    }
+
+    if (queryParams.sort) {
+      params = params.append('sort', queryParams.sort);
+    }
+
     return this.getPaginatedResult<CarriageType[]>(this.baseUrl + '/carriageTypes', params);
   }
 

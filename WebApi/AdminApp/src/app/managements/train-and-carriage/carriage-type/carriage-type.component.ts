@@ -14,6 +14,17 @@ export class CarriageTypeComponent implements OnInit {
 
   carriageTypes: CarriageType[] = [];
   pagination: Pagination;
+
+  currentSearchTerm: string = '';
+  currentSort: string = '';
+
+  // Trong component của bạn
+  sortStates: { [key: string]: boolean } = {
+    name: false,
+    serviceCharge: false,
+    createdAt: false,
+  };
+
   queryParams: QueryParams = {
     pageNumber: 1,
     pageSize: 10,
@@ -38,4 +49,41 @@ export class CarriageTypeComponent implements OnInit {
       },
     });
   }
+
+  onSearch() {
+    this.queryParams.searchTerm = this.currentSearchTerm;
+    this.getAllCarriageType();
+  }
+
+  onResetSearch() {
+    this.currentSearchTerm = '';
+    this.queryParams.searchTerm = '';
+    this.getAllCarriageType();
+  }
+
+  onSort(sort: string) {
+    const sortType = sort.split('Asc')[0];
+
+    if (this.queryParams.sort === sort) {
+      this.queryParams.sort = sort.endsWith('Asc') ? sort.replace('Asc', 'Desc') : sort.replace('Desc', 'Asc');
+      this.sortStates[sortType] = !this.sortStates[sortType];
+    } else {
+      this.queryParams.sort = sort;
+      for (const key in this.sortStates) {
+        if (this.sortStates.hasOwnProperty(key)) {
+          this.sortStates[key] = false;
+        }
+      }
+
+      this.sortStates[sortType] = sort.endsWith('Asc');
+    }
+
+    this.currentSort = this.queryParams.sort;
+
+    this.getAllCarriageType();
+  }
+
+
+
+
 }

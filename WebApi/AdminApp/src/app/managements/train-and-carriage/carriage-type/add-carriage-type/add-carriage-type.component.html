@@ -1,13 +1,17 @@
 <div class="col-md-6">
 
-  <div class="bg-white p-3 d-flex justify-content-end">
-    <button type="submit" nbButton
-            routerLink="/managements/train-and-carriage/carriage-type"
-            status="info">Back to list</button>
-  </div>
+
 
   <nb-card>
-    <nb-card-header>Add carriage type form</nb-card-header>
+    <nb-card-header>
+      <div class="d-flex justify-content-between">
+        Define New Carriage Type
+        <button type="submit" nbButton
+                routerLink="/managements/train-and-carriage/carriage-type"
+                status="primary">Back to list
+        </button>
+      </div>
+    </nb-card-header>
     <nb-card-body>
       <form [formGroup]="carriageTypeForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
@@ -63,7 +67,7 @@
             Description is required
           </span>
         </div>
-        <button type="submit" nbButton status="danger">Submit</button>
+        <button type="submit" nbButton status="success" class="float-right">Submit</button>
       </form>
     </nb-card-body>
   </nb-card>
