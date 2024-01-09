@@ -2,7 +2,7 @@ import {Component, Input} from '@angular/core';
 import {AbstractControl} from '@angular/forms';
 
 @Component({
-  selector: 'ngx-input-field',
+  selector: 'app-input-field',
   templateUrl: './input-field.component.html',
   styleUrls: ['./input-field.component.scss'],
 })

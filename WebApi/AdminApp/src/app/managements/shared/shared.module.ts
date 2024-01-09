@@ -8,13 +8,14 @@ import {
   NbCheckboxModule,
   NbIconModule,
   NbInputModule,
-  NbRadioModule,
+  NbRadioModule, NbSelectModule,
 } from '@nebular/theme';
 import {HttpClientModule} from '@angular/common/http';
+import { PaginationComponent } from './pagination/pagination.component';
 
 
 @NgModule({
-  declarations: [InputFieldComponent],
+  declarations: [InputFieldComponent, PaginationComponent],
   imports: [
     CommonModule,
     HttpClientModule,
@@ -25,9 +26,11 @@ import {HttpClientModule} from '@angular/common/http';
     NbInputModule,
     NbIconModule,
     NbRadioModule,
+    NbSelectModule,
   ],
   exports: [
     InputFieldComponent,
+    PaginationComponent,
     ReactiveFormsModule,
     NbButtonModule,
     NbCardModule,

@@ -19,8 +19,8 @@
       </button>
     </div>
   </nb-card-header>
-  <nb-card-body>
-    <table class="table">
+  <nb-card-body style="padding-bottom: 0">
+    <table class="table mb-0">
       <thead class="table-borderless">
       <tr>
         <th scope="col" style="width: 5%">#</th>
@@ -48,7 +48,7 @@
           <nb-icon icon="arrow-up-outline" pack="eva" *ngIf="sortStates.createdAt"></nb-icon>
         </th>
 
-        <th scope="col" style="width: 15%">Actions</th>
+        <th scope="col" class="text-right" style="width: 15%">Actions</th>
       </tr>
       </thead>
       <tbody>
@@ -57,7 +57,7 @@
         <td>{{item.name}}</td>
         <td>{{item.serviceCharge | currency}}</td>
         <td>{{item.createdAt |date: 'medium'}}</td>
-        <td>
+        <td class="text-right">
           <button nbButton status="info" class="mr-3" (click)="openShowDialog(item.id)">
             <nb-icon icon="eye-outline" pack="eva"></nb-icon>
           </button>
@@ -73,4 +73,12 @@
       </tbody>
     </table>
   </nb-card-body>
+  <nb-card-footer>
+    <app-pagination
+      [pagination]="pagination"
+      (pageChanged)="onPageChanged($event)"
+      (pageSizeChanged)="onPageSizeChanged($event)">
+    </app-pagination>
+  </nb-card-footer>
 </nb-card>
+
