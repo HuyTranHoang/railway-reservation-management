@@ -21,7 +21,7 @@ GET {{url}}/{{router}}?
   &pageNumber=1
   &pageSize=10
   # &searchTerm= 2
-  # &sort=coordinateValueDesc
+  &sort=coordinateValueDesc
 
 
 ### 

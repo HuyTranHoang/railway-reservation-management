@@ -36,8 +36,6 @@ namespace Application.Services
             if (!string.IsNullOrEmpty(queryParams.SearchTerm))
                 query = query.Where(p => p.Name.Contains(queryParams.SearchTerm));
 
-            var trainStationDtoQuery = query.Select(p => _mapper.Map<TrainStationDto>(p));
-
             query = queryParams.Sort switch
             {
                 "nameAsc" => query.OrderBy(p => p.Name),
@@ -49,7 +47,7 @@ namespace Application.Services
                 _ => query.OrderBy(p => p.CreatedAt)
             };
 
-        
+            var trainStationDtoQuery = query.Select(p => _mapper.Map<TrainStationDto>(p));
 
             return await PagedList<TrainStationDto>.CreateAsync(trainStationDtoQuery, queryParams.PageNumber,
                 queryParams.PageSize);
@@ -68,7 +66,7 @@ namespace Application.Services
 
         public async Task SoftDeleteAsync(TrainStation trainStation)
         {
-             _repository.SoftDelete(trainStation);
+            _repository.SoftDelete(trainStation);
             await _unitOfWork.SaveChangesAsync();
         }
 
