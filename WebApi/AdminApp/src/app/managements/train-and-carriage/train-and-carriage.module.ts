@@ -17,6 +17,7 @@ import {
 import { AddCarriageTypeComponent } from './carriage-type/add-carriage-type/add-carriage-type.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { ShowCarriageTypeComponent } from './carriage-type/show-carriage-type/show-carriage-type.component';
+import {SharedModule} from '../shared/shared.module';
 
 
 @NgModule({
@@ -32,14 +33,8 @@ import { ShowCarriageTypeComponent } from './carriage-type/show-carriage-type/sh
   imports: [
     CommonModule,
     TrainAndCarriageRoutingModule,
-    NbButtonModule,
     FormsModule,
-    ReactiveFormsModule,
-    NbCardModule,
-    NbCheckboxModule,
-    NbInputModule,
-    NbIconModule,
-    NbRadioModule,
+    SharedModule,
   ],
 })
 export class TrainAndCarriageModule {

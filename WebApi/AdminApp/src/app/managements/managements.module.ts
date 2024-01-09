@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ManagementsComponent} from './managements.component';
 import {ThemeModule} from '../@theme/theme.module';
-import {NbIconLibraries, NbMenuModule} from '@nebular/theme';
+import {NbIconLibraries, NbInputModule, NbMenuModule} from '@nebular/theme';
 import {DashboardModule} from '../pages/dashboard/dashboard.module';
 import {ECommerceModule} from '../pages/e-commerce/e-commerce.module';
 import {MiscellaneousModule} from '../pages/miscellaneous/miscellaneous.module';
@@ -25,6 +25,7 @@ import {HttpClientModule} from '@angular/common/http';
     DashboardModule,
     ECommerceModule,
     MiscellaneousModule,
+    NbInputModule,
   ],
 })
 export class ManagementsModule {

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {CarriageTypeService} from '../carriage-type.service';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
 import {NbComponentStatus, NbGlobalPhysicalPosition, NbToastrService} from '@nebular/theme';
 
 
@@ -24,10 +24,17 @@ export class AddCarriageTypeComponent implements OnInit {
   initForm() {
     this.carriageTypeForm = this.fb.group({
       name: ['', Validators.required],
-      serviceCharge: [0, [Validators.required, Validators.min(0)]],
+      serviceCharge: [0, [Validators.required, Validators.min(0), this.numberValidator()]],
       status: ['', Validators.required],
       description: ['', Validators.required],
     });
+  }
+
+  numberValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (control.value == null || control.value === '') return null;
+      return !isNaN(parseFloat(control.value)) && isFinite(control.value) ? null : { 'notANumber': true };
+    };
   }
 
   onSubmit() {
