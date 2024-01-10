@@ -24,8 +24,11 @@ public class SeatTypeService : ISeatTypeService
 
         query = queryParams.Sort switch
         {
+            "nameAsc" => query.OrderBy(st => st.Name),
+            "nameDesc" => query.OrderByDescending(st => st.Name),
             "serviceChargeAsc" => query.OrderBy(st => st.ServiceCharge),
             "serviceChargeDesc" => query.OrderByDescending(st => st.ServiceCharge),
+            "createdAtDesc" => query.OrderByDescending(st => st.CreatedAt),
             _ => query.OrderBy(st => st.CreatedAt)
         };
 

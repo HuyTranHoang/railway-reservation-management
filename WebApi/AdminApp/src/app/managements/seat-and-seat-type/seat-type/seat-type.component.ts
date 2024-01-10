@@ -1,29 +1,25 @@
-import { Component } from '@angular/core';
-import { SeatType } from '../../../@models/seatType';
-import { ShowCarriageTypeComponent } from '../../train-and-carriage/carriage-type/show-carriage-type/show-carriage-type.component';
-import { PaginatedResult } from '../../../@models/paginatedResult';
-import { SeatTypeService } from './seat-type.service';
-import { NbDialogService, NbGlobalPhysicalPosition, NbToastrService } from '@nebular/theme';
-import { QueryParams } from '../../../@models/params/queryParams';
-import { Pagination } from '../../../@models/pagination';
-import { ToastrComponent } from '../../../pages/modal-overlays/toastr/toastr.component';
-import { ShowSeatTypeComponent } from './show-seat-type/show-seat-type.component';
-import { ConfirmDeleteSeatTypeComponent } from './confirm-delete-seat-type/confirm-delete-seat-type.component';
+import {Component, OnInit} from '@angular/core';
+import {SeatType} from '../../../@models/seatType';
+import {PaginatedResult} from '../../../@models/paginatedResult';
+import {SeatTypeService} from './seat-type.service';
+import {NbDialogService} from '@nebular/theme';
+import {QueryParams} from '../../../@models/params/queryParams';
+import {Pagination} from '../../../@models/pagination';
+import {ShowSeatTypeComponent} from './show-seat-type/show-seat-type.component';
+import {ConfirmDeleteSeatTypeComponent} from './confirm-delete-seat-type/confirm-delete-seat-type.component';
 
 @Component({
   selector: 'ngx-seat-type',
   templateUrl: './seat-type.component.html',
-  styleUrls: ['./seat-type.component.scss']
+  styleUrls: ['./seat-type.component.scss'],
 })
-export class SeatTypeComponent {
+export class SeatTypeComponent implements OnInit {
   seatTypes: SeatType[] = [];
   pagination: Pagination;
 
   currentSearchTerm: string = '';
   currentSort: string = '';
-  deleteId? : number;
 
-  // Trong component của bạn
   sortStates: { [key: string]: boolean } = {
     name: false,
     serviceCharge: false,
@@ -32,17 +28,19 @@ export class SeatTypeComponent {
 
   queryParams: QueryParams = {
     pageNumber: 1,
-    pageSize: 10,
+    pageSize: 2,
     searchTerm: '',
     sort: '',
   };
 
-  constructor(private seatTypeService: SeatTypeService, private dialogService: NbDialogService,private toasterService : NbToastrService) {
+  constructor(private seatTypeService: SeatTypeService,
+              private dialogService: NbDialogService) {
   }
 
   ngOnInit(): void {
     this.getAllSeatType();
   }
+
   getAllSeatType() {
     this.seatTypeService.getAllSeatType(this.queryParams).subscribe({
       next: (res: PaginatedResult<SeatType[]>) => {
@@ -86,6 +84,7 @@ export class SeatTypeComponent {
 
     this.getAllSeatType();
   }
+
   openShowDialog(id: number) {
     this.seatTypeService.getSeatTypeById(id).subscribe({
       next: (res: SeatType) => {

@@ -6,21 +6,21 @@
                  name="searchTerm"
                  (keyup.escape)="onResetSearch()"
                  [(ngModel)]="currentSearchTerm"
-                 style="padding-right: 32px">   
+                 style="padding-right: 32px">
           <nb-icon icon="search-outline" pack="eva"
                    class="position-absolute"
                    (click)="onSearch()"
                    style="top: 25%; right: 8px; cursor: pointer;"></nb-icon>
         </form>
-  
+
         <button nbButton status="primary" class="mr-3"
                 routerLink="/managements/seat-and-seat-type/seat-type/add">
           Create Seat Type
         </button>
       </div>
     </nb-card-header>
-    <nb-card-body>
-      <table class="table">
+  <nb-card-body style="padding-bottom: 0;">
+      <table class="table mb-0">
         <thead class="table-borderless">
         <tr>
           <th scope="col" style="width: 5%">#</th>
@@ -47,7 +47,7 @@
             <nb-icon icon="arrow-down-outline" pack="eva" *ngIf="!sortStates.createdAt"></nb-icon>
             <nb-icon icon="arrow-up-outline" pack="eva" *ngIf="sortStates.createdAt"></nb-icon>
           </th>
-  
+
           <th scope="col" style="width: 15%">Actions</th>
         </tr>
         </thead>
@@ -74,10 +74,9 @@
     </nb-card-body>
     <nb-card-footer>
       <app-pagination
-        [pagination]="pagination" 
+        [pagination]="pagination"
         (pageChanged)="onPageChanged($event)"
         (pageSizeChanged)="onPageSizeChanged($event)">
       </app-pagination>
     </nb-card-footer>
   </nb-card>
-  

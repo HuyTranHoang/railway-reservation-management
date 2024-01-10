@@ -1,11 +1,11 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Router } from '@angular/router';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Router} from '@angular/router';
 import {NbDialogRef} from '@nebular/theme';
 
 @Component({
   selector: 'ngx-show-seat-type',
   templateUrl: './show-seat-type.component.html',
-  styleUrls: ['./show-seat-type.component.scss']
+  styleUrls: ['./show-seat-type.component.scss'],
 })
 export class ShowSeatTypeComponent {
   @Input() id: number;
@@ -15,10 +15,11 @@ export class ShowSeatTypeComponent {
   @Input() status: string;
   @Input() createdAt: string;
 
-  @Output() onShowDelete = new EventEmitter<{id: number, name: string}>();
+  @Output() onShowDelete = new EventEmitter<{ id: number, name: string }>();
 
   constructor(protected ref: NbDialogRef<ShowSeatTypeComponent>,
-              private router: Router) {}
+              private router: Router) {
+  }
 
   dismiss() {
     this.ref.close();
