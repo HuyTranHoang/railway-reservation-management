@@ -2,9 +2,8 @@ using Microsoft.Extensions.Hosting;
 
 namespace Application.Services
 {
-    public class DailyCashTransactionService :  IDailyCashTransactionService
+    public class DailyCashTransactionService : IDailyCashTransactionService
     {
-        private readonly IDailyCashTransactionRepository _repository;
         private readonly IPaymentService _paymentService;
         private readonly ITicketService _ticketService;
         private readonly IScheduleService _scheduleService;
@@ -16,11 +15,8 @@ namespace Application.Services
         private readonly ISeatTypeService _seatTypeService;
         private readonly ICancellationRuleService _cancellationRuleService;
         private readonly ICancellationService _cancellationService;
-        private readonly IUnitOfWork _unitOfWork;
-        private Timer _timer;
 
-        public DailyCashTransactionService(IDailyCashTransactionRepository repository,
-                                            IUnitOfWork unitOfWork,
+        public DailyCashTransactionService(
                                             IPaymentService paymentService,
                                             ITicketService ticketService,
                                             ITrainStationService trainStationService, 
@@ -30,10 +26,9 @@ namespace Application.Services
                                             ISeatService seatService,
                                             ISeatTypeService seatTypeService,
                                             ICancellationRuleService cancellationRuleService,
-                                            ICancellationService cancellationService)
+                                            ICancellationService cancellationService,
+                                            IScheduleService scheduleService)
         {
-            _repository = repository;
-            _unitOfWork = unitOfWork;
             _paymentService = paymentService;
             _ticketService = ticketService;
             _trainStationService = trainStationService;
@@ -44,6 +39,7 @@ namespace Application.Services
             _seatTypeService = seatTypeService;
             _cancellationRuleService = cancellationRuleService;
             _cancellationService = cancellationService;
+            _scheduleService = scheduleService;
         }
 
         public async Task<(double, double)> RecordDailyCashTransaction()
@@ -128,6 +124,11 @@ namespace Application.Services
         public Task SoftDeleteAsync(DailyCashTransaction t)
         {
             throw new NotImplementedException();
+        }
+
+        public void Test()
+        {
+            Console.WriteLine("Ok la");
         }
     }
 }

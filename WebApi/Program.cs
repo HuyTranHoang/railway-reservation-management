@@ -1,4 +1,6 @@
 using Application;
+using Application.Services;
+using Hangfire;
 using Infrastructure;
 using Infrastructure.Data;
 using Serilog;
@@ -15,6 +17,11 @@ builder.Services
     .AddInfrastructure(builder.Configuration)
     .AddWebApi(builder.Configuration);
 
+builder.Services.AddHangfire(x => x.UseSqlServerStorage(
+    builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddHangfireServer();
+
 Log.Logger = new LoggerConfiguration()
     .ReadFrom.Configuration(builder.Configuration)
     .CreateLogger();
@@ -24,6 +31,16 @@ builder.Host.UseSerilog();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+
+app.UseHangfireDashboard();
+
+using (var scope = app.Services.CreateScope())
+{
+    var dailyCashTransactionService = scope.ServiceProvider.GetRequiredService<IDailyCashTransactionService>();
+    RecurringJob.AddOrUpdate(
+        () => dailyCashTransactionService.Test(),
+        Cron.Minutely);
+}
 
 app.UseSerilogRequestLogging();
 
