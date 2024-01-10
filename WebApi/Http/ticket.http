@@ -8,7 +8,7 @@ POST {{url}}/{{router}}
 Content-Type: application/json
 
 {
-  "PassengerId" : 1 ,
+  "PassengerId" : 2 ,
   "TrainId" : 1,
   "DistanceFareId" : 1,
   "CarriageId" : 1,
