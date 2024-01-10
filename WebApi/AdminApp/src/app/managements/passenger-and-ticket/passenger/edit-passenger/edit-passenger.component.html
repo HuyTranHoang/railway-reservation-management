@@ -3,7 +3,7 @@
   <nb-card>
     <nb-card-header>
       <div class="d-flex justify-content-between">
-        Add New Passenger
+        Edit Passenger
         <button type="submit" nbButton
                 routerLink="/managements/passenger-and-ticket/passenger"
                 status="primary">Back to list
@@ -13,6 +13,7 @@
     <nb-card-body>
       <form [formGroup]="passengerForm" (ngSubmit)="onSubmit()">
 
+        <input type="hidden" formControlName="id">
 
         <app-input-field [control]="passengerForm.get('fullName')"
                          [label]="'Full name'"

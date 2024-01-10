@@ -31,8 +31,20 @@ export class PassengerService {
       .getPaginatedResult<CarriageType[]>(this.baseUrl + '/passengers', params);
   }
 
+  getPassengerById(id: number) {
+    return this.http.get<Passenger>(this.baseUrl + '/passengers/' + id);
+  }
+
   addPassenger(model: Passenger) {
     return this.http.post(this.baseUrl + '/passengers', model);
+  }
+
+  updatePassenger(model: Passenger) {
+    return this.http.put(this.baseUrl + '/passengers/' + model.id, model);
+  }
+
+  deletePassenger(id: number) {
+    return this.http.patch(this.baseUrl + '/passengers/' + id, {});
   }
 
 

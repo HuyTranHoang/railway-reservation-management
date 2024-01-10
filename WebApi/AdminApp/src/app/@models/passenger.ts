@@ -1,6 +1,6 @@
 export interface Passenger {
   id: number;
-  fullName: any;
+  fullName: string;
   cardId: string;
   age: number;
   gender: string;

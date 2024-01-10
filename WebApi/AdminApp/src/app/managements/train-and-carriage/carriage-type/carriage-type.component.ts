@@ -108,7 +108,6 @@ export class CarriageTypeComponent implements OnInit {
         });
       },
     });
-
   }
 
   openConfirmDialog(id: number, name: string) {

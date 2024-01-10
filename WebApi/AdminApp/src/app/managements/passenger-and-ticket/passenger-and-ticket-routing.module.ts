@@ -4,6 +4,7 @@ import {PassengerAndTicketComponent} from './passenger-and-ticket.component';
 import {PassengerComponent} from './passenger/passenger.component';
 import {TicketComponent} from './ticket/ticket.component';
 import {AddPassengerComponent} from './passenger/add-passenger/add-passenger.component';
+import {EditPassengerComponent} from './passenger/edit-passenger/edit-passenger.component';
 
 
 
@@ -18,6 +19,10 @@ const routes: Routes = [{
     {
       path: 'passenger/add',
       component: AddPassengerComponent,
+    },
+    {
+      path: 'passenger/:id/edit',
+      component: EditPassengerComponent,
     },
     {
       path: 'ticket',

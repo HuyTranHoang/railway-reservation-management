@@ -1,20 +1,20 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {NbDialogRef, NbGlobalPhysicalPosition, NbToastrService} from '@nebular/theme';
-import {SeatTypeService} from '../seat-type.service';
-
+import {SeatTypeService} from '../../../seat-and-seat-type/seat-type/seat-type.service';
+import {PassengerService} from '../passenger.service';
 
 @Component({
-  selector: 'ngx-confirm-delete-seat-type',
-  templateUrl: './confirm-delete-seat-type.component.html',
-  styleUrls: ['./confirm-delete-seat-type.component.scss'],
+  selector: 'ngx-confirm-delete-passenger',
+  templateUrl: './confirm-delete-passenger.component.html',
+  styleUrls: ['./confirm-delete-passenger.component.scss'],
 })
-export class ConfirmDeleteSeatTypeComponent {
+export class ConfirmDeletePassengerComponent {
   @Input() id: number;
   @Input() name: string;
   @Output() onConfirmDelete = new EventEmitter<void>();
 
-  constructor(protected ref: NbDialogRef<ConfirmDeleteSeatTypeComponent>,
-              private seatTypeService: SeatTypeService,
+  constructor(protected ref: NbDialogRef<ConfirmDeletePassengerComponent>,
+              private passengerService: PassengerService,
               private toastrService: NbToastrService) {
   }
 
@@ -22,15 +22,15 @@ export class ConfirmDeleteSeatTypeComponent {
     this.ref.close();
   }
 
-  onDeleteSeatType() {
-    this.seatTypeService.deleteSeatType(this.id).subscribe({
+  onDeletePassenger() {
+    this.passengerService.deletePassenger(this.id).subscribe({
       next: res => {
-        this.showToast('success', 'Success', 'Delete seat type successfully!');
+        this.showToast('success', 'Success', 'Delete passenger successfully!');
         this.onConfirmDelete.emit();
         this.ref.close();
       },
       error: error => {
-        this.showToast('danger', 'Failed', 'Delete seat type failed!');
+        this.showToast('danger', 'Failed', 'Delete passenger failed!');
       },
     });
   }

@@ -1,9 +1,15 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Pagination} from '../../../@models/pagination';
 import {Passenger} from '../../../@models/passenger';
 import {QueryParams} from '../../../@models/params/queryParams';
 import {PassengerService} from './passenger.service';
 import {NbDialogService} from '@nebular/theme';
+import {ConfirmDeletePassengerComponent} from './confirm-delete-passenger/confirm-delete-passenger.component';
+import {CarriageType} from '../../../@models/carriageType';
+import {
+  ShowCarriageTypeComponent,
+} from '../../train-and-carriage/carriage-type/show-carriage-type/show-carriage-type.component';
+import {ShowPassengerComponent} from './show-passenger/show-passenger.component';
 
 @Component({
   selector: 'ngx-passenger',
@@ -82,6 +88,42 @@ export class PassengerComponent implements OnInit {
 
     this.queryParams.pageNumber = 1;
     this.getAllPassengers();
+  }
+
+  openShowDialog(id: number) {
+    this.passengerService.getPassengerById(id).subscribe({
+      next: (res: Passenger) => {
+        const dialogRef = this.dialogService.open(ShowPassengerComponent, {
+          context: {
+            id: res.id,
+            fullName: res.fullName,
+            cardId: res.cardId,
+            age: res.age,
+            gender: res.gender,
+            phone: res.phone,
+            email: res.email,
+            createdAt: res.createdAt,
+          },
+        });
+
+        dialogRef.componentRef.instance.onShowDelete.subscribe(obj => {
+          this.openConfirmDialog(obj.id, obj.name);
+        });
+      },
+    });
+  }
+
+  openConfirmDialog(id: number, name: string) {
+    const dialogRef = this.dialogService.open(ConfirmDeletePassengerComponent, {
+      context: {
+        id,
+        name,
+      },
+    });
+
+    dialogRef.componentRef.instance.onConfirmDelete.subscribe(_ => {
+      this.getAllPassengers();
+    });
   }
 
   onPageChanged(newPage: number) {
