@@ -94,6 +94,7 @@ export class TrainCompanyComponent implements OnInit {
           context: {
             id: res.id,
             name: res.name,
+            status: res.status,
           },
         });
 

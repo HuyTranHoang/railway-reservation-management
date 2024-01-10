@@ -2,7 +2,7 @@
   <nb-card>
     <nb-card-header>
       <div class="d-flex justify-content-between">
-        Define New Train Station
+        Define New Train Company
         <button type="submit" nbButton
                 routerLink="/managements/railway/train-company"
                 status="primary">Back to list
@@ -14,7 +14,12 @@
 
         <app-input-field [control]="trainCompanyForm.get('name')"
                          [label]="'Name'"
-                         [placeholder]="'Name of carriage type..'">
+                         [placeholder]="'Name of train company..'">
+        </app-input-field>
+
+        <app-input-field [control]="trainCompanyForm.get('status')"
+                         [label]="'Status'"
+                         [placeholder]="'Status..'">
         </app-input-field>
 
         <button type="submit" nbButton status="success" class="float-right">Submit</button>

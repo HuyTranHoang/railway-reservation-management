@@ -10,6 +10,7 @@ import {Router} from '@angular/router';
 export class ShowTrainCompanyComponent {
   @Input() id: number;
   @Input() name: string;
+  @Input() status: string;
 
   @Output() onShowDelete = new EventEmitter<{ id: number, name: string }>();
 

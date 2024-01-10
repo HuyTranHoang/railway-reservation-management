@@ -11,6 +11,8 @@ import {PassengerService} from '../passenger.service';
 })
 export class AddPassengerComponent implements OnInit {
   passengerForm: FormGroup = this.fb.group({});
+  isSubmitted: boolean = false;
+  errorMessages: string[] = [];
 
   constructor(private passengerSerivce: PassengerService,
               private toastrService: NbToastrService,
@@ -25,7 +27,7 @@ export class AddPassengerComponent implements OnInit {
     this.passengerForm = this.fb.group({
       fullName: ['', Validators.required],
       cardId: ['', Validators.required],
-      age: ['', [Validators.required, this.numberValidator()]],
+      age: ['', this.numberValidator()],
       gender: ['', Validators.required],
       phone: ['', [Validators.required]], // Có thể cần validate lại phone sau
       email: ['', [Validators.required, Validators.email]],
@@ -41,13 +43,18 @@ export class AddPassengerComponent implements OnInit {
   }
 
   onSubmit() {
+    this.isSubmitted = true;
+
     if (this.passengerForm.valid) {
       this.passengerSerivce.addPassenger(this.passengerForm.value).subscribe({
         next: (res) => {
           this.showToast('success', 'Success', 'Add passenger successfully!');
           this.passengerForm.reset();
+          this.isSubmitted = false;
+          this.errorMessages = [];
         },
         error: (err) => {
+          this.errorMessages = err.error.errors;
           this.showToast('danger', 'Failed', 'Add passenger failed!');
         },
       });

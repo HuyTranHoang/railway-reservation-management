@@ -12,6 +12,9 @@ import {SeatTypeService} from '../seat-type.service';
 export class AddSeatTypeComponent implements OnInit {
   seatTypeForm: FormGroup = this.fb.group({});
 
+  isSubmitted = false;
+  errorMessages: string[] = [];
+
   constructor(private seatTypeService: SeatTypeService,
               private toastrService: NbToastrService,
               private fb: FormBuilder) {
@@ -25,7 +28,7 @@ export class AddSeatTypeComponent implements OnInit {
     this.seatTypeForm = this.fb.group({
       name: ['', Validators.required],
       serviceCharge: [0, [Validators.required, Validators.min(0), this.numberValidator()]],
-      status: ['', Validators.required],
+      status: [''],
       description: ['', Validators.required],
     });
   }
@@ -38,14 +41,19 @@ export class AddSeatTypeComponent implements OnInit {
   }
 
   onSubmit() {
+    this.isSubmitted = true;
+
     if (this.seatTypeForm.valid) {
       this.seatTypeService.addSeatType(this.seatTypeForm.value).subscribe({
         next: (res) => {
           this.showToast('success', 'Success', 'Add carriage type successfully!');
           this.seatTypeForm.reset();
+          this.isSubmitted = false;
+          this.errorMessages = [];
         },
         error: (err) => {
           this.showToast('danger', 'Failed', 'Add carriage type failed!');
+          this.errorMessages = err.error.errorMessages;
         },
       });
     }

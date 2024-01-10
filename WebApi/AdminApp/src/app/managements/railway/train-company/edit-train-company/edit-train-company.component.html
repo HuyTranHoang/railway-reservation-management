@@ -12,12 +12,17 @@
       </nb-card-header>
       <nb-card-body>
         <form [formGroup]="trainCompanyForm" (ngSubmit)="onSubmit()">
-  
+
           <input type="hidden" formControlName="id">
-  
+
           <app-input-field [control]="trainCompanyForm.get('name')"
                            [label]="'Name'"
                            [placeholder]="'Name of train company..'">
+          </app-input-field>
+
+          <app-input-field [control]="trainCompanyForm.get('status')"
+                           [label]="'Status'"
+                           [placeholder]="'Status..'">
           </app-input-field>
 
           <button type="submit" nbButton status="success" class="float-right">Save</button>
@@ -25,4 +30,3 @@
       </nb-card-body>
     </nb-card>
   </div>
-  

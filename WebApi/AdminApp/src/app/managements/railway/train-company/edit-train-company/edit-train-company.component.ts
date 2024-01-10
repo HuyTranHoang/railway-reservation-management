@@ -18,7 +18,6 @@ export class EditTrainCompanyComponent implements OnInit {
               private router: Router,
               private fb: FormBuilder) {
   }
-
   ngOnInit(): void {
     this.initForm();
   }
@@ -32,6 +31,7 @@ export class EditTrainCompanyComponent implements OnInit {
           this.trainCompanyForm = this.fb.group({
             id: [res.id, Validators.required],
             name: [res.name, Validators.required],
+            status: [res.status],
           });
         },
         error: (err) => {

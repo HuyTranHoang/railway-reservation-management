@@ -3,7 +3,7 @@
   <input type="text" nbInput fullWidth
          [placeholder]="placeholder"
          [formControl]="$any(control)">
-  <span class="text-danger" *ngIf="control.invalid && control.touched">
+  <span class="text-danger" *ngIf="control.invalid && (control.touched || isSubmitted)">
     <span *ngIf="control.errors?.required">{{ label }} is required</span>
     <span *ngIf="control.errors?.min">{{ label }} must be greater than 0</span>
     <span *ngIf="control.errors?.notANumber">{{ label }} must be number</span>
