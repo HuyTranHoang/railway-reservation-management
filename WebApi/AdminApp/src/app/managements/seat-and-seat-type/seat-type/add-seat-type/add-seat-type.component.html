@@ -43,6 +43,12 @@
               Description is required
             </span>
         </div>
+
+        <ul *ngIf="errorMessages.length > 0">
+          <li class="text-danger" *ngFor="let item of errorMessages">{{item}}</li>
+        </ul>
+
+
         <button type="submit" nbButton status="success" class="float-right">Submit</button>
       </form>
     </nb-card-body>
