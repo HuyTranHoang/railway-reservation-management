@@ -24,9 +24,14 @@ public class DistanceFareRepository : IDistanceFareRepository
         _context.DistanceFares.Remove(distanceFare);
     }
 
+    public async Task<DistanceFare> GetByDistanceAsync(int distance)
+    {
+        return await _context.DistanceFares.FirstOrDefaultAsync(x => x.Distance == distance);
+    }
+
     public async Task<DistanceFare> GetByIdAsync(int id)
     {
-                return await _context.DistanceFares
+        return await _context.DistanceFares
             .FirstOrDefaultAsync(x => x.Id == id);
     }
 
