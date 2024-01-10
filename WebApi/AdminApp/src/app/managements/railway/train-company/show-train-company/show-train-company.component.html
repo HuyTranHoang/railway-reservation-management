@@ -1,0 +1,25 @@
+<nb-card>
+    <nb-card-header>Train Company details</nb-card-header>
+    <nb-card-body>
+      <section style="min-width: 600px">
+        <div class="form-group row">
+          <label class="label col-sm-3 col-form-label">Name</label>
+          <div class="col-sm-9">
+            <input type="text" nbInput fullWidth [value]="name" disabled>
+          </div>
+        </div>
+      </section>
+  
+    </nb-card-body>
+    <nb-card-footer>
+      <div class="d-flex justify-content-between">
+        <button nbButton hero status="primary" (click)="dismiss()">Dismiss Dialog</button>
+  
+        <div>
+          <button nbButton hero status="primary" class="mr-3" (click)="onEdit()">Edit</button>
+          <button nbButton hero status="danger" (click)="onDelete()">Delete</button>
+        </div>
+      </div>
+    </nb-card-footer>
+  </nb-card>
+  

@@ -1,0 +1,18 @@
+<div class="col-md-6">
+  <div class="bg-white p-3">
+    <button type="submit" nbButton status="info" routerLink="/managements/railway/train-company" class="d-flex justify-content-end">Back to list</button>
+  </div>
+  <nb-card>
+    <nb-card-header>Add new train company</nb-card-header>
+    <nb-card-body>
+      <form [formGroup]="trainCompanyForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="name" class="label">Name</label>
+          <input type="text" nbInput fullWidth id="name" formControlName="name" [class.status-danger]="trainCompanyForm.get('name').invalid && trainCompanyForm.get('name').touched" placeholder="Name of train company"/>
+          <span *ngIf="trainCompanyForm.get('name').hasError('required') && trainCompanyForm.get('name').touched">Name is required</span>
+        </div>
+        <button type="submit" nbButton status="danger">Submit</button>
+      </form>
+    </nb-card-body>
+  </nb-card>
+</div>
