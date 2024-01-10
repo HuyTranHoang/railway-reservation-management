@@ -8,7 +8,7 @@ POST {{url}}/{{router}}
 Content-Type: application/json
 
 {
-  "AspNetUserId": "47cf951d-9a88-4245-9fab-31f65b8086db",
+  "AspNetUserId": "5877d3f6-485d-43ab-a0f6-210f4a1396d7",
   "Status": "Thiếu tiền"
 }
 
@@ -22,6 +22,7 @@ GET {{url}}/{{router}}?
   # &searchTerm=New Payment
   #&sort=nameDesc
   # &PaymentCompanyId=2
+  # &CreatedAt=""2024-01-11 05:38:41.5659920""
 
 
 ### 

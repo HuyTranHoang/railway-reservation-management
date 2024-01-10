@@ -24,13 +24,14 @@ public class DistanceFareRepository : IDistanceFareRepository
         _context.DistanceFares.Remove(distanceFare);
     }
 
-    public async Task<DistanceFare> GetByDistanceAsync(int distance)
+    public async Task<decimal?> GetByDistanceAsync(int distance)
     {
-        var fare = _context.DistanceFares
+        var fare = await _context.DistanceFares
                             .Where(d => d.Distance <= distance)
                             .OrderByDescending(d => d.Distance)
+                            .Select(d => d.Price)
                             .FirstOrDefaultAsync();
-        return await fare;
+        return (decimal?)fare;
     }
 
     public async Task<DistanceFare> GetByIdAsync(int id)
