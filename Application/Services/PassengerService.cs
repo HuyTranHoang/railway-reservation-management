@@ -20,14 +20,21 @@ public class PassengerService : IPassengerService
         var query = await _repository.GetQueryAsync();
 
         if (!string.IsNullOrEmpty(queryParams.SearchTerm))
-            query = query.Where(p => p.FullName.Contains(queryParams.SearchTerm));
+            query = query.Where(p => p.FullName.Contains(queryParams.SearchTerm)
+                || p.CardId.Contains(queryParams.SearchTerm)
+                || p.Email.Contains(queryParams.SearchTerm));
 
         query = queryParams.Sort switch
         {
+            "fullNameAsc" => query.OrderBy(p => p.FullName),
+            "fullNameDesc" => query.OrderByDescending(p => p.FullName),
+            "cardIdAsc" => query.OrderBy(p => p.CardId),
+            "cardIdDesc" => query.OrderByDescending(p => p.CardId),
             "ageAsc" => query.OrderBy(p => p.Age),
             "ageDesc" => query.OrderByDescending(p => p.Age),
-            "nameAsc" => query.OrderBy(p => p.FullName),
-            "nameDesc" => query.OrderByDescending(p => p.FullName),
+            "emailAsc" => query.OrderBy(p => p.Email),
+            "emailDesc" => query.OrderByDescending(p => p.Email),
+            "createdAtDesc" => query.OrderByDescending(p => p.CreatedAt),
             _ => query.OrderBy(p => p.CreatedAt)
         };
 

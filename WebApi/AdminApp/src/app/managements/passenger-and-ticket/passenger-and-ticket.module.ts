@@ -4,6 +4,7 @@ import {PassengerAndTicketComponent} from './passenger-and-ticket.component';
 import {PassengerComponent} from './passenger/passenger.component';
 import {TicketComponent} from './ticket/ticket.component';
 import {PassengerAndTicketRoutingModule} from './passenger-and-ticket-routing.module';
+import {SharedModule} from '../shared/shared.module';
 
 
 @NgModule({
@@ -14,6 +15,7 @@ import {PassengerAndTicketRoutingModule} from './passenger-and-ticket-routing.mo
   ],
   imports: [
     CommonModule,
+    SharedModule,
     PassengerAndTicketRoutingModule,
   ],
 })

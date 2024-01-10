@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {InputFieldComponent} from './input-field/input-field.component';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {
   NbButtonModule,
   NbCardModule,
@@ -19,6 +19,7 @@ import { PaginationComponent } from './pagination/pagination.component';
   imports: [
     CommonModule,
     HttpClientModule,
+    FormsModule,
     ReactiveFormsModule,
     NbButtonModule,
     NbCardModule,
@@ -31,7 +32,10 @@ import { PaginationComponent } from './pagination/pagination.component';
   exports: [
     InputFieldComponent,
     PaginationComponent,
+
+    FormsModule,
     ReactiveFormsModule,
+
     NbButtonModule,
     NbCardModule,
     NbCheckboxModule,

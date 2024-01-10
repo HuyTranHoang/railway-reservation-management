@@ -37,7 +37,6 @@ import { ConfirmDeleteCarriageTypeComponent } from './carriage-type/confirm-dele
   imports: [
     CommonModule,
     TrainAndCarriageRoutingModule,
-    FormsModule,
     SharedModule,
   ],
 })

@@ -24,7 +24,7 @@ export class CarriageTypeComponent implements OnInit {
   currentSort: string = '';
 
   // Trong component của bạn
-  sortStates: { [key: string]: boolean } = {
+  sortStates = {
     name: false,
     serviceCharge: false,
     createdAt: false,
@@ -32,7 +32,7 @@ export class CarriageTypeComponent implements OnInit {
 
   queryParams: QueryParams = {
     pageNumber: 1,
-    pageSize: 2,
+    pageSize: 5,
     searchTerm: '',
     sort: '',
   };

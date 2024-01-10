@@ -25,7 +25,7 @@ export class TrainCompanyComponent implements OnInit {
 
   queryParams: QueryParams = {
     pageNumber: 1,
-    pageSize: 2,
+    pageSize: 5,
     searchTerm: '',
     sort: '',
   };

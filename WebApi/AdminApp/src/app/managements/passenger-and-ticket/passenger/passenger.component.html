@@ -1,1 +1,106 @@
-<p>passenger works!</p>
+<nb-card accent="info">
+  <nb-card-header>
+    <div class="d-flex justify-content-between align-items-center">
+      <form class="position-relative" (ngSubmit)="onSearch()">
+        <input nbInput placeholder="Full name, card, email.."
+               name="searchTerm"
+               (keyup.escape)="onResetSearch()"
+               [(ngModel)]="currentSearchTerm"
+               style="padding-right: 32px">
+        <nb-icon icon="search-outline" pack="eva"
+                 class="position-absolute"
+                 (click)="onSearch()"
+                 style="top: 25%; right: 8px; cursor: pointer;"></nb-icon>
+      </form>
+
+      <button nbButton status="primary" class="mr-3"
+              routerLink="/managements/train-and-carriage/carriage-type/add">
+        Create Carriage Type
+      </button>
+    </div>
+  </nb-card-header>
+  <nb-card-body style="padding-bottom: 0">
+    <table class="table mb-0">
+      <thead class="table-borderless">
+      <tr>
+        <th scope="col" style="width: 5%">#</th>
+        <th scope="col"
+            (click)="onSort('fullNameAsc')"
+            [class.text-primary]="currentSort.includes('fullName')">
+          Full Name
+          <nb-icon icon="arrow-down-outline" pack="eva" *ngIf="!sortStates.fullName"></nb-icon>
+          <nb-icon icon="arrow-up-outline" pack="eva" *ngIf="sortStates.fullName"></nb-icon>
+        </th>
+
+        <th scope="col"
+            (click)="onSort('cardIdAsc')"
+            [class.text-primary]="currentSort.includes('cardId')"
+            style="width: 15%">
+          Card Number
+          <nb-icon icon="arrow-down-outline" pack="eva" *ngIf="!sortStates.cardId"></nb-icon>
+          <nb-icon icon="arrow-up-outline" pack="eva" *ngIf="sortStates.cardId"></nb-icon>
+        </th>
+
+        <th scope="col"
+            (click)="onSort('ageAsc')"
+            [class.text-primary]="currentSort.includes('age')"
+            style="width: 10%">
+          Age
+          <nb-icon icon="arrow-down-outline" pack="eva" *ngIf="!sortStates.age"></nb-icon>
+          <nb-icon icon="arrow-up-outline" pack="eva" *ngIf="sortStates.age"></nb-icon>
+        </th>
+
+        <th scope="col"
+            (click)="onSort('emailAsc')"
+            [class.text-primary]="currentSort.includes('email')"
+            style="width: 20%">
+          Email
+          <nb-icon icon="arrow-down-outline" pack="eva" *ngIf="!sortStates.email"></nb-icon>
+          <nb-icon icon="arrow-up-outline" pack="eva" *ngIf="sortStates.email"></nb-icon>
+        </th>
+
+        <th scope="col"
+            (click)="onSort('createdAtAsc')"
+            [class.text-primary]="currentSort.includes('createdAt') || currentSort === ''"
+            style="width: 15%">
+          Created At
+          <nb-icon icon="arrow-down-outline" pack="eva" *ngIf="!sortStates.createdAt"></nb-icon>
+          <nb-icon icon="arrow-up-outline" pack="eva" *ngIf="sortStates.createdAt"></nb-icon>
+        </th>
+
+        <th scope="col" class="text-right" style="width: 15%">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of passengers; let index = index">
+        <th scope="row">{{index + 1}}</th>
+        <td>{{item.fullName}}</td>
+        <td>{{item.cardId}}</td>
+        <td>{{item.age}}</td>
+        <td>{{item.email}}</td>
+        <td>{{item.createdAt |date: 'medium'}}</td>
+        <td class="text-right">
+          <button nbButton status="info" class="mr-3">
+            <nb-icon icon="eye-outline" pack="eva"></nb-icon>
+          </button>
+          <button nbButton status="primary" class="mr-3"
+                  routerLink="/managements/passenger-and-ticket/passenger/{{item.id}}/edit">
+            <nb-icon icon="edit-outline" pack="eva"></nb-icon>
+          </button>
+          <button nbButton status="danger">
+            <nb-icon icon="trash-outline" pack="eva"></nb-icon>
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </nb-card-body>
+  <nb-card-footer>
+    <app-pagination
+      [pagination]="pagination"
+      (pageChanged)="onPageChanged($event)"
+      (pageSizeChanged)="onPageSizeChanged($event)">
+    </app-pagination>
+  </nb-card-footer>
+</nb-card>
+

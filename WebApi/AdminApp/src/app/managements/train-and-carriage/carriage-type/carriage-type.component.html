@@ -31,6 +31,7 @@
           <nb-icon icon="arrow-down-outline" pack="eva" *ngIf="!sortStates.name"></nb-icon>
           <nb-icon icon="arrow-up-outline" pack="eva" *ngIf="sortStates.name"></nb-icon>
         </th>
+
         <th scope="col"
             style="width: 15%"
             (click)="onSort('serviceChargeAsc')"
@@ -39,6 +40,7 @@
           <nb-icon icon="arrow-down-outline" pack="eva" *ngIf="!sortStates.serviceCharge"></nb-icon>
           <nb-icon icon="arrow-up-outline" pack="eva" *ngIf="sortStates.serviceCharge"></nb-icon>
         </th>
+
         <th scope="col"
             style="width: 15%"
             (click)="onSort('createdAtAsc')"
