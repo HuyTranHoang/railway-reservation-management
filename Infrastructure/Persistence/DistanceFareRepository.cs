@@ -26,7 +26,11 @@ public class DistanceFareRepository : IDistanceFareRepository
 
     public async Task<DistanceFare> GetByDistanceAsync(int distance)
     {
-        return await _context.DistanceFares.FirstOrDefaultAsync(x => x.Distance == distance);
+        var fare = _context.DistanceFares
+                            .Where(d => d.Distance <= distance)
+                            .OrderByDescending(d => d.Distance)
+                            .FirstOrDefaultAsync();
+        return await fare;
     }
 
     public async Task<DistanceFare> GetByIdAsync(int id)

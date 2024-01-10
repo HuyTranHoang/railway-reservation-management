@@ -35,6 +35,19 @@ namespace Infrastructure.Persistence
             .AsQueryable());
         }
 
+        public async Task SaveDailyCashTransaction(double totalReceived, double totalRefunded)
+        {
+            var dailyCashTransaction = new DailyCashTransaction
+            {   
+                Date = DateTime.Now,
+                TotalReceived = totalReceived,
+                TotalRefunded = totalRefunded
+            };
+
+            _context.DailyCashTransactions.Add(dailyCashTransaction);
+            await _context.SaveChangesAsync();
+        }
+
         public void SoftDelete(DailyCashTransaction dailyCashTransaction)
         {
             dailyCashTransaction.IsDeleted = true;

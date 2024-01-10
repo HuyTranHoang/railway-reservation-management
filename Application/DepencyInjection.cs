@@ -31,8 +31,9 @@ public static class DepencyInjection
     services.AddScoped<IDistanceFareService, DistanceFareService>();
     services.AddScoped<IPaymentService, PaymentService>();
     services.AddScoped<ICancellationService, CancellationService>();
-    
-    // services.AddHostedService<DailyCashTransactionService>();
+
+    // services.AddScoped<IDailyCashTransactionService, DailyCashTransactionService>();
+    services.AddHostedService<DailyCashHosted>();
     return services;
   }
 }
