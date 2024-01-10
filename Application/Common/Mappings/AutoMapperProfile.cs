@@ -71,5 +71,9 @@ public class AutoMapperProfile : Profile
                 opt => opt.MapFrom(src => src.TrainCompany.Name));
 
         CreateMap<Payment, PaymentDto>();
+
+        CreateMap<Cancellation, CancellationDto>()
+            .ForMember(dest => dest.CancellationRuleFee,
+                opt => opt.MapFrom(src => src.CancellationRule.Fee));
     }
 }

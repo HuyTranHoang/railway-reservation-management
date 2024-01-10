@@ -30,6 +30,7 @@ public static class DepencyInjection
     services.AddScoped<IScheduleService, ScheduleService>();
     services.AddScoped<IDistanceFareService, DistanceFareService>();
     services.AddScoped<IPaymentService, PaymentService>();
+    services.AddScoped<ICancellationService, CancellationService>();
     
     // services.AddHostedService<DailyCashTransactionService>();
     return services;
