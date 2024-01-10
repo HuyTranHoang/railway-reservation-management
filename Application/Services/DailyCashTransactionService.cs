@@ -52,7 +52,7 @@ namespace Application.Services
 
         private void DoWork(object state)
         {
-            RecordDailyCashTransaction();
+            // RecordDailyCashTransaction();
         }
 
         public Task StopAsync(CancellationToken cancellationToken)
@@ -67,51 +67,51 @@ namespace Application.Services
             _timer?.Dispose();
         }
 
-        private async void RecordDailyCashTransaction()
-        {
-            var currentDate = DateTime.Now;
-            double totalReceived = 0;
-            double totalRefunded = 0;
+        // private async void RecordDailyCashTransaction()
+        // {
+        //     var currentDate = DateTime.Now;
+        //     double totalReceived = 0;
+        //     double totalRefunded = 0;
 
-            var queryParams = new PaymentQueryParams
-            {
-                CreatedAt = currentDate
-            };
+        //     var queryParams = new PaymentQueryParams
+        //     {
+        //         CreatedAt = currentDate
+        //     };
             
-            var payments = await _paymentService.GetAllDtoAsync(queryParams);
-            foreach (var payment in payments)
-            {
-                var ticket = await _ticketService.GetDtoByIdAsync(payment.Id);
+        //     var payments = await _paymentService.GetAllDtoAsync(queryParams);
+        //     foreach (var payment in payments)
+        //     {
+        //         var ticket = await _ticketService.GetDtoByIdAsync(payment.Id);
 
-                // Tính trị giá khoảng cách theo lịch trình của vé
-                var schedule = await _scheduleService.GetDtoByIdAsync(ticket.ScheduleId);
-                var departureTrainStation = await _trainStationService.GetDtoByIdAsync(schedule.DepartureStationId);
-                var arrivalTrainStation = await _trainStationService.GetDtoByIdAsync(schedule.ArrivalStationId);
-                var distanceSchedule = Math.Abs(departureTrainStation.CoordinateValue - arrivalTrainStation.CoordinateValue);
+        //         // Tính trị giá khoảng cách theo lịch trình của vé
+        //         var schedule = await _scheduleService.GetDtoByIdAsync(ticket.ScheduleId);
+        //         var departureTrainStation = await _trainStationService.GetDtoByIdAsync(schedule.DepartureStationId);
+        //         var arrivalTrainStation = await _trainStationService.GetDtoByIdAsync(schedule.ArrivalStationId);
+        //         var distanceSchedule = Math.Abs(departureTrainStation.CoordinateValue - arrivalTrainStation.CoordinateValue);
 
-                //Đối chiếu giá theo khoảng cách
-                var distance = await _distanceFareService.GetDtoByDistanceAsync(ticket.DistanceFareId);
-                var distanceFare = distance.Price;
+        //         //Đối chiếu giá theo khoảng cách
+        //         var distance = await _distanceFareService.GetDtoByDistanceAsync(ticket.DistanceFareId);
+        //         var distanceFare = distance.Price;
 
-                //Đối chiếu phí theo Carriage
-                var carriage = await  _carriageService.GetDtoByIdAsync(ticket.CarriageIdId);
-                var carriageType = await _carriageTypeService.GetDtoByIdAsync(carriage.CarriageTypeId);
-                var carriageFare = carriageType.ServiceCharge;
+        //         //Đối chiếu phí theo Carriage
+        //         var carriage = await  _carriageService.GetDtoByIdAsync(ticket.CarriageIdId);
+        //         var carriageType = await _carriageTypeService.GetDtoByIdAsync(carriage.CarriageTypeId);
+        //         var carriageFare = carriageType.ServiceCharge;
 
-                //Đối chiếu phí theo Seat
-                var seat = await _seatService.GetDtoByIdAsync(ticket.SeatId);
-                var seatType = await _seatTypeService.GetDtoByIdAsync(seat.SeatTypeId);
-                var seatFare = seatType.ServiceCharge;
+        //         //Đối chiếu phí theo Seat
+        //         var seat = await _seatService.GetDtoByIdAsync(ticket.SeatId);
+        //         var seatType = await _seatTypeService.GetDtoByIdAsync(seat.SeatTypeId);
+        //         var seatFare = seatType.ServiceCharge;
 
-                //Đối chiếu phí Cancellation
-                var cancellation = await 
+        //         //Đối chiếu phí Cancellation
+        //         var cancellation = await 
 
-                //totalAmount
-                totalReceived = distanceFare + carriageFare + seatFare;
+        //         //totalAmount
+        //         totalReceived = distanceFare + carriageFare + seatFare;
 
-            }
+        //     }
         
-        }
+        // }
 
     }
 }

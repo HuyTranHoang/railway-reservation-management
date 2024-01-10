@@ -26,6 +26,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     public DbSet<Ticket> Tickets { get; set; }
     public DbSet<Payment> Payments { get; set; }
     public DbSet<CancellationRule> CancellationRules { get; set; }
+    public DbSet<Cancellation> Cancellations { get; set; }
     public DbSet<DailyCashTransaction> DailyCashTransactions { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
