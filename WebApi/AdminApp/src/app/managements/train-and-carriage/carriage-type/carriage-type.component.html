@@ -24,30 +24,31 @@
       <thead class="table-borderless">
       <tr>
         <th scope="col" style="width: 5%">#</th>
-        <th scope="col"
-            (click)="onSort('nameAsc')"
-            [class.text-primary]="currentSort.includes('name')">
-          Name
-          <nb-icon icon="arrow-down-outline" pack="eva" *ngIf="!sortStates.name"></nb-icon>
-          <nb-icon icon="arrow-up-outline" pack="eva" *ngIf="sortStates.name"></nb-icon>
+        <th scope="col">
+          <span (click)="onSort('nameAsc')"
+                [class.text-primary]="currentSort.includes('name')">
+            Name
+            <nb-icon icon="arrow-down-outline" pack="eva" *ngIf="!sortStates.name"></nb-icon>
+            <nb-icon icon="arrow-up-outline" pack="eva" *ngIf="sortStates.name"></nb-icon>
+          </span>
         </th>
 
-        <th scope="col"
-            style="width: 15%"
-            (click)="onSort('serviceChargeAsc')"
-            [class.text-primary]="currentSort.includes('serviceCharge')">
-          Service Charge
-          <nb-icon icon="arrow-down-outline" pack="eva" *ngIf="!sortStates.serviceCharge"></nb-icon>
-          <nb-icon icon="arrow-up-outline" pack="eva" *ngIf="sortStates.serviceCharge"></nb-icon>
+        <th scope="col" style="width: 15%">
+          <span (click)="onSort('serviceChargeAsc')"
+                [class.text-primary]="currentSort.includes('serviceCharge')">
+            Service Charge
+            <nb-icon icon="arrow-down-outline" pack="eva" *ngIf="!sortStates.serviceCharge"></nb-icon>
+            <nb-icon icon="arrow-up-outline" pack="eva" *ngIf="sortStates.serviceCharge"></nb-icon>
+          </span>
         </th>
 
-        <th scope="col"
-            style="width: 15%"
-            (click)="onSort('createdAtAsc')"
-            [class.text-primary]="currentSort.includes('createdAt') || currentSort === ''">
-          Created At
-          <nb-icon icon="arrow-down-outline" pack="eva" *ngIf="!sortStates.createdAt"></nb-icon>
-          <nb-icon icon="arrow-up-outline" pack="eva" *ngIf="sortStates.createdAt"></nb-icon>
+        <th scope="col" style="width: 15%">
+          <span (click)="onSort('createdAtAsc')"
+                [class.text-primary]="currentSort.includes('createdAt') || currentSort === ''">
+            Created At
+            <nb-icon icon="arrow-down-outline" pack="eva" *ngIf="!sortStates.createdAt"></nb-icon>
+            <nb-icon icon="arrow-up-outline" pack="eva" *ngIf="sortStates.createdAt"></nb-icon>
+          </span>
         </th>
 
         <th scope="col" class="text-right" style="width: 15%">Actions</th>
@@ -55,10 +56,10 @@
       </thead>
       <tbody>
       <tr *ngFor="let item of carriageTypes; let index = index">
-        <th scope="row">{{index + 1}}</th>
-        <td>{{item.name}}</td>
-        <td>{{item.serviceCharge | currency}}</td>
-        <td>{{item.createdAt |date: 'medium'}}</td>
+        <th scope="row">{{ index + 1 }}</th>
+        <td>{{ item.name }}</td>
+        <td>{{ item.serviceCharge | currency }}</td>
+        <td>{{ item.createdAt |date: 'medium' }}</td>
         <td class="text-right">
           <button nbButton status="info" class="mr-3" (click)="openShowDialog(item.id)">
             <nb-icon icon="eye-outline" pack="eva"></nb-icon>

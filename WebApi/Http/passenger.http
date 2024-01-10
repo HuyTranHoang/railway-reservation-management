@@ -13,7 +13,8 @@ Content-Type: application/json
   "Age": 18,
   "Gender": "Male",
   "Phone": "123 456 7890",
-  "Email": "test@gmail.com"
+  "Email": "test@gmail.com",
+  "Status": "Active"
 }
 
 
