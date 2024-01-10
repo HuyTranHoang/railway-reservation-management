@@ -1,4 +1,4 @@
-using Microsoft.Extensions.Hosting;
+using Serilog;
 
 namespace Application.Services
 {
@@ -18,12 +18,12 @@ namespace Application.Services
         private readonly ICancellationRuleService _cancellationRuleService;
         private readonly ICancellationService _cancellationService;
 
-        public DailyCashTransactionService( IUnitOfWork unitOfWork,
+        public DailyCashTransactionService(IUnitOfWork unitOfWork,
                                             IPaymentService paymentService,
                                             ITicketService ticketService,
-                                            ITrainStationService trainStationService, 
-                                            IDistanceFareService distanceFareService, 
-                                            ICarriageService carriageService, 
+                                            ITrainStationService trainStationService,
+                                            IDistanceFareService distanceFareService,
+                                            ICarriageService carriageService,
                                             ICarriageTypeService carriageTypeService,
                                             ISeatService seatService,
                                             ISeatTypeService seatTypeService,
@@ -51,51 +51,59 @@ namespace Application.Services
         public async Task<(double, double)> RecordDailyCashTransaction()
         {
             var currentDate = DateTime.Now;
-            double totalReceived = 0;
-            double totalRefunded = 0;
+            var totalReceived = 0.0;
+            var totalRefunded = 0.0;
 
             var queryParams = new PaymentQueryParams
             {
                 CreatedAt = currentDate
             };
-            
+
             var payments = await _paymentService.GetAllDtoAsync(queryParams);
             foreach (var payment in payments)
             {
                 var ticket = await _ticketService.GetDtoByIdAsync(payment.Id);
-                Console.WriteLine("Ticketid" + ticket.Id);
+                Log.Information(">>> ticket id {Ticket}", ticket.Id);
 
                 // Tính trị giá khoảng cách theo lịch trình của vé
                 var schedule = await _scheduleService.GetDtoByIdAsync(ticket.ScheduleId);
                 var departureTrainStation = await _trainStationService.GetDtoByIdAsync(schedule.DepartureStationId);
                 var arrivalTrainStation = await _trainStationService.GetDtoByIdAsync(schedule.ArrivalStationId);
                 var distanceSchedule = Math.Abs(departureTrainStation.CoordinateValue - arrivalTrainStation.CoordinateValue);
-                Console.WriteLine("distanceSchedule" + distanceSchedule);
+                Log.Information(">>> distanceSchedule {Distance}", distanceSchedule);
 
                 //Đối chiếu giá theo khoảng cách
-                double distanceFare = await _distanceFareService.GetDtoByDistanceAsync(distanceSchedule);
-                Console.WriteLine("distanceFare" + distanceFare);
+                // double distanceFare = await _distanceFareService.GetDtoByDistanceAsync(distanceSchedule);
+                // Log.Information(">>> distanceFare {Distance}", distanceFare);
+                double distanceFare = 100;
 
                 //Đối chiếu phí theo Carriage
-                var carriage = await  _carriageService.GetDtoByIdAsync(ticket.CarriageIdId);
+                var carriage = await _carriageService.GetDtoByIdAsync(ticket.CarriageId);
                 var carriageType = await _carriageTypeService.GetDtoByIdAsync(carriage.CarriageTypeId);
                 double carriageFare = carriageType.ServiceCharge;
-                Console.WriteLine("carriageFare" + carriageFare);
+                Log.Information(">>> carriageFare {Carriage}", carriageFare);
 
                 //Đối chiếu phí theo Seat
                 var seat = await _seatService.GetDtoByIdAsync(ticket.SeatId);
                 var seatType = await _seatTypeService.GetDtoByIdAsync(seat.SeatTypeId);
                 double seatFare = seatType.ServiceCharge;
-                Console.WriteLine("seatFare" + seatFare);
+                Log.Information(">>> seatFare {Seat}", seatFare);
+
 
                 //Đối chiếu phí Cancellation
+                double cancellationFee = 0;
                 var cancellation = await _cancellationService.GetDtoByIdAsync(ticket.Id);
-                var cancellationRule = await _cancellationRuleService.GetDtoByIdAsync(cancellation.CancellationRuleId);
-                double cancellationFee = cancellationRule.Fee;
-                Console.WriteLine("cancellationFee" + cancellationFee);
+                if (cancellation != null)
+                {
+                    var cancellationRule = await _cancellationRuleService.GetDtoByIdAsync(cancellation.CancellationRuleId);
+                    cancellationFee = cancellationRule.Fee;
+                }
+
+                Log.Information(">>> cancellationFee {Cancellation}", cancellationFee);
 
                 //Tính TotalAmount của 1 Ticket
                 double totalAmount = distanceFare + carriageFare + seatFare;
+                Log.Information(">>> totalAmount {Total}", totalAmount);
 
                 //Tính totalReceived
                 totalReceived += totalAmount;
@@ -105,7 +113,7 @@ namespace Application.Services
             }
 
             return (totalReceived, totalRefunded);
-        
+
         }
 
         public Task<PagedList<DailyCashTransactionDto>> GetAllDtoAsync(QueryParams queryParams)
@@ -140,11 +148,14 @@ namespace Application.Services
 
         public async Task<bool> DoWork()
         {
+            Log.Information(">>> DailyCashTransactionJob is working");
             var result = await RecordDailyCashTransaction();
-            double received = result.Item1;
-            double refunded = result.Item2;
+            Log.Information(">>> Received: {Received}", result.Item1);
+            Log.Information(">>> Refunded: {Refunded}", result.Item2);
+            Log.Information(">>> DailyCashTransactionJob is done");
 
-            await _dailyCashTransactionRepository.SaveDailyCashTransaction(received,refunded);
+
+            await _dailyCashTransactionRepository.SaveDailyCashTransaction(result.Item1, result.Item2);
             await _unitOfWork.SaveChangesAsync();
             return true;
         }

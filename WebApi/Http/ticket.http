@@ -14,7 +14,7 @@ Content-Type: application/json
   "CarriageId" : 1,
   "SeatId" : 1,
   "ScheduleId" : 1,
-  "PaymentId": 1,
+  "PaymentId": 4,
   "Status" : "Active"
 }
 

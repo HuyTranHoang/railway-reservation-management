@@ -34,13 +34,18 @@ var app = builder.Build();
 
 app.UseHangfireDashboard();
 
-using (var scope = app.Services.CreateScope())
+const string recurringJobId = "DailyCashTransactionJob";
+
+var options = new RecurringJobOptions
 {
-    var dailyCashTransactionService = scope.ServiceProvider.GetRequiredService<IDailyCashTransactionService>();
-    RecurringJob.AddOrUpdate(
-        () => dailyCashTransactionService.DoWork(),
-        Cron.Minutely);
-} 
+    TimeZone = TimeZoneInfo.Local
+};
+
+RecurringJob.AddOrUpdate<IDailyCashTransactionService>(
+    recurringJobId,
+    service => service.DoWork(),
+    Cron.Minutely,
+    options);
 
 app.UseSerilogRequestLogging();
 
