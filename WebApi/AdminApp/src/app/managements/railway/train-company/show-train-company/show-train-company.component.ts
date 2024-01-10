@@ -5,16 +5,17 @@ import {Router} from '@angular/router';
 @Component({
   selector: 'ngx-show-train-company',
   templateUrl: './show-train-company.component.html',
-  styleUrls: ['./show-train-company.component.scss']
+  styleUrls: ['./show-train-company.component.scss'],
 })
 export class ShowTrainCompanyComponent {
   @Input() id: number;
   @Input() name: string;
 
-  @Output() onShowDelete = new EventEmitter<{id: number, name: string}>();
+  @Output() onShowDelete = new EventEmitter<{ id: number, name: string }>();
 
   constructor(protected ref: NbDialogRef<ShowTrainCompanyComponent>,
-    private router: Router) {}
+              private router: Router) {
+  }
 
   dismiss() {
     this.ref.close();

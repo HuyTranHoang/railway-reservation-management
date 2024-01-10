@@ -1,22 +1,24 @@
-import { Component, OnInit } from '@angular/core';
-import { TrainCompanyService } from './train-company.service';
-import { TrainCompany } from '../../../@models/trainCompany';
-import { Pagination } from '../../../@models/pagination';
-import { PaginatedResult } from '../../../@models/paginatedResult';
-import { QueryParams } from '../../../@models/params/queryParams';
-import { ShowTrainCompanyComponent } from './show-train-company/show-train-company.component';
-import { ConfirmDeleteTrainCompanyComponent } from './confirm-delete-train-company/confirm-delete-train-company.component';
-import { NbDialogService } from '@nebular/theme';
+import {Component, OnInit} from '@angular/core';
+import {TrainCompanyService} from './train-company.service';
+import {TrainCompany} from '../../../@models/trainCompany';
+import {Pagination} from '../../../@models/pagination';
+import {PaginatedResult} from '../../../@models/paginatedResult';
+import {QueryParams} from '../../../@models/params/queryParams';
+import {ShowTrainCompanyComponent} from './show-train-company/show-train-company.component';
+import {
+  ConfirmDeleteTrainCompanyComponent,
+} from './confirm-delete-train-company/confirm-delete-train-company.component';
+import {NbDialogService} from '@nebular/theme';
 
 @Component({
   selector: 'ngx-train-company',
   templateUrl: './train-company.component.html',
-  styleUrls: ['./train-company.component.scss']
+  styleUrls: ['./train-company.component.scss'],
 })
-export class TrainCompanyComponent implements OnInit{
+export class TrainCompanyComponent implements OnInit {
 
-  trainCompanies : TrainCompany[] = [];
-  pagination : Pagination;
+  trainCompanies: TrainCompany[] = [];
+  pagination: Pagination;
 
   currentSearchTerm: string = '';
   currentSort: string = '';
@@ -30,15 +32,17 @@ export class TrainCompanyComponent implements OnInit{
 
   sortStates: { [key: string]: boolean } = {
     name: false,
+    createdAt: false,
   };
 
-  constructor(private trainCompanyService : TrainCompanyService, private dialogService: NbDialogService) { }
-
-  ngOnInit(): void {
-      this.getAllTrainCompany();
+  constructor(private trainCompanyService: TrainCompanyService, private dialogService: NbDialogService) {
   }
 
-  getAllTrainCompany(){
+  ngOnInit(): void {
+    this.getAllTrainCompany();
+  }
+
+  getAllTrainCompany() {
     this.trainCompanyService.getAllTrainCompany(this.queryParams).subscribe({
       next: (res: PaginatedResult<TrainCompany[]>) => {
         this.trainCompanies = res.result;
@@ -82,7 +86,7 @@ export class TrainCompanyComponent implements OnInit{
     this.getAllTrainCompany();
   }
 
-  
+
   openShowDialog(id: number) {
     this.trainCompanyService.getTrainCompanyById(id).subscribe({
       next: (res: TrainCompany) => {
@@ -100,7 +104,7 @@ export class TrainCompanyComponent implements OnInit{
     });
 
   }
-  
+
   openConfirmDialog(id: number, name: string) {
     const dialogRef = this.dialogService.open(ConfirmDeleteTrainCompanyComponent, {
       context: {

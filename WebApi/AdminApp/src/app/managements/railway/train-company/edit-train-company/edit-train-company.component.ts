@@ -1,22 +1,22 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
-import { TrainCompanyService } from '../train-company.service';
+import {TrainCompanyService} from '../train-company.service';
 import {NbGlobalPhysicalPosition, NbToastrService} from '@nebular/theme';
 import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'ngx-edit-train-company',
   templateUrl: './edit-train-company.component.html',
-  styleUrls: ['./edit-train-company.component.scss']
+  styleUrls: ['./edit-train-company.component.scss'],
 })
-export class EditTrainCompanyComponent implements OnInit{
+export class EditTrainCompanyComponent implements OnInit {
   trainCompanyForm: FormGroup = this.fb.group({});
 
   constructor(private trainCompanyService: TrainCompanyService,
-    private toastrService: NbToastrService,
-    private activatedRoute: ActivatedRoute,
-    private router: Router,
-    private fb: FormBuilder) {
+              private toastrService: NbToastrService,
+              private activatedRoute: ActivatedRoute,
+              private router: Router,
+              private fb: FormBuilder) {
   }
 
   ngOnInit(): void {
