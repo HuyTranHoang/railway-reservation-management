@@ -3,6 +3,6 @@ namespace Application.Common.Interfaces.Services
     public interface IDailyCashTransactionService : IService<DailyCashTransaction>
     {
         Task<PagedList<DailyCashTransactionDto>> GetAllDtoAsync(QueryParams queryParams);
-        void Test();
+        Task<bool> DoWork();
     }
 }

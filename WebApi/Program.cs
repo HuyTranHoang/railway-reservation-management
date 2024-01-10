@@ -38,9 +38,9 @@ using (var scope = app.Services.CreateScope())
 {
     var dailyCashTransactionService = scope.ServiceProvider.GetRequiredService<IDailyCashTransactionService>();
     RecurringJob.AddOrUpdate(
-        () => dailyCashTransactionService.Test(),
+        () => dailyCashTransactionService.DoWork(),
         Cron.Minutely);
-}
+} 
 
 app.UseSerilogRequestLogging();
 
