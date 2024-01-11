@@ -31,17 +31,19 @@ public class PaymentService : IPaymentService
     {
         var query = await _repository.GetQueryWithAspNetUserAsync();
 
-        if (queryParams.AspNetUserId != null)
+        if (queryParams.CreatedAt != DateTime.MinValue)
         {
-            query = query.Where(t => t.AspNetUserId == queryParams.AspNetUserId);
+            query = query.Where(t => t.CreatedAt.Date == queryParams.CreatedAt.Date);
         }
 
         if (!string.IsNullOrEmpty(queryParams.SearchTerm))
-            query = query.Where(t => t.AspNetUser.Email.Contains(queryParams.SearchTerm));
+            query = query.Where(t => t.AspNetUser.Email.Contains(queryParams.SearchTerm.Trim()));
 
         query = queryParams.Sort switch
         {
-            "createAtDesc" => query.OrderByDescending(t => t.CreatedAt),
+            "emailAsc" => query.OrderBy(t => t.AspNetUser.Email),
+            "emailDesc" => query.OrderByDescending(t => t.AspNetUser.Email),
+            "createdAtDesc" => query.OrderByDescending(t => t.CreatedAt),
             _ => query.OrderBy(t => t.CreatedAt)
         };
 
@@ -59,7 +61,7 @@ public class PaymentService : IPaymentService
 
     public async Task<PaymentDto> GetDtoByIdAsync(int id)
     {
-        var payment = await _repository.GetByIdAsync(id);
+        var payment = await _repository.GetPaymentWithAspNetUserByIdAsync(id);
         return _mapper.Map<PaymentDto>(payment);
     }
 

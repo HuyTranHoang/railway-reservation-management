@@ -1,0 +1,32 @@
+<div class="col-md-6">
+
+    <nb-card>
+      <nb-card-header>
+        <div class="d-flex justify-content-between">
+          Edit Train Company
+          <button type="submit" nbButton
+                  routerLink="/managements/railway/train-company"
+                  status="primary">Back to list
+          </button>
+        </div>
+      </nb-card-header>
+      <nb-card-body>
+        <form [formGroup]="trainCompanyForm" (ngSubmit)="onSubmit()">
+
+          <input type="hidden" formControlName="id">
+
+          <app-input-field [control]="trainCompanyForm.get('name')"
+                           [label]="'Name'"
+                           [placeholder]="'Name of train company..'">
+          </app-input-field>
+
+          <app-input-field [control]="trainCompanyForm.get('status')"
+                           [label]="'Status'"
+                           [placeholder]="'Status..'">
+          </app-input-field>
+
+          <button type="submit" nbButton status="success" class="float-right">Save</button>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </div>

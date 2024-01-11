@@ -1,8 +1,4 @@
-﻿using Application.Common.Models;
-using AutoMapper;
-using Domain.Entities;
-
-namespace Application.Common.Mappings;
+﻿namespace Application.Common.Mappings;
 
 public class AutoMapperProfile : Profile
 {
@@ -70,6 +66,14 @@ public class AutoMapperProfile : Profile
             .ForMember(dest => dest.TrainCompanyName,
                 opt => opt.MapFrom(src => src.TrainCompany.Name));
 
-        CreateMap<Payment, PaymentDto>();
+        CreateMap<Payment, PaymentDto>()
+            .ForMember(dest => dest.AspNetUserFullName,
+                opt => opt.MapFrom(src => src.AspNetUser.FirstName + " " + src.AspNetUser.LastName))
+            .ForMember(dest => dest.AspNetUserEmail,
+                opt => opt.MapFrom(src => src.AspNetUser.Email));
+
+        CreateMap<Cancellation, CancellationDto>()
+            .ForMember(dest => dest.CancellationRuleFee,
+                opt => opt.MapFrom(src => src.CancellationRule.Fee));
     }
 }

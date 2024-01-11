@@ -34,7 +34,7 @@ export class EditCarriageTypeComponent implements OnInit {
             id: [res.id, Validators.required],
             name: [res.name, Validators.required],
             serviceCharge: [res.serviceCharge, [Validators.required, Validators.min(0), this.numberValidator()]],
-            status: [res.status, Validators.required],
+            status: [res.status],
             description: [res.description, Validators.required],
           });
         },

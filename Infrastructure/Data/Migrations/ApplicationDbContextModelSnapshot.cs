@@ -118,12 +118,8 @@ namespace Infrastructure.Data.Migrations
                         .HasColumnOrder(997);
 
                     b.Property<string>("Reason")
-                        .IsRequired()
                         .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<double>("RefundAmount")
-                        .HasColumnType("float");
 
                     b.Property<string>("Status")
                         .HasMaxLength(100)
@@ -142,7 +138,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasIndex("TicketId");
 
-                    b.ToTable("Cancellation");
+                    b.ToTable("Cancellations");
                 });
 
             modelBuilder.Entity("Domain.Entities.CancellationRule", b =>
@@ -309,6 +305,40 @@ namespace Infrastructure.Data.Migrations
                     b.HasIndex("CarriageId");
 
                     b.ToTable("Compartments");
+                });
+
+            modelBuilder.Entity("Domain.Entities.DailyCashTransaction", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2")
+                        .HasColumnOrder(998);
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit")
+                        .HasColumnOrder(997);
+
+                    b.Property<double>("TotalReceived")
+                        .HasColumnType("float");
+
+                    b.Property<double>("TotalRefunded")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2")
+                        .HasColumnOrder(999);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DailyCashTransactions");
                 });
 
             modelBuilder.Entity("Domain.Entities.DistanceFare", b =>
@@ -743,6 +773,10 @@ namespace Infrastructure.Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Status")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 

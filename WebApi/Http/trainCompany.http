@@ -8,7 +8,8 @@ POST {{url}}/{{route}}
 Content-Type: application/json
 
 {
-  "Name": "New Train Company"
+  "Name": "New Train Company",
+  "Status": "Test"
 }
 
 
@@ -25,7 +26,7 @@ GET {{url}}/{{route}}?
 ### 
 
 # @name getTrainCompanyById
-@id = 1
+@id = 12
 
 GET {{url}}/{{route}}/{{id}}
 

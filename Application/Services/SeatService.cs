@@ -47,7 +47,7 @@ public class SeatService : ISeatService
     public async Task<PagedList<SeatDto>> GetAllDtoAsync(SeatQueryParams queryParams)
     {
         var query = await _repository.GetQueryWithSeatTypeAndCompartmentAsync();
-        
+
         if (queryParams.SeatTypeId != 0)
         {
             query = query.Where(s => s.SeatTypeId == queryParams.SeatTypeId);
@@ -57,9 +57,9 @@ public class SeatService : ISeatService
         {
             query = query.Where(s => s.CompartmentId == queryParams.CompartmentId);
         }
-        
+
         if (!string.IsNullOrEmpty(queryParams.SearchTerm))
-            query = query.Where(s => s.SeatType.Name.Contains(queryParams.SearchTerm));
+            query = query.Where(s => s.SeatType.Name.Contains(queryParams.SearchTerm.Trim()));
 
         query = queryParams.Sort switch
         {

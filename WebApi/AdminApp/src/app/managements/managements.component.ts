@@ -67,8 +67,12 @@ export class ManagementsComponent {
           link: '/managements/seat-and-seat-type/seat',
         },
         {
-          title: 'Train Station',
+          title: 'SeatType',
           link: '/managements/seat-and-seat-type/seat-type',
+        },
+        {
+          title: 'Compartment',
+          link: '/managements/seat-and-seat-type/compartment',
         },
       ],
     },

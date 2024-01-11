@@ -9,7 +9,7 @@ Content-Type: application/json
 
 {
   "TrainCompanyId": 5,
-  "Distance": 999,
+  "Distance": 1999,
   "Price": 999
 }
 

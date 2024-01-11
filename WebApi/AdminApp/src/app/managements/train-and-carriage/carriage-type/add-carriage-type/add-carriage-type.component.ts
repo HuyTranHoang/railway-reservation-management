@@ -11,6 +11,8 @@ import {NbComponentStatus, NbGlobalPhysicalPosition, NbToastrService} from '@neb
 })
 export class AddCarriageTypeComponent implements OnInit {
   carriageTypeForm: FormGroup = this.fb.group({});
+  isSubmitted = false;
+  errorMessages: string[] = [];
 
   constructor(private carriageTypeService: CarriageTypeService,
               private toastrService: NbToastrService,
@@ -25,7 +27,7 @@ export class AddCarriageTypeComponent implements OnInit {
     this.carriageTypeForm = this.fb.group({
       name: ['', Validators.required],
       serviceCharge: [0, [Validators.required, Validators.min(0), this.numberValidator()]],
-      status: ['', Validators.required],
+      status: [''],
       description: ['', Validators.required],
     });
   }
@@ -38,14 +40,18 @@ export class AddCarriageTypeComponent implements OnInit {
   }
 
   onSubmit() {
+    this.isSubmitted = true;
     if (this.carriageTypeForm.valid) {
       this.carriageTypeService.addCarriageType(this.carriageTypeForm.value).subscribe({
         next: (res) => {
           this.showToast('success', 'Success', 'Add carriage type successfully!');
           this.carriageTypeForm.reset();
+          this.isSubmitted = false;
+          this.errorMessages = [];
         },
         error: (err) => {
           this.showToast('danger', 'Failed', 'Add carriage type failed!');
+          this.errorMessages = err.error.errorMessages;
         },
       });
     }

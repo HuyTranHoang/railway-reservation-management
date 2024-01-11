@@ -10,6 +10,7 @@ export class InputFieldComponent {
   @Input() control: AbstractControl;
   @Input() label: string;
   @Input() placeholder: string;
+  @Input() isSubmitted: boolean;
   @Input() type: string = 'text';
 
 }

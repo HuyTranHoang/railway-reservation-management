@@ -14,7 +14,7 @@ namespace Application.Common.Models
 
         public string TrainName { get; set; }
 
-        public int CarriageIdId { get; set; }
+        public int CarriageId { get; set; }
 
         public string CarriageName { get; set; }
 

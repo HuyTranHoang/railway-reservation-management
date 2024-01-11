@@ -80,7 +80,7 @@ public class CompartmentService : ICompartmentService
         var query = await _repository.GetQueryWithCarriageAsync();
 
         if (!string.IsNullOrEmpty(queryParams.SearchTerm))
-            query = query.Where(p => p.Name.Contains(queryParams.SearchTerm));
+            query = query.Where(p => p.Name.Contains(queryParams.SearchTerm.Trim()));
 
         query = queryParams.Sort switch
         {

@@ -8,7 +8,7 @@ POST {{url}}/{{router}}
 Content-Type: application/json
 
 {
-  "Name": "test new nek",
+  "FullName": "test new nek",
   "CardId": "1234 4321 1234",
   "Age": 18,
   "Gender": "Male",
@@ -38,16 +38,16 @@ GET {{url}}/{{router}}/{{id}}
 ### 
 
 # @name updatePassenger
-@updateId = 55
+@updateId = 1
 
 PUT {{url}}/{{router}}/{{updateId}}
 Content-Type: application/json
 
 {
   "Id": {{updateId}},
-  "Name": "test update test 1111111test update",
+  "FullName": "test new nek",
   "CardId": "1234 4321 1234",
-  "Age": 22,
+  "Age": 18,
   "Gender": "Male",
   "Phone": "123 456 7890",
   "Email": "test@gmail.com"

@@ -32,6 +32,11 @@ namespace Application.Services
         {
             var query = await _repository.GetQueryWithRelationshipTableAsync();
 
+            if (queryParams.CreatedAt != DateTime.MinValue)
+            {
+                query = query.Where(t => t.CreatedAt.Date == queryParams.CreatedAt.Date);
+            }
+
             if (queryParams.PassengerId != 0)
             {
                 query = query.Where(t => t.PassengerId == queryParams.PassengerId);
@@ -68,7 +73,7 @@ namespace Application.Services
             }
 
             if (!string.IsNullOrEmpty(queryParams.SearchTerm))
-                query = query.Where(p => p.Passenger.FullName.Contains(queryParams.SearchTerm));
+                query = query.Where(p => p.Passenger.FullName.Contains(queryParams.SearchTerm.Trim()));
 
             query = queryParams.Sort switch
             {

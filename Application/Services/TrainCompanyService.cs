@@ -21,13 +21,14 @@ public class TrainCompanyService : ITrainCompanyService
 
         if (!string.IsNullOrEmpty(queryParams.SearchTerm))
         {
-            query = query.Where(t => t.Name.Contains(queryParams.SearchTerm));
+            query = query.Where(t => t.Name.Contains(queryParams.SearchTerm.Trim()));
         }
 
         query = queryParams.Sort switch
         {
             "nameAsc" => query.OrderBy(p => p.Name),
             "nameDesc" => query.OrderByDescending(p => p.Name),
+            "createdAtDesc" => query.OrderByDescending(p => p.CreatedAt),
             _ => query.OrderBy(p => p.CreatedAt)
         };
 
@@ -67,6 +68,7 @@ public class TrainCompanyService : ITrainCompanyService
         if (trainCompanyInDb == null) throw new NotFoundException(nameof(Passenger), trainCompany.Id);
 
         trainCompanyInDb.Name = trainCompany.Name;
+        trainCompanyInDb.Status = trainCompany.Status;
         trainCompanyInDb.UpdatedAt = DateTime.Now;
 
         _repository.Update(trainCompanyInDb);

@@ -53,4 +53,29 @@ public class PaymentRepository : IPaymentRepository
     {
         _context.Entry(payment).State = EntityState.Modified;
     }
+
+    public async Task<IEnumerable<Payment>> GetAllPaymentsForDateRange(DateTime startDate, DateTime endDate)
+    {
+        return await _context.Payments
+            .Where(p => p.CreatedAt >= startDate && p.CreatedAt < endDate)
+            .Include(p => p.Tickets)
+                .ThenInclude(t => t.DistanceFare)
+            .Include(p => p.Tickets)
+                .ThenInclude(t => t.Carriage)
+                    .ThenInclude(c => c.CarriageType)
+            .Include(p => p.Tickets)
+                .ThenInclude(t => t.Seat)
+                    .ThenInclude(s => s.SeatType)
+            .Include(p => p.Tickets)
+                .ThenInclude(t => t.Cancellation)
+                    .ThenInclude(c => c.CancellationRule)
+            .ToListAsync();
+    }
+
+    public Task<Payment> GetPaymentWithAspNetUserByIdAsync(int id)
+    {
+        return _context.Payments
+            .Include(p => p.AspNetUser)
+            .FirstOrDefaultAsync(p => p.Id == id);
+    }
 }

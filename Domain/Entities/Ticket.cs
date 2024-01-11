@@ -46,5 +46,7 @@ namespace Domain.Entities
         public Payment Payment { get; set; }
 
         [StringLength(100)] public string Status { get; set; }
+
+        public Cancellation Cancellation { get; set; }
     }
 }

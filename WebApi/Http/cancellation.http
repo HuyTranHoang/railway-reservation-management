@@ -1,0 +1,44 @@
+@url = https://localhost:5001
+@router = api/cancellation
+
+### 
+
+# @name addCancellation
+POST {{url}}/{{router}}
+Content-Type: application/json
+
+{
+  "TicketId": 7,
+  "CancellationRuleId": 1,
+  "Reason" : "I like that"
+}
+
+### 
+
+# @name getListOfCancellation
+GET {{url}}/{{router}}?
+  &pageNumber=1
+  &pageSize=10
+  # &searchTerm= 
+  # &sort= ticketCodeDesc
+###
+
+# @name getCancellationById
+@id = 5
+
+GET {{url}}/{{router}}/{{id}}
+
+### 
+
+# @name updateCancellation
+@updateId = 5
+
+PUT {{url}}/{{router}}/{{updateId}}
+Content-Type: application/json
+
+{
+  "Id": {{updateId}},
+  "TicketId": 2,
+  "CancellationRuleId": 1,
+  "Reason" : "Omg"
+}

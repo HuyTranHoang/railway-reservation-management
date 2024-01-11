@@ -38,7 +38,7 @@ public class DistanceFareService : IDistanceFareService
         }
 
         if (!string.IsNullOrEmpty(queryParams.SearchTerm))
-            query = query.Where(t => t.TrainCompany.Name.Contains(queryParams.SearchTerm));
+            query = query.Where(t => t.TrainCompany.Name.Contains(queryParams.SearchTerm.Trim()));
 
         query = queryParams.Sort switch
         {
@@ -53,10 +53,16 @@ public class DistanceFareService : IDistanceFareService
         return await PagedList<DistanceFareDto>.CreateAsync(distanceFaresDtoQuery, queryParams.PageNumber,
             queryParams.PageSize);
     }
-    
+
     public async Task<DistanceFare> GetByIdAsync(int id)
     {
         return await _repository.GetByIdAsync(id);
+    }
+
+    public async Task<DistanceFareDto> GetDtoByDistanceAsync(int distance)
+    {
+        var distanceFareDto = await _repository.GetByDistanceAsync(distance);
+        return _mapper.Map<DistanceFareDto>(distanceFareDto);
     }
 
     public async Task<DistanceFareDto> GetDtoByIdAsync(int id)

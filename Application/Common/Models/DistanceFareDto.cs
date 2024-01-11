@@ -1,3 +1,4 @@
+
 namespace Application.Common.Models;
 
 public class DistanceFareDto
@@ -11,4 +12,9 @@ public class DistanceFareDto
     public int Distance { get; set; }
 
     public double Price { get; set; }
+
+    public static implicit operator double(DistanceFareDto v)
+    {
+        throw new NotImplementedException();
+    }
 }

@@ -80,10 +80,10 @@ namespace WebApi.Controllers
         [HttpPatch("{id}")]
         public async Task<IActionResult> SoftDeleteRoundTrip(int id)
         {
-            var train = await _roundTripService.GetByIdAsync(id);
-            if (train is null) return NotFound(new ErrorResponse(404));
+            var roundTrip = await _roundTripService.GetByIdAsync(id);
+            if (roundTrip is null) return NotFound(new ErrorResponse(404));
 
-            await _roundTripService.SoftDeleteAsync(train);
+            await _roundTripService.SoftDeleteAsync(roundTrip);
 
             return NoContent();
         }
@@ -91,11 +91,11 @@ namespace WebApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteRoundTrip(int id)
         {
-            var passenger = await _roundTripService.GetByIdAsync(id);
+            var roundTrip = await _roundTripService.GetByIdAsync(id);
 
-            if (passenger == null) return NotFound(new ErrorResponse(404));
+            if (roundTrip == null) return NotFound(new ErrorResponse(404));
 
-            await _roundTripService.DeleteAsync(passenger);
+            await _roundTripService.DeleteAsync(roundTrip);
 
             return NoContent();
         }

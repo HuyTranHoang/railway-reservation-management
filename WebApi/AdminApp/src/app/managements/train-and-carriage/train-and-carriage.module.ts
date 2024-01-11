@@ -38,7 +38,6 @@ import { TrainModule } from './train/train.module';
   imports: [
     CommonModule,
     TrainAndCarriageRoutingModule,
-    FormsModule,
     SharedModule,
     TrainModule,
   ],

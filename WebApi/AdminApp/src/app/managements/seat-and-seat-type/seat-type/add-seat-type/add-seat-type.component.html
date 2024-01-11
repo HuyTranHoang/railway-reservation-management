@@ -1,0 +1,56 @@
+<div class="col-md-6">
+
+  <nb-card>
+    <nb-card-header>
+      <div class="d-flex justify-content-between">
+        Define New Seat Type
+        <button type="submit" nbButton
+                routerLink="/managements/seat-and-seat-type/seat-type"
+                status="primary">Back to list
+        </button>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <form [formGroup]="seatTypeForm" (ngSubmit)="onSubmit()">
+        <app-input-field [control]="seatTypeForm.get('name')"
+                         [label]="'Name'"
+                         [isSubmitted]="isSubmitted"
+                         [placeholder]="'Name of carriage type..'">
+        </app-input-field>
+
+        <app-input-field [control]="seatTypeForm.get('serviceCharge')"
+                         [label]="'Service Charge'"
+                         [isSubmitted]="isSubmitted"
+                         [placeholder]="'Service charge..'">
+        </app-input-field>
+
+        <app-input-field [control]="seatTypeForm.get('status')"
+                         [label]="'Status'"
+                         [isSubmitted]="isSubmitted"
+                         [placeholder]="'Status.'">
+        </app-input-field>
+
+        <div class="form-group">
+          <label for="description" class="label">Description</label>
+          <textarea nbInput fullWidth id="description"
+                    [class.status-danger]="seatTypeForm.get('description').invalid
+                    && (seatTypeForm.get('description').touched || isSubmitted)"
+                    formControlName="description"
+                    placeholder="Description.."></textarea>
+          <span class="text-danger"
+                *ngIf="seatTypeForm.get('description').hasError('required')
+                    && (seatTypeForm.get('description').touched || isSubmitted)">
+              Description is required
+            </span>
+        </div>
+
+        <ul *ngIf="errorMessages.length > 0">
+          <li class="text-danger" *ngFor="let item of errorMessages">{{item}}</li>
+        </ul>
+
+
+        <button type="submit" nbButton status="success" class="float-right">Submit</button>
+      </form>
+    </nb-card-body>
+  </nb-card>
+</div>
