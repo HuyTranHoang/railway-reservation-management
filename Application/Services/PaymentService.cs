@@ -31,6 +31,11 @@ public class PaymentService : IPaymentService
     {
         var query = await _repository.GetQueryWithAspNetUserAsync();
 
+        if (queryParams.CreatedAt != DateTime.MinValue)
+        {
+            query = query.Where(t => t.CreatedAt.Date == queryParams.CreatedAt.Date);
+        }
+
         if (queryParams.AspNetUserId != null)
         {
             query = query.Where(t => t.AspNetUserId == queryParams.AspNetUserId);

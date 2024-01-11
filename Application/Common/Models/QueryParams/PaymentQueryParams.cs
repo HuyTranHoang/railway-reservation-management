@@ -8,5 +8,6 @@ namespace Application.Common.Models.QueryParams
     public class PaymentQueryParams : QueryParams
     {
         public string AspNetUserId { get; set; }
+        public DateTime CreatedAt { get; set; }
     }
 }

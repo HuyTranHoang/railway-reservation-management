@@ -9,7 +9,7 @@ Content-Type: application/json
 
 {
   "SeatTypeId": 1,
-  "CompartmentId": 9,
+  "CompartmentId": 1,
   "Status": "Available"
 }
 

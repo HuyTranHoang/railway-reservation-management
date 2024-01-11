@@ -10,5 +10,6 @@ namespace Domain.Entities
         [Required] public string AspNetUserId { get; set; }
         public ApplicationUser AspNetUser { get; set; }
         [StringLength(100)] public string Status { get; set; }
+        public ICollection<Ticket> Tickets { get; set; }
     }
 }

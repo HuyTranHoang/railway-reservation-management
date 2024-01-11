@@ -70,6 +70,8 @@ public static class DepencyInjection
         services.AddScoped<IScheduleRepository, ScheduleRepository>();
         services.AddScoped<IDistanceFareRepository, DistanceFareRepository>();
         services.AddScoped<IPaymentRepository, PaymentRepository>();
+        services.AddScoped<ICancellationRepository, CancellationRepository>();
+        services.AddScoped<IDailyCashTransactionRepository, DailyCashTransactionRepository>();
         return services;
     }
 }
