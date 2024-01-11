@@ -40,3 +40,11 @@ Content-Type: application/json
   "TrainCompanyId": 1,
   "Discount": 100
 }
+
+
+### 
+
+# @name softDeleteRoundTrip
+@deleteId = 6
+
+PATCH {{url}}/{{router}}/{{deleteId}}
