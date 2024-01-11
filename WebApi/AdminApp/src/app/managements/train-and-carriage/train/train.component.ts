@@ -1,10 +1,9 @@
-import { Component } from '@angular/core';
-
+import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'ngx-train',
-  templateUrl: './train.component.html',
-  styleUrls: ['./train.component.scss']
+  template: `
+    <router-outlet></router-outlet>
+  `,
 })
 export class TrainComponent {
-
 }

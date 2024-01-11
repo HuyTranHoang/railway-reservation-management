@@ -2,8 +2,6 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {environment} from '../../../../environments/environment';
 import {CarriageType} from '../../../@models/carriageType';
-import {PaginatedResult} from '../../../@models/paginatedResult';
-import {map} from 'rxjs/operators';
 import {QueryParams} from '../../../@models/params/queryParams';
 import {PaginationService} from '../../shared/pagination.service';
 

@@ -38,6 +38,7 @@ import { PaginationComponent } from './pagination/pagination.component';
     NbInputModule,
     NbIconModule,
     NbRadioModule,
+    NbSelectModule,
   ],
 })
 export class SharedModule {

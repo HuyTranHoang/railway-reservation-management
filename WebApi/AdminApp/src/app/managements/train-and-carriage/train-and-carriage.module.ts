@@ -20,6 +20,7 @@ import { ShowCarriageTypeComponent } from './carriage-type/show-carriage-type/sh
 import {SharedModule} from '../shared/shared.module';
 import { EditCarriageTypeComponent } from './carriage-type/edit-carriage-type/edit-carriage-type.component';
 import { ConfirmDeleteCarriageTypeComponent } from './carriage-type/confirm-delete-carriage-type/confirm-delete-carriage-type.component';
+import { TrainModule } from './train/train.module';
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { ConfirmDeleteCarriageTypeComponent } from './carriage-type/confirm-dele
     TrainAndCarriageRoutingModule,
     FormsModule,
     SharedModule,
+    TrainModule,
   ],
 })
 export class TrainAndCarriageModule {

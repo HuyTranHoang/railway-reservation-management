@@ -1,0 +1,43 @@
+<div class="col-md-6">
+  <nb-card>
+    <nb-card-header>
+      <div class="d-flex justify-content-between">
+        Define New Train
+        <button nbButton type="submit"
+        routerLink="/managements/train-and-carriage/train/"
+        status="primary">
+        Back to list
+        </button>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <form [formGroup]="trainForm" (ngSubmit)="onSubmit()">
+
+        <app-input-field [control]="trainForm.get('name')"
+                         [label]="'Name'"
+                         [placeholder]="'Name of carriage type..'">
+        </app-input-field>
+
+        <!-- <nb-select formControlName="trainCompanyId>
+          <nb-option *ngFor="let company of companies" [value]="trains.id">{{ trains.name }}</nb-option>
+        </nb-select> -->
+
+        <nb-select formControlName="trainCompanyId">
+          <nb-option value="1">1</nb-option>
+          <nb-option value="2">2</nb-option>
+        </nb-select>
+
+        <app-input-field [control]="trainForm.get('status')"
+                         [label]="'Status'"
+                         [placeholder]="'Status'">
+        </app-input-field>
+
+        <button type="submit" nbButton status="success" class="float-right">Submit</button>
+      </form>
+    </nb-card-body>
+  </nb-card>
+</div>
+
+
+
+
