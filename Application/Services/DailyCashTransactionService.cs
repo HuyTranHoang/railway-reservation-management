@@ -40,15 +40,11 @@ namespace Application.Services
                     // Check for cancellation and calculate refund if exists
                     if (ticket.Cancellation != null)
                     {
-                        var cancellationFee = ticket.Cancellation.CancellationRule.Fee;
+                        double cancellationFee = ticket.Cancellation.CancellationRule.Fee;
                         totalRefunded += cancellationFee;
                     }
                 }
             }
-
-            // Save to daily cash transaction table (consider wrapping in a transaction)
-            await _dailyCashTransactionRepository.SaveDailyCashTransaction(totalReceived, totalRefunded);
-            await _unitOfWork.SaveChangesAsync();
 
             return (totalReceived, totalRefunded);
         }
