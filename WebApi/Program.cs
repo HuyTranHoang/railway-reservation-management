@@ -44,7 +44,11 @@ var options = new RecurringJobOptions
 RecurringJob.AddOrUpdate<IDailyCashTransactionService>(
     recurringJobId,
     service => service.DoWork(),
-    Cron.Minutely,
+    // Cron.Minutely,
+    "*/5 * * * *",  // Chạy cứ sau 5 phút
+                    // */5: Cho biết thực hiện công việc mỗi phút thứ 5 trong một giờ (0, 5, 10, 15, v.v.).
+                    // * * * *: Các dấu sao còn lại giữ nguyên các giá trị khác cho giờ, ngày, tháng và ngày trong tuần, có nghĩa là công việc sẽ chạy cứ sau 5 phút trong mọi giờ, mọi ngày.
+
     options);
 
 app.UseSerilogRequestLogging();
