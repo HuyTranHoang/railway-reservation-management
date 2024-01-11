@@ -8,4 +8,5 @@ public interface IRepository<T> where T : class
     void Update(T t);
     void Delete(T t);
     void SoftDelete(T t);
+    Task AddAsync<T>(T t) where T : class;
 }
