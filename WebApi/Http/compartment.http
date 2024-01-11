@@ -9,7 +9,7 @@ Content-Type: application/json
 
 {
   "Name" : "Khoang 3",
-  "CarriageId" : 10,
+  "CarriageId" : 1,
   "NumberOfSeats" : 1,
   "Status" : "Test"
 }

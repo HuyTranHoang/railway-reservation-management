@@ -39,7 +39,12 @@ public class TicketConfiguration : IEntityTypeConfiguration<Ticket>
 
         builder
             .HasOne(t => t.Payment)
-            .WithMany()
+            .WithMany(t => t.Tickets)
             .OnDelete(DeleteBehavior.Restrict);
+
+        builder
+            .HasOne(t => t.Cancellation)
+            .WithOne(c => c.Ticket)
+            .HasForeignKey<Cancellation>(c => c.TicketId);
     }
 }

@@ -8,8 +8,8 @@ POST {{url}}/{{router}}
 Content-Type: application/json
 
 {
-  "AspNetUserId": "5877d3f6-485d-43ab-a0f6-210f4a1396d7",
-  "Status": "Thiếu tiền"
+  "AspNetUserId": "c7a840c8-d3d3-450c-adf6-497dfb75195f",
+  "Status": "Okla"
 }
 
 
