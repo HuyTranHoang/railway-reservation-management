@@ -27,11 +27,11 @@ public class TrainsController : BaseApiController
     [HttpGet("{id}")]
     public async Task<ActionResult<TrainDto>> GetTrain(int id)
     {
-        var trains = await _trainService.GetDtoByIdAsync(id);
+        var trainsDto = await _trainService.GetDtoByIdAsync(id);
 
-        if (trains is null) return NotFound(new ErrorResponse(404));
+        if (trainsDto is null) return NotFound(new ErrorResponse(404));
 
-        return Ok(trains);
+        return Ok(trainsDto);
     }
 
     [HttpPost]

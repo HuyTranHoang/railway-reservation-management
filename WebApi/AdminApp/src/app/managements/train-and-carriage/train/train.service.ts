@@ -34,7 +34,7 @@ export class TrainService {
 
   getTrainById(id: number)
   {
-    return this.http.get<Train>(this.baseUrl + '/train/' + id);
+    return this.http.get<Train>(this.baseUrl + '/trains/' + id);
   }
 
   addTrain(train: Train)

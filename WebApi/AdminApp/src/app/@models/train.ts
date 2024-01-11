@@ -4,4 +4,5 @@ export interface Train {
   trainCompanyId: number;
   trainCompanyName: string;
   status: any;
+  createdAt: string;
 }

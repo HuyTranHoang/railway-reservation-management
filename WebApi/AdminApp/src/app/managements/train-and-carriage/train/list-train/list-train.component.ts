@@ -1,9 +1,9 @@
+import { Train } from './../../../../@models/train';
 import { Component, OnInit } from '@angular/core';
 import { NbDialogService } from '@nebular/theme';
 import { PaginatedResult } from '../../../../@models/paginatedResult';
 import { Pagination } from '../../../../@models/pagination';
 import { QueryParams } from '../../../../@models/params/queryParams';
-import { Train } from '../../../../@models/train';
 import { TrainService } from '../train.service';
 import { ConfirmDeleteTrainComponent } from '../confirm-delete-train/confirm-delete-train.component';
 
@@ -14,6 +14,7 @@ import { ConfirmDeleteTrainComponent } from '../confirm-delete-train/confirm-del
 })
 export class ListTrainComponent implements OnInit{
   train: Train [] = [];
+  trains : Train;
   pagination : Pagination;
 
   currentSearchTerm = '';
@@ -29,14 +30,14 @@ export class ListTrainComponent implements OnInit{
   queryParams: QueryParams =
   {
     pageNumber: 1,
-    pageSize: 2,
+    pageSize: 5,
     searchTerm: '',
     sort: '',
   }
 
 
   constructor(private trainService : TrainService,
-              private dialogService: NbDialogService){}
+              private dialogService : NbDialogService){}
 
   ngOnInit(): void
   {
@@ -94,6 +95,19 @@ export class ListTrainComponent implements OnInit{
     this.getAllTrain();
   }
 
+  openConfirmDialog(id: number, name: string) {
+    const dialogRef = this.dialogService.open(ConfirmDeleteTrainComponent, {
+      context: {
+        id,
+        name,
+      },
+    });
+
+    dialogRef.componentRef.instance.onConfirmDelete.subscribe((_: any) => {
+      this.getAllTrain();
+    });
+  }
+
   onPageChanged(newPage: number)
   {
     this.queryParams.pageNumber = newPage;
@@ -104,40 +118,6 @@ export class ListTrainComponent implements OnInit{
   {
     this.queryParams.pageSize = newSize;
     this.getAllTrain();
-  }
-
-  // openShowDialog(id: number)
-  // {
-  //   this.trainService.getTrainById(id).subscribe({
-  //     next: (res: Train) => {
-  //       const dialogRef = this.dialogService.open(ShowTrainCompoment, {
-  //         context: {
-  //           id: res.id,
-  //           name : res.name,
-  //           trainCompanyName: res.trainCompanyName,
-  //           status: res.status,
-  //           createAt : res.CreateAt,
-  //         },
-  //       });
-
-  //       dialogRef.componentRef.instance.onShowDelete.subscribe(obj => {
-  //         this.openConfirmDialog(obj.id, obj.name);
-  //       });
-  //     }
-  //   })
-  // }
-
-  openConfirmDialog(id: number, name: string) {
-    const dialogRef = this.dialogService.open(ConfirmDeleteTrainComponent, {
-      context: {
-        id,
-        name,
-      },
-    });
-
-    dialogRef.componentRef.instance.onConfirmDelete.subscribe(_ => {
-      this.getAllTrain();
-    });
   }
 
 }

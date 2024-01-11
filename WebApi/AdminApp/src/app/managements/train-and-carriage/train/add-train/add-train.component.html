@@ -15,22 +15,26 @@
 
         <app-input-field [control]="trainForm.get('name')"
                          [label]="'Name'"
-                         [placeholder]="'Name of carriage type..'">
+                         [isSubmitted]="isSubmitted"
+                         [placeholder]="'Name of train..'">
         </app-input-field>
 
-        <!-- <nb-select formControlName="trainCompanyId>
-          <nb-option *ngFor="let company of companies" [value]="trains.id">{{ trains.name }}</nb-option>
-        </nb-select> -->
 
-        <nb-select formControlName="trainCompanyId">
-          <nb-option value="1">1</nb-option>
-          <nb-option value="2">2</nb-option>
+        <nb-select placeholder="Select train company..." fullWidth formControlName="trainCompanyId">
+            <nb-option *ngFor="let company of trainCompanies" [value]="company.id">{{company.name}}</nb-option>
         </nb-select>
+
 
         <app-input-field [control]="trainForm.get('status')"
                          [label]="'Status'"
+                         [isSubmitted]="isSubmitted"
                          [placeholder]="'Status'">
         </app-input-field>
+
+
+        <ul *ngIf="errorMessages.length > 0">
+          <li class="text-danger" *ngFor="let item of errorMessages">{{item}}</li>
+        </ul>
 
         <button type="submit" nbButton status="success" class="float-right">Submit</button>
       </form>

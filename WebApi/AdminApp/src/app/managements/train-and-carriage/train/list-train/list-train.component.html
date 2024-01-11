@@ -31,14 +31,21 @@
           <nb-icon icon="arrow-down-outline" pack="eva" *ngIf="!sortStates.name"></nb-icon>
           <nb-icon icon="arrow-up-outline" pack="eva" *ngIf="sortStates.name"></nb-icon>
         </th>
+
         <th scope="col"
-            style="width: 15%"
+            style="width: 20%"
             (click)="onSort('trainCompanyNameAsc')"
             [class.text-primary]="currentSort.includes('trainCompanyName')">
           Train Company
-          <nb-icon icon="arrow-down-outline" pack="eva" *ngIf="!sortStates.trainCompany"></nb-icon>
-          <nb-icon icon="arrow-up-outline" pack="eva" *ngIf="sortStates.trainCompany"></nb-icon>
+          <nb-icon icon="arrow-down-outline" pack="eva" *ngIf="!sortStates.trainCompanyName"></nb-icon>
+          <nb-icon icon="arrow-up-outline" pack="eva" *ngIf="sortStates.trainCompanyName"></nb-icon>
         </th>
+
+        <th scope="col"
+            style="width: 10%">
+          Status
+        </th>
+
         <th scope="col"
             style="width: 15%"
             (click)="onSort('createdAtAsc')"
@@ -56,11 +63,9 @@
         <th scope="row">{{index + 1}}</th>
         <td>{{item.name}}</td>
         <td>{{item.trainCompanyName}}</td>
+        <td>{{item.status}}</td>
         <td>{{item.createdAt |date: 'medium'}}</td>
         <td class="text-right">
-          <button nbButton status="info" class="mr-3">
-            <nb-icon icon="eye-outline" pack="eva"></nb-icon>
-          </button>
           <button nbButton status="primary" class="mr-3"
                   routerLink="/managements/train-and-carriage/train/{{item.id}}/edit">
             <nb-icon icon="edit-outline" pack="eva"></nb-icon>
