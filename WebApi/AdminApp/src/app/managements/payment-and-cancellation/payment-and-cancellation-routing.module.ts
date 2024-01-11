@@ -4,8 +4,8 @@ import {PaymentAndCancellationComponent} from './payment-and-cancellation.compon
 import {PaymentComponent} from './payment/payment.component';
 import {CancellationComponent} from './cancellation/cancellation.component';
 import {CancellationRuleComponent} from './cancellation-rule/cancellation-rule.component';
-
-
+import {AddPaymentComponent} from './payment/add-payment/add-payment.component';
+import {EditPaymentComponent} from './payment/edit-payment/edit-payment.component';
 
 const routes: Routes = [{
   path: '',
@@ -14,6 +14,14 @@ const routes: Routes = [{
     {
       path: 'payment',
       component: PaymentComponent,
+    },
+    {
+      path: 'payment/add',
+      component: AddPaymentComponent,
+    },
+    {
+      path: 'payment/:id/edit',
+      component: EditPaymentComponent,
     },
     {
       path: 'cancellation',

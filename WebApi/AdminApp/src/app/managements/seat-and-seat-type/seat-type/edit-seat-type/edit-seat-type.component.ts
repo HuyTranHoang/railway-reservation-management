@@ -3,7 +3,6 @@ import {SeatTypeService} from '../seat-type.service';
 import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SeatType} from '../../../../@models/seatType';
-import {timeStamp} from 'console';
 import {NbGlobalPhysicalPosition, NbToastrService} from '@nebular/theme';
 
 
@@ -21,6 +20,7 @@ export class EditSeatTypeComponent implements OnInit {
   constructor(private seatTypeService: SeatTypeService,
               private fb: FormBuilder,
               private activatedRoute: ActivatedRoute,
+              private router: Router,
               private toastrService: NbToastrService) {
   }
 
@@ -45,6 +45,7 @@ export class EditSeatTypeComponent implements OnInit {
         },
         error: (err) => {
           this.showToast('danger', 'Failed', 'This seat type doest not exist!');
+          this.router.navigateByUrl('/managements/seat-and-seat-type/seat-type');
         },
       });
 

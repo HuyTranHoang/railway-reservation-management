@@ -20,7 +20,7 @@ public class PassengerService : IPassengerService
         var query = await _repository.GetQueryAsync();
 
         if (!string.IsNullOrEmpty(queryParams.SearchTerm))
-            query = query.Where(p => p.FullName.Contains(queryParams.SearchTerm)
+            query = query.Where(p => p.FullName.Contains(queryParams.SearchTerm.Trim())
                 || p.CardId.Contains(queryParams.SearchTerm)
                 || p.Email.Contains(queryParams.SearchTerm));
 

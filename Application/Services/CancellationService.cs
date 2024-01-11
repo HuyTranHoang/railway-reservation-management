@@ -42,7 +42,7 @@ namespace Application.Services
             }
 
             if (!string.IsNullOrEmpty(queryParams.SearchTerm))
-                query = query.Where(p => p.Ticket.Code.Contains(queryParams.SearchTerm));
+                query = query.Where(p => p.Ticket.Code.Contains(queryParams.SearchTerm.Trim()));
 
             query = queryParams.Sort switch
             {

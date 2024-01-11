@@ -73,7 +73,7 @@ namespace Application.Services
             }
 
             if (!string.IsNullOrEmpty(queryParams.SearchTerm))
-                query = query.Where(p => p.Passenger.FullName.Contains(queryParams.SearchTerm));
+                query = query.Where(p => p.Passenger.FullName.Contains(queryParams.SearchTerm.Trim()));
 
             query = queryParams.Sort switch
             {

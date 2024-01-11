@@ -28,7 +28,7 @@ GET {{url}}/{{router}}?
 ### 
 
 # @name getPaymentById
-@id = 2
+@id = 1
 
 GET {{url}}/{{router}}/{{id}}
 

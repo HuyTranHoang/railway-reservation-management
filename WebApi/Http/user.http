@@ -1,0 +1,11 @@
+@url = https://localhost:5001
+@router = api/users
+
+### 
+
+# @name getUserByemail
+@email = nhokpio95@gmail.com
+
+GET {{url}}/{{router}}/{{email}}
+
+### 

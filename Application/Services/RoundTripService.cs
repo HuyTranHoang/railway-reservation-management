@@ -35,7 +35,7 @@ namespace Application.Services
 
         public async Task<PagedList<RoundTripDto>> GetAllDtoAsync(RoundTripParams queryParams)
         {
-             var query = await _repository.GetQueryWithTrainCompanyAsync();
+            var query = await _repository.GetQueryWithTrainCompanyAsync();
 
             if (queryParams.TrainCompanyId != 0)
             {
@@ -43,8 +43,8 @@ namespace Application.Services
             }
 
             if (!string.IsNullOrEmpty(queryParams.SearchTerm))
-                query = query.Where(t => t.TrainCompany.Name.Contains(queryParams.SearchTerm));
-                
+                query = query.Where(t => t.TrainCompany.Name.Contains(queryParams.SearchTerm.Trim()));
+
 
             query = queryParams.Sort switch
             {

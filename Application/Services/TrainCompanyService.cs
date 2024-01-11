@@ -21,7 +21,7 @@ public class TrainCompanyService : ITrainCompanyService
 
         if (!string.IsNullOrEmpty(queryParams.SearchTerm))
         {
-            query = query.Where(t => t.Name.Contains(queryParams.SearchTerm));
+            query = query.Where(t => t.Name.Contains(queryParams.SearchTerm.Trim()));
         }
 
         query = queryParams.Sort switch

@@ -58,7 +58,7 @@ public class PaymentRepository : IPaymentRepository
     {
         return await _context.Payments
             .Where(p => p.CreatedAt >= startDate && p.CreatedAt < endDate)
-            .Include(p => p.Tickets) 
+            .Include(p => p.Tickets)
                 .ThenInclude(t => t.DistanceFare)
             .Include(p => p.Tickets)
                 .ThenInclude(t => t.Carriage)
@@ -72,4 +72,10 @@ public class PaymentRepository : IPaymentRepository
             .ToListAsync();
     }
 
+    public Task<Payment> GetPaymentWithAspNetUserByIdAsync(int id)
+    {
+        return _context.Payments
+            .Include(p => p.AspNetUser)
+            .FirstOrDefaultAsync(p => p.Id == id);
+    }
 }

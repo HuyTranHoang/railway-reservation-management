@@ -20,7 +20,7 @@ public class SeatTypeService : ISeatTypeService
         var query = await _repository.GetQueryAsync();
 
         if (!string.IsNullOrEmpty(queryParams.SearchTerm))
-            query = query.Where(st => st.Name.Contains(queryParams.SearchTerm));
+            query = query.Where(st => st.Name.Contains(queryParams.SearchTerm.Trim()));
 
         query = queryParams.Sort switch
         {
