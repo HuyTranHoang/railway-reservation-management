@@ -75,6 +75,12 @@ namespace Application.Services
 
         public async Task SoftDeleteAsync(RoundTrip roundTrip)
         {
+            _repository.SoftDelete(roundTrip);
+            await _unitOfWork.SaveChangesAsync();
+        }
+
+        public async Task UpdateAsync(RoundTrip roundTrip)
+        {
             var roundTripInDb = await _repository.GetByIdAsync(roundTrip.Id);
 
             if (roundTripInDb == null) throw new NotFoundException(nameof(RoundTrip), roundTrip.Id);
@@ -84,12 +90,6 @@ namespace Application.Services
             roundTripInDb.UpdatedAt = DateTime.Now;
 
             _repository.Update(roundTripInDb);
-            await _unitOfWork.SaveChangesAsync();
-        }
-
-        public async Task UpdateAsync(RoundTrip roundTrip)
-        {
-            _repository.Update(roundTrip);
             await _unitOfWork.SaveChangesAsync();
         }
 

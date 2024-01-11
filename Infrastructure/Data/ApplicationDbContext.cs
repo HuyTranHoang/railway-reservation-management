@@ -28,6 +28,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     public DbSet<CancellationRule> CancellationRules { get; set; }
     public DbSet<Cancellation> Cancellations { get; set; }
     public DbSet<DailyCashTransaction> DailyCashTransactions { get; set; }
+    public DbSet<CarriageTemplate> CarriageTemplates { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
