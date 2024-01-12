@@ -46,4 +46,5 @@ export class SeatTypeService {
   deleteSeatType(id: number) {
     return this.http.patch(this.baseUrl + '/seatTypes/' + id, {});
   }
+
 }
