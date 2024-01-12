@@ -1,0 +1,35 @@
+<div class="col-md-6">
+    <nb-card>
+        <nb-card-header>
+        <div class="d-flex justify-content-between">
+            Edit Train Company
+            <button type="submit" nbButton
+                    routerLink="/managements/schedule-and-ticket-prices/round-trip"
+                    status="primary">Back to list
+            </button>
+        </div>
+        </nb-card-header>
+        <nb-card-body>
+        <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+            <input type="hidden" formControlName="id">
+
+            <div class="form-group">
+                <label class="label">Train Company</label>
+                <br>
+                <nb-select placeholder="Choose an Train Company..."
+                           fullWidth formControlName="trainCompanyId"
+                           [selected]="updateForm.get('trainCompanyId')">
+                    <nb-option *ngFor="let item of trainCompanies" [value]="item.id">{{item.name}}</nb-option>
+                </nb-select>             
+            </div>
+
+            <app-input-field [control]="updateForm.get('discount')"
+                         [label]="'Discount'"
+                         [placeholder]="'Discount...'">
+            </app-input-field>
+
+            <button type="submit" nbButton status="success" class="float-right">Save</button>
+        </form>
+        </nb-card-body>
+    </nb-card>
+</div>

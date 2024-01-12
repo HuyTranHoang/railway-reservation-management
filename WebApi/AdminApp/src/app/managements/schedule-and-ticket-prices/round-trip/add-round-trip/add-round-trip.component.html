@@ -1,0 +1,36 @@
+<div class="col-md-6">
+    <nb-card>
+      <nb-card-header>
+        <div class="d-flex justify-content-between">
+          Define New Round Trip
+          <button type="submit" nbButton
+                  routerLink="/managements/schedule-and-ticket-prices/round-trip"
+                  status="primary">Back to list
+          </button>
+        </div>
+      </nb-card-header>
+      <nb-card-body>
+        <form [formGroup]="roundTripForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label class="label">Train Company</label>
+            <br>
+            <nb-select placeholder="Choose an Train Company..." fullWidth formControlName="trainCompanyId">
+              <nb-option *ngFor="let item of trainCompanies" value="{{item.id}}">{{item.name}}</nb-option>
+            </nb-select>             
+          </div>
+  
+          <app-input-field [control]="roundTripForm.get('discount')"
+                           [label]="'Discount'"
+                           [isSubmitted]="isSubmitted"
+                           [placeholder]="'Discount..'">
+          </app-input-field>
+  
+          <ul *ngIf="errorMessages.length > 0">
+            <li class="text-danger" *ngFor="let item of errorMessages">{{item}}</li>
+          </ul>
+  
+          <button type="submit" nbButton status="success" class="float-right">Submit</button>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </div>

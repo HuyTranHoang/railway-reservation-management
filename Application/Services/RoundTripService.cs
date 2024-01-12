@@ -48,10 +48,11 @@ namespace Application.Services
 
             query = queryParams.Sort switch
             {
-                "trainCompanyIdAsc" => query.OrderBy(t => t.TrainCompanyId),
-                "trainCompanyIdDesc" => query.OrderByDescending(t => t.TrainCompanyId),
+                "trainCompanyNameAsc" => query.OrderBy(t => t.TrainCompany.Name),
+                "trainCompanyNameDesc" => query.OrderByDescending(t => t.TrainCompany.Name),
                 "discountAsc" => query.OrderBy(t => t.Discount),
                 "discountDesc" => query.OrderByDescending(t => t.Discount),
+                "createdAtDesc" => query.OrderByDescending(t => t.CreatedAt),
                 _ => query.OrderBy(t => t.CreatedAt)
             };
 
