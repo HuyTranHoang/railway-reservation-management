@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core'
 
 @Component({
   selector: 'app-departure-select',
@@ -7,12 +7,16 @@ import { Component } from '@angular/core';
 })
 export class DepartureSelectComponent {
 
+  @Output() bookNow = new EventEmitter<number>();
 
   isOpen = false;
 
-
   onChevronClick () {
     this.isOpen = !this.isOpen;
+  }
+
+  onBookNowClick(id: number) {
+    this.bookNow.emit(id);
   }
 
 }
