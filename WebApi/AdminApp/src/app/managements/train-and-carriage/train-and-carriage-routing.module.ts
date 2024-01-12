@@ -31,7 +31,8 @@ const routes: Routes = [{
     },
     {
       path: 'carriage',
-      component: CarriageComponent,
+      loadChildren: () => import('./carriage/carriage.module')
+        .then(m => m.CarriageModule),
     },
     {
       path: 'carriage-type',

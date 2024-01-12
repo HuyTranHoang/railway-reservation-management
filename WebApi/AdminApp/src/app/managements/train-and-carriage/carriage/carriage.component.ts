@@ -2,8 +2,9 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'ngx-carriage',
-  templateUrl: './carriage.component.html',
-  styleUrls: ['./carriage.component.scss']
+  template: `
+    <router-outlet></router-outlet>
+  `,
 })
 export class CarriageComponent {
 
