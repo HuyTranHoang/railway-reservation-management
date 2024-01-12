@@ -1,11 +1,11 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {NbDialogRef, NbGlobalPhysicalPosition, NbToastrService} from '@nebular/theme';
-import { RoundTripService } from '../round-trip.service';
+import {RoundTripService} from '../round-trip.service';
 
 @Component({
   selector: 'ngx-confirm-delete-round-trip',
   templateUrl: './confirm-delete-round-trip.component.html',
-  styleUrls: ['./confirm-delete-round-trip.component.scss']
+  styleUrls: ['./confirm-delete-round-trip.component.scss'],
 })
 export class ConfirmDeleteRoundTripComponent {
   @Input() id: number;
@@ -15,7 +15,8 @@ export class ConfirmDeleteRoundTripComponent {
 
   constructor(protected ref: NbDialogRef<ConfirmDeleteRoundTripComponent>,
               private roundTripService: RoundTripService,
-              private toastrService: NbToastrService) {}
+              private toastrService: NbToastrService) {
+  }
 
   dismiss() {
     this.ref.close();

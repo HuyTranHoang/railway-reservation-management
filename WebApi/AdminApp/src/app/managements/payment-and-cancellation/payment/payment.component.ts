@@ -22,7 +22,6 @@ export class PaymentComponent implements OnInit {
   currentSearchTerm: string = '';
   currentSort: string = '';
 
-  // Trong component của bạn
   sortStates = {
     email: false,
     createdAt: false,
@@ -48,9 +47,19 @@ export class PaymentComponent implements OnInit {
       next: (res: PaginatedResult<Payment[]>) => {
         this.payments = res.result;
         this.pagination = res.pagination;
+
+        this.checkItemsAndAdjustPage();
       },
     });
   }
+
+  checkItemsAndAdjustPage() {
+    if (this.payments.length === 0 && this.pagination.currentPage > 1) {
+      this.queryParams.pageNumber = this.pagination.currentPage - 1;
+      this.getAllPayments();
+    }
+  }
+
 
   onSearch() {
     this.queryParams.searchTerm = this.currentSearchTerm;

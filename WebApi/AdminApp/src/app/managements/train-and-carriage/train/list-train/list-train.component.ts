@@ -1,87 +1,87 @@
-import { Train } from './../../../../@models/train';
-import { Component, OnInit } from '@angular/core';
-import { NbDialogService } from '@nebular/theme';
-import { PaginatedResult } from '../../../../@models/paginatedResult';
-import { Pagination } from '../../../../@models/pagination';
-import { QueryParams } from '../../../../@models/params/queryParams';
-import { TrainService } from '../train.service';
-import { ConfirmDeleteTrainComponent } from '../confirm-delete-train/confirm-delete-train.component';
+import {Train} from '../../../../@models/train';
+import {Component, OnInit} from '@angular/core';
+import {NbDialogService} from '@nebular/theme';
+import {PaginatedResult} from '../../../../@models/paginatedResult';
+import {Pagination} from '../../../../@models/pagination';
+import {QueryParams} from '../../../../@models/params/queryParams';
+import {TrainService} from '../train.service';
+import {ConfirmDeleteTrainComponent} from '../confirm-delete-train/confirm-delete-train.component';
 
 @Component({
   selector: 'ngx-list-train',
   templateUrl: './list-train.component.html',
-  styleUrls: ['./list-train.component.scss']
+  styleUrls: ['./list-train.component.scss'],
 })
-export class ListTrainComponent implements OnInit{
-  train: Train [] = [];
-  trains : Train;
-  pagination : Pagination;
+export class ListTrainComponent implements OnInit {
+  trains: Train [] = [];
+  pagination: Pagination;
 
   currentSearchTerm = '';
   currentSort = '';
 
-  sortStates: {[key: string] : boolean} =
-  {
-    name : false,
+  sortStates = {
+    name: false,
     trainCompanyName: false,
-    createdAt : false,
-  }
+    createdAt: false,
+  };
 
-  queryParams: QueryParams =
-  {
+
+  queryParams: QueryParams = {
     pageNumber: 1,
     pageSize: 5,
     searchTerm: '',
     sort: '',
+  };
+
+  constructor(private trainService: TrainService,
+              private dialogService: NbDialogService) {
   }
 
-
-  constructor(private trainService : TrainService,
-              private dialogService : NbDialogService){}
-
-  ngOnInit(): void
-  {
+  ngOnInit(): void {
     this.getAllTrain();
   }
 
-  getAllTrain(){
+  getAllTrain() {
     this.trainService.getAllTrain(this.queryParams).subscribe({
-      next: (res : PaginatedResult<Train[]>) => {
-        this.train = res.result;
+      next: (res: PaginatedResult<Train[]>) => {
+        this.trains = res.result;
         this.pagination = res.pagination;
+
+        this.checkItemsAndAdjustPage();
       },
     });
   }
 
-  onSearch()
-  {
+  checkItemsAndAdjustPage() {
+    if (this.trains.length === 0 && this.pagination.currentPage > 1) {
+      this.queryParams.pageNumber = this.pagination.currentPage - 1;
+
+      this.getAllTrain();
+    }
+  }
+
+  onSearch() {
     this.queryParams.searchTerm = this.currentSearchTerm;
     this.queryParams.pageNumber = 1;
     this.getAllTrain();
   }
 
-  onResetSearch()
-  {
+  onResetSearch() {
     this.currentSearchTerm = '';
     this.queryParams.searchTerm = '';
     this.getAllTrain();
   }
 
-  onSort(sort: string)
-  {
+  onSort(sort: string) {
     const sortType = sort.split('Asc')[0];
 
-    if(this.queryParams.sort === sort)
-    {
+    if (this.queryParams.sort === sort) {
       this.queryParams.sort = sort.endsWith('Asc') ? sort.replace('Asc', 'Desc') : sort.replace('Desc', 'Asc');
       this.sortStates[sortType] = !this.sortStates[sortType];
-    } else
-    {
+    } else {
       this.queryParams.sort = sort;
-      for (const key in this.sortStates)
-      {
-        if (this.sortStates.hasOwnProperty(key))
-        {
+      for (const key in this.sortStates) {
+        if (this.sortStates.hasOwnProperty(key)) {
           this.sortStates[key] = false;
         }
       }
@@ -97,10 +97,7 @@ export class ListTrainComponent implements OnInit{
 
   openConfirmDialog(id: number, name: string) {
     const dialogRef = this.dialogService.open(ConfirmDeleteTrainComponent, {
-      context: {
-        id,
-        name,
-      },
+      context: {id, name},
     });
 
     dialogRef.componentRef.instance.onConfirmDelete.subscribe((_: any) => {
@@ -108,14 +105,12 @@ export class ListTrainComponent implements OnInit{
     });
   }
 
-  onPageChanged(newPage: number)
-  {
+  onPageChanged(newPage: number) {
     this.queryParams.pageNumber = newPage;
     this.getAllTrain();
   }
 
-  onPageSizeChanged(newSize : number)
-  {
+  onPageSizeChanged(newSize: number) {
     this.queryParams.pageSize = newSize;
     this.getAllTrain();
   }

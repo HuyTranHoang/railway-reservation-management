@@ -7,6 +7,7 @@ import {QueryParams} from '../../../@models/params/queryParams';
 import {ShowRoundTripComponent} from './show-round-trip/show-round-trip.component';
 import {ConfirmDeleteRoundTripComponent} from './confirm-delete-round-trip/confirm-delete-round-trip.component';
 import {NbDialogService} from '@nebular/theme';
+import {PaginationService} from '../../shared/pagination.service';
 
 @Component({
   selector: 'ngx-round-trip',
@@ -35,7 +36,8 @@ export class RoundTripComponent implements OnInit {
   };
 
   constructor(private roundTripService: RoundTripService,
-              private dialogService: NbDialogService) {
+              private dialogService: NbDialogService,
+              private paginationService: PaginationService) {
   }
 
   ngOnInit(): void {
@@ -47,8 +49,17 @@ export class RoundTripComponent implements OnInit {
       next: (res: PaginatedResult<RoundTrip[]>) => {
         this.roundTrips = res.result;
         this.pagination = res.pagination;
+
+        this.checkItemsAndAdjustPage();
       },
     });
+  }
+
+  checkItemsAndAdjustPage() {
+    if (this.roundTrips.length === 0 && this.pagination.currentPage > 1) {
+      this.queryParams.pageNumber = this.pagination.currentPage - 1;
+      this.getAllRoundTrip();
+    }
   }
 
   onSearch() {
