@@ -1,8 +1,9 @@
 using System.ComponentModel.DataAnnotations;
+using Domain.Common;
 
 namespace Domain.Entities
 {
-    public class CompartmentTemplate
+    public class CompartmentTemplate : BaseEntity
     {
         public int Id { get; set; }
 
