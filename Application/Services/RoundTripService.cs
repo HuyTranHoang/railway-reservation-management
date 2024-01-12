@@ -48,10 +48,11 @@ namespace Application.Services
 
             query = queryParams.Sort switch
             {
-                "trainCompanyIdAsc" => query.OrderBy(t => t.TrainCompanyId),
-                "trainCompanyIdDesc" => query.OrderByDescending(t => t.TrainCompanyId),
+                "trainCompanyNameAsc" => query.OrderBy(t => t.TrainCompany.Name),
+                "trainCompanyNameDesc" => query.OrderByDescending(t => t.TrainCompany.Name),
                 "discountAsc" => query.OrderBy(t => t.Discount),
                 "discountDesc" => query.OrderByDescending(t => t.Discount),
+                "createdAtDesc" => query.OrderByDescending(t => t.CreatedAt),
                 _ => query.OrderBy(t => t.CreatedAt)
             };
 
@@ -69,7 +70,7 @@ namespace Application.Services
 
         public async Task<RoundTripDto> GetDtoByIdAsync(int id)
         {
-            var roundTrip = await _repository.GetByIdAsync(id);
+            var roundTrip = await _repository.GetByIdWithTrainCompanyAsync(id);
             return _mapper.Map<RoundTripDto>(roundTrip);
         }
 

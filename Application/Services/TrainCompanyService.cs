@@ -38,6 +38,12 @@ public class TrainCompanyService : ITrainCompanyService
             .CreateAsync(trainCompaniesDtoQuery, queryParams.PageNumber, queryParams.PageSize);
     }
 
+    public async Task<List<TrainCompanyDto>> GetAllDtoAsync()
+    {
+        var trainCompanies = await _repository.GetAllAsync();
+        return _mapper.Map<List<TrainCompanyDto>>(trainCompanies);
+    }
+
     public async Task<TrainCompany> GetByIdAsync(int id)
     {
         return await _repository.GetByIdAsync(id);
