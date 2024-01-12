@@ -42,7 +42,7 @@ export class AddTrainComponent implements OnInit {
   initForm() {
     this.trainForm = this.fb.group({
       name: ['', Validators.required],
-      trainCompanyId: ['', Validators.required],
+      trainCompanyId: ['', Validators.required,this.numberValidator()],
       status: [''],
     });
   }
@@ -92,4 +92,6 @@ export class AddTrainComponent implements OnInit {
       },
     });
   }
+
+
 }
