@@ -45,9 +45,9 @@ RecurringJob.AddOrUpdate<IDailyCashTransactionService>(
     recurringJobId,
     service => service.DoWork(),
     // Cron.Minutely,
-    "*/1 * * * *",  // Chạy cứ sau 10 phút
-                    // */10: Cho biết thực hiện công việc mỗi phút thứ 10 trong một giờ (0, 5, 10, 15, v.v.).
-                    // * * * *: Các dấu sao còn lại giữ nguyên các giá trị khác cho giờ, ngày, tháng và ngày trong tuần, có nghĩa là công việc sẽ chạy cứ sau 5 phút trong mọi giờ, mọi ngày.
+    "*/10 * * * *",  // Chạy cứ sau 10 phút
+                     // */10: Cho biết thực hiện công việc mỗi phút thứ 10 trong một giờ (0, 5, 10, 15, v.v.).
+                     // * * * *: Các dấu sao còn lại giữ nguyên các giá trị khác cho giờ, ngày, tháng và ngày trong tuần, có nghĩa là công việc sẽ chạy cứ sau 5 phút trong mọi giờ, mọi ngày.
 
     options);
 
