@@ -30,6 +30,10 @@ export class TrainCompanyService {
     return this.paginationService.getPaginatedResult<TrainCompany[]>(this.baseUrl + '/traincompanies', params);
   }
 
+  getAllTrainCompanyNoPaging() {
+    return this.http.get<TrainCompany[]>(this.baseUrl + '/traincompanies/all');
+  }
+
   addTrainCompany(trainCompany: TrainCompany) {
     return this.http.post<TrainCompany>(this.baseUrl + '/traincompanies', trainCompany);
   }

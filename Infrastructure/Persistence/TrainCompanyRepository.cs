@@ -30,6 +30,11 @@ public class TrainCompanyRepository : ITrainCompanyRepository
         return await Task.FromResult(_context.TrainCompanies.AsQueryable());
     }
 
+    public Task<List<TrainCompany>> GetAllAsync()
+    {
+        return _context.TrainCompanies.ToListAsync();
+    }
+
     public async Task<TrainCompany> GetByIdAsync(int id)
     {
         return await _context.TrainCompanies

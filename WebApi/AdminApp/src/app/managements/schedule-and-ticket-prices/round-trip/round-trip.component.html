@@ -12,7 +12,7 @@
                        (click)="onSearch()"
                        style="top: 25%; right: 8px; cursor: pointer;"></nb-icon>
             </form>
-      
+
             <button nbButton status="primary" class="mr-3"
                     routerLink="/managements/schedule-and-ticket-prices/round-trip/add">
               Create Round Trip
@@ -56,8 +56,8 @@
             <tr *ngFor="let item of roundTrips; let index = index">
                 <th scope="row">{{index + 1}}</th>
                 <td>{{item.trainCompanyName}}</td>
-                <td>{{item.discount}}</td>
-                <td>{{item.createdAt |date: 'medium'}}</td>
+                <td>{{item.discount | currency}}</td>
+                <td>{{item.createdAt | date: 'medium'}}</td>
                 <td class="text-right">
                     <button nbButton status="info" class="mr-3" (click)="openShowDialog(item.id)">
                         <nb-icon icon="eye-outline" pack="eva"></nb-icon>
@@ -74,7 +74,6 @@
             </tbody>
         </table>
     </nb-card-body>
-    
     <nb-card-footer>
         <app-pagination
           [pagination]="pagination"

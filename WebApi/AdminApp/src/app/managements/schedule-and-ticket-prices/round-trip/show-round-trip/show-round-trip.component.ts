@@ -5,15 +5,14 @@ import {Router} from '@angular/router';
 @Component({
   selector: 'ngx-show-round-trip',
   templateUrl: './show-round-trip.component.html',
-  styleUrls: ['./show-round-trip.component.scss']
+  styleUrls: ['./show-round-trip.component.scss'],
 })
 export class ShowRoundTripComponent {
   @Input() id: number;
-  @Input() trainCompanyId: number;
   @Input() trainCompanyName: string;
   @Input() discount: number;
   @Input() createdAt: string;
-  
+
 
   @Output() onShowDelete = new EventEmitter<{ id: number, name: string }>();
 

@@ -25,6 +25,12 @@ GET {{url}}/{{route}}?
 
 ### 
 
+
+
+# @name getAllTrainCompany
+GET {{url}}/{{route}}/all
+### 
+
 # @name getTrainCompanyById
 @id = 12
 

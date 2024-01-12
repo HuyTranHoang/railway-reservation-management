@@ -2,7 +2,7 @@
     <nb-card>
         <nb-card-header>
         <div class="d-flex justify-content-between">
-            Edit Train Company
+            Edit Round Trip
             <button type="submit" nbButton
                     routerLink="/managements/schedule-and-ticket-prices/round-trip"
                     status="primary">Back to list
@@ -20,7 +20,7 @@
                            fullWidth formControlName="trainCompanyId"
                            [selected]="updateForm.get('trainCompanyId')">
                     <nb-option *ngFor="let item of trainCompanies" [value]="item.id">{{item.name}}</nb-option>
-                </nb-select>             
+                </nb-select>
             </div>
 
             <app-input-field [control]="updateForm.get('discount')"

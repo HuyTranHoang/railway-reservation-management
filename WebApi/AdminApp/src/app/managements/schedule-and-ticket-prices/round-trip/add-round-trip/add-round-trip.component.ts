@@ -1,34 +1,23 @@
 import {Component, OnInit} from '@angular/core';
-import { RoundTripService } from '../round-trip.service';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {RoundTripService} from '../round-trip.service';
+import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
 import {NbToastrService, NbGlobalPhysicalPosition} from '@nebular/theme';
-import { RoundTrip } from '../../../../@models/roundTrip';
-import { QueryParams } from '../../../../@models/params/queryParams';
-import { PaginatedResult } from '../../../../@models/paginatedResult';
-import { TrainCompany } from '../../../../@models/trainCompany';
-import { TrainCompanyService } from '../../../railway/train-company/train-company.service';
+import {RoundTrip} from '../../../../@models/roundTrip';
+import {TrainCompany} from '../../../../@models/trainCompany';
+import {TrainCompanyService} from '../../../railway/train-company/train-company.service';
 
 @Component({
   selector: 'ngx-add-round-trip',
   templateUrl: './add-round-trip.component.html',
-  styleUrls: ['./add-round-trip.component.scss']
+  styleUrls: ['./add-round-trip.component.scss'],
 })
-export class AddRoundTripComponent implements OnInit{
-  roundTrips: RoundTrip[] = [];
+export class AddRoundTripComponent implements OnInit {
   trainCompanies: TrainCompany[] = [];
 
   roundTripForm: FormGroup = this.fb.group({});
 
   isSubmitted = false;
   errorMessages: string[] = [];
-
-  queryParams: QueryParams =
-  {
-    pageNumber: 1,
-    pageSize: 999,
-    searchTerm: '',
-    sort: '',
-  }
 
   constructor(
     private roundTripService: RoundTripService,
@@ -46,9 +35,17 @@ export class AddRoundTripComponent implements OnInit{
   initForm() {
     this.roundTripForm = this.fb.group({
       trainCompanyId: ['', Validators.required],
-      discount: ['', Validators.required],
+      discount: [0, [Validators.required, this.numberValidator()]],
     });
   }
+
+  numberValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (control.value == null || control.value === '') return null;
+      return !isNaN(parseFloat(control.value)) && isFinite(control.value) ? null : { 'notANumber': true };
+    };
+  }
+
 
   onSubmit() {
     this.isSubmitted = true;
@@ -62,7 +59,7 @@ export class AddRoundTripComponent implements OnInit{
         },
         error: (err) => {
           this.showToast('danger', 'Failed', 'Add round trip failed!');
-          this.errorMessages = err.error.errorMessages;
+          this.errorMessages = err.error.errors;
         },
       });
     }
@@ -83,17 +80,11 @@ export class AddRoundTripComponent implements OnInit{
       config);
   }
 
-  loadAllTrainCompany(){
-    this.trainCompanyService.getAllTrainCompany(this.queryParams).subscribe({
-      next: (res : PaginatedResult<TrainCompany[]>) => {
-        this.trainCompanies = res.result;
+  loadAllTrainCompany() {
+    this.trainCompanyService.getAllTrainCompanyNoPaging().subscribe({
+      next: (res: TrainCompany[]) => {
+        this.trainCompanies = res;
       },
-    });
-  }
-
-  onTrainCompanyNameChange(event: string) {
-    this.roundTripForm.patchValue({
-      trainCompanyName: event,
     });
   }
 }

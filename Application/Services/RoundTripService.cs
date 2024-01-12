@@ -70,7 +70,7 @@ namespace Application.Services
 
         public async Task<RoundTripDto> GetDtoByIdAsync(int id)
         {
-            var roundTrip = await _repository.GetByIdAsync(id);
+            var roundTrip = await _repository.GetByIdWithTrainCompanyAsync(id);
             return _mapper.Map<RoundTripDto>(roundTrip);
         }
 

@@ -1,46 +1,33 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
-import { RoundTripService } from '../round-trip.service';
+import {RoundTripService} from '../round-trip.service';
 import {NbGlobalPhysicalPosition, NbToastrService} from '@nebular/theme';
 import {ActivatedRoute, Router} from '@angular/router';
-import { RoundTrip } from '../../../../@models/roundTrip';
-import { TrainCompanyService } from '../../../railway/train-company/train-company.service';
-import { QueryParams } from '../../../../@models/params/queryParams';
-import { PaginatedResult } from '../../../../@models/paginatedResult';
-import { TrainCompany } from '../../../../@models/trainCompany';
+import {TrainCompanyService} from '../../../railway/train-company/train-company.service';
+
+import {TrainCompany} from '../../../../@models/trainCompany';
 
 
 @Component({
   selector: 'ngx-edit-round-trip',
   templateUrl: './edit-round-trip.component.html',
-  styleUrls: ['./edit-round-trip.component.scss']
+  styleUrls: ['./edit-round-trip.component.scss'],
 })
-export class EditRoundTripComponent implements OnInit{
-  roundTripForm: FormGroup = this.fb.group({});
-  roundTrips: RoundTrip[] = [];
-
+export class EditRoundTripComponent implements OnInit {
   trainCompanies: TrainCompany[] = [];
-
   updateForm: FormGroup = this.fb.group({});
 
   isSubmitted: boolean = false;
-  errorMessages = [];
+  errorMessages: string[] = [];
 
   constructor(private roundTripService: RoundTripService,
-              private trainCompanyService : TrainCompanyService,
+              private trainCompanyService: TrainCompanyService,
               private toastrService: NbToastrService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
               private fb: FormBuilder) {
   }
 
-  queryParams: QueryParams =
-  {
-    pageNumber: 1,
-    pageSize: 999,
-    searchTerm: '',
-    sort: '',
-  }
 
   ngOnInit(): void {
     this.initForm();
@@ -50,22 +37,29 @@ export class EditRoundTripComponent implements OnInit{
   initForm() {
     this.updateForm = this.fb.group({
       id: ['', Validators.required],
-      trainCompanyId : ['', Validators.required],
-      discount: ['', Validators.required],
-    })
+      trainCompanyId: ['', Validators.required],
+      discount: ['', [Validators.required, this.numberValidator()]],
+    });
 
     const id = this.activatedRoute.snapshot.params.id;
 
     this.roundTripService.getRoundTripById(id)
-    .subscribe({
-      next: (res) => {
-        this.updateForm.patchValue(res);
-      },
-      error: (err) => {
-        this.showToast('danger', 'Failed', 'Round Trip doest not exist!');
-        this.router.navigateByUrl('/managements/schedule-and-ticket-prices/round-trip');
-      }
-    })
+      .subscribe({
+        next: (res) => {
+          this.updateForm.patchValue(res);
+        },
+        error: (err) => {
+          this.showToast('danger', 'Failed', 'Round Trip doest not exist!');
+          this.router.navigateByUrl('/managements/schedule-and-ticket-prices/round-trip');
+        },
+      });
+  }
+
+  numberValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (control.value == null || control.value === '') return null;
+      return !isNaN(parseFloat(control.value)) && isFinite(control.value) ? null : { 'notANumber': true };
+    };
   }
 
   onSubmit() {
@@ -98,10 +92,10 @@ export class EditRoundTripComponent implements OnInit{
       config);
   }
 
-  loadAllTrainCompany(){
-    this.trainCompanyService.getAllTrainCompany(this.queryParams).subscribe({
-      next: (res : PaginatedResult<TrainCompany[]>) => {
-        this.trainCompanies = res.result;
+  loadAllTrainCompany() {
+    this.trainCompanyService.getAllTrainCompanyNoPaging().subscribe({
+      next: (res: TrainCompany[]) => {
+        this.trainCompanies = res;
       },
     });
   }
