@@ -22,7 +22,8 @@ export class AuthorizationGuard {
           Swal.fire({
             position: 'center',
             icon: 'error',
-            title: 'You are not authorized to access this page',
+            title: 'Oops...',
+            text: 'You are not authorized to access this page. Please login first.',
             showConfirmButton: false,
             timer: 1500
           })
