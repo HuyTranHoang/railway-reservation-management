@@ -1,1 +1,76 @@
-<p>distance-fare works!</p>
+<nb-card accent="info">
+    <nb-card-header>
+      <div class="d-flex justify-content-between align-items-center">
+        <form class="position-relative" (ngSubmit)="onSearch()">
+          <input nbInput placeholder="Search by name.."
+                 name="searchTerm"
+                 (keyup.escape)="onResetSearch()"
+                 [(ngModel)]="currentSearchTerm"
+                 style="padding-right: 32px">
+          <nb-icon icon="search-outline" pack="eva"
+                   class="position-absolute"
+                   (click)="onSearch()"
+                   style="top: 25%; right: 8px; cursor: pointer;"></nb-icon>
+        </form>
+  
+        <button nbButton status="primary" class="mr-3"
+                routerLink="/managements/schedule-and-ticket-price/distance-fare/add">
+          Create Distance Fare
+        </button>
+      </div>
+    </nb-card-header>
+    <nb-card-body style="padding-bottom: 0;">
+      <table class="table mb-0">
+        <thead class="table-borderless">
+        <tr>
+          <th scope="col" style="width: 5%">#</th>
+          <th scope="col">
+            <span>
+                Train Company Name
+            </span>
+          </th>
+          <th scope="col" style="width: 15%">
+            <span>
+            Distance
+            </span>
+          </th>
+          <th scope="col" style="width: 15%">
+            <span>
+              Price
+            </span>
+          </th>
+  
+          <th scope="col" style="width: 15%">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of distanceFare; let index = index">
+          <th scope="row">{{ index + 1 }}</th>
+          <td>{{ item.trainCompanyName }}</td>
+          <td>{{ item.distance  }}</td>
+          <td>{{ item.price | currency }}</td>
+          <td>
+            <button nbButton status="info" class="mr-3" (click)="openShowDialog(item.id)">
+              <nb-icon icon="eye-outline" pack="eva"></nb-icon>
+            </button>
+            <button nbButton status="primary" class="mr-3"
+                    routerLink="/managements/seat-and-seat-type/seat-type/edit/{{item.id}}">
+              <nb-icon icon="edit-outline" pack="eva"></nb-icon>
+            </button>
+            <button nbButton status="danger" (click)="openConfirmDialog(item.id)">
+              <nb-icon icon="trash-outline" pack="eva"></nb-icon>
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </nb-card-body>
+    <nb-card-footer>
+      <app-pagination
+        [pagination]="pagination"
+        (pageChanged)="onPageChanged($event)"
+        (pageSizeChanged)="onPageSizeChanged($event)">
+      </app-pagination>
+    </nb-card-footer>
+  </nb-card>
+  
