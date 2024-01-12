@@ -1,0 +1,102 @@
+[
+  {
+    "SeatTypeId": 1,
+    "CompartmentId": 1,
+    "Status": "Available"
+  },
+  {
+    "SeatTypeId": 1,
+    "CompartmentId": 1,
+    "Status": "Available"
+  },
+  {
+    "SeatTypeId": 1,
+    "CompartmentId": 1,
+    "Status": "Available"
+  },
+  {
+    "SeatTypeId": 1,
+    "CompartmentId": 1,
+    "Status": "Available"
+  },
+  {
+    "SeatTypeId": 1,
+    "CompartmentId": 1,
+    "Status": "Available"
+  },
+  {
+    "SeatTypeId": 1,
+    "CompartmentId": 1,
+    "Status": "Available"
+  },
+  {
+    "SeatTypeId": 1,
+    "CompartmentId": 1,
+    "Status": "Available"
+  },
+  {
+    "SeatTypeId": 1,
+    "CompartmentId": 1,
+    "Status": "Available"
+  },
+  {
+    "SeatTypeId": 1,
+    "CompartmentId": 1,
+    "Status": "Available"
+  },
+  {
+    "SeatTypeId": 1,
+    "CompartmentId": 1,
+    "Status": "Available"
+  },
+  {
+    "SeatTypeId": 2,
+    "CompartmentId": 1,
+    "Status": "Available"
+  },
+  {
+    "SeatTypeId": 2,
+    "CompartmentId": 1,
+    "Status": "Available"
+  },
+  {
+    "SeatTypeId": 2,
+    "CompartmentId": 1,
+    "Status": "Available"
+  },
+  {
+    "SeatTypeId": 2,
+    "CompartmentId": 1,
+    "Status": "Available"
+  },
+  {
+    "SeatTypeId": 2,
+    "CompartmentId": 1,
+    "Status": "Available"
+  },
+  {
+    "SeatTypeId": 2,
+    "CompartmentId": 1,
+    "Status": "Available"
+  },
+  {
+    "SeatTypeId": 2,
+    "CompartmentId": 1,
+    "Status": "Available"
+  },
+  {
+    "SeatTypeId": 2,
+    "CompartmentId": 1,
+    "Status": "Available"
+  },
+  {
+    "SeatTypeId": 2,
+    "CompartmentId": 1,
+    "Status": "Available"
+  },
+  {
+    "SeatTypeId": 2,
+    "CompartmentId": 1,
+    "Status": "Available"
+  }
+]

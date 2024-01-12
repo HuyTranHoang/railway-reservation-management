@@ -43,7 +43,7 @@
     "name": "Sleeper",
     "trainId": 2,
     "CarriageTypeId": 2,
-    "numberOfCompartments": 2,
+    "numberOfCompartments": 6,
     "serviceCharge": 50,
     "status": ""
   },
