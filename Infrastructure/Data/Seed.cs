@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using System.Text.Json;
 using Domain.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 
@@ -38,8 +39,22 @@ public static class Seed
         await SeedData<Carriage>(context, "Carriage.json", c => c.Carriages);
         await SeedData<Compartment>(context, "Compartment.json", c => c.Compartments);
         await SeedData<Seat>(context, "Seat.json", c => c.Seats);
+        await SeedData<DistanceFare>(context, "DistanceFare.json", c => c.DistanceFares);
 
         // Chưa tạo
         // await SeedData<Ticket>(context, "Ticket.json", c => c.Tickets);
+    }
+
+    public static async Task SeedUsers(UserManager<ApplicationUser> userManager)
+    {
+        if (await userManager.Users.AnyAsync()) return;
+
+        var userData = await File.ReadAllTextAsync(Path.Combine(DataPath, "User.json"));
+        var users = JsonSerializer.Deserialize<List<ApplicationUser>>(userData, JsonOptions);
+
+        foreach (var user in users)
+        {
+            await userManager.CreateAsync(user, "Pa$$w0rd");
+        }
     }
 }

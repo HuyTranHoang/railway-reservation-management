@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Domain.Entities;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
@@ -14,7 +16,9 @@ public static class ApplicationDbContextInitialiser
         try
         {
             var context = services.GetRequiredService<ApplicationDbContext>();
+            var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
             await context.Database.MigrateAsync();
+            await Seed.SeedUsers(userManager);
             await Seed.SeedAllData(context);
         }
         catch (Exception ex)

@@ -32,24 +32,24 @@ var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 
-// app.UseHangfireDashboard();
+app.UseHangfireDashboard();
 
-// const string recurringJobId = "DailyCashTransactionJob";
+const string recurringJobId = "DailyCashTransactionJob";
 
-// var options = new RecurringJobOptions
-// {
-//     TimeZone = TimeZoneInfo.Local
-// };
+var options = new RecurringJobOptions
+{
+    TimeZone = TimeZoneInfo.Local
+};
 
-// RecurringJob.AddOrUpdate<IDailyCashTransactionService>(
-//     recurringJobId,
-//     service => service.DoWork(),
-//     // Cron.Minutely,
-//     "*/5 * * * *",  // Chạy cứ sau 5 phút
-//                     // */5: Cho biết thực hiện công việc mỗi phút thứ 5 trong một giờ (0, 5, 10, 15, v.v.).
-//                     // * * * *: Các dấu sao còn lại giữ nguyên các giá trị khác cho giờ, ngày, tháng và ngày trong tuần, có nghĩa là công việc sẽ chạy cứ sau 5 phút trong mọi giờ, mọi ngày.
+RecurringJob.AddOrUpdate<IDailyCashTransactionService>(
+    recurringJobId,
+    service => service.DoWork(),
+    // Cron.Minutely,
+    "*/1 * * * *",  // Chạy cứ sau 10 phút
+                    // */10: Cho biết thực hiện công việc mỗi phút thứ 10 trong một giờ (0, 5, 10, 15, v.v.).
+                    // * * * *: Các dấu sao còn lại giữ nguyên các giá trị khác cho giờ, ngày, tháng và ngày trong tuần, có nghĩa là công việc sẽ chạy cứ sau 5 phút trong mọi giờ, mọi ngày.
 
-//     options);
+    options);
 
 app.UseSerilogRequestLogging();
 
