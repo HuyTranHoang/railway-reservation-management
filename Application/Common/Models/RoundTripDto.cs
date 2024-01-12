@@ -11,5 +11,7 @@ namespace Application.Common.Models
         public double Discount { get; set; }
 
         public string Status { get; set; }
+
+        public string CreatedAt { get; set; }
     }
 }

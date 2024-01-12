@@ -28,7 +28,7 @@ export class SeatTypeComponent implements OnInit {
 
   queryParams: QueryParams = {
     pageNumber: 1,
-    pageSize: 2,
+    pageSize: 5,
     searchTerm: '',
     sort: '',
   };
@@ -46,10 +46,17 @@ export class SeatTypeComponent implements OnInit {
       next: (res: PaginatedResult<SeatType[]>) => {
         this.seatTypes = res.result;
         this.pagination = res.pagination;
-      },
-      error: (err) => {
+
+        this.checkItemsAndAdjustPage();
       },
     });
+  }
+
+  checkItemsAndAdjustPage() {
+    if (this.seatTypes.length === 0 && this.pagination.currentPage > 1) {
+      this.queryParams.pageNumber = this.pagination.currentPage - 1;
+      this.getAllSeatType();
+    }
   }
 
   onSearch() {

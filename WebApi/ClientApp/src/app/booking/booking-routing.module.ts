@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router'
 import { BookingComponent } from './booking.component'
 import { DepartureComponent } from './departure/departure.component'
-import { SharedModule } from '../shared/shared.module'
+import { PassengersComponent } from './passengers/passengers.component'
 
 
 const routes: Routes = [
@@ -11,6 +11,7 @@ const routes: Routes = [
     component: BookingComponent,
     children: [
       { path: '', component: DepartureComponent },
+      {path: 'passengers', component: PassengersComponent}
     ]
   },
 ];

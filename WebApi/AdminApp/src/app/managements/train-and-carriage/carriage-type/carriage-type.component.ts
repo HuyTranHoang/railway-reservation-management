@@ -23,7 +23,6 @@ export class CarriageTypeComponent implements OnInit {
   currentSearchTerm: string = '';
   currentSort: string = '';
 
-  // Trong component của bạn
   sortStates = {
     name: false,
     serviceCharge: false,
@@ -49,8 +48,17 @@ export class CarriageTypeComponent implements OnInit {
       next: (res: PaginatedResult<CarriageType[]>) => {
         this.carriageTypes = res.result;
         this.pagination = res.pagination;
+
+        this.checkItemsAndAdjustPage();
       },
     });
+  }
+
+  checkItemsAndAdjustPage() {
+    if (this.carriageTypes.length === 0 && this.pagination.currentPage > 1) {
+      this.queryParams.pageNumber = this.pagination.currentPage - 1;
+      this.getAllCarriageType();
+    }
   }
 
   onSearch() {

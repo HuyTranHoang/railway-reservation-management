@@ -29,6 +29,13 @@ namespace Infrastructure.Persistence
             .FirstOrDefaultAsync(x => x.Id == id);
         }
 
+        public async Task<RoundTrip> GetByIdWithTrainCompanyAsync(int id)
+        {
+            return await _context.RoundTrips
+                .Include(t => t.TrainCompany)
+                .FirstOrDefaultAsync(x => x.Id == id);
+        }
+
         public async Task<IQueryable<RoundTrip>> GetQueryAsync()
         {
             return await Task.FromResult(
@@ -37,10 +44,10 @@ namespace Infrastructure.Persistence
 
         public async Task<IQueryable<RoundTrip>> GetQueryWithTrainCompanyAsync()
         {
-             return await Task.FromResult(
-            _context.RoundTrips
-                .Include(t => t.TrainCompany)
-                .AsQueryable());
+            return await Task.FromResult(
+                _context.RoundTrips
+                    .Include(t => t.TrainCompany)
+                    .AsQueryable());
         }
 
         public void SoftDelete(RoundTrip roundTrip)

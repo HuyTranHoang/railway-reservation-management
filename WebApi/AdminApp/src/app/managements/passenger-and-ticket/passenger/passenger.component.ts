@@ -51,8 +51,17 @@ export class PassengerComponent implements OnInit {
       next: (res: any) => {
         this.passengers = res.result;
         this.pagination = res.pagination;
+
+        this.checkItemsAndAdjustPage();
       },
     });
+  }
+
+  checkItemsAndAdjustPage() {
+    if (this.passengers.length === 0 && this.pagination.currentPage > 1) {
+      this.queryParams.pageNumber = this.pagination.currentPage - 1;
+      this.getAllPassengers();
+    }
   }
 
   onSearch() {

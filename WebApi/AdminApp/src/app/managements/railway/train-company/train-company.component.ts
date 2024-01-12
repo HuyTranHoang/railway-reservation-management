@@ -47,8 +47,17 @@ export class TrainCompanyComponent implements OnInit {
       next: (res: PaginatedResult<TrainCompany[]>) => {
         this.trainCompanies = res.result;
         this.pagination = res.pagination;
+
+        this.checkItemsAndAdjustPage();
       },
     });
+  }
+
+  checkItemsAndAdjustPage() {
+    if (this.trainCompanies.length === 0 && this.pagination.currentPage > 1) {
+      this.queryParams.pageNumber = this.pagination.currentPage - 1;
+      this.getAllTrainCompany();
+    }
   }
 
   onSearch() {

@@ -7,7 +7,8 @@ import { SharedModule } from '../shared/shared.module';
 import { DepartureInfoComponent } from './departure/departure-info/departure-info.component';
 import { DepartureInputFieldComponent } from './departure/departure-input-field/departure-input-field.component';
 import { DepartureDatepickerFieldComponent } from './departure/departure-datepicker-field/departure-datepicker-field.component';
-import { DepartureSelectComponent } from './departure/departure-select/departure-select.component'
+import { DepartureSelectComponent } from './departure/departure-select/departure-select.component';
+import { PassengersComponent } from './passengers/passengers.component'
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { DepartureSelectComponent } from './departure/departure-select/departure
     DepartureInfoComponent,
     DepartureInputFieldComponent,
     DepartureDatepickerFieldComponent,
-    DepartureSelectComponent
+    DepartureSelectComponent,
+    PassengersComponent
   ],
   imports: [
     CommonModule,
