@@ -14,31 +14,31 @@ import { AddRoundTripComponent } from './round-trip/add-round-trip/add-round-tri
 import { ConfirmDeleteRoundTripComponent } from './round-trip/confirm-delete-round-trip/confirm-delete-round-trip.component';
 import { EditRoundTripComponent } from './round-trip/edit-round-trip/edit-round-trip.component';
 import { ShowRoundTripComponent } from './round-trip/show-round-trip/show-round-trip.component';
-import { NbOptionModule, NbSelectModule } from '@nebular/theme';
 
 
 @NgModule({
   declarations: [
     ScheduleAndTicketPricesComponent,
+    // Schedule
     ScheduleComponent,
+    // DistanceFare
     DistanceFareComponent,
-    RoundTripComponent,
-    ShowDistanceFareComponent,
     AddDistanceFareComponent,
     EditDistanceFareComponent,
+    ShowDistanceFareComponent,
     ConfirmDeleteDistanceFareComponent,
+    // RoundTrip
+    RoundTripComponent,
     AddRoundTripComponent,
-    ConfirmDeleteRoundTripComponent,
     EditRoundTripComponent,
     ShowRoundTripComponent,
+    ConfirmDeleteRoundTripComponent,
   ],
   imports: [
     CommonModule,
     SharedModule,
     ScheduleAndTicketPricesRoutingModule,
-    SharedModule
-    NbOptionModule,
-    NbSelectModule,
+
   ],
 })
 export class ScheduleAndTicketPricesModule {

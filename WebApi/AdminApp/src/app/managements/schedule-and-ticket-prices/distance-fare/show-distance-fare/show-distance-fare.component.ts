@@ -6,7 +6,7 @@ import { DistanceFareService } from '../distance-fare.service';
 @Component({
   selector: 'ngx-show-distance-fare',
   templateUrl: './show-distance-fare.component.html',
-  styleUrls: ['./show-distance-fare.component.scss']
+  styleUrls: ['./show-distance-fare.component.scss'],
 })
 export class ShowDistanceFareComponent implements OnInit {
   @Input() id: number;

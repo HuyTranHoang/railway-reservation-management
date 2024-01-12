@@ -8,28 +8,28 @@
             <input type="text" nbInput fullWidth style="color: black" [value]="trainCompanyName" disabled>
           </div>
         </div>
-  
+
         <div class="form-group row">
           <label class="label col-sm-3 col-form-label">Distance</label>
           <div class="col-sm-9">
             <input type="text" nbInput fullWidth  style="color: black" [value]="distance" disabled>
           </div>
         </div>
-  
+
         <div class="form-group row">
           <label class="label col-sm-3 col-form-label">Price</label>
           <div class="col-sm-9">
-            <textarea nbInput fullWidth  style="color: black" disabled>{{price}}</textarea>
+            <input nbInput fullWidth  style="color: black" [value]="price" disabled>
           </div>
         </div>
-  
+
       </section>
-  
+
     </nb-card-body>
     <nb-card-footer>
       <div class="d-flex justify-content-between">
         <button nbButton hero status="primary" (click)="dismiss()">Dismiss Dialog</button>
-  
+
         <div>
           <button nbButton hero status="primary" class="mr-3" (click)="onEdit()">Edit</button>
           <button nbButton hero status="danger" (click)="onDelete()">Delete</button>
@@ -37,4 +37,3 @@
       </div>
     </nb-card-footer>
   </nb-card>
-  

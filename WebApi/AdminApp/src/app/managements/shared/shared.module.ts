@@ -7,7 +7,7 @@ import {
   NbCardModule,
   NbCheckboxModule,
   NbIconModule,
-  NbInputModule,
+  NbInputModule, NbOptionModule,
   NbRadioModule, NbSelectModule,
 } from '@nebular/theme';
 import {HttpClientModule} from '@angular/common/http';
@@ -28,6 +28,7 @@ import { PaginationComponent } from './pagination/pagination.component';
     NbIconModule,
     NbRadioModule,
     NbSelectModule,
+    NbOptionModule,
   ],
   exports: [
     InputFieldComponent,
@@ -43,6 +44,7 @@ import { PaginationComponent } from './pagination/pagination.component';
     NbIconModule,
     NbRadioModule,
     NbSelectModule,
+    NbOptionModule,
   ],
 })
 export class SharedModule {
