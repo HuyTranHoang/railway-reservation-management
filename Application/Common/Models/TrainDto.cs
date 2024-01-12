@@ -11,4 +11,6 @@ public class TrainDto
     public string TrainCompanyName { get; set; }
 
     public string Status { get; set; }
+
+    public DateTime CreatedAt { get; set; }
 }

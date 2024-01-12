@@ -49,6 +49,10 @@ public class TrainService : ITrainService
         {
             "nameAsc" => query.OrderBy(t => t.Name),
             "nameDesc" => query.OrderByDescending(t => t.Name),
+            "trainCompanyNameAsc" => query.OrderBy(t => t.TrainCompany),
+            "trainCompanyNameDesc" => query.OrderByDescending(t => t.TrainCompany),
+            "createdAtAsc" => query.OrderBy(t => t.CreatedAt),
+            "createdAtDesc" => query.OrderByDescending(t => t.CreatedAt),
             _ => query.OrderBy(t => t.CreatedAt)
         };
 

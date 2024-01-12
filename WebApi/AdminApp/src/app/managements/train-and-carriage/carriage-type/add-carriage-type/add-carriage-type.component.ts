@@ -70,4 +70,5 @@ export class AddCarriageTypeComponent implements OnInit {
       title,
       config);
   }
+
 }

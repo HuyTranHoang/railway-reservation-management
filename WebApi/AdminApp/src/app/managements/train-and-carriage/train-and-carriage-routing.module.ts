@@ -4,9 +4,12 @@ import {RailwayComponent} from '../railway/railway.component';
 import {CarriageComponent} from './carriage/carriage.component';
 import {CarriageTypeComponent} from './carriage-type/carriage-type.component';
 import {CompartmentComponent} from './compartment/compartment.component';
-import {TrainComponent} from './train/train.component';
 import {AddCarriageTypeComponent} from './carriage-type/add-carriage-type/add-carriage-type.component';
 import {EditCarriageTypeComponent} from './carriage-type/edit-carriage-type/edit-carriage-type.component';
+import { AddTrainComponent } from './train/add-train/add-train.component';
+import { TrainComponent } from './train/train.component';
+import { ListTrainComponent } from './train/list-train/list-train.component';
+import { EditTrainComponent } from './train/edit-train/edit-train.component';
 
 const routes: Routes = [{
   path: '',
@@ -15,6 +18,20 @@ const routes: Routes = [{
     {
       path: 'train',
       component: TrainComponent,
+      children: [
+        {
+          path: '',
+          component: ListTrainComponent,
+        },
+        {
+          path: 'add',
+          component: AddTrainComponent,
+        },
+        {
+          path: ':id/edit',
+          component: EditTrainComponent,
+        },
+      ]
     },
     {
       path: 'carriage',
