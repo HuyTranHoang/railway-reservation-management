@@ -1,0 +1,49 @@
+<div class="col-md-6">
+
+    <nb-card>
+      <nb-card-header>
+        <div class="d-flex justify-content-between">
+          Define New Train Station
+          <button type="submit" nbButton
+                  routerLink="/managements/seat-and-seat-type/seat-type"
+                  status="primary">Back to list
+          </button>
+        </div>
+      </nb-card-header>
+      <nb-card-body>
+        <form [formGroup]="addFrom" (ngSubmit)="onSubmit()">
+          <app-input-field [control]="addFrom.get('name')"
+                           [label]="'Name'"
+                           [isSubmitted]="isSubmitted"
+                           [placeholder]="'Name of Train station..'">
+          </app-input-field>
+  
+          <app-input-field [control]="addFrom.get('address')"
+                           [label]="'Address'"
+                           [isSubmitted]="isSubmitted"
+                           [placeholder]="'Address..'">
+          </app-input-field>
+  
+          <app-input-field [control]="addFrom.get('status')"
+                           [label]="'Status'"
+                           [isSubmitted]="isSubmitted"
+                           [placeholder]="'Status.'">
+          </app-input-field>
+
+          <app-input-field [control]="addFrom.get('coordinateValue')"
+          [label]="'coordinateValue'"
+          [isSubmitted]="isSubmitted"
+          [placeholder]="'coordinateValue.'">
+         </app-input-field>
+  
+          <ul *ngIf="errorMessages.length > 0">
+            <li class="text-danger" *ngFor="let item of errorMessages">{{item}}</li>
+          </ul>
+  
+  
+          <button type="submit" nbButton status="success" class="float-right">Submit</button>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </div>
+  

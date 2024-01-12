@@ -10,6 +10,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditTrainCompanyComponent } from './train-company/edit-train-company/edit-train-company.component';
 import { ShowTrainCompanyComponent } from './train-company/show-train-company/show-train-company.component';
 import { ConfirmDeleteTrainCompanyComponent } from './train-company/confirm-delete-train-company/confirm-delete-train-company.component';
+import { ShowTrainStationComponent } from './train-station/show-train-station/show-train-station.component';
+import { AddTrainStationComponent } from './train-station/add-train-station/add-train-station.component';
+import { DeleteTrainStationComponent } from './train-station/delete-train-station/delete-train-station.component';
+import { EditTrainStationComponent } from './train-station/edit-train-station/edit-train-station.component';
 
 
 
@@ -22,6 +26,10 @@ import { ConfirmDeleteTrainCompanyComponent } from './train-company/confirm-dele
     EditTrainCompanyComponent,
     ShowTrainCompanyComponent,
     ConfirmDeleteTrainCompanyComponent,
+    ShowTrainStationComponent,
+    AddTrainStationComponent,
+    DeleteTrainStationComponent,
+    EditTrainStationComponent,
   ],
   imports: [
     CommonModule,
