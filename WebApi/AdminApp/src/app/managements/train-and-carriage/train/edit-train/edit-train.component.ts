@@ -108,12 +108,10 @@ export class EditTrainComponent implements OnInit{
   }
 
   loadAllTrainCompany(){
-    this.trainCompanyService.getAllTrainCompany(this.queryParams).subscribe({
-      next: (res : PaginatedResult<TrainCompany[]>) => {
-        this.trainCompanies = res.result;
+    this.trainCompanyService.getAllTrainCompanyNoPaging().subscribe({
+      next: (res : TrainCompany[]) => {
+        this.trainCompanies = res;
       },
     });
   }
-
-
 }
