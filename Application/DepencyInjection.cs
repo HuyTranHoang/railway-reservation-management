@@ -34,7 +34,6 @@ public static class DepencyInjection
 
     services.AddScoped<IDailyCashTransactionService, DailyCashTransactionService>();
 
-    services.AddScoped(typeof(IService<>), typeof(TemplateService<>));
     services.AddScoped(typeof(TemplateService<>));
     return services;
   }
