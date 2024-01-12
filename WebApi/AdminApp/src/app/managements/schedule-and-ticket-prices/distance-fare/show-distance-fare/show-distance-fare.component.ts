@@ -16,7 +16,7 @@ export class ShowDistanceFareComponent implements OnInit {
   @Input() status: string;
   @Input() createdAt: string;
 
-  @Output() onShowDelete = new EventEmitter<{ id: number }>();
+  @Output() onShowDelete = new EventEmitter<{ id: number, trainCompanyName: string }>();
 
   constructor(private distanceFareService: DistanceFareService, protected ref: NbDialogRef<ShowDistanceFareComponent>,
               private router: Router) {
@@ -36,7 +36,7 @@ export class ShowDistanceFareComponent implements OnInit {
   }
 
   onDelete() {
-    this.onShowDelete.emit({id: this.id});
+    this.onShowDelete.emit({id: this.id, trainCompanyName: this.trainCompanyName});
     this.dismiss();
   }
 }

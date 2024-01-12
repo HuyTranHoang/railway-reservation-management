@@ -16,7 +16,7 @@ import {
   styleUrls: ['./list-distance-fare.component.scss'],
 })
 export class ListDistanceFareComponent implements OnInit {
-  distanceFare: DistanceFare[] = [];
+  distanceFares: DistanceFare[] = [];
   pagination: Pagination;
 
   currentSearchTerm: string = '';
@@ -47,7 +47,7 @@ export class ListDistanceFareComponent implements OnInit {
   getAllDistanceFare() {
     this.distanceFareService.getAllDistanceFares(this.queryParams).subscribe({
       next: (res: PaginatedResult<DistanceFare[]>) => {
-        this.distanceFare = res.result;
+        this.distanceFares = res.result;
         this.pagination = res.pagination;
       },
     });
@@ -88,31 +88,27 @@ export class ListDistanceFareComponent implements OnInit {
 
   openShowDialog(id: number) {
 
-    this.distanceFareService.getDistanceFareById(id).subscribe({
-      next: (res: DistanceFare) => {
-        const dialogRef = this.dialogService.open(ShowDistanceFareComponent, {
-          context: {
-            id: res.id,
-            trainCompanyName: res.trainCompanyName,
-            distance: res.distance,
-            price: res.price,
-          },
-        });
+    const distanceFare = this.distanceFares.find(x => x.id === id);
 
-        dialogRef.componentRef.instance.onShowDelete.subscribe(obj => {
-          this.openConfirmDialog(obj.id);
-        });
+    const dialogRef = this.dialogService.open(ShowDistanceFareComponent, {
+      context: {
+        id: distanceFare.id,
+        trainCompanyName: distanceFare.trainCompanyName,
+        distance: distanceFare.distance,
+        price: distanceFare.price,
+        createdAt: distanceFare.createdAt,
       },
+    });
+
+    dialogRef.componentRef.instance.onShowDelete.subscribe(obj => {
+      this.openConfirmDialog(obj.id, obj.trainCompanyName);
     });
 
   }
 
-  openConfirmDialog(id: number) {
+  openConfirmDialog(id: number, trainCompanyName: string) {
     const dialogRef = this.dialogService.open(ConfirmDeleteDistanceFareComponent, {
-      context: {
-        id,
-
-      },
+      context: { id, trainCompanyName },
     });
 
     dialogRef.componentRef.instance.onConfirmDelete.subscribe(_ => {
