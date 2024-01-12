@@ -1,7 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {RailwayComponent} from '../railway/railway.component';
-import {CarriageComponent} from './carriage/carriage.component';
 import {CompartmentComponent} from './compartment/compartment.component';
 import { AddTrainComponent } from './train/add-train/add-train.component';
 import { TrainComponent } from './train/train.component';

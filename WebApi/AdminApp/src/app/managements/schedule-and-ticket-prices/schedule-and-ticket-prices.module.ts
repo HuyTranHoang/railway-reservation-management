@@ -10,35 +10,30 @@ import { AddDistanceFareComponent } from './distance-fare/add-distance-fare/add-
 import { EditDistanceFareComponent } from './distance-fare/edit-distance-fare/edit-distance-fare.component';
 import { ConfirmDeleteDistanceFareComponent } from './distance-fare/confirm-delete-distance-fare/confirm-delete-distance-fare.component';
 import { SharedModule } from '../shared/shared.module';
-import { AddRoundTripComponent } from './round-trip/add-round-trip/add-round-trip.component';
-import { ConfirmDeleteRoundTripComponent } from './round-trip/confirm-delete-round-trip/confirm-delete-round-trip.component';
-import { EditRoundTripComponent } from './round-trip/edit-round-trip/edit-round-trip.component';
-import { ShowRoundTripComponent } from './round-trip/show-round-trip/show-round-trip.component';
+import {RoundTripModule} from './round-trip/round-trip.module';
 
 
 @NgModule({
   declarations: [
     ScheduleAndTicketPricesComponent,
-    // Schedule
     ScheduleComponent,
-    // DistanceFare
+    RoundTripComponent,
     DistanceFareComponent,
     AddDistanceFareComponent,
     EditDistanceFareComponent,
     ShowDistanceFareComponent,
     ConfirmDeleteDistanceFareComponent,
-    // RoundTrip
-    RoundTripComponent,
-    AddRoundTripComponent,
-    EditRoundTripComponent,
-    ShowRoundTripComponent,
-    ConfirmDeleteRoundTripComponent,
+
   ],
   imports: [
     CommonModule,
     SharedModule,
-    ScheduleAndTicketPricesRoutingModule,
 
+    // Child Module
+    RoundTripModule,
+
+    // Routing
+    ScheduleAndTicketPricesRoutingModule,
   ],
 })
 export class ScheduleAndTicketPricesModule {
