@@ -13,8 +13,5 @@ public class DistanceFareDto
 
     public double Price { get; set; }
 
-    public static implicit operator double(DistanceFareDto v)
-    {
-        throw new NotImplementedException();
-    }
+    public DateTime CreatedAt { get; set; }
 }

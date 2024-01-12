@@ -16,7 +16,8 @@ const routes: Routes = [{
     },
     {
       path: 'distance-fare',
-      component: DistanceFareComponent,
+      loadChildren: () => import('./distance-fare/distance-fare.module')
+        .then(m => m.DistanceFareModule),
     },
     {
       path: 'round-trip',
