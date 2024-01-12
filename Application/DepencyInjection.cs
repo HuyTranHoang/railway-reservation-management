@@ -33,6 +33,9 @@ public static class DepencyInjection
     services.AddScoped<ICancellationService, CancellationService>();
 
     services.AddScoped<IDailyCashTransactionService, DailyCashTransactionService>();
+
+    services.AddScoped(typeof(IService<>), typeof(TemplateService<>));
+    services.AddScoped(typeof(TemplateService<>));
     return services;
   }
 }

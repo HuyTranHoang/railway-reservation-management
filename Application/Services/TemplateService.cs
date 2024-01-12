@@ -1,48 +1,50 @@
 
-using AutoMapper;
-
 namespace Application.Services
 {
     public class TemplateService<T> : IService<T> where T : class
     {
         private readonly IMapper _mapper;
         private readonly IRepository<T> _repository;
-        private readonly IUnitOfWork _unitOfWork;
 
-        public TemplateService(IRepository<T> repository, IUnitOfWork unitOfWork, IMapper mapper)
+        public TemplateService(IRepository<T> repository, IMapper mapper)
         {
             _repository = repository;
-            _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<TemplateDto>> GetAllDtoAsync()
-    {
-        var entities = await _repository.GetQueryAsync();
-        var dtos = _mapper.Map<IEnumerable<TemplateDto>>(entities);
-
-        return dtos;
-    }
-        public async Task AddAsync(T t)
+        public async Task<List<CarriageTemplateDto>> GetAllCarriageTemplateDtoAsync()
         {
-            await _repository.AddAsync(t);
+            var entities = await _repository.GetQueryAsync();
+            var dtos = _mapper.Map<List<CarriageTemplateDto>>(entities);
+
+            return dtos;
+        }
+        public async Task<List<CompartmentTemplateDto>> GetAllCompartmentTemplateDtoAsync()
+        {
+            var entities = await _repository.GetQueryAsync();
+            var dtos = _mapper.Map<List<CompartmentTemplateDto>>(entities);
+
+            return dtos;
         }
 
-        public async Task DeleteAsync(T t)
+        public Task AddAsync(T t)
         {
-            _repository.Delete(t);
-            await _unitOfWork.SaveChangesAsync();
+            throw new NotImplementedException();
         }
 
-        public async Task<T> GetByIdAsync(int id)
+        public Task DeleteAsync(T t)
         {
-            return await _repository.GetByIdAsync(id);
+            throw new NotImplementedException();
         }
 
-        public async Task SoftDeleteAsync(T t)
+        public Task<T> GetByIdAsync(int id)
         {
-            _repository.SoftDelete(t);
-            await _unitOfWork.SaveChangesAsync();
+            throw new NotImplementedException();
+        }
+
+        public Task SoftDeleteAsync(T t)
+        {
+            throw new NotImplementedException();
         }
 
         public Task UpdateAsync(T t)

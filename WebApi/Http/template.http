@@ -1,0 +1,16 @@
+@url = https://localhost:5001
+@router = api/template
+
+### 
+
+
+# @name GetAllCarriageTemplates
+GET {{url}}/{{router}}/carriage
+
+
+### 
+
+
+# @name GetAllCompartmentTemplates
+GET {{url}}/{{router}}/compartment
+

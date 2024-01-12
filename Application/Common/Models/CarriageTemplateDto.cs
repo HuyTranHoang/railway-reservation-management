@@ -1,6 +1,6 @@
 namespace Application.Common.Models
 {
-    public class TemplateDto
+    public class CarriageTemplateDto
     {
         public int Id { get; set; }
 
@@ -9,7 +9,7 @@ namespace Application.Common.Models
         public int CarriageTypeId { get; set; }
         public string CarriageTypeName { get; set; }
 
-        public int NumberOf { get; set; }
+        public int NumberOfCompartments { get; set; }
 
         public string Status { get; set; }
     }

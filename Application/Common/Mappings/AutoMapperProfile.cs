@@ -20,13 +20,15 @@ public class AutoMapperProfile : Profile
             .ForMember(dest => dest.CarriageTypeName,
                 opt => opt.MapFrom(src => src.CarriageType.Name));
 
-        CreateMap<CarriageTemplate, TemplateDto>()
+        CreateMap<CarriageTemplate, CarriageTemplateDto>()
             .ForMember(dest => dest.CarriageTypeName,
                 opt => opt.MapFrom(src => src.CarriageType.Name));
 
         CreateMap<Compartment, CompartmentDto>()
             .ForMember(dest => dest.CarriageName,
                 otp => otp.MapFrom(src => src.Carriage.Name));
+
+        CreateMap<CompartmentTemplate, CompartmentTemplateDto>();
 
         CreateMap<CarriageType, CarriageTypeDto>();
 
