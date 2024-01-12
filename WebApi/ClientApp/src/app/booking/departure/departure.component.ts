@@ -24,7 +24,7 @@ export class DepartureComponent implements OnInit{
   }
 
   onBookNowClick(id: number) {
-    this.bookingService.currentStep = 2;
+    console.log('Book now clicked for train id: ', id);
   }
 
 }
