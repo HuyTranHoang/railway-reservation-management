@@ -99,30 +99,20 @@ export class ListRoundTripComponent implements OnInit {
   }
 
   openShowDialog(id: number) {
-    this.roundTripService.getRoundTripById(id).subscribe({
-      next: (res: RoundTrip) => {
-        const dialogRef = this.dialogService.open(ShowRoundTripComponent, {
-          context: {
-            id: res.id,
-            trainCompanyName: res.trainCompanyName,
-            discount: res.discount,
-            createdAt: res.createdAt,
-          },
-        });
+    const roundTrip = this.roundTrips.find(x => x.id === id);
 
-        dialogRef.componentRef.instance.onShowDelete.subscribe(obj => {
-          this.openConfirmDialog(obj.id, obj.name);
-        });
-      },
+    const dialogRef = this.dialogService.open(ShowRoundTripComponent, {
+      context: { ...roundTrip },
+    });
+
+    dialogRef.componentRef.instance.onShowDelete.subscribe(obj => {
+      this.openConfirmDialog(obj.id, obj.name);
     });
   }
 
   openConfirmDialog(id: number, name: string) {
     const dialogRef = this.dialogService.open(ConfirmDeleteRoundTripComponent, {
-      context: {
-        id,
-        name,
-      },
+      context: { id, name },
     });
 
     dialogRef.componentRef.instance.onConfirmDelete.subscribe((_: any) => {

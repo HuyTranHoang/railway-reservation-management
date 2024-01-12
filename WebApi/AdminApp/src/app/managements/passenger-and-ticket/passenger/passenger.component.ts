@@ -100,34 +100,20 @@ export class PassengerComponent implements OnInit {
   }
 
   openShowDialog(id: number) {
-    this.passengerService.getPassengerById(id).subscribe({
-      next: (res: Passenger) => {
-        const dialogRef = this.dialogService.open(ShowPassengerComponent, {
-          context: {
-            id: res.id,
-            fullName: res.fullName,
-            cardId: res.cardId,
-            age: res.age,
-            gender: res.gender,
-            phone: res.phone,
-            email: res.email,
-            createdAt: res.createdAt,
-          },
-        });
+    const passenger = this.passengers.find(p => p.id === id);
 
-        dialogRef.componentRef.instance.onShowDelete.subscribe(obj => {
-          this.openConfirmDialog(obj.id, obj.name);
-        });
-      },
+    const dialogRef = this.dialogService.open(ShowPassengerComponent, {
+      context: { ...passenger },
+    });
+
+    dialogRef.componentRef.instance.onShowDelete.subscribe(obj => {
+      this.openConfirmDialog(obj.id, obj.name);
     });
   }
 
   openConfirmDialog(id: number, name: string) {
     const dialogRef = this.dialogService.open(ConfirmDeletePassengerComponent, {
-      context: {
-        id,
-        name,
-      },
+      context: { id, name },
     });
 
     dialogRef.componentRef.instance.onConfirmDelete.subscribe(_ => {
