@@ -97,24 +97,16 @@ export class ListCarriageTypeComponent implements OnInit {
 
 
   openShowDialog(id: number) {
-    this.carriageTypeService.getCarriageTypeById(id).subscribe({
-      next: (res: CarriageType) => {
-        const dialogRef = this.dialogService.open(ShowCarriageTypeComponent, {
-          context: {
-            id: res.id,
-            name: res.name,
-            serviceCharge: res.serviceCharge,
-            description: res.description,
-            status: res.status,
-            createdAt: res.createdAt,
-          },
-        });
+    const carriageType = this.carriageTypes.find(x => x.id === id);
 
-        dialogRef.componentRef.instance.onShowDelete.subscribe(obj => {
-          this.openConfirmDialog(obj.id, obj.name);
-        });
-      },
+    const dialogRef = this.dialogService.open(ShowCarriageTypeComponent, {
+      context: {...carriageType},
     });
+
+    dialogRef.componentRef.instance.onShowDelete.subscribe(obj => {
+      this.openConfirmDialog(obj.id, obj.name);
+    });
+
   }
 
   openConfirmDialog(id: number, name: string) {

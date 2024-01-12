@@ -93,33 +93,22 @@ export class SeatTypeComponent implements OnInit {
   }
 
   openShowDialog(id: number) {
-    this.seatTypeService.getSeatTypeById(id).subscribe({
-      next: (res: SeatType) => {
-        const dialogRef = this.dialogService.open(ShowSeatTypeComponent, {
-          context: {
-            id: res.id,
-            name: res.name,
-            serviceCharge: res.serviceCharge,
-            description: res.description,
-            status: res.status,
-            createdAt: res.createdAt,
-          },
-        });
 
-        dialogRef.componentRef.instance.onShowDelete.subscribe(obj => {
-          this.openConfirmDialog(obj.id, obj.name);
-        });
-      },
+    const seatType = this.seatTypes.find(x => x.id === id);
+
+    const dialogRef = this.dialogService.open(ShowSeatTypeComponent, {
+      context: { ...seatType },
+    });
+
+    dialogRef.componentRef.instance.onShowDelete.subscribe(obj => {
+      this.openConfirmDialog(obj.id, obj.name);
     });
 
   }
 
   openConfirmDialog(id: number, name: string) {
     const dialogRef = this.dialogService.open(ConfirmDeleteSeatTypeComponent, {
-      context: {
-        id,
-        name,
-      },
+      context: {id, name},
     });
 
     dialogRef.componentRef.instance.onConfirmDelete.subscribe(_ => {

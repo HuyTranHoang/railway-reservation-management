@@ -49,8 +49,17 @@ export class ListDistanceFareComponent implements OnInit {
       next: (res: PaginatedResult<DistanceFare[]>) => {
         this.distanceFares = res.result;
         this.pagination = res.pagination;
+
+        this.checkItemsAndAdjustPage();
       },
     });
+  }
+
+  checkItemsAndAdjustPage() {
+    if (this.distanceFares.length === 0 && this.pagination.currentPage > 1) {
+      this.queryParams.pageNumber = this.pagination.currentPage - 1;
+      this.getAllDistanceFare();
+    }
   }
 
   onSearch() {
@@ -91,13 +100,7 @@ export class ListDistanceFareComponent implements OnInit {
     const distanceFare = this.distanceFares.find(x => x.id === id);
 
     const dialogRef = this.dialogService.open(ShowDistanceFareComponent, {
-      context: {
-        id: distanceFare.id,
-        trainCompanyName: distanceFare.trainCompanyName,
-        distance: distanceFare.distance,
-        price: distanceFare.price,
-        createdAt: distanceFare.createdAt,
-      },
+      context: { ...distanceFare },
     });
 
     dialogRef.componentRef.instance.onShowDelete.subscribe(obj => {
