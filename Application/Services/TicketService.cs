@@ -18,6 +18,11 @@ namespace Application.Services
         public async Task AddAsync(Ticket ticket)
         {
             ticket.Code = GenerateUniqueCode();
+
+            ticket.Price = CalculatePrice(ticket);
+
+
+
             _repository.Add(ticket);
             await _unitOfWork.SaveChangesAsync();
         }
@@ -126,6 +131,7 @@ namespace Application.Services
             ticketInDb.SeatId = ticket.SeatId;
             ticketInDb.ScheduleId = ticket.ScheduleId;
             ticketInDb.PaymentId = ticket.PaymentId;
+            ticketInDb.Price = CalculatePrice(ticket);
             ticketInDb.Status = ticket.Status;
             ticketInDb.UpdatedAt = DateTime.Now;
 
@@ -143,6 +149,13 @@ namespace Application.Services
             string code = datePart + guid.ToString("N").Substring(0, 10 - datePart.Length);
 
             return code;
+        }
+
+        private double CalculatePrice (Ticket ticket)
+        {
+            double ticketAmount = ticket.DistanceFare.Price + ticket.Carriage.CarriageType.ServiceCharge + ticket.Seat.SeatType.ServiceCharge;
+
+            return ticketAmount;
         }
 
     }

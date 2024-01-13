@@ -26,6 +26,8 @@ namespace Infrastructure.Persistence
         public async Task<Ticket> GetByIdAsync(int id)
         {
             return await _context.Tickets.FindAsync(id);
+
+            
         }
 
         public async Task<IQueryable<Ticket>> GetQueryAsync()

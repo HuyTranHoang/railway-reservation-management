@@ -34,7 +34,7 @@ GET {{url}}/{{router}}?
 ### 
 
 # @name getTicketById
-@id = 11
+@id = 7
 
 GET {{url}}/{{router}}/{{id}}
 
@@ -42,14 +42,14 @@ GET {{url}}/{{router}}/{{id}}
 ### 
 
 # @name UpdateTicket
-@updateId = 11
+@updateId = 7
 
 PUT {{url}}/{{router}}/{{updateId}}
 Content-Type: application/json
 
 {
   "Id": {{updateId}},
-  "PassengerId" : 2 ,
+  "PassengerId" : 3 ,
   "TrainId" : 1,
   "CarriageId" : 1,
   "DistanceFareId" : 1,
