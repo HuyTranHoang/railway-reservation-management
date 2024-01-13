@@ -21,7 +21,7 @@ export class ErrorInterceptor implements HttpInterceptor {
             } else {
               Swal.fire({
                 icon: 'error',
-                title: error.status.toString(),
+                title: 'Oops...',
                 text: error.error.message
               })
             }
@@ -29,7 +29,7 @@ export class ErrorInterceptor implements HttpInterceptor {
           case 401:
             Swal.fire({
               icon: 'error',
-              title: 'Unauthorized',
+              title: 'Oops...',
               text: error.error.message
             })
             throw error.error

@@ -61,19 +61,17 @@
         <div class="col-6">
           <div class="form-group">
             <label>PASSENGERS</label>
-
             <div id="passenger_selector" class="input-group">
               <ul>
                 <li>
-                  <button type="button" class="btn-circle fas fa-minus" data-value="-1" data-target="#passengers_count"
-                          data-toggle="spinner">
-                  </button>
+                  <button type="button" class="btn-circle fas fa-minus"></button>
                 </li>
-                <li><input id="passengers_count" type="text" readonly="" data-ride="spinner" name="passengers_count"
-                           class="input-number text-center" value="1" data-min="1" data-max="9"></li>
                 <li>
-                  <button type="button" class="btn-circle fas fa-plus" data-value="1" data-target="#passengers_count"
-                          data-toggle="spinner" data-on="mousehold"></button>
+                  <input id="passengers_count" type="text" readonly=""
+                         class="input-number text-center" value="1" >
+                </li>
+                <li>
+                  <button type="button" class="btn-circle fas fa-plus"></button>
                 </li>
               </ul>
             </div>
@@ -97,4 +95,4 @@
 
 <!-- Select depart -->
 
-<app-departure-select></app-departure-select>
+<app-departure-select (bookNow)="onBookNowClick($event)"></app-departure-select>

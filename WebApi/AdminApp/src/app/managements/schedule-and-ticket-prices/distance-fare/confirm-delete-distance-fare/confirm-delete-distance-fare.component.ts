@@ -1,14 +1,15 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { NbDialogRef, NbGlobalPhysicalPosition, NbToastrService } from '@nebular/theme';
-import { DistanceFareService } from '../distance-fare.service';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {NbDialogRef, NbGlobalPhysicalPosition, NbToastrService} from '@nebular/theme';
+import {DistanceFareService} from '../distance-fare.service';
 
 @Component({
   selector: 'ngx-confirm-delete-distance-fare',
   templateUrl: './confirm-delete-distance-fare.component.html',
-  styleUrls: ['./confirm-delete-distance-fare.component.scss']
+  styleUrls: ['./confirm-delete-distance-fare.component.scss'],
 })
 export class ConfirmDeleteDistanceFareComponent {
   @Input() id: number;
+  @Input() trainCompanyName: string;
   @Output() onConfirmDelete = new EventEmitter<void>();
 
   constructor(protected ref: NbDialogRef<ConfirmDeleteDistanceFareComponent>,
@@ -20,15 +21,15 @@ export class ConfirmDeleteDistanceFareComponent {
     this.ref.close();
   }
 
-  onDeleteSeatType() {
+  onDelete() {
     this.distanceFareService.deleteDistanceFare(this.id).subscribe({
       next: res => {
-        this.showToast('success', 'Success', 'Delete seat type successfully!');
+        this.showToast('success', 'Success', 'Delete distance fare successfully!');
         this.onConfirmDelete.emit();
         this.ref.close();
       },
       error: error => {
-        this.showToast('danger', 'Failed', 'Delete seat type failed!');
+        this.showToast('danger', 'Failed', 'Delete distance fare failed!');
       },
     });
   }

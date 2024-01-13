@@ -44,6 +44,11 @@ public class DistanceFareService : IDistanceFareService
         {
             "trainCompanyNameAsc" => query.OrderBy(t => t.TrainCompany.Name),
             "trainCompanyNameDesc" => query.OrderByDescending(t => t.TrainCompany.Name),
+            "distanceAsc" => query.OrderBy(t => t.Distance),
+            "distanceDesc" => query.OrderByDescending(t => t.Distance),
+            "priceAsc" => query.OrderBy(t => t.Price),
+            "priceDesc" => query.OrderByDescending(t => t.Price),
+            "createdAtDesc" => query.OrderByDescending(t => t.CreatedAt),
             _ => query.OrderBy(t => t.CreatedAt)
         };
 

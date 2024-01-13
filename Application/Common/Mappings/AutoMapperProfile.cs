@@ -45,8 +45,6 @@ public class AutoMapperProfile : Profile
             otp => otp.MapFrom(src => src.ArrivalStation.Name));
 
         CreateMap<RoundTrip, RoundTripDto>()
-            .ForMember(dest => dest.CreatedAt,
-                opt => opt.ConvertUsing(new DateTimeFormatter(), src => src.CreatedAt))
             .ForMember(dest => dest.TrainCompanyName,
                 opt => opt.MapFrom(src => src.TrainCompany.Name));
 

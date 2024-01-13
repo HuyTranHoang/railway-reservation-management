@@ -1,5 +1,6 @@
 using Domain.Exceptions;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebApi.Controllers;
 
@@ -14,16 +15,16 @@ public class UsersController : BaseApiController
     [HttpGet]
     public async Task<ActionResult<IEnumerable<ApplicationUserDto>>> GetUsers([FromQuery] QueryParams queryParams)
     {
-        var usersDto = _userManager.Users
-            .Select(u => new ApplicationUserDto
-            {
-                Id = u.Id,
-                Email = u.Email,
-                FirstName = u.FirstName,
-                LastName = u.LastName,
-                PhoneNumber = u.PhoneNumber
-            })
-            .ToList();
+        var usersList = await _userManager.Users.ToListAsync();
+
+        var usersDto = usersList.Select(user => new ApplicationUserDto
+        {
+            Id = user.Id,
+            Email = user.Email,
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            PhoneNumber = user.PhoneNumber
+        }).ToList();
 
         var paginationHeader = new PaginationHeader(queryParams.PageNumber, queryParams.PageSize,
             usersDto.Count, usersDto.Count);

@@ -3,9 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {ScheduleAndTicketPricesComponent} from './schedule-and-ticket-prices.component';
 import {ScheduleComponent} from './schedule/schedule.component';
 import {DistanceFareComponent} from './distance-fare/distance-fare.component';
-import {RoundTripComponent} from './round-trip/round-trip.component';
-import { AddRoundTripComponent } from './round-trip/add-round-trip/add-round-trip.component';
-import { EditRoundTripComponent } from './round-trip/edit-round-trip/edit-round-trip.component';
+
 
 
 const routes: Routes = [{
@@ -18,19 +16,13 @@ const routes: Routes = [{
     },
     {
       path: 'distance-fare',
-      component: DistanceFareComponent,
+      loadChildren: () => import('./distance-fare/distance-fare.module')
+        .then(m => m.DistanceFareModule),
     },
     {
       path: 'round-trip',
-      component: RoundTripComponent,
-    },
-    {
-      path: 'round-trip/add',
-      component: AddRoundTripComponent,
-    },
-    {
-      path: 'round-trip/:id/edit',
-      component: EditRoundTripComponent,
+      loadChildren: () => import('./round-trip/round-trip.module')
+        .then(m => m.RoundTripModule),
     },
   ],
 }];

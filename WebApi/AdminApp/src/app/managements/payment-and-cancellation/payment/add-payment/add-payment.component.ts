@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {NbGlobalPhysicalPosition, NbToastrService} from '@nebular/theme';
 import {PaymentService} from '../payment.service';
 import {UserService} from '../../../services/user.service';
-import {ApplicationUser} from '../../../../@models/ApplicationUser';
+import {ApplicationUser} from '../../../../@models/applicationUser';
 
 @Component({
   selector: 'ngx-add-payment',

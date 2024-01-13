@@ -9,15 +9,28 @@ namespace Application.Services
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
 
-        public TicketService(ITicketRepository repository, IUnitOfWork unitOfWork, IMapper mapper)
+        private readonly IDistanceFareRepository _distanceFare;
+        private readonly ICarriageRepository _carriage;
+        private readonly ISeatRepository _seat;
+
+        public TicketService(ITicketRepository repository, IUnitOfWork unitOfWork, IMapper mapper,
+                                IDistanceFareRepository distanceFare,
+                                ICarriageRepository carriage,
+                                ISeatRepository seat)
         {
             _repository = repository;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _distanceFare = distanceFare;
+            _carriage = carriage;
+            _seat = seat;
         }
         public async Task AddAsync(Ticket ticket)
         {
-            ticket.Code = GenerateUniqueCode();
+            ticket.Code = GenerateUniqueCode(ticket);
+
+            ticket.Price = await CalculatePrice(ticket);
+
             _repository.Add(ticket);
             await _unitOfWork.SaveChangesAsync();
         }
@@ -126,6 +139,7 @@ namespace Application.Services
             ticketInDb.SeatId = ticket.SeatId;
             ticketInDb.ScheduleId = ticket.ScheduleId;
             ticketInDb.PaymentId = ticket.PaymentId;
+            ticketInDb.Price = await CalculatePrice(ticket);
             ticketInDb.Status = ticket.Status;
             ticketInDb.UpdatedAt = DateTime.Now;
 
@@ -134,15 +148,24 @@ namespace Application.Services
             await _unitOfWork.SaveChangesAsync();
         }
 
-        private static string GenerateUniqueCode()
+        private static string GenerateUniqueCode(Ticket ticket)
         {
-            Guid guid = Guid.NewGuid();
             DateTime currentDate = DateTime.Now;
-
             string datePart = currentDate.ToString("ddMMyy");
-            string code = datePart + guid.ToString("N").Substring(0, 10 - datePart.Length);
-
+            string timePart = currentDate.ToString("HHmmss");
+            var code = $"{datePart}{timePart}{ticket.PassengerId}{ticket.TrainId}{ticket.CarriageId}{ticket.SeatId}";
             return code;
+        }
+
+        private async Task<double> CalculatePrice(Ticket ticket)
+        {
+            var distanceFare = await _distanceFare.GetDistanceFareByIdAsync(ticket.DistanceFareId);
+            var carriageServiceCharge = await _carriage.GetServiceChargeByIdAsync(ticket.CarriageId);
+            var seatTypeServiceCharge = await _seat.GetServiceChargeByIdAsync(ticket.SeatId);
+
+            double ticketAmount = distanceFare + carriageServiceCharge + seatTypeServiceCharge;
+
+            return ticketAmount;
         }
 
     }

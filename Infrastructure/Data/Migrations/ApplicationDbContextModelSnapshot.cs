@@ -752,6 +752,9 @@ namespace Infrastructure.Data.Migrations
                     b.Property<int>("PaymentId")
                         .HasColumnType("int");
 
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
                     b.Property<int>("ScheduleId")
                         .HasColumnType("int");
 

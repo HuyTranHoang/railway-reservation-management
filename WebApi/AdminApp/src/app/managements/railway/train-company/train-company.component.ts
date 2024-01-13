@@ -97,22 +97,15 @@ export class TrainCompanyComponent implements OnInit {
 
 
   openShowDialog(id: number) {
-    this.trainCompanyService.getTrainCompanyById(id).subscribe({
-      next: (res: TrainCompany) => {
-        const dialogRef = this.dialogService.open(ShowTrainCompanyComponent, {
-          context: {
-            id: res.id,
-            name: res.name,
-            status: res.status,
-          },
-        });
+    const trainCompany = this.trainCompanies.find(x => x.id === id);
 
-        dialogRef.componentRef.instance.onShowDelete.subscribe(obj => {
-          this.openConfirmDialog(obj.id, obj.name);
-        });
-      },
+    const dialogRef = this.dialogService.open(ShowTrainCompanyComponent, {
+      context: { ...trainCompany },
     });
 
+    dialogRef.componentRef.instance.onShowDelete.subscribe(obj => {
+      this.openConfirmDialog(obj.id, obj.name);
+    });
   }
 
   openConfirmDialog(id: number, name: string) {

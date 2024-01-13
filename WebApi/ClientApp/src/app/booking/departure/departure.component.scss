@@ -129,6 +129,12 @@ input[readonly] {
   -webkit-appearance: none;
 }
 
+.input-number:focus {
+  border: 1px solid #fb0;
+  transition: .6s;
+  outline: 0;
+}
+
 .btn-confirmed, .btn.green {
   background: #9ccd19;
 }

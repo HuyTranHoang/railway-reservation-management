@@ -1,12 +1,14 @@
 <div class="container mt-5">
   <div class="progress-bar-holder hidden-sm hidden-xs">
-    <ul class="progressbar small-text bold">
-      <li class="current">
+    <ul class="progressbar small-text bold" *ngIf="bookingService.currentStep">
+      <li [class.current]="bookingService.currentStep === 1"
+          [class.active]="bookingService.currentStep > 1">
       <!--  current khi đang ở bước đó, active khi đã làm xong   -->
         <span>DEPARTURE</span>
         <em class="progress-bar-arrow"></em>
       </li>
-      <li class="">
+      <li [class.current]="bookingService.currentStep === 2"
+          [class.active]="bookingService.currentStep > 2">
         <span>PASSENGERS</span>
         <em class="progress-bar-arrow"></em>
       </li>

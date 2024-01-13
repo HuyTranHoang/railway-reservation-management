@@ -59,7 +59,7 @@ app.UseStatusCodePagesWithReExecute("/errors/{0}");
 app.UseCors(b => b.AllowAnyHeader()
     .AllowAnyMethod()
     .AllowCredentials()
-    .WithOrigins("http://localhost:4200"));
+    .WithOrigins("http://localhost:4200", "http://localhost:4300"));
 
 app.UseHttpsRedirection();
 

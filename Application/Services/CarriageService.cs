@@ -47,8 +47,13 @@ public class CarriageService : ICarriageService
         {
             "nameAsc" => query.OrderBy(p => p.Name),
             "nameDesc" => query.OrderByDescending(p => p.Name),
+            "trainNameAsc" => query.OrderBy(p => p.Train.Name),
+            "trainNameDesc" => query.OrderByDescending(p => p.Train.Name),
+            "typeNameAsc" => query.OrderBy(p => p.CarriageType.Name),
+            "typeNameDesc" => query.OrderByDescending(p => p.CarriageType.Name),
             "numberOfCompartmentAsc" => query.OrderBy(p => p.NumberOfCompartments),
             "numberOfCompartmentDesc" => query.OrderByDescending(p => p.NumberOfCompartments),
+            "createdAtDesc" => query.OrderByDescending(p => p.CreatedAt),
             _ => query.OrderBy(p => p.CreatedAt)
         };
 

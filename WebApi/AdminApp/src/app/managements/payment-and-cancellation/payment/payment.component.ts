@@ -98,22 +98,14 @@ export class PaymentComponent implements OnInit {
 
 
   openShowDialog(id: number) {
-    this.paymentService.getPaymentById(id).subscribe({
-      next: (res: Payment) => {
-        const dialogRef = this.dialogService.open(ShowPaymentComponent, {
-          context: {
-            id: res.id,
-            fullName: res.aspNetUserFullName,
-            email: res.aspNetUserEmail,
-            status: res.status,
-            createdAt: res.createdAt,
-          },
-        });
+    const payment = this.payments.find(x => x.id === id);
 
-        dialogRef.componentRef.instance.onShowDelete.subscribe(obj => {
-          this.openConfirmDialog(obj.id, obj.name);
-        });
-      },
+    const dialogRef = this.dialogService.open(ShowPaymentComponent, {
+      context: { ...payment },
+    });
+
+    dialogRef.componentRef.instance.onShowDelete.subscribe(obj => {
+      this.openConfirmDialog(obj.id, obj.name);
     });
   }
 

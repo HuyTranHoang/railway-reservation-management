@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
-import { environment } from '../../../../environments/environment';
-import { HttpClient } from '@angular/common/http';
-import { PaginationService } from '../../shared/pagination.service';
-import { QueryParams } from '../../../@models/params/queryParams';
-import { DistanceFare } from '../../../@models/distanceFare';
+import {Injectable} from '@angular/core';
+import {environment} from '../../../../environments/environment';
+import {HttpClient} from '@angular/common/http';
+import {PaginationService} from '../../shared/pagination.service';
+import {QueryParams} from '../../../@models/params/queryParams';
+import {DistanceFare} from '../../../@models/distanceFare';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DistanceFareService {
 
@@ -44,7 +44,8 @@ export class DistanceFareService {
   deleteDistanceFare(id: number) {
     return this.http.patch(this.baseUrl + '/distancefares/' + id, {});
   }
-  getTrainCompanyById(id : number) {
+
+  getTrainCompanyById(id: number) {
     return this.http.get<DistanceFare>(this.baseUrl + '/traincompanies/' + id);
 
   }

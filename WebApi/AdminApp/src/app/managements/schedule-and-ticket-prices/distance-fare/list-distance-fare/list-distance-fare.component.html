@@ -1,0 +1,95 @@
+<nb-card accent="info">
+  <nb-card-header>
+    <div class="d-flex justify-content-between align-items-center">
+      <form class="position-relative" (ngSubmit)="onSearch()">
+        <input nbInput placeholder="Train company name.."
+               name="searchTerm"
+               (keyup.escape)="onResetSearch()"
+               [(ngModel)]="currentSearchTerm"
+               style="padding-right: 32px">
+        <nb-icon icon="search-outline" pack="eva"
+                 class="position-absolute"
+                 (click)="onSearch()"
+                 style="top: 25%; right: 8px; cursor: pointer;"></nb-icon>
+      </form>
+
+      <button nbButton status="primary" class="mr-3"
+              routerLink="/managements/schedule-and-ticket-prices/distance-fare/add">
+        Create Distance Fare
+      </button>
+    </div>
+  </nb-card-header>
+  <nb-card-body style="padding-bottom: 0;">
+    <table class="table mb-0">
+      <thead class="table-borderless">
+      <tr>
+        <th scope="col" style="width: 5%">#</th>
+        <th scope="col">
+            <span (click)="onSort('trainCompanyNameAsc')"
+                  [class.text-primary]="currentSort.includes('trainCompanyName')">
+              Train Company Name
+              <nb-icon icon="arrow-down-outline" pack="eva" *ngIf="!sortStates.trainCompanyName"></nb-icon>
+              <nb-icon icon="arrow-up-outline" pack="eva" *ngIf="sortStates.trainCompanyName"></nb-icon>
+            </span>
+        </th>
+        <th scope="col" style="width: 15%">
+            <span (click)="onSort('distanceAsc')"
+                  [class.text-primary]="currentSort.includes('distance')">
+              Distance
+              <nb-icon icon="arrow-down-outline" pack="eva" *ngIf="!sortStates.distance"></nb-icon>
+              <nb-icon icon="arrow-up-outline" pack="eva" *ngIf="sortStates.distance"></nb-icon>
+            </span>
+        </th>
+        <th scope="col" style="width: 15%">
+            <span (click)="onSort('priceAsc')"
+                  [class.text-primary]="currentSort.includes('price')">
+              Price
+              <nb-icon icon="arrow-down-outline" pack="eva" *ngIf="!sortStates.price"></nb-icon>
+              <nb-icon icon="arrow-up-outline" pack="eva" *ngIf="sortStates.price"></nb-icon>
+            </span>
+        </th>
+
+        <th scope="col" style="width: 15%">
+            <span (click)="onSort('createdAtAsc')"
+                  [class.text-primary]="currentSort.includes('createdAt') || currentSort === ''">
+              Created At
+              <nb-icon icon="arrow-down-outline" pack="eva" *ngIf="!sortStates.createdAt"></nb-icon>
+              <nb-icon icon="arrow-up-outline" pack="eva" *ngIf="sortStates.createdAt"></nb-icon>
+            </span>
+        </th>
+
+        <th scope="col" style="width: 15%">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of distanceFares; let index = index">
+        <th scope="row">{{ index + 1 }}</th>
+        <td>{{ item.trainCompanyName }}</td>
+        <td>{{ item.distance }}</td>
+        <td>{{ item.price | currency }}</td>
+        <td>{{ item.createdAt | date: 'medium' }}</td>
+        <td>
+          <button nbButton status="info" class="mr-3" (click)="openShowDialog(item.id)">
+            <nb-icon icon="eye-outline" pack="eva"></nb-icon>
+          </button>
+          <button nbButton status="primary" class="mr-3"
+                  routerLink="/managements/schedule-and-ticket-prices/distance-fare/{{item.id}}/edit">
+            <nb-icon icon="edit-outline" pack="eva"></nb-icon>
+          </button>
+          <button nbButton status="danger" (click)="openConfirmDialog(item.id, item.trainCompanyName)">
+            <nb-icon icon="trash-outline" pack="eva"></nb-icon>
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </nb-card-body>
+  <nb-card-footer>
+    <app-pagination
+      [pagination]="pagination"
+      (pageChanged)="onPageChanged($event)"
+      (pageSizeChanged)="onPageSizeChanged($event)">
+    </app-pagination>
+  </nb-card-footer>
+</nb-card>
+
