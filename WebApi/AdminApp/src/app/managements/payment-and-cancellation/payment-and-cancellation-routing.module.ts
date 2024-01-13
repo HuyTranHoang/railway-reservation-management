@@ -6,6 +6,9 @@ import {CancellationComponent} from './cancellation/cancellation.component';
 import {CancellationRuleComponent} from './cancellation-rule/cancellation-rule.component';
 import {AddPaymentComponent} from './payment/add-payment/add-payment.component';
 import {EditPaymentComponent} from './payment/edit-payment/edit-payment.component';
+import { AddCancellationRuleComponent } from './cancellation-rule/add-cancellation-rule/add-cancellation-rule.component';
+import { EditCancellationRuleComponent } from './cancellation-rule/edit-cancellation-rule/edit-cancellation-rule.component';
+import { CancellationRuleModule } from './cancellation-rule/cancellation-rule.module';
 
 const routes: Routes = [{
   path: '',
@@ -29,7 +32,8 @@ const routes: Routes = [{
     },
     {
       path: 'cancellation-rule',
-      component: CancellationRuleComponent,
+      loadChildren: () => import('./cancellation-rule/cancellation-rule.module')
+        .then(m => m.CancellationRuleModule),
     },
   ],
 }];
