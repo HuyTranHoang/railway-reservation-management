@@ -11,29 +11,23 @@ namespace Application.Services
 
         private readonly IDistanceFareRepository _distanceFare;
         private readonly ICarriageRepository _carriage;
-        private readonly ICarriageTypeRepository _carriageType;
         private readonly ISeatRepository _seat;
-        private readonly ISeatTypeRepository _seatType;
 
         public TicketService(ITicketRepository repository, IUnitOfWork unitOfWork, IMapper mapper,
                                 IDistanceFareRepository distanceFare,
                                 ICarriageRepository carriage,
-                                ICarriageTypeRepository carriageType,
-                                ISeatRepository seat,
-                                ISeatTypeRepository seatType)
+                                ISeatRepository seat)
         {
             _repository = repository;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _distanceFare = distanceFare;
             _carriage = carriage;
-            _carriageType = carriageType;
-            _seat =seat;
-            _seatType = seatType;
+            _seat = seat;
         }
         public async Task AddAsync(Ticket ticket)
         {
-            ticket.Code = GenerateUniqueCode();
+            ticket.Code = GenerateUniqueCode(ticket);
 
             ticket.Price = await CalculatePrice(ticket);
 
@@ -154,34 +148,24 @@ namespace Application.Services
             await _unitOfWork.SaveChangesAsync();
         }
 
-        private static string GenerateUniqueCode()
+        private static string GenerateUniqueCode(Ticket ticket)
         {
-            Guid guid = Guid.NewGuid();
             DateTime currentDate = DateTime.Now;
-
             string datePart = currentDate.ToString("ddMMyy");
-            string code = datePart + guid.ToString("N").Substring(0, 10 - datePart.Length);
-
+            string timePart = currentDate.ToString("HHmmss");
+            var code = $"{datePart}{timePart}{ticket.PassengerId}{ticket.TrainId}{ticket.CarriageId}{ticket.SeatId}";
             return code;
         }
 
-        private async Task<double> CalculatePrice (Ticket ticket)
+        private async Task<double> CalculatePrice(Ticket ticket)
         {
-            var distance = await _distanceFare.GetByIdAsync(ticket.DistanceFareId);
-            var distanceFare = distance.Price;
-
-            var carriage = await _carriage.GetByIdAsync(ticket.CarriageId);
-            var carriageType = await _carriageType.GetByIdAsync(carriage.CarriageTypeId);
-            var carriageServiceCharge = carriageType.ServiceCharge;
-
-            var seat = await _seat.GetByIdAsync(ticket.SeatId);
-            var seatType = await _seatType.GetByIdAsync(seat.SeatTypeId);
-            var seatTypeServiceCharge = seatType.ServiceCharge;
-
+            var distanceFare = await _distanceFare.GetDistanceFareByIdAsync(ticket.DistanceFareId);
+            var carriageServiceCharge = await _carriage.GetServiceChargeByIdAsync(ticket.CarriageId);
+            var seatTypeServiceCharge = await _seat.GetServiceChargeByIdAsync(ticket.SeatId);
 
             double ticketAmount = distanceFare + carriageServiceCharge + seatTypeServiceCharge;
 
-            return  ticketAmount;
+            return ticketAmount;
         }
 
     }

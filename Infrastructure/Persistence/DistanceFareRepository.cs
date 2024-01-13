@@ -40,6 +40,16 @@ public class DistanceFareRepository : IDistanceFareRepository
             .FirstOrDefaultAsync(x => x.Id == id);
     }
 
+    public async Task<double> GetDistanceFareByIdAsync(int id)
+    {
+        var distanceFare = await _context.DistanceFares
+            .Where(d => d.Id == id)
+            .Select(d => d.Distance)
+            .FirstOrDefaultAsync();
+
+        return distanceFare;
+    }
+
     public async Task<IQueryable<DistanceFare>> GetQueryAsync()
     {
         return await Task.FromResult(

@@ -63,4 +63,13 @@ public class CarriageRepository : ICarriageRepository
         _context.Entry(carriage).State = EntityState.Modified;
     }
 
+    public async Task<double> GetServiceChargeByIdAsync(int id)
+    {
+        var carriage = await _context.Carriages
+            .Include(c => c.CarriageType)
+            .Select(c => new { c.Id, c.CarriageType.ServiceCharge })
+            .FirstOrDefaultAsync(c => c.Id == id);
+
+        return carriage.ServiceCharge;
+    }
 }

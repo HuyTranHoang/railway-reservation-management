@@ -45,6 +45,16 @@ public class SeatRepository : ISeatRepository
             .AsQueryable());
     }
 
+    public async Task<double> GetServiceChargeByIdAsync(int seatId)
+    {
+        var seat = await _context.Seats
+            .Include(s => s.SeatType)
+            .Select(s => new { s.Id, s.SeatType.ServiceCharge })
+            .FirstOrDefaultAsync(s => s.Id == seatId);
+
+        return seat.ServiceCharge;
+    }
+
     public void SoftDelete(Seat seat)
     {
         seat.IsDeleted = true;

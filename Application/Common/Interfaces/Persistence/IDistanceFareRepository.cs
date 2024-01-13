@@ -4,4 +4,5 @@ public interface IDistanceFareRepository : IRepository<DistanceFare>
 {
     Task<IQueryable<DistanceFare>> GetQueryWithTrainCompanyAsync();
     Task<decimal?> GetByDistanceAsync(int distance);
+    Task<double> GetDistanceFareByIdAsync(int id);
 }
