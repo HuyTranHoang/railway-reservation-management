@@ -31,6 +31,8 @@ namespace Application.Common.Models
 
         public int PaymentId { get; set; }
 
+        public double Price { get; set; }
+
         public string Status { get; set; }
 
 

@@ -9,15 +9,34 @@ namespace Application.Services
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
 
-        public TicketService(ITicketRepository repository, IUnitOfWork unitOfWork, IMapper mapper)
+        private readonly IDistanceFareRepository _distanceFare;
+        private readonly ICarriageRepository _carriage;
+        private readonly ICarriageTypeRepository _carriageType;
+        private readonly ISeatRepository _seat;
+        private readonly ISeatTypeRepository _seatType;
+
+        public TicketService(ITicketRepository repository, IUnitOfWork unitOfWork, IMapper mapper,
+                                IDistanceFareRepository distanceFare,
+                                ICarriageRepository carriage,
+                                ICarriageTypeRepository carriageType,
+                                ISeatRepository seat,
+                                ISeatTypeRepository seatType)
         {
             _repository = repository;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _distanceFare = distanceFare;
+            _carriage = carriage;
+            _carriageType = carriageType;
+            _seat =seat;
+            _seatType = seatType;
         }
         public async Task AddAsync(Ticket ticket)
         {
             ticket.Code = GenerateUniqueCode();
+
+            ticket.Price = await CalculatePrice(ticket);
+
             _repository.Add(ticket);
             await _unitOfWork.SaveChangesAsync();
         }
@@ -126,6 +145,7 @@ namespace Application.Services
             ticketInDb.SeatId = ticket.SeatId;
             ticketInDb.ScheduleId = ticket.ScheduleId;
             ticketInDb.PaymentId = ticket.PaymentId;
+            ticketInDb.Price = await CalculatePrice(ticket);
             ticketInDb.Status = ticket.Status;
             ticketInDb.UpdatedAt = DateTime.Now;
 
@@ -143,6 +163,25 @@ namespace Application.Services
             string code = datePart + guid.ToString("N").Substring(0, 10 - datePart.Length);
 
             return code;
+        }
+
+        private async Task<double> CalculatePrice (Ticket ticket)
+        {
+            var distance = await _distanceFare.GetByIdAsync(ticket.DistanceFareId);
+            var distanceFare = distance.Price;
+
+            var carriage = await _carriage.GetByIdAsync(ticket.CarriageId);
+            var carriageType = await _carriageType.GetByIdAsync(carriage.CarriageTypeId);
+            var carriageServiceCharge = carriageType.ServiceCharge;
+
+            var seat = await _seat.GetByIdAsync(ticket.SeatId);
+            var seatType = await _seatType.GetByIdAsync(seat.SeatTypeId);
+            var seatTypeServiceCharge = seatType.ServiceCharge;
+
+
+            double ticketAmount = distanceFare + carriageServiceCharge + seatTypeServiceCharge;
+
+            return  ticketAmount;
         }
 
     }
