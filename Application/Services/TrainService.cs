@@ -51,11 +51,12 @@ public class TrainService : ITrainService
             "nameDesc" => query.OrderByDescending(t => t.Name),
             "trainCompanyNameAsc" => query.OrderBy(t => t.TrainCompany),
             "trainCompanyNameDesc" => query.OrderByDescending(t => t.TrainCompany),
+            "statusAsc" => query.OrderBy(t => t.Status),
+            "statusDesc" => query.OrderByDescending(t => t.Status),
             "createdAtAsc" => query.OrderBy(t => t.CreatedAt),
             "createdAtDesc" => query.OrderByDescending(t => t.CreatedAt),
             _ => query.OrderBy(t => t.CreatedAt)
         };
-
 
         var trainsDtoQuery = query.Select(t => _mapper.Map<TrainDto>(t));
 

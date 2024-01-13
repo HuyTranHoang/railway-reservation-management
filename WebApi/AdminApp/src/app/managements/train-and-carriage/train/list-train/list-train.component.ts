@@ -6,6 +6,7 @@ import {Pagination} from '../../../../@models/pagination';
 import {QueryParams} from '../../../../@models/params/queryParams';
 import {TrainService} from '../train.service';
 import {ConfirmDeleteTrainComponent} from '../confirm-delete-train/confirm-delete-train.component';
+import {ShowTrainComponent} from '../show-train/show-train.component';
 
 @Component({
   selector: 'ngx-list-train',
@@ -22,9 +23,9 @@ export class ListTrainComponent implements OnInit {
   sortStates = {
     name: false,
     trainCompanyName: false,
+    status: false,
     createdAt: false,
   };
-
 
   queryParams: QueryParams = {
     pageNumber: 1,
@@ -93,6 +94,19 @@ export class ListTrainComponent implements OnInit {
 
     this.queryParams.pageNumber = 1;
     this.getAllTrain();
+  }
+
+  openShowDialog(id: number) {
+    const train = this.trains.find(x => x.id === id);
+
+    const dialogRef = this.dialogService.open(ShowTrainComponent, {
+      context: {...train},
+    });
+
+    dialogRef.componentRef.instance.onShowDelete.subscribe(obj => {
+      this.openConfirmDialog(obj.id, obj.name);
+    });
+
   }
 
   openConfirmDialog(id: number, name: string) {

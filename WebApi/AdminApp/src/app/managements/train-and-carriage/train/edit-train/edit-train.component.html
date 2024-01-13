@@ -1,7 +1,3 @@
-
-
-
-
 <div class="col-md-6">
   <nb-card>
     <nb-card-header>
@@ -25,10 +21,12 @@
         </app-input-field>
 
 
-        <nb-select  [selected]="updateForm.get('trainCompanyId')" fullWidth formControlName="trainCompanyId">
-          <nb-option *ngFor="let company of trainCompanies" [value]="company.id">{{company.name}}</nb-option>
-        </nb-select>
-
+        <div class="form-group">
+          <label class="label">Train company</label>
+          <nb-select placeholder="Select train company..." fullWidth formControlName="trainCompanyId">
+            <nb-option *ngFor="let company of trainCompanies" [value]="company.id">{{company.name}}</nb-option>
+          </nb-select>
+        </div>
 
         <app-input-field [control]="updateForm.get('status')"
                          [label]="'Status'"

@@ -1,35 +1,27 @@
-import { TrainService } from './../train.service';
-import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { NbGlobalPhysicalPosition, NbToastrService } from '@nebular/theme';
-import { TrainCompanyService } from '../../../railway/train-company/train-company.service';
-import { TrainCompany } from '../../../../@models/trainCompany';
-import { QueryParams } from '../../../../@models/params/queryParams';
-import { PaginatedResult } from '../../../../@models/paginatedResult';
+import {TrainService} from './../train.service';
+import {Component, OnInit} from '@angular/core';
+import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
+import {NbGlobalPhysicalPosition, NbToastrService} from '@nebular/theme';
+import {TrainCompanyService} from '../../../railway/train-company/train-company.service';
+import {TrainCompany} from '../../../../@models/trainCompany';
+import {QueryParams} from '../../../../@models/params/queryParams';
+import {PaginatedResult} from '../../../../@models/paginatedResult';
 
 @Component({
   selector: 'ngx-add-train',
   templateUrl: './add-train.component.html',
-  styleUrls: ['./add-train.component.scss']
+  styleUrls: ['./add-train.component.scss'],
 })
 export class AddTrainComponent implements OnInit {
 
-  trainCompanies : TrainCompany[] = [];
+  trainCompanies: TrainCompany[] = [];
 
   trainForm: FormGroup = this.fb.group({});
   isSubmitted: boolean = false;
   errorMessages: string[] = [];
 
-  queryParams: QueryParams =
-  {
-    pageNumber: 1,
-    pageSize: 999,
-    searchTerm: '',
-    sort: '',
-  }
-
   constructor(private trainService: TrainService,
-              private trainCompanyService : TrainCompanyService,
+              private trainCompanyService: TrainCompanyService,
               private toastrService: NbToastrService,
               private fb: FormBuilder) {
   }
@@ -78,17 +70,10 @@ export class AddTrainComponent implements OnInit {
       config);
   }
 
-  numberValidator(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      if (control.value == null || control.value === '') return null;
-      return !isNaN(parseFloat(control.value)) && isFinite(control.value) ? null : { 'notANumber': true };
-    };
-  }
-
-  loadAllTrainCompany(){
-    this.trainCompanyService.getAllTrainCompany(this.queryParams).subscribe({
-      next: (res : PaginatedResult<TrainCompany[]>) => {
-        this.trainCompanies = res.result;
+  loadAllTrainCompany() {
+    this.trainCompanyService.getAllTrainCompanyNoPaging().subscribe({
+      next: (res: TrainCompany[]) => {
+        this.trainCompanies = res;
       },
     });
   }

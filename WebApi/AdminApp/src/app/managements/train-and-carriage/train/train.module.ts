@@ -6,6 +6,7 @@ import { ConfirmDeleteTrainComponent } from './confirm-delete-train/confirm-dele
 import { ListTrainComponent } from './list-train/list-train.component';
 import { SharedModule } from '../../shared/shared.module';
 import { RouterLink } from '@angular/router';
+import { ShowTrainComponent } from './show-train/show-train.component';
 
 
 
@@ -15,6 +16,7 @@ import { RouterLink } from '@angular/router';
     EditTrainComponent,
     ConfirmDeleteTrainComponent,
     ListTrainComponent,
+    ShowTrainComponent,
   ],
   imports: [
     CommonModule,

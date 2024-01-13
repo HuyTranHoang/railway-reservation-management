@@ -1,43 +1,32 @@
-import { Component, OnInit } from "@angular/core";
-import { FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl, ValidationErrors } from "@angular/forms";
-import { NbToastrService, NbGlobalPhysicalPosition } from "@nebular/theme";
-import { TrainService } from "../train.service";
-import { ActivatedRoute, Router } from "@angular/router";
-import { TrainCompany } from "../../../../@models/trainCompany";
-import { TrainCompanyService } from "../../../railway/train-company/train-company.service";
-import { QueryParams } from "../../../../@models/params/queryParams";
-import { PaginatedResult } from "../../../../@models/paginatedResult";
-
-
+import {Component, OnInit} from '@angular/core';
+import {TrainCompany} from '../../../../@models/trainCompany';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {TrainService} from '../train.service';
+import {TrainCompanyService} from '../../../railway/train-company/train-company.service';
+import {NbGlobalPhysicalPosition, NbToastrService} from '@nebular/theme';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'ngx-edit-train',
   templateUrl: './edit-train.component.html',
-  styleUrls: ['./edit-train.component.scss']
+  styleUrls: ['./edit-train.component.scss'],
 })
 
-export class EditTrainComponent implements OnInit{
+export class EditTrainComponent implements OnInit {
 
-  trainCompanies : TrainCompany [] = [];
+  trainCompanies: TrainCompany [] = [];
 
   updateForm: FormGroup = this.fb.group({});
   isSubmitted: boolean = false;
-  errorMessages = [];
-  queryParams: QueryParams =
-  {
-    pageNumber: 1,
-    pageSize: 999,
-    searchTerm: '',
-    sort: '',
-  }
+  errorMessages: string[] = [];
 
   constructor(private trainService: TrainService,
-    private trainCompanyService : TrainCompanyService,
-    private toastrService: NbToastrService,
-    private activatedRoute: ActivatedRoute,
-    private router: Router,
-    private fb: FormBuilder) {
-}
+              private trainCompanyService: TrainCompanyService,
+              private toastrService: NbToastrService,
+              private activatedRoute: ActivatedRoute,
+              private router: Router,
+              private fb: FormBuilder) {
+  }
 
   ngOnInit(): void {
     this.initForm();
@@ -49,9 +38,10 @@ export class EditTrainComponent implements OnInit{
     this.updateForm = this.fb.group({
       id: ['', Validators.required],
       name: ['', Validators.required],
-      trainCompanyId : ['', Validators.required],
+      trainCompanyId: ['', Validators.required],
       status: [''],
-    })
+    });
+
     const id = this.activatedRoute.snapshot.params.id;
 
     this.trainService.getTrainById(id)
@@ -62,10 +52,9 @@ export class EditTrainComponent implements OnInit{
         error: (err) => {
           this.showToast('danger', 'Failed', 'Train doest not exist!');
           this.router.navigateByUrl('/managements/train-and-carriage/train');
-        }
-      })
+        },
+      });
   }
-
 
 
   onSubmit() {
@@ -85,7 +74,6 @@ export class EditTrainComponent implements OnInit{
   }
 
 
-
   private showToast(type: string, title: string, body: string) {
     const config = {
       status: type,
@@ -100,17 +88,10 @@ export class EditTrainComponent implements OnInit{
       config);
   }
 
-  numberValidator(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      if (control.value == null || control.value === '') return null;
-      return !isNaN(parseFloat(control.value)) && isFinite(control.value) ? null : { 'notANumber': true };
-    };
-  }
-
-  loadAllTrainCompany(){
-    this.trainCompanyService.getAllTrainCompany(this.queryParams).subscribe({
-      next: (res : PaginatedResult<TrainCompany[]>) => {
-        this.trainCompanies = res.result;
+  loadAllTrainCompany() {
+    this.trainCompanyService.getAllTrainCompanyNoPaging().subscribe({
+      next: (res: TrainCompany[]) => {
+        this.trainCompanies = res;
       },
     });
   }

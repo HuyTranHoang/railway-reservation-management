@@ -20,10 +20,12 @@
         </app-input-field>
 
 
-        <nb-select placeholder="Select train company..." fullWidth formControlName="trainCompanyId">
+        <div class="form-group">
+          <label class="label">Train company</label>
+          <nb-select placeholder="Select train company..." fullWidth formControlName="trainCompanyId">
             <nb-option *ngFor="let company of trainCompanies" [value]="company.id">{{company.name}}</nb-option>
-        </nb-select>
-
+          </nb-select>
+        </div>
 
         <app-input-field [control]="trainForm.get('status')"
                          [label]="'Status'"

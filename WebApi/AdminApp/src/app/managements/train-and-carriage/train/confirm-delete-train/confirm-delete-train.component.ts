@@ -1,11 +1,11 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { NbDialogRef, NbToastrService, NbGlobalPhysicalPosition } from '@nebular/theme';
-import { TrainService } from '../train.service';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {NbDialogRef, NbToastrService, NbGlobalPhysicalPosition} from '@nebular/theme';
+import {TrainService} from '../train.service';
 
 @Component({
   selector: 'ngx-confirm-delete-train',
   templateUrl: './confirm-delete-train.component.html',
-  styleUrls: ['./confirm-delete-train.component.scss']
+  styleUrls: ['./confirm-delete-train.component.scss'],
 })
 export class ConfirmDeleteTrainComponent {
 
@@ -15,7 +15,8 @@ export class ConfirmDeleteTrainComponent {
 
   constructor(protected ref: NbDialogRef<ConfirmDeleteTrainComponent>,
               private trainService: TrainService,
-              private toastrService: NbToastrService) {}
+              private toastrService: NbToastrService) {
+  }
 
   dismiss() {
     this.ref.close();
