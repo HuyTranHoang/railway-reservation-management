@@ -67,6 +67,14 @@ export class EditTrainComponent implements OnInit {
   }
 
   onSubmit() {
+    this.isSubmitted = true;
+    this.errorMessages = [];
+
+    if (!this.isCompanySelected && this.input.nativeElement.value !== '') {
+      this.errorMessages.push('Please select a valid train company.');
+      return;
+    }
+    
     if (this.updateForm.valid) {
       this.trainService.updateTrain(this.updateForm.value).subscribe({
         next: (res) => {
