@@ -10,6 +10,7 @@
         <div class="my-4">
           <input #autoInput
                  class="mr-4"
+                 [class.status-danger]="hasInteracted && !isValidTrainSelected"
                  nbInput
                  type="text"
                  (input)="onChange()"
