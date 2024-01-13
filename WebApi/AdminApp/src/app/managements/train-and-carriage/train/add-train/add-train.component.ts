@@ -1,11 +1,12 @@
 import { TrainService } from './../train.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, OnChanges } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { NbGlobalPhysicalPosition, NbToastrService } from '@nebular/theme';
 import { TrainCompanyService } from '../../../railway/train-company/train-company.service';
 import { TrainCompany } from '../../../../@models/trainCompany';
 import { QueryParams } from '../../../../@models/params/queryParams';
-import { PaginatedResult } from '../../../../@models/paginatedResult';
+import { map, startWith } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'ngx-add-train',
@@ -15,6 +16,8 @@ import { PaginatedResult } from '../../../../@models/paginatedResult';
 export class AddTrainComponent implements OnInit {
 
   trainCompanies : TrainCompany[] = [];
+
+  filteredTrainCompanies$: Observable<TrainCompany[]>;
 
   trainForm: FormGroup = this.fb.group({});
   isSubmitted: boolean = false;
@@ -64,6 +67,26 @@ export class AddTrainComponent implements OnInit {
     }
   }
 
+  numberValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (control.value == null || control.value === '') return null;
+      return !isNaN(parseFloat(control.value)) && isFinite(control.value) ? null : { 'notANumber': true };
+    };
+  }
+
+  loadAllTrainCompany() {
+    this.trainCompanyService.getAllTrainCompanyNoPaging().subscribe({
+      next: (res: TrainCompany[]) => {
+        this.trainCompanies = res;
+        this.filteredTrainCompanies$ = this.trainForm.get('trainCompanyId').valueChanges
+          .pipe(
+            startWith(''),
+            map(value => this.filter(value))
+          );
+      },
+    });
+  }
+
   private showToast(type: string, title: string, body: string) {
     const config = {
       status: type,
@@ -78,18 +101,9 @@ export class AddTrainComponent implements OnInit {
       config);
   }
 
-  numberValidator(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      if (control.value == null || control.value === '') return null;
-      return !isNaN(parseFloat(control.value)) && isFinite(control.value) ? null : { 'notANumber': true };
-    };
-  }
-
-  loadAllTrainCompany(){
-    this.trainCompanyService.getAllTrainCompany(this.queryParams).subscribe({
-      next: (res : PaginatedResult<TrainCompany[]>) => {
-        this.trainCompanies = res.result;
-      },
-    });
+  filter(value: string): TrainCompany[] {
+  const filterValue = value.toLowerCase();
+  return this.trainCompanies
+    .filter(company => company.name.toLowerCase().includes(filterValue));
   }
 }

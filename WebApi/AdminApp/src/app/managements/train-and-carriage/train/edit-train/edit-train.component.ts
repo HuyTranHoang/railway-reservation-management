@@ -6,7 +6,8 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { TrainCompany } from "../../../../@models/trainCompany";
 import { TrainCompanyService } from "../../../railway/train-company/train-company.service";
 import { QueryParams } from "../../../../@models/params/queryParams";
-import { PaginatedResult } from "../../../../@models/paginatedResult";
+import { Observable } from "rxjs";
+import { map, startWith } from "rxjs/operators";
 
 
 
@@ -19,6 +20,8 @@ import { PaginatedResult } from "../../../../@models/paginatedResult";
 export class EditTrainComponent implements OnInit{
 
   trainCompanies : TrainCompany [] = [];
+
+  filteredTrainCompanies$: Observable<TrainCompany[]>;
 
   updateForm: FormGroup = this.fb.group({});
   isSubmitted: boolean = false;
@@ -66,8 +69,6 @@ export class EditTrainComponent implements OnInit{
       })
   }
 
-
-
   onSubmit() {
     if (this.updateForm.valid) {
       this.trainService.updateTrain(this.updateForm.value).subscribe({
@@ -107,13 +108,22 @@ export class EditTrainComponent implements OnInit{
     };
   }
 
-  loadAllTrainCompany(){
-    this.trainCompanyService.getAllTrainCompany(this.queryParams).subscribe({
-      next: (res : PaginatedResult<TrainCompany[]>) => {
-        this.trainCompanies = res.result;
+  loadAllTrainCompany() {
+    this.trainCompanyService.getAllTrainCompanyNoPaging().subscribe({
+      next: (res: TrainCompany[]) => {
+        this.trainCompanies = res;
+        this.filteredTrainCompanies$ = this.updateForm.get('trainCompanyId').valueChanges
+          .pipe(
+            startWith(''),
+            map(value => this.filter(value))
+          );
       },
     });
   }
 
-
+  filter(value: string): TrainCompany[] {
+    const filterValue = value.toLowerCase();
+    return this.trainCompanies
+      .filter(company => company.name.toLowerCase().includes(filterValue));
+    }
 }

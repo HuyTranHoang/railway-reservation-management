@@ -78,6 +78,11 @@
       </tbody>
     </table>
   </nb-card-body>
+
+  <div *ngIf="trains.length === 0" class="m-4">
+    <strong>Train Not Found!!!</strong>
+  </div>
+
   <nb-card-footer>
    <app-pagination
    [pagination]="pagination"
