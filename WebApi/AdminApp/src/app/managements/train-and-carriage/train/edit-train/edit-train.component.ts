@@ -1,30 +1,24 @@
-import { Component, OnInit } from "@angular/core";
-import {
-  FormGroup,
-  FormBuilder,
-  Validators,
-  ValidatorFn,
-  AbstractControl,
-  ValidationErrors,
-} from "@angular/forms";
-import { NbToastrService, NbGlobalPhysicalPosition } from "@nebular/theme";
-import { TrainService } from "../train.service";
-import { ActivatedRoute, Router } from "@angular/router";
-import { TrainCompany } from "../../../../@models/trainCompany";
-import { TrainCompanyService } from "../../../railway/train-company/train-company.service";
-import { QueryParams } from "../../../../@models/params/queryParams";
-import { Observable } from "rxjs";
-import { map, startWith } from "rxjs/operators";
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {TrainCompany} from '../../../../@models/trainCompany';
+import {Observable, of} from 'rxjs';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {TrainService} from '../train.service';
+import {TrainCompanyService} from '../../../railway/train-company/train-company.service';
+import {NbGlobalPhysicalPosition, NbToastrService} from '@nebular/theme';
+import {ActivatedRoute, Router} from '@angular/router';
+import {map} from 'rxjs/operators';
 
 @Component({
-  selector: "ngx-edit-train",
-  templateUrl: "./edit-train.component.html",
-  styleUrls: ["./edit-train.component.scss"],
+  selector: 'ngx-edit-train',
+  templateUrl: './edit-train.component.html',
+  styleUrls: ['./edit-train.component.scss'],
 })
 export class EditTrainComponent implements OnInit {
-  trainCompanies: TrainCompany[] = [];
+  options: TrainCompany[];
+  filteredOptions$: Observable<TrainCompany[]>;
+  isCompanySelected: boolean = false;
 
-  filteredTrainCompanies$: Observable<TrainCompany[]>;
+  @ViewChild('autoInput') input: { nativeElement: { value: string; }; };
 
   updateForm: FormGroup = this.fb.group({});
   isSubmitted: boolean = false;
@@ -36,20 +30,21 @@ export class EditTrainComponent implements OnInit {
     private toastrService: NbToastrService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private fb: FormBuilder
-  ) {}
+    private fb: FormBuilder,
+  ) {
+  }
 
   ngOnInit(): void {
-    this.initForm();
     this.loadAllTrainCompany();
+    this.initForm();
   }
 
   initForm() {
     this.updateForm = this.fb.group({
-      id: ["", Validators.required],
-      name: ["", Validators.required],
-      trainCompanyId: ["", Validators.required],
-      status: [""],
+      id: ['', Validators.required],
+      name: ['', Validators.required],
+      trainCompanyId: ['', Validators.required],
+      status: [''],
     });
 
     const id = this.activatedRoute.snapshot.params.id;
@@ -57,10 +52,16 @@ export class EditTrainComponent implements OnInit {
     this.trainService.getTrainById(id).subscribe({
       next: (res) => {
         this.updateForm.patchValue(res);
+
+        const matchingCompany = this.options.find(company => company.id === res.trainCompanyId);
+        if (matchingCompany) {
+          this.input.nativeElement.value = matchingCompany.name;
+          this.isCompanySelected = true;
+        }
       },
       error: (err) => {
-        this.showToast("danger", "Failed", "Train doest not exist!");
-        this.router.navigateByUrl("/managements/train-and-carriage/train");
+        this.showToast('danger', 'Failed', 'Train does not exist!');
+        this.router.navigateByUrl('/managements/train-and-carriage/train');
       },
     });
   }
@@ -69,13 +70,13 @@ export class EditTrainComponent implements OnInit {
     if (this.updateForm.valid) {
       this.trainService.updateTrain(this.updateForm.value).subscribe({
         next: (res) => {
-          this.showToast("success", "Success", "Update train successfully!");
+          this.showToast('success', 'Success', 'Update train successfully!');
           this.isSubmitted = false;
           this.errorMessages = [];
         },
         error: (err) => {
           this.errorMessages = err.error.errors;
-          this.showToast("danger", "Failed", "Update train failed!");
+          this.showToast('danger', 'Failed', 'Update train failed!');
         },
       });
     }
@@ -93,23 +94,42 @@ export class EditTrainComponent implements OnInit {
   }
 
   loadAllTrainCompany() {
-    this.trainCompanyService.getAllTrainCompanyNoPaging().subscribe({
-      next: (res: TrainCompany[]) => {
-        this.trainCompanies = res;
-        this.filteredTrainCompanies$ = this.updateForm
-          .get("trainCompanyId")
-          .valueChanges.pipe(
-            startWith(""),
-            map((value) => this.filter(value))
-          );
-      },
+    this.trainCompanyService.getAllTrainCompanyNoPaging().subscribe(res => {
+      this.options = res;
+      this.filteredOptions$ = of(this.options);
     });
   }
 
-  filter(value: string): TrainCompany[] {
+  private filter(value: string): TrainCompany[] {
     const filterValue = value.toLowerCase();
-    return this.trainCompanies.filter((company) =>
-      company.name.toLowerCase().includes(filterValue)
+    return this.options.filter(option => option.name.toLowerCase().includes(filterValue));
+  }
+
+  getFilteredOptions(value: string): Observable<TrainCompany[]> {
+    return of(value).pipe(
+      map(filterString => this.filter(filterString)),
     );
+  }
+
+  onChange() {
+    this.isCompanySelected = false;
+    this.errorMessages = [];
+    this.filteredOptions$ = this.getFilteredOptions(this.input.nativeElement.value);
+  }
+
+  onBlur() {
+    const inputValue = this.input.nativeElement.value;
+    const matchingCompany = this.options.find(company => company.name === inputValue);
+
+    if (!matchingCompany) {
+      this.updateForm.patchValue({ trainCompanyId: null });
+      this.isCompanySelected = false;
+    }
+  }
+
+  onSelectionChange(trainCompany: TrainCompany) {
+    this.isCompanySelected = true;
+    this.updateForm.patchValue({ trainCompanyId: trainCompany.id });
+    this.input.nativeElement.value = trainCompany.name;
   }
 }

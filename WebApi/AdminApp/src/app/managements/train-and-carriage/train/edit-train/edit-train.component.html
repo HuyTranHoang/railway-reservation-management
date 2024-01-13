@@ -20,24 +20,31 @@
                          [placeholder]="'Name of train..'">
         </app-input-field>
 
+        <div class="form-group">
+          <label class="label">Train Company</label>
+          <input #autoInput
+                 nbInput
+                 fullWidth
+                 type="text"
+                 [class.status-danger]="updateForm.get('trainCompanyId')?.hasError('required')
+                  && (updateForm.get('trainCompanyId')?.touched || isSubmitted)"
+                 (input)="onChange()"
+                 (blur)="onBlur()"
+                 placeholder="Enter train name"
+                 [nbAutocomplete]="autoTrainName" />
+          <span class="text-danger"
+                *ngIf="updateForm.get('trainCompanyId')?.hasError('required')
+                && (updateForm.get('trainCompanyId')?.touched || isSubmitted)
+                && autoInput.value.length <= 0">
+            Train company is required
+          </span>
 
-        <!-- <nb-select  [selected]="updateForm.get('trainCompanyId')" fullWidth formControlName="trainCompanyId">
-          <nb-option *ngFor="let company of trainCompanies" [value]="company.id">{{company.name}}</nb-option>
-        </nb-select> -->
-
-
-        <input
-        [formControl]="updateForm.get('trainCompanyId')"
-        nbInput
-        type="text"
-        placeholder="Select train company..."
-        [nbAutocomplete]="auto" fullWidth
-        />
-        <nb-autocomplete #auto [activeFirst]="true">
-          <nb-option *ngFor="let option of filteredTrainCompanies$ | async" [value]="option.id">
-            {{ option.name }}
-          </nb-option>
-        </nb-autocomplete>
+          <nb-autocomplete #autoTrainName (selectedChange)="onSelectionChange($event)">
+            <nb-option *ngFor="let option of filteredOptions$ | async" [value]="option">
+              {{ option.name }}
+            </nb-option>
+          </nb-autocomplete>
+        </div>
 
         <app-input-field [control]="updateForm.get('status')"
                          [label]="'Status'"

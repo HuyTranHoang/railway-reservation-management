@@ -42,12 +42,7 @@
               {{ option.name }}
             </nb-option>
           </nb-autocomplete>
-
         </div>
-
-        <pre>
-          {{trainForm.value | json}}
-        </pre>
 
         <app-input-field [control]="trainForm.get('status')"
                          [label]="'Status'"
