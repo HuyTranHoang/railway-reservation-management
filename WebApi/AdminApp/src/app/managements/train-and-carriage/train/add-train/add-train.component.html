@@ -19,13 +19,18 @@
                          [placeholder]="'Name of train..'">
         </app-input-field>
 
-
-        <div class="form-group">
-          <label class="label">Train company</label>
-          <nb-select placeholder="Select train company..." fullWidth formControlName="trainCompanyId">
-            <nb-option *ngFor="let company of trainCompanies" [value]="company.id">{{company.name}}</nb-option>
-          </nb-select>
-        </div>
+        <input
+        [formControl]="trainForm.get('trainCompanyId')"
+        nbInput
+        type="text"
+        placeholder="Select train company..."
+        [nbAutocomplete]="auto" fullWidth
+        />
+        <nb-autocomplete #auto [activeFirst]="true">
+          <nb-option *ngFor="let company of filteredTrainCompanies$ | async" [value]="company.id">
+            {{ company.name }}
+          </nb-option>
+        </nb-autocomplete>
 
         <app-input-field [control]="trainForm.get('status')"
                          [label]="'Status'"
