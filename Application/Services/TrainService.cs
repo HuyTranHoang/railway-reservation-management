@@ -98,6 +98,12 @@ public class TrainService : ITrainService
         await _unitOfWork.SaveChangesAsync();
     }
 
+    public async Task<List<TrainDto>> GetAllDtoNoPagingAsync()
+    {
+        var trains = await _repository.GetAllAsync();
+        return _mapper.Map<List<TrainDto>>(trains);
+    }
+
 
     #region Private Helper Methods
 
@@ -105,7 +111,6 @@ public class TrainService : ITrainService
     {
         return repository.GetQueryAsync().Result.Any(t => t.Name == name && t.Id != trainId);
     }
-
 
     #endregion
 }

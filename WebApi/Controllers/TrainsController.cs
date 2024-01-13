@@ -24,6 +24,14 @@ public class TrainsController : BaseApiController
         return Ok(trainsDto);
     }
 
+    [HttpGet("all")]
+    public async Task<ActionResult<IEnumerable<TrainDto>>> GetAllTrains()
+    {
+        var trainsDto = await _trainService.GetAllDtoNoPagingAsync();
+
+        return Ok(trainsDto);
+    }
+
     [HttpGet("{id}")]
     public async Task<ActionResult<TrainDto>> GetTrain(int id)
     {

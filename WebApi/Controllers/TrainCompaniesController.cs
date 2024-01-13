@@ -29,7 +29,7 @@ public class TrainCompaniesController : BaseApiController
     [HttpGet("all")]
     public async Task<ActionResult<IEnumerable<TrainCompanyDto>>> GetAllTrainCompanies()
     {
-        var trainCompaniesDto = await _trainCompanySerivce.GetAllDtoAsync();
+        var trainCompaniesDto = await _trainCompanySerivce.GetAllDtoNoPagingAsync();
 
         return Ok(trainCompaniesDto);
     }

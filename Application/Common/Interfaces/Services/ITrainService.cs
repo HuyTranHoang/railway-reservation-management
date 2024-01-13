@@ -4,4 +4,5 @@ public interface ITrainService : IService<Train>
 {
     Task<PagedList<TrainDto>> GetAllDtoAsync(TrainQueryParams queryParams);
     Task<TrainDto> GetDtoByIdAsync(int id);
+    Task<List<TrainDto>> GetAllDtoNoPagingAsync();
 }

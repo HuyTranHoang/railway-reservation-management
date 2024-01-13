@@ -1,1 +1,74 @@
-<p>add-carriage works!</p>
+<nb-card>
+  <nb-card-header>Define New Carriage</nb-card-header>
+  <nb-card-body>
+    <nb-stepper orientation="horizontal" disableStepNavigation>
+
+      <nb-step [label]="labelOne">
+        <ng-template #labelOne>First step</ng-template>
+        <h4>Choose the Train for This Carriage</h4>
+
+        <div class="my-4">
+          <input #autoInput
+                 class="mr-4"
+                 nbInput
+                 type="text"
+                 (input)="onChange()"
+                 (blur)="onInputBlur()"
+                 placeholder="Enter train name"
+                 [nbAutocomplete]="autoTrainName" />
+
+          <span *ngIf="hasInteracted && !isValidTrainSelected" class="text-danger">
+            *Please select a valid train
+          </span>
+          <nb-autocomplete #autoTrainName (selectedChange)="onSelectionChange($event)">
+            <nb-option *ngFor="let option of filteredOptions$ | async" [value]="option">
+              {{ option.name }}
+            </nb-option>
+          </nb-autocomplete>
+        </div>
+
+        <pre>
+          selectedTrainId: {{ selectedTrainId | json}} ( for debug )
+        </pre>
+        <button class="prev-button" nbButton disabled nbStepperNext>prev</button>
+        <button class="next-button" nbButton nbStepperNext [disabled]="!isValidTrainSelected">next</button>
+      </nb-step>
+
+      <nb-step [label]="labelTwo">
+        <ng-template #labelTwo>Second step</ng-template>
+        <h4>Step content #2</h4>
+        <p class="lorem">
+          Lorizzle ipsum dolizzle stuff fizzle, consectetuer adipiscing break it down.
+          Nullizzle sapien velizzle, my shizz pimpin', shizzle my nizzle crocodizzle shut the shizzle up,
+          gravida vizzle, dang.
+        </p>
+        <button class="prev-button" nbButton nbStepperPrevious>prev</button>
+        <button class="next-button" nbButton nbStepperNext>next</button>
+      </nb-step>
+
+      <nb-step label="Third step">
+        <h4>Step content #3</h4>
+        <p class="lorem">
+          Lorizzle ipsum dolizzle stuff fizzle, consectetuer adipiscing break it down.
+          Nullizzle sapien velizzle, my shizz pimpin', shizzle my nizzle crocodizzle shut the shizzle up,
+          gravida vizzle, dang.
+        </p>
+        <button class="prev-button" nbButton nbStepperPrevious>prev</button>
+        <button class="next-button" nbButton nbStepperNext>next</button>
+      </nb-step>
+
+      <nb-step [label]="labelFour">
+        <ng-template #labelFour>Fourth step</ng-template>
+        <h4>Step content #4</h4>
+        <p class="lorem">
+          Lorizzle ipsum dolizzle stuff fizzle, consectetuer adipiscing break it down.
+          Nullizzle sapien velizzle, my shizz pimpin', shizzle my nizzle crocodizzle shut the shizzle up,
+          gravida vizzle, dang.
+        </p>
+        <button class="prev-button" nbButton nbStepperPrevious>prev</button>
+        <button class="next-button" nbButton disabled nbStepperNext>next</button>
+      </nb-step>
+
+    </nb-stepper>
+  </nb-card-body>
+</nb-card>

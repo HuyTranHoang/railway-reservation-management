@@ -54,4 +54,9 @@ public class TrainRepository : ITrainRepository
     {
         _context.Entry(train).State = EntityState.Modified;
     }
+
+    public Task<List<Train>> GetAllAsync()
+    {
+        return _context.Trains.ToListAsync();
+    }
 }

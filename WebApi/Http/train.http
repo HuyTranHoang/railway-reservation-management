@@ -24,6 +24,10 @@ GET {{url}}/{{router}}?
   #&sort=nameDesc
   # &trainCompanyId=2
 
+### 
+
+# @name getListOfTrainNoPaging
+GET {{url}}/{{router}}/all
 
 ### 
 
