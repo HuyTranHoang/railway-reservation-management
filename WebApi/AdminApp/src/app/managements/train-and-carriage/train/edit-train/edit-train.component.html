@@ -25,9 +25,23 @@
         </app-input-field>
 
 
-        <nb-select  [selected]="updateForm.get('trainCompanyId')" fullWidth formControlName="trainCompanyId">
+        <!-- <nb-select  [selected]="updateForm.get('trainCompanyId')" fullWidth formControlName="trainCompanyId">
           <nb-option *ngFor="let company of trainCompanies" [value]="company.id">{{company.name}}</nb-option>
-        </nb-select>
+        </nb-select> -->
+
+
+        <input
+        [formControl]="updateForm.get('trainCompanyId')"
+        nbInput
+        type="text"
+        placeholder="Select train company..."
+        [nbAutocomplete]="auto" fullWidth
+        />
+        <nb-autocomplete #auto [activeFirst]="true">
+          <nb-option *ngFor="let option of filteredTrainCompanies$ | async" [value]="option.id">
+            {{ option.name }}
+          </nb-option>
+        </nb-autocomplete>
 
 
         <app-input-field [control]="updateForm.get('status')"
