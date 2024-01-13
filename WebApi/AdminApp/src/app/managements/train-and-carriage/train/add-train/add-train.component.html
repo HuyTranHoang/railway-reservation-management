@@ -19,18 +19,35 @@
                          [placeholder]="'Name of train..'">
         </app-input-field>
 
-        <input
-        [formControl]="trainForm.get('trainCompanyId')"
-        nbInput
-        type="text"
-        placeholder="Select train company..."
-        [nbAutocomplete]="auto" fullWidth
-        />
-        <nb-autocomplete #auto [activeFirst]="true">
-          <nb-option *ngFor="let company of filteredTrainCompanies$ | async" [value]="company.id">
-            {{ company.name }}
-          </nb-option>
-        </nb-autocomplete>
+        <div class="form-group">
+          <label class="label">Train Company</label>
+          <input #autoInput
+                 nbInput
+                 fullWidth
+                 type="text"
+                 [class.status-danger]="trainForm.get('trainCompanyId')?.hasError('required') && (trainForm.get('trainCompanyId')?.touched || isSubmitted)"
+                 (input)="onChange()"
+                 (blur)="onBlur()"
+                 placeholder="Enter train name"
+                 [nbAutocomplete]="autoTrainName" />
+          <span class="text-danger"
+                *ngIf="trainForm.get('trainCompanyId')?.hasError('required')
+                && (trainForm.get('trainCompanyId')?.touched || isSubmitted)
+                && autoInput.value.length <= 0">
+            Train company is required
+          </span>
+
+          <nb-autocomplete #autoTrainName (selectedChange)="onSelectionChange($event)">
+            <nb-option *ngFor="let option of filteredOptions$ | async" [value]="option">
+              {{ option.name }}
+            </nb-option>
+          </nb-autocomplete>
+
+        </div>
+
+        <pre>
+          {{trainForm.value | json}}
+        </pre>
 
         <app-input-field [control]="trainForm.get('status')"
                          [label]="'Status'"

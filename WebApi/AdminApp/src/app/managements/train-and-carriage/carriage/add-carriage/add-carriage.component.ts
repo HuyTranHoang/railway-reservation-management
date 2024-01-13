@@ -13,6 +13,7 @@ export class AddCarriageComponent implements OnInit {
 
   options: Train[];
   filteredOptions$: Observable<Train[]>;
+
   selectedTrainId: number | null = null;
   isValidTrainSelected: boolean = false;
   hasInteracted: boolean = false;
