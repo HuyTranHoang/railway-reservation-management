@@ -37,7 +37,7 @@ export class CompartmentService {
   }
 
   getAllCompartmentNoPaging() {
-    return this.http.get<Compartment>(this.baseUrl + '/compartments/all');
+    return this.http.get<Compartment[]>(this.baseUrl + '/compartments/all');
   }
 
   getCompartmentById(id: number) {

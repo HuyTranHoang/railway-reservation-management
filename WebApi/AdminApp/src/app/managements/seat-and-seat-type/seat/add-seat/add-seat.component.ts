@@ -68,11 +68,11 @@ export class AddSeatComponent implements OnInit {
       },
     });
 
-    // this.compartmentService.getAllCompartmentNoPaging().subscribe({
-    //   next: (res) => {
-    //     this.compartments = res;
-    //   },
-    // });
+    this.compartmentService.getAllCompartmentNoPaging().subscribe({
+      next: (res) => {
+        this.compartments = res;
+      },
+    });
 
   }
   private showToast(type: string, title: string, body: string) {
