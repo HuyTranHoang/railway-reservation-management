@@ -15,7 +15,7 @@ import { SeatService } from '../seat.service';
 export class EditSeatComponent implements OnInit{
 
   seatTypes: SeatType[] = [];
-  compartments : Compartment[] = [];
+  compartments: Compartment[];
   updateForm: FormGroup = this.fb.group({});
   isSubmitted: boolean = false;
   errorMessages: string[] = [];
@@ -82,11 +82,11 @@ export class EditSeatComponent implements OnInit{
       },
     });
 
-    // this.compartmentService.getAllCompartmentNoPaging().subscribe({
-    //   next: (res) => {
-    //     this.compartments = res;
-    //   },
-    // });
+    this.compartmentService.getAllCompartmentNoPaging().subscribe({
+      next: (res) => {
+        this.compartments = res;
+      },
+    });
 
   }
   private showToast(type: string, title: string, body: string) {
