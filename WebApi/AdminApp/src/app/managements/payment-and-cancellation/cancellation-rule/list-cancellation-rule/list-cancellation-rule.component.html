@@ -58,7 +58,7 @@
         <tr *ngFor="let item of cancellationRules; let index = index">
           <th scope="row">{{ index + 1 }}</th>
           <td>{{ item.departureDateDifference }}</td>
-          <td>{{ item.fee }}</td>
+          <td>$ {{ item.fee }}</td>
           <td>{{ item.createdAt | date: 'medium' }}</td>
           <td class="text-right">
             <button nbButton status="info" class="mr-3" (click)="openShowDialog(item.id)">
