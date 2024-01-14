@@ -1,0 +1,17 @@
+@url = https://localhost:5001
+@router = api/booking
+
+### 
+
+
+# @name getListOfBookingSchedule
+GET {{url}}/{{router}}/booking-schedule?
+  &pageNumber=1
+  &pageSize=10
+  #&searchTerm=Schedule-61
+  #&sort=nameDesc
+  &DepartureStationId=10
+  &ArrivalStationId=11
+
+
+### 
