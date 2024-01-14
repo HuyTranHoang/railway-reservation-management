@@ -24,6 +24,14 @@ public class CompartmentsController : BaseApiController
         return Ok(compartmentDto);
     }
 
+    [HttpGet("all")]
+    public async Task<ActionResult<IEnumerable<CompartmentDto>>> GetAllCompartments()
+    {
+        var compartmentDto = await _compartmentService.GetAllDtoNoPagingAsync();
+
+        return Ok(compartmentDto);
+    }
+
     [HttpGet("{id}")]
     public async Task<ActionResult<CompartmentDto>> GetCompartment(int id)
     {

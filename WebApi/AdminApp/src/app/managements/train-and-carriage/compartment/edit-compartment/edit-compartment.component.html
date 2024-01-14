@@ -1,0 +1,73 @@
+<div class="col-md-6">
+    <nb-card>
+      <nb-card-header>
+        <div class="d-flex justify-content-between">
+          Edit Compartment
+          <button nbButton type="submit"
+          routerLink="/managements/train-and-carriage/compartment/"
+          status="primary">
+          Back to list
+          </button>
+        </div>
+      </nb-card-header>
+      <nb-card-body>
+        <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+  
+          <input type="hidden" formControlName="id">
+  
+          <app-input-field [control]="updateForm.get('name')"
+                           [label]="'Name'"
+                           [placeholder]="'Name of train..'">
+          </app-input-field>
+  
+          <div class="form-group">
+            <label class="label">Carriage</label>
+            <input #autoInput
+                   nbInput
+                   fullWidth
+                   type="text"
+                   [class.status-danger]="updateForm.get('carriageId')?.hasError('required')
+                    && (updateForm.get('carriageId')?.touched || isSubmitted)"
+                   (input)="onChange()"
+                   (blur)="onBlur()"
+                   placeholder="Enter carriage name"
+                   [nbAutocomplete]="autoCarriageName" />
+            <span class="text-danger"
+                  *ngIf="updateForm.get('carriageId')?.hasError('required')
+                  && (updateForm.get('carriageId')?.touched || isSubmitted)
+                  && autoInput.value.length <= 0">
+              Carriage is required
+            </span>
+  
+            <nb-autocomplete #autoCarriageName (selectedChange)="onSelectionChange($event)">
+              <nb-option *ngFor="let option of filteredOptions$ | async" [value]="option">
+                {{ option.name }}
+              </nb-option>
+            </nb-autocomplete>
+          </div>
+
+          <app-input-field [control]="updateForm.get('numberOfSeats')"
+                           [label]="'NumberOfSeats'"
+                           [placeholder]="'Number Of Seats'">
+          </app-input-field>
+  
+          <app-input-field [control]="updateForm.get('status')"
+                           [label]="'Status'"
+                           [placeholder]="'Status'">
+          </app-input-field>
+  
+          <ul *ngIf="errorMessages.length > 0">
+            <li class="text-danger" *ngFor="let item of errorMessages">{{item}}</li>
+          </ul>
+  
+          <button type="submit" nbButton status="success" class="float-right">Save</button>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </div>
+  
+  
+  
+  
+  
+  

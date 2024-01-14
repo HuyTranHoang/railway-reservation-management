@@ -41,6 +41,10 @@ export class CarriageService {
 
   }
 
+  getAllCarriageNoPaging() {
+    return this.http.get<Carriage[]>(this.baseUrl + '/carriages/all');
+  }
+
   getCarriageById(id: number) {
     return this.http.get<Carriage>(this.baseUrl + '/carriages/' + id);
   }

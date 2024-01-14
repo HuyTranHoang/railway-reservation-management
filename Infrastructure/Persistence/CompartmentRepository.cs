@@ -56,4 +56,9 @@ public class CompartmentRepository : ICompartmentRepository
             .Include(c => c.Seats)
             .FirstOrDefaultAsync(c => c.Id == id);
     }
+
+    public Task<List<Compartment>> GetAllAsync()
+    {
+        return _context.Compartments.ToListAsync();
+    }
 }

@@ -6,9 +6,11 @@ import { AddTrainComponent } from './train/add-train/add-train.component';
 import { TrainComponent } from './train/train.component';
 import { ListTrainComponent } from './train/list-train/list-train.component';
 import { EditTrainComponent } from './train/edit-train/edit-train.component';
+import { TrainAndCarriageComponent } from './train-and-carriage.component';
+
 const routes: Routes = [{
   path: '',
-  component: RailwayComponent,
+  component: TrainAndCarriageComponent,
   children: [
     {
       path: 'train',
@@ -40,7 +42,8 @@ const routes: Routes = [{
     },
     {
       path: 'compartment',
-      component: CompartmentComponent,
+      loadChildren: () => import('./compartment/compartment.module')
+        .then(m => m.CompartmentModule),
     },
   ],
 }];

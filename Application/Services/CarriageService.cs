@@ -98,6 +98,12 @@ public class CarriageService : ICarriageService
         await _unitOfWork.SaveChangesAsync();
     }
 
+    public async Task<List<CarriageDto>> GetAllDtoNoPagingAsync()
+    {
+        var carriages = await _repository.GetAllAsync();
+        return _mapper.Map<List<CarriageDto>>(carriages);
+    }
+
     public async Task<int> GetCompartmentsBelongToCarriageCountAsync(int carriageId)
     {
         var carriage = await _repository.GetByIdWithCompartmentsAsync(carriageId);
