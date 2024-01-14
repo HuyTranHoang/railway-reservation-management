@@ -6,4 +6,6 @@ public class CancellationRuleDto
     public int DepartureDateDifference { get; set; }
     public double Fee { get; set; }
     public string Status { get; set; }
+
+    public DateTime CreatedAt { get; set; }
 }

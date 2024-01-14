@@ -1,0 +1,38 @@
+<div class="col-md-6">
+
+    <nb-card>
+      <nb-card-header>
+        <div class="d-flex justify-content-between">
+          Edit Cancellation Rule
+          <button type="submit" nbButton
+                  routerLink="/managements/payment-and-cancellation/cancellation-rule"
+                  status="primary">Back to list
+          </button>
+        </div>
+      </nb-card-header>
+      <nb-card-body>
+        <form [formGroup]="cancellationRuleForm" (ngSubmit)="onSubmit()">
+  
+          <input type="hidden" formControlName="id">
+  
+          <app-input-field [control]="cancellationRuleForm.get('departureDateDifference')"
+                           [label]="'Departure Date Difference'"
+                           [placeholder]="'Departure Date Difference..'">
+          </app-input-field>
+  
+          <app-input-field [control]="cancellationRuleForm.get('fee')"
+                           [label]="'Fee'"
+                           [placeholder]="'Fee..'">
+          </app-input-field>
+  
+          <app-input-field [control]="cancellationRuleForm.get('status')"
+                           [label]="'Status'"
+                           [placeholder]="'Status.'">
+          </app-input-field>    
+  
+          <button type="submit" nbButton status="success" class="float-right">Save</button>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </div>
+  

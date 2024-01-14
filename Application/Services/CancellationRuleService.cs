@@ -37,6 +37,7 @@ public class CancellationRuleService : ICancellationRuleService
         cancellationRuleInDb.DepartureDateDifference = cancellationRule.DepartureDateDifference;
         cancellationRuleInDb.Fee = cancellationRule.Fee;
         cancellationRuleInDb.Status = cancellationRule.Status;
+        cancellationRuleInDb.CreatedAt = cancellationRule.CreatedAt;
 
         _repository.Update(cancellationRuleInDb);
 
@@ -64,6 +65,9 @@ public class CancellationRuleService : ICancellationRuleService
         {
             "feeAsc" => query.OrderBy(cr => cr.Fee),
             "feeDesc" => query.OrderByDescending(cr => cr.Fee),
+            "departureDateDifferenceAsc" => query.OrderBy(cr => cr.DepartureDateDifference),
+            "departureDateDifferenceDesc" => query.OrderByDescending(cr => cr.DepartureDateDifference),
+            "createdAtDesc" => query.OrderByDescending(cr => cr.CreatedAt),
             _ => query.OrderBy(cr => cr.CreatedAt)
         };
 

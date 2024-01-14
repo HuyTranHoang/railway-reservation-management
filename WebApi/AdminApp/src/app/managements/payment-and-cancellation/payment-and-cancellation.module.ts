@@ -4,6 +4,7 @@ import {PaymentAndCancellationComponent} from './payment-and-cancellation.compon
 import {PaymentComponent} from './payment/payment.component';
 import {CancellationComponent} from './cancellation/cancellation.component';
 import {CancellationRuleComponent} from './cancellation-rule/cancellation-rule.component';
+import { CancellationRuleModule } from './cancellation-rule/cancellation-rule.module';
 import {PaymentAndCancellationRoutingModule} from './payment-and-cancellation-routing.module';
 import {SharedModule} from '../shared/shared.module';
 import { AddPaymentComponent } from './payment/add-payment/add-payment.component';
@@ -25,6 +26,9 @@ import { ConfirmDeletePaymentComponent } from './payment/confirm-delete-payment/
   imports: [
     CommonModule,
     SharedModule,
+
+    CancellationRuleModule,
+
     PaymentAndCancellationRoutingModule,
   ],
 })
