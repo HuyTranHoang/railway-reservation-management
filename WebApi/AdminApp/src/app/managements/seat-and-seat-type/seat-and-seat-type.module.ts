@@ -11,6 +11,7 @@ import {ShowSeatTypeComponent} from './seat-type/show-seat-type/show-seat-type.c
 import {EditSeatTypeComponent} from './seat-type/edit-seat-type/edit-seat-type.component';
 import {ConfirmDeleteSeatTypeComponent} from './seat-type/confirm-delete-seat-type/confirm-delete-seat-type.component';
 import {CompartmentComponent} from './compartment/compartment.component';
+import { SeatModule } from './seat/seat.module';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import {CompartmentComponent} from './compartment/compartment.component';
     SeatAndSeatTypeRoutingModule,
     SharedModule,
     FormsModule,
+    SeatModule,
   ],
 })
 export class SeatAndSeatTypeModule {

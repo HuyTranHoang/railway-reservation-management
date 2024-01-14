@@ -1,0 +1,107 @@
+<nb-card accent="info">
+  <nb-card-header>
+    <div class="d-flex justify-content-between align-items-center">
+      <form class="position-relative" (ngSubmit)="onSearch()">
+        <input nbInput placeholder="Search by name.."
+               name="searchTerm"
+               (keyup.escape)="onResetSearch()"
+               [(ngModel)]="currentSearchTerm"
+               style="padding-right: 32px">
+        <nb-icon icon="search-outline" pack="eva"
+                 class="position-absolute"
+                 style="top: 25%; right: 8px; cursor: pointer;"></nb-icon>
+      </form>
+
+      <button nbButton status="primary" class="mr-3"
+              routerLink="/managements/seat-and-seat-type/seat/add">
+        Create Seat
+      </button>
+    </div>
+  </nb-card-header>
+  <nb-card-body style="padding-bottom: 0">
+    <table class="table mb-0 ">
+      <thead class="table-borderless">
+      <tr>
+        <th scope="col" style="width: 5%">#</th>
+        <th scope="col">
+          <span (click)="onSort('nameAsc')"
+                [class.text-primary]="currentSort.includes('name')">
+            Name
+            <nb-icon icon="arrow-down-outline" pack="eva" *ngIf="!sortStates.name"></nb-icon>
+            <nb-icon icon="arrow-up-outline" pack="eva" *ngIf="sortStates.name"></nb-icon>
+          </span>
+        </th>
+
+        <th scope="col"
+            style="width: 25%">
+          <span (click)="onSort('seatTypeNameAsc')"
+                [class.text-primary]="currentSort.includes('seatTypeName')">
+            Seat Type
+            <nb-icon icon="arrow-down-outline" pack="eva" *ngIf="!sortStates.seatTypeName"></nb-icon>
+            <nb-icon icon="arrow-up-outline" pack="eva" *ngIf="sortStates.seatTypeName"></nb-icon>
+          </span>
+        </th>
+
+         <th scope="col"
+            style="width: 30%">
+          <span (click)="onSort('compartmentNameAsc')"
+                [class.text-primary]="currentSort.includes('compartmentName')">
+            Compartment
+            <nb-icon icon="arrow-down-outline" pack="eva" *ngIf="!sortStates.compartmentName"></nb-icon>
+            <nb-icon icon="arrow-up-outline" pack="eva" *ngIf="sortStates.compartmentName"></nb-icon>
+          </span>
+        </th>
+
+        <th scope="col"
+            style="width: 15%">
+          <span (click)="onSort('createdAtAsc')"
+                [class.text-primary]="currentSort.includes('createdAt')">
+            Created At
+            <nb-icon icon="arrow-down-outline" pack="eva" *ngIf="!sortStates.createdAt"></nb-icon>
+            <nb-icon icon="arrow-up-outline" pack="eva" *ngIf="sortStates.createdAt"></nb-icon>
+          </span>
+        </th>
+
+        <th scope="col" class="text-right" style="width: 15%">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of seats; let index = index">
+        <th scope="row">{{ index + 1 }}</th>
+        <td>{{ item.name }}</td>
+        <td>{{ item.seatTypeName }}</td>
+        <td>{{ item.compartmentName }}</td>
+        <td>{{ item.createdAt |date: 'medium' }}</td>
+        <td class="text-right">
+          <button nbButton status="info" class="mr-3" (click)="openShowDialog(item.id)">
+            <nb-icon icon="eye-outline" pack="eva"></nb-icon>
+          </button>
+          <button nbButton status="primary" class="mr-3"
+                  routerLink="/managements/train-and-carriage/train/{{item.id}}/edit">
+            <nb-icon icon="edit-outline" pack="eva"></nb-icon>
+          </button>
+          <button nbButton status="danger" (click)="openConfirmDialog(item.id, item.name)">
+            <nb-icon icon="trash-outline" pack="eva"></nb-icon>
+          </button>
+        </td>
+      </tr>
+
+      <tr *ngIf="seats.length <= 0">
+        <td colspan="5" class="text-center">
+          <div class="text-muted py-4">No data found.</div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </nb-card-body>
+
+  <nb-card-footer>
+    <app-pagination
+      selectOption="10"
+      [pagination]="pagination"
+      (pageChanged)="onPageChanged($event)"
+      (pageSizeChanged)="onPageSizeChanged($event)">
+    </app-pagination>
+  </nb-card-footer>
+</nb-card>
+
