@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TrainStations} from '../../../@models/trainStation';
 import {Pagination} from '../../../@models/pagination';
 import {QueryParams} from '../../../@models/params/queryParams';
@@ -11,17 +11,15 @@ import {DeleteTrainStationComponent} from './delete-train-station/delete-train-s
 @Component({
   selector: 'ngx-train-station',
   templateUrl: './train-station.component.html',
-  styleUrls: ['./train-station.component.scss']
+  styleUrls: ['./train-station.component.scss'],
 })
-export class TrainStationComponent {
+export class TrainStationComponent implements OnInit {
   trainStation: TrainStations[] = [];
   pagination: Pagination;
 
   currentSearchTerm: string = '';
   currentSort: string = '';
-  deleteId? : number;
 
-  // Trong component của bạn
   sortStates: { [key: string]: boolean } = {
     name: false,
     serviceCharge: false,
@@ -30,17 +28,20 @@ export class TrainStationComponent {
 
   queryParams: QueryParams = {
     pageNumber: 1,
-    pageSize: 10,
+    pageSize: 5,
     searchTerm: '',
     sort: '',
   };
 
-  constructor(private trainStationService: TrainStationService, private dialogService: NbDialogService,private toasterService : NbToastrService) {
+  constructor(private trainStationService: TrainStationService,
+              private dialogService: NbDialogService,
+              private toasterService: NbToastrService) {
   }
 
   ngOnInit(): void {
     this.getAllTrainStation();
   }
+
   getAllTrainStation() {
     this.trainStationService.getAllTrainStation(this.queryParams).subscribe({
       next: (res: PaginatedResult<TrainStations[]>) => {
@@ -84,6 +85,7 @@ export class TrainStationComponent {
 
     this.getAllTrainStation();
   }
+
   openShowDialog(id: number) {
     this.trainStationService.getTrainStationById(id).subscribe({
       next: (res: TrainStations) => {

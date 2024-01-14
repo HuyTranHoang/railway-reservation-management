@@ -5,36 +5,36 @@
         <div class="form-group row">
           <label class="label col-sm-3 col-form-label">Name</label>
           <div class="col-sm-9">
-            <input type="text" nbInput fullWidth style="color: black" [value]="name" disabled>
+            <input type="text" nbInput fullWidth [value]="name" disabled>
           </div>
         </div>
-  
+
         <div class="form-group row">
           <label class="label col-sm-3 col-form-label">Address</label>
           <div class="col-sm-9">
-            <input type="text" nbInput fullWidth  style="color: black" [value]="address" disabled>
+            <input type="text" nbInput fullWidth [value]="address" disabled>
           </div>
         </div>
         <div class="form-group row">
           <label class="label col-sm-3 col-form-label">Status</label>
           <div class="col-sm-9">
-            <textarea type="text" nbInput fullWidth style="color: black" [value]="status" disabled></textarea>
+            <input type="text" nbInput fullWidth [value]="status" disabled>
           </div>
         </div>
         <div class="form-group row">
-            <label class="label col-sm-3 col-form-label">CoorDinateValue</label>
-            <div class="col-sm-9">  
-              <input nbInput fullWidth  style="color: black ;" [value]="coordinateValue" disabled>
+            <label class="label col-sm-3 col-form-label">Coordinate</label>
+            <div class="col-sm-9">
+              <input type="text" nbInput fullWidth [value]="coordinateValue" disabled>
             </div>
         </div>
-  
+
       </section>
-  
+
     </nb-card-body>
     <nb-card-footer>
-      <div class="d-flex justify-content-between">  
+      <div class="d-flex justify-content-between">
         <button nbButton hero status="primary" (click)="dismiss()">Dismiss Dialog</button>
-  
+
         <div>
           <button nbButton hero status="primary" class="mr-3" (click)="onEdit()">Edit</button>
           <button nbButton hero status="danger" (click)="onDelete()">Delete</button>
@@ -42,4 +42,3 @@
       </div>
     </nb-card-footer>
   </nb-card>
-  
