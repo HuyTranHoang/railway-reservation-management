@@ -8,6 +8,7 @@ import {Pagination} from '../../../@models/pagination';
 })
 export class PaginationComponent {
 
+  @Input() selectOption: number;
   @Input() pagination: Pagination;
   @Output() pageChanged = new EventEmitter<number>();
   @Output() pageSizeChanged = new EventEmitter<number>();

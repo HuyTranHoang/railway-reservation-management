@@ -2,12 +2,13 @@
 
   <div>
     <label>Items per page:</label>
-    <nb-select selected="5"
+    <nb-select [selected]="selectOption"
                class="ml-2"
                size="small"
                (selectedChange)="changePageSize($event)">
       <nb-option value="5">5</nb-option>
       <nb-option value="10">10</nb-option>
+      <nb-option value="10">20</nb-option>
     </nb-select>
   </div>
 

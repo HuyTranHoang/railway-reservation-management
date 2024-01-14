@@ -29,7 +29,7 @@ export class PaymentComponent implements OnInit {
 
   queryParams: PaymentQueryParams = {
     pageNumber: 1,
-    pageSize: 5,
+    pageSize: 10,
     searchTerm: '',
     sort: '',
     createdAt: '',

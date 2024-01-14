@@ -14,7 +14,7 @@ import {NbDialogService} from '@nebular/theme';
 @Component({
   selector: 'ngx-list-cancellation-rule',
   templateUrl: './list-cancellation-rule.component.html',
-  styleUrls: ['./list-cancellation-rule.component.scss']
+  styleUrls: ['./list-cancellation-rule.component.scss'],
 })
 export class ListCancellationRuleComponent implements OnInit {
   cancellationRules: CancellationRule[] = [];
@@ -25,14 +25,15 @@ export class ListCancellationRuleComponent implements OnInit {
 
   queryParams: QueryParams = {
     pageNumber: 1,
-    pageSize: 5,
+    pageSize: 10,
     searchTerm: '',
     sort: '',
   };
 
-  sortStates: { [key: string]: boolean } = {
+  sortStates = {
     departureDateDifference: false,
     fee: false,
+    status: false,
     createdAt: false,
   };
 
@@ -101,7 +102,7 @@ export class ListCancellationRuleComponent implements OnInit {
     const cancellationRule = this.cancellationRules.find(x => x.id === id);
 
     const dialogRef = this.dialogService.open(ShowCancellationRuleComponent, {
-      context: { ...cancellationRule },
+      context: {...cancellationRule},
     });
 
     dialogRef.componentRef.instance.onShowDelete.subscribe(obj => {

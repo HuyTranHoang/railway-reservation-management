@@ -6,7 +6,7 @@ import {QueryParams} from '../../../@models/params/queryParams';
 import {CancellationRule} from '../../../@models/cancellationRule';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CancellationRuleService {
 
@@ -26,7 +26,8 @@ export class CancellationRuleService {
       params = params.append('sort', queryParams.sort);
     }
 
-    return this.paginationService.getPaginatedResult<CancellationRule[]>(this.baseUrl + '/cancellationRules', params);
+    return this.paginationService.getPaginatedResult<CancellationRule[]>(
+      this.baseUrl + '/cancellationRules', params);
   }
 
   getAllCancellationRuleNoPaging() {
@@ -42,7 +43,8 @@ export class CancellationRuleService {
   }
 
   updateCancellationRule(cancellationRule: CancellationRule) {
-    return this.http.put<CancellationRule>(this.baseUrl + '/cancellationRules/' + cancellationRule.id, cancellationRule);
+    return this.http.put<CancellationRule>(
+      this.baseUrl + '/cancellationRules/' + cancellationRule.id, cancellationRule);
   }
 
   deleteCancellationRule(id: number) {
