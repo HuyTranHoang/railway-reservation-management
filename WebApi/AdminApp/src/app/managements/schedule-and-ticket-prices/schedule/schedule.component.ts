@@ -2,8 +2,9 @@ import {Component} from '@angular/core';
 
 @Component({
   selector: 'ngx-schedule',
-  templateUrl: './schedule.component.html',
-  styleUrls: ['./schedule.component.scss']
+  template: `
+    <router-outlet></router-outlet>
+  `,
 })
 export class ScheduleComponent {
 

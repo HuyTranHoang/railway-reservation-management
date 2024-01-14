@@ -1,0 +1,118 @@
+<nb-card accent="info">
+  <nb-card-header>
+    <div class="d-flex justify-content-between align-items-center">
+      <form class="position-relative" (ngSubmit)="onSearch()">
+        <input nbInput placeholder="Search by name.."
+               name="searchTerm"
+               (keyup.escape)="onResetSearch()"
+               [(ngModel)]="currentSearchTerm"
+               style="padding-right: 32px">
+        <nb-icon icon="search-outline" pack="eva"
+                 class="position-absolute"
+                 style="top: 25%; right: 8px; cursor: pointer;"></nb-icon>
+      </form>
+
+      <button nbButton status="primary" class="mr-3"
+              routerLink="/managements/schedule-and-ticket-prices/schedule/add">
+        Create Schedule
+      </button>
+    </div>
+  </nb-card-header>
+  <nb-card-body style="padding-bottom: 0">
+    <table class="table mb-0 ">
+      <thead class="table-borderless">
+      <tr>
+        <th scope="col" style="width: 5%">#</th>
+        <th scope="col">
+          <span (click)="onSort('nameAsc')"
+                [class.text-primary]="currentSort.includes('name')">
+            Name
+            <nb-icon icon="arrow-down-outline" pack="eva" *ngIf="!sortStates.name"></nb-icon>
+            <nb-icon icon="arrow-up-outline" pack="eva" *ngIf="sortStates.name"></nb-icon>
+          </span>
+        </th>
+
+        <th scope="col"
+            style="width: 15%">
+          <span (click)="onSort('trainNameAsc')"
+                [class.text-primary]="currentSort.includes('trainName')">
+            Train Name
+            <nb-icon icon="arrow-down-outline" pack="eva" *ngIf="!sortStates.trainName"></nb-icon>
+            <nb-icon icon="arrow-up-outline" pack="eva" *ngIf="sortStates.trainName"></nb-icon>
+          </span>
+        </th>
+
+         <th scope="col"
+            style="width: 20%">
+          <span (click)="onSort('departureStationAsc')"
+                [class.text-primary]="currentSort.includes('departureStation')">
+            Departure Station
+            <nb-icon icon="arrow-down-outline" pack="eva" *ngIf="!sortStates.departureStation"></nb-icon>
+            <nb-icon icon="arrow-up-outline" pack="eva" *ngIf="sortStates.departureStation"></nb-icon>
+          </span>
+        </th>
+
+        <th scope="col"
+            style="width: 15%">
+          <span (click)="onSort('arrivalStationAsc')"
+                [class.text-primary]="currentSort.includes('arrivalStation')">
+            Arrival Station
+            <nb-icon icon="arrow-down-outline" pack="eva" *ngIf="!sortStates.arrivalStation"></nb-icon>
+            <nb-icon icon="arrow-up-outline" pack="eva" *ngIf="sortStates.arrivalStation"></nb-icon>
+          </span>
+        </th>
+
+        <th scope="col"
+            style="width: 15%">
+          <span (click)="onSort('departureTimeAsc')"
+                [class.text-primary]="currentSort.includes('departureTime')">
+            Departure Time
+            <nb-icon icon="arrow-down-outline" pack="eva" *ngIf="!sortStates.departureTime"></nb-icon>
+            <nb-icon icon="arrow-up-outline" pack="eva" *ngIf="sortStates.departureTime"></nb-icon>
+          </span>
+        </th>
+
+        <th scope="col" class="text-right" style="width: 15%">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of schedules; let index = index">
+        <th scope="row">{{ index + 1 }}</th>
+        <td>{{ item.name }}</td>
+        <td>{{ item.trainName }}</td>
+        <td>{{ item.departureStationName }}</td>
+        <td>{{ item.arrivalStationName }}</td>
+        <td>{{ item.departureTime |date: 'medium' }}</td>
+        <td class="text-right">
+          <button nbButton status="info" class="mr-3" (click)="openShowDialog(item.id)">
+            <nb-icon icon="eye-outline" pack="eva"></nb-icon>
+          </button>
+          <button nbButton status="primary" class="mr-3"
+                  routerLink="/managements/schedule-and-ticket-prices/{item.id}}/edit">
+            <nb-icon icon="edit-outline" pack="eva"></nb-icon>
+          </button>
+          <button nbButton status="danger" (click)="openConfirmDialog(item.id, item.name)">
+            <nb-icon icon="trash-outline" pack="eva"></nb-icon>
+          </button>
+        </td>
+      </tr>
+
+      <tr *ngIf="schedules.length <= 0">
+        <td colspan="5" class="text-center">
+          <div class="text-muted py-4">No data found.</div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </nb-card-body>
+
+  <nb-card-footer>
+    <app-pagination
+      selectOption="10"
+      [pagination]="pagination"
+      (pageChanged)="onPageChanged($event)"
+      (pageSizeChanged)="onPageSizeChanged($event)">
+    </app-pagination>
+  </nb-card-footer>
+</nb-card>
+
