@@ -22,7 +22,7 @@ const routes: Routes = [{
       component: AddTrainStationComponent,
     },
     {
-      path: 'train-station/edit/:id',
+      path: 'train-station/:id/edit',
       component: EditTrainStationComponent,
     },
     {

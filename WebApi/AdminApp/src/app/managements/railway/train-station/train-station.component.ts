@@ -14,15 +14,17 @@ import {DeleteTrainStationComponent} from './delete-train-station/delete-train-s
   styleUrls: ['./train-station.component.scss'],
 })
 export class TrainStationComponent implements OnInit {
-  trainStation: TrainStations[] = [];
+  trainStations: TrainStations[] = [];
   pagination: Pagination;
 
   currentSearchTerm: string = '';
   currentSort: string = '';
 
-  sortStates: { [key: string]: boolean } = {
+  sortStates = {
     name: false,
-    serviceCharge: false,
+    address: false,
+    coordinateValue: false,
+    status: false,
     createdAt: false,
   };
 
@@ -34,8 +36,7 @@ export class TrainStationComponent implements OnInit {
   };
 
   constructor(private trainStationService: TrainStationService,
-              private dialogService: NbDialogService,
-              private toasterService: NbToastrService) {
+              private dialogService: NbDialogService) {
   }
 
   ngOnInit(): void {
@@ -45,10 +46,8 @@ export class TrainStationComponent implements OnInit {
   getAllTrainStation() {
     this.trainStationService.getAllTrainStation(this.queryParams).subscribe({
       next: (res: PaginatedResult<TrainStations[]>) => {
-        this.trainStation = res.result;
+        this.trainStations = res.result;
         this.pagination = res.pagination;
-      },
-      error: (err) => {
       },
     });
   }
@@ -87,33 +86,21 @@ export class TrainStationComponent implements OnInit {
   }
 
   openShowDialog(id: number) {
-    this.trainStationService.getTrainStationById(id).subscribe({
-      next: (res: TrainStations) => {
-        const dialogRef = this.dialogService.open(ShowTrainStationComponent, {
-          context: {
-            id: res.id,
-            name: res.name,
-            address: res.address,
-            coordinateValue: res.coordinateValue,
-            status: res.status,
+    const trainStation = this.trainStations.find(x => x.id === id);
 
-          },
-        });
+    const dialogRef = this.dialogService.open(ShowTrainStationComponent, {
+      context: { ...trainStation },
+    });
 
-        dialogRef.componentRef.instance.onShowDelete.subscribe(obj => {
-          this.openConfirmDialog(obj.id, obj.name);
-        });
-      },
+    dialogRef.componentRef.instance.onShowDelete.subscribe(obj => {
+      this.openConfirmDialog(obj.id, obj.name);
     });
 
   }
 
   openConfirmDialog(id: number, name: string) {
     const dialogRef = this.dialogService.open(DeleteTrainStationComponent, {
-      context: {
-        id,
-        name,
-      },
+      context: { id, name },
     });
 
     dialogRef.componentRef.instance.onConfirmDelete.subscribe(_ => {

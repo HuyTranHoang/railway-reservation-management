@@ -34,16 +34,19 @@ namespace Application.Services
             var query = await _repository.GetQueryAsync();
 
             if (!string.IsNullOrEmpty(queryParams.SearchTerm))
-                query = query.Where(p => p.Name.Contains(queryParams.SearchTerm.Trim()));
+                query = query.Where(p => p.Name.Contains(queryParams.SearchTerm.Trim()) || p.Address.Contains(queryParams.SearchTerm.Trim()));
 
             query = queryParams.Sort switch
             {
                 "nameAsc" => query.OrderBy(p => p.Name),
                 "nameDesc" => query.OrderByDescending(p => p.Name),
+                "addressAsc" => query.OrderBy(p => p.Address),
+                "addressDesc" => query.OrderByDescending(p => p.Address),
                 "coordinateValueAsc" => query.OrderBy(p => p.CoordinateValue),
                 "coordinateValueDesc" => query.OrderByDescending(p => p.CoordinateValue),
                 "statusAsc" => query.OrderBy(p => p.Status),
                 "statusDesc" => query.OrderByDescending(p => p.Status),
+                "createdAtDesc" => query.OrderByDescending(p => p.CreatedAt),
                 _ => query.OrderBy(p => p.CreatedAt)
             };
 

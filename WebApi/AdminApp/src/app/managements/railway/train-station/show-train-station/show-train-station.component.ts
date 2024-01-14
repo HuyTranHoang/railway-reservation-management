@@ -5,7 +5,7 @@ import {NbDialogRef} from '@nebular/theme';
 @Component({
   selector: 'ngx-show-train-station',
   templateUrl: './show-train-station.component.html',
-  styleUrls: ['./show-train-station.component.scss']
+  styleUrls: ['./show-train-station.component.scss'],
 })
 export class ShowTrainStationComponent {
   @Input() id: number;
@@ -13,6 +13,7 @@ export class ShowTrainStationComponent {
   @Input() address: string;
   @Input() coordinateValue: number;
   @Input() status: string;
+  @Input() createdAt: string;
 
   @Output() onShowDelete = new EventEmitter<{id: number, name: string}>();
 
@@ -24,7 +25,7 @@ export class ShowTrainStationComponent {
   }
 
   onEdit() {
-    this.router.navigateByUrl(`/managements/railway/train-station/edit/${this.id}`);
+    this.router.navigateByUrl(`/managements/railway/train-station/${this.id}/edit`);
     this.dismiss();
   }
 
