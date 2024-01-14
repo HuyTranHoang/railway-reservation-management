@@ -22,28 +22,15 @@
 
         <div class="form-group">
           <label class="label">Train Company</label>
-          <input #autoInput
-                 nbInput
-                 fullWidth
-                 type="text"
-                 [class.status-danger]="updateForm.get('trainCompanyId')?.hasError('required')
-                  && (updateForm.get('trainCompanyId')?.touched || isSubmitted)"
-                 (input)="onChange()"
-                 (blur)="onBlur()"
-                 placeholder="Enter train name"
-                 [nbAutocomplete]="autoTrainName" />
+          <nb-select formControlName="trainCompanyId" placeholder="Select train company.." fullWidth>
+            <nb-option *ngFor="let item of trainCompanies" [value]="item.id">{{item.name}}</nb-option>
+          </nb-select>
+
           <span class="text-danger"
                 *ngIf="updateForm.get('trainCompanyId')?.hasError('required')
-                && (updateForm.get('trainCompanyId')?.touched || isSubmitted)
-                && autoInput.value.length <= 0">
+                && (updateForm.get('trainCompanyId')?.touched || isSubmitted)">
             Train company is required
           </span>
-
-          <nb-autocomplete #autoTrainName (selectedChange)="onSelectionChange($event)">
-            <nb-option *ngFor="let option of filteredOptions$ | async" [value]="option">
-              {{ option.name }}
-            </nb-option>
-          </nb-autocomplete>
         </div>
 
         <app-input-field [control]="updateForm.get('status')"
