@@ -1,11 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import { CancellationRuleService } from '../cancellation-rule.service';
-import { CancellationRule } from '../../../../@models/cancellationRule';
-import { Pagination } from '../../../../@models/pagination';
-import { PaginatedResult } from '../../../../@models/paginatedResult';
-import { QueryParams } from '../../../../@models/params/queryParams';
-import { ShowCancellationRuleComponent } from '../show-cancellation-rule/show-cancellation-rule.component';
-import { ConfirmDeleteCancellationRuleComponent } from '../confirm-delete-cancellation-rule/confirm-delete-cancellation-rule.component';
+import {CancellationRuleService} from '../cancellation-rule.service';
+import {CancellationRule} from '../../../../@models/cancellationRule';
+import {Pagination} from '../../../../@models/pagination';
+import {PaginatedResult} from '../../../../@models/paginatedResult';
+import {QueryParams} from '../../../../@models/params/queryParams';
+import {ShowCancellationRuleComponent} from '../show-cancellation-rule/show-cancellation-rule.component';
+import {
+  ConfirmDeleteCancellationRuleComponent,
+} from '../confirm-delete-cancellation-rule/confirm-delete-cancellation-rule.component';
 import {NbDialogService} from '@nebular/theme';
 
 

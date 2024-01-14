@@ -1,12 +1,12 @@
-import { Component } from '@angular/core';
-import { TrainStations } from '../../../@models/trainStation';
-import { Pagination } from '../../../@models/pagination';
-import { QueryParams } from '../../../@models/params/queryParams';
-import { TrainStationService } from './train-station.service';
-import { NbDialogService, NbToastrService } from '@nebular/theme';
-import { PaginatedResult } from '../../../@models/paginatedResult';
-import { ShowTrainStationComponent } from './show-train-station/show-train-station.component';
-import { DeleteTrainStationComponent } from './delete-train-station/delete-train-station.component';
+import {Component} from '@angular/core';
+import {TrainStations} from '../../../@models/trainStation';
+import {Pagination} from '../../../@models/pagination';
+import {QueryParams} from '../../../@models/params/queryParams';
+import {TrainStationService} from './train-station.service';
+import {NbDialogService, NbToastrService} from '@nebular/theme';
+import {PaginatedResult} from '../../../@models/paginatedResult';
+import {ShowTrainStationComponent} from './show-train-station/show-train-station.component';
+import {DeleteTrainStationComponent} from './delete-train-station/delete-train-station.component';
 
 @Component({
   selector: 'ngx-train-station',
@@ -94,7 +94,7 @@ export class TrainStationComponent {
             address: res.address,
             coordinateValue: res.coordinateValue,
             status: res.status,
-          
+
           },
         });
 

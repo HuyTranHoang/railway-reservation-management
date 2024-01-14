@@ -1,10 +1,8 @@
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {environment} from '../../../../environments/environment';
-import {PaginatedResult} from '../../../@models/paginatedResult';
 import {TrainCompany} from '../../../@models/trainCompany';
 import {QueryParams} from '../../../@models/params/queryParams';
-import {map} from 'rxjs/operators';
 import {PaginationService} from '../../shared/pagination.service';
 
 @Injectable({

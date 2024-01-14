@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
-import { TrainCompany } from '../../../../@models/trainCompany';
-import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { DistanceFareService } from '../distance-fare.service';
-import { TrainCompanyService } from '../../../railway/train-company/train-company.service';
-import { NbGlobalPhysicalPosition, NbToastrService } from '@nebular/theme';
-import { ActivatedRoute, Router } from '@angular/router';
+import {Component} from '@angular/core';
+import {TrainCompany} from '../../../../@models/trainCompany';
+import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
+import {DistanceFareService} from '../distance-fare.service';
+import {TrainCompanyService} from '../../../railway/train-company/train-company.service';
+import {NbGlobalPhysicalPosition, NbToastrService} from '@nebular/theme';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'ngx-edit-distance-fare',

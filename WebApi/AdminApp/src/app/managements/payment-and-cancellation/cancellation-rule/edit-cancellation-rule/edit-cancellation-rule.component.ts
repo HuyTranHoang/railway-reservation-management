@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
-import { CancellationRuleService } from '../cancellation-rule.service';
+import {CancellationRuleService} from '../cancellation-rule.service';
 import {NbGlobalPhysicalPosition, NbToastrService} from '@nebular/theme';
 import {ActivatedRoute, Router} from '@angular/router';
 

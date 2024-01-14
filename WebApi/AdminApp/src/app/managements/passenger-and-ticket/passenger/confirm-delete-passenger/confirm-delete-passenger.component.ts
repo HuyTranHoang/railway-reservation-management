@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {NbDialogRef, NbGlobalPhysicalPosition, NbToastrService} from '@nebular/theme';
-import {SeatTypeService} from '../../../seat-and-seat-type/seat-type/seat-type.service';
 import {PassengerService} from '../passenger.service';
 
 @Component({

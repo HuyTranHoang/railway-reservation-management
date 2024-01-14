@@ -1,10 +1,10 @@
-import { TrainService } from '../train.service';
+import {TrainService} from '../train.service';
 import {Component, OnInit, ViewChild} from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NbGlobalPhysicalPosition, NbToastrService } from '@nebular/theme';
-import { TrainCompanyService } from '../../../railway/train-company/train-company.service';
-import { TrainCompany } from '../../../../@models/trainCompany';
-import { map } from 'rxjs/operators';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {NbGlobalPhysicalPosition, NbToastrService} from '@nebular/theme';
+import {TrainCompanyService} from '../../../railway/train-company/train-company.service';
+import {TrainCompany} from '../../../../@models/trainCompany';
+import {map} from 'rxjs/operators';
 import {Observable, of} from 'rxjs';
 
 @Component({

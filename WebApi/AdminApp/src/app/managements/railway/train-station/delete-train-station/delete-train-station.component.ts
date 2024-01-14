@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { NbDialogRef, NbGlobalPhysicalPosition, NbToastrService } from '@nebular/theme';
-import { TrainStationService } from '../train-station.service';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {NbDialogRef, NbGlobalPhysicalPosition, NbToastrService} from '@nebular/theme';
+import {TrainStationService} from '../train-station.service';
 
 @Component({
   selector: 'ngx-delete-train-station',

@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { NbGlobalPhysicalPosition, NbToastrService } from '@nebular/theme';
-import { DistanceFareService } from '../distance-fare.service';
-import { TrainCompanyService } from '../../../railway/train-company/train-company.service';
-import { TrainCompany } from '../../../../@models/trainCompany';
+import {Component} from '@angular/core';
+import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
+import {NbGlobalPhysicalPosition, NbToastrService} from '@nebular/theme';
+import {DistanceFareService} from '../distance-fare.service';
+import {TrainCompanyService} from '../../../railway/train-company/train-company.service';
+import {TrainCompany} from '../../../../@models/trainCompany';
 
 @Component({
   selector: 'ngx-add-distance-fare',
@@ -83,4 +83,4 @@ export class AddDistanceFareComponent {
       title,
       config);
   }
-} 
+}

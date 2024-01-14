@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {NbDialogRef, NbGlobalPhysicalPosition, NbToastrService} from '@nebular/theme';
-import { CancellationRuleService } from '../cancellation-rule.service';
+import {CancellationRuleService} from '../cancellation-rule.service';
 
 @Component({
   selector: 'ngx-confirm-delete-cancellation-rule',

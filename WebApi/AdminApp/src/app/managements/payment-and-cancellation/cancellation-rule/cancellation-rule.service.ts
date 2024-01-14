@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {environment} from '../../../../environments/environment';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {PaginationService} from '../../shared/pagination.service';
 import {QueryParams} from '../../../@models/params/queryParams';
-import { CancellationRule } from '../../../@models/cancellationRule';
+import {CancellationRule} from '../../../@models/cancellationRule';
 
 @Injectable({
   providedIn: 'root'

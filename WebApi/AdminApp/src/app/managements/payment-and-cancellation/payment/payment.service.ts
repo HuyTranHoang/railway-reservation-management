@@ -3,7 +3,6 @@ import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../../environments/environment';
 import {Payment} from '../../../@models/payment';
 import {PaginationService} from '../../shared/pagination.service';
-import {CarriageType} from '../../../@models/carriageType';
 import {PaymentQueryParams} from '../../../@models/params/paymentQueryParams';
 
 @Injectable({
