@@ -22,7 +22,9 @@ export class AddCarriageComponent implements OnInit {
   isValidTrainSelected: boolean = false;
 
   carriageForm: FormGroup = this.fb.group({});
+  compartmentForm: FormGroup = this.fb.group({});
   isSubmitted = false;
+  isCompartmentSubmitted = false;
   errorMessages: string[] = [];
 
   @ViewChild('autoInput') input: { nativeElement: { value: string; }; };
@@ -58,7 +60,14 @@ export class AddCarriageComponent implements OnInit {
       name: ['', [Validators.required]],
       trainId: ['', [Validators.required]],
       carriageTypeId: ['', [Validators.required]],
-      numberOfCompartments: [0, [Validators.required, Validators.min(1)]],
+      numberOfCompartments: [0, [Validators.required, Validators.min(1), Validators.max(7)]],
+      status: [''],
+    });
+
+    this.compartmentForm = this.fb.group({
+      name: ['', [Validators.required]],
+      carriageId: ['', [Validators.required]],
+      numberOfSeats: [0, [Validators.required, Validators.min(1), Validators.max(4)]],
       status: [''],
     });
   }

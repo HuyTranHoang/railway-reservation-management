@@ -7,6 +7,7 @@
   <span class="text-danger" *ngIf="control.invalid && (control.touched || isSubmitted)">
     <span *ngIf="control.errors?.required">{{ label }} is required</span>
     <span *ngIf="control.errors?.min">{{ label }} must be greater than 0</span>
+    <span *ngIf="control.errors?.max">{{ label }} must be lower or equal 7</span>
     <span *ngIf="control.errors?.notANumber">{{ label }} must be number</span>
   </span>
 </div>
