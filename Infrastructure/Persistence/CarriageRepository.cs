@@ -74,4 +74,9 @@ public class CarriageRepository : ICarriageRepository
 
         return carriage.ServiceCharge;
     }
+
+    public Task<List<Carriage>> GetAllAsync()
+    {
+        return _context.Carriages.ToListAsync();
+    }
 }

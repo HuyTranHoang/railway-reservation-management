@@ -63,6 +63,12 @@ public class CompartmentService : ICompartmentService
         await _unitOfWork.SaveChangesAsync();
     }
 
+    public async Task<List<CompartmentDto>> GetAllDtoNoPagingAsync()
+    {
+        var compartments = await _repository.GetAllAsync();
+        return _mapper.Map<List<CompartmentDto>>(compartments);
+    }
+
     public async Task DeleteAsync(Compartment compartment)
     {
         _repository.Delete(compartment);
@@ -88,6 +94,9 @@ public class CompartmentService : ICompartmentService
             "numberOfSeatsDesc" => query.OrderByDescending(p => p.NumberOfSeats),
             "nameAsc" => query.OrderBy(p => p.Name),
             "nameDesc" => query.OrderByDescending(p => p.Name),
+            "carriageNameAsc" => query.OrderBy(p => p.Carriage.Name),
+            "carriageNameDesc" => query.OrderByDescending(p => p.Carriage.Name),
+            "createdAtDesc" => query.OrderByDescending(p => p.CreatedAt),
             _ => query.OrderBy(p => p.CreatedAt)
         };
 

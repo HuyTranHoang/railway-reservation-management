@@ -37,7 +37,7 @@ public class CancellationRuleService : ICancellationRuleService
         cancellationRuleInDb.DepartureDateDifference = cancellationRule.DepartureDateDifference;
         cancellationRuleInDb.Fee = cancellationRule.Fee;
         cancellationRuleInDb.Status = cancellationRule.Status;
-        cancellationRuleInDb.CreatedAt = cancellationRule.CreatedAt;
+        cancellationRuleInDb.UpdatedAt = DateTime.Now;
 
         _repository.Update(cancellationRuleInDb);
 

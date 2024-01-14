@@ -24,6 +24,14 @@ public class CarriagesController : BaseApiController
         return Ok(carriagesDto);
     }
 
+    [HttpGet("all")]
+    public async Task<ActionResult<IEnumerable<CarriageDto>>> GetAllCarriages()
+    {
+        var carriagesDto = await _carriageService.GetAllDtoNoPagingAsync();
+
+        return Ok(carriagesDto);
+    }
+
     [HttpGet("{id}")]
     public async Task<ActionResult<CarriageDto>> GetCarriage(int id)
     {

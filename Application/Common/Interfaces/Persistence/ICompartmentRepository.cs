@@ -5,4 +5,7 @@ public interface ICompartmentRepository : IRepository<Compartment>
     Task<IQueryable<Compartment>> GetQueryWithCarriageAsync();
 
     Task<Compartment> GetByIdWithSeatsAsync(int id);
+
+    Task<List<Compartment>> GetAllAsync();
+
 }
