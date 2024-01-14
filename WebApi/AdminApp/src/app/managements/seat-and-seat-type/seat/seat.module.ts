@@ -5,6 +5,9 @@ import { NbOptionModule, NbSelectModule, NbAutocompleteModule } from '@nebular/t
 import { SharedModule } from '../../shared/shared.module';
 import { ListSeatComponent } from './list-seat/list-seat.component';
 import { AddSeatComponent } from './add-seat/add-seat.component';
+import { EditSeatComponent } from './edit-seat/edit-seat.component';
+import { ConfirmDeleteSeatComponent } from './confirm-delete-seat/confirm-delete-seat.component';
+import { ShowSeatComponent } from './show-seat/show-seat.component';
 
 
 
@@ -12,6 +15,9 @@ import { AddSeatComponent } from './add-seat/add-seat.component';
   declarations: [
     ListSeatComponent,
     AddSeatComponent,
+    EditSeatComponent,
+    ConfirmDeleteSeatComponent,
+    ShowSeatComponent,
   ],
   imports: [
     CommonModule,

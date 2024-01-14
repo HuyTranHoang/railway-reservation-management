@@ -27,6 +27,16 @@ public class SeatTypesController : ControllerBase
         return Ok(seatTypesDto);
     }
 
+    [HttpGet("all")]
+    public async Task<ActionResult<List<SeatTypeDto>>> GetAllSeatType()
+    {
+        var seatsDto = await _seatTypeService.GetAllDtoNoPagingAsync();
+
+        return Ok(seatsDto);
+    }
+
+
+
     [HttpGet("{id}")]
     public async Task<ActionResult<SeatTypeDto>> GetById(int id)
     {

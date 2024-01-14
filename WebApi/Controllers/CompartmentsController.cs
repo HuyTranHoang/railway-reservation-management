@@ -25,11 +25,11 @@ public class CompartmentsController : BaseApiController
     }
 
     [HttpGet("all")]
-    public async Task<ActionResult<IEnumerable<CompartmentDto>>> GetAllCompartments()
+    public async Task<ActionResult<List<CompartmentDto>>> GetAllSeats()
     {
-        var compartmentDto = await _compartmentService.GetAllDtoNoPagingAsync();
+        var seatsDto = await _compartmentService.GetAllDtoNoPagingAsync();
 
-        return Ok(compartmentDto);
+        return Ok(seatsDto);
     }
 
     [HttpGet("{id}")]

@@ -76,6 +76,12 @@ public class SeatService : ISeatService
             queryParams.PageSize);
     }
 
+    public async Task<List<SeatDto>> GetAllDtoNoPagingAsync()
+    {
+        var seat = await _repository.GetAllNoPagingAsync();
+        return _mapper.Map<List<SeatDto>>(seat);
+    }
+
     public async Task<Seat> GetByIdAsync(int id)
     {
         return await _repository.GetByIdAsync(id);

@@ -1,24 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NbGlobalPhysicalPosition, NbToastrService } from '@nebular/theme';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { NbToastrService, NbGlobalPhysicalPosition } from '@nebular/theme';
+import { Compartment } from '../../../../@models/compartment';
 import { SeatType } from '../../../../@models/seatType';
+import { CompartmentService } from '../../../train-and-carriage/compartment/compartment.service';
 import { SeatTypeService } from '../../seat-type/seat-type.service';
 import { SeatService } from '../seat.service';
-import { CompartmentService } from '../../../train-and-carriage/compartment/compartment.service';
-import { Compartment } from '../../../../@models/compartment';
 
 @Component({
-  selector: 'ngx-add-seat',
-  templateUrl: './add-seat.component.html',
-  styleUrls: ['./add-seat.component.scss']
+  selector: 'ngx-edit-seat',
+  templateUrl: './edit-seat.component.html',
+  styleUrls: ['./edit-seat.component.scss']
 })
-export class AddSeatComponent implements OnInit {
+export class EditSeatComponent implements OnInit{
 
   seatTypes: SeatType[] = [];
   compartments : Compartment[] = [];
-  seatForm: FormGroup = this.fb.group({});
+  updateForm: FormGroup = this.fb.group({});
   isSubmitted: boolean = false;
   errorMessages: string[] = [];
+  activatedRoute: any;
+  router: any;
 
   constructor(private seatService: SeatService,
               private seatTypeService: SeatTypeService,
@@ -33,11 +35,23 @@ export class AddSeatComponent implements OnInit {
   }
 
   initForm() {
-    this.seatForm = this.fb.group({
+    this.updateForm = this.fb.group({
       name: ['', Validators.required],
       seatTypeId: ['', Validators.required],
-      compartmentId: [1,Validators.required],
+      compartmentId: ['',Validators.required],
       status: [''],
+    });
+
+    const id = this.activatedRoute.snapshot.params.id;
+
+    this.seatService.getSeatById(id).subscribe({
+      next: (res) => {
+        this.updateForm.patchValue(res);
+      },
+      error: (err) => {
+        this.showToast('danger', 'Failed', 'Seat does not exist!');
+        this.router.navigateByUrl('/managements/seat-and-seat-type/seat');
+      },
     });
   }
 
@@ -45,17 +59,17 @@ export class AddSeatComponent implements OnInit {
     this.isSubmitted = true;
     this.errorMessages = [];
 
-    if (this.seatForm.valid) {
-      this.seatService.addSeat(this.seatForm.value).subscribe({
+    if (this.updateForm.valid) {
+      this.seatService.addSeat(this.updateForm.value).subscribe({
         next: (res) => {
-          this.showToast('success', 'Success', 'Add seat successfully!');
-          this.seatForm.reset();
+          this.showToast('success', 'Success', 'Update seat successfully!');
+          this.updateForm.reset();
           this.isSubmitted = false;
           this.errorMessages = [];
         },
         error: (err) => {
           this.errorMessages = err.error.errors;
-          this.showToast('danger', 'Failed', 'Add seat failed!');
+          this.showToast('danger', 'Failed', 'Update seat failed!');
         },
       });
     }

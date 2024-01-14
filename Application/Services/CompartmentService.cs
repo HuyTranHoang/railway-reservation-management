@@ -65,7 +65,7 @@ public class CompartmentService : ICompartmentService
 
     public async Task<List<CompartmentDto>> GetAllDtoNoPagingAsync()
     {
-        var compartments = await _repository.GetAllAsync();
+        var compartments = await _repository.GetAllNoPagingAsync();
         return _mapper.Map<List<CompartmentDto>>(compartments);
     }
 

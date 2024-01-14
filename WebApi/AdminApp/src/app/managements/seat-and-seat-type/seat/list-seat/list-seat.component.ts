@@ -1,17 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SeatService } from '../seat.service';
 import { NbDialogService } from '@nebular/theme';
 import { PaginatedResult } from '../../../../@models/paginatedResult';
 import { Pagination } from '../../../../@models/pagination';
 import { QueryParams } from '../../../../@models/params/queryParams';
 import { Seat } from '../../../../@models/seat';
+import { ConfirmDeleteSeatComponent } from '../confirm-delete-seat/confirm-delete-seat.component';
+import { ShowSeatComponent } from '../show-seat/show-seat.component';
 
 @Component({
   selector: 'ngx-list-seat',
   templateUrl: './list-seat.component.html',
   styleUrls: ['./list-seat.component.scss']
 })
-export class ListSeatComponent {
+export class ListSeatComponent implements OnInit{
   seats: Seat [] = [];
   pagination: Pagination;
 
@@ -95,28 +97,28 @@ export class ListSeatComponent {
     this.getAllSeat();
   }
 
-  // openShowDialog(id: number) {
-  //   const Seat = this.seats.find(x => x.id === id);
+  openShowDialog(id: number) {
+    const Seat = this.seats.find(x => x.id === id);
 
-  //   const dialogRef = this.dialogService.open(ShowSeatComponent, {
-  //     context: {...Seat},
-  //   });
+    const dialogRef = this.dialogService.open(ShowSeatComponent, {
+      context: {...Seat},
+    });
 
-  //   dialogRef.componentRef.instance.onShowDelete.subscribe(obj => {
-  //     this.openConfirmDialog(obj.id, obj.name);
-  //   });
+    dialogRef.componentRef.instance.onShowDelete.subscribe(obj => {
+      this.openConfirmDialog(obj.id, obj.name);
+    });
 
-  // }
+  }
 
-  // openConfirmDialog(id: number, name: string) {
-  //   const dialogRef = this.dialogService.open(ConfirmDeleteSeatComponent, {
-  //     context: {id, name},
-  //   });
+  openConfirmDialog(id: number, name: string) {
+    const dialogRef = this.dialogService.open(ConfirmDeleteSeatComponent, {
+      context: {id, name},
+    });
 
-  //   dialogRef.componentRef.instance.onConfirmDelete.subscribe((_: any) => {
-  //     this.getAllSeat();
-  //   });
-  // }
+    dialogRef.componentRef.instance.onConfirmDelete.subscribe((_: any) => {
+      this.getAllSeat();
+    });
+  }
 
   onPageChanged(newPage: number) {
     this.queryParams.pageNumber = newPage;

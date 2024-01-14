@@ -45,4 +45,9 @@ public class SeatTypeRepository : ISeatTypeRepository
         seatType.IsDeleted = true;
         _context.Entry(seatType).State = EntityState.Modified;
     }
+
+    public Task<List<SeatType>> GetAllNoPagingAsync()
+    {
+        return _context.SeatTypes.ToListAsync();
+    }
 }

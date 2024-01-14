@@ -29,6 +29,10 @@ export class SeatTypeService {
     return this.paginationService.getPaginatedResult<SeatType[]>(this.baseUrl + '/seatTypes', params);
   }
 
+  getAllSeatTypeNoPaging() {
+    return this.http.get<SeatType[]>(this.baseUrl + '/seatTypes/all');
+  }
+
   getSeatTypeById(id: number) {
     return this.http.get<SeatType>(this.baseUrl + '/seatTypes/' + id);
   }

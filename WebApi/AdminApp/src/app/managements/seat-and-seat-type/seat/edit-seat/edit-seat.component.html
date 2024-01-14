@@ -11,9 +11,11 @@
       </div>
     </nb-card-header>
     <nb-card-body>
-      <form [formGroup]="seatForm" (ngSubmit)="onSubmit()">
+      <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
 
-        <app-input-field [control]="seatForm.get('name')"
+        <input type="hidden" formControlName="id">
+
+        <app-input-field [control]="updateForm.get('name')"
                          [label]="'Name'"
                          [isSubmitted]="isSubmitted"
                          [placeholder]="'Name of seat..'">
@@ -26,8 +28,8 @@
           </nb-select>
 
           <span class="text-danger"
-                *ngIf="seatForm.get('seatTypeId')?.hasError('required')
-                && (seatForm.get('seatTypeId')?.touched || isSubmitted)">
+                *ngIf="updateForm.get('seatTypeId')?.hasError('required')
+                && (updateForm.get('seatTypeId')?.touched || isSubmitted)">
             Seat type is required
           </span>
 
@@ -37,13 +39,13 @@
           </nb-select>
 
           <span class="text-danger"
-                *ngIf="seatForm.get('compartmentId')?.hasError('required')
-                && (seatForm.get('compartmentId')?.touched || isSubmitted)">
+                *ngIf="updateForm.get('compartmentId')?.hasError('required')
+                && (updateForm.get('compartmentId')?.touched || isSubmitted)">
             Compartment is required
           </span>
         </div>
 
-        <app-input-field [control]="seatForm.get('status')"
+        <app-input-field [control]="updateForm.get('status')"
                          [label]="'Status'"
                          [isSubmitted]="isSubmitted"
                          [placeholder]="'Status'">
@@ -54,7 +56,7 @@
           <li class="text-danger" *ngFor="let item of errorMessages">{{item}}</li>
         </ul>
 
-        <button type="submit" nbButton status="success" class="float-right">Submit</button>
+        <button type="submit" nbButton status="success" class="float-right">Save</button>
       </form>
     </nb-card-body>
   </nb-card>

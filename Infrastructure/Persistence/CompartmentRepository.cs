@@ -61,4 +61,9 @@ public class CompartmentRepository : ICompartmentRepository
     {
         return _context.Compartments.ToListAsync();
     }
+
+    public Task<List<Compartment>> GetAllNoPagingAsync()
+    {
+        return _context.Compartments.ToListAsync();
+    }
 }

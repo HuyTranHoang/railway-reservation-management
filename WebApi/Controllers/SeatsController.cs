@@ -16,10 +16,18 @@ public class SeatsController : BaseApiController
     {
         var seatsDto = await _seatService.GetAllDtoAsync(queryParams);
 
-        var paginationHeader = new PaginationHeader(queryParams.PageNumber, queryParams.PageSize, 
+        var paginationHeader = new PaginationHeader(queryParams.PageNumber, queryParams.PageSize,
         seatsDto.TotalCount, seatsDto.TotalPages);
 
         Response.AddPaginationHeader(paginationHeader);
+
+        return Ok(seatsDto);
+    }
+
+    [HttpGet("all")]
+    public async Task<ActionResult<List<SeatDto>>> GetAllSeats()
+    {
+        var seatsDto = await _seatService.GetAllDtoNoPagingAsync();
 
         return Ok(seatsDto);
     }
@@ -37,8 +45,8 @@ public class SeatsController : BaseApiController
     [HttpPost]
     public async Task<ActionResult> PostSeat([FromBody] Seat seat)
     {
-        if(!ModelState.IsValid) return BadRequest(ModelState);
-        
+        if (!ModelState.IsValid) return BadRequest(ModelState);
+
         try
         {
             await _seatService.AddAsync(seat);
@@ -59,7 +67,7 @@ public class SeatsController : BaseApiController
     {
         if (id != seat.Id) return BadRequest(new ErrorResponse(400));
 
-        if(!ModelState.IsValid) return BadRequest(ModelState);
+        if (!ModelState.IsValid) return BadRequest(ModelState);
 
         try
         {
@@ -83,7 +91,7 @@ public class SeatsController : BaseApiController
     {
         var seat = await _seatService.GetByIdAsync(id);
 
-        if(seat == null) return NotFound(new ErrorResponse(404));
+        if (seat == null) return NotFound(new ErrorResponse(404));
 
         await _seatService.SoftDeleteAsync(seat);
 
