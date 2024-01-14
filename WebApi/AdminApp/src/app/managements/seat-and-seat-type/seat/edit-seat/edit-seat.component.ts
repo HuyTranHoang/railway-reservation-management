@@ -6,6 +6,7 @@ import { SeatType } from '../../../../@models/seatType';
 import { CompartmentService } from '../../../train-and-carriage/compartment/compartment.service';
 import { SeatTypeService } from '../../seat-type/seat-type.service';
 import { SeatService } from '../seat.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'ngx-edit-seat',
@@ -16,15 +17,16 @@ export class EditSeatComponent implements OnInit{
 
   seatTypes: SeatType[] = [];
   compartments: Compartment[];
+
   updateForm: FormGroup = this.fb.group({});
   isSubmitted: boolean = false;
   errorMessages: string[] = [];
-  activatedRoute: any;
-  router: any;
 
   constructor(private seatService: SeatService,
               private seatTypeService: SeatTypeService,
               private compartmentService : CompartmentService,
+              private activatedRoute: ActivatedRoute,
+              private router: Router,
               private toastrService: NbToastrService,
               private fb: FormBuilder) {
   }

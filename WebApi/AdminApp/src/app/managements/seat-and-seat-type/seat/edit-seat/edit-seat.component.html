@@ -2,7 +2,7 @@
   <nb-card>
     <nb-card-header>
       <div class="d-flex justify-content-between">
-        Define New Seat
+        Edit Seat
         <button nbButton type="submit"
         routerLink="/managements/seat-and-seat-type/seat/"
         status="primary">
@@ -47,7 +47,6 @@
 
         <app-input-field [control]="updateForm.get('status')"
                          [label]="'Status'"
-                         [isSubmitted]="isSubmitted"
                          [placeholder]="'Status'">
         </app-input-field>
 

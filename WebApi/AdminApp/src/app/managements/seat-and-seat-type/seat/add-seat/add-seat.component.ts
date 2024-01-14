@@ -36,7 +36,7 @@ export class AddSeatComponent implements OnInit {
     this.seatForm = this.fb.group({
       name: ['', Validators.required],
       seatTypeId: ['', Validators.required],
-      compartmentId: [1,Validators.required],
+      compartmentId: ['',Validators.required],
       status: [''],
     });
   }
