@@ -20,7 +20,7 @@ const routes: Routes = [{
       component: AddDistanceFareComponent,
     },
     {
-      path: ':id/edit',
+      path: 'edit/:id',
       component: EditDistanceFareComponent,
     },
   ],

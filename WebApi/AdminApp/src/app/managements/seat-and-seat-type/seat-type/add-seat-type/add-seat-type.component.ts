@@ -46,13 +46,13 @@ export class AddSeatTypeComponent implements OnInit {
     if (this.seatTypeForm.valid) {
       this.seatTypeService.addSeatType(this.seatTypeForm.value).subscribe({
         next: (res) => {
-          this.showToast('success', 'Success', 'Add carriage type successfully!');
+          this.showToast('success', 'Success', 'Add seat type successfully!');
           this.seatTypeForm.reset();
           this.isSubmitted = false;
           this.errorMessages = [];
         },
         error: (err) => {
-          this.showToast('danger', 'Failed', 'Add carriage type failed!');
+          this.showToast('danger', 'Failed', 'Add seat type failed!');
           this.errorMessages = err.error.errorMessages;
         },
       });

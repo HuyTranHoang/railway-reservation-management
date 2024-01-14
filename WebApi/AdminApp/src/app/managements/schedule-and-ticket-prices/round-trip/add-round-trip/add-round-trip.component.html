@@ -17,7 +17,7 @@
             <nb-select placeholder="Choose an Train Company..." fullWidth formControlName="trainCompanyId">
               <nb-option *ngFor="let item of trainCompanies" value="{{item.id}}">{{item.name}}</nb-option>
             </nb-select>             
-          </div>
+          </div>x
   
           <app-input-field [control]="roundTripForm.get('discount')"
                            [label]="'Discount'"
