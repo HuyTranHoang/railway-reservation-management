@@ -26,5 +26,7 @@ public class ScheduleDto
 
     public int Duration { get; set; }
 
+    public double Price { get; set; }
+
     public string Status { get; set; }
 }

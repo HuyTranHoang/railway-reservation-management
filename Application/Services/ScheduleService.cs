@@ -1,19 +1,26 @@
 using Domain.Exceptions;
+using Serilog;
 
 namespace Application.Services;
 
 public class ScheduleService : IScheduleService
 {
     private readonly IScheduleRepository _repository;
-
+    private readonly IDistanceFareRepository _distanceFareRepository;
+    private readonly ITrainStationRepository _trainStationRepository;
     private readonly IMapper _mapper;
     private readonly IUnitOfWork _unitOfWork;
 
-    public ScheduleService(IScheduleRepository repository, IUnitOfWork unitOfWork, IMapper mapper)
+    public ScheduleService(IScheduleRepository repository,
+                            IDistanceFareRepository distanceFareRepository,
+                            ITrainStationRepository trainStationRepository,
+                            IUnitOfWork unitOfWork, IMapper mapper)
     {
         _repository = repository;
         _unitOfWork = unitOfWork;
         _mapper = mapper;
+        _distanceFareRepository = distanceFareRepository;
+        _trainStationRepository = trainStationRepository;
     }
 
     public async Task AddAsync(Schedule schedule)
@@ -28,6 +35,8 @@ public class ScheduleService : IScheduleService
         {
             throw new BadRequestException(400, "Trùng Lịch Trình Hoặc Thời Gian Chỉ Định Đã Có!!");
         }
+
+        schedule.Price = await CalculatePrice(schedule);
 
         _repository.Add(schedule);
         await _unitOfWork.SaveChangesAsync();
@@ -145,6 +154,23 @@ public class ScheduleService : IScheduleService
                         (s.DepartureDate >= schedule.DepartureDate && s.ArrivalDate <= schedule.ArrivalDate)
             )
         );
+    }
+
+    private async Task<double> CalculatePrice(Schedule schedule)
+    {
+        var departure = await _trainStationRepository.GetByIdAsync(10);
+        if (departure == null)
+        {
+            Console.WriteLine($"Không tìm thấy TrainStation với Id = {schedule.DepartureStationId}");
+        }
+        var arrival = await _trainStationRepository.GetByIdAsync(11);
+        if (departure == null)
+        {
+            Console.WriteLine($"Không tìm thấy TrainStation với Id = {schedule.ArrivalStationId}");
+        }
+        int distance = arrival.CoordinateValue - departure.CoordinateValue;
+        var distanceFare = await _distanceFareRepository.GetByDistanceAsync(distance);
+        return (double)distanceFare;
     }
 
 }
