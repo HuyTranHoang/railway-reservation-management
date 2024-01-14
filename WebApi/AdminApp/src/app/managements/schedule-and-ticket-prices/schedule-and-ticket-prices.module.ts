@@ -9,7 +9,6 @@ import {SharedModule} from '../shared/shared.module';
 import {RoundTripModule} from './round-trip/round-trip.module';
 import {DistanceFareModule} from './distance-fare/distance-fare.module';
 
-
 @NgModule({
   declarations: [
     ScheduleAndTicketPricesComponent,

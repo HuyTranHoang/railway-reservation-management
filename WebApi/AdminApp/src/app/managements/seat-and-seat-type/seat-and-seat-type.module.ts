@@ -25,10 +25,12 @@ import { SeatModule } from './seat/seat.module';
   ],
   imports: [
     CommonModule,
-    SeatAndSeatTypeRoutingModule,
     SharedModule,
-    FormsModule,
+    // Child Module
     SeatModule,
+
+    // Routing
+    SeatAndSeatTypeRoutingModule,
   ],
 })
 export class SeatAndSeatTypeModule {
