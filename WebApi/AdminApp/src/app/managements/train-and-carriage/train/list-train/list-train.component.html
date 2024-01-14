@@ -74,13 +74,15 @@
           </button>
         </td>
       </tr>
+
+      <tr *ngIf="trains.length <= 0">
+        <td colspan="5" class="text-center">
+          <div class="text-muted py-4">No data found.</div>
+        </td>
+      </tr>
       </tbody>
     </table>
   </nb-card-body>
-
-  <div *ngIf="trains.length === 0" class="m-4">
-    <strong>Train Not Found!!!</strong>
-  </div>
 
   <nb-card-footer>
     <app-pagination

@@ -77,6 +77,12 @@
           </button>
         </td>
       </tr>
+
+      <tr *ngIf="payments.length <= 0">
+        <td colspan="6" class="text-center">
+          <div class="text-muted py-4">No data found.</div>
+        </td>
+      </tr>
       </tbody>
     </table>
   </nb-card-body>

@@ -94,6 +94,12 @@
           </button>
         </td>
       </tr>
+
+      <tr *ngIf="passengers.length <= 0">
+        <td colspan="7" class="text-center">
+          <div class="text-muted py-4">No data found.</div>
+        </td>
+      </tr>
       </tbody>
     </table>
   </nb-card-body>
