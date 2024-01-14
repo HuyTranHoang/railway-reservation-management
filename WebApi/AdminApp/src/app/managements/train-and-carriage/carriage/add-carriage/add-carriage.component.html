@@ -3,36 +3,67 @@
   <nb-card-body>
     <nb-stepper orientation="horizontal" disableStepNavigation>
 
-      <nb-step [label]="labelOne">
+      <nb-step [label]="labelOne" [stepControl]="carriageForm">
         <ng-template #labelOne>First step</ng-template>
-        <h4>Choose the Train for This Carriage</h4>
+        <h4>Define New Carriage</h4>
 
-        <div class="my-4">
-          <input #autoInput
-                 class="mr-4"
-                 [class.status-danger]="hasInteracted && !isValidTrainSelected"
-                 nbInput
-                 type="text"
-                 (input)="onChange()"
-                 (blur)="onInputBlur()"
-                 placeholder="Enter train name"
-                 [nbAutocomplete]="autoTrainName" />
+        <form [formGroup]="carriageForm" class="my-4 col-6 p-0">
 
-          <span *ngIf="hasInteracted && !isValidTrainSelected" class="text-danger">
-            *Please select a valid train
-          </span>
-          <nb-autocomplete #autoTrainName (selectedChange)="onSelectionChange($event)">
-            <nb-option *ngFor="let option of filteredOptions$ | async" [value]="option">
-              {{ option.name }}
-            </nb-option>
-          </nb-autocomplete>
+          <div class="form-group">
+            <label class="label">Train name/code</label>
+            <input #autoInput
+                   class="mr-4"
+                   [class.status-danger]="isSubmitted && !isValidTrainSelected"
+                   nbInput
+                   fullWidth
+                   type="text"
+                   (input)="onChange()"
+                   (blur)="onInputBlur()"
+                   placeholder="Choose train name/code.."
+                   [nbAutocomplete]="autoTrainName" />
+            <nb-autocomplete #autoTrainName (selectedChange)="onSelectionChange($event)">
+              <nb-option *ngFor="let option of filteredOptions$ | async" [value]="option">
+                {{ option.name }}
+              </nb-option>
+            </nb-autocomplete>
+            <span *ngIf="isSubmitted && !isValidTrainSelected" class="text-danger">
+              *Please select a valid train
+            </span>
+          </div>
+
+          <div class="form-group">
+            <label class="label">Carriage Type</label>
+            <nb-select fullWidth formControlName="carriageTypeId"
+                       [class.status-danger]="carriageForm.get('carriageTypeId').hasError('required') && isSubmitted"
+                       placeholder="Type of this carriage..">
+              <nb-option *ngFor="let option of carriageTypes" [value]="option.id">{{ option.name }}</nb-option>
+            </nb-select>
+            <span class="text-danger"
+              *ngIf="carriageForm.get('carriageTypeId').hasError('required') && isSubmitted">
+                *Please select a valid carriage type
+              </span>
+          </div>
+
+          <app-input-field [control]="carriageForm.get('name')"
+                           [label]="'Name'"
+                           [isSubmitted]="isSubmitted"
+                           [placeholder]="'Name of carriage..'">
+          </app-input-field>
+
+          <app-input-field [control]="carriageForm.get('numberOfCompartments')"
+                           [label]="'Number of Compartments'"
+                           [isSubmitted]="isSubmitted"
+                           [placeholder]="'Number of compartments for this carriage'">
+          </app-input-field>
+
+        </form>
+
+        <div *ngIf="isSubmitted && carriageForm.invalid" class="mb-3">
+          <span class="text-danger">*Please fill the valid form to continue</span>
         </div>
 
-        <pre>
-          selectedTrainId: {{ selectedTrainId | json}} ( for debug )
-        </pre>
         <button class="prev-button" nbButton disabled nbStepperNext>prev</button>
-        <button class="next-button" nbButton nbStepperNext [disabled]="!isValidTrainSelected">next</button>
+        <button class="next-button" nbButton nbStepperNext (click)="firstNextBtnClick()">next</button>
       </nb-step>
 
       <nb-step [label]="labelTwo">

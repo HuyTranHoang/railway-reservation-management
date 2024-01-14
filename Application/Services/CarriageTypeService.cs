@@ -85,4 +85,9 @@ public class CarriageTypeService : ICarriageTypeService
         await _unitOfWork.SaveChangesAsync();
     }
 
+    public async Task<List<CarriageTypeDto>> GetAllDtoNoPagingAsync()
+    {
+        var carriageTypes = await _repository.GetAllNoPagingAsync();
+        return _mapper.Map<List<CarriageTypeDto>>(carriageTypes);
+    }
 }

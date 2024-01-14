@@ -27,6 +27,11 @@ GET {{url}}/{{router}}?
 
 ### 
 
+# @name getListOfCarriageTypeNoPaging
+GET {{url}}/{{router}}/all
+
+### 
+
 # @name getCarriageTypeById
 @id = 1
 
