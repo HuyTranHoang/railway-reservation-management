@@ -115,7 +115,7 @@ export class ListSeatComponent implements OnInit{
       context: {id, name},
     });
 
-    dialogRef.componentRef.instance.onConfirmDelete.subscribe((_: any) => {
+    dialogRef.componentRef.instance.ConfirmDelete.subscribe((_: any) => {
       this.getAllSeat();
     });
   }

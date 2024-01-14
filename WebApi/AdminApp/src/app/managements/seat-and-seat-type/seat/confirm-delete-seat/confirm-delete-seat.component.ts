@@ -11,7 +11,7 @@ import { ConfirmDeleteTrainComponent } from '../../../train-and-carriage/train/c
 export class ConfirmDeleteSeatComponent {
   @Input() id: number;
   @Input() name: string;
-  @Output() onConfirmDelete = new EventEmitter<void>();
+  @Output() ConfirmDelete = new EventEmitter<void>();
 
   constructor(protected ref: NbDialogRef<ConfirmDeleteTrainComponent>,
               private seatService: SeatService,
@@ -26,7 +26,7 @@ export class ConfirmDeleteSeatComponent {
     this.seatService.deleteSeat(this.id).subscribe({
       next: _ => {
         this.showToast('success', 'Success', 'Delete seat successfully!');
-        this.onConfirmDelete.emit();
+        this.ConfirmDelete.emit();
         this.ref.close();
       },
       error: _ => {

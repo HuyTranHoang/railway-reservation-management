@@ -59,14 +59,18 @@ public class SeatService : ISeatService
         }
 
         if (!string.IsNullOrEmpty(queryParams.SearchTerm))
-            query = query.Where(s => s.SeatType.Name.Contains(queryParams.SearchTerm.Trim()));
+            query = query.Where(s => s.Name.Contains(queryParams.SearchTerm.Trim()));
 
         query = queryParams.Sort switch
         {
+            "nameAsc" => query.OrderBy(s => s.Name),
+            "nameDesc" => query.OrderByDescending(s => s.Name),
             "seatTypeNameAsc" => query.OrderBy(s => s.SeatType.Name),
             "seatTypeNameDesc" => query.OrderByDescending(s => s.SeatType.Name),
             "compartmentNameAsc" => query.OrderBy(s => s.Compartment.Name),
             "compartmentNameDesc" => query.OrderByDescending(s => s.Compartment.Name),
+            "createdAtAsc" => query.OrderBy(s => s.CreatedAt),
+            "createdAtDesc" => query.OrderByDescending(s => s.CreatedAt),
             _ => query.OrderBy(s => s.CreatedAt)
         };
 
