@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {RoundTripService} from '../round-trip.service';
 import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
-import {NbToastrService, NbGlobalPhysicalPosition} from '@nebular/theme';
-import {RoundTrip} from '../../../../@models/roundTrip';
+import {NbGlobalPhysicalPosition, NbToastrService} from '@nebular/theme';
 import {TrainCompany} from '../../../../@models/trainCompany';
 import {TrainCompanyService} from '../../../railway/train-company/train-company.service';
 

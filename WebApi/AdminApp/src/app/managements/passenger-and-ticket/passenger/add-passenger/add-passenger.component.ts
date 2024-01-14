@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
-import {CarriageTypeService} from '../../../train-and-carriage/carriage-type/carriage-type.service';
 import {NbGlobalPhysicalPosition, NbToastrService} from '@nebular/theme';
 import {PassengerService} from '../passenger.service';
 

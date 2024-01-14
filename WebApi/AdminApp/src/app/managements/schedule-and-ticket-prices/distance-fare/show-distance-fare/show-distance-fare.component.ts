@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Router} from '@angular/router';
 import {NbDialogRef} from '@nebular/theme';
 import {DistanceFareService} from '../distance-fare.service';
@@ -8,7 +8,7 @@ import {DistanceFareService} from '../distance-fare.service';
   templateUrl: './show-distance-fare.component.html',
   styleUrls: ['./show-distance-fare.component.scss'],
 })
-export class ShowDistanceFareComponent implements OnInit {
+export class ShowDistanceFareComponent {
   @Input() id: number;
   @Input() trainCompanyName: string;
   @Input() distance: number;
@@ -21,17 +21,12 @@ export class ShowDistanceFareComponent implements OnInit {
   constructor(private distanceFareService: DistanceFareService, protected ref: NbDialogRef<ShowDistanceFareComponent>,
               private router: Router) {
   }
-
-  ngOnInit(): void {
-  }
-
-
   dismiss() {
     this.ref.close();
   }
 
   onEdit() {
-    this.router.navigateByUrl(`/managements/schedule-and-ticket-prices/distance-fare/edit/${this.id}`);
+    this.router.navigateByUrl(`/managements/schedule-and-ticket-prices/distance-fare/${this.id}/edit`);
     this.dismiss();
   }
 

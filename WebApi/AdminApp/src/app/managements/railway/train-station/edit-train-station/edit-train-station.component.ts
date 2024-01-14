@@ -1,9 +1,9 @@
-import { Component, Input } from '@angular/core';
-import { TrainStations } from '../../../../@models/trainStation';
-import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { TrainStationService } from '../train-station.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { NbGlobalPhysicalPosition, NbToastrService } from '@nebular/theme';
+import {Component, Input} from '@angular/core';
+import {TrainStations} from '../../../../@models/trainStation';
+import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
+import {TrainStationService} from '../train-station.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {NbGlobalPhysicalPosition, NbToastrService} from '@nebular/theme';
 
 @Component({
   selector: 'ngx-edit-train-station',
@@ -88,4 +88,4 @@ export class EditTrainStationComponent {
       title,
       config);
   }
-} 
+}

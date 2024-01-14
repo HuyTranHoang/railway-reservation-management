@@ -1,10 +1,9 @@
-import { NgModule } from '@angular/core';
+import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import { CancellationRuleComponent } from './cancellation-rule.component';
-import { ListCancellationRuleComponent } from './list-cancellation-rule/list-cancellation-rule.component';
-import { AddCancellationRuleComponent } from './add-cancellation-rule/add-cancellation-rule.component';
-import { EditCancellationRuleComponent } from './edit-cancellation-rule/edit-cancellation-rule.component';
-
+import {CancellationRuleComponent} from './cancellation-rule.component';
+import {ListCancellationRuleComponent} from './list-cancellation-rule/list-cancellation-rule.component';
+import {AddCancellationRuleComponent} from './add-cancellation-rule/add-cancellation-rule.component';
+import {EditCancellationRuleComponent} from './edit-cancellation-rule/edit-cancellation-rule.component';
 
 
 const routes: Routes = [{

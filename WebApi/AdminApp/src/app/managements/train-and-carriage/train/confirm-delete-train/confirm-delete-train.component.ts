@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {NbDialogRef, NbToastrService, NbGlobalPhysicalPosition} from '@nebular/theme';
+import {NbDialogRef, NbGlobalPhysicalPosition, NbToastrService} from '@nebular/theme';
 import {TrainService} from '../train.service';
 
 @Component({

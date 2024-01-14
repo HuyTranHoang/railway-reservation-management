@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
-import { environment } from '../../../../environments/environment';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { QueryParams } from '../../../@models/params/queryParams';
-import { TrainStations } from '../../../@models/trainStation';
-import { map } from 'rxjs/operators';
-import { PaginatedResult } from '../../../@models/paginatedResult';
+import {Injectable} from '@angular/core';
+import {environment} from '../../../../environments/environment';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {QueryParams} from '../../../@models/params/queryParams';
+import {TrainStations} from '../../../@models/trainStation';
+import {map} from 'rxjs/operators';
+import {PaginatedResult} from '../../../@models/paginatedResult';
 
 @Injectable({
   providedIn: 'root'

@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { TrainStationService } from '../train-station.service';
-import { NbGlobalPhysicalPosition, NbToastrService } from '@nebular/theme';
+import {Component} from '@angular/core';
+import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
+import {TrainStationService} from '../train-station.service';
+import {NbGlobalPhysicalPosition, NbToastrService} from '@nebular/theme';
 
 @Component({
   selector: 'ngx-add-train-station',

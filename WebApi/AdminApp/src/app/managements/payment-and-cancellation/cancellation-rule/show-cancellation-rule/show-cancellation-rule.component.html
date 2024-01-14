@@ -26,7 +26,7 @@
         <div class="form-group row">
           <label class="label col-sm-3 col-form-label">Created At</label>
           <div class="col-sm-9">
-            <input type="text" nbInput fullWidth [value]="createdAt" disabled>
+            <input type="text" nbInput fullWidth [value]="createdAt | date:'medium'" disabled>
           </div>
         </div>
       </section>

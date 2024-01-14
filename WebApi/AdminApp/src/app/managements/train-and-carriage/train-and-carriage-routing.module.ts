@@ -8,6 +8,7 @@ import { ListTrainComponent } from './train/list-train/list-train.component';
 import { EditTrainComponent } from './train/edit-train/edit-train.component';
 import { TrainAndCarriageComponent } from './train-and-carriage.component';
 
+
 const routes: Routes = [{
   path: '',
   component: TrainAndCarriageComponent,

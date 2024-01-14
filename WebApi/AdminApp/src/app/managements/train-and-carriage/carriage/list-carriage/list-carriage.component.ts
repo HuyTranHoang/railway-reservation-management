@@ -33,7 +33,7 @@ export class ListCarriageComponent implements OnInit {
 
   queryParams: CarriageQueryParams = {
     pageNumber: 1,
-    pageSize: 5,
+    pageSize: 10,
     searchTerm: '',
     sort: '',
     trainId: 0,

@@ -3,9 +3,9 @@ import {RouterModule, Routes} from '@angular/router';
 import {SeatAndSeatTypeComponent} from './seat-and-seat-type.component';
 import {SeatComponent} from './seat/seat.component';
 import {SeatTypeComponent} from './seat-type/seat-type.component';
-import { AddSeatTypeComponent } from './seat-type/add-seat-type/add-seat-type.component';
-import { EditSeatTypeComponent } from './seat-type/edit-seat-type/edit-seat-type.component';
-import { CompartmentComponent } from './compartment/compartment.component';
+import {AddSeatTypeComponent} from './seat-type/add-seat-type/add-seat-type.component';
+import {EditSeatTypeComponent} from './seat-type/edit-seat-type/edit-seat-type.component';
+import {CompartmentComponent} from './compartment/compartment.component';
 
 
 const routes: Routes = [{
@@ -23,7 +23,7 @@ const routes: Routes = [{
     {
       path: 'seat-type/add',
       component: AddSeatTypeComponent,
-    },  
+    },
     {
       path: 'compartment',
       component: CompartmentComponent,

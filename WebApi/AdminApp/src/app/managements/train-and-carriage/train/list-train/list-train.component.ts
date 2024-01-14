@@ -29,7 +29,7 @@ export class ListTrainComponent implements OnInit {
 
   queryParams: QueryParams = {
     pageNumber: 1,
-    pageSize: 5,
+    pageSize: 10,
     searchTerm: '',
     sort: '',
   };

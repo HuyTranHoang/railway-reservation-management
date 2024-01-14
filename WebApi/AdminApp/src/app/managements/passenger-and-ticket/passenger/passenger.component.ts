@@ -1,14 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Pagination} from '../../../@models/pagination';
 import {Passenger} from '../../../@models/passenger';
 import {QueryParams} from '../../../@models/params/queryParams';
 import {PassengerService} from './passenger.service';
 import {NbDialogService} from '@nebular/theme';
 import {ConfirmDeletePassengerComponent} from './confirm-delete-passenger/confirm-delete-passenger.component';
-import {CarriageType} from '../../../@models/carriageType';
-import {
-  ShowCarriageTypeComponent,
-} from '../../train-and-carriage/carriage-type/show-carriage-type/show-carriage-type.component';
 import {ShowPassengerComponent} from './show-passenger/show-passenger.component';
 
 @Component({
@@ -25,7 +21,7 @@ export class PassengerComponent implements OnInit {
 
   queryParams: QueryParams = {
     pageNumber: 1,
-    pageSize: 5,
+    pageSize: 10,
     searchTerm: '',
     sort: '',
   };

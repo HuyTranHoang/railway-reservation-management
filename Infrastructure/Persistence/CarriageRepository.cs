@@ -38,12 +38,14 @@ public class CarriageRepository : ICarriageRepository
 
     public async Task<IQueryable<Carriage>> GetQueryWithTrainAndTypeAsync()
     {
-        return await Task.FromResult(
-        _context.Carriages
-            .Include(t => t.Train)
-            .Include(t => t.CarriageType)
-            .AsQueryable());
+        var query = _context.Carriages
+            .Include(c => c.Train)
+            .Include(c => c.CarriageType)
+            .AsQueryable();
+
+        return await Task.FromResult(query);
     }
+
 
     public async Task<Carriage> GetByIdWithCompartmentsAsync(int id)
     {

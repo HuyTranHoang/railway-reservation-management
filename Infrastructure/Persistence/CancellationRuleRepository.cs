@@ -44,4 +44,9 @@ public class CancellationRuleRepository : ICancellationRuleRepository
         cancellationRule.IsDeleted = true;
         _context.Entry(cancellationRule).State = EntityState.Modified;
     }
+
+    public Task<List<CancellationRule>> GetAllNoPagingAsync()
+    {
+        return _context.CancellationRules.ToListAsync();
+    }
 }

@@ -11,6 +11,7 @@ import { TrainModule } from './train/train.module';
 import { CarriageTypeModule } from './carriage-type/carriage-type.module';
 import { CompartmentModule } from './compartment/compartment.module';
 
+
 @NgModule({
   declarations: [
     TrainAndCarriageComponent,

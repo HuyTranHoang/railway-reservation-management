@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {TrainCompanyService} from '../train-company.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {NbToastrService, NbGlobalPhysicalPosition} from '@nebular/theme';
+import {NbGlobalPhysicalPosition, NbToastrService} from '@nebular/theme';
 
 @Component({
   selector: 'ngx-add-train-company',

@@ -86,6 +86,7 @@
   </nb-card-body>
   <nb-card-footer>
     <app-pagination
+      selectOption="10"
       [pagination]="pagination"
       (pageChanged)="onPageChanged($event)"
       (pageSizeChanged)="onPageSizeChanged($event)">

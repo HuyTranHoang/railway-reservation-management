@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {NbDialogRef, NbGlobalPhysicalPosition, NbToastrService} from '@nebular/theme';
-import { TrainCompanyService } from '../train-company.service';
+import {TrainCompanyService} from '../train-company.service';
 
 @Component({
   selector: 'ngx-confirm-delete-train-company',

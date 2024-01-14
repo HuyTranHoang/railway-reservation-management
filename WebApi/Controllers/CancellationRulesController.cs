@@ -24,6 +24,14 @@ public class CancellationRulesController : BaseApiController
         return Ok(cancellationRulesDto);
     }
 
+    [HttpGet("all")]
+    public async Task<ActionResult<List<CancellationRuleDto>>> GetAllCancellationRules()
+    {
+        var cancellationRulesDto = await _cancellationRuleService.GetAllDtoNoPagingAsync();
+
+        return Ok(cancellationRulesDto);
+    }
+
     [HttpGet("{id}")]
     public async Task<ActionResult<CancellationRuleDto>> GetCancellationRule(int id)
     {

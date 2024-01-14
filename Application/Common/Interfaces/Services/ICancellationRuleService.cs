@@ -4,4 +4,5 @@ public interface ICancellationRuleService : IService<CancellationRule>
 {
     Task<PagedList<CancellationRuleDto>> GetAllDtoAsync(QueryParams queryParams);
     Task<CancellationRuleDto> GetDtoByIdAsync(int id);
+    Task<List<CancellationRuleDto>> GetAllDtoNoPagingAsync();
 }
