@@ -12,7 +12,7 @@ public class CarriageConfiguration : IEntityTypeConfiguration<Carriage>
 
         builder
             .HasOne(t => t.Train)
-            .WithMany()
+            .WithMany(t => t.Carriages)
             .OnDelete(DeleteBehavior.Restrict);
 
         builder

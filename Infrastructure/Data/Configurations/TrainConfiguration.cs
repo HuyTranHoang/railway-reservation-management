@@ -11,8 +11,9 @@ public class TrainConfiguration : IEntityTypeConfiguration<Train>
         builder.HasQueryFilter(e => !e.IsDeleted);
 
         builder
-            .HasIndex(e => e.Name, "IX_Trains_Name")
-            .IsUnique();
+            .HasMany(t => t.Carriages)
+            .WithOne(c => c.Train)
+            .OnDelete(DeleteBehavior.Restrict);
 
         builder
             .HasOne(t => t.TrainCompany)
