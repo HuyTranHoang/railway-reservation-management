@@ -3,12 +3,13 @@ import {Component, OnInit} from '@angular/core';
 import {NbDialogService} from '@nebular/theme';
 import {PaginatedResult} from '../../../../@models/paginatedResult';
 import {Pagination} from '../../../../@models/pagination';
-import {QueryParams} from '../../../../@models/params/queryParams';
 import {TrainService} from '../train.service';
 import {ConfirmDeleteTrainComponent} from '../confirm-delete-train/confirm-delete-train.component';
 import {ShowTrainComponent} from '../show-train/show-train.component';
 import {TrainQueryParams} from '../../../../@models/params/trainQueryParams';
 import {SharedService} from '../../../shared/shared.service';
+import {TrainCompany} from '../../../../@models/trainCompany';
+import {TrainCompanyService} from '../../../railway/train-company/train-company.service';
 
 @Component({
   selector: 'ngx-list-train',
@@ -18,6 +19,10 @@ import {SharedService} from '../../../shared/shared.service';
 export class ListTrainComponent implements OnInit {
   trains: Train [] = [];
   pagination: Pagination;
+
+  trainCompanies: TrainCompany[] = [];
+  selectedTrainCompanyId: number = 0;
+
 
   currentSearchTerm = '';
   currentSort = '';
@@ -34,19 +39,21 @@ export class ListTrainComponent implements OnInit {
     pageSize: 10,
     searchTerm: '',
     sort: '',
-    TrainCompanyId: 0,
+    TrainCompanyId: null,
   };
 
   constructor(private trainService: TrainService,
+              private trainCompanyService: TrainCompanyService,
               private sharedService: SharedService,
               private dialogService: NbDialogService) {
   }
 
   ngOnInit(): void {
-    this.getAllTrain();
+    this.loadAllTrain();
+    this.loadTrainCompany();
   }
 
-  getAllTrain() {
+  loadAllTrain() {
     this.trainService.getAllTrain(this.queryParams).subscribe({
       next: (res: PaginatedResult<Train[]>) => {
         this.trains = res.result;
@@ -57,24 +64,32 @@ export class ListTrainComponent implements OnInit {
     });
   }
 
+  loadTrainCompany() {
+    this.trainCompanyService.getAllTrainCompanyNoPaging().subscribe({
+      next: (res: Train[]) => {
+        this.trainCompanies = [{id: 0, name: 'All train companies', createdAt: null, status: null} , ...res];
+      },
+    });
+  }
+
   checkItemsAndAdjustPage() {
     if (this.trains.length === 0 && this.pagination.currentPage > 1) {
       this.queryParams.pageNumber = this.pagination.currentPage - 1;
 
-      this.getAllTrain();
+      this.loadAllTrain();
     }
   }
 
   onSearch() {
     this.queryParams.searchTerm = this.currentSearchTerm;
     this.queryParams.pageNumber = 1;
-    this.getAllTrain();
+    this.loadAllTrain();
   }
 
   onResetSearch() {
     this.currentSearchTerm = '';
     this.queryParams.searchTerm = '';
-    this.getAllTrain();
+    this.loadAllTrain();
   }
 
   onSort(sort: string) {
@@ -82,7 +97,16 @@ export class ListTrainComponent implements OnInit {
     this.queryParams = result.queryParams;
     this.sortStates = result.sortStates;
     this.currentSort = this.queryParams.sort;
-    this.getAllTrain();
+    this.loadAllTrain();
+  }
+
+  onFilterTrainCompany(trainCompanyId: number) {
+    this.loadAllTrain();
+  }
+
+  onFilterReset() {
+    this.queryParams.TrainCompanyId = null;
+    this.loadAllTrain();
   }
 
   openShowDialog(id: number) {
@@ -104,18 +128,18 @@ export class ListTrainComponent implements OnInit {
     });
 
     dialogRef.componentRef.instance.onConfirmDelete.subscribe((_: any) => {
-      this.getAllTrain();
+      this.loadAllTrain();
     });
   }
 
   onPageChanged(newPage: number) {
     this.queryParams.pageNumber = newPage;
-    this.getAllTrain();
+    this.loadAllTrain();
   }
 
   onPageSizeChanged(newSize: number) {
     this.queryParams.pageSize = newSize;
-    this.getAllTrain();
+    this.loadAllTrain();
   }
 
 }

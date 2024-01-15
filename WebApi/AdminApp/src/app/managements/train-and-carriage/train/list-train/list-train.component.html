@@ -1,16 +1,32 @@
 <nb-card accent="info">
   <nb-card-header>
     <div class="d-flex justify-content-between align-items-center">
-      <form class="position-relative" (ngSubmit)="onSearch()">
-        <input nbInput placeholder="Search by name.."
-               name="searchTerm"
-               (keyup.escape)="onResetSearch()"
-               [(ngModel)]="currentSearchTerm"
-               style="padding-right: 32px">
-        <nb-icon icon="search-outline" pack="eva"
-                 class="position-absolute"
-                 style="top: 25%; right: 8px; cursor: pointer;"></nb-icon>
-      </form>
+      <div class="d-flex">
+        <form class="position-relative" (ngSubmit)="onSearch()">
+          <input nbInput placeholder="Search by name.."
+                 name="searchTerm"
+                 (keyup.escape)="onResetSearch()"
+                 [(ngModel)]="currentSearchTerm"
+                 style="padding-right: 32px">
+          <nb-icon icon="search-outline" pack="eva"
+                   class="position-absolute"
+                   style="top: 25%; left: 200px; cursor: pointer;"></nb-icon>
+
+          <nb-select class="ml-3"
+                     style="min-width: 300px"
+                     [(selected)]="queryParams.TrainCompanyId"
+                     (selectedChange)="onFilterTrainCompany($event)"
+                     placeholder="Filter by train company">
+            <nb-option *ngFor="let item of trainCompanies" [value]="item.id">{{item.name}}</nb-option>
+          </nb-select>
+
+        </form>
+
+        <button *ngIf="queryParams.TrainCompanyId !== null" nbButton hero status="danger" class="ml-3"
+                (click)="onFilterReset()">
+          Reset
+        </button>
+      </div>
 
       <button nbButton status="primary" class="mr-3"
               routerLink="/managements/train-and-carriage/train/add">
