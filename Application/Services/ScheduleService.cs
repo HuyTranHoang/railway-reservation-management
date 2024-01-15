@@ -1,5 +1,5 @@
 using Domain.Exceptions;
-using Serilog;
+
 
 namespace Application.Services;
 
@@ -238,22 +238,31 @@ public class ScheduleService : IScheduleService
         var intermediateStations = await _trainStationRepository
             .GetStationsFromToAsync(departureStation.CoordinateValue, arrivalStation.CoordinateValue);
 
-        DateTime currentDepartureTime = largeSchedule.DepartureTime;
         DateTime currentDepartureDate = largeSchedule.DepartureDate;
+        DateTime currentDepartureTime = largeSchedule.DepartureTime;
 
-        for (int i = 0; i < intermediateStations.Count - 1; i++)
+        for (int i = 0; i < intermediateStations.Count; i++)
         {
+            DateTime nextDepartureTime = currentDepartureTime;
+
             for (int j = i + 1; j < intermediateStations.Count; j++)
             {
                 var departureStationId = intermediateStations[i].Id;
                 var arrivalStationId = intermediateStations[j].Id;
 
-                // Calculate duration and update departure and arrival times
+                // Calculate duration and update arrival time
                 var duration = await CalculateDurationInMinutesChild(departureStationId, arrivalStationId);
-                var arrivalTime = currentDepartureTime.AddMinutes(duration);
+                var arrivalDateTime = currentDepartureDate.AddMinutes(duration).Add(currentDepartureTime.TimeOfDay);
+
+                if (j == i + 1)
+                {
+                    nextDepartureTime = arrivalDateTime; // Set next departure time based on the first pair
+                }
 
                 // Check if a schedule already exists
-                var existingSchedule = await _repository.GetScheduleByStationsAsync(largeSchedule.TrainId, departureStationId, arrivalStationId);
+                var existingSchedule =
+                    await _repository.GetScheduleByStationsAsync(largeSchedule.TrainId, departureStationId,
+                        arrivalStationId);
                 if (existingSchedule == null)
                 {
                     // Create a new schedule
@@ -264,8 +273,8 @@ public class ScheduleService : IScheduleService
                         DepartureStationId = departureStationId,
                         ArrivalStationId = arrivalStationId,
                         DepartureDate = currentDepartureDate,
-                        ArrivalDate = currentDepartureDate.AddMinutes(duration),
                         DepartureTime = currentDepartureTime,
+                        ArrivalDate = arrivalDateTime, // Updated arrival date calculation
                         Duration = duration,
                         Status = "Active",
                         CreatedAt = DateTime.Now,
@@ -276,12 +285,11 @@ public class ScheduleService : IScheduleService
                     // Add the schedule to the repository
                     _repository.Add(schedule);
                 }
-
-                // Update the current departure time for the next iteration
-                currentDepartureTime = arrivalTime;
             }
-        }
 
+            // Update the current departure time for the next departure station
+            currentDepartureTime = nextDepartureTime;
+        }
 
         await _unitOfWork.SaveChangesAsync();
     }
