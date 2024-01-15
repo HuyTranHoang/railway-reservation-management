@@ -142,7 +142,6 @@ public class ScheduleService : IScheduleService
     }
 
 
-    //Đặt tên english giúp em ;.;
     private static bool ScheduleConflictsOrDeparture(IScheduleRepository repository, Schedule schedule)
     {
         return repository
@@ -251,7 +250,7 @@ public class ScheduleService : IScheduleService
                 var arrivalStationId = intermediateStations[j].Id;
 
                 // Calculate duration and update arrival time
-                var duration = await CalculateDurationInMinutesChild(departureStationId, arrivalStationId);
+                var duration = Math.Abs(await CalculateDurationInMinutesChild(departureStationId, arrivalStationId));
                 var arrivalTime = currentDepartureTime.AddMinutes(duration);
 
                 if (j == i + 1)
@@ -268,7 +267,7 @@ public class ScheduleService : IScheduleService
                     // Create a new schedule
                     var schedule = new Schedule
                     {
-                        Name = $"{largeSchedule.Name}-{i + 1}",
+                        Name = $"{largeSchedule.Name}-{i}-{j}",
                         TrainId = largeSchedule.TrainId,
                         DepartureStationId = departureStationId,
                         ArrivalStationId = arrivalStationId,

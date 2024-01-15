@@ -49,9 +49,32 @@ namespace Infrastructure.Persistence
 
         public async Task<List<TrainStation>> GetStationsFromToAsync(int startCoordinate, int endCoordinate)
         {
-            return await _context.TrainStations
-                .Where(station => station.CoordinateValue >= startCoordinate && station.CoordinateValue <= endCoordinate)
-                .ToListAsync();
+
+
+            List<TrainStation> stations;
+
+            if (startCoordinate < endCoordinate)
+            {
+                stations = await _context.TrainStations
+                    .AsQueryable()
+                    .Where(station => station.CoordinateValue >= startCoordinate && station.CoordinateValue <= endCoordinate)
+                    .ToListAsync();
+            }
+            else if (startCoordinate > endCoordinate)
+            {
+                (startCoordinate, endCoordinate) = (endCoordinate, startCoordinate);
+
+                stations = await _context.TrainStations
+                    .AsQueryable()
+                    .Where(station => station.CoordinateValue >= startCoordinate && station.CoordinateValue <= endCoordinate)
+                    .OrderByDescending(station => station.CoordinateValue)
+                    .ToListAsync();
+            }
+            else
+            {
+                stations = new List<TrainStation>();
+            }
+            return stations;
         }
     }
 }
