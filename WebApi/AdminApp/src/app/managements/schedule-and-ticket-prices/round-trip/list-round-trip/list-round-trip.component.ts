@@ -4,10 +4,10 @@ import {Pagination} from '../../../../@models/pagination';
 import {QueryParams} from '../../../../@models/params/queryParams';
 import {RoundTripService} from '../round-trip.service';
 import {NbDialogService} from '@nebular/theme';
-import {PaginationService} from '../../../shared/pagination.service';
 import {PaginatedResult} from '../../../../@models/paginatedResult';
 import {ShowRoundTripComponent} from '../show-round-trip/show-round-trip.component';
 import {ConfirmDeleteRoundTripComponent} from '../confirm-delete-round-trip/confirm-delete-round-trip.component';
+import {SharedService} from '../../../shared/shared.service';
 
 @Component({
   selector: 'ngx-list-round-trip',
@@ -38,7 +38,7 @@ export class ListRoundTripComponent implements OnInit {
 
   constructor(private roundTripService: RoundTripService,
               private dialogService: NbDialogService,
-              private paginationService: PaginationService) {
+              private sharedService: SharedService) {
   }
 
   ngOnInit(): void {
@@ -76,25 +76,10 @@ export class ListRoundTripComponent implements OnInit {
   }
 
   onSort(sort: string) {
-    const sortType = sort.split('Asc')[0];
-
-    if (this.queryParams.sort === sort) {
-      this.queryParams.sort = sort.endsWith('Asc') ? sort.replace('Asc', 'Desc') : sort.replace('Desc', 'Asc');
-      this.sortStates[sortType] = !this.sortStates[sortType];
-    } else {
-      this.queryParams.sort = sort;
-      for (const key in this.sortStates) {
-        if (this.sortStates.hasOwnProperty(key)) {
-          this.sortStates[key] = false;
-        }
-      }
-
-      this.sortStates[sortType] = sort.endsWith('Asc');
-    }
-
+    const result = this.sharedService.sortItems(this.queryParams, sort, this.sortStates);
+    this.queryParams = result.queryParams;
+    this.sortStates = result.sortStates;
     this.currentSort = this.queryParams.sort;
-
-    this.queryParams.pageNumber = 1;
     this.getAllRoundTrip();
   }
 

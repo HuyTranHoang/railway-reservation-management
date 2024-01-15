@@ -7,6 +7,8 @@ import {QueryParams} from '../../../../@models/params/queryParams';
 import {TrainService} from '../train.service';
 import {ConfirmDeleteTrainComponent} from '../confirm-delete-train/confirm-delete-train.component';
 import {ShowTrainComponent} from '../show-train/show-train.component';
+import {TrainQueryParams} from '../../../../@models/params/trainQueryParams';
+import {SharedService} from '../../../shared/shared.service';
 
 @Component({
   selector: 'ngx-list-train',
@@ -27,14 +29,16 @@ export class ListTrainComponent implements OnInit {
     createdAt: false,
   };
 
-  queryParams: QueryParams = {
+  queryParams: TrainQueryParams = {
     pageNumber: 1,
     pageSize: 10,
     searchTerm: '',
     sort: '',
+    TrainCompanyId: 0,
   };
 
   constructor(private trainService: TrainService,
+              private sharedService: SharedService,
               private dialogService: NbDialogService) {
   }
 
@@ -74,25 +78,10 @@ export class ListTrainComponent implements OnInit {
   }
 
   onSort(sort: string) {
-    const sortType = sort.split('Asc')[0];
-
-    if (this.queryParams.sort === sort) {
-      this.queryParams.sort = sort.endsWith('Asc') ? sort.replace('Asc', 'Desc') : sort.replace('Desc', 'Asc');
-      this.sortStates[sortType] = !this.sortStates[sortType];
-    } else {
-      this.queryParams.sort = sort;
-      for (const key in this.sortStates) {
-        if (this.sortStates.hasOwnProperty(key)) {
-          this.sortStates[key] = false;
-        }
-      }
-
-      this.sortStates[sortType] = sort.endsWith('Asc');
-    }
-
+    const result = this.sharedService.sortItems(this.queryParams, sort, this.sortStates);
+    this.queryParams = result.queryParams;
+    this.sortStates = result.sortStates;
     this.currentSort = this.queryParams.sort;
-
-    this.queryParams.pageNumber = 1;
     this.getAllTrain();
   }
 

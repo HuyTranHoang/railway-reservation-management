@@ -1,7 +1,5 @@
-export interface PaymentQueryParams {
-  pageNumber: number;
-  pageSize: number;
-  searchTerm: string;
-  sort: string;
+import {QueryParams} from './queryParams';
+
+export interface PaymentQueryParams extends QueryParams {
   createdAt: string;
 }

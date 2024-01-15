@@ -1,8 +1,5 @@
-export interface CompartmentQueryParams {
-    pageNumber: number;
-    pageSize: number;
-    searchTerm: string;
-    sort: string;
-    carriageId: number;
-  }
-  
+import {QueryParams} from './queryParams';
+
+export interface CompartmentQueryParams extends QueryParams {
+  carriageId: number;
+}

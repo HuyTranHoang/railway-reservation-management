@@ -9,6 +9,7 @@ import {
   ConfirmDeleteCancellationRuleComponent,
 } from '../confirm-delete-cancellation-rule/confirm-delete-cancellation-rule.component';
 import {NbDialogService} from '@nebular/theme';
+import {SharedService} from '../../../shared/shared.service';
 
 
 @Component({
@@ -37,7 +38,9 @@ export class ListCancellationRuleComponent implements OnInit {
     createdAt: false,
   };
 
-  constructor(private cancellationRuleService: CancellationRuleService, private dialogService: NbDialogService) {
+  constructor(private cancellationRuleService: CancellationRuleService,
+              private sharedService: SharedService,
+              private dialogService: NbDialogService) {
   }
 
   ngOnInit(): void {
@@ -75,25 +78,10 @@ export class ListCancellationRuleComponent implements OnInit {
   }
 
   onSort(sort: string) {
-    const sortType = sort.split('Asc')[0];
-
-    if (this.queryParams.sort === sort) {
-      this.queryParams.sort = sort.endsWith('Asc') ? sort.replace('Asc', 'Desc') : sort.replace('Desc', 'Asc');
-      this.sortStates[sortType] = !this.sortStates[sortType];
-    } else {
-      this.queryParams.sort = sort;
-      for (const key in this.sortStates) {
-        if (this.sortStates.hasOwnProperty(key)) {
-          this.sortStates[key] = false;
-        }
-      }
-
-      this.sortStates[sortType] = sort.endsWith('Asc');
-    }
-
+    const result = this.sharedService.sortItems(this.queryParams, sort, this.sortStates);
+    this.queryParams = result.queryParams;
+    this.sortStates = result.sortStates;
     this.currentSort = this.queryParams.sort;
-
-    this.queryParams.pageNumber = 1;
     this.getAllCancellationRule();
   }
 
