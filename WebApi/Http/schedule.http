@@ -12,9 +12,9 @@ Content-Type: application/json
   "trainId": 1,
   "departureStationId": 1,
   "arrivalStationId": 5,
-  "departureDate": "2040-05-10T09:18:28", 
-  "arrivalDate": "2040-05-10T13:18:28",   
-  "departureTime": "2040-05-10T09:18:28",
+  "departureDate": "2041-12-10T09:18:28", 
+  "arrivalDate": "2041-12-10T13:18:28",   
+  "departureTime": "2041-12-10T09:18:28",
   "status": "Scheduled"
 }
 
