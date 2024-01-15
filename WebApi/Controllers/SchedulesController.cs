@@ -43,6 +43,7 @@ public class SchedulesController : BaseApiController
         try
         {
             await _scheduleService.AddAsync(schedule);
+            await _scheduleService.CreateSchedulesForTrainPassingAsync(schedule);
         }
         catch (BadRequestException ex)
         {
