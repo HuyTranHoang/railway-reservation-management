@@ -13,10 +13,10 @@ public class ScheduleService : IScheduleService
     private readonly IUnitOfWork _unitOfWork;
 
     public ScheduleService(IScheduleRepository repository,
-                            IDistanceFareRepository distanceFareRepository,
-                            ITrainStationRepository trainStationRepository,
-                            ITrainRepository trainRepository,
-                            IUnitOfWork unitOfWork, IMapper mapper)
+        IDistanceFareRepository distanceFareRepository,
+        ITrainStationRepository trainStationRepository,
+        ITrainRepository trainRepository,
+        IUnitOfWork unitOfWork, IMapper mapper)
     {
         _repository = repository;
         _unitOfWork = unitOfWork;
@@ -28,7 +28,6 @@ public class ScheduleService : IScheduleService
 
     public async Task AddAsync(Schedule schedule)
     {
-
         if (NameExists(_repository, schedule.Name, schedule.Id))
         {
             throw new BadRequestException(400, "Name already exists");
@@ -40,7 +39,7 @@ public class ScheduleService : IScheduleService
         }
 
         schedule.Price = await CalculatePrice(schedule);
-        
+
         int durationInMinutes = await CalculateDurationInMinutes(schedule);
         schedule.Duration = durationInMinutes;
 
@@ -150,15 +149,15 @@ public class ScheduleService : IScheduleService
             .GetQueryAsync()
             .Result
             .Any(s =>
-                    s.TrainId != schedule.TrainId &&
-                    s.DepartureStationId == schedule.DepartureStationId ||
-                    s.ArrivalStationId == schedule.ArrivalStationId &&
-                        (
-                        (s.DepartureDate <= schedule.DepartureDate && s.ArrivalDate >= schedule.DepartureDate) ||
-                        (s.DepartureDate <= schedule.ArrivalDate && s.ArrivalDate >= schedule.ArrivalDate) ||
-                        (s.DepartureDate >= schedule.DepartureDate && s.ArrivalDate <= schedule.ArrivalDate)
-            )
-        );
+                s.TrainId != schedule.TrainId && //đúng
+                s.DepartureStationId == schedule.DepartureStationId || //đúng
+                s.ArrivalStationId == schedule.ArrivalStationId && //đúng
+                (
+                    (s.DepartureDate <= schedule.DepartureDate && s.ArrivalDate >= schedule.DepartureDate) ||
+                    (s.DepartureDate <= schedule.ArrivalDate && s.ArrivalDate >= schedule.ArrivalDate) ||
+                    (s.DepartureDate >= schedule.DepartureDate && s.ArrivalDate <= schedule.ArrivalDate)
+                )
+            );
     }
 
     private async Task<double> CalculatePrice(Schedule schedule)
@@ -168,11 +167,13 @@ public class ScheduleService : IScheduleService
         {
             Console.WriteLine($"Không tìm thấy TrainStation với Id = {schedule.DepartureStationId}");
         }
+
         var arrival = await _trainStationRepository.GetByIdAsync(schedule.ArrivalStationId);
         if (departure == null)
         {
             Console.WriteLine($"Không tìm thấy TrainStation với Id = {schedule.ArrivalStationId}");
         }
+
         int distance = arrival.CoordinateValue - departure.CoordinateValue;
         var train = await _trainRepository.GetByIdAsync(schedule.TrainId);
 
@@ -193,13 +194,14 @@ public class ScheduleService : IScheduleService
         int distance = arrivalStation.CoordinateValue - departureStation.CoordinateValue;
 
         double estimatedSpeed = 80.0;
-        
+
         double travelTimeHours = distance / estimatedSpeed;
 
         int travelTimeMinutes = (int)Math.Round(travelTimeHours * 60);
 
         return travelTimeMinutes;
     }
+
     private async Task<int> CalculateDurationInMinutesChild(int departureStationId, int arrivalStationId)
     {
         var departureStation = await _trainStationRepository.GetByIdAsync(departureStationId);
@@ -213,7 +215,7 @@ public class ScheduleService : IScheduleService
         int distance = arrivalStation.CoordinateValue - departureStation.CoordinateValue;
 
         double estimatedSpeed = 80.0;
-        
+
         double travelTimeHours = distance / estimatedSpeed;
 
         int travelTimeMinutes = (int)Math.Round(travelTimeHours * 60);
@@ -223,6 +225,7 @@ public class ScheduleService : IScheduleService
 
     public async Task CreateSchedulesForTrainPassingAsync(Schedule largeSchedule)
     {
+        // Get departure and arrival stations
         var departureStation = await _trainStationRepository.GetByIdAsync(largeSchedule.DepartureStationId);
         var arrivalStation = await _trainStationRepository.GetByIdAsync(largeSchedule.ArrivalStationId);
 
@@ -231,71 +234,55 @@ public class ScheduleService : IScheduleService
             throw new Exception("Departure or arrival station not found.");
         }
 
-        var intermediateStations = await _trainStationRepository.GetStationsFromToAsync(departureStation.CoordinateValue, arrivalStation.CoordinateValue);
+        // Get intermediate stations
+        var intermediateStations = await _trainStationRepository
+            .GetStationsFromToAsync(departureStation.CoordinateValue, arrivalStation.CoordinateValue);
 
-        var departureDate = largeSchedule.DepartureDate;
-        var arrivalDate = largeSchedule.ArrivalDate;
-        var departureTime = largeSchedule.DepartureTime;
+        DateTime currentDepartureTime = largeSchedule.DepartureTime;
+        DateTime currentDepartureDate = largeSchedule.DepartureDate;
 
         for (int i = 0; i < intermediateStations.Count - 1; i++)
         {
             for (int j = i + 1; j < intermediateStations.Count; j++)
             {
-                Console.WriteLine(intermediateStations[i] + " " + intermediateStations[j]);
+                var departureStationId = intermediateStations[i].Id;
+                var arrivalStationId = intermediateStations[j].Id;
 
-                var existingSchedule = await _repository.GetScheduleByStationsAsync(largeSchedule.TrainId, intermediateStations[i].Id, intermediateStations[j].Id);
+                // Calculate duration and update departure and arrival times
+                var duration = await CalculateDurationInMinutesChild(departureStationId, arrivalStationId);
+                var arrivalTime = currentDepartureTime.AddMinutes(duration);
 
+                // Check if a schedule already exists
+                var existingSchedule = await _repository.GetScheduleByStationsAsync(largeSchedule.TrainId, departureStationId, arrivalStationId);
                 if (existingSchedule == null)
                 {
-                    if (i == 0 && j > 1)
+                    // Create a new schedule
+                    var schedule = new Schedule
                     {
-                        var schedule = new Schedule
-                        {
-                            Name = $"{largeSchedule.Name}-{i+1}",
-                            TrainId = largeSchedule.TrainId,
-                            DepartureStationId = intermediateStations[i].Id,
-                            ArrivalStationId = intermediateStations[j].Id,
-                            DepartureDate = departureDate.AddMinutes(await CalculateDurationInMinutesChild(intermediateStations[i].Id, intermediateStations[j].Id)),
-                            ArrivalDate = arrivalDate.AddMinutes(await CalculateDurationInMinutesChild(intermediateStations[i].Id, intermediateStations[j].Id)),
-                            DepartureTime = departureTime.AddMinutes(await CalculateDurationInMinutesChild(intermediateStations[i].Id, intermediateStations[j].Id)),
-                            Duration = await CalculateDurationInMinutesChild(intermediateStations[i].Id, intermediateStations[j].Id),
-                            Status = "Active",
-                            CreatedAt = DateTime.Now,
-                            UpdatedAt = DateTime.Now
-                        };
-                        schedule.Price = await CalculatePrice(schedule);
+                        Name = $"{largeSchedule.Name}-{i + 1}",
+                        TrainId = largeSchedule.TrainId,
+                        DepartureStationId = departureStationId,
+                        ArrivalStationId = arrivalStationId,
+                        DepartureDate = currentDepartureDate,
+                        ArrivalDate = currentDepartureDate.AddMinutes(duration),
+                        DepartureTime = currentDepartureTime,
+                        Duration = duration,
+                        Status = "Active",
+                        CreatedAt = DateTime.Now,
+                        UpdatedAt = DateTime.Now
+                    };
+                    schedule.Price = await CalculatePrice(schedule);
 
-                        _repository.Add(schedule);
-                    } else
-                    {
-                        // var previousDuration = await CalculateDurationInMinutesChild(intermediateStations[0].Id, intermediateStations[j-1].Id);
-                        var schedule = new Schedule
-                        {
-                            Name = $"{largeSchedule.Name}-{i+1}",
-                            TrainId = largeSchedule.TrainId,
-                            DepartureStationId = intermediateStations[i].Id,
-                            ArrivalStationId = intermediateStations[j].Id,
-                            DepartureDate = departureDate.AddMinutes(await CalculateDurationInMinutesChild(intermediateStations[0].Id, intermediateStations[i].Id)),
-                            ArrivalDate = arrivalDate.AddMinutes(await CalculateDurationInMinutesChild(intermediateStations[0].Id, intermediateStations[i].Id)),
-                            DepartureTime = departureTime.AddMinutes(await CalculateDurationInMinutesChild(intermediateStations[0].Id, intermediateStations[i].Id)),
-                            Duration = await CalculateDurationInMinutesChild(intermediateStations[i].Id, intermediateStations[j].Id),
-                            Status = "Active",
-                            CreatedAt = DateTime.Now,
-                            UpdatedAt = DateTime.Now
-                        };
-                        schedule.Price = await CalculatePrice(schedule);
-
-                        _repository.Add(schedule);
-                    }
-                    
-
-                    
+                    // Add the schedule to the repository
+                    _repository.Add(schedule);
                 }
-                
+
+                // Update the current departure time for the next iteration
+                currentDepartureTime = arrivalTime;
             }
         }
 
-        await _unitOfWork.SaveChangesAsync();
-}
 
+        await _unitOfWork.SaveChangesAsync();
+    }
 }
