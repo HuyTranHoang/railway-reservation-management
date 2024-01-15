@@ -58,10 +58,9 @@
           </span>
         </th>
 
-        <th scope="col"
-            style="width: 15%">
+        <th scope="col" style="width: 15%">
           <span (click)="onSort('createdAtAsc')"
-                [class.text-primary]="currentSort.includes('createdAt')">
+                [class.text-primary]="currentSort.includes('createdAt') || currentSort === ''">
             Created At
             <nb-icon icon="arrow-down-outline" pack="eva" *ngIf="!sortStates.createdAt"></nb-icon>
             <nb-icon icon="arrow-up-outline" pack="eva" *ngIf="sortStates.createdAt"></nb-icon>
