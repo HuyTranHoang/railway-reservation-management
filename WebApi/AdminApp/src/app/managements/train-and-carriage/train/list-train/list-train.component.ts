@@ -20,9 +20,7 @@ export class ListTrainComponent implements OnInit {
   trains: Train [] = [];
   pagination: Pagination;
 
-  trainCompanies: TrainCompany[] = [];
-  selectedTrainCompanyId: number = 0;
-
+  trainCompaniesFilter: { id: number, name: string }[] = [];
 
   currentSearchTerm = '';
   currentSort = '';
@@ -39,7 +37,7 @@ export class ListTrainComponent implements OnInit {
     pageSize: 10,
     searchTerm: '',
     sort: '',
-    TrainCompanyId: null,
+    trainCompanyId: null,
   };
 
   constructor(private trainService: TrainService,
@@ -67,7 +65,7 @@ export class ListTrainComponent implements OnInit {
   loadTrainCompany() {
     this.trainCompanyService.getAllTrainCompanyNoPaging().subscribe({
       next: (res: Train[]) => {
-        this.trainCompanies = [{id: 0, name: 'All train companies', createdAt: null, status: null} , ...res];
+        this.trainCompaniesFilter = [{id: 0, name: 'All train companies'} , ...res];
       },
     });
   }
@@ -105,7 +103,7 @@ export class ListTrainComponent implements OnInit {
   }
 
   onFilterReset() {
-    this.queryParams.TrainCompanyId = null;
+    this.queryParams.trainCompanyId = null;
     this.loadAllTrain();
   }
 

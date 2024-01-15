@@ -10,6 +10,8 @@ import {CarriageService} from '../carriage.service';
 import {CarriageQueryParams} from '../../../../@models/params/carriageQueryParams';
 import {ShowCarriageComponent} from '../show-carriage/show-carriage.component';
 import {SharedService} from '../../../shared/shared.service';
+import {CarriageTypeService} from '../../carriage-type/carriage-type.service';
+import {CarriageType} from '../../../../@models/carriageType';
 
 @Component({
   selector: 'ngx-list-carriage',
@@ -20,6 +22,8 @@ export class ListCarriageComponent implements OnInit {
 
   carriages: Carriage[] = [];
   pagination: Pagination;
+
+  carriageTypesFilter: { id: number, name: string }[] = [];
 
   currentSearchTerm: string = '';
   currentSort: string = '';
@@ -37,20 +41,22 @@ export class ListCarriageComponent implements OnInit {
     pageSize: 10,
     searchTerm: '',
     sort: '',
-    trainId: 0,
-    carriageTypeId: 0,
+    trainId: null,
+    carriageTypeId: null,
   };
 
   constructor(private carriageService: CarriageService,
+              private carriageTypeService: CarriageTypeService,
               private sharedService: SharedService,
               private dialogService: NbDialogService) {
   }
 
   ngOnInit(): void {
-    this.getAllCarriages();
+    this.loadAllCarriages();
+    this.loadAllCarriageTypes();
   }
 
-  getAllCarriages() {
+  loadAllCarriages() {
     this.carriageService.getAllCarriages(this.queryParams).subscribe({
       next: (res: PaginatedResult<Carriage[]>) => {
         this.carriages = res.result;
@@ -61,23 +67,31 @@ export class ListCarriageComponent implements OnInit {
     });
   }
 
+  loadAllCarriageTypes() {
+    this.carriageTypeService.getAllCarriageTypeNoPaging().subscribe({
+      next: (res: CarriageType[]) => {
+        this.carriageTypesFilter = [{id: 0, name: 'All carriage type' }, ...res];
+      },
+    });
+  }
+
   checkItemsAndAdjustPage() {
     if (this.carriages.length === 0 && this.pagination.currentPage > 1) {
       this.queryParams.pageNumber = this.pagination.currentPage - 1;
-      this.getAllCarriages();
+      this.loadAllCarriages();
     }
   }
 
   onSearch() {
     this.queryParams.searchTerm = this.currentSearchTerm;
     this.queryParams.pageNumber = 1;
-    this.getAllCarriages();
+    this.loadAllCarriages();
   }
 
   onResetSearch() {
     this.currentSearchTerm = '';
     this.queryParams.searchTerm = '';
-    this.getAllCarriages();
+    this.loadAllCarriages();
   }
 
   onSort(sort: string) {
@@ -85,7 +99,17 @@ export class ListCarriageComponent implements OnInit {
     this.queryParams = result.queryParams;
     this.sortStates = result.sortStates;
     this.currentSort = this.queryParams.sort;
-    this.getAllCarriages();
+    this.loadAllCarriages();
+  }
+
+  onFilterCarriageTypes(carriageTypeId: number) {
+    this.loadAllCarriages();
+  }
+
+  onFilterReset() {
+    this.queryParams.trainId = null;
+    this.queryParams.carriageTypeId = null;
+    this.loadAllCarriages();
   }
 
   openShowDialog(id: number) {
@@ -110,18 +134,18 @@ export class ListCarriageComponent implements OnInit {
     });
 
     dialogRef.componentRef.instance.onConfirmDelete.subscribe(_ => {
-      this.getAllCarriages();
+      this.loadAllCarriages();
     });
   }
 
   onPageChanged(newPage: number) {
     this.queryParams.pageNumber = newPage;
-    this.getAllCarriages();
+    this.loadAllCarriages();
   }
 
   onPageSizeChanged(newSize: number) {
     this.queryParams.pageSize = newSize;
-    this.getAllCarriages();
+    this.loadAllCarriages();
   }
 
 }

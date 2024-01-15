@@ -14,15 +14,15 @@
 
           <nb-select class="ml-3"
                      style="min-width: 300px"
-                     [(selected)]="queryParams.TrainCompanyId"
+                     [(selected)]="queryParams.trainCompanyId"
                      (selectedChange)="onFilterTrainCompany($event)"
                      placeholder="Filter by train company">
-            <nb-option *ngFor="let item of trainCompanies" [value]="item.id">{{item.name}}</nb-option>
+            <nb-option *ngFor="let item of trainCompaniesFilter" [value]="item.id">{{item.name}}</nb-option>
           </nb-select>
 
         </form>
 
-        <button *ngIf="queryParams.TrainCompanyId !== null" nbButton hero status="danger" class="ml-3"
+        <button *ngIf="queryParams.trainCompanyId !== null" nbButton hero status="danger" class="ml-3"
                 (click)="onFilterReset()">
           Reset
         </button>

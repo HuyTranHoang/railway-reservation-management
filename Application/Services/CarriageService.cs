@@ -41,7 +41,10 @@ public class CarriageService : ICarriageService
         }
 
         if (!string.IsNullOrEmpty(queryParams.SearchTerm))
-            query = query.Where(p => p.Name.Contains(queryParams.SearchTerm.Trim()));
+            query = query.Where(
+                p => p.Name.Contains(queryParams.SearchTerm.Trim()) ||
+                     p.Train.Name.Contains(queryParams.SearchTerm.Trim()) ||
+                     p.CarriageType.Name.Contains(queryParams.SearchTerm.Trim()));
 
         query = queryParams.Sort switch
         {

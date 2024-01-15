@@ -1,4 +1,3 @@
-import {QueryParams} from './../../../@models/params/queryParams';
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {environment} from '../../../../environments/environment';
@@ -19,8 +18,8 @@ export class TrainService {
     let params = this.paginationService
       .getPaginationHeaders(queryParams.pageNumber, queryParams.pageSize);
 
-    if (queryParams.TrainCompanyId) {
-      params = params.append('TrainCompanyId', queryParams.TrainCompanyId);
+    if (queryParams.trainCompanyId) {
+      params = params.append('TrainCompanyId', queryParams.trainCompanyId);
     }
 
     if (queryParams.searchTerm) {
