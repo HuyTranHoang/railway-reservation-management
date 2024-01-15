@@ -38,14 +38,14 @@ namespace Application.Services
                 query = query.Where(t => t.ArrivalStationId == queryParams.ArrivalStationId);
             }
 
-            if (queryParams.DepartureDate.HasValue)
+            if (queryParams.DepartureTime.HasValue)
             {
-                query = query.Where(t => t.DepartureTime == queryParams.DepartureDate);
+                query = query.Where(t => t.DepartureTime == queryParams.DepartureTime);
             }
 
-            if (queryParams.ArrivalDate.HasValue)
+            if (queryParams.ArrivalTime.HasValue)
             {
-                query = query.Where(t => t.ArrivalDate == queryParams.ArrivalDate);
+                query = query.Where(t => t.ArrivalTime == queryParams.ArrivalTime);
             }
 
             query = queryParams.Sort switch

@@ -26,14 +26,10 @@ namespace Domain.Entities
         public TrainStation ArrivalStation { get; set; }
 
         [Required]
-        public DateTime DepartureDate { get; set; }
-
-        [Required]
-        public DateTime ArrivalDate { get; set; }
-
-        [Required]
         public DateTime DepartureTime { get; set; }
 
+        [Required]
+        public DateTime ArrivalTime { get; set; }
 
         [Required]
         public int Duration { get; set; }

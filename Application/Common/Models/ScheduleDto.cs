@@ -18,11 +18,9 @@ public class ScheduleDto
 
     public string ArrivalStationName { get; set; }
 
-    public DateTime DepartureDate { get; set; }
-
-    public DateTime ArrivalDate { get; set; }
-
     public DateTime DepartureTime { get; set; }
+
+    public DateTime ArrivalTime { get; set; }
 
     public int Duration { get; set; }
 

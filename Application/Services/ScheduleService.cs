@@ -152,9 +152,9 @@ public class ScheduleService : IScheduleService
                 s.DepartureStationId == schedule.DepartureStationId || //đúng
                 s.ArrivalStationId == schedule.ArrivalStationId && //đúng
                 (
-                    (s.DepartureDate <= schedule.DepartureDate && s.ArrivalDate >= schedule.DepartureDate) ||
-                    (s.DepartureDate <= schedule.ArrivalDate && s.ArrivalDate >= schedule.ArrivalDate) ||
-                    (s.DepartureDate >= schedule.DepartureDate && s.ArrivalDate <= schedule.ArrivalDate)
+                    (s.DepartureTime <= schedule.DepartureTime && s.ArrivalTime >= schedule.DepartureTime) ||
+                    (s.DepartureTime <= schedule.ArrivalTime && s.ArrivalTime >= schedule.ArrivalTime) ||
+                    (s.DepartureTime >= schedule.DepartureTime && s.DepartureTime <= schedule.ArrivalTime)
                 )
             );
     }
@@ -237,7 +237,6 @@ public class ScheduleService : IScheduleService
         var intermediateStations = await _trainStationRepository
             .GetStationsFromToAsync(departureStation.CoordinateValue, arrivalStation.CoordinateValue);
 
-        DateTime currentDepartureDate = largeSchedule.DepartureDate;
         DateTime currentDepartureTime = largeSchedule.DepartureTime;
 
         for (int i = 0; i < intermediateStations.Count; i++)
@@ -271,9 +270,8 @@ public class ScheduleService : IScheduleService
                         TrainId = largeSchedule.TrainId,
                         DepartureStationId = departureStationId,
                         ArrivalStationId = arrivalStationId,
-                        DepartureDate = currentDepartureDate,
-                        ArrivalDate = currentDepartureTime.AddMinutes(duration),
                         DepartureTime = currentDepartureTime,
+                        ArrivalTime = currentDepartureTime.AddMinutes(duration),
                         Duration = duration,
                         Status = "Active",
                         CreatedAt = DateTime.Now,
