@@ -273,7 +273,7 @@ public class ScheduleService : IScheduleService
                         DepartureStationId = departureStationId,
                         ArrivalStationId = arrivalStationId,
                         DepartureDate = currentDepartureDate,
-                        ArrivalDate = currentDepartureDate.AddMinutes(duration),
+                        ArrivalDate = currentDepartureTime.AddMinutes(duration),
                         DepartureTime = currentDepartureTime,
                         Duration = duration,
                         Status = "Active",
