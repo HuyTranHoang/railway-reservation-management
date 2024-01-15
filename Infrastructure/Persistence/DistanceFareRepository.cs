@@ -24,9 +24,10 @@ public class DistanceFareRepository : IDistanceFareRepository
         _context.DistanceFares.Remove(distanceFare);
     }
 
-    public async Task<decimal?> GetByDistanceAsync(int distance)
+    public async Task<decimal?> GetByDistanceAsync(int distance, int trainCompanyId)
     {
         var fare = await _context.DistanceFares
+                            .Where(d => d.TrainCompanyId == trainCompanyId)
                             .Where(d => d.Distance <= distance)
                             .OrderByDescending(d => d.Distance)
                             .Select(d => d.Price)

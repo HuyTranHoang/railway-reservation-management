@@ -3,5 +3,5 @@ public interface IDistanceFareService : IService<DistanceFare>
 {
     Task<PagedList<DistanceFareDto>> GetAllDtoAsync(DistanceFareQueryParams queryParams);
     Task<DistanceFareDto> GetDtoByIdAsync(int id);
-    Task<DistanceFareDto> GetDtoByDistanceAsync(int distance);
+    Task<DistanceFareDto> GetDtoByDistanceAsync(int distance, int trainCompanyId);
 }

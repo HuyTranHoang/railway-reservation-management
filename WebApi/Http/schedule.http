@@ -8,13 +8,13 @@ POST {{url}}/{{router}}
 Content-Type: application/json
 
 {
-  "name": "Schedule-701",
+  "name": "Schedule-702",
   "trainId": 1,
   "departureStationId": 1,
   "arrivalStationId": 11,
-  "departureDate": "2032-12-10T09:18:28", 
-  "arrivalDate": "2032-12-10T13:18:28",   
-  "departureTime": "2032-12-10T09:18:28",
+  "departureDate": "2033-12-10T09:18:28", 
+  "arrivalDate": "2033-12-10T13:18:28",   
+  "departureTime": "2033-12-10T09:18:28",
   "duration": 240,
   "status": "Scheduled"
 }

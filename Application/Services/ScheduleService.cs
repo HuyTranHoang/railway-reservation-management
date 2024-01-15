@@ -8,12 +8,14 @@ public class ScheduleService : IScheduleService
     private readonly IScheduleRepository _repository;
     private readonly IDistanceFareRepository _distanceFareRepository;
     private readonly ITrainStationRepository _trainStationRepository;
+    private readonly ITrainRepository _trainRepository;
     private readonly IMapper _mapper;
     private readonly IUnitOfWork _unitOfWork;
 
     public ScheduleService(IScheduleRepository repository,
                             IDistanceFareRepository distanceFareRepository,
                             ITrainStationRepository trainStationRepository,
+                            ITrainRepository trainRepository,
                             IUnitOfWork unitOfWork, IMapper mapper)
     {
         _repository = repository;
@@ -21,6 +23,7 @@ public class ScheduleService : IScheduleService
         _mapper = mapper;
         _distanceFareRepository = distanceFareRepository;
         _trainStationRepository = trainStationRepository;
+        _trainRepository = trainRepository;
     }
 
     public async Task AddAsync(Schedule schedule)
@@ -31,7 +34,7 @@ public class ScheduleService : IScheduleService
             throw new BadRequestException(400, "Name already exists");
         }
 
-        if (TrungLichTrinhHoacTrongThoiGianTauDangChay(_repository, schedule))
+        if (ScheduleConflictsOrDeparture(_repository, schedule))
         {
             throw new BadRequestException(400, "Trùng Lịch Trình Hoặc Thời Gian Chỉ Định Đã Có!!");
         }
@@ -114,9 +117,8 @@ public class ScheduleService : IScheduleService
             throw new BadRequestException(400, "Name already exists");
         }
 
-        if (TrungLichTrinhHoacTrongThoiGianTauDangChay(_repository, schedule))
+        if (ScheduleConflictsOrDeparture(_repository, schedule))
         {
-            //Đặt lỗi english giúp emm ;.; dịch ngu quá
             throw new BadRequestException(400, "Trùng Lịch Trình Hoặc Thời Gian Chỉ Định Đã Có!!");
         }
 
@@ -139,7 +141,7 @@ public class ScheduleService : IScheduleService
 
 
     //Đặt tên english giúp em ;.;
-    private static bool TrungLichTrinhHoacTrongThoiGianTauDangChay(IScheduleRepository repository, Schedule schedule)
+    private static bool ScheduleConflictsOrDeparture(IScheduleRepository repository, Schedule schedule)
     {
         return repository
             .GetQueryAsync()
@@ -158,18 +160,20 @@ public class ScheduleService : IScheduleService
 
     private async Task<double> CalculatePrice(Schedule schedule)
     {
-        var departure = await _trainStationRepository.GetByIdAsync(10);
+        var departure = await _trainStationRepository.GetByIdAsync(schedule.DepartureStationId);
         if (departure == null)
         {
             Console.WriteLine($"Không tìm thấy TrainStation với Id = {schedule.DepartureStationId}");
         }
-        var arrival = await _trainStationRepository.GetByIdAsync(11);
+        var arrival = await _trainStationRepository.GetByIdAsync(schedule.ArrivalStationId);
         if (departure == null)
         {
             Console.WriteLine($"Không tìm thấy TrainStation với Id = {schedule.ArrivalStationId}");
         }
         int distance = arrival.CoordinateValue - departure.CoordinateValue;
-        var distanceFare = await _distanceFareRepository.GetByDistanceAsync(distance);
+        var train = await _trainRepository.GetByIdAsync(schedule.TrainId);
+
+        var distanceFare = await _distanceFareRepository.GetByDistanceAsync(distance, train.TrainCompanyId);
         return (double)distanceFare;
     }
 
