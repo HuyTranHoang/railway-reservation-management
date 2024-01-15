@@ -40,6 +40,11 @@ public class DistanceFareService : IDistanceFareService
         if (!string.IsNullOrEmpty(queryParams.SearchTerm))
             query = query.Where(t => t.TrainCompany.Name.Contains(queryParams.SearchTerm.Trim()));
 
+        if (queryParams.MinDistance != 0)
+        {
+
+        }
+
         query = queryParams.Sort switch
         {
             "trainCompanyNameAsc" => query.OrderBy(t => t.TrainCompany.Name),

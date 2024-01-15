@@ -32,6 +32,10 @@ export class CarriageTypeService {
       .getPaginatedResult<CarriageType[]>(this.baseUrl + '/carriageTypes', params);
   }
 
+  getAllCarriageTypeNoPaging() {
+    return this.http.get<CarriageType[]>(this.baseUrl + '/carriageTypes/all');
+  }
+
   getCarriageTypeById(id: number) {
     return this.http.get<CarriageType>(this.baseUrl + '/carriageTypes/' + id);
   }

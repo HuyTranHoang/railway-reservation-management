@@ -7,6 +7,7 @@ import {QueryParams} from '../../../@models/params/queryParams';
 import {Pagination} from '../../../@models/pagination';
 import {ShowSeatTypeComponent} from './show-seat-type/show-seat-type.component';
 import {ConfirmDeleteSeatTypeComponent} from './confirm-delete-seat-type/confirm-delete-seat-type.component';
+import {SharedService} from '../../shared/shared.service';
 
 @Component({
   selector: 'ngx-seat-type',
@@ -34,6 +35,7 @@ export class SeatTypeComponent implements OnInit {
   };
 
   constructor(private seatTypeService: SeatTypeService,
+              private sharedService: SharedService,
               private dialogService: NbDialogService) {
   }
 
@@ -71,24 +73,10 @@ export class SeatTypeComponent implements OnInit {
   }
 
   onSort(sort: string) {
-    const sortType = sort.split('Asc')[0];
-
-    if (this.queryParams.sort === sort) {
-      this.queryParams.sort = sort.endsWith('Asc') ? sort.replace('Asc', 'Desc') : sort.replace('Desc', 'Asc');
-      this.sortStates[sortType] = !this.sortStates[sortType];
-    } else {
-      this.queryParams.sort = sort;
-      for (const key in this.sortStates) {
-        if (this.sortStates.hasOwnProperty(key)) {
-          this.sortStates[key] = false;
-        }
-      }
-
-      this.sortStates[sortType] = sort.endsWith('Asc');
-    }
-
+    const result = this.sharedService.sortItems(this.queryParams, sort, this.sortStates);
+    this.queryParams = result.queryParams;
+    this.sortStates = result.sortStates;
     this.currentSort = this.queryParams.sort;
-
     this.getAllSeatType();
   }
 

@@ -44,4 +44,9 @@ public class CarriageTypeRepository : ICarriageTypeRepository
         carriageType.IsDeleted = true;
         _context.CarriageTypes.Update(carriageType);
     }
+
+    public async Task<List<CarriageType>> GetAllNoPagingAsync()
+    {
+        return await _context.CarriageTypes.ToListAsync();
+    }
 }

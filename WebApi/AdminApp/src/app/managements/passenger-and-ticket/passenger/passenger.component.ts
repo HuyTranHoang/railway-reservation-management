@@ -6,6 +6,7 @@ import {PassengerService} from './passenger.service';
 import {NbDialogService} from '@nebular/theme';
 import {ConfirmDeletePassengerComponent} from './confirm-delete-passenger/confirm-delete-passenger.component';
 import {ShowPassengerComponent} from './show-passenger/show-passenger.component';
+import {SharedService} from '../../shared/shared.service';
 
 @Component({
   selector: 'ngx-passenger',
@@ -35,6 +36,7 @@ export class PassengerComponent implements OnInit {
   };
 
   constructor(private passengerService: PassengerService,
+              private sharedService: SharedService,
               private dialogService: NbDialogService) {
   }
 
@@ -73,25 +75,10 @@ export class PassengerComponent implements OnInit {
   }
 
   onSort(sort: string) {
-    const sortType = sort.split('Asc')[0];
-
-    if (this.queryParams.sort === sort) {
-      this.queryParams.sort = sort.endsWith('Asc') ? sort.replace('Asc', 'Desc') : sort.replace('Desc', 'Asc');
-      this.sortStates[sortType] = !this.sortStates[sortType];
-    } else {
-      this.queryParams.sort = sort;
-      for (const key in this.sortStates) {
-        if (this.sortStates.hasOwnProperty(key)) {
-          this.sortStates[key] = false;
-        }
-      }
-
-      this.sortStates[sortType] = sort.endsWith('Asc');
-    }
-
+    const result = this.sharedService.sortItems(this.queryParams, sort, this.sortStates);
+    this.queryParams = result.queryParams;
+    this.sortStates = result.sortStates;
     this.currentSort = this.queryParams.sort;
-
-    this.queryParams.pageNumber = 1;
     this.getAllPassengers();
   }
 
@@ -99,7 +86,7 @@ export class PassengerComponent implements OnInit {
     const passenger = this.passengers.find(p => p.id === id);
 
     const dialogRef = this.dialogService.open(ShowPassengerComponent, {
-      context: { ...passenger },
+      context: {...passenger},
     });
 
     dialogRef.componentRef.instance.onShowDelete.subscribe(obj => {
@@ -109,7 +96,7 @@ export class PassengerComponent implements OnInit {
 
   openConfirmDialog(id: number, name: string) {
     const dialogRef = this.dialogService.open(ConfirmDeletePassengerComponent, {
-      context: { id, name },
+      context: {id, name},
     });
 
     dialogRef.componentRef.instance.onConfirmDelete.subscribe(_ => {

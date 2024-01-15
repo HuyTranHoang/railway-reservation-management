@@ -13,7 +13,7 @@
   </div>
 
   <div class="d-flex align-items-center" style="margin-right: 12px">
-    <span *ngIf="pagination" [class.mr-3]="pagination.totalPages > 1">
+    <span *ngIf="pagination && pagination.totalItems != 0" [class.mr-3]="pagination.totalPages > 1">
      Showing {{ (pagination.currentPage - 1) * pagination.itemsPerPage + 1 }}
       - {{ pagination.currentPage * pagination.itemsPerPage > pagination.totalItems ? pagination.totalItems : pagination.currentPage * pagination.itemsPerPage }}
       of {{ pagination.totalItems }}

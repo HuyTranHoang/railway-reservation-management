@@ -25,6 +25,14 @@ public class CarriageTypesController : BaseApiController
         return Ok(carriageTypeDto);
     }
 
+    [HttpGet("all")]
+    public async Task<ActionResult<List<CarriageTypeDto>>> GetAllCarriageTypes()
+    {
+        var carriageTypeDto = await _carriageTypeService.GetAllDtoNoPagingAsync();
+
+        return Ok(carriageTypeDto);
+    }
+
     [HttpGet("{id}")]
     public async Task<ActionResult<CarriageTypeDto>> GetCarriageType(int id)
     {

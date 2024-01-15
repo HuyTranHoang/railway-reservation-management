@@ -7,11 +7,12 @@ import { Compartment } from '../../../../@models/compartment';
 import { CompartmentService } from '../compartment.service';
 import { CompartmentQueryParams } from '../../../../@models/params/compartmentQueryParams';
 import { ShowCompartmentComponent } from '../show-compartment/show-compartment.component';
+import {SharedService} from '../../../shared/shared.service';
 
 @Component({
   selector: 'ngx-list-compartment',
   templateUrl: './list-compartment.component.html',
-  styleUrls: ['./list-compartment.component.scss']
+  styleUrls: ['./list-compartment.component.scss'],
 })
 export class ListCompartmentComponent implements OnInit {
   compartments: Compartment[] = [];
@@ -35,7 +36,9 @@ export class ListCompartmentComponent implements OnInit {
     carriageId: 0,
   };
 
-  constructor(private compartmentService: CompartmentService, private dialogService: NbDialogService) {
+  constructor(private compartmentService: CompartmentService,
+              private sharedService: SharedService,
+              private dialogService: NbDialogService) {
   }
 
   ngOnInit(): void {
@@ -73,28 +76,12 @@ export class ListCompartmentComponent implements OnInit {
   }
 
   onSort(sort: string) {
-    const sortType = sort.split('Asc')[0];
-
-    if (this.queryParams.sort === sort) {
-      this.queryParams.sort = sort.endsWith('Asc') ? sort.replace('Asc', 'Desc') : sort.replace('Desc', 'Asc');
-      this.sortStates[sortType] = !this.sortStates[sortType];
-    } else {
-      this.queryParams.sort = sort;
-      for (const key in this.sortStates) {
-        if (this.sortStates.hasOwnProperty(key)) {
-          this.sortStates[key] = false;
-        }
-      }
-
-      this.sortStates[sortType] = sort.endsWith('Asc');
-    }
-
+    const result = this.sharedService.sortItems(this.queryParams, sort, this.sortStates);
+    this.queryParams = result.queryParams;
+    this.sortStates = result.sortStates;
     this.currentSort = this.queryParams.sort;
-
-    this.queryParams.pageNumber = 1;
     this.getAllCompartments();
   }
-
 
   openShowDialog(id: number) {
     const compartment = this.compartments.find(x => x.id === id);
@@ -111,10 +98,7 @@ export class ListCompartmentComponent implements OnInit {
 
   openConfirmDialog(id: number, name: string) {
     const dialogRef = this.dialogService.open(ConfirmDeleteCompartmentComponent, {
-      context: {
-        id,
-        name,
-      },
+      context: {id, name },
     });
 
     dialogRef.componentRef.instance.onConfirmDelete.subscribe(_ => {

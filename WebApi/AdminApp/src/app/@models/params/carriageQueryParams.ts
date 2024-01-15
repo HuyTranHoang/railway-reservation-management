@@ -1,8 +1,6 @@
-export interface CarriageQueryParams {
-  pageNumber: number;
-  pageSize: number;
-  searchTerm: string;
-  sort: string;
+import {QueryParams} from './queryParams';
+
+export interface CarriageQueryParams extends QueryParams {
   trainId: number;
   carriageTypeId: number;
 }
