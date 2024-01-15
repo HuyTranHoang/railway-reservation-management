@@ -40,6 +40,7 @@ public class ScheduleService : IScheduleService
         }
 
         schedule.Price = await CalculatePrice(schedule);
+        schedule.Duration = await CalculateDurationInMinutes(schedule);
 
         _repository.Add(schedule);
         await _unitOfWork.SaveChangesAsync();
@@ -175,6 +176,27 @@ public class ScheduleService : IScheduleService
 
         var distanceFare = await _distanceFareRepository.GetByDistanceAsync(distance, train.TrainCompanyId);
         return (double)distanceFare;
+    }
+
+    private async Task<int> CalculateDurationInMinutes(Schedule schedule)
+    {
+        var departureStation = await _trainStationRepository.GetByIdAsync(schedule.DepartureStationId);
+        var arrivalStation = await _trainStationRepository.GetByIdAsync(schedule.ArrivalStationId);
+
+        if (departureStation == null || arrivalStation == null)
+        {
+            throw new Exception("Departure or arrival station not found.");
+        }
+
+        int distance = arrivalStation.CoordinateValue - departureStation.CoordinateValue;
+
+        double estimatedSpeed = 80.0;
+        
+        double travelTimeHours = distance / estimatedSpeed;
+
+        int travelTimeMinutes = (int)Math.Round(travelTimeHours * 60);
+
+        return travelTimeMinutes;
     }
 
 }

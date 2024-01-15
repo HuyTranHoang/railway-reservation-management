@@ -36,7 +36,6 @@ namespace Domain.Entities
 
 
         [Required]
-        [Range(1, int.MaxValue, ErrorMessage = "Please enter a value bigger than 0")]
         public int Duration { get; set; }
         
         [Required] public double Price { get; set; }
