@@ -1,0 +1,121 @@
+<div class="col-md-6">
+  <nb-card>
+    <nb-card-header>
+      <div class="d-flex justify-content-between">
+        Define New Schedule
+        <button nbButton type="submit"
+        routerLink="/managements/schedule-and-ticket-prices/schedule"
+        status="primary">
+        Back to list
+        </button>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <form [formGroup]="scheduleForm" (ngSubmit)="onSubmit()">
+
+        <app-input-field [control]="scheduleForm.get('name')"
+                         [label]="'Name'"
+                         [isSubmitted]="isSubmitted"
+                         [placeholder]="'Name of schedule..'">
+        </app-input-field>
+
+        <div class="form-group">
+          <label class="label">Train</label>
+          <nb-select formControlName="trainId" placeholder="Select train.." fullWidth>
+            <nb-option *ngFor="let train of trains" [value]="train.id">{{train.name}}</nb-option>
+          </nb-select>
+
+          <span class="text-danger"
+                *ngIf="scheduleForm.get('trainId')?.hasError('required')
+                && (scheduleForm.get('trainId')?.touched || isSubmitted)">
+            Seat type is required
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label class="label">Departure Station</label>
+          <nb-select formControlName="departureStationId" placeholder="Select departure station.." fullWidth>
+            <nb-option *ngFor="let departure of trainStations" [value]="departure.id">{{departure.name}}</nb-option>
+          </nb-select>
+
+          <span class="text-danger"
+                *ngIf="scheduleForm.get('departureStationId')?.hasError('required')
+                && (scheduleForm.get('departureStationId')?.touched || isSubmitted)">
+            Departure Station is required
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label class="label">Arrival Station</label>
+          <nb-select formControlName="arrivalStationId" placeholder="Select arrival station.." fullWidth>
+            <nb-option *ngFor="let arrival of trainStations" [value]="arrival.id">{{arrival.name}}</nb-option>
+          </nb-select>
+
+          <span class="text-danger"
+                *ngIf="scheduleForm.get('arrivalStationId')?.hasError('required')
+                && (scheduleForm.get('arrivalStationId')?.touched || isSubmitted)">
+            Departure Station is required
+          </span>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-4">
+              <label class="label">Departure Date</label>
+              <input nbInput formControlName="departureDate" placeholder="Pick departure date.." [nbDatepicker]="departureDate" >
+              <nb-date-timepicker
+                #departureDate
+                singleColumn
+                [step]="10">
+              </nb-date-timepicker>
+            </div>
+
+            <div class="col-4">
+              <div class="text-muted text-center p-4 label" >From</div>
+            </div>
+            <div class="col-4">
+              <label class="label">Arrival Date</label>
+              <input nbInput formControlName="arrivalDate" placeholder="Pick arrival date.." [nbDatepicker]="arrivalDate" >
+              <nb-date-timepicker
+                #arrivalDate
+                singleColumn
+                [step]="10">
+              </nb-date-timepicker>
+            </div>
+        </div>
+
+        <div class="form-group">
+          <label class="label" for="departureTime">Departure Time:</label>
+          <input nbInput fullWidth formControlName="departureTime" placeholder="Pick departure time.." [nbDatepicker]="dateTimePicker">
+        <nb-date-timepicker
+          #dateTimePicker
+          singleColumn
+          [step]="10">
+        </nb-date-timepicker>
+        </div>
+
+        <app-input-field [control]="scheduleForm.get('duration')"
+                         [label]="'Duration'"
+                         [isSubmitted]="isSubmitted"
+                         [placeholder]="'Durationof schedule..'">
+        </app-input-field>
+
+
+        <app-input-field [control]="scheduleForm.get('status')"
+                         [label]="'Status'"
+                         [isSubmitted]="isSubmitted"
+                         [placeholder]="'Status'">
+        </app-input-field>
+
+
+        <ul *ngIf="errorMessages.length > 0">
+          <li class="text-danger" *ngFor="let item of errorMessages">{{item}}</li>
+        </ul>
+
+        <button type="submit" nbButton status="success" class="float-right">Submit</button>
+      </form>
+    </nb-card-body>
+  </nb-card>
+</div>
+
+
+
