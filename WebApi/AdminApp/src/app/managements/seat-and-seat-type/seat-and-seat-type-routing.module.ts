@@ -5,7 +5,9 @@ import {SeatComponent} from './seat/seat.component';
 import {SeatTypeComponent} from './seat-type/seat-type.component';
 import {AddSeatTypeComponent} from './seat-type/add-seat-type/add-seat-type.component';
 import {EditSeatTypeComponent} from './seat-type/edit-seat-type/edit-seat-type.component';
-import {CompartmentComponent} from './compartment/compartment.component';
+import { ListSeatComponent } from './seat/list-seat/list-seat.component';
+import { AddSeatComponent } from './seat/add-seat/add-seat.component';
+import { EditSeatComponent } from './seat/edit-seat/edit-seat.component';
 
 
 const routes: Routes = [{
@@ -15,6 +17,20 @@ const routes: Routes = [{
     {
       path: 'seat',
       component: SeatComponent,
+      children : [
+        {
+          path: '',
+          component: ListSeatComponent,
+        },
+        {
+          path : 'add',
+          component: AddSeatComponent,
+        },
+        {
+          path: ':id/edit',
+          component: EditSeatComponent,
+        },
+      ]
     },
     {
       path: 'seat-type',
@@ -24,11 +40,6 @@ const routes: Routes = [{
       path: 'seat-type/add',
       component: AddSeatTypeComponent,
     },
-    {
-      path: 'compartment',
-      component: CompartmentComponent,
-    },
-
     {
       path: 'seat-type/edit/:id',
       component: EditSeatTypeComponent,

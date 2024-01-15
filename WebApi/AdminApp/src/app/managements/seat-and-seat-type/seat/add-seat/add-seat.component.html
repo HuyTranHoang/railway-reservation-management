@@ -1,0 +1,67 @@
+<div class="col-md-6">
+  <nb-card>
+    <nb-card-header>
+      <div class="d-flex justify-content-between">
+        Define New Seat
+        <button nbButton type="submit"
+        routerLink="/managements/seat-and-seat-type/seat/"
+        status="primary">
+        Back to list
+        </button>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <form [formGroup]="seatForm" (ngSubmit)="onSubmit()">
+
+        <app-input-field [control]="seatForm.get('name')"
+                         [label]="'Name'"
+                         [isSubmitted]="isSubmitted"
+                         [placeholder]="'Name of seat..'">
+        </app-input-field>
+
+        <div class="form-group">
+          <label class="label">Seat Type</label>
+          <nb-select formControlName="seatTypeId" placeholder="Select seat type.." fullWidth>
+            <nb-option *ngFor="let item of seatTypes" [value]="item.id">{{item.name}}</nb-option>
+          </nb-select>
+
+          <span class="text-danger"
+                *ngIf="seatForm.get('seatTypeId')?.hasError('required')
+                && (seatForm.get('seatTypeId')?.touched || isSubmitted)">
+            Seat type is required
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label class="label">Compartment</label>
+          <nb-select formControlName="compartmentId" placeholder="Select compartment.." fullWidth>
+            <nb-option *ngFor="let item of compartments" [value]="item.id">{{item.name}}</nb-option>
+          </nb-select>
+
+          <span class="text-danger"
+                *ngIf="seatForm.get('compartmentId')?.hasError('required')
+                && (seatForm.get('compartmentId')?.touched || isSubmitted)">
+            Compartment is required
+          </span>
+        </div>
+
+        <app-input-field [control]="seatForm.get('status')"
+                         [label]="'Status'"
+                         [isSubmitted]="isSubmitted"
+                         [placeholder]="'Status'">
+        </app-input-field>
+
+
+        <ul *ngIf="errorMessages.length > 0">
+          <li class="text-danger" *ngFor="let item of errorMessages">{{item}}</li>
+        </ul>
+
+        <button type="submit" nbButton status="success" class="float-right">Submit</button>
+      </form>
+    </nb-card-body>
+  </nb-card>
+</div>
+
+
+
+

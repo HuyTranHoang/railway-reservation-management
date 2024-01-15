@@ -24,6 +24,11 @@ public class SeatRepository : ISeatRepository
         _context.Seats.Remove(seat);
     }
 
+    public Task<List<Seat>> GetAllNoPagingAsync()
+    {
+        return _context.Seats.ToListAsync();
+    }
+
     public async Task<Seat> GetByIdAsync(int id)
     {
         return await _context.Seats

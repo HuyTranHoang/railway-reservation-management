@@ -10,7 +10,7 @@ import {AddSeatTypeComponent} from './seat-type/add-seat-type/add-seat-type.comp
 import {ShowSeatTypeComponent} from './seat-type/show-seat-type/show-seat-type.component';
 import {EditSeatTypeComponent} from './seat-type/edit-seat-type/edit-seat-type.component';
 import {ConfirmDeleteSeatTypeComponent} from './seat-type/confirm-delete-seat-type/confirm-delete-seat-type.component';
-import {CompartmentComponent} from './compartment/compartment.component';
+import { SeatModule } from './seat/seat.module';
 
 
 @NgModule({
@@ -22,14 +22,15 @@ import {CompartmentComponent} from './compartment/compartment.component';
     ShowSeatTypeComponent,
     EditSeatTypeComponent,
     ConfirmDeleteSeatTypeComponent,
-    CompartmentComponent
-
   ],
   imports: [
     CommonModule,
-    SeatAndSeatTypeRoutingModule,
     SharedModule,
-    FormsModule,
+    // Child Module
+    SeatModule,
+
+    // Routing
+    SeatAndSeatTypeRoutingModule,
   ],
 })
 export class SeatAndSeatTypeModule {

@@ -24,6 +24,15 @@ namespace WebApi.Controllers
             return Ok(trainStationDto);
         }
 
+        [HttpGet("{all}")]
+        public async Task<ActionResult<List<TrainStationDto>>> GetAllTrainStations([FromQuery] QueryParams queryParams)
+        {
+            var trainStationDto = await _trainStationService.GetAllDtoAsync(queryParams);
+
+            return Ok(trainStationDto);
+        }
+
+
         [HttpGet("{id}")]
         public async Task<ActionResult<TrainStationDto>> GetTrainStation(int id)
         {

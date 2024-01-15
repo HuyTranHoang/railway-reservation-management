@@ -82,4 +82,10 @@ public class SeatTypeService : ISeatTypeService
         _repository.SoftDelete(seatType);
         await _unitOfWork.SaveChangesAsync();
     }
+
+    public async Task<List<SeatTypeDto>> GetAllDtoNoPagingAsync()
+    {
+        var seatType = await _repository.GetAllNoPagingAsync();
+        return _mapper.Map<List<SeatTypeDto>>(seatType);
+    }
 }

@@ -29,6 +29,10 @@ export class TrainStationService {
     return this.getPaginatedResult<TrainStations[]>(this.baseUrl + '/trainstation/', params);
   }
 
+  getAllTrainStationNoPaging(){
+    return this.http.get<TrainStations[]>(this.baseUrl + '/trainstation/all');
+  }
+
   getTrainStationById(id: number) {
     return this.http.get<TrainStations>(this.baseUrl + '/trainstation/' + id);
   }

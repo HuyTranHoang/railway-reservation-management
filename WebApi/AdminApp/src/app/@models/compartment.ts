@@ -7,4 +7,3 @@ export interface Compartment {
     status: string;
     createdAt: string;
   }
-  
