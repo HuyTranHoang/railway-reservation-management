@@ -6,6 +6,7 @@ import { PaginatedResult } from '../../../../@models/paginatedResult';
 import { Pagination } from '../../../../@models/pagination';
 import { QueryParams } from '../../../../@models/params/queryParams';
 import { ConfirmDeleteScheduleComponent } from '../confirm-delete-schedule/confirm-delete-schedule.component';
+import { ShowScheduleComponent } from '../show-schedule/show-schedule.component';
 
 @Component({
   selector: 'ngx-list-schedule',
@@ -97,18 +98,18 @@ export class ListScheduleComponent {
     this.getAllSchedule();
   }
 
-  // openShowDialog(id: number) {
-  //   const Schedule = this.schedules.find(x => x.id === id);
+  openShowDialog(id: number) {
+    const Schedule = this.schedules.find(x => x.id === id);
 
-  //   const dialogRef = this.dialogService.open(ShowScheduleComponent, {
-  //     context: {...Schedule},
-  //   });
+    const dialogRef = this.dialogService.open(ShowScheduleComponent, {
+      context: {...Schedule},
+    });
 
-  //   dialogRef.componentRef.instance.onShowDelete.subscribe(obj => {
-  //     this.openConfirmDialog(obj.id, obj.name);
-  //   });
+    dialogRef.componentRef.instance.onShowDelete.subscribe(obj => {
+      this.openConfirmDialog(obj.id, obj.name);
+    });
 
-  // }
+  }
 
   openConfirmDialog(id: number, name: string) {
     const dialogRef = this.dialogService.open(ConfirmDeleteScheduleComponent, {

@@ -2,7 +2,7 @@
   <nb-card>
     <nb-card-header>
       <div class="d-flex justify-content-between">
-        Define New Schedule
+        Edi Schedule
         <button nbButton type="submit"
         routerLink="/managements/schedule-and-ticket-prices/schedule"
         status="primary">
@@ -11,9 +11,9 @@
       </div>
     </nb-card-header>
     <nb-card-body>
-      <form [formGroup]="scheduleForm" (ngSubmit)="onSubmit()">
+      <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
 
-        <app-input-field [control]="scheduleForm.get('name')"
+        <app-input-field [control]="updateForm.get('name')"
                          [label]="'Name'"
                          [isSubmitted]="isSubmitted"
                          [placeholder]="'Name of schedule..'">
@@ -26,8 +26,8 @@
           </nb-select>
 
           <span class="text-danger"
-                *ngIf="scheduleForm.get('trainId')?.hasError('required')
-                && (scheduleForm.get('trainId')?.touched || isSubmitted)">
+                *ngIf="updateForm.get('trainId')?.hasError('required')
+                && (updateForm.get('trainId')?.touched || isSubmitted)">
             Seat type is required
           </span>
         </div>
@@ -39,8 +39,8 @@
           </nb-select>
 
           <span class="text-danger"
-                *ngIf="scheduleForm.get('departureStationId')?.hasError('required')
-                && (scheduleForm.get('departureStationId')?.touched || isSubmitted)">
+                *ngIf="updateForm.get('departureStationId')?.hasError('required')
+                && (updateForm.get('departureStationId')?.touched || isSubmitted)">
             Departure Station is required
           </span>
         </div>
@@ -52,8 +52,8 @@
           </nb-select>
 
           <span class="text-danger"
-                *ngIf="scheduleForm.get('arrivalStationId')?.hasError('required')
-                && (scheduleForm.get('arrivalStationId')?.touched || isSubmitted)">
+                *ngIf="updateForm.get('arrivalStationId')?.hasError('required')
+                && (updateForm.get('arrivalStationId')?.touched || isSubmitted)">
             Departure Station is required
           </span>
         </div>
@@ -64,7 +64,7 @@
               <input nbInput formControlName="departureDate" placeholder="Pick departure date.." [nbDatepicker]="departureDate" >
               <nb-date-timepicker
                 #departureDate
-
+                singleColumn
                 [step]="10">
               </nb-date-timepicker>
             </div>
@@ -74,10 +74,10 @@
             </div>
             <div class="col-4">
               <label class="label">Arrival Date</label>
-              <input nbInput formControlName="arrivalDate" placeholder="Pick arrival date.." [nbDatepicker]="arrivalDate" >
+              <input nbInput formControlName="arrivalDate"  placeholder="Pick arrival date.." [nbDatepicker]="arrivalDate" >
               <nb-date-timepicker
                 #arrivalDate
-
+                singleColumn
                 [step]="10">
               </nb-date-timepicker>
             </div>
@@ -92,14 +92,14 @@
         </nb-date-timepicker>
         </div>
 
-        <app-input-field [control]="scheduleForm.get('duration')"
+        <app-input-field [control]="updateForm.get('duration')"
                          [label]="'Duration'"
                          [isSubmitted]="isSubmitted"
                          [placeholder]="'Durationof schedule..'">
         </app-input-field>
 
 
-        <app-input-field [control]="scheduleForm.get('status')"
+        <app-input-field [control]="updateForm.get('status')"
                          [label]="'Status'"
                          [isSubmitted]="isSubmitted"
                          [placeholder]="'Status'">
@@ -110,7 +110,7 @@
           <li class="text-danger" *ngFor="let item of errorMessages">{{item}}</li>
         </ul>
 
-        <button type="submit" nbButton status="success" class="float-right">Submit</button>
+        <button type="submit" nbButton status="success" class="float-right">Save</button>
       </form>
     </nb-card-body>
   </nb-card>

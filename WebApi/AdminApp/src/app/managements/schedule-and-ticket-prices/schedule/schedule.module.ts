@@ -5,6 +5,8 @@ import { RouterLink } from '@angular/router';
 import { SharedModule } from '../../shared/shared.module';
 import { ConfirmDeleteScheduleComponent } from './confirm-delete-schedule/confirm-delete-schedule.component';
 import { AddScheduleComponent } from './add-schedule/add-schedule.component';
+import { ShowScheduleComponent } from './show-schedule/show-schedule.component';
+import { EditScheduleComponent } from './edit-schedule/edit-schedule.component';
 
 
 @NgModule({
@@ -12,6 +14,8 @@ import { AddScheduleComponent } from './add-schedule/add-schedule.component';
     ListScheduleComponent,
     ConfirmDeleteScheduleComponent,
     AddScheduleComponent,
+    ShowScheduleComponent,
+    EditScheduleComponent,
   ],
   imports: [
     CommonModule,

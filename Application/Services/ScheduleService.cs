@@ -24,6 +24,11 @@ public class ScheduleService : IScheduleService
             throw new BadRequestException(400, "Name already exists");
         }
 
+        if (schedule.DepartureDate >= schedule.ArrivalDate || schedule.ArrivalDate <= schedule.DepartureDate)
+        {
+            throw new BadRequestException(400, "Vui Long Kiem Tra Lai Diem Bat Dau Phai Lon Hon Diem Den Va Nguoc Lai");
+        }
+
         if (TrungLichTrinhHoacTrongThoiGianTauDangChay(_repository, schedule))
         {
             throw new BadRequestException(400, "Trùng Lịch Trình Hoặc Thời Gian Chỉ Định Đã Có!!");

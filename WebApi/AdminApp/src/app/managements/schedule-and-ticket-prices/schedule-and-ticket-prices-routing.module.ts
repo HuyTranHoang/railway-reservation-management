@@ -4,6 +4,7 @@ import {ScheduleAndTicketPricesComponent} from './schedule-and-ticket-prices.com
 import {ScheduleComponent} from './schedule/schedule.component';
 import { ListScheduleComponent } from './schedule/list-schedule/list-schedule.component';
 import { AddScheduleComponent } from './schedule/add-schedule/add-schedule.component';
+import { EditScheduleComponent } from './schedule/edit-schedule/edit-schedule.component';
 
 
 const routes: Routes = [{
@@ -21,6 +22,10 @@ const routes: Routes = [{
         {
           path : 'add',
           component : AddScheduleComponent,
+        },
+        {
+          path : ':id/edit',
+          component : EditScheduleComponent,
         }
       ]
     },

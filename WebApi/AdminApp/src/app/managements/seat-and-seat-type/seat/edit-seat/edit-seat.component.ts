@@ -5,8 +5,8 @@ import { Compartment } from '../../../../@models/compartment';
 import { SeatType } from '../../../../@models/seatType';
 import { CompartmentService } from '../../../train-and-carriage/compartment/compartment.service';
 import { SeatTypeService } from '../../seat-type/seat-type.service';
+import { ActivatedRoute, Router} from '@angular/router';
 import { SeatService } from '../seat.service';
-import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'ngx-edit-seat',

@@ -56,6 +56,15 @@ namespace Application.Services
                 queryParams.PageSize);
         }
 
+        public async Task<List<TrainStationDto>> GetAllDtoNoPagingAsync()
+        {
+            var trainStation = await _repository.GetAllNoPagingAsync();
+            return _mapper.Map<List<TrainStationDto>>
+            (trainStation);
+        }
+
+
+
         public async Task<TrainStation> GetByIdAsync(int id)
         {
             return await _repository.GetByIdAsync(id);
