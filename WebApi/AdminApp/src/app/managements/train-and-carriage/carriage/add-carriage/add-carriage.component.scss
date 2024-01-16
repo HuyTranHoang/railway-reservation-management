@@ -6,6 +6,7 @@
   color: #ff0000;
 }
 
+
 .seat {
   height: 35px;
   //width: 12.5%;
@@ -26,7 +27,8 @@
   border: 3px solid #385d8a;
   margin: 0;
   padding: 5px 10px;
-  height: 176px;
+  height: 190px;
+  width: 750px;
 }
 
 .seat-separator {
@@ -34,6 +36,7 @@
   width: 15px;
   background-color: #888;
   border-radius: 5px;
+  margin: 0 10px;
 }
 
 .seat:before {
@@ -54,4 +57,8 @@
 .seat-unavailable {
   background-color: #df5327;
   color: #fff;
+}
+
+.seat-row .seat:nth-last-child(1) {
+  margin-right: 0;
 }
