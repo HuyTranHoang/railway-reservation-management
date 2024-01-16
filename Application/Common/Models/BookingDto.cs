@@ -27,5 +27,6 @@ namespace Application.Common.Models
         public double Price { get; set; }
 
         public string Status { get; set; }
+
     }
 }

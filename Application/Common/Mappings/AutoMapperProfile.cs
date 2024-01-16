@@ -82,14 +82,14 @@ public class AutoMapperProfile : Profile
             .ForMember(dest => dest.CancellationRuleFee,
                 opt => opt.MapFrom(src => src.CancellationRule.Fee));
 
-        CreateMap<Schedule, BookingDto>()
-            .ForMember(dest => dest.TrainName,
-            otp => otp.MapFrom(src => src.Train.Name))
-            .ForMember(dest => dest.DepartureStationName,
-            otp => otp.MapFrom(src => src.DepartureStation.Name))
-            .ForMember(dest => dest.ArrivalStationName,
-            otp => otp.MapFrom(src => src.ArrivalStation.Name))
-            .ForMember(dest => dest.Price,
-            otp => otp.MapFrom(src => src.Train.TrainCompany));
+        // CreateMap<Schedule, BookingDto>()
+        //     .ForMember(dest => dest.TrainName,
+        //     otp => otp.MapFrom(src => src.Train.Name))
+        //     .ForMember(dest => dest.DepartureStationName,
+        //     otp => otp.MapFrom(src => src.DepartureStation.Name))
+        //     .ForMember(dest => dest.ArrivalStationName,
+        //     otp => otp.MapFrom(src => src.ArrivalStation.Name))
+        //     .ForMember(dest => dest.Price,
+        //     otp => otp.MapFrom(src => src.Train.TrainCompany));
     }
 }
