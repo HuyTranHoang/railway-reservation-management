@@ -136,7 +136,8 @@ public class AccountController : BaseApiController
             LastName = model.LastName.ToLower(),
             Email = model.Email.ToLower(),
             UserName = model.UserId.ToLower(),
-            Provider = model.Provider
+            Provider = model.Provider,
+            EmailConfirmed = true
         };
 
         var result = await _userManager.CreateAsync(userToAdd);
