@@ -85,24 +85,24 @@ export class RegisterComponent implements OnInit {
     })
   }
 
-  registerWithFacebook() {
-    FB.login(async (fbResult: any) => {
-      if (fbResult.authResponse) {
-        console.log(fbResult)
-        const accessToken = fbResult.authResponse.accessToken
-        const userId = fbResult.authResponse.userID
-        this.router.navigateByUrl(`/auth/register/third-party/facebook?accessToken=${accessToken}&userId=${userId}`)
-      } else {
-        await Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: 'Facebook login failed',
-          text: 'Please try again',
-          showConfirmButton: true
-        })
-      }
-    })
-  }
+  // registerWithFacebook() {
+  //   FB.login(async (fbResult: any) => {
+  //     if (fbResult.authResponse) {
+  //       console.log(fbResult)
+  //       const accessToken = fbResult.authResponse.accessToken
+  //       const userId = fbResult.authResponse.userID
+  //       this.router.navigateByUrl(`/auth/register/third-party/facebook?accessToken=${accessToken}&userId=${userId}`)
+  //     } else {
+  //       await Swal.fire({
+  //         position: 'center',
+  //         icon: 'error',
+  //         title: 'Facebook login failed',
+  //         text: 'Please try again',
+  //         showConfirmButton: true
+  //       })
+  //     }
+  //   })
+  // }
 
   loginOrRegisterWithFacebook() {
     FB.login(async (fbResult: any) => {
@@ -112,10 +112,10 @@ export class RegisterComponent implements OnInit {
         const model = new LoginWithExternal(accessToken, userId, 'facebook');
 
         this.authService.loginWithThirdParty(model).subscribe({
-          next: (response: any) => {
-            console.log(">>>>>", response)
+          next: (isUserRegistered: boolean) => {
+            console.log(">>>>>", isUserRegistered)
 
-            if (response.isUserRegistered) {
+            if (isUserRegistered) {
               // Người dùng đã đăng ký, chuyển hướng đến trang chủ hoặc trang đích
               this.router.navigateByUrl('/');
             } else {
