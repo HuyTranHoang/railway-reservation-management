@@ -44,7 +44,7 @@ public class CarriageTypesController : BaseApiController
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddCarriageType([FromBody] CarriageType carriageType)
+    public async Task<ActionResult> AddCarriageType([FromBody] CarriageType carriageType)
     {
         if (!ModelState.IsValid) return BadRequest(ModelState);
 
@@ -53,7 +53,7 @@ public class CarriageTypesController : BaseApiController
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateCarriageType(int id, [FromBody] CarriageType carriageType)
+    public async Task<ActionResult> UpdateCarriageType(int id, [FromBody] CarriageType carriageType)
     {
         if (id != carriageType.Id) return BadRequest(new ErrorResponse(400));
 
@@ -72,7 +72,7 @@ public class CarriageTypesController : BaseApiController
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteCarriageType(int id)
+    public async Task<ActionResult> DeleteCarriageType(int id)
     {
         var carriageType = await _carriageTypeService.GetByIdAsync(id);
 
@@ -84,7 +84,7 @@ public class CarriageTypesController : BaseApiController
     }
 
     [HttpPatch("{id}")]
-    public async Task<IActionResult> SoftDeleteCarriageType(int id)
+    public async Task<ActionResult> SoftDeleteCarriageType(int id)
     {
         var carriageType = await _carriageTypeService.GetByIdAsync(id);
 

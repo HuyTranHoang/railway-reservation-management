@@ -19,13 +19,13 @@ namespace Application.Services
 
         public async Task AddAsync(TrainStation trainStation)
         {
-            _repository.Add(trainStation);
+            await _repository.Add(trainStation);
             await _unitOfWork.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(TrainStation trainStation)
         {
-            _repository.Delete(trainStation);
+            await _repository.Delete(trainStation);
             await _unitOfWork.SaveChangesAsync();
         }
 
@@ -69,7 +69,7 @@ namespace Application.Services
 
         public async Task SoftDeleteAsync(TrainStation trainStation)
         {
-            _repository.SoftDelete(trainStation);
+            await _repository.SoftDelete(trainStation);
             await _unitOfWork.SaveChangesAsync();
         }
 
@@ -85,7 +85,7 @@ namespace Application.Services
             strainStationInDb.Status = trainStation.Status;
             strainStationInDb.UpdatedAt = DateTime.Now;
 
-            _repository.Update(strainStationInDb);
+            await _repository.Update(strainStationInDb);
             await _unitOfWork.SaveChangesAsync();
         }
     }

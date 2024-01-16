@@ -63,7 +63,7 @@ public class SeatsController : BaseApiController
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> PutSeat(int id, [FromBody] Seat seat)
+    public async Task<ActionResult> PutSeat(int id, [FromBody] Seat seat)
     {
         if (id != seat.Id) return BadRequest(new ErrorResponse(400));
 
@@ -87,7 +87,7 @@ public class SeatsController : BaseApiController
     }
 
     [HttpPatch("{id}")]
-    public async Task<IActionResult> SoftDeleteSeat(int id)
+    public async Task<ActionResult> SoftDeleteSeat(int id)
     {
         var seat = await _seatService.GetByIdAsync(id);
 

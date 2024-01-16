@@ -52,7 +52,7 @@ public class CarriageTypeService : ICarriageTypeService
 
     public async Task AddAsync(CarriageType carriageType)
     {
-        _repository.Add(carriageType);
+        await _repository.Add(carriageType);
         await _unitOfWork.SaveChangesAsync();
     }
 
@@ -68,20 +68,20 @@ public class CarriageTypeService : ICarriageTypeService
         carriageTypeInDb.Status = carriageType.Status;
         carriageTypeInDb.UpdatedAt = DateTime.Now;
 
-        _repository.Update(carriageTypeInDb);
+        await _repository.Update(carriageTypeInDb);
 
         await _unitOfWork.SaveChangesAsync();
     }
 
     public async Task DeleteAsync(CarriageType carriageType)
     {
-        _repository.Delete(carriageType);
+        await _repository.Delete(carriageType);
         await _unitOfWork.SaveChangesAsync();
     }
 
     public async Task SoftDeleteAsync(CarriageType carriageType)
     {
-        _repository.SoftDelete(carriageType);
+        await _repository.SoftDelete(carriageType);
         await _unitOfWork.SaveChangesAsync();
     }
 

@@ -13,14 +13,16 @@ namespace Infrastructure.Persistence
         {
             _context = context;
         }
-        public void Add(DailyCashTransaction dailyCashTransaction)
+        public async  Task Add(DailyCashTransaction dailyCashTransaction)
         {
             _context.DailyCashTransactions.Add(dailyCashTransaction);
+            await Task.CompletedTask;
         }
 
-        public void Delete(DailyCashTransaction dailyCashTransaction)
+        public async  Task Delete(DailyCashTransaction dailyCashTransaction)
         {
             _context.DailyCashTransactions.Remove(dailyCashTransaction);
+            await Task.CompletedTask;
         }
 
         public async Task<DailyCashTransaction> GetByIdAsync(int id)
@@ -48,15 +50,17 @@ namespace Infrastructure.Persistence
             await _context.SaveChangesAsync();
         }
 
-        public void SoftDelete(DailyCashTransaction dailyCashTransaction)
+        public async  Task SoftDelete(DailyCashTransaction dailyCashTransaction)
         {
             dailyCashTransaction.IsDeleted = true;
             _context.Entry(dailyCashTransaction).State = EntityState.Modified;
+            await Task.CompletedTask;
         }
 
-        public void Update(DailyCashTransaction dailyCashTransaction)
+        public async  Task Update(DailyCashTransaction dailyCashTransaction)
         {
             _context.Entry(dailyCashTransaction).State = EntityState.Modified;
+            await Task.CompletedTask;
         }
     }
 }

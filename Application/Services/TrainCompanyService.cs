@@ -63,7 +63,7 @@ public class TrainCompanyService : ITrainCompanyService
             throw new BadRequestException(400, "Name already exists");
         }
 
-        _repository.Add(trainCompany);
+        await _repository.Add(trainCompany);
         await _unitOfWork.SaveChangesAsync();
     }
 
@@ -77,19 +77,19 @@ public class TrainCompanyService : ITrainCompanyService
         trainCompanyInDb.Status = trainCompany.Status;
         trainCompanyInDb.UpdatedAt = DateTime.Now;
 
-        _repository.Update(trainCompanyInDb);
+        await _repository.Update(trainCompanyInDb);
         await _unitOfWork.SaveChangesAsync();
     }
 
     public async Task DeleteAsync(TrainCompany trainCompany)
     {
-        _repository.Delete(trainCompany);
+        await _repository.Delete(trainCompany);
         await _unitOfWork.SaveChangesAsync();
     }
 
     public async Task SoftDeleteAsync(TrainCompany trainCompany)
     {
-        _repository.SoftDelete(trainCompany);
+        await _repository.SoftDelete(trainCompany);
         await _unitOfWork.SaveChangesAsync();
     }
 

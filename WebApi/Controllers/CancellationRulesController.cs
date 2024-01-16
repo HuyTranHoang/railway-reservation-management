@@ -43,7 +43,7 @@ public class CancellationRulesController : BaseApiController
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddCancellationRule([FromBody] CancellationRule cancellationRule)
+    public async Task<ActionResult> AddCancellationRule([FromBody] CancellationRule cancellationRule)
     {
         if (!ModelState.IsValid) return BadRequest(ModelState);
 
@@ -52,7 +52,7 @@ public class CancellationRulesController : BaseApiController
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateCancellationRule(int id, [FromBody] CancellationRule cancellationRule)
+    public async Task<ActionResult> UpdateCancellationRule(int id, [FromBody] CancellationRule cancellationRule)
     {
         if (id != cancellationRule.Id) return BadRequest(new ErrorResponse(400));
 
@@ -71,7 +71,7 @@ public class CancellationRulesController : BaseApiController
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteCancellationRule(int id)
+    public async Task<ActionResult> DeleteCancellationRule(int id)
     {
         var cancellationRule = await _cancellationRuleService.GetByIdAsync(id);
 
@@ -83,7 +83,7 @@ public class CancellationRulesController : BaseApiController
     }
 
     [HttpPatch("{id}")]
-    public async Task<IActionResult> SoftDeleteCancellationRule(int id)
+    public async Task<ActionResult> SoftDeleteCancellationRule(int id)
     {
         var cancellationRule = await _cancellationRuleService.GetByIdAsync(id);
 

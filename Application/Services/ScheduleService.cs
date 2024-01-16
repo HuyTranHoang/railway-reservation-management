@@ -43,13 +43,13 @@ public class ScheduleService : IScheduleService
         int durationInMinutes = await CalculateDurationInMinutes(schedule);
         schedule.Duration = durationInMinutes;
 
-        _repository.Add(schedule);
+        await _repository.Add(schedule);
         await _unitOfWork.SaveChangesAsync();
     }
 
     public async Task DeleteAsync(Schedule schedule)
     {
-        _repository.Delete(schedule);
+        await _repository.Delete(schedule);
         await _unitOfWork.SaveChangesAsync();
     }
 
@@ -104,7 +104,7 @@ public class ScheduleService : IScheduleService
 
     public async Task SoftDeleteAsync(Schedule schedule)
     {
-        _repository.SoftDelete(schedule);
+        await _repository.SoftDelete(schedule);
         await _unitOfWork.SaveChangesAsync();
     }
 
@@ -293,7 +293,7 @@ public class ScheduleService : IScheduleService
                     };
                     schedule.Price = await CalculatePrice(schedule);
                     // Add the schedule to the repository
-                    _repository.Add(schedule);
+                    await _repository.Add(schedule);
                 }
             }
 

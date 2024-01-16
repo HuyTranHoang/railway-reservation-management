@@ -12,7 +12,7 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("schedule")]
-        public async Task<IActionResult> GetBookingSchedule([FromQuery] BookingQueryParams queryParams)
+        public async Task<ActionResult> GetBookingSchedule([FromQuery] BookingQueryParams queryParams)
         {
             var schedulesDto = await _bookingService.GetBookingInfoWithScheduleAsync(queryParams);
 

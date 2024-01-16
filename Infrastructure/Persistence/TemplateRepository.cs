@@ -12,14 +12,16 @@ namespace Infrastructure.Persistence
         {
             _context = context;
         }
-        public void Add(T t)
+        public async Task Add(T t)
         {
             _context.Set<T>().Add(t);
+            await Task.CompletedTask;
         }
 
-        public void Delete(T t)
+        public async Task Delete(T t)
         {
             _context.Set<T>().Remove(t);
+            await Task.CompletedTask;
         }
 
         public async Task<T> GetByIdAsync(int id)
@@ -32,7 +34,7 @@ namespace Infrastructure.Persistence
             return await Task.FromResult(_context.Set<T>().AsQueryable());
         }
 
-        public void SoftDelete(T t)
+        public async Task SoftDelete(T t)
         {
             var isDeletedProperty = t.GetType().GetProperty("IsDeleted");
 
@@ -45,11 +47,13 @@ namespace Infrastructure.Persistence
             {
                 throw new InvalidOperationException("This entity does not support soft delete.");
             }
+            await Task.CompletedTask;
         }
 
-        public void Update(T t)
+        public async Task Update(T t)
         {
             _context.Entry(t).State = EntityState.Modified;
+            await Task.CompletedTask;
         }
     }
 

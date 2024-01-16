@@ -38,6 +38,7 @@ export class EditSeatComponent implements OnInit {
 
   initForm() {
     this.updateForm = this.fb.group({
+      id: ['', Validators.required],
       name: ['', Validators.required],
       seatTypeId: ['', Validators.required],
       compartmentId: ['', Validators.required],

@@ -37,7 +37,7 @@ public class SchedulesController : BaseApiController
     }
 
     [HttpPost]
-    public async Task<IActionResult> PostSchedule([FromBody] Schedule schedule)
+    public async Task<ActionResult> PostSchedule([FromBody] Schedule schedule)
     {
 
         if (!ModelState.IsValid) return BadRequest(ModelState);
@@ -60,7 +60,7 @@ public class SchedulesController : BaseApiController
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> PutSchedule(int id, [FromBody] Schedule schedule)
+    public async Task<ActionResult> PutSchedule(int id, [FromBody] Schedule schedule)
     {
         if (id != schedule.Id) return BadRequest(new ErrorResponse(400));
 
@@ -85,7 +85,7 @@ public class SchedulesController : BaseApiController
     }
 
     [HttpPatch("{id}")]
-    public async Task<IActionResult> SoftDeleteschedule(int id)
+    public async Task<ActionResult> SoftDeleteschedule(int id)
     {
         var schedule = await _scheduleService.GetByIdAsync(id);
 

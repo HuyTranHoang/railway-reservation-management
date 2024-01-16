@@ -36,7 +36,7 @@ public class PaymentsController : BaseApiController
     }
 
     [HttpPost]
-    public async Task<IActionResult> PostPayment([FromBody] Payment payment)
+    public async Task<ActionResult> PostPayment([FromBody] Payment payment)
     {
 
         if (!ModelState.IsValid)
@@ -58,7 +58,7 @@ public class PaymentsController : BaseApiController
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> PutPayment(int id, [FromBody] Payment payment)
+    public async Task<ActionResult> PutPayment(int id, [FromBody] Payment payment)
     {
         if (id != payment.Id) return BadRequest(new ErrorResponse(400));
 

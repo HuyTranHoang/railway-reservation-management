@@ -26,24 +26,28 @@ public class PassengerRepository : IPassengerRepository
             .FirstOrDefaultAsync(p => p.Id == id);
     }
 
-    public void Add(Passenger passenger)
+    public async Task Add(Passenger passenger)
     {
         _context.Passengers.Add(passenger);
+        await Task.CompletedTask;
     }
 
-    public void Update(Passenger passenger)
+    public async Task Update(Passenger passenger)
     {
         _context.Entry(passenger).State = EntityState.Modified;
+        await Task.CompletedTask;
     }
 
-    public void Delete(Passenger passenger)
+    public async Task Delete(Passenger passenger)
     {
         _context.Passengers.Remove(passenger);
+        await Task.CompletedTask;
     }
 
-    public void SoftDelete(Passenger passenger)
+    public async Task SoftDelete(Passenger passenger)
     {
         passenger.IsDeleted = true;
         _context.Entry(passenger).State = EntityState.Modified;
+        await Task.CompletedTask;
     }
 }

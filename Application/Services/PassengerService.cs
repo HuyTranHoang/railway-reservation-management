@@ -57,7 +57,7 @@ public class PassengerService : IPassengerService
 
     public async Task AddAsync(Passenger passenger)
     {
-        _repository.Add(passenger);
+        await _repository.Add(passenger);
         await _unitOfWork.SaveChangesAsync();
     }
 
@@ -75,19 +75,19 @@ public class PassengerService : IPassengerService
         passengerInDb.Email = passenger.Email;
         passengerInDb.UpdatedAt = DateTime.Now;
 
-        _repository.Update(passengerInDb);
+        await _repository.Update(passengerInDb);
         await _unitOfWork.SaveChangesAsync();
     }
 
     public async Task DeleteAsync(Passenger passenger)
     {
-        _repository.Delete(passenger);
+        await _repository.Delete(passenger);
         await _unitOfWork.SaveChangesAsync();
     }
 
     public async Task SoftDeleteAsync(Passenger passenger)
     {
-        _repository.SoftDelete(passenger);
+        await _repository.SoftDelete(passenger);
         await _unitOfWork.SaveChangesAsync();
     }
 }

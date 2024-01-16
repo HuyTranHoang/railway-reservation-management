@@ -16,13 +16,13 @@ public class CarriageService : ICarriageService
     }
     public async Task AddAsync(Carriage carriage)
     {
-        _repository.Add(carriage);
+        await _repository.Add(carriage);
         await _unitOfWork.SaveChangesAsync();
     }
 
     public async Task DeleteAsync(Carriage carriage)
     {
-        _repository.Delete(carriage);
+        await _repository.Delete(carriage);
         await _unitOfWork.SaveChangesAsync();
     }
 
@@ -79,7 +79,7 @@ public class CarriageService : ICarriageService
 
     public async Task SoftDeleteAsync(Carriage carriage)
     {
-        _repository.SoftDelete(carriage);
+        await _repository.SoftDelete(carriage);
         await _unitOfWork.SaveChangesAsync();
     }
 
@@ -96,7 +96,7 @@ public class CarriageService : ICarriageService
         carriageInDb.Status = carriage.Status;
         carriageInDb.UpdatedAt = DateTime.Now;
 
-        _repository.Update(carriageInDb);
+        await _repository.Update(carriageInDb);
 
         await _unitOfWork.SaveChangesAsync();
     }

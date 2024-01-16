@@ -35,7 +35,7 @@ public class PassengersController : BaseApiController
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddPassenger([FromBody] Passenger passenger)
+    public async Task<ActionResult> AddPassenger([FromBody] Passenger passenger)
     {
         if (!ModelState.IsValid) return BadRequest(ModelState);
 
@@ -44,7 +44,7 @@ public class PassengersController : BaseApiController
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdatePassenger(int id, [FromBody] Passenger passenger)
+    public async Task<ActionResult> UpdatePassenger(int id, [FromBody] Passenger passenger)
     {
         if (id != passenger.Id) return BadRequest(new ErrorResponse(400));
 
@@ -63,7 +63,7 @@ public class PassengersController : BaseApiController
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeletePassenger(int id)
+    public async Task<ActionResult> DeletePassenger(int id)
     {
         var passenger = await _passengerService.GetByIdAsync(id);
 
@@ -75,7 +75,7 @@ public class PassengersController : BaseApiController
     }
 
     [HttpPatch("{id}")]
-    public async Task<IActionResult> SoftDeletePassenger(int id)
+    public async Task<ActionResult> SoftDeletePassenger(int id)
     {
         var passenger = await _passengerService.GetByIdAsync(id);
 

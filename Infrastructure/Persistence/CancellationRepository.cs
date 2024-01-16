@@ -13,14 +13,16 @@ namespace Infrastructure.Persistence
         {
             _context = context;
         }
-        public void Add(Cancellation cancellation)
+        public async Task Add(Cancellation cancellation)
         {
             _context.Cancellations.Add(cancellation);
+            await Task.CompletedTask;
         }
 
-        public void Delete(Cancellation cancellation)
+        public async Task Delete(Cancellation cancellation)
         {
             _context.Cancellations.Remove(cancellation);
+            await Task.CompletedTask;
         }
 
         public async Task<Cancellation> GetByIdAsync(int id)
@@ -42,15 +44,17 @@ namespace Infrastructure.Persistence
                 .AsQueryable());
         }
 
-        public void SoftDelete(Cancellation cancellation)
+        public async Task SoftDelete(Cancellation cancellation)
         {
             cancellation.IsDeleted = true;
             _context.Entry(cancellation).State = EntityState.Modified;
+            await Task.CompletedTask;
         }
 
-        public void Update(Cancellation cancellation)
+        public async Task Update(Cancellation cancellation)
         {
             _context.Entry(cancellation).State = EntityState.Modified;
+            await Task.CompletedTask;
         }
     }
 }

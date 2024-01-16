@@ -54,7 +54,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTicket(int id, [FromBody] Ticket ticket)
+        public async Task<ActionResult> PutTicket(int id, [FromBody] Ticket ticket)
         {
             if (id != ticket.Id) return BadRequest(new ErrorResponse(400));
 
@@ -78,7 +78,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPatch("{id}")]
-        public async Task<IActionResult> SoftDeleteTicket(int id)
+        public async Task<ActionResult> SoftDeleteTicket(int id)
         {
             var ticket = await _ticketService.GetByIdAsync(id);
 

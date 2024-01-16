@@ -34,13 +34,13 @@ public class SeatService : ISeatService
             throw new BadRequestException(400, "The number of seats is full");
         }
 
-        _repository.Add(seat);
+        await _repository.Add(seat);
         await _unitOfWork.SaveChangesAsync();
     }
 
     public async Task DeleteAsync(Seat seat)
     {
-        _repository.Delete(seat);
+        await _repository.Delete(seat);
         await _unitOfWork.SaveChangesAsync();
     }
 
@@ -99,7 +99,7 @@ public class SeatService : ISeatService
 
     public async Task SoftDeleteAsync(Seat seat)
     {
-        _repository.SoftDelete(seat);
+        await _repository.SoftDelete(seat);
         await _unitOfWork.SaveChangesAsync();
     }
 
