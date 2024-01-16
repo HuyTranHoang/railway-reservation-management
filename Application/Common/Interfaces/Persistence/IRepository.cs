@@ -4,8 +4,8 @@ public interface IRepository<T> where T : class
 {
     Task<IQueryable<T>> GetQueryAsync();
     Task<T> GetByIdAsync(int id);
-    void Add(T t);
-    void Update(T t);
-    void Delete(T t);
-    void SoftDelete(T t);
+    Task Add(T t);
+    Task Update(T t);
+    Task Delete(T t);
+    Task SoftDelete(T t);
 }

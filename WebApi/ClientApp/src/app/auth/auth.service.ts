@@ -8,6 +8,8 @@ import { map, of, ReplaySubject } from 'rxjs'
 import { Router } from '@angular/router'
 import { ConfirmEmail } from '../core/models/auth/confirmEmail'
 import { ResetPassword } from '../core/models/auth/resetPassword'
+import { RegisterWithExternal } from '../core/models/auth/registerWithExternal'
+import { LoginWithExternal } from '../core/models/auth/loginWithExternal'
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +25,20 @@ export class AuthService {
     return this.http.post(this.baseUrl + 'account/register', model)
   }
 
-  login(model: Login) {
+  registerWithThirdParty(model: RegisterWithExternal) {
+    return this.http.post<User>(this.baseUrl + 'account/register-with-third-party', model).pipe(
+      map((user: User) => {
+        if (user) {
+          this.setUser(user)
+          return user
+        }
+
+        return null
+      })
+    )
+  }
+
+  authLogin(model: Login) {
     return this.http.post<User>(this.baseUrl + 'account/login', model).pipe(
       map((user: User) => {
         if (user) {
@@ -50,6 +65,18 @@ export class AuthService {
         if (user) {
           this.setUser(user)
         }
+      })
+    )
+  }
+
+  loginWithThirdParty(model: LoginWithExternal) {
+    return this.http.post<{isUserRegistered: boolean, user: User}>(this.baseUrl + 'account/login-with-third-party', model).pipe(
+      map((res: {isUserRegistered: boolean, user: User}) => {
+        if (res.isUserRegistered) {
+          this.setUser(res.user)
+          return res.isUserRegistered
+        }
+        return res.isUserRegistered
       })
     )
   }

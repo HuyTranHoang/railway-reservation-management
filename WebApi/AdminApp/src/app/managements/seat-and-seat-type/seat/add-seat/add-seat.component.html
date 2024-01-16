@@ -21,7 +21,10 @@
 
         <div class="form-group">
           <label class="label">Seat Type</label>
-          <nb-select formControlName="seatTypeId" placeholder="Select seat type.." fullWidth>
+          <nb-select formControlName="seatTypeId"
+                     [class.status-danger]="seatForm.get('seatTypeId')?.invalid && (seatForm.get('seatTypeId')?.touched || isSubmitted)"
+                     placeholder="Select seat type.."
+                     fullWidth>
             <nb-option *ngFor="let item of seatTypes" [value]="item.id">{{item.name}}</nb-option>
           </nb-select>
 
@@ -34,7 +37,10 @@
 
         <div class="form-group">
           <label class="label">Compartment</label>
-          <nb-select formControlName="compartmentId" placeholder="Select compartment.." fullWidth>
+          <nb-select formControlName="compartmentId"
+                     [class.status-danger]="seatForm.get('compartmentId')?.invalid && (seatForm.get('compartmentId')?.touched || isSubmitted)"
+                     placeholder="Select compartment.."
+                     fullWidth>
             <nb-option *ngFor="let item of compartments" [value]="item.id">{{item.name}}</nb-option>
           </nb-select>
 

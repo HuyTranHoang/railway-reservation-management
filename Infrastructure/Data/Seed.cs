@@ -40,6 +40,7 @@ public static class Seed
         await SeedData<Compartment>(context, "Compartment.json", c => c.Compartments);
         await SeedData<Seat>(context, "Seat.json", c => c.Seats);
         await SeedData<DistanceFare>(context, "DistanceFare.json", c => c.DistanceFares);
+        await SeedData<CompartmentTemplate>(context, "CompartmentTemplate.json", c => c.CompartmentTemplates);
 
         // Chưa tạo
         // await SeedData<Ticket>(context, "Ticket.json", c => c.Tickets);

@@ -23,7 +23,7 @@ public class CancellationRuleService : ICancellationRuleService
 
     public async Task AddAsync(CancellationRule cancellationRule)
     {
-        _repository.Add(cancellationRule);
+        await _repository.Add(cancellationRule);
         await _unitOfWork.SaveChangesAsync();
     }
 
@@ -39,7 +39,7 @@ public class CancellationRuleService : ICancellationRuleService
         cancellationRuleInDb.Status = cancellationRule.Status;
         cancellationRuleInDb.UpdatedAt = DateTime.Now;
 
-        _repository.Update(cancellationRuleInDb);
+        await _repository.Update(cancellationRuleInDb);
 
         await _unitOfWork.SaveChangesAsync();
 
@@ -47,13 +47,13 @@ public class CancellationRuleService : ICancellationRuleService
 
     public async Task DeleteAsync(CancellationRule cancellationRule)
     {
-        _repository.Delete(cancellationRule);
+        await _repository.Delete(cancellationRule);
         await _unitOfWork.SaveChangesAsync();
     }
 
     public async Task SoftDeleteAsync(CancellationRule cancellationRule)
     {
-        _repository.SoftDelete(cancellationRule);
+        await _repository.SoftDelete(cancellationRule);
         await _unitOfWork.SaveChangesAsync();
     }
 

@@ -26,18 +26,15 @@ namespace Domain.Entities
         public TrainStation ArrivalStation { get; set; }
 
         [Required]
-        public DateTime DepartureDate { get; set; }
-
-        [Required]
-        public DateTime ArrivalDate { get; set; }
-
-        [Required]
         public DateTime DepartureTime { get; set; }
 
+        [Required]
+        public DateTime ArrivalTime { get; set; }
 
         [Required]
-        [Range(1, int.MaxValue, ErrorMessage = "Please enter a value bigger than 0")]
         public int Duration { get; set; }
+        
+        [Required] public double Price { get; set; }
 
         [StringLength(100)] public string Status { get; set; }
 

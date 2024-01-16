@@ -24,25 +24,29 @@ public class CarriageTypeRepository : ICarriageTypeRepository
         return await _context.CarriageTypes.FindAsync(id);
     }
 
-    public void Add(CarriageType carriageType)
+    public async Task Add(CarriageType carriageType)
     {
         _context.CarriageTypes.Add(carriageType);
+        await Task.CompletedTask;
     }
 
-    public void Update(CarriageType carriageType)
+    public async Task Update(CarriageType carriageType)
     {
         _context.Entry(carriageType).State = EntityState.Modified;
+        await Task.CompletedTask;
     }
 
-    public void Delete(CarriageType carriageType)
+    public async Task Delete(CarriageType carriageType)
     {
         _context.CarriageTypes.Remove(carriageType);
+        await Task.CompletedTask;
     }
 
-    public void SoftDelete(CarriageType carriageType)
+    public async Task SoftDelete(CarriageType carriageType)
     {
         carriageType.IsDeleted = true;
         _context.CarriageTypes.Update(carriageType);
+        await Task.CompletedTask;
     }
 
     public async Task<List<CarriageType>> GetAllNoPagingAsync()

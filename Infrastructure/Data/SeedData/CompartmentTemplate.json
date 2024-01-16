@@ -1,0 +1,17 @@
+﻿[
+  {
+    "name": "Ngồi mềm điều hòa",
+    "numberOfSeats": 32,
+    "status": "active"
+  },
+  {
+    "name": "Giường nằm khoang 4 điều hòa",
+    "numberOfSeats": 4,
+    "status": "active"
+  },
+  {
+    "name": "Giường nằm khoang 6 điều hòa",
+    "numberOfSeats": 6,
+    "status": "active"
+  }
+]

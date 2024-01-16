@@ -23,13 +23,13 @@ namespace Application.Services
                 throw new BadRequestException(400, "Train company discounts already exist");
             }
 
-            _repository.Add(roundTrip);
+            await _repository.Add(roundTrip);
             await _unitOfWork.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(RoundTrip roundTrip)
         {
-            _repository.Delete(roundTrip);
+            await _repository.Delete(roundTrip);
             await _unitOfWork.SaveChangesAsync();
         }
 
@@ -76,7 +76,7 @@ namespace Application.Services
 
         public async Task SoftDeleteAsync(RoundTrip roundTrip)
         {
-            _repository.SoftDelete(roundTrip);
+            await _repository.SoftDelete(roundTrip);
             await _unitOfWork.SaveChangesAsync();
         }
 
@@ -90,7 +90,7 @@ namespace Application.Services
             roundTripInDb.Discount = roundTrip.Discount;
             roundTripInDb.UpdatedAt = DateTime.Now;
 
-            _repository.Update(roundTripInDb);
+            await _repository.Update(roundTripInDb);
             await _unitOfWork.SaveChangesAsync();
         }
 

@@ -18,13 +18,13 @@ public class DistanceFareService : IDistanceFareService
 
     public async Task AddAsync(DistanceFare distanceFare)
     {
-        _repository.Add(distanceFare);
+        await _repository.Add(distanceFare);
         await _unitOfWork.SaveChangesAsync();
     }
 
     public async Task DeleteAsync(DistanceFare distanceFare)
     {
-        _repository.Delete(distanceFare);
+        await _repository.Delete(distanceFare);
         await _unitOfWork.SaveChangesAsync();
     }
 
@@ -69,9 +69,9 @@ public class DistanceFareService : IDistanceFareService
         return await _repository.GetByIdAsync(id);
     }
 
-    public async Task<DistanceFareDto> GetDtoByDistanceAsync(int distance)
+    public async Task<DistanceFareDto> GetDtoByDistanceAsync(int distance, int trainCompanyId)
     {
-        var distanceFareDto = await _repository.GetByDistanceAsync(distance);
+        var distanceFareDto = await _repository.GetByDistanceAsync(distance, trainCompanyId);
         return _mapper.Map<DistanceFareDto>(distanceFareDto);
     }
 
@@ -83,7 +83,7 @@ public class DistanceFareService : IDistanceFareService
 
     public async Task SoftDeleteAsync(DistanceFare distanceFare)
     {
-        _repository.SoftDelete(distanceFare);
+        await _repository.SoftDelete(distanceFare);
         await _unitOfWork.SaveChangesAsync();
     }
 

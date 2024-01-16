@@ -6,7 +6,6 @@ import { ListScheduleComponent } from './schedule/list-schedule/list-schedule.co
 import { AddScheduleComponent } from './schedule/add-schedule/add-schedule.component';
 import { EditScheduleComponent } from './schedule/edit-schedule/edit-schedule.component';
 
-
 const routes: Routes = [{
   path: '',
   component: ScheduleAndTicketPricesComponent,

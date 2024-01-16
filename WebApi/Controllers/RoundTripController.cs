@@ -35,7 +35,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddRoundTrip([FromBody] RoundTrip roundTrip)
+        public async Task<ActionResult> AddRoundTrip([FromBody] RoundTrip roundTrip)
         {
 
             if (!ModelState.IsValid) return BadRequest(ModelState);
@@ -54,7 +54,7 @@ namespace WebApi.Controllers
         }
     
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateRoundTrip(int id, [FromBody] RoundTrip roundTrip)
+        public async Task<ActionResult> UpdateRoundTrip(int id, [FromBody] RoundTrip roundTrip)
         {
             if (id != roundTrip.Id) return BadRequest(new ErrorResponse(400));
 
@@ -78,7 +78,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPatch("{id}")]
-        public async Task<IActionResult> SoftDeleteRoundTrip(int id)
+        public async Task<ActionResult> SoftDeleteRoundTrip(int id)
         {
             var roundTrip = await _roundTripService.GetByIdAsync(id);
             if (roundTrip is null) return NotFound(new ErrorResponse(404));
@@ -89,7 +89,7 @@ namespace WebApi.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteRoundTrip(int id)
+        public async Task<ActionResult> DeleteRoundTrip(int id)
         {
             var roundTrip = await _roundTripService.GetByIdAsync(id);
 

@@ -14,15 +14,17 @@ public class TrainCompanyRepository : ITrainCompanyRepository
         _context = context;
     }
 
-    public void Add(TrainCompany trainCompany)
+    public async Task Add(TrainCompany trainCompany)
     {
         _context.TrainCompanies.Add(trainCompany);
+        await Task.CompletedTask;
     }
 
-    public void Delete(TrainCompany trainCompany)
+    public async Task Delete(TrainCompany trainCompany)
     {
-        trainCompany.IsDeleted = true;
-        _context.SaveChanges();
+        _context.TrainCompanies.Remove(trainCompany);
+        await Task.CompletedTask;
+
     }
 
     public async Task<IQueryable<TrainCompany>> GetQueryAsync()
@@ -41,14 +43,16 @@ public class TrainCompanyRepository : ITrainCompanyRepository
             .FirstOrDefaultAsync(x => x.Id == id);
     }
 
-    public void Update(TrainCompany trainCompany)
+    public async Task Update(TrainCompany trainCompany)
     {
         _context.Entry(trainCompany).State = EntityState.Modified;
+        await Task.CompletedTask;
     }
 
-    public void SoftDelete(TrainCompany trainCompany)
+    public async Task SoftDelete(TrainCompany trainCompany)
     {
         trainCompany.IsDeleted = true;
         _context.Entry(trainCompany).State = EntityState.Modified;
+        await Task.CompletedTask;
     }
 }

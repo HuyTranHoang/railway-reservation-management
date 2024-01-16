@@ -49,7 +49,7 @@ export class EditTrainComponent implements OnInit {
       next: (res) => {
         this.updateForm.patchValue(res);
       },
-      error: (err) => {
+      error: _ => {
         this.showToast('danger', 'Failed', 'Train does not exist!');
         this.router.navigateByUrl('/managements/train-and-carriage/train');
       },

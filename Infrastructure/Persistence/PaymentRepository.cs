@@ -14,14 +14,16 @@ public class PaymentRepository : IPaymentRepository
     {
         _context = context;
     }
-    public void Add(Payment payment)
+    public async Task Add(Payment payment)
     {
         _context.Payments.Add(payment);
+        await Task.CompletedTask;
     }
 
-    public void Delete(Payment payment)
+    public async Task Delete(Payment payment)
     {
         _context.Payments.Remove(payment);
+        await Task.CompletedTask;
     }
 
     public async Task<Payment> GetByIdAsync(int id)
@@ -43,15 +45,17 @@ public class PaymentRepository : IPaymentRepository
                                 .AsQueryable());
     }
 
-    public void SoftDelete(Payment payment)
+    public async Task SoftDelete(Payment payment)
     {
         payment.IsDeleted = true;
         _context.Entry(payment).State = EntityState.Modified;
+        await Task.CompletedTask;
     }
 
-    public void Update(Payment payment)
+    public async Task Update(Payment payment)
     {
         _context.Entry(payment).State = EntityState.Modified;
+        await Task.CompletedTask;
     }
 
     public async Task<IEnumerable<Payment>> GetAllPaymentsForDateRange(DateTime startDate, DateTime endDate)

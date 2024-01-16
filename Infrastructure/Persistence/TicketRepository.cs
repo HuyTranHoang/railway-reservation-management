@@ -13,14 +13,16 @@ namespace Infrastructure.Persistence
         {
             _context = context;
         }
-        public void Add(Ticket ticket)
+        public async Task Add(Ticket ticket)
         {
             _context.Tickets.Add(ticket);
+            await Task.CompletedTask;
         }
 
-        public void Delete(Ticket ticket)
+        public async Task Delete(Ticket ticket)
         {
             _context.Tickets.Remove(ticket);
+            await Task.CompletedTask;
         }
 
         public async Task<Ticket> GetByIdAsync(int id)
@@ -49,15 +51,17 @@ namespace Infrastructure.Persistence
                 .AsQueryable());
         }
         
-        public void SoftDelete(Ticket ticket)
+        public async Task SoftDelete(Ticket ticket)
         {
             ticket.IsDeleted = true;
             _context.Entry(ticket).State = EntityState.Modified;
+            await Task.CompletedTask;
         }
 
-        public void Update(Ticket ticket)
+        public async Task Update(Ticket ticket)
         {
             _context.Entry(ticket).State = EntityState.Modified;
+            await Task.CompletedTask;
         }
     }
 }

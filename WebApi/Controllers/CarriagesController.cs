@@ -73,7 +73,7 @@ public class CarriagesController : BaseApiController
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> PutCarriage(int id, [FromBody] Carriage carriage)
+    public async Task<ActionResult> PutCarriage(int id, [FromBody] Carriage carriage)
     {
         if (id != carriage.Id) return BadRequest(new ErrorResponse(400));
 
@@ -97,7 +97,7 @@ public class CarriagesController : BaseApiController
     }
 
     [HttpPatch("{id}")]
-    public async Task<IActionResult> SoftDeleteCarriage(int id)
+    public async Task<ActionResult> SoftDeleteCarriage(int id)
     {
         var carriage = await _carriageService.GetByIdAsync(id);
 

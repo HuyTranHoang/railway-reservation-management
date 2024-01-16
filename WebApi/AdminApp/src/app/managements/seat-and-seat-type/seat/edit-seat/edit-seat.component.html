@@ -1,5 +1,5 @@
 <div class="col-md-6">
-  <nb-card>
+  <nb-card [nbSpinner]="isLoading" nbSpinnerSize="giant" nbSpinnerStatus="success">
     <nb-card-header>
       <div class="d-flex justify-content-between">
         Edit Seat
@@ -23,7 +23,10 @@
 
         <div class="form-group">
           <label class="label">Seat Type</label>
-          <nb-select formControlName="seatTypeId" placeholder="Select seat type.." fullWidth>
+          <nb-select formControlName="seatTypeId"
+                     [class.status-danger]="updateForm.get('seatTypeId')?.invalid && (updateForm.get('seatTypeId')?.touched || isSubmitted)"
+                     placeholder="Select seat type.."
+                     fullWidth>
             <nb-option *ngFor="let item of seatTypes" [value]="item.id">{{item.name}}</nb-option>
           </nb-select>
 
@@ -36,7 +39,10 @@
 
         <div class="form-group">
           <label class="label">Compartment</label>
-          <nb-select formControlName="compartmentId" placeholder="Select compartment.." fullWidth>
+          <nb-select formControlName="compartmentId"
+                     [class.status-danger]="updateForm.get('compartmentId')?.invalid && (updateForm.get('compartmentId')?.touched || isSubmitted)"
+                     placeholder="Select compartment.."
+                     fullWidth>
             <nb-option *ngFor="let item of compartments" [value]="item.id">{{item.name}}</nb-option>
           </nb-select>
 

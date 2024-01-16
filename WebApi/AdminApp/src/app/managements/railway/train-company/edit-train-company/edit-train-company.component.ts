@@ -23,18 +23,21 @@ export class EditTrainCompanyComponent implements OnInit {
   }
 
   initForm() {
+
+    this.trainCompanyForm = this.fb.group({
+      id: [0, Validators.required],
+      name: ['', Validators.required],
+      status: [''],
+    });
+
     const id = this.activatedRoute.snapshot.params.id;
 
     this.trainCompanyService.getTrainCompanyById(id)
       .subscribe({
         next: (res) => {
-          this.trainCompanyForm = this.fb.group({
-            id: [res.id, Validators.required],
-            name: [res.name, Validators.required],
-            status: [res.status],
-          });
+          this.trainCompanyForm.patchValue(res);
         },
-        error: (err) => {
+        error: _ => {
           this.showToast('danger', 'Failed', 'Train Company doest not exist!');
           this.router.navigateByUrl('/managements/railway/train-company');
         },

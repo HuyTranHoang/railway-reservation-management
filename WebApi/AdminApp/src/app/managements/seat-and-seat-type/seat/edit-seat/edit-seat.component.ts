@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NbToastrService, NbGlobalPhysicalPosition } from '@nebular/theme';
@@ -8,12 +9,13 @@ import { SeatTypeService } from '../../seat-type/seat-type.service';
 import { ActivatedRoute, Router} from '@angular/router';
 import { SeatService } from '../seat.service';
 
+
 @Component({
   selector: 'ngx-edit-seat',
   templateUrl: './edit-seat.component.html',
-  styleUrls: ['./edit-seat.component.scss']
+  styleUrls: ['./edit-seat.component.scss'],
 })
-export class EditSeatComponent implements OnInit{
+export class EditSeatComponent implements OnInit {
 
   seatTypes: SeatType[] = [];
   compartments: Compartment[];
@@ -22,9 +24,12 @@ export class EditSeatComponent implements OnInit{
   isSubmitted: boolean = false;
   errorMessages: string[] = [];
 
+  isLoading = false;
+
+
   constructor(private seatService: SeatService,
               private seatTypeService: SeatTypeService,
-              private compartmentService : CompartmentService,
+              private compartmentService: CompartmentService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
               private toastrService: NbToastrService,
@@ -38,17 +43,20 @@ export class EditSeatComponent implements OnInit{
 
   initForm() {
     this.updateForm = this.fb.group({
+      id: ['', Validators.required],
       name: ['', Validators.required],
       seatTypeId: ['', Validators.required],
-      compartmentId: ['',Validators.required],
+      compartmentId: ['', Validators.required],
       status: [''],
     });
 
     const id = this.activatedRoute.snapshot.params.id;
 
+    this.isLoading = true; // Bắt đầu load dữ liệu
     this.seatService.getSeatById(id).subscribe({
       next: (res) => {
         this.updateForm.patchValue(res);
+        this.isLoading = false; // Load xong dữ liệu
       },
       error: (err) => {
         this.showToast('danger', 'Failed', 'Seat does not exist!');
@@ -91,6 +99,7 @@ export class EditSeatComponent implements OnInit{
     });
 
   }
+
   private showToast(type: string, title: string, body: string) {
     const config = {
       status: type,

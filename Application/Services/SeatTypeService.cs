@@ -51,7 +51,7 @@ public class SeatTypeService : ISeatTypeService
 
     public async Task AddAsync(SeatType seatType)
     {
-        _repository.Add(seatType);
+        await _repository.Add(seatType);
         await _unitOfWork.SaveChangesAsync();
     }
 
@@ -67,19 +67,19 @@ public class SeatTypeService : ISeatTypeService
         seatTypeInDb.Status = seatType.Status;
         seatTypeInDb.UpdatedAt = DateTime.Now;
 
-        _repository.Update(seatTypeInDb);
+        await _repository.Update(seatTypeInDb);
         await _unitOfWork.SaveChangesAsync();
     }
 
     public async Task DeleteAsync(SeatType seatType)
     {
-        _repository.Delete(seatType);
+        await _repository.Delete(seatType);
         await _unitOfWork.SaveChangesAsync();
     }
 
     public async Task SoftDeleteAsync(SeatType seatType)
     {
-        _repository.SoftDelete(seatType);
+        await _repository.SoftDelete(seatType);
         await _unitOfWork.SaveChangesAsync();
     }
 

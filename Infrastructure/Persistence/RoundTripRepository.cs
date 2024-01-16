@@ -13,14 +13,16 @@ namespace Infrastructure.Persistence
         {
             _context = context;
         }
-        public void Add(RoundTrip roundTrip)
+        public async Task Add(RoundTrip roundTrip)
         {
             _context.RoundTrips.Add(roundTrip);
+            await Task.CompletedTask;
         }
 
-        public void Delete(RoundTrip roundTrip)
+        public async Task Delete(RoundTrip roundTrip)
         {
             _context.RoundTrips.Remove(roundTrip);
+            await Task.CompletedTask;
         }
 
         public async Task<RoundTrip> GetByIdAsync(int id)
@@ -50,15 +52,17 @@ namespace Infrastructure.Persistence
                     .AsQueryable());
         }
 
-        public void SoftDelete(RoundTrip roundTrip)
+        public async Task SoftDelete(RoundTrip roundTrip)
         {
             roundTrip.IsDeleted = true;
             _context.Entry(roundTrip).State = EntityState.Modified;
+            await Task.CompletedTask;
         }
 
-        public void Update(RoundTrip roundTrip)
+        public async Task Update(RoundTrip roundTrip)
         {
             _context.Entry(roundTrip).State = EntityState.Modified;
+            await Task.CompletedTask;
         }
     }
 }

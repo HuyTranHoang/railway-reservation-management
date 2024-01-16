@@ -4,6 +4,7 @@ export interface DistanceFare {
   trainCompanyName: string;
   distance: number;
   price: number;
+  status: string;
   createdAt: string;
 }
 

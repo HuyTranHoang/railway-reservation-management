@@ -35,7 +35,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddCancellation([FromBody] Cancellation cancellation)
+        public async Task<ActionResult> AddCancellation([FromBody] Cancellation cancellation)
         {
 
             if (!ModelState.IsValid) return BadRequest(ModelState);
@@ -54,7 +54,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCancellation(int id, [FromBody] Cancellation cancellation)
+        public async Task<ActionResult> PutCancellation(int id, [FromBody] Cancellation cancellation)
         {
             if (id != cancellation.Id) return BadRequest(new ErrorResponse(400));
 
@@ -78,7 +78,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPatch("{id}")]
-        public async Task<IActionResult> SoftDeleteCancellation(int id)
+        public async Task<ActionResult> SoftDeleteCancellation(int id)
         {
             var cancellation = await _cancellationService.GetByIdAsync(id);
 
@@ -90,7 +90,7 @@ namespace WebApi.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCancellation(int id)
+        public async Task<ActionResult> DeleteCancellation(int id)
         {
             var ticket = await _cancellationService.GetByIdAsync(id);
 
