@@ -73,7 +73,8 @@ export class LoginComponent implements OnInit {
         this.router.navigateByUrl('/')
       },
       error: (err: any) => {
-        if (err.statusCode === 401) {
+        console.log(err)
+        if (err.statusCode === 401 && err.message != "Invalid username or password") {
           this.isResendEmail = true
         }
       }

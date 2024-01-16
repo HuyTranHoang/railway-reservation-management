@@ -5,6 +5,7 @@ import Swal from 'sweetalert2'
 import { Router } from '@angular/router'
 import { take } from 'rxjs'
 import { LoginWithExternal } from '../../core/models/auth/loginWithExternal'
+import { RegisterWithExternal } from '../../core/models/auth/registerWithExternal'
 
 declare const FB: any
 
@@ -107,6 +108,17 @@ export class RegisterComponent implements OnInit {
   loginOrRegisterWithFacebook() {
     FB.login(async (fbResult: any) => {
       if (fbResult.authResponse) {
+        // Gọi API để lấy thông tin người dùng, bao gồm email
+
+        let email = '', firstName = '', lastName = '';
+        FB.api('/me', { fields: 'name,email' }, (response: any) => {
+          console.log(">>>>> first Res", response)
+          email = response.email;
+          const fullName = response.name.split(' ');
+          firstName = fullName[0];
+          lastName = fullName.length > 1 ? fullName[fullName.length - 1] : '';
+        });
+
         const accessToken = fbResult.authResponse.accessToken;
         const userId = fbResult.authResponse.userID;
         const model = new LoginWithExternal(accessToken, userId, 'facebook');
@@ -114,13 +126,20 @@ export class RegisterComponent implements OnInit {
         this.authService.loginWithThirdParty(model).subscribe({
           next: (isUserRegistered: boolean) => {
             console.log(">>>>>", isUserRegistered)
-
             if (isUserRegistered) {
               // Người dùng đã đăng ký, chuyển hướng đến trang chủ hoặc trang đích
               this.router.navigateByUrl('/');
             } else {
-              // Người dùng chưa đăng ký, chuyển hướng đến trang đăng ký với thông tin Facebook
-              this.router.navigateByUrl(`/auth/register/third-party/facebook?accessToken=${accessToken}&userId=${userId}`);
+                const model = new RegisterWithExternal(firstName, lastName, email, userId, accessToken, 'facebook')
+                this.authService.registerWithThirdParty(model).subscribe({
+                  next: _ => {
+                    this.router.navigateByUrl('/')
+                  },
+                  error: err => {
+                    console.log(err.errors)
+                    this.errorMessages = err.errors
+                  }
+                })
             }
           },
           error: err => {
@@ -137,7 +156,7 @@ export class RegisterComponent implements OnInit {
           showConfirmButton: true
         });
       }
-    });
+    }, { scope: 'email' });
   }
 
 }
