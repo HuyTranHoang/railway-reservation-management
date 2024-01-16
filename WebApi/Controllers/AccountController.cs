@@ -9,6 +9,7 @@ using Infrastructure.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebApi.Controllers;
 
@@ -108,12 +109,12 @@ public class AccountController : BaseApiController
             {
                 if (!FacebookValidatedAsync(model.AccessToken, model.UserId).GetAwaiter().GetResult())
                 {
-                    return Unauthorized(new ErrorResponse(401, "Invalid facebook token"));
+                    return Unauthorized(new ErrorResponse(401, "Unable to register with facebook"));
                 }
             }
             catch (Exception)
             {
-                return Unauthorized(new ErrorResponse(401, "Invalid facebook token"));
+                return Unauthorized(new ErrorResponse(401, "Unable to register with facebook"));
             }
         } else if (model.Provider.Equals(SD.Google))
         {
@@ -143,6 +144,39 @@ public class AccountController : BaseApiController
         if (!result.Succeeded) return BadRequest(result.Errors);
 
         return CreateApplicationUserDto(userToAdd);
+    }
+
+    [HttpPost("login-with-third-party")]
+    public async Task<ActionResult<UserDto>> LoginWithThirdParty(LoginWithExternalDto model)
+    {
+        if (model.Provider.Equals(SD.Facebook))
+        {
+            try
+            {
+                if (!FacebookValidatedAsync(model.AccessToken, model.UserId).GetAwaiter().GetResult())
+                {
+                    return Unauthorized(new ErrorResponse(401, "Unable to login with facebook"));
+                }
+            }
+            catch (Exception)
+            {
+                return Unauthorized(new ErrorResponse(401, "Unable to login with facebook"));
+            }
+            
+        } else if (model.Provider.Equals(SD.Google))
+        {
+
+        }
+        else
+        {
+            return BadRequest(new ErrorResponse(400, "Invalid provider"));
+        }
+
+        var user = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == model.UserId && x.Provider == model.Provider);
+        if (user == null)
+            return Unauthorized(new ErrorResponse(401, "Unable to find your account"));
+
+        return CreateApplicationUserDto(user);
     }
 
     [HttpPut("confirm-email")]

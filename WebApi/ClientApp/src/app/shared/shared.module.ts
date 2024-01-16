@@ -15,9 +15,7 @@ import { AccordionModule } from 'ngx-bootstrap/accordion';
   exports: [
     NgxSpinnerModule,
     BsDatepickerModule,
-    AccordionModule,
-    BrowserAnimationsModule
-
+    AccordionModule
   ]
 })
 export class SharedModule { }

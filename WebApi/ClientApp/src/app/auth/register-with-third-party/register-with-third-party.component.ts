@@ -68,8 +68,8 @@ export class RegisterWithThirdPartyComponent implements OnInit {
 
     const model = new RegisterWithExternal(firstName, lastName, email, this.userId!, this.access_token!, this.provider!)
     this.authService.registerWithThirdParty(model).subscribe({
-      next: res => {
-        console.log(res)
+      next: _ => {
+        this.router.navigateByUrl('/')
       },
       error: err => {
         console.log(err.errors)

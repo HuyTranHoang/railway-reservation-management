@@ -9,6 +9,7 @@ import { Router } from '@angular/router'
 import { ConfirmEmail } from '../core/models/auth/confirmEmail'
 import { ResetPassword } from '../core/models/auth/resetPassword'
 import { RegisterWithExternal } from '../core/models/auth/registerWithExternal'
+import { LoginWithExternal } from '../core/models/auth/loginWithExternal'
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +26,16 @@ export class AuthService {
   }
 
   registerWithThirdParty(model: RegisterWithExternal) {
-    return this.http.post(this.baseUrl + 'account/register-with-third-party', model)
+    return this.http.post<User>(this.baseUrl + 'account/register-with-third-party', model).pipe(
+      map((user: User) => {
+        if (user) {
+          this.setUser(user)
+          return user
+        }
+
+        return null
+      })
+    )
   }
 
   authLogin(model: Login) {
@@ -51,6 +61,16 @@ export class AuthService {
     headers = headers.set('Authorization', `Bearer ${jwt}`)
 
     return this.http.get<User>(this.baseUrl + 'account/refresh-user-token', { headers }).pipe(
+      map((user: User) => {
+        if (user) {
+          this.setUser(user)
+        }
+      })
+    )
+  }
+
+  loginWithThirdParty(model: LoginWithExternal) {
+    return this.http.post<User>(this.baseUrl + 'account/login-with-third-party', model).pipe(
       map((user: User) => {
         if (user) {
           this.setUser(user)

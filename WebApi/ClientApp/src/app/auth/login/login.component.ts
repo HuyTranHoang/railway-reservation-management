@@ -4,6 +4,9 @@ import { AuthService } from '../auth.service'
 import { ActivatedRoute, Router } from '@angular/router'
 import Swal from 'sweetalert2'
 import { take } from 'rxjs'
+import { LoginWithExternal } from '../../core/models/auth/loginWithExternal'
+
+declare const FB: any
 
 @Component({
   selector: 'app-login',
@@ -79,5 +82,35 @@ export class LoginComponent implements OnInit {
 
   resendEmailConfirmationLink() {
     this.router.navigateByUrl('/auth/send-email/resend-email-confirmation-link');
+  }
+
+  loginWithFacebook() {
+    FB.login(async (fbResult: any) => {
+      if (fbResult.authResponse) {
+        console.log(fbResult)
+        const accessToken = fbResult.authResponse.accessToken
+        const userId = fbResult.authResponse.userID
+
+        const model = new LoginWithExternal(accessToken, userId, 'facebook')
+
+        this.authService.loginWithThirdParty(model).subscribe({
+          next: _ => {
+            this.router.navigateByUrl('/')
+          },
+          error: err => {
+            console.log(err.errors)
+            this.errorMessages = err.errors
+          }
+        })
+      } else {
+        await Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Facebook login failed',
+          text: 'Please try again',
+          showConfirmButton: true
+        })
+      }
+    })
   }
 }
