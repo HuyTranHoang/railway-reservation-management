@@ -27,4 +27,5 @@ public class ScheduleDto
     public double Price { get; set; }
 
     public string Status { get; set; }
+    public DateTime CreatedAt { get; set; }
 }

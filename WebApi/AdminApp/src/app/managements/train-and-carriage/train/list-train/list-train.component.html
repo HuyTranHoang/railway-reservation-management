@@ -19,7 +19,6 @@
                      placeholder="Filter by train company">
             <nb-option *ngFor="let item of trainCompaniesFilter" [value]="item.id">{{item.name}}</nb-option>
           </nb-select>
-
         </form>
 
         <button *ngIf="queryParams.trainCompanyId !== null" nbButton hero status="danger" class="ml-3"

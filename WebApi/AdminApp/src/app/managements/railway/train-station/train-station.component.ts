@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {TrainStations} from '../../../@models/trainStation';
+import {TrainStation} from '../../../@models/trainStation';
 import {Pagination} from '../../../@models/pagination';
 import {QueryParams} from '../../../@models/params/queryParams';
 import {TrainStationService} from './train-station.service';
@@ -14,7 +14,7 @@ import {DeleteTrainStationComponent} from './delete-train-station/delete-train-s
   styleUrls: ['./train-station.component.scss'],
 })
 export class TrainStationComponent implements OnInit {
-  trainStations: TrainStations[] = [];
+  trainStations: TrainStation[] = [];
   pagination: Pagination;
 
   currentSearchTerm: string = '';
@@ -45,7 +45,7 @@ export class TrainStationComponent implements OnInit {
 
   getAllTrainStation() {
     this.trainStationService.getAllTrainStation(this.queryParams).subscribe({
-      next: (res: PaginatedResult<TrainStations[]>) => {
+      next: (res: PaginatedResult<TrainStation[]>) => {
         this.trainStations = res.result;
         this.pagination = res.pagination;
 

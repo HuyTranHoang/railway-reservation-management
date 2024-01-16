@@ -1,11 +1,11 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { NbDialogRef, NbToastrService, NbGlobalPhysicalPosition } from '@nebular/theme';
-import { ScheduleService } from '../schedule.service';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {NbDialogRef, NbToastrService, NbGlobalPhysicalPosition} from '@nebular/theme';
+import {ScheduleService} from '../schedule.service';
 
 @Component({
   selector: 'ngx-confirm-delete-schedule',
   templateUrl: './confirm-delete-schedule.component.html',
-  styleUrls: ['./confirm-delete-schedule.component.scss']
+  styleUrls: ['./confirm-delete-schedule.component.scss'],
 })
 export class ConfirmDeleteScheduleComponent {
   @Input() id: number;

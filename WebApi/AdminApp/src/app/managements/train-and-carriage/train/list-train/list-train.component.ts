@@ -8,7 +8,6 @@ import {ConfirmDeleteTrainComponent} from '../confirm-delete-train/confirm-delet
 import {ShowTrainComponent} from '../show-train/show-train.component';
 import {TrainQueryParams} from '../../../../@models/params/trainQueryParams';
 import {SharedService} from '../../../shared/shared.service';
-import {TrainCompany} from '../../../../@models/trainCompany';
 import {TrainCompanyService} from '../../../railway/train-company/train-company.service';
 
 @Component({

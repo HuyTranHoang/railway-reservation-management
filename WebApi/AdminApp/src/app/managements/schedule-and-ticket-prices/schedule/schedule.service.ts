@@ -1,12 +1,13 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { environment } from '../../../../environments/environment';
-import { QueryParams } from '../../../@models/params/queryParams';
-import { Schedule } from '../../../@models/schedule';
-import { PaginationService } from '../../shared/pagination.service';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {environment} from '../../../../environments/environment';
+import {QueryParams} from '../../../@models/params/queryParams';
+import {Schedule} from '../../../@models/schedule';
+import {PaginationService} from '../../shared/pagination.service';
+import {ScheduleQueryParams} from '../../../@models/params/scheduleQueryParams';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ScheduleService {
   baseUrl = environment.apiUrl;
@@ -14,9 +15,21 @@ export class ScheduleService {
   constructor(private http: HttpClient, private paginationService: PaginationService) {
   }
 
-  getAllSchedule(queryParams: QueryParams) {
+  getAllSchedule(queryParams: ScheduleQueryParams) {
     let params = this.paginationService
       .getPaginationHeaders(queryParams.pageNumber, queryParams.pageSize);
+
+    if (queryParams.trainId) {
+      params = params.append('trainId', queryParams.trainId.toString());
+    }
+
+    if (queryParams.departureStationId) {
+      params = params.append('departureStationId', queryParams.departureStationId.toString());
+    }
+
+    if (queryParams.arrivalStationId) {
+      params = params.append('arrivalStationId', queryParams.arrivalStationId.toString());
+    }
 
     if (queryParams.searchTerm) {
       params = params.append('searchTerm', queryParams.searchTerm);

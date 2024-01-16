@@ -25,11 +25,11 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("all")]
-        public async Task<ActionResult<IEnumerable<TrainStationDto>>> GetAllTrainStations()
+        public async Task<ActionResult<IEnumerable<TrainStationDto>>> GetAllTrainStationsNoPaging()
         {
-            var trainStations = await _trainStationService.GetAllDtoNoPagingAsync();
+            var trainStationDtos = await _trainStationService.GetAllDtoNoPagingAsync();
 
-            return Ok(trainStations);
+            return Ok(trainStationDtos);
         }
 
 

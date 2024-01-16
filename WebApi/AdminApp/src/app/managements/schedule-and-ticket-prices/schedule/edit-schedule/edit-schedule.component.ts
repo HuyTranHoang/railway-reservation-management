@@ -1,33 +1,33 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
-import { NbToastrService, NbGlobalPhysicalPosition } from '@nebular/theme';
-import { Train } from '../../../../@models/train';
-import { TrainStations } from '../../../../@models/trainStation';
-import { TrainStationService } from '../../../railway/train-station/train-station.service';
-import { TrainService } from '../../../train-and-carriage/train/train.service';
-import { ScheduleService } from '../schedule.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl, ValidationErrors} from '@angular/forms';
+import {NbToastrService, NbGlobalPhysicalPosition} from '@nebular/theme';
+import {Train} from '../../../../@models/train';
+import {TrainStation} from '../../../../@models/trainStation';
+import {TrainStationService} from '../../../railway/train-station/train-station.service';
+import {TrainService} from '../../../train-and-carriage/train/train.service';
+import {ScheduleService} from '../schedule.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'ngx-edit-schedule',
   templateUrl: './edit-schedule.component.html',
-  styleUrls: ['./edit-schedule.component.scss']
+  styleUrls: ['./edit-schedule.component.scss'],
 })
 export class EditScheduleComponent implements OnInit {
 
   trains: Train[] = [];
-  trainStations: TrainStations[] = [];
+  trainStations: TrainStation[] = [];
   updateForm: FormGroup = this.fb.group({});
   isSubmitted: boolean = false;
   errorMessages: string[] = [];
 
   constructor(private scheduleService: ScheduleService,
-                private trainService : TrainService,
-                private trainStationService : TrainStationService,
-                private toastrService: NbToastrService,
-                private activatedRoute: ActivatedRoute,
-                private router: Router,
-                private fb: FormBuilder) {
+              private trainService: TrainService,
+              private trainStationService: TrainStationService,
+              private toastrService: NbToastrService,
+              private activatedRoute: ActivatedRoute,
+              private router: Router,
+              private fb: FormBuilder) {
   }
 
   ngOnInit(): void {
@@ -35,17 +35,15 @@ export class EditScheduleComponent implements OnInit {
     this.initForm();
   }
 
-  initForm(){
+  initForm() {
     this.updateForm = this.fb.group({
-        name: ['',Validators.required],
-        trainId: ['',[Validators.required, this.numberValidator()]],
-        departureStationId: ['',[Validators.required, this.numberValidator()]],
-        arrivalStationId: ['',[Validators.required, this.numberValidator()]],
-        departureDate: ['',Validators.required],
-        arrivalDate: ['',Validators.required],
-        departureTime: ['',Validators.required],
-        duration: ['',[Validators.required, this.numberValidator()]],
-        status: [''],
+      id: ['', Validators.required],
+      name: ['', Validators.required],
+      trainId: ['', Validators.required],
+      departureStationId: ['', Validators.required],
+      arrivalStationId: ['', Validators.required],
+      departureTime: ['', Validators.required],
+      status: [''],
     });
 
 
@@ -66,7 +64,7 @@ export class EditScheduleComponent implements OnInit {
     this.isSubmitted = true;
     this.errorMessages = [];
 
-    if(this.updateForm.valid) {
+    if (this.updateForm.valid) {
       this.scheduleService.addSchedule(this.updateForm.value).subscribe({
         next: (res) => {
           this.showToast('success', 'Success', 'Add schedule successfully!');
@@ -82,19 +80,18 @@ export class EditScheduleComponent implements OnInit {
     }
   }
 
-  loadAllTrainAndTrainStation()
-  {
+  loadAllTrainAndTrainStation() {
     this.trainService.getAllTrainNoPaging().subscribe({
-      next : (res) => {
+      next: (res) => {
         this.trains = res;
-      }
+      },
     });
 
     this.trainStationService.getAllTrainStationNoPaging().subscribe({
-      next : (res) => {
+      next: (res) => {
         this.trainStations = res;
-      }
-    })
+      },
+    });
   }
 
   numberValidator(): ValidatorFn {
@@ -117,6 +114,4 @@ export class EditScheduleComponent implements OnInit {
       title,
       config);
   }
-
-  onC
 }

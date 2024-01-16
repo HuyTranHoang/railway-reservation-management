@@ -1,30 +1,30 @@
-import { TrainStations } from './../../../../@models/trainStation';
-import { Component, OnInit, Output, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { ScheduleService } from '../schedule.service';
-import { NbGlobalPhysicalPosition, NbToastrService } from '@nebular/theme';
-import { TrainStationService } from '../../../railway/train-station/train-station.service';
-import { Train } from '../../../../@models/train';
-import { TrainService } from '../../../train-and-carriage/train/train.service';
+import {TrainStation} from '../../../../@models/trainStation';
+import {Component, OnInit, Output, ViewChild} from '@angular/core';
+import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
+import {ScheduleService} from '../schedule.service';
+import {NbGlobalPhysicalPosition, NbToastrService} from '@nebular/theme';
+import {TrainStationService} from '../../../railway/train-station/train-station.service';
+import {Train} from '../../../../@models/train';
+import {TrainService} from '../../../train-and-carriage/train/train.service';
 
 @Component({
   selector: 'ngx-add-schedule',
   templateUrl: './add-schedule.component.html',
-  styleUrls: ['./add-schedule.component.scss']
+  styleUrls: ['./add-schedule.component.scss'],
 })
-export class AddScheduleComponent implements OnInit{
+export class AddScheduleComponent implements OnInit {
 
-    trains: Train[] = [];
-    trainStations: TrainStations[] = [];
-    scheduleForm: FormGroup = this.fb.group({});
-    isSubmitted: boolean = false;
-    errorMessages: string[] = [];
+  trains: Train[] = [];
+  trainStations: TrainStation[] = [];
+  scheduleForm: FormGroup = this.fb.group({});
+  isSubmitted: boolean = false;
+  errorMessages: string[] = [];
 
-    constructor(private scheduleService: ScheduleService,
-                private trainService : TrainService,
-                private trainStationService : TrainStationService,
-                private toastrService: NbToastrService,
-                private fb: FormBuilder) {
+  constructor(private scheduleService: ScheduleService,
+              private trainService: TrainService,
+              private trainStationService: TrainStationService,
+              private toastrService: NbToastrService,
+              private fb: FormBuilder) {
   }
 
   ngOnInit(): void {
@@ -32,17 +32,14 @@ export class AddScheduleComponent implements OnInit{
     this.initForm();
   }
 
-  initForm(){
+  initForm() {
     this.scheduleForm = this.fb.group({
-        name: ['',Validators.required],
-        trainId: ['',[Validators.required, this.numberValidator()]],
-        departureStationId: ['',[Validators.required, this.numberValidator()]],
-        arrivalStationId: ['',[Validators.required, this.numberValidator()]],
-        departureDate: ['',Validators.required],
-        arrivalDate: ['',Validators.required],
-        departureTime: ['',Validators.required],
-        duration: ['',[Validators.required, this.numberValidator()]],
-        status: [''],
+      name: ['', Validators.required],
+      trainId: ['', Validators.required],
+      departureStationId: ['', Validators.required],
+      arrivalStationId: ['', Validators.required],
+      departureTime: ['', Validators.required],
+      status: [''],
     });
   }
 
@@ -50,7 +47,7 @@ export class AddScheduleComponent implements OnInit{
     this.isSubmitted = true;
     this.errorMessages = [];
 
-    if(this.scheduleForm.valid) {
+    if (this.scheduleForm.valid) {
       this.scheduleService.addSchedule(this.scheduleForm.value).subscribe({
         next: (res) => {
           this.showToast('success', 'Success', 'Add schedule successfully!');
@@ -66,19 +63,18 @@ export class AddScheduleComponent implements OnInit{
     }
   }
 
-  loadAllTrainAndTrainStation()
-  {
+  loadAllTrainAndTrainStation() {
     this.trainService.getAllTrainNoPaging().subscribe({
-      next : (res) => {
+      next: (res) => {
         this.trains = res;
-      }
+      },
     });
 
     this.trainStationService.getAllTrainStationNoPaging().subscribe({
-      next : (res) => {
+      next: (res) => {
         this.trainStations = res;
-      }
-    })
+      },
+    });
   }
 
   numberValidator(): ValidatorFn {

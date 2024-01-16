@@ -1,4 +1,4 @@
-export interface TrainStations {
+export interface TrainStation {
   id: number;
   name: string;
   address: string;
