@@ -25,11 +25,11 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("all")]
-        public async Task<ActionResult<List<TrainStationDto>>> GetAllTrainStations([FromQuery] QueryParams queryParams)
+        public async Task<ActionResult<IEnumerable<TrainStationDto>>> GetAllTrainStations()
         {
-            var trainStationDto = await _trainStationService.GetAllDtoAsync(queryParams);
+            var trainStations = await _trainStationService.GetAllDtoNoPagingAsync();
 
-            return Ok(trainStationDto);
+            return Ok(trainStations);
         }
 
 

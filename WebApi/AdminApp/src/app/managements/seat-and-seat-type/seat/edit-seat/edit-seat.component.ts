@@ -1,12 +1,14 @@
-import {Component, OnInit} from '@angular/core';
-import {FormGroup, FormBuilder, Validators} from '@angular/forms';
-import {NbToastrService, NbGlobalPhysicalPosition} from '@nebular/theme';
-import {Compartment} from '../../../../@models/compartment';
-import {SeatType} from '../../../../@models/seatType';
-import {CompartmentService} from '../../../train-and-carriage/compartment/compartment.service';
-import {SeatTypeService} from '../../seat-type/seat-type.service';
-import {SeatService} from '../seat.service';
-import {ActivatedRoute, Router} from '@angular/router';
+
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { NbToastrService, NbGlobalPhysicalPosition } from '@nebular/theme';
+import { Compartment } from '../../../../@models/compartment';
+import { SeatType } from '../../../../@models/seatType';
+import { CompartmentService } from '../../../train-and-carriage/compartment/compartment.service';
+import { SeatTypeService } from '../../seat-type/seat-type.service';
+import { ActivatedRoute, Router} from '@angular/router';
+import { SeatService } from '../seat.service';
+
 
 @Component({
   selector: 'ngx-edit-seat',
