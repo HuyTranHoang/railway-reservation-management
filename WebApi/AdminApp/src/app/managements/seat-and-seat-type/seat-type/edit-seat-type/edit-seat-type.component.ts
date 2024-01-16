@@ -1,8 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {SeatTypeService} from '../seat-type.service';
 import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {SeatType} from '../../../../@models/seatType';
 import {NbGlobalPhysicalPosition, NbToastrService} from '@nebular/theme';
 
 
@@ -12,10 +11,9 @@ import {NbGlobalPhysicalPosition, NbToastrService} from '@nebular/theme';
   styleUrls: ['./edit-seat-type.component.scss'],
 })
 export class EditSeatTypeComponent implements OnInit {
-  seatType: SeatType | undefined;
-  @Input() initialValue: any; // Giá trị khởi tạo từ component cha
   updateForm: FormGroup = new FormGroup({});
-  seatTypeId: number | undefined;
+  isSubmitted = false;
+  errorMessages: string[] = [];
 
   constructor(private seatTypeService: SeatTypeService,
               private fb: FormBuilder,
@@ -59,22 +57,20 @@ export class EditSeatTypeComponent implements OnInit {
   }
 
   onSubmit() {
+    this.isSubmitted = true;
+
     if (this.updateForm.valid) {
       this.seatTypeService.updateSeatType(this.updateForm.value).subscribe({
         next: (res) => {
           this.showToast('success', 'Success', 'Update seat type successfully!');
+          this.isSubmitted = false;
+          this.errorMessages = [];
         },
         error: (err) => {
           this.showToast('danger', 'Failed', 'Fail to update seat type!');
         },
       });
     }
-  }
-
-  getDate() {
-    const currentDate = new Date();
-    const formattedDate: string = currentDate.toISOString();
-    return formattedDate;
   }
 
   private showToast(type: string, title: string, body: string) {

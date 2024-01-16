@@ -14,7 +14,6 @@ export class AddSeatTypeComponent implements OnInit {
 
   isSubmitted = false;
   errorMessages: string[] = [];
-
   constructor(private seatTypeService: SeatTypeService,
               private toastrService: NbToastrService,
               private fb: FormBuilder) {
