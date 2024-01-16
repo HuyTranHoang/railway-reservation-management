@@ -22,6 +22,9 @@ export class EditSeatComponent implements OnInit {
   isSubmitted: boolean = false;
   errorMessages: string[] = [];
 
+  isLoading = false;
+
+
   constructor(private seatService: SeatService,
               private seatTypeService: SeatTypeService,
               private compartmentService: CompartmentService,
@@ -47,9 +50,11 @@ export class EditSeatComponent implements OnInit {
 
     const id = this.activatedRoute.snapshot.params.id;
 
+    this.isLoading = true; // Bắt đầu load dữ liệu
     this.seatService.getSeatById(id).subscribe({
       next: (res) => {
         this.updateForm.patchValue(res);
+        this.isLoading = false; // Load xong dữ liệu
       },
       error: (err) => {
         this.showToast('danger', 'Failed', 'Seat does not exist!');

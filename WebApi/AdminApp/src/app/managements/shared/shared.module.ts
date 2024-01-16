@@ -13,7 +13,7 @@ import {
   NbOptionModule,
   NbRadioModule,
   NbSelectModule,
-  NbTimepickerModule,
+  NbTimepickerModule, NbSpinnerModule,
 } from '@nebular/theme';
 import {HttpClientModule} from '@angular/common/http';
 import {PaginationComponent} from './pagination/pagination.component';
@@ -34,6 +34,7 @@ import {PaginationComponent} from './pagination/pagination.component';
     NbRadioModule,
     NbSelectModule,
     NbOptionModule,
+    NbSpinnerModule,
     NbDatepickerModule.forRoot(),
     NbTimepickerModule.forRoot(),
   ],
@@ -52,6 +53,7 @@ import {PaginationComponent} from './pagination/pagination.component';
     NbRadioModule,
     NbSelectModule,
     NbOptionModule,
+    NbSpinnerModule,
     NbDatepickerModule,
     NbTimepickerModule,
   ],
