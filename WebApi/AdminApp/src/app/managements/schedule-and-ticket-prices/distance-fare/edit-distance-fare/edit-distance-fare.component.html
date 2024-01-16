@@ -1,45 +1,58 @@
 <div class="col-md-6">
 
-    <nb-card>
-      <nb-card-header>
-        <div class="d-flex justify-content-between">
-          Update Distance Fare
-          <button type="submit" nbButton
-                  routerLink="/managements/schedule-and-ticket-prices/distance-fare"
-                  status="primary">Back to list
-          </button>
+  <nb-card>
+    <nb-card-header>
+      <div class="d-flex justify-content-between">
+        Update Distance Fare
+        <button type="submit" nbButton
+                routerLink="/managements/schedule-and-ticket-prices/distance-fare"
+                status="primary">Back to list
+        </button>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+
+        <input type="hidden" formControlName="id">
+
+        <div class="form-group">
+          <label class="label">Train Company</label>
+          <nb-select formControlName="trainCompanyId"
+                     [class.status-danger]="updateForm.get('trainCompanyId')?.invalid && (updateForm.get('trainCompanyId')?.touched || isSubmitted)"
+                     placeholder="Select train company.."
+                     fullWidth>
+            <nb-option *ngFor="let item of trainCompanies" [value]="item.id">{{item.name}}</nb-option>
+          </nb-select>
+
+          <span class="text-danger"
+                *ngIf="updateForm.get('trainCompanyId')?.hasError('required')
+                && (updateForm.get('trainCompanyId')?.touched || isSubmitted)">
+            Train company is required
+          </span>
         </div>
-      </nb-card-header>
-      <nb-card-body>
-        <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
-          <nb-select placeholder="Choose an Train Company..." fullWidth formControlName="trainCompanyId">
-            <nb-option *ngFor="let item of trainCompanies" value="{{item.id}}">{{item.name}}</nb-option>
-          </nb-select>             
-  
-          <app-input-field [control]="updateForm.get('price')"
-          [label]="'Price'"
-          [isSubmitted]="isSubmitted"
-          [placeholder]="'Price..'">
-          </app-input-field>
-          <app-input-field [control]="updateForm.get('distance')"
-          [label]="'Distance'"
-          [isSubmitted]="isSubmitted"
-          [placeholder]="'Distance.'">
-           </app-input-field>
-           <app-input-field [control]="updateForm.get('status')"
-           [label]="'Status'"
-           [isSubmitted]="isSubmitted"
-           [placeholder]="'Status.'">
-           </app-input-field>
-  
-          <ul *ngIf="errorMessages.length > 0">
-            <li class="text-danger" *ngFor="let item of errorMessages">{{item}}</li>
-          </ul>
-  
-  
-          <button type="submit" nbButton status="success" class="float-right">Submit</button>
-        </form>
-      </nb-card-body>
-    </nb-card>
-  </div>
-  
+
+        <app-input-field [control]="updateForm.get('price')"
+                         [label]="'Price'"
+                         [isSubmitted]="isSubmitted"
+                         [placeholder]="'Price..'">
+        </app-input-field>
+        <app-input-field [control]="updateForm.get('distance')"
+                         [label]="'Distance'"
+                         [isSubmitted]="isSubmitted"
+                         [placeholder]="'Distance.'">
+        </app-input-field>
+        <app-input-field [control]="updateForm.get('status')"
+                         [label]="'Status'"
+                         [isSubmitted]="isSubmitted"
+                         [placeholder]="'Status.'">
+        </app-input-field>
+
+        <ul *ngIf="errorMessages.length > 0">
+          <li class="text-danger" *ngFor="let item of errorMessages">{{ item }}</li>
+        </ul>
+
+        <button type="submit" nbButton status="success" class="float-right">Submit</button>
+      </form>
+    </nb-card-body>
+  </nb-card>
+</div>

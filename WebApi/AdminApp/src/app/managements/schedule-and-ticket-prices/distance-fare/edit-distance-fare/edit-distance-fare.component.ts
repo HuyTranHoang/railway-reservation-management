@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TrainCompany} from '../../../../@models/trainCompany';
 import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
 import {DistanceFareService} from '../distance-fare.service';
@@ -9,9 +9,9 @@ import {ActivatedRoute, Router} from '@angular/router';
 @Component({
   selector: 'ngx-edit-distance-fare',
   templateUrl: './edit-distance-fare.component.html',
-  styleUrls: ['./edit-distance-fare.component.scss']
+  styleUrls: ['./edit-distance-fare.component.scss'],
 })
-export class EditDistanceFareComponent {
+export class EditDistanceFareComponent implements OnInit {
   trainCompanies: TrainCompany[] = [];
   updateForm: FormGroup = this.fb.group({});
 
@@ -28,17 +28,17 @@ export class EditDistanceFareComponent {
 
 
   ngOnInit(): void {
-    this.initForm();
     this.loadAllTrainCompany();
+    this.initForm();
   }
 
   initForm() {
     this.updateForm = this.fb.group({
       id: ['', Validators.required],
-      status: ['', Validators.required],
-      trainCompanyId: [0,[ Validators.required,this.numberValidator()]],
+      trainCompanyId: ['', Validators.required],
       distance: [0, [Validators.required, this.numberValidator()]],
       price: [0, [Validators.required, this.numberValidator()]],
+      status: [''],
     });
 
     const id = this.activatedRoute.snapshot.params.id;
@@ -48,7 +48,7 @@ export class EditDistanceFareComponent {
         next: (res) => {
           this.updateForm.patchValue(res);
         },
-        error: (err) => {
+        error: _ => {
           this.showToast('danger', 'Failed', 'distance fare doest not exist!');
           this.router.navigateByUrl('/managements/schedule-and-ticket-prices/distance-fare');
         },
@@ -58,7 +58,7 @@ export class EditDistanceFareComponent {
   numberValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       if (control.value == null || control.value === '') return null;
-      return !isNaN(parseFloat(control.value)) && isFinite(control.value) ? null : { 'notANumber': true };
+      return !isNaN(parseFloat(control.value)) && isFinite(control.value) ? null : {'notANumber': true};
     };
   }
 
@@ -94,7 +94,7 @@ export class EditDistanceFareComponent {
 
   loadAllTrainCompany() {
     this.trainCompanyService.getAllTrainCompanyNoPaging().subscribe({
-      next: (res: TrainCompany[]) => {
+      next: (res) => {
         this.trainCompanies = res;
       },
     });
