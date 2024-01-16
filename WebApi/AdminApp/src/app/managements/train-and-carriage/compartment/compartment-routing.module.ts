@@ -1,9 +1,9 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { CompartmentComponent } from './compartment.component';
-import { ListCompartmentComponent } from './list-compartment/list-compartment.component';
-import { AddCompartmentComponent } from './add-compartment/add-compartment.component';
-import { EditCompartmentComponent } from './edit-compartment/edit-compartment.component';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {CompartmentComponent} from './compartment.component';
+import {ListCompartmentComponent} from './list-compartment/list-compartment.component';
+import {AddCompartmentComponent} from './add-compartment/add-compartment.component';
+import {EditCompartmentComponent} from './edit-compartment/edit-compartment.component';
 
 const routes: Routes = [{
   path: '',

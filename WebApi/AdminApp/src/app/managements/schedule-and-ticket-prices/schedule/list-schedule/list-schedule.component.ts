@@ -4,7 +4,6 @@ import {ScheduleService} from '../schedule.service';
 import {NbDialogService} from '@nebular/theme';
 import {PaginatedResult} from '../../../../@models/paginatedResult';
 import {Pagination} from '../../../../@models/pagination';
-import {QueryParams} from '../../../../@models/params/queryParams';
 import {ConfirmDeleteScheduleComponent} from '../confirm-delete-schedule/confirm-delete-schedule.component';
 import {ShowScheduleComponent} from '../show-schedule/show-schedule.component';
 import {ScheduleQueryParams} from '../../../../@models/params/scheduleQueryParams';

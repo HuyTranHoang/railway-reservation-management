@@ -3,7 +3,7 @@ import {TrainStation} from '../../../@models/trainStation';
 import {Pagination} from '../../../@models/pagination';
 import {QueryParams} from '../../../@models/params/queryParams';
 import {TrainStationService} from './train-station.service';
-import {NbDialogService, NbToastrService} from '@nebular/theme';
+import {NbDialogService} from '@nebular/theme';
 import {PaginatedResult} from '../../../@models/paginatedResult';
 import {ShowTrainStationComponent} from './show-train-station/show-train-station.component';
 import {DeleteTrainStationComponent} from './delete-train-station/delete-train-station.component';

@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { SeatService } from '../seat.service';
-import { NbDialogService } from '@nebular/theme';
-import { PaginatedResult } from '../../../../@models/paginatedResult';
-import { Pagination } from '../../../../@models/pagination';
-import { QueryParams } from '../../../../@models/params/queryParams';
-import { Seat } from '../../../../@models/seat';
-import { ConfirmDeleteSeatComponent } from '../confirm-delete-seat/confirm-delete-seat.component';
-import { ShowSeatComponent } from '../show-seat/show-seat.component';
+import {Component, OnInit} from '@angular/core';
+import {SeatService} from '../seat.service';
+import {NbDialogService} from '@nebular/theme';
+import {PaginatedResult} from '../../../../@models/paginatedResult';
+import {Pagination} from '../../../../@models/pagination';
+import {QueryParams} from '../../../../@models/params/queryParams';
+import {Seat} from '../../../../@models/seat';
+import {ConfirmDeleteSeatComponent} from '../confirm-delete-seat/confirm-delete-seat.component';
+import {ShowSeatComponent} from '../show-seat/show-seat.component';
 
 @Component({
   selector: 'ngx-list-seat',

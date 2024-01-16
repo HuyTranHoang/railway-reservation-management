@@ -1,9 +1,9 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { environment } from '../../../../environments/environment';
-import { QueryParams } from '../../../@models/params/queryParams';
-import { Seat } from '../../../@models/seat';
-import { PaginationService } from '../../shared/pagination.service';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {environment} from '../../../../environments/environment';
+import {QueryParams} from '../../../@models/params/queryParams';
+import {Seat} from '../../../@models/seat';
+import {PaginationService} from '../../shared/pagination.service';
 
 @Injectable({
   providedIn: 'root'

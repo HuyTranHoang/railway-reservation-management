@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {NbDialogRef, NbToastrService, NbGlobalPhysicalPosition} from '@nebular/theme';
-import { CompartmentService } from '../compartment.service';
+import {NbDialogRef, NbGlobalPhysicalPosition, NbToastrService} from '@nebular/theme';
+import {CompartmentService} from '../compartment.service';
 
 @Component({
   selector: 'ngx-confirm-delete-compartment',

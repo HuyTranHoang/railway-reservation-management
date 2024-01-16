@@ -6,14 +6,14 @@ import {
   NbButtonModule,
   NbCardModule,
   NbCheckboxModule,
-  NbDateTimePickerComponent,
   NbDatepickerModule,
   NbIconModule,
   NbInputModule,
   NbOptionModule,
   NbRadioModule,
   NbSelectModule,
-  NbTimepickerModule, NbSpinnerModule,
+  NbSpinnerModule,
+  NbTimepickerModule,
 } from '@nebular/theme';
 import {HttpClientModule} from '@angular/common/http';
 import {PaginationComponent} from './pagination/pagination.component';

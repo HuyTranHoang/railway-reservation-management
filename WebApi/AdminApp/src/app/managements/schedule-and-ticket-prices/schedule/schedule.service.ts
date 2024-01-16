@@ -1,7 +1,6 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {environment} from '../../../../environments/environment';
-import {QueryParams} from '../../../@models/params/queryParams';
 import {Schedule} from '../../../@models/schedule';
 import {PaginationService} from '../../shared/pagination.service';
 import {ScheduleQueryParams} from '../../../@models/params/scheduleQueryParams';

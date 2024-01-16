@@ -1,12 +1,10 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {RailwayComponent} from '../railway/railway.component';
-import {CompartmentComponent} from './compartment/compartment.component';
-import { AddTrainComponent } from './train/add-train/add-train.component';
-import { TrainComponent } from './train/train.component';
-import { ListTrainComponent } from './train/list-train/list-train.component';
-import { EditTrainComponent } from './train/edit-train/edit-train.component';
-import { TrainAndCarriageComponent } from './train-and-carriage.component';
+import {AddTrainComponent} from './train/add-train/add-train.component';
+import {TrainComponent} from './train/train.component';
+import {ListTrainComponent} from './train/list-train/list-train.component';
+import {EditTrainComponent} from './train/edit-train/edit-train.component';
+import {TrainAndCarriageComponent} from './train-and-carriage.component';
 
 
 const routes: Routes = [{

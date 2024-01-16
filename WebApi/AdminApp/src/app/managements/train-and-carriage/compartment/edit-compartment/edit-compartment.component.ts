@@ -1,9 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import { Carriage } from '../../../../@models/carriage';
+import {Carriage} from '../../../../@models/carriage';
 import {Observable, of} from 'rxjs';
-import {FormBuilder, FormGroup, Validators, ValidationErrors, ValidatorFn, AbstractControl} from '@angular/forms';
-import { CompartmentService } from '../compartment.service';
-import { CarriageService } from '../../carriage/carriage.service';
+import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
+import {CompartmentService} from '../compartment.service';
+import {CarriageService} from '../../carriage/carriage.service';
 import {NbGlobalPhysicalPosition, NbToastrService} from '@nebular/theme';
 import {ActivatedRoute, Router} from '@angular/router';
 import {map} from 'rxjs/operators';
@@ -82,7 +82,7 @@ export class EditCompartmentComponent implements OnInit{
       this.errorMessages.push('Please select a valid compartment.');
       return;
     }
-    
+
     if (this.updateForm.valid) {
       this.compartmentService.updateCompartment(this.updateForm.value).subscribe({
         next: (res) => {

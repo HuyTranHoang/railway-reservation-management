@@ -2,11 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {Pagination} from '../../../../@models/pagination';
 import {NbDialogService} from '@nebular/theme';
 import {PaginatedResult} from '../../../../@models/paginatedResult';
-import { ConfirmDeleteCompartmentComponent } from '../confirm-delete-compartment/confirm-delete-compartment.component';
-import { Compartment } from '../../../../@models/compartment';
-import { CompartmentService } from '../compartment.service';
-import { CompartmentQueryParams } from '../../../../@models/params/compartmentQueryParams';
-import { ShowCompartmentComponent } from '../show-compartment/show-compartment.component';
+import {ConfirmDeleteCompartmentComponent} from '../confirm-delete-compartment/confirm-delete-compartment.component';
+import {Compartment} from '../../../../@models/compartment';
+import {CompartmentService} from '../compartment.service';
+import {CompartmentQueryParams} from '../../../../@models/params/compartmentQueryParams';
+import {ShowCompartmentComponent} from '../show-compartment/show-compartment.component';
 import {SharedService} from '../../../shared/shared.service';
 
 @Component({

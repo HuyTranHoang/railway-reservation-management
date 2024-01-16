@@ -1,7 +1,9 @@
-import { SeatService } from '../seat.service';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { NbDialogRef, NbToastrService, NbGlobalPhysicalPosition } from '@nebular/theme';
-import { ConfirmDeleteTrainComponent } from '../../../train-and-carriage/train/confirm-delete-train/confirm-delete-train.component';
+import {SeatService} from '../seat.service';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {NbDialogRef, NbGlobalPhysicalPosition, NbToastrService} from '@nebular/theme';
+import {
+  ConfirmDeleteTrainComponent,
+} from '../../../train-and-carriage/train/confirm-delete-train/confirm-delete-train.component';
 
 @Component({
   selector: 'ngx-confirm-delete-seat',

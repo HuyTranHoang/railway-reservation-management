@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl, ValidationErrors} from '@angular/forms';
-import {NbToastrService, NbGlobalPhysicalPosition} from '@nebular/theme';
+import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
+import {NbGlobalPhysicalPosition, NbToastrService} from '@nebular/theme';
 import {Train} from '../../../../@models/train';
 import {TrainStation} from '../../../../@models/trainStation';
 import {TrainStationService} from '../../../railway/train-station/train-station.service';

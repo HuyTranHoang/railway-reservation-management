@@ -5,9 +5,9 @@ import {SeatComponent} from './seat/seat.component';
 import {SeatTypeComponent} from './seat-type/seat-type.component';
 import {AddSeatTypeComponent} from './seat-type/add-seat-type/add-seat-type.component';
 import {EditSeatTypeComponent} from './seat-type/edit-seat-type/edit-seat-type.component';
-import { ListSeatComponent } from './seat/list-seat/list-seat.component';
-import { AddSeatComponent } from './seat/add-seat/add-seat.component';
-import { EditSeatComponent } from './seat/edit-seat/edit-seat.component';
+import {ListSeatComponent} from './seat/list-seat/list-seat.component';
+import {AddSeatComponent} from './seat/add-seat/add-seat.component';
+import {EditSeatComponent} from './seat/edit-seat/edit-seat.component';
 
 
 const routes: Routes = [{

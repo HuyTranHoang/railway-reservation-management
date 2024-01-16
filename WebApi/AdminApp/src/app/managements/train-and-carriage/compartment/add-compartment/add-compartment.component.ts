@@ -1,11 +1,11 @@
-import { CompartmentService } from '../compartment.service';
-import { Component, OnInit, ViewChild} from '@angular/core';
-import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
-import { NbGlobalPhysicalPosition, NbToastrService } from '@nebular/theme';
-import { CarriageService } from '../../carriage/carriage.service';
-import { Carriage } from '../../../../@models/carriage';
-import { map } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
+import {CompartmentService} from '../compartment.service';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
+import {NbGlobalPhysicalPosition, NbToastrService} from '@nebular/theme';
+import {CarriageService} from '../../carriage/carriage.service';
+import {Carriage} from '../../../../@models/carriage';
+import {map} from 'rxjs/operators';
+import {Observable, of} from 'rxjs';
 
 @Component({
   selector: 'ngx-add-compartment',

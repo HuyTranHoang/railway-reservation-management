@@ -1,5 +1,5 @@
 import {TrainStation} from '../../../../@models/trainStation';
-import {Component, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
 import {ScheduleService} from '../schedule.service';
 import {NbGlobalPhysicalPosition, NbToastrService} from '@nebular/theme';

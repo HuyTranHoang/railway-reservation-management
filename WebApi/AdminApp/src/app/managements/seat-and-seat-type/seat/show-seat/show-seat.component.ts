@@ -1,7 +1,6 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Router } from '@angular/router';
-import { NbDialogRef } from '@nebular/theme';
-import { ShowTrainComponent } from '../../../train-and-carriage/train/show-train/show-train.component';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Router} from '@angular/router';
+import {NbDialogRef} from '@nebular/theme';
 
 @Component({
   selector: 'ngx-show-seat',
