@@ -113,4 +113,41 @@ export class LoginComponent implements OnInit {
       }
     })
   }
+
+  loginOrRegisterWithFacebook() {
+    FB.login(async (fbResult: any) => {
+      if (fbResult.authResponse) {
+        const accessToken = fbResult.authResponse.accessToken;
+        const userId = fbResult.authResponse.userID;
+        const model = new LoginWithExternal(accessToken, userId, 'facebook');
+
+        this.authService.loginWithThirdParty(model).subscribe({
+          next: (response: any) => {
+            console.log(">>>>>", response)
+
+            if (response.isUserRegistered) {
+              // Người dùng đã đăng ký, chuyển hướng đến trang chủ hoặc trang đích
+              this.router.navigateByUrl('/');
+            } else {
+              // Người dùng chưa đăng ký, chuyển hướng đến trang đăng ký với thông tin Facebook
+              this.router.navigateByUrl(`/auth/register/third-party/facebook?accessToken=${accessToken}&userId=${userId}`);
+            }
+          },
+          error: err => {
+            console.log(err.errors);
+            this.errorMessages = err.errors;
+          }
+        });
+      } else {
+        await Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Facebook login failed',
+          text: 'Please try again',
+          showConfirmButton: true
+        });
+      }
+    });
+  }
+
 }

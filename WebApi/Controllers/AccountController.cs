@@ -174,9 +174,14 @@ public class AccountController : BaseApiController
 
         var user = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == model.UserId && x.Provider == model.Provider);
         if (user == null)
-            return Unauthorized(new ErrorResponse(401, "Unable to find your account, please register frist!"));
+        {
+            // Người dùng chưa đăng ký, trả về thông báo và yêu cầu chuyển hướng đến trang đăng ký
+            return Ok(new { IsUserRegistered = false });
+        }
 
-        return CreateApplicationUserDto(user);
+        // Người dùng đã đăng ký, tiến hành đăng nhập và trả về thông tin người dùng
+        var userDto = CreateApplicationUserDto(user);
+        return Ok(new { IsUserRegistered = true, User = userDto });
     }
 
     [HttpPut("confirm-email")]

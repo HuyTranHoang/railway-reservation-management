@@ -70,11 +70,13 @@ export class AuthService {
   }
 
   loginWithThirdParty(model: LoginWithExternal) {
-    return this.http.post<User>(this.baseUrl + 'account/login-with-third-party', model).pipe(
-      map((user: User) => {
-        if (user) {
-          this.setUser(user)
+    return this.http.post<{isUserRegistered: boolean, user: User}>(this.baseUrl + 'account/login-with-third-party', model).pipe(
+      map((res: {isUserRegistered: boolean, user: User}) => {
+        if (res.isUserRegistered) {
+          this.setUser(res.user)
+          return res.isUserRegistered
         }
+        return res.isUserRegistered
       })
     )
   }
