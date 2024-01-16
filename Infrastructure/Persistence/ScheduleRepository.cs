@@ -54,4 +54,13 @@ public class ScheduleRepository : IScheduleRepository
     {
         _context.Entry(schedule).State = EntityState.Modified;
     }
+
+    public async Task<Schedule> GetScheduleByStationsAsync(int trainId, int departureStationId, int arrivalStationId)
+    {
+        return await _context.Schedules
+            .FirstOrDefaultAsync(schedule =>
+                schedule.TrainId == trainId &&
+                schedule.DepartureStationId == departureStationId &&
+                schedule.ArrivalStationId == arrivalStationId);
+    }
 };

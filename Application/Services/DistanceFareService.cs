@@ -69,9 +69,9 @@ public class DistanceFareService : IDistanceFareService
         return await _repository.GetByIdAsync(id);
     }
 
-    public async Task<DistanceFareDto> GetDtoByDistanceAsync(int distance)
+    public async Task<DistanceFareDto> GetDtoByDistanceAsync(int distance, int trainCompanyId)
     {
-        var distanceFareDto = await _repository.GetByDistanceAsync(distance);
+        var distanceFareDto = await _repository.GetByDistanceAsync(distance, trainCompanyId);
         return _mapper.Map<DistanceFareDto>(distanceFareDto);
     }
 

@@ -42,7 +42,8 @@ public class SchedulesController : BaseApiController
         if (!ModelState.IsValid) return BadRequest(ModelState);
         try
         {
-            await _scheduleService.AddAsync(schedule);
+            // await _scheduleService.AddAsync(schedule);
+            await _scheduleService.CreateSchedulesForTrainPassingAsync(schedule);
         }
         catch (BadRequestException ex)
         {

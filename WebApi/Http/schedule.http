@@ -8,14 +8,13 @@ POST {{url}}/{{router}}
 Content-Type: application/json
 
 {
-  "name": "Schedule-61",
-  "trainId": 5,
-  "departureStationId": 10,
-  "arrivalStationId": 11,
-  "departureDate": "2024-01-07T09:18:28", 
-  "arrivalDate": "2024-01-07T13:18:28",   
-  "departureTime": "2024-01-07T09:18:28",
-  "duration": 240,
+  "name": "A",
+  "trainId": 1,
+  "departureStationId": 5,
+  "arrivalStationId": 1,
+  "departureDate": "2024-01-18T11:18:28", 
+  "arrivalDate": "2024-01-19T12:18:28",   
+  "departureTime": "2024-01-18T11:18:28",
   "status": "Scheduled"
 }
 
@@ -24,7 +23,7 @@ Content-Type: application/json
 
 # @name getListOfSchedule
 GET {{url}}/{{router}}?
-  &pageNumber=2
+  &pageNumber=1
   &pageSize=5
   #&searchTerm=Schedule-1
   #&sort=numberOfSeatsAsc

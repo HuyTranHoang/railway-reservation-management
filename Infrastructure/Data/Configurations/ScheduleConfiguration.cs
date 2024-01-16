@@ -26,7 +26,7 @@ public class ScheduleConfiguration : IEntityTypeConfiguration<Schedule>
             .OnDelete(DeleteBehavior.Restrict);
 
         builder
-            .HasIndex(s => new { s.TrainId, s.DepartureDate, s.DepartureTime })
+            .HasIndex(s => new { s.TrainId, s.DepartureTime, s.ArrivalStationId, s.ArrivalTime })
             .IsUnique();
     }
 }

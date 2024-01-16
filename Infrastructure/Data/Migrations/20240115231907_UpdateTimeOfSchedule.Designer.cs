@@ -4,6 +4,7 @@ using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240115231907_UpdateTimeOfSchedule")]
+    partial class UpdateTimeOfSchedule
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -831,6 +833,9 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasIndex("TrainCompanyId");
 
+                    b.HasIndex(new[] { "Name" }, "IX_Trains_Name")
+                        .IsUnique();
+
                     b.ToTable("Trains");
                 });
 
@@ -1074,7 +1079,7 @@ namespace Infrastructure.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("Domain.Entities.Train", "Train")
-                        .WithMany("Carriages")
+                        .WithMany()
                         .HasForeignKey("TrainId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -1324,11 +1329,6 @@ namespace Infrastructure.Data.Migrations
             modelBuilder.Entity("Domain.Entities.Ticket", b =>
                 {
                     b.Navigation("Cancellation");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Train", b =>
-                {
-                    b.Navigation("Carriages");
                 });
 #pragma warning restore 612, 618
         }

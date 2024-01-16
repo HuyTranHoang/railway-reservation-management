@@ -4,6 +4,7 @@ using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240115183602_UpdateIndexScheduleArrivalDate")]
+    partial class UpdateIndexScheduleArrivalDate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -583,15 +585,18 @@ namespace Infrastructure.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<DateTime>("ArrivalDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("ArrivalStationId")
                         .HasColumnType("int");
-
-                    b.Property<DateTime>("ArrivalTime")
-                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2")
                         .HasColumnOrder(998);
+
+                    b.Property<DateTime>("DepartureDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("DepartureStationId")
                         .HasColumnType("int");
@@ -631,7 +636,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasIndex("DepartureStationId");
 
-                    b.HasIndex("TrainId", "DepartureTime", "ArrivalStationId", "ArrivalTime")
+                    b.HasIndex("TrainId", "DepartureDate", "DepartureTime", "ArrivalStationId", "ArrivalDate")
                         .IsUnique();
 
                     b.ToTable("Schedules");
@@ -830,6 +835,9 @@ namespace Infrastructure.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("TrainCompanyId");
+
+                    b.HasIndex(new[] { "Name" }, "IX_Trains_Name")
+                        .IsUnique();
 
                     b.ToTable("Trains");
                 });
@@ -1074,7 +1082,7 @@ namespace Infrastructure.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("Domain.Entities.Train", "Train")
-                        .WithMany("Carriages")
+                        .WithMany()
                         .HasForeignKey("TrainId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -1324,11 +1332,6 @@ namespace Infrastructure.Data.Migrations
             modelBuilder.Entity("Domain.Entities.Ticket", b =>
                 {
                     b.Navigation("Cancellation");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Train", b =>
-                {
-                    b.Navigation("Carriages");
                 });
 #pragma warning restore 612, 618
         }
