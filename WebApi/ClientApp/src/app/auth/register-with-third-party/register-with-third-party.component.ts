@@ -50,6 +50,7 @@ export class RegisterWithThirdPartyComponent implements OnInit {
     this.registerForm = this.fb.group({
       firstName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
       lastName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
+      email: ['', [Validators.required, Validators.pattern('^\\w+@[a-zA-Z_]+?\\.[a-zA-Z]{2,3}$')]],
     })
   }
 
@@ -63,8 +64,9 @@ export class RegisterWithThirdPartyComponent implements OnInit {
 
     const firstName = this.registerForm.value.firstName
     const lastName = this.registerForm.value.lastName
+    const email = this.registerForm.value.email
 
-    const model = new RegisterWithExternal(firstName, lastName, this.userId!, this.access_token!, this.provider!)
+    const model = new RegisterWithExternal(firstName, lastName, email, this.userId!, this.access_token!, this.provider!)
     this.authService.registerWithThirdParty(model).subscribe({
       next: res => {
         console.log(res)

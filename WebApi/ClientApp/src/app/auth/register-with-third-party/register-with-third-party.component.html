@@ -49,6 +49,27 @@
           </span>
         </div>
 
+        <div class="mt-2">
+          <div class="form-group mb-2 position-relative">
+            <label for="email"><i class="fa-solid fa-envelope"></i></label>
+            <input id="email" name="email" placeholder="Your Email"
+                   formControlName="email"
+                   [class.is-invalid]="submitted && registerForm.get('email')?.errors"
+                   type="text">
+            <span class="text-danger invalid-icon">
+                <i class="fa-light fa-hexagon-exclamation"></i>
+            </span>
+          </div>
+          <span class="text-danger" style="font-size: 15px;"
+                *ngIf="submitted && registerForm.get('email')?.hasError('required')">
+                Email is required
+          </span>
+          <span class="text-danger" style="font-size: 15px;"
+                *ngIf="submitted && registerForm.get('email')?.hasError('pattern')">
+                Invalid email address
+          </span>
+        </div>
+
         <div>
           <ul class="text-danger" *ngIf="errorMessages">
             <li *ngFor="let error of errorMessages">{{error}}</li>
@@ -59,7 +80,7 @@
           <input class="form-submit" id="signup" name="signup" type="submit" value="Register">
         </div>
       </form>
-      
+
     </div>
 
     <div class="col">

@@ -1,0 +1,14 @@
+@url = https://graph.facebook.com
+
+
+###
+
+# @name verify-facebook-token
+@input_token=EAAd9NmiO3IsBO3bTXLZCM5M11A13zZCCl9gjpruIsrTg0quAeJLD4MbCKIx3b7EZBjMwzs7zTLmXL25qK20gqPvhe7ZAo54CyMBncffpGDV7PJYm5xAy5c7OmAdHfMVXxEyuGjKlwU6m1RqsdI4v7sQKje52A4PlNMFZAceQcaLKTonOgs5HXgZBU7UVYDgUM9Ex7x7jiraTICsvPhu5kkPr2YDov3IQbeIMAO
+@access_token=2107997472873611|b988ab299f5052fe061d68626f740c96
+
+GET {{url}}/debug_token?input_token={{input_token}}&access_token={{access_token}}
+
+
+
+###
