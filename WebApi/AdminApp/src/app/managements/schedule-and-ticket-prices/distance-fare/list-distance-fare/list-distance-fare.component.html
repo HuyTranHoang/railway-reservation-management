@@ -58,7 +58,7 @@
             </span>
         </th>
 
-        <th scope="col" style="width: 15%">Actions</th>
+        <th scope="col" class="text-right" style="width: 15%">Actions</th>
       </tr>
       </thead>
       <tbody>
@@ -68,7 +68,7 @@
         <td>{{ item.distance }}</td>
         <td>{{ item.price | currency }}</td>
         <td>{{ item.createdAt | date: 'medium' }}</td>
-        <td>
+        <td class="text-right">
           <button nbButton status="info" class="mr-3" (click)="openShowDialog(item.id)">
             <nb-icon icon="eye-outline" pack="eva"></nb-icon>
           </button>

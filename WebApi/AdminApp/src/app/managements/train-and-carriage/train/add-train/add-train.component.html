@@ -21,7 +21,10 @@
 
         <div class="form-group">
           <label class="label">Train Company</label>
-          <nb-select formControlName="trainCompanyId" placeholder="Select train company.." fullWidth>
+          <nb-select formControlName="trainCompanyId"
+                     [class.status-danger]="trainForm.get('trainCompanyId')?.invalid && (trainForm.get('trainCompanyId')?.touched || isSubmitted)"
+                     placeholder="Select train company.."
+                     fullWidth>
             <nb-option *ngFor="let item of trainCompanies" [value]="item.id">{{item.name}}</nb-option>
           </nb-select>
 

@@ -1,19 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { NbToastrService, NbGlobalPhysicalPosition } from '@nebular/theme';
-import { Compartment } from '../../../../@models/compartment';
-import { SeatType } from '../../../../@models/seatType';
-import { CompartmentService } from '../../../train-and-carriage/compartment/compartment.service';
-import { SeatTypeService } from '../../seat-type/seat-type.service';
-import { SeatService } from '../seat.service';
+import {Component, OnInit} from '@angular/core';
+import {FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {NbToastrService, NbGlobalPhysicalPosition} from '@nebular/theme';
+import {Compartment} from '../../../../@models/compartment';
+import {SeatType} from '../../../../@models/seatType';
+import {CompartmentService} from '../../../train-and-carriage/compartment/compartment.service';
+import {SeatTypeService} from '../../seat-type/seat-type.service';
+import {SeatService} from '../seat.service';
 import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'ngx-edit-seat',
   templateUrl: './edit-seat.component.html',
-  styleUrls: ['./edit-seat.component.scss']
+  styleUrls: ['./edit-seat.component.scss'],
 })
-export class EditSeatComponent implements OnInit{
+export class EditSeatComponent implements OnInit {
 
   seatTypes: SeatType[] = [];
   compartments: Compartment[];
@@ -24,7 +24,7 @@ export class EditSeatComponent implements OnInit{
 
   constructor(private seatService: SeatService,
               private seatTypeService: SeatTypeService,
-              private compartmentService : CompartmentService,
+              private compartmentService: CompartmentService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
               private toastrService: NbToastrService,
@@ -40,7 +40,7 @@ export class EditSeatComponent implements OnInit{
     this.updateForm = this.fb.group({
       name: ['', Validators.required],
       seatTypeId: ['', Validators.required],
-      compartmentId: ['',Validators.required],
+      compartmentId: ['', Validators.required],
       status: [''],
     });
 
@@ -91,6 +91,7 @@ export class EditSeatComponent implements OnInit{
     });
 
   }
+
   private showToast(type: string, title: string, body: string) {
     const config = {
       status: type,

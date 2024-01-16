@@ -8,7 +8,6 @@ import {ScheduleAndTicketPricesRoutingModule} from './schedule-and-ticket-prices
 import {SharedModule} from '../shared/shared.module';
 import {RoundTripModule} from './round-trip/round-trip.module';
 import {DistanceFareModule} from './distance-fare/distance-fare.module';
-import { ScheduleModule } from './schedule/schedule.module';
 
 @NgModule({
   declarations: [
@@ -24,7 +23,6 @@ import { ScheduleModule } from './schedule/schedule.module';
     // Child Module
     RoundTripModule,
     DistanceFareModule,
-    ScheduleModule,
 
     // Routing
     ScheduleAndTicketPricesRoutingModule,
