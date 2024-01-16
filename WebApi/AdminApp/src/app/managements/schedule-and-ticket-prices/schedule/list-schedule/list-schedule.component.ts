@@ -52,7 +52,7 @@ export class ListScheduleComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadAllTrainStations();
+    this.loadAllDepartureStation();
     this.loadAllSchedule();
   }
 
@@ -67,7 +67,7 @@ export class ListScheduleComponent implements OnInit {
     });
   }
 
-  loadAllTrainStations() {
+  loadAllDepartureStation() {
     this.trainStationService.getAllTrainStationNoPaging().subscribe({
       next: (res: TrainStation[]) => {
         this.departureStationFilter = [{id: 0, name: 'All departure station'} , ...res];

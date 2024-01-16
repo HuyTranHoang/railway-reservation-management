@@ -1,25 +1,24 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Router } from '@angular/router';
-import { NbDialogRef } from '@nebular/theme';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Router} from '@angular/router';
+import {NbDialogRef} from '@nebular/theme';
 
 @Component({
   selector: 'ngx-show-schedule',
   templateUrl: './show-schedule.component.html',
-  styleUrls: ['./show-schedule.component.scss']
+  styleUrls: ['./show-schedule.component.scss'],
 })
 
 export class ShowScheduleComponent {
 
   @Input() id: number;
   @Input() name: string;
-  @Input() trainName: string
-  @Input() departureStationName: string
-  @Input() arrivalStationName: string
-  @Input() departureDate: string
-  @Input() arrivalDate: string
-  @Input() departureTime: string
-  @Input() duration: number
-  @Input() status: string
+  @Input() trainName: string;
+  @Input() departureStationName: string;
+  @Input() arrivalStationName: string;
+  @Input() arrivalTime: string;
+  @Input() departureTime: string;
+  @Input() duration: number;
+  @Input() status: string;
 
   @Output() onShowDelete = new EventEmitter<{ id: number, name: string }>();
 

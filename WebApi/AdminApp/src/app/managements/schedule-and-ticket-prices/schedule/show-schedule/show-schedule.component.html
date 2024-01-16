@@ -1,5 +1,5 @@
 <nb-card>
-  <nb-card-header>Distance fare details</nb-card-header>
+  <nb-card-header>Schedule details</nb-card-header>
   <nb-card-body>
     <section style="min-width: 600px">
       <div class="form-group row">
@@ -31,23 +31,16 @@
       </div>
 
       <div class="form-group row">
-        <label class="label col-sm-3 col-form-label">Departure Date</label>
-        <div class="col-sm-9">
-          <input type="text" nbInput fullWidth  [value]="departureDate | date: 'medium'" disabled>
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <label class="label col-sm-3 col-form-label">Arrival Date</label>
-        <div class="col-sm-9">
-          <input type="text" nbInput fullWidth  [value]="arrivalDate | date: 'medium'" disabled>
-        </div>
-      </div>
-
-      <div class="form-group row">
         <label class="label col-sm-3 col-form-label">Departure Time</label>
         <div class="col-sm-9">
           <input type="text" nbInput fullWidth  [value]="departureTime | date: 'medium'" disabled>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="label col-sm-3 col-form-label">Arrival Time</label>
+        <div class="col-sm-9">
+          <input type="text" nbInput fullWidth  [value]="arrivalTime | date: 'medium'" disabled>
         </div>
       </div>
 

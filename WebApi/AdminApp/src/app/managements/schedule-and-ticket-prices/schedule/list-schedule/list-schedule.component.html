@@ -16,7 +16,7 @@
                      style="min-width: 300px"
                      [(selected)]="queryParams.departureStationId"
                      (selectedChange)="onFilterDepartureStation($event)"
-                     placeholder="Filter by department station">
+                     placeholder="Filter by departure station">
             <nb-option *ngFor="let item of departureStationFilter" [value]="item.id">{{ item.name }}</nb-option>
           </nb-select>
         </form>
