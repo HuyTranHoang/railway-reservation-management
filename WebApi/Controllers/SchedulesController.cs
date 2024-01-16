@@ -1,4 +1,5 @@
 using Domain.Exceptions;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebApi.Controllers;
 
@@ -49,6 +50,10 @@ public class SchedulesController : BaseApiController
         {
             var errorResponse = new ValidateInputError(400, new List<string> { ex.Message });
             return BadRequest(errorResponse);
+        }
+        catch (Exception)
+        {
+            return BadRequest(new ValidateInputError(400, "Schedule already exists"));
         }
 
         return CreatedAtAction("Getschedule", new { id = schedule.Id }, schedule);

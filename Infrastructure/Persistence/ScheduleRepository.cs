@@ -63,4 +63,11 @@ public class ScheduleRepository : IScheduleRepository
                 schedule.DepartureStationId == departureStationId &&
                 schedule.ArrivalStationId == arrivalStationId);
     }
+
+    public async Task<List<Schedule>> GetSchedulesByTrainAsync(int trainId)
+    {
+        return await _context.Schedules
+            .Where(schedule => schedule.TrainId == trainId)
+            .ToListAsync();
+    }
 };

@@ -10,11 +10,9 @@ Content-Type: application/json
 {
   "name": "A",
   "trainId": 1,
-  "departureStationId": 5,
-  "arrivalStationId": 1,
-  "departureDate": "2024-01-18T11:18:28", 
-  "arrivalDate": "2024-01-19T12:18:28",   
-  "departureTime": "2024-01-18T11:18:28",
+  "departureStationId": 1,
+  "arrivalStationId": 4,
+  "departureTime": "2024-01-17T21:00:00",
   "status": "Scheduled"
 }
 

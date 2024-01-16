@@ -6,4 +6,6 @@ public interface IScheduleRepository : IRepository<Schedule>
 
     Task<Schedule> GetScheduleByStationsAsync(int trainId, int departureStationId, int arrivalStationId);
 
+    Task<List<Schedule>> GetSchedulesByTrainAsync(int trainId);
+
 }

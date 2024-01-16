@@ -222,15 +222,28 @@ public class ScheduleService : IScheduleService
         return travelTimeMinutes;
     }
 
+    private async Task<bool> IsTrainOccupied(int trainId, DateTime newDepartureTime)
+    {
+        var schedules = await _repository.GetSchedulesByTrainAsync(trainId);
+        return schedules.Any(s => s.DepartureTime <= newDepartureTime && s.ArrivalTime >= newDepartureTime);
+    }
+
+
     public async Task CreateSchedulesForTrainPassingAsync(Schedule largeSchedule)
     {
+        if (await IsTrainOccupied(largeSchedule.TrainId, largeSchedule.DepartureTime))
+        {
+            // Kiểm tra xem tàu đã hoàn thành lịch trình hay chưa, nếu chưa thì không cho tạo lịch trình mới
+            throw new BadRequestException(400, "Train is already occupied for another schedule.");
+        }
+
         // Get departure and arrival stations
         var departureStation = await _trainStationRepository.GetByIdAsync(largeSchedule.DepartureStationId);
         var arrivalStation = await _trainStationRepository.GetByIdAsync(largeSchedule.ArrivalStationId);
 
         if (departureStation == null || arrivalStation == null)
         {
-            throw new Exception("Departure or arrival station not found.");
+            throw new BadRequestException(400, "Departure or arrival station not found.");
         }
 
         // Get intermediate stations
@@ -261,7 +274,8 @@ public class ScheduleService : IScheduleService
                 var existingSchedule =
                     await _repository.GetScheduleByStationsAsync(largeSchedule.TrainId, departureStationId,
                         arrivalStationId);
-                if (existingSchedule == null)
+
+                if (existingSchedule == null || existingSchedule.DepartureTime != currentDepartureTime)
                 {
                     // Create a new schedule
                     var schedule = new Schedule
