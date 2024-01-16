@@ -174,7 +174,7 @@ public class AccountController : BaseApiController
 
         var user = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == model.UserId && x.Provider == model.Provider);
         if (user == null)
-            return Unauthorized(new ErrorResponse(401, "Unable to find your account"));
+            return Unauthorized(new ErrorResponse(401, "Unable to find your account, please register frist!"));
 
         return CreateApplicationUserDto(user);
     }
