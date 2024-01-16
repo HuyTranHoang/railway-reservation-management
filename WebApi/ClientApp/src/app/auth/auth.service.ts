@@ -8,6 +8,7 @@ import { map, of, ReplaySubject } from 'rxjs'
 import { Router } from '@angular/router'
 import { ConfirmEmail } from '../core/models/auth/confirmEmail'
 import { ResetPassword } from '../core/models/auth/resetPassword'
+import { RegisterWithExternal } from '../core/models/auth/registerWithExternal'
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,11 @@ export class AuthService {
     return this.http.post(this.baseUrl + 'account/register', model)
   }
 
-  login(model: Login) {
+  registerWithThirdParty(model: RegisterWithExternal) {
+    return this.http.post(this.baseUrl + 'account/register-with-third-party', model)
+  }
+
+  authLogin(model: Login) {
     return this.http.post<User>(this.baseUrl + 'account/login', model).pipe(
       map((user: User) => {
         if (user) {

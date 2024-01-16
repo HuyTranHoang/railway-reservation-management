@@ -5,6 +5,8 @@ import Swal from 'sweetalert2'
 import { Router } from '@angular/router'
 import { take } from 'rxjs'
 
+declare const FB: any
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -34,15 +36,15 @@ export class RegisterComponent implements OnInit {
       email: ['', [Validators.required, Validators.pattern('^\\w+@[a-zA-Z_]+?\\.[a-zA-Z]{2,3}$')]],
       password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(15)]],
       confirmPassword: ['', [Validators.required, this.passwordMatchValidator.bind(this)]]
-    });
+    })
   }
 
   passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
-    const password = this.registerForm.get('password')?.value;
+    const password = this.registerForm.get('password')?.value
     if (control.value !== password) {
-      return { 'mismatch': true };
+      return { 'mismatch': true }
     }
-    return null;
+    return null
   }
 
   onSubmit() {
@@ -58,7 +60,7 @@ export class RegisterComponent implements OnInit {
       lastName: this.registerForm.value.lastName,
       email: this.registerForm.value.email,
       password: this.registerForm.value.password
-    };
+    }
 
     this.authService.register(formData).subscribe({
       next: (res: any) => {
@@ -78,6 +80,24 @@ export class RegisterComponent implements OnInit {
       error: (err) => {
         console.log(err.errors)
         this.errorMessages = err.errors
+      }
+    })
+  }
+
+  registerWithFacebook() {
+    FB.login(async (fbResult: any) => {
+      if (fbResult.authResponse) {
+        const accessToken = fbResult.authResponse.accessToken
+        const userId = fbResult.authResponse.userID
+        this.router.navigateByUrl(`/auth/register/third-party/facebook?accessToken=${accessToken}&userId=${userId}`)
+      } else {
+        await Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Facebook login failed',
+          text: 'Please try again',
+          showConfirmButton: true
+        })
       }
     })
   }

@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
       return
     }
 
-    this.authService.login(this.loginForm.value).subscribe({
+    this.authService.authLogin(this.loginForm.value).subscribe({
       next: (res: any) => {
         Swal.fire({
           position: 'center',
