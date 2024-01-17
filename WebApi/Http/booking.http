@@ -21,6 +21,7 @@ GET {{url}}/{{router}}/schedule?
 # @name getScheduleById
 @id = 1
 
+
 GET {{url}}/{{router}}/schedule/{{id}}
 
 ### 
