@@ -87,4 +87,9 @@ public class CarriageRepository : ICarriageRepository
             .Where(c => c.TrainId == trainId)
             .ToListAsync();
     }
+
+    public async Task<List<Carriage>> GetAllNoPagingAsync()
+    {
+        return await _context.Carriages.ToListAsync();
+    }
 }

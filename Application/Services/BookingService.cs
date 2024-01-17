@@ -143,19 +143,19 @@ namespace Application.Services
             //Thanh toán xong thì mới thực hiện hàm add Passenger, Payment, Ticket
         public async Task AddPassengerAsync(Passenger passenger)
         {
-            _passengerRepository.Add(passenger);
+            await _passengerRepository.Add(passenger);
             await _unitOfWork.SaveChangesAsync();
         }
 
         public async Task AddPaymentAsync(Payment payment)
         {
-            _paymentRepository.Add(payment);
+            await _paymentRepository.Add(payment);
             await _unitOfWork.SaveChangesAsync();
         }
 
         public async Task AddTicketAsync(Ticket ticket)
         {
-            _ticketRepository.Add(ticket);
+            await _ticketRepository.Add(ticket);
             await _unitOfWork.SaveChangesAsync();
         }
     }

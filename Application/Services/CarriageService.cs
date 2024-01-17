@@ -103,7 +103,7 @@ public class CarriageService : ICarriageService
 
     public async Task<List<CarriageDto>> GetAllDtoNoPagingAsync()
     {
-        var carriages = await _repository.GetAllAsync();
+        var carriages = await _repository.GetAllNoPagingAsync();
         return _mapper.Map<List<CarriageDto>>(carriages);
     }
 

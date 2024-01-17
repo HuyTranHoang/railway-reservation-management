@@ -6,4 +6,6 @@ public interface ICarriageRepository : IRepository<Carriage>
     Task<Carriage> GetByIdWithCompartmentsAsync(int id);
     Task<double> GetServiceChargeByIdAsync(int id);
     Task<List<Carriage>> GetCarriagesByTrainIdAsync(int trainId);
+
+    Task<List<Carriage>> GetAllNoPagingAsync();
 }
