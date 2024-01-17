@@ -14,9 +14,12 @@ export class AddCarriageTypeComponent implements OnInit {
   isSubmitted = false;
   errorMessages: string[] = [];
 
+
+
   constructor(private carriageTypeService: CarriageTypeService,
               private toastrService: NbToastrService,
               private fb: FormBuilder) {
+
   }
 
   ngOnInit(): void {

@@ -29,6 +29,7 @@ export class AddCarriageComponent implements OnInit {
 
   @ViewChild('autoInput') input: { nativeElement: { value: string; }; };
 
+
   constructor(private trainService: TrainService,
               private carriageTypeService: CarriageTypeService,
               private fb: FormBuilder) {
@@ -60,7 +61,6 @@ export class AddCarriageComponent implements OnInit {
       name: ['', [Validators.required]],
       trainId: ['', [Validators.required]],
       carriageTypeId: ['', [Validators.required]],
-      numberOfCompartments: [0, [Validators.required, Validators.min(1), Validators.max(7)]],
       status: [''],
     });
 

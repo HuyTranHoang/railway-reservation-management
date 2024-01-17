@@ -5,7 +5,6 @@ export interface Carriage {
   trainName: string;
   carriageTypeId: number;
   carriageTypeName: string;
-  numberOfCompartments: number;
   status: string;
   createdAt: string;
 }
