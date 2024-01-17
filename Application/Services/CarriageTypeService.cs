@@ -24,13 +24,13 @@ public class CarriageTypeService : ICarriageTypeService
 
         query = queryParams.Sort switch
         {
-            "serviceChargeAsc" => query.OrderBy(ct => ct.ServiceCharge),
-            "serviceChargeDesc" => query.OrderByDescending(ct => ct.ServiceCharge),
             "nameAsc" => query.OrderBy(ct => ct.Name),
             "nameDesc" => query.OrderByDescending(ct => ct.Name),
-            "createdAtDesc" => query.OrderByDescending(ct => ct.CreatedAt),
             "numberOfCompartmentAsc" => query.OrderBy(ct => ct.NumberOfCompartments),
             "numberOfCompartmentDesc" => query.OrderByDescending(ct => ct.NumberOfCompartments),
+            "serviceChargeAsc" => query.OrderBy(ct => ct.ServiceCharge),
+            "serviceChargeDesc" => query.OrderByDescending(ct => ct.ServiceCharge),
+            "createdAtDesc" => query.OrderByDescending(ct => ct.CreatedAt),
             _ => query.OrderBy(ct => ct.CreatedAt)
         };
 

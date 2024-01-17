@@ -12,6 +12,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class EditCarriageTypeComponent implements OnInit {
 
   carriageTypeForm: FormGroup = this.fb.group({});
+  isSubmitted = false;
+  errorMessages: string[] = [];
 
   constructor(private carriageTypeService: CarriageTypeService,
               private toastrService: NbToastrService,
@@ -25,18 +27,22 @@ export class EditCarriageTypeComponent implements OnInit {
   }
 
   initForm() {
+
+    this.carriageTypeForm = this.fb.group({
+      id: [0, Validators.required],
+      name: ['', Validators.required],
+      numberOfCompartments: [0, [Validators.required, Validators.min(1), this.numberValidator()]],
+      serviceCharge: [0, [Validators.required, Validators.min(0), this.numberValidator()]],
+      status: [''],
+      description: ['', Validators.required],
+    });
+
     const id = this.activatedRoute.snapshot.params.id;
 
     this.carriageTypeService.getCarriageTypeById(id)
       .subscribe({
         next: (res) => {
-          this.carriageTypeForm = this.fb.group({
-            id: [res.id, Validators.required],
-            name: [res.name, Validators.required],
-            serviceCharge: [res.serviceCharge, [Validators.required, Validators.min(0), this.numberValidator()]],
-            status: [res.status],
-            description: [res.description, Validators.required],
-          });
+          this.carriageTypeForm.patchValue(res);
         },
         error: (err) => {
           this.showToast('danger', 'Failed', 'Carriages type doest not exist!');
@@ -54,13 +60,19 @@ export class EditCarriageTypeComponent implements OnInit {
   }
 
   onSubmit() {
+    this.isSubmitted = true;
+    this.errorMessages = [];
+
     if (this.carriageTypeForm.valid) {
       this.carriageTypeService.updateCarriageType(this.carriageTypeForm.value).subscribe({
         next: (res) => {
           this.showToast('success', 'Success', 'Update carriage type successfully!');
+          this.isSubmitted = false;
+          this.errorMessages = [];
         },
         error: (err) => {
           this.showToast('danger', 'Failed', 'Update carriage type failed!');
+          this.errorMessages = err.error.errorMessages;
         },
       });
     }
