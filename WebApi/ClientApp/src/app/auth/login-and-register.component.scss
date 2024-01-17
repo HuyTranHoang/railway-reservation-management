@@ -36,6 +36,14 @@ input.is-invalid {
   border-bottom: 1px solid rgb(220, 53, 69);
 }
 
+input:focus,
+textarea:focus,
+select:focus,
+a:focus {
+  outline: none;
+}
+
+
 .is-invalid::placeholder {
   color: rgb(220, 53, 69);
   opacity: 1; /* Firefox */
