@@ -56,4 +56,13 @@ public class CompartmentRepository : ICompartmentRepository
             .Include(c => c.Seats)
             .FirstOrDefaultAsync(c => c.Id == id);
     }
+
+    public async Task<List<Compartment>> GetCompartmentsByCarriageIdAsync(int carriageId)
+    {
+        return await _context.Compartments
+            .Include(c => c.Carriage)
+            .Where(c => c.CarriageId == carriageId)
+            .ToListAsync();
+    }
+
 }

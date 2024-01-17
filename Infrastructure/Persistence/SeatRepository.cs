@@ -65,4 +65,13 @@ public class SeatRepository : ISeatRepository
     {
         _context.Entry(seat).State = EntityState.Modified;
     }
+
+    public async Task<List<Seat>> GetSeatsByCompartmentIdAsync(int compartmentId)
+    {
+        return await _context.Seats
+            .Include(c => c.SeatType)
+            .Include(c => c.Compartment)
+            .Where(c => c.CompartmentId == compartmentId)
+            .ToListAsync();
+    }
 }

@@ -11,6 +11,10 @@ namespace Application.Services
         private readonly IDistanceFareRepository _distanceFareRepository;
         private readonly IRoundTripRepository _roundTripRepository;
         private readonly ICarriageTypeRepository _carriageTypeRepository;
+        private readonly ITrainRepository _trainRepository;
+        private readonly ICarriageRepository _carriageRepository;
+        private readonly ICompartmentRepository _compartmentRepository;
+        private readonly ISeatRepository _seatRepository;
 
         public BookingService(
                                 IMapper mapper,
@@ -18,7 +22,11 @@ namespace Application.Services
                                 IScheduleRepository scheduleRepository,
                                 IDistanceFareRepository distanceFareRepository,
                                 IRoundTripRepository roundTripRepository,
-                                ICarriageTypeRepository carriageTypeRepository)
+                                ICarriageTypeRepository carriageTypeRepository,
+                                ITrainRepository trainRepository,
+                                ICarriageRepository carriageRepository,
+                                ICompartmentRepository compartmentRepository,
+                                ISeatRepository seatRepository)
         {
             _mapper = mapper;
             _trainCompanyRepository = trainCompanyRepository;
@@ -26,6 +34,10 @@ namespace Application.Services
             _distanceFareRepository = distanceFareRepository;
             _roundTripRepository = roundTripRepository;
             _carriageTypeRepository = carriageTypeRepository;
+            _trainRepository = trainRepository;
+            _carriageRepository = carriageRepository;
+            _compartmentRepository = compartmentRepository;
+            _seatRepository = seatRepository;
         }
 
         //Lấy danh sách các lịch trình kèm filter
@@ -64,9 +76,9 @@ namespace Application.Services
         //Lấy lịch trình theo Id
         public async Task<ScheduleDto> GetBookingInfoWithScheduleIdAsync(int scheduleId)
         {
-            var scheduleDto = await _scheduleRepository.GetByIdAsync(scheduleId);
+            var schedule = await _scheduleRepository.GetByIdAsync(scheduleId);
 
-            return _mapper.Map<ScheduleDto>(scheduleDto);
+            return _mapper.Map<ScheduleDto>(schedule);
         }
 
         //Lấy danh sách CarriageType và Service Charge tương ứng
@@ -76,5 +88,38 @@ namespace Application.Services
             var carriageTypeDtos = _mapper.Map<List<CarriageTypeDto>>(carriageTypes);
             return carriageTypeDtos;
         }
+
+        //Lấy thông tin Train từ Schedule, truyền train_id từ Schedule vô
+        public async Task<TrainDto> GetTrainInfoWithTrainIdAsync(int trainId)
+        {
+            var train = await _trainRepository.GetByIdAsync(trainId);
+
+            return _mapper.Map<TrainDto>(train);
+        }
+
+        //Lấy thông tin các Carriage từ Train, truyền carriage_id từ Train vô
+        public async Task<List<CarriageDto>> GetCarriagesWithTrainIdAsync(int trainId)
+        {
+            var carriages = await _carriageRepository.GetCarriagesByTrainIdAsync(trainId);
+
+            return _mapper.Map<List<CarriageDto>>(carriages);
+        }
+
+        //Lấy thông tin các Compartment từ Carriage, truyền compartment_id từ Carriage vô
+        public async Task<List<CompartmentDto>> GetCompartmentsWithCarriageIdAsync(int carriageId)
+        {
+            var compartments = await _compartmentRepository.GetCompartmentsByCarriageIdAsync(carriageId);
+
+            return _mapper.Map<List<CompartmentDto>>(compartments);
+        }
+
+        //Lấy thông tin các Seat từ Compartment, truyền seat_id từ Compartment vô
+        public async Task<List<SeatDto>> GetSeatsWithCompartmentIdAsync(int compartmentId)
+        {
+            var seats = await _seatRepository.GetSeatsByCompartmentIdAsync(compartmentId);
+
+            return _mapper.Map<List<SeatDto>>(seats);
+        }
+
     }
 }

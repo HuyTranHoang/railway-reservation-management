@@ -25,7 +25,7 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("schedule/{id}")]
-        public async Task<ActionResult<object[]>> GetScheduleById(int id)
+        public async Task<ActionResult<List<object>>> GetScheduleById(int id)
         {
             var schedules = await _bookingService.GetBookingInfoWithScheduleIdAsync(id);
             var carriageTypes = await _bookingService.GetAllCarriageTypeDtoAsync();
@@ -35,7 +35,7 @@ namespace WebApi.Controllers
                 return NotFound(new ErrorResponse(404));
             }
 
-            var result = new object[] { schedules, carriageTypes };
+            var result = new List<object> { schedules, carriageTypes };
 
             return Ok(result);
         }
@@ -50,5 +50,58 @@ namespace WebApi.Controllers
             return Ok(carriageTypes);
         }
 
+        [HttpGet("train/{id}")]
+        public async Task<ActionResult<List<object>>> GetTrainByScheduleId(int id)
+        {
+            var train = await _bookingService.GetTrainInfoWithTrainIdAsync(id);
+
+            if (train == null)
+            {
+                return NotFound(new ErrorResponse(404));
+            }
+
+            var result = new List<object> { train };
+
+            return Ok(result);
+        }
+
+        [HttpGet("carriage/{id}")]
+        public async Task<ActionResult> GetCarriagesByTrainId(int id)
+        {
+            var carriages = await _bookingService.GetCarriagesWithTrainIdAsync(id);
+
+            if (carriages == null)
+            {
+                return NotFound(new ErrorResponse(404));
+            }
+
+            return Ok(carriages);
+        }
+
+        [HttpGet("compartment/{id}")]
+        public async Task<ActionResult> GetCompartmentsByCarriageId(int id)
+        {
+            var compartments = await _bookingService.GetCompartmentsWithCarriageIdAsync(id);
+
+            if (compartments == null)
+            {
+                return NotFound(new ErrorResponse(404));
+            }
+
+            return Ok(compartments);
+        }
+
+        [HttpGet("seat/{id}")]
+        public async Task<ActionResult> GetSeatsByCompartmentId(int id)
+        {
+            var seats = await _bookingService.GetSeatsWithCompartmentIdAsync(id);
+
+            if (seats == null)
+            {
+                return NotFound(new ErrorResponse(404));
+            }
+
+            return Ok(seats);
+        }
     }
 }

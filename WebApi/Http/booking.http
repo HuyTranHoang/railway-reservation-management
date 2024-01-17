@@ -23,6 +23,34 @@ GET {{url}}/{{router}}/schedule?
 
 GET {{url}}/{{router}}/schedule/{{id}}
 
+### 
+
+# @name getTrainInfoByScheduleId
+@id = 1
+
+GET {{url}}/{{router}}/train/{{id}}
+
+### 
+
+# @name getCarriagesByTrainId
+@trainId = 1
+
+GET {{url}}/{{router}}/carriage/{{trainId}}
+
+### 
+
+# @name getCompartmentsByCarriageId
+@carriageId = 1
+
+GET {{url}}/{{router}}/compartment/{{carriageId}}
+
+### 
+
+# @name getSeatsByCompartmentId
+@compartmentId = 1
+
+GET {{url}}/{{router}}/seat/{{compartmentId}}
+
 
 ### 
 
