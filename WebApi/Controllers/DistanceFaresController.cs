@@ -93,4 +93,12 @@ public class DistanceFaresController : BaseApiController
 
         return NoContent();
     }
+
+    [HttpGet("test/{distance}")]
+    public async Task<ActionResult> TestDistance(int distance)
+    {
+        var distanceFare = await _distanceFareService.TestDistance(distance);
+
+        return Ok(distanceFare);
+    }
 }

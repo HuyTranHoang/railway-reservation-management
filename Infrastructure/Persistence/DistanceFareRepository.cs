@@ -29,11 +29,11 @@ public class DistanceFareRepository : IDistanceFareRepository
     public async Task<decimal?> GetByDistanceAsync(int distance, int trainCompanyId)
     {
         var fare = await _context.DistanceFares
-                            .Where(d => d.TrainCompanyId == trainCompanyId)
-                            .Where(d => d.Distance <= distance)
+                            .Where(d => d.Distance <= distance && d.TrainCompanyId == trainCompanyId)
                             .OrderByDescending(d => d.Distance)
                             .Select(d => d.Price)
                             .FirstOrDefaultAsync();
+
         return (decimal?)fare;
     }
 

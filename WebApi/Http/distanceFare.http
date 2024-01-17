@@ -64,3 +64,7 @@ Content-Type: application/json
   "Distance": 2000,
   "Price": 2000
 }
+
+###
+
+GET {{url}}/{{router}}/test/500
