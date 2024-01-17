@@ -53,7 +53,7 @@ namespace WebApi.Controllers
         [HttpGet("train/{id}")]
         public async Task<ActionResult<List<object>>> GetTrainByScheduleId(int id)
         {
-            var train = await _bookingService.GetTrainInfoWithTrainIdAsync(id);
+            var train = await _bookingService.GetTrainDetailsWithTrainIdAsync(id);
 
             if (train == null)
             {
@@ -65,43 +65,5 @@ namespace WebApi.Controllers
             return Ok(result);
         }
 
-        [HttpGet("carriage/{id}")]
-        public async Task<ActionResult> GetCarriagesByTrainId(int id)
-        {
-            var carriages = await _bookingService.GetCarriagesWithTrainIdAsync(id);
-
-            if (carriages == null)
-            {
-                return NotFound(new ErrorResponse(404));
-            }
-
-            return Ok(carriages);
-        }
-
-        [HttpGet("compartment/{id}")]
-        public async Task<ActionResult> GetCompartmentsByCarriageId(int id)
-        {
-            var compartments = await _bookingService.GetCompartmentsWithCarriageIdAsync(id);
-
-            if (compartments == null)
-            {
-                return NotFound(new ErrorResponse(404));
-            }
-
-            return Ok(compartments);
-        }
-
-        [HttpGet("seat/{id}")]
-        public async Task<ActionResult> GetSeatsByCompartmentId(int id)
-        {
-            var seats = await _bookingService.GetSeatsWithCompartmentIdAsync(id);
-
-            if (seats == null)
-            {
-                return NotFound(new ErrorResponse(404));
-            }
-
-            return Ok(seats);
-        }
     }
 }

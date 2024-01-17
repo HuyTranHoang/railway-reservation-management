@@ -89,36 +89,37 @@ namespace Application.Services
             return carriageTypeDtos;
         }
 
-        //Lấy thông tin Train từ Schedule, truyền train_id từ Schedule vô
-        public async Task<TrainDto> GetTrainInfoWithTrainIdAsync(int trainId)
+        public async Task<TrainDetailsDto> GetTrainDetailsWithTrainIdAsync(int trainId)
         {
             var train = await _trainRepository.GetByIdAsync(trainId);
-
-            return _mapper.Map<TrainDto>(train);
-        }
-
-        //Lấy thông tin các Carriage từ Train, truyền carriage_id từ Train vô
-        public async Task<List<CarriageDto>> GetCarriagesWithTrainIdAsync(int trainId)
-        {
             var carriages = await _carriageRepository.GetCarriagesByTrainIdAsync(trainId);
 
-            return _mapper.Map<List<CarriageDto>>(carriages);
-        }
+            var trainDto = _mapper.Map<TrainDto>(train);
+            var carriageDtos = _mapper.Map<List<CarriageDto>>(carriages);
 
-        //Lấy thông tin các Compartment từ Carriage, truyền compartment_id từ Carriage vô
-        public async Task<List<CompartmentDto>> GetCompartmentsWithCarriageIdAsync(int carriageId)
-        {
-            var compartments = await _compartmentRepository.GetCompartmentsByCarriageIdAsync(carriageId);
+            var trainDetailsDto = new TrainDetailsDto
+            {
+                Train = trainDto,
+                Carriages = carriageDtos,
+                Compartments = new List<CompartmentDto>(),
+                Seats = new List<SeatDto>()
+            };
 
-            return _mapper.Map<List<CompartmentDto>>(compartments);
-        }
+            foreach (var carriage in carriages)
+            {
+                var compartments = await _compartmentRepository.GetCompartmentsByCarriageIdAsync(carriage.Id);
+                var compartmentDtos = _mapper.Map<List<CompartmentDto>>(compartments);
+                trainDetailsDto.Compartments.AddRange(compartmentDtos);
 
-        //Lấy thông tin các Seat từ Compartment, truyền seat_id từ Compartment vô
-        public async Task<List<SeatDto>> GetSeatsWithCompartmentIdAsync(int compartmentId)
-        {
-            var seats = await _seatRepository.GetSeatsByCompartmentIdAsync(compartmentId);
+                foreach (var compartment in compartments)
+                {
+                    var seats = await _seatRepository.GetSeatsByCompartmentIdAsync(compartment.Id);
+                    var seatDtos = _mapper.Map<List<SeatDto>>(seats);
+                    trainDetailsDto.Seats.AddRange(seatDtos);
+                }
+            }
 
-            return _mapper.Map<List<SeatDto>>(seats);
+            return trainDetailsDto;
         }
 
     }
