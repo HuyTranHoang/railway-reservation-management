@@ -54,8 +54,6 @@ public class CarriageService : ICarriageService
             "trainNameDesc" => query.OrderByDescending(p => p.Train.Name),
             "typeNameAsc" => query.OrderBy(p => p.CarriageType.Name),
             "typeNameDesc" => query.OrderByDescending(p => p.CarriageType.Name),
-            "numberOfCompartmentAsc" => query.OrderBy(p => p.NumberOfCompartments),
-            "numberOfCompartmentDesc" => query.OrderByDescending(p => p.NumberOfCompartments),
             "createdAtDesc" => query.OrderByDescending(p => p.CreatedAt),
             _ => query.OrderBy(p => p.CreatedAt)
         };
@@ -92,7 +90,6 @@ public class CarriageService : ICarriageService
         carriageInDb.Name = carriage.Name;
         carriageInDb.TrainId = carriage.TrainId;
         carriageInDb.CarriageTypeId = carriage.CarriageTypeId;
-        carriageInDb.NumberOfCompartments = carriage.NumberOfCompartments;
         carriageInDb.Status = carriage.Status;
         carriageInDb.UpdatedAt = DateTime.Now;
 

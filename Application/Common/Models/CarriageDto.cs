@@ -14,8 +14,6 @@ public class CarriageDto
     public int CarriageTypeId { get; set; }
     public string CarriageTypeName { get; set; }
 
-    public int NumberOfCompartments { get; set; }
-
     public string Status { get; set; }
     public DateTime CreatedAt { get; set; }
 }
