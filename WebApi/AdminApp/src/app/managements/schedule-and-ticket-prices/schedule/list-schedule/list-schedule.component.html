@@ -13,7 +13,7 @@
                    style="top: 25%; left: 200px; cursor: pointer;"></nb-icon>
 
           <nb-select class="ml-3"
-                     style="min-width: 300px"
+                     style="min-width: 250px"
                      [(selected)]="queryParams.departureStationId"
                      (selectedChange)="onFilterStation($event)"
                      placeholder="Filter by departure station">
@@ -21,7 +21,7 @@
           </nb-select>
 
           <nb-select class="ml-3"
-                     style="min-width: 300px"
+                     style="min-width: 250px"
                      [(selected)]="queryParams.arrivalStationId"
                      (selectedChange)="onFilterStation($event)"
                      placeholder="Filter by arrival station">
@@ -96,14 +96,24 @@
           </span>
         </th>
 
-        <th scope="col" style="width: 15%">
-          <span (click)="onSort('createdAtAsc')"
-                [class.text-primary]="currentSort.includes('createdAt') || currentSort === ''">
-            Created At
-            <nb-icon icon="arrow-down-outline" pack="eva" *ngIf="!sortStates.createdAt"></nb-icon>
-            <nb-icon icon="arrow-up-outline" pack="eva" *ngIf="sortStates.createdAt"></nb-icon>
+        <th scope="col"
+            style="width: 15%">
+          <span (click)="onSort('arrivalTimeAsc')"
+                [class.text-primary]="currentSort.includes('arrivalTime')">
+            Arrival Time
+            <nb-icon icon="arrow-down-outline" pack="eva" *ngIf="!sortStates.arrivalTime"></nb-icon>
+            <nb-icon icon="arrow-up-outline" pack="eva" *ngIf="sortStates.arrivalTime"></nb-icon>
           </span>
         </th>
+
+<!--        <th scope="col" style="width: 15%">-->
+<!--          <span (click)="onSort('createdAtAsc')"-->
+<!--                [class.text-primary]="currentSort.includes('createdAt') || currentSort === ''">-->
+<!--            Created At-->
+<!--            <nb-icon icon="arrow-down-outline" pack="eva" *ngIf="!sortStates.createdAt"></nb-icon>-->
+<!--            <nb-icon icon="arrow-up-outline" pack="eva" *ngIf="sortStates.createdAt"></nb-icon>-->
+<!--          </span>-->
+<!--        </th>-->
 
         <th scope="col" class="text-right" style="width: 15%">Actions</th>
       </tr>
@@ -116,7 +126,8 @@
         <td>{{ item.departureStationName }}</td>
         <td>{{ item.arrivalStationName }}</td>
         <td>{{ item.departureTime | date: 'medium' }}</td>
-        <td>{{ item.createdAt | date: 'medium' }}</td>
+        <td>{{ item.arrivalTime | date: 'medium' }}</td>
+<!--        <td>{{ item.createdAt | date: 'medium' }}</td>-->
         <td class="text-right">
           <button nbButton status="info" class="mr-3" (click)="openShowDialog(item.id)">
             <nb-icon icon="eye-outline" pack="eva"></nb-icon>

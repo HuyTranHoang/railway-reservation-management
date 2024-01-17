@@ -97,6 +97,8 @@ public class ScheduleService : IScheduleService
             "arrivalStationNameDesc" => query.OrderByDescending(p => p.ArrivalStation.Name),
             "departureTimeAsc" => query.OrderBy(p => p.DepartureTime),
             "departureTimeDesc" => query.OrderByDescending(p => p.DepartureTime),
+            "arrivalTimeAsc" => query.OrderBy(p => p.ArrivalTime),
+            "arrivalTimeDesc" => query.OrderByDescending(p => p.ArrivalTime),
             "createdAtDesc" => query.OrderByDescending(p => p.CreatedAt),
             _ => query.OrderBy(p => p.CreatedAt)
         };

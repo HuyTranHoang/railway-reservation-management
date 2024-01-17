@@ -19,6 +19,7 @@ export class ShowScheduleComponent {
   @Input() departureTime: string;
   @Input() duration: number;
   @Input() status: string;
+  @Input() createdAt: string;
 
   @Output() onShowDelete = new EventEmitter<{ id: number, name: string }>();
 

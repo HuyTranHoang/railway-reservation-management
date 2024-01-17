@@ -8,8 +8,8 @@ export interface Schedule {
   arrivalStationId: number;
   arrivalStationName: string;
   departureDate: string;
-  arrivalDate: string;
   departureTime: string;
+  arrivalTime: string;
   duration: number;
   status: string;
   createdAt: string;

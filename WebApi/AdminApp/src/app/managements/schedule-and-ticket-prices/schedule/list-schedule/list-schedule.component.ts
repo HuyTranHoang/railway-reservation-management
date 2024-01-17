@@ -32,6 +32,7 @@ export class ListScheduleComponent implements OnInit {
     departureStationName: false,
     arrivalStationName: false,
     departureTime: false,
+    arrivalTime: false,
     createdAt: false,
   };
 
