@@ -29,6 +29,8 @@ public class CarriageTypeService : ICarriageTypeService
             "nameAsc" => query.OrderBy(ct => ct.Name),
             "nameDesc" => query.OrderByDescending(ct => ct.Name),
             "createdAtDesc" => query.OrderByDescending(ct => ct.CreatedAt),
+            "numberOfCompartmentAsc" => query.OrderBy(ct => ct.NumberOfCompartments),
+            "numberOfCompartmentDesc" => query.OrderByDescending(ct => ct.NumberOfCompartments),
             _ => query.OrderBy(ct => ct.CreatedAt)
         };
 
@@ -64,6 +66,7 @@ public class CarriageTypeService : ICarriageTypeService
 
         carriageTypeInDb.Name = carriageType.Name;
         carriageTypeInDb.ServiceCharge = carriageType.ServiceCharge;
+        carriageTypeInDb.NumberOfCompartments = carriageType.NumberOfCompartments;
         carriageTypeInDb.Description = carriageType.Description;
         carriageTypeInDb.Status = carriageType.Status;
         carriageTypeInDb.UpdatedAt = DateTime.Now;

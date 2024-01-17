@@ -34,10 +34,6 @@ public class CompartmentService : ICompartmentService
             throw new NotFoundException(nameof(Carriage), compartment.CarriageId);
         }
 
-        if (carriage.Compartments.Count >= carriage.NumberOfCompartments)
-        {
-            throw new BadRequestException(400, "The number of compartments is full");
-        }
 
         await _repository.Add(compartment);
         await _unitOfWork.SaveChangesAsync();
