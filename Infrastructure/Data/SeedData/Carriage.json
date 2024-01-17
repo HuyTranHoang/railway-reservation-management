@@ -3,56 +3,49 @@
     "name": "AC1",
     "trainId": 1,
     "CarriageTypeId": 1,
-    "numberOfCompartments": 2,
     "serviceCharge": 40,
-    "status": ""
+    "status": "(1, 1, 40, 'AC1')"
   },
   {
     "name": "AC2",
     "trainId": 1,
     "CarriageTypeId": 2,
-    "numberOfCompartments": 2,
     "serviceCharge": 30,
-    "status": ""
+    "status": "(2, 1, 30, 'AC2')"
   },
   {
     "name": "AC3",
     "trainId": 1,
     "CarriageTypeId": 3,
-    "numberOfCompartments": 2,
     "serviceCharge": 20,
-    "status": ""
+    "status": "(3, 1, 20, 'AC3')"
   },
   {
     "name": "AC2",
     "trainId": 2,
     "CarriageTypeId": 2,
-    "numberOfCompartments": 2,
     "serviceCharge": 30,
-    "status": ""
+    "status": "(4, 2, 30, 'AC2')"
   },
   {
     "name": "AC3",
     "trainId": 2,
     "CarriageTypeId": 2,
-    "numberOfCompartments": 2,
     "serviceCharge": 10,
-    "status": ""
+    "status": "(5, 2, 10, 'AC3')"
   },
   {
     "name": "Sleeper",
     "trainId": 2,
     "CarriageTypeId": 2,
-    "numberOfCompartments": 6,
     "serviceCharge": 50,
-    "status": ""
+    "status": "(6, 2, 50, 'Sleeper')"
   },
   {
     "name": "General",
     "trainId": 2,
     "CarriageTypeId": 6,
-    "numberOfCompartments": 2,
     "serviceCharge": 10,
-    "status": ""
+    "status": "(7, 2, 10, 'General')"
   }
 ]
