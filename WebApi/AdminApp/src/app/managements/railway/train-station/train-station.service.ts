@@ -1,13 +1,13 @@
-import { Injectable } from '@angular/core';
-import { environment } from '../../../../environments/environment';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { QueryParams } from '../../../@models/params/queryParams';
-import { TrainStations } from '../../../@models/trainStation';
-import { map } from 'rxjs/operators';
-import { PaginatedResult } from '../../../@models/paginatedResult';
+import {Injectable} from '@angular/core';
+import {environment} from '../../../../environments/environment';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {QueryParams} from '../../../@models/params/queryParams';
+import {TrainStation} from '../../../@models/trainStation';
+import {map} from 'rxjs/operators';
+import {PaginatedResult} from '../../../@models/paginatedResult';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TrainStationService {
   baseUrl = environment.apiUrl;
@@ -26,19 +26,25 @@ export class TrainStationService {
       params = params.append('sort', queryParams.sort);
     }
 
-    return this.getPaginatedResult<TrainStations[]>(this.baseUrl + '/trainstation/', params);
+    return this.getPaginatedResult<TrainStation[]>(this.baseUrl + '/trainstation/', params);
+  }
+
+  getAllTrainStationNoPaging() {
+    return this.http.get<TrainStation[]>(this.baseUrl + '/trainstation/all');
   }
 
   getTrainStationById(id: number) {
-    return this.http.get<TrainStations>(this.baseUrl + '/trainstation/' + id);
+    return this.http.get<TrainStation>(this.baseUrl + '/trainstation/' + id);
   }
 
-  addTrainStation(trainStation: TrainStations) {
-    return this.http.post<TrainStations>(this.baseUrl + '/trainstation', trainStation);
+  addTrainStation(trainStation: TrainStation) {
+    return this.http.post<TrainStation>(this.baseUrl + '/trainstation', trainStation);
   }
-  updateTrainStation( trainStation: TrainStations) {
-    return this.http.put<TrainStations>(this.baseUrl + '/trainstation/' + trainStation.id , trainStation);
+
+  updateTrainStation(trainStation: TrainStation) {
+    return this.http.put<TrainStation>(this.baseUrl + '/trainstation/' + trainStation.id, trainStation);
   }
+
   deleteTrainStation(id: number) {
     return this.http.patch(this.baseUrl + '/trainstation/' + id, {});
   }

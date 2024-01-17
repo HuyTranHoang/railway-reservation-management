@@ -63,12 +63,19 @@
           </button>
         </td>
       </tr>
+
+      <tr *ngIf="trainCompanies.length <= 0">
+        <td colspan="4" class="text-center">
+          <div class="text-muted py-4">No data found.</div>
+        </td>
+      </tr>
       </tbody>
     </table>
   </nb-card-body>
 
   <nb-card-footer>
     <app-pagination
+      selectOption="5"
       [pagination]="pagination"
       (pageChanged)="onPageChanged($event)"
       (pageSizeChanged)="onPageSizeChanged($event)">

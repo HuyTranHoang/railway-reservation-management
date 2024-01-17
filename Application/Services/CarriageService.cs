@@ -16,13 +16,13 @@ public class CarriageService : ICarriageService
     }
     public async Task AddAsync(Carriage carriage)
     {
-        _repository.Add(carriage);
+        await _repository.Add(carriage);
         await _unitOfWork.SaveChangesAsync();
     }
 
     public async Task DeleteAsync(Carriage carriage)
     {
-        _repository.Delete(carriage);
+        await _repository.Delete(carriage);
         await _unitOfWork.SaveChangesAsync();
     }
 
@@ -41,7 +41,10 @@ public class CarriageService : ICarriageService
         }
 
         if (!string.IsNullOrEmpty(queryParams.SearchTerm))
-            query = query.Where(p => p.Name.Contains(queryParams.SearchTerm.Trim()));
+            query = query.Where(
+                p => p.Name.Contains(queryParams.SearchTerm.Trim()) ||
+                     p.Train.Name.Contains(queryParams.SearchTerm.Trim()) ||
+                     p.CarriageType.Name.Contains(queryParams.SearchTerm.Trim()));
 
         query = queryParams.Sort switch
         {
@@ -76,7 +79,7 @@ public class CarriageService : ICarriageService
 
     public async Task SoftDeleteAsync(Carriage carriage)
     {
-        _repository.SoftDelete(carriage);
+        await _repository.SoftDelete(carriage);
         await _unitOfWork.SaveChangesAsync();
     }
 
@@ -93,9 +96,15 @@ public class CarriageService : ICarriageService
         carriageInDb.Status = carriage.Status;
         carriageInDb.UpdatedAt = DateTime.Now;
 
-        _repository.Update(carriageInDb);
+        await _repository.Update(carriageInDb);
 
         await _unitOfWork.SaveChangesAsync();
+    }
+
+    public async Task<List<CarriageDto>> GetAllDtoNoPagingAsync()
+    {
+        var carriages = await _repository.GetAllAsync();
+        return _mapper.Map<List<CarriageDto>>(carriages);
     }
 
     public async Task<int> GetCompartmentsBelongToCarriageCountAsync(int carriageId)

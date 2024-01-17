@@ -33,12 +33,12 @@ export class DistanceFareService {
     return this.http.get<DistanceFare>(this.baseUrl + '/distancefares/' + id);
   }
 
-  addDistanceFare(seatType: DistanceFare) {
-    return this.http.post<DistanceFare>(this.baseUrl + '/distancefares', seatType);
+  addDistanceFare(distanceFare: DistanceFare) {
+    return this.http.post<DistanceFare>(this.baseUrl + '/distancefares', distanceFare);
   }
 
-  updateDistanceFare(seatType: DistanceFare) {
-    return this.http.put<DistanceFare>(this.baseUrl + '/distancefares/' + seatType.id, seatType);
+  updateDistanceFare(distanceFare: DistanceFare) {
+    return this.http.put<DistanceFare>(this.baseUrl + '/distancefares/' + distanceFare.id, distanceFare);
   }
 
   deleteDistanceFare(id: number) {

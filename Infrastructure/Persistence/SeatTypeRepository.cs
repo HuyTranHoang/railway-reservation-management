@@ -25,24 +25,33 @@ public class SeatTypeRepository : ISeatTypeRepository
         return await _context.SeatTypes.FindAsync(id);
     }
 
-    public void Add(SeatType seatType)
+    public async Task Add(SeatType seatType)
     {
         _context.SeatTypes.Add(seatType);
+        await Task.CompletedTask;
     }
 
-    public void Update(SeatType seatType)
+    public async Task Update(SeatType seatType)
     {
         _context.Entry(seatType).State = EntityState.Modified;
+        await Task.CompletedTask;
     }
 
-    public void Delete(SeatType seatType)
+    public async Task Delete(SeatType seatType)
     {
         _context.SeatTypes.Remove(seatType);
+        await Task.CompletedTask;
     }
 
-    public void SoftDelete(SeatType seatType)
+    public async Task SoftDelete(SeatType seatType)
     {
         seatType.IsDeleted = true;
         _context.Entry(seatType).State = EntityState.Modified;
+        await Task.CompletedTask;
+    }
+
+    public Task<List<SeatType>> GetAllNoPagingAsync()
+    {
+        return _context.SeatTypes.ToListAsync();
     }
 }

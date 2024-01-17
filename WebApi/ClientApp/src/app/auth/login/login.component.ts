@@ -4,6 +4,9 @@ import { AuthService } from '../auth.service'
 import { ActivatedRoute, Router } from '@angular/router'
 import Swal from 'sweetalert2'
 import { take } from 'rxjs'
+import { LoginWithExternal } from '../../core/models/auth/loginWithExternal'
+
+declare const FB: any
 
 @Component({
   selector: 'app-login',
@@ -55,7 +58,7 @@ export class LoginComponent implements OnInit {
       return
     }
 
-    this.authService.login(this.loginForm.value).subscribe({
+    this.authService.authLogin(this.loginForm.value).subscribe({
       next: (res: any) => {
         Swal.fire({
           position: 'center',
@@ -70,7 +73,8 @@ export class LoginComponent implements OnInit {
         this.router.navigateByUrl('/')
       },
       error: (err: any) => {
-        if (err.statusCode === 401) {
+        console.log(err)
+        if (err.statusCode === 401 && err.message != "Invalid username or password") {
           this.isResendEmail = true
         }
       }
@@ -80,4 +84,71 @@ export class LoginComponent implements OnInit {
   resendEmailConfirmationLink() {
     this.router.navigateByUrl('/auth/send-email/resend-email-confirmation-link');
   }
+
+  // loginWithFacebook() {
+  //   FB.login(async (fbResult: any) => {
+  //     if (fbResult.authResponse) {
+  //       console.log(fbResult)
+  //       const accessToken = fbResult.authResponse.accessToken
+  //       const userId = fbResult.authResponse.userID
+  //
+  //       const model = new LoginWithExternal(accessToken, userId, 'facebook')
+  //
+  //       this.authService.loginWithThirdParty(model).subscribe({
+  //         next: _ => {
+  //           this.router.navigateByUrl('/')
+  //         },
+  //         error: err => {
+  //           console.log(err.errors)
+  //           this.errorMessages = err.errors
+  //         }
+  //       })
+  //     } else {
+  //       await Swal.fire({
+  //         position: 'center',
+  //         icon: 'error',
+  //         title: 'Facebook login failed',
+  //         text: 'Please try again',
+  //         showConfirmButton: true
+  //       })
+  //     }
+  //   })
+  // }
+
+  loginOrRegisterWithFacebook() {
+    FB.login(async (fbResult: any) => {
+      if (fbResult.authResponse) {
+        const accessToken = fbResult.authResponse.accessToken;
+        const userId = fbResult.authResponse.userID;
+        const model = new LoginWithExternal(accessToken, userId, 'facebook');
+
+        this.authService.loginWithThirdParty(model).subscribe({
+          next: (isUserRegistered: boolean) => {
+            console.log(">>>>>", isUserRegistered)
+
+            if (isUserRegistered) {
+              // Người dùng đã đăng ký, chuyển hướng đến trang chủ hoặc trang đích
+              this.router.navigateByUrl('/');
+            } else {
+              // Người dùng chưa đăng ký, chuyển hướng đến trang đăng ký với thông tin Facebook
+              this.router.navigateByUrl(`/auth/register/third-party/facebook?accessToken=${accessToken}&userId=${userId}`);
+            }
+          },
+          error: err => {
+            console.log(err.errors);
+            this.errorMessages = err.errors;
+          }
+        });
+      } else {
+        await Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Facebook login failed',
+          text: 'Please try again',
+          showConfirmButton: true
+        });
+      }
+    });
+  }
+
 }

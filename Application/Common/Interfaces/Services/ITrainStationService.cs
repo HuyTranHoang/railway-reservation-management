@@ -4,6 +4,8 @@ namespace Application.Common.Interfaces.Services
     {
         Task<PagedList<TrainStationDto>> GetAllDtoAsync(QueryParams queryParams);
 
+        Task<List<TrainStationDto>> GetAllDtoNoPagingAsync();
+
         Task<TrainStationDto> GetDtoByIdAsync(int id);
     }
 }

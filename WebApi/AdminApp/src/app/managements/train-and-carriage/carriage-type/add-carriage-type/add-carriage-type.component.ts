@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {CarriageTypeService} from '../carriage-type.service';
 import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
-import {NbComponentStatus, NbGlobalPhysicalPosition, NbToastrService} from '@nebular/theme';
+import {NbGlobalPhysicalPosition, NbToastrService} from '@nebular/theme';
 
 
 @Component({

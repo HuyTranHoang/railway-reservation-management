@@ -39,7 +39,7 @@ public class CompartmentService : ICompartmentService
             throw new BadRequestException(400, "The number of compartments is full");
         }
 
-        _repository.Add(compartment);
+        await _repository.Add(compartment);
         await _unitOfWork.SaveChangesAsync();
     }
 
@@ -58,20 +58,26 @@ public class CompartmentService : ICompartmentService
         compartmentInDb.Status = compartment.Status;
         compartmentInDb.UpdatedAt = DateTime.Now;
 
-        _repository.Update(compartmentInDb);
+        await _repository.Update(compartmentInDb);
 
         await _unitOfWork.SaveChangesAsync();
     }
 
+    public async Task<List<CompartmentDto>> GetAllDtoNoPagingAsync()
+    {
+        var compartments = await _repository.GetAllNoPagingAsync();
+        return _mapper.Map<List<CompartmentDto>>(compartments);
+    }
+
     public async Task DeleteAsync(Compartment compartment)
     {
-        _repository.Delete(compartment);
+        await _repository.Delete(compartment);
         await _unitOfWork.SaveChangesAsync();
     }
 
     public async Task SoftDeleteAsync(Compartment compartment)
     {
-        _repository.SoftDelete(compartment);
+        await _repository.SoftDelete(compartment);
         await _unitOfWork.SaveChangesAsync();
     }
 
@@ -88,6 +94,9 @@ public class CompartmentService : ICompartmentService
             "numberOfSeatsDesc" => query.OrderByDescending(p => p.NumberOfSeats),
             "nameAsc" => query.OrderBy(p => p.Name),
             "nameDesc" => query.OrderByDescending(p => p.Name),
+            "carriageNameAsc" => query.OrderBy(p => p.Carriage.Name),
+            "carriageNameDesc" => query.OrderByDescending(p => p.Carriage.Name),
+            "createdAtDesc" => query.OrderByDescending(p => p.CreatedAt),
             _ => query.OrderBy(p => p.CreatedAt)
         };
 

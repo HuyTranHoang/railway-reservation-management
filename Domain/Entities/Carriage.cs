@@ -8,15 +8,14 @@ namespace Domain.Entities
     {
         public int Id { get; set; }
 
-        [Required] [StringLength(100)] public string Name { get; set; }
+        [Required]
+        [StringLength(100)] public string Name { get; set; }
 
         [Required]
-        [ForeignKey("TrainId")]
-         public int TrainId { get; set; }
+        public int TrainId { get; set; }
         public Train Train { get; set; }
 
         [Required]
-        [ForeignKey("CarriageTypeId")]
         public int CarriageTypeId { get; set; }
         public CarriageType CarriageType { get; set; }
 
@@ -27,6 +26,5 @@ namespace Domain.Entities
         [StringLength(100)] public string Status { get; set; }
 
         public ICollection<Compartment> Compartments { get; set; }
-
     }
 }

@@ -17,13 +17,13 @@ namespace Application.Services
         }
         public async Task AddAsync(Cancellation cancellation)
         {
-            _repository.Add(cancellation);
+            await _repository.Add(cancellation);
             await _unitOfWork.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(Cancellation cancellation)
         {
-            _repository.Delete(cancellation);
+            await _repository.Delete(cancellation);
             await _unitOfWork.SaveChangesAsync();
         }
 
@@ -72,7 +72,7 @@ namespace Application.Services
 
         public async Task SoftDeleteAsync(Cancellation cancellation)
         {
-            _repository.SoftDelete(cancellation);
+            await _repository.SoftDelete(cancellation);
             await _unitOfWork.SaveChangesAsync();
         }
 
@@ -88,7 +88,7 @@ namespace Application.Services
             cancellationInDb.Status = cancellation.Status;
             cancellationInDb.UpdatedAt = DateTime.Now;
 
-            _repository.Update(cancellationInDb);
+            await _repository.Update(cancellationInDb);
 
             await _unitOfWork.SaveChangesAsync();
         }

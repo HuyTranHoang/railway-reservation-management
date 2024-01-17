@@ -17,8 +17,4 @@ public class UnitOfWork : IUnitOfWork
         return _context.SaveChangesAsync();
     }
 
-    public void Dispose()
-    {
-        _context.Dispose();
-    }
 }

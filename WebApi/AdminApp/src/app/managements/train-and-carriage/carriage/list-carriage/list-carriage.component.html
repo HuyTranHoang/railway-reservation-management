@@ -1,17 +1,32 @@
 <nb-card accent="info">
   <nb-card-header>
     <div class="d-flex justify-content-between align-items-center">
-      <form class="position-relative" (ngSubmit)="onSearch()">
-        <input nbInput placeholder="Search by carriage name.."
-               name="searchTerm"
-               (keyup.escape)="onResetSearch()"
-               [(ngModel)]="currentSearchTerm"
-               style="padding-right: 32px">
-        <nb-icon icon="search-outline" pack="eva"
-                 class="position-absolute"
-                 (click)="onSearch()"
-                 style="top: 25%; right: 8px; cursor: pointer;"></nb-icon>
-      </form>
+      <div class="d-flex">
+        <form class="position-relative" (ngSubmit)="onSearch()">
+          <input nbInput placeholder="Carriage, train, type.."
+                 name="searchTerm"
+                 (keyup.escape)="onResetSearch()"
+                 [(ngModel)]="currentSearchTerm"
+                 style="padding-right: 32px">
+          <nb-icon icon="search-outline" pack="eva"
+                   class="position-absolute"
+                   (click)="onSearch()"
+                   style="top: 25%; right: 8px; cursor: pointer;"></nb-icon>
+
+          <nb-select class="ml-3"
+                     style="min-width: 300px"
+                     [(selected)]="queryParams.carriageTypeId"
+                     (selectedChange)="onFilterCarriageTypes($event)"
+                     placeholder="Filter by carriage type">
+            <nb-option *ngFor="let item of carriageTypesFilter" [value]="item.id">{{item.name}}</nb-option>
+          </nb-select>
+        </form>
+
+        <button *ngIf="queryParams.carriageTypeId !== null" nbButton hero status="danger" class="ml-3"
+                (click)="onFilterReset()">
+          Reset
+        </button>
+      </div>
 
       <button nbButton status="primary" class="mr-3"
               routerLink="/managements/train-and-carriage/carriage/add">
@@ -93,11 +108,18 @@
           </button>
         </td>
       </tr>
+
+      <tr *ngIf="carriages.length <= 0">
+        <td colspan="7" class="text-center">
+          <div class="text-muted py-4">No data found.</div>
+        </td>
+      </tr>
       </tbody>
     </table>
   </nb-card-body>
   <nb-card-footer>
     <app-pagination
+      selectOption="10"
       [pagination]="pagination"
       (pageChanged)="onPageChanged($event)"
       (pageSizeChanged)="onPageSizeChanged($event)">

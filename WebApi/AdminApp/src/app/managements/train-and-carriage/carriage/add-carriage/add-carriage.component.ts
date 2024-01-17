@@ -3,6 +3,9 @@ import {Observable, of} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {TrainService} from '../../train/train.service';
 import {Train} from '../../../../@models/train';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {CarriageTypeService} from '../../carriage-type/carriage-type.service';
+import {CarriageType} from '../../../../@models/carriageType';
 
 @Component({
   selector: 'ngx-add-carriage',
@@ -14,21 +17,61 @@ export class AddCarriageComponent implements OnInit {
   options: Train[];
   filteredOptions$: Observable<Train[]>;
 
-  selectedTrainId: number | null = null;
+  carriageTypes: CarriageType[] = [];
+
   isValidTrainSelected: boolean = false;
-  hasInteracted: boolean = false;
+
+  carriageForm: FormGroup = this.fb.group({});
+  compartmentForm: FormGroup = this.fb.group({});
+  isSubmitted = false;
+  isCompartmentSubmitted = false;
+  errorMessages: string[] = [];
 
   @ViewChild('autoInput') input: { nativeElement: { value: string; }; };
 
-  constructor(private trainService: TrainService) {
+  constructor(private trainService: TrainService,
+              private carriageTypeService: CarriageTypeService,
+              private fb: FormBuilder) {
   }
 
   ngOnInit() {
+    this.loadTrains();
+    this.loadCarriageTypes();
+    this.initForm();
+  }
+
+  private loadTrains() {
     this.trainService.getAllTrainNoPaging().subscribe(trains => {
       this.options = trains;
       this.filteredOptions$ = of(this.options);
     });
   }
+
+  private loadCarriageTypes() {
+    this.carriageTypeService.getAllCarriageTypeNoPaging().subscribe({
+      next: (res) => {
+        this.carriageTypes = res;
+      },
+    });
+  }
+
+  initForm() {
+    this.carriageForm = this.fb.group({
+      name: ['', [Validators.required]],
+      trainId: ['', [Validators.required]],
+      carriageTypeId: ['', [Validators.required]],
+      numberOfCompartments: [0, [Validators.required, Validators.min(1), Validators.max(7)]],
+      status: [''],
+    });
+
+    this.compartmentForm = this.fb.group({
+      name: ['', [Validators.required]],
+      carriageId: ['', [Validators.required]],
+      numberOfSeats: [0, [Validators.required, Validators.min(1), Validators.max(4)]],
+      status: [''],
+    });
+  }
+
   private filter(value: string): Train[] {
     const filterValue = value.toLowerCase();
     return this.options.filter(option => option.name.toLowerCase().includes(filterValue));
@@ -42,24 +85,29 @@ export class AddCarriageComponent implements OnInit {
 
   onChange() {
     this.filteredOptions$ = this.getFilteredOptions(this.input.nativeElement.value);
-    this.hasInteracted = true;
   }
 
   onSelectionChange(train: Train) {
-    this.selectedTrainId = train.id;
+    this.carriageForm.patchValue({
+      trainId: train.id,
+    });
     this.input.nativeElement.value = train.name;
     this.isValidTrainSelected = true; // Train hợp lệ được chọn
   }
 
   onInputBlur() {
-    // Kiểm tra xem tên đoàn tàu có tồn tại hay không khi input thay đổi
     const inputValue = this.input.nativeElement.value;
     const trainExists = this.options.some(train => train.name === inputValue);
     this.isValidTrainSelected = trainExists;
     if (!trainExists) {
-      this.selectedTrainId = null;
+      this.carriageForm.patchValue({
+        trainId: '',
+      });
     }
-    this.hasInteracted = true;
+  }
+
+  firstNextBtnClick() {
+    this.isSubmitted = true;
   }
 
 }

@@ -14,14 +14,21 @@ public class SeatRepository : ISeatRepository
         _context = context;
     }
 
-    public void Add(Seat seat)
+    public async Task Add(Seat seat)
     {
         _context.Seats.Add(seat);
+        await Task.CompletedTask;
     }
 
-    public void Delete(Seat seat)
+    public async Task Delete(Seat seat)
     {
         _context.Seats.Remove(seat);
+        await Task.CompletedTask;
+    }
+
+    public Task<List<Seat>> GetAllNoPagingAsync()
+    {
+        return _context.Seats.ToListAsync();
     }
 
     public async Task<Seat> GetByIdAsync(int id)
@@ -55,15 +62,17 @@ public class SeatRepository : ISeatRepository
         return seat.ServiceCharge;
     }
 
-    public void SoftDelete(Seat seat)
+    public async Task SoftDelete(Seat seat)
     {
         seat.IsDeleted = true;
         _context.Entry(seat).State = EntityState.Modified;
+        await Task.CompletedTask;
     }
 
-    public void Update(Seat seat)
+    public async Task Update(Seat seat)
     {
         _context.Entry(seat).State = EntityState.Modified;
+        await Task.CompletedTask;
     }
 
     public async Task<List<Seat>> GetSeatsByCompartmentIdAsync(int compartmentId)

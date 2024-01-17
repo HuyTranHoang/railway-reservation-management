@@ -20,9 +20,13 @@ Content-Type: application/json
 GET {{url}}/{{router}}?
   &pageNumber=1
   &pageSize=10
-  # &searchTerm=Pokimane
+  &searchTerm=30
   # &sort=ageDesc
 
+### 
+
+# @name getListOfCancellationRulesNoPaging
+GET {{url}}/{{router}}/all
 
 ### 
 

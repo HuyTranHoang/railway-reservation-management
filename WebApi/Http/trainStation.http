@@ -27,7 +27,7 @@ GET {{url}}/{{router}}?
 ### 
 
 # @name getTrainStationById
-@id = 11
+@id = 1
 
 GET {{url}}/{{router}}/{{id}}
 

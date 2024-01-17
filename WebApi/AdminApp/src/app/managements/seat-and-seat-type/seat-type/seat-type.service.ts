@@ -1,10 +1,8 @@
 import {Injectable} from '@angular/core';
 import {environment} from '../../../../environments/environment';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {QueryParams} from '../../../@models/params/queryParams';
 import {SeatType} from '../../../@models/seatType';
-import {PaginatedResult} from '../../../@models/paginatedResult';
-import {map} from 'rxjs/internal/operators/map';
 import {PaginationService} from '../../shared/pagination.service';
 
 @Injectable({
@@ -29,6 +27,10 @@ export class SeatTypeService {
     }
 
     return this.paginationService.getPaginatedResult<SeatType[]>(this.baseUrl + '/seatTypes', params);
+  }
+
+  getAllSeatTypeNoPaging() {
+    return this.http.get<SeatType[]>(this.baseUrl + '/seatTypes/all');
   }
 
   getSeatTypeById(id: number) {

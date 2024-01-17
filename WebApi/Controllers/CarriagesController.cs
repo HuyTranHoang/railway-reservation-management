@@ -24,6 +24,14 @@ public class CarriagesController : BaseApiController
         return Ok(carriagesDto);
     }
 
+    [HttpGet("all")]
+    public async Task<ActionResult<IEnumerable<CarriageDto>>> GetAllCarriages()
+    {
+        var carriagesDto = await _carriageService.GetAllDtoNoPagingAsync();
+
+        return Ok(carriagesDto);
+    }
+
     [HttpGet("{id}")]
     public async Task<ActionResult<CarriageDto>> GetCarriage(int id)
     {
@@ -65,7 +73,7 @@ public class CarriagesController : BaseApiController
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> PutCarriage(int id, [FromBody] Carriage carriage)
+    public async Task<ActionResult> PutCarriage(int id, [FromBody] Carriage carriage)
     {
         if (id != carriage.Id) return BadRequest(new ErrorResponse(400));
 
@@ -89,7 +97,7 @@ public class CarriagesController : BaseApiController
     }
 
     [HttpPatch("{id}")]
-    public async Task<IActionResult> SoftDeleteCarriage(int id)
+    public async Task<ActionResult> SoftDeleteCarriage(int id)
     {
         var carriage = await _carriageService.GetByIdAsync(id);
 

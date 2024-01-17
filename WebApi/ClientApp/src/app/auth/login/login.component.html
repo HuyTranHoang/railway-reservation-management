@@ -11,7 +11,7 @@
       </div>
     </div>
 
-    <div class="signup-form col">
+    <div class="signup-form col" style="min-height: 457px">
       <h2 class="form-title">Sign In</h2>
 
       <form class="login-form"
@@ -83,7 +83,9 @@
         <span class="social-label">Or login with</span>
         <ul class="socials d-flex">
           <li>
-            <a><i class="social-icon facebook fa-brands fa-facebook-f"></i></a>
+            <a (click)="loginOrRegisterWithFacebook()">
+              <i class="social-icon facebook fa-brands fa-facebook-f"></i>
+            </a>
           </li>
           <li>
             <a><i class="social-icon google fa-brands fa-google"></i></a>

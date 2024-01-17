@@ -46,11 +46,13 @@ namespace Infrastructure.Data.Migrations
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -74,6 +76,10 @@ namespace Infrastructure.Data.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<string>("Provider")
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
@@ -831,9 +837,6 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasIndex("TrainCompanyId");
 
-                    b.HasIndex(new[] { "Name" }, "IX_Trains_Name")
-                        .IsUnique();
-
                     b.ToTable("Trains");
                 });
 
@@ -1077,7 +1080,7 @@ namespace Infrastructure.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("Domain.Entities.Train", "Train")
-                        .WithMany()
+                        .WithMany("Carriages")
                         .HasForeignKey("TrainId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -1327,6 +1330,11 @@ namespace Infrastructure.Data.Migrations
             modelBuilder.Entity("Domain.Entities.Ticket", b =>
                 {
                     b.Navigation("Cancellation");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Train", b =>
+                {
+                    b.Navigation("Carriages");
                 });
 #pragma warning restore 612, 618
         }

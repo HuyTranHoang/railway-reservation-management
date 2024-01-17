@@ -34,6 +34,12 @@ GET {{url}}/{{router}}?
   # &sort=nameDesc
   # &trainCompanyId=2
 
+###
+
+# @name getListOfCarriageNoPaging
+
+GET {{url}}/{{router}}/all
+
 
 ### 
 

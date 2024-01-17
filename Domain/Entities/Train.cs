@@ -16,4 +16,6 @@ public class Train : BaseEntity
     public TrainCompany TrainCompany { get; set; }
 
     [StringLength(100)] public string Status { get; set; }
+
+    public ICollection<Carriage> Carriages { get; set; }
 }

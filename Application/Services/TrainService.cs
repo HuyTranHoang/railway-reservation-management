@@ -23,13 +23,13 @@ public class TrainService : ITrainService
             throw new BadRequestException(400, "Name already exists");
         }
 
-        _repository.Add(train);
+        await _repository.Add(train);
         await _unitOfWork.SaveChangesAsync();
     }
 
     public async Task DeleteAsync(Train train)
     {
-        _repository.Delete(train);
+        await _repository.Delete(train);
         await _unitOfWork.SaveChangesAsync();
     }
 
@@ -77,7 +77,7 @@ public class TrainService : ITrainService
 
     public async Task SoftDeleteAsync(Train train)
     {
-        _repository.SoftDelete(train);
+        await _repository.SoftDelete(train);
         await _unitOfWork.SaveChangesAsync();
     }
 

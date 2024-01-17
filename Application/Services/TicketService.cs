@@ -31,13 +31,13 @@ namespace Application.Services
 
             ticket.Price = await CalculatePrice(ticket);
 
-            _repository.Add(ticket);
+            await _repository.Add(ticket);
             await _unitOfWork.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(Ticket ticket)
         {
-            _repository.Delete(ticket);
+            await _repository.Delete(ticket);
             await _unitOfWork.SaveChangesAsync();
         }
 
@@ -122,7 +122,7 @@ namespace Application.Services
 
         public async Task SoftDeleteAsync(Ticket ticket)
         {
-            _repository.SoftDelete(ticket);
+            await _repository.SoftDelete(ticket);
             await _unitOfWork.SaveChangesAsync();
         }
 
@@ -143,7 +143,7 @@ namespace Application.Services
             ticketInDb.Status = ticket.Status;
             ticketInDb.UpdatedAt = DateTime.Now;
 
-            _repository.Update(ticketInDb);
+            await _repository.Update(ticketInDb);
 
             await _unitOfWork.SaveChangesAsync();
         }

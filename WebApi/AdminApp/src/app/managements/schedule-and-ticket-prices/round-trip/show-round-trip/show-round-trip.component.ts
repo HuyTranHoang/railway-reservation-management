@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {NbDialogRef, NbToastrService} from '@nebular/theme';
+import {NbDialogRef} from '@nebular/theme';
 import {Router} from '@angular/router';
 
 @Component({

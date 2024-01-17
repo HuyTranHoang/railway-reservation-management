@@ -16,7 +16,7 @@ namespace WebApi.Controllers
         }
 
          [HttpGet("carriage")]
-        public async Task<IActionResult> GetAllCarriages()
+        public async Task<ActionResult> GetAllCarriages()
         {
             try
             {
@@ -30,7 +30,7 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("compartment")]
-        public async Task<IActionResult> GetAllCompartments()
+        public async Task<ActionResult> GetAllCompartments()
         {
             try
             {

@@ -14,14 +14,16 @@ public class ScheduleRepository : IScheduleRepository
     {
         _context = context;
     }
-    public void Add(Schedule schedule)
+    public async Task Add(Schedule schedule)
     {
         _context.Schedules.Add(schedule);
+        await Task.CompletedTask;
     }
 
-    public void Delete(Schedule schedule)
+    public async Task Delete(Schedule schedule)
     {
         _context.Schedules.Remove(schedule);
+        await Task.CompletedTask;
     }
 
     public async Task<Schedule> GetByIdAsync(int id)
@@ -44,15 +46,17 @@ public class ScheduleRepository : IScheduleRepository
             .AsQueryable());
     }
 
-    public void SoftDelete(Schedule schedule)
+    public async Task SoftDelete(Schedule schedule)
     {
         schedule.IsDeleted = true;
         _context.Entry(schedule).State = EntityState.Modified;
+        await Task.CompletedTask;
     }
 
-    public void Update(Schedule schedule)
+    public async Task Update(Schedule schedule)
     {
         _context.Entry(schedule).State = EntityState.Modified;
+        await Task.CompletedTask;
     }
 
     public async Task<Schedule> GetScheduleByStationsAsync(int trainId, int departureStationId, int arrivalStationId)
@@ -62,5 +66,12 @@ public class ScheduleRepository : IScheduleRepository
                 schedule.TrainId == trainId &&
                 schedule.DepartureStationId == departureStationId &&
                 schedule.ArrivalStationId == arrivalStationId);
+    }
+
+    public async Task<List<Schedule>> GetSchedulesByTrainAsync(int trainId)
+    {
+        return await _context.Schedules
+            .Where(schedule => schedule.TrainId == trainId)
+            .ToListAsync();
     }
 };

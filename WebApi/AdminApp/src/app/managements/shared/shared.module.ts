@@ -6,12 +6,17 @@ import {
   NbButtonModule,
   NbCardModule,
   NbCheckboxModule,
+  NbDatepickerModule,
   NbIconModule,
-  NbInputModule, NbOptionModule,
-  NbRadioModule, NbSelectModule,
+  NbInputModule,
+  NbOptionModule,
+  NbRadioModule,
+  NbSelectModule,
+  NbSpinnerModule,
+  NbTimepickerModule,
 } from '@nebular/theme';
 import {HttpClientModule} from '@angular/common/http';
-import { PaginationComponent } from './pagination/pagination.component';
+import {PaginationComponent} from './pagination/pagination.component';
 
 
 @NgModule({
@@ -29,6 +34,9 @@ import { PaginationComponent } from './pagination/pagination.component';
     NbRadioModule,
     NbSelectModule,
     NbOptionModule,
+    NbSpinnerModule,
+    NbDatepickerModule.forRoot(),
+    NbTimepickerModule.forRoot(),
   ],
   exports: [
     InputFieldComponent,
@@ -45,6 +53,9 @@ import { PaginationComponent } from './pagination/pagination.component';
     NbRadioModule,
     NbSelectModule,
     NbOptionModule,
+    NbSpinnerModule,
+    NbDatepickerModule,
+    NbTimepickerModule,
   ],
 })
 export class SharedModule {

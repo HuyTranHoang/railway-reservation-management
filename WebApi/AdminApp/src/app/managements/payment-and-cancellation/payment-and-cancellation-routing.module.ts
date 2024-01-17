@@ -1,9 +1,8 @@
-import { NgModule } from '@angular/core';
+import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {PaymentAndCancellationComponent} from './payment-and-cancellation.component';
 import {PaymentComponent} from './payment/payment.component';
 import {CancellationComponent} from './cancellation/cancellation.component';
-import {CancellationRuleComponent} from './cancellation-rule/cancellation-rule.component';
 import {AddPaymentComponent} from './payment/add-payment/add-payment.component';
 import {EditPaymentComponent} from './payment/edit-payment/edit-payment.component';
 
@@ -29,7 +28,8 @@ const routes: Routes = [{
     },
     {
       path: 'cancellation-rule',
-      component: CancellationRuleComponent,
+      loadChildren: () => import('./cancellation-rule/cancellation-rule.module')
+        .then(m => m.CancellationRuleModule),
     },
   ],
 }];

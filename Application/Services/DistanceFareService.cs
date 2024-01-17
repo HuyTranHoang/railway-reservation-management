@@ -18,13 +18,13 @@ public class DistanceFareService : IDistanceFareService
 
     public async Task AddAsync(DistanceFare distanceFare)
     {
-        _repository.Add(distanceFare);
+        await _repository.Add(distanceFare);
         await _unitOfWork.SaveChangesAsync();
     }
 
     public async Task DeleteAsync(DistanceFare distanceFare)
     {
-        _repository.Delete(distanceFare);
+        await _repository.Delete(distanceFare);
         await _unitOfWork.SaveChangesAsync();
     }
 
@@ -39,6 +39,11 @@ public class DistanceFareService : IDistanceFareService
 
         if (!string.IsNullOrEmpty(queryParams.SearchTerm))
             query = query.Where(t => t.TrainCompany.Name.Contains(queryParams.SearchTerm.Trim()));
+
+        if (queryParams.MinDistance != 0)
+        {
+
+        }
 
         query = queryParams.Sort switch
         {
@@ -78,7 +83,7 @@ public class DistanceFareService : IDistanceFareService
 
     public async Task SoftDeleteAsync(DistanceFare distanceFare)
     {
-        _repository.SoftDelete(distanceFare);
+        await _repository.SoftDelete(distanceFare);
         await _unitOfWork.SaveChangesAsync();
     }
 

@@ -14,15 +14,22 @@ namespace Infrastructure.Persistence
             _context = context;
         }
 
-        public void Add(TrainStation trainStation)
+        public async Task Add(TrainStation trainStation)
         {
             _context.TrainStations.Add(trainStation);
+            await Task.CompletedTask;
 
         }
 
-        public void Delete(TrainStation trainStation)
+        public async Task Delete(TrainStation trainStation)
         {
             _context.TrainStations.Remove(trainStation);
+            await Task.CompletedTask;
+        }
+
+        public Task<List<TrainStation>> GetAllNoPagingAsync()
+        {
+            return _context.TrainStations.ToListAsync();
         }
 
         public async Task<TrainStation> GetByIdAsync(int id)
@@ -36,15 +43,17 @@ namespace Infrastructure.Persistence
             return await Task.FromResult(_context.TrainStations.AsQueryable());
         }
 
-        public void SoftDelete(TrainStation trainStation)
+        public async Task SoftDelete(TrainStation trainStation)
         {
             trainStation.IsDeleted = true;
             _context.Entry(trainStation).State = EntityState.Modified;
+            await Task.CompletedTask;
         }
 
-        public void Update(TrainStation trainStation)
+        public async Task Update(TrainStation trainStation)
         {
             _context.Entry(trainStation).State = EntityState.Modified;
+            await Task.CompletedTask;
         }
 
         public async Task<List<TrainStation>> GetStationsFromToAsync(int startCoordinate, int endCoordinate)

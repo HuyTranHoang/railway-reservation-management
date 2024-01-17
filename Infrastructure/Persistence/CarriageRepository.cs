@@ -14,14 +14,16 @@ public class CarriageRepository : ICarriageRepository
         _context = context;
     }
 
-    public void Add(Carriage carriage)
+    public async Task Add(Carriage carriage)
     {
         _context.Carriages.Add(carriage);
+        await Task.CompletedTask;
     }
 
-    public void Delete(Carriage carriage)
+    public async Task Delete(Carriage carriage)
     {
         _context.Carriages.Remove(carriage);
+        await Task.CompletedTask;
     }
 
     public async Task<Carriage> GetByIdAsync(int id)
@@ -38,12 +40,14 @@ public class CarriageRepository : ICarriageRepository
 
     public async Task<IQueryable<Carriage>> GetQueryWithTrainAndTypeAsync()
     {
-        return await Task.FromResult(
-        _context.Carriages
-            .Include(t => t.Train)
-            .Include(t => t.CarriageType)
-            .AsQueryable());
+        var query = _context.Carriages
+            .Include(c => c.Train)
+            .Include(c => c.CarriageType)
+            .AsQueryable();
+
+        return await Task.FromResult(query);
     }
+
 
     public async Task<Carriage> GetByIdWithCompartmentsAsync(int id)
     {
@@ -52,15 +56,17 @@ public class CarriageRepository : ICarriageRepository
             .FirstOrDefaultAsync(p => p.Id == id);
     }
 
-    public void SoftDelete(Carriage carriage)
+    public async Task SoftDelete(Carriage carriage)
     {
         carriage.IsDeleted = true;
         _context.Entry(carriage).State = EntityState.Modified;
+        await Task.CompletedTask;
     }
 
-    public void Update(Carriage carriage)
+    public async Task Update(Carriage carriage)
     {
         _context.Entry(carriage).State = EntityState.Modified;
+        await Task.CompletedTask;
     }
 
     public async Task<double> GetServiceChargeByIdAsync(int id)

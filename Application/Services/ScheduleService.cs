@@ -33,9 +33,14 @@ public class ScheduleService : IScheduleService
             throw new BadRequestException(400, "Name already exists");
         }
 
+        if (schedule.DepartureTime >= schedule.ArrivalTime || schedule.ArrivalTime <= schedule.DepartureTime)
+        {
+            throw new BadRequestException(400, "Departure time must be before arrival time");
+        }
+        
         if (ScheduleConflictsOrDeparture(_repository, schedule))
         {
-            throw new BadRequestException(400, "Trùng Lịch Trình Hoặc Thời Gian Chỉ Định Đã Có!!");
+            throw new BadRequestException(400, "Schedule conflicts or departure time already exists");
         }
 
         schedule.Price = await CalculatePrice(schedule);
@@ -43,13 +48,13 @@ public class ScheduleService : IScheduleService
         int durationInMinutes = await CalculateDurationInMinutes(schedule);
         schedule.Duration = durationInMinutes;
 
-        _repository.Add(schedule);
+        await _repository.Add(schedule);
         await _unitOfWork.SaveChangesAsync();
     }
 
     public async Task DeleteAsync(Schedule schedule)
     {
-        _repository.Delete(schedule);
+        await _repository.Delete(schedule);
         await _unitOfWork.SaveChangesAsync();
     }
 
@@ -74,15 +79,25 @@ public class ScheduleService : IScheduleService
 
         if (!string.IsNullOrEmpty(queryParams.SearchTerm))
         {
-            query = query.Where(p => p.Name.Contains(queryParams.SearchTerm.Trim()));
+            query = query.Where(p => p.Name.Contains(queryParams.SearchTerm.Trim()) ||
+                                     p.Train.Name.Contains(queryParams.SearchTerm.Trim()) ||
+                                     p.DepartureStation.Name.Contains(queryParams.SearchTerm.Trim()) ||
+                                     p.ArrivalStation.Name.Contains(queryParams.SearchTerm.Trim()));
         }
 
         query = queryParams.Sort switch
         {
             "scheduleNameAsc" => query.OrderBy(p => p.Name),
             "scheduleNameDesc" => query.OrderByDescending(p => p.Name),
+            "trainNameAsc" => query.OrderBy(p => p.Train.Name),
+            "trainNameDesc" => query.OrderByDescending(p => p.Train.Name),
+            "departureStationNameAsc" => query.OrderBy(p => p.DepartureStation.Name),
+            "departureStationNameDesc" => query.OrderByDescending(p => p.DepartureStation.Name),
+            "arrivalStationNameAsc" => query.OrderBy(p => p.ArrivalStation.Name),
+            "arrivalStationNameDesc" => query.OrderByDescending(p => p.ArrivalStation.Name),
             "departureTimeAsc" => query.OrderBy(p => p.DepartureTime),
             "departureTimeDesc" => query.OrderByDescending(p => p.DepartureTime),
+            "createdAtDesc" => query.OrderByDescending(p => p.CreatedAt),
             _ => query.OrderBy(p => p.CreatedAt)
         };
 
@@ -104,7 +119,7 @@ public class ScheduleService : IScheduleService
 
     public async Task SoftDeleteAsync(Schedule schedule)
     {
-        _repository.SoftDelete(schedule);
+        await _repository.SoftDelete(schedule);
         await _unitOfWork.SaveChangesAsync();
     }
 
@@ -119,9 +134,14 @@ public class ScheduleService : IScheduleService
             throw new BadRequestException(400, "Name already exists");
         }
 
+        if (schedule.DepartureTime >= schedule.ArrivalTime || schedule.ArrivalTime <= schedule.DepartureTime)
+        {
+            throw new BadRequestException(400, "Departure time must be before arrival time");
+        }
+
         if (ScheduleConflictsOrDeparture(_repository, schedule))
         {
-            throw new BadRequestException(400, "Trùng Lịch Trình Hoặc Thời Gian Chỉ Định Đã Có!!");
+            throw new BadRequestException(400, "Schedule conflicts or departure time already exists");
         }
 
         scheduleInDb.Name = schedule.Name;
@@ -162,22 +182,15 @@ public class ScheduleService : IScheduleService
     private async Task<double> CalculatePrice(Schedule schedule)
     {
         var departure = await _trainStationRepository.GetByIdAsync(schedule.DepartureStationId);
-        if (departure == null)
-        {
-            Console.WriteLine($"Không tìm thấy TrainStation với Id = {schedule.DepartureStationId}");
-        }
-
         var arrival = await _trainStationRepository.GetByIdAsync(schedule.ArrivalStationId);
-        if (departure == null)
-        {
-            Console.WriteLine($"Không tìm thấy TrainStation với Id = {schedule.ArrivalStationId}");
-        }
 
         int distance = arrival.CoordinateValue - departure.CoordinateValue;
         var train = await _trainRepository.GetByIdAsync(schedule.TrainId);
 
         var distanceFare = await _distanceFareRepository.GetByDistanceAsync(distance, train.TrainCompanyId);
-        return (double)distanceFare;
+        if (distanceFare != null) return (double)distanceFare;
+
+        throw new BadRequestException(400, "Distance fare not found.");
     }
 
     private async Task<int> CalculateDurationInMinutes(Schedule schedule)
@@ -222,15 +235,28 @@ public class ScheduleService : IScheduleService
         return travelTimeMinutes;
     }
 
+    private async Task<bool> IsTrainOccupied(int trainId, DateTime newDepartureTime)
+    {
+        var schedules = await _repository.GetSchedulesByTrainAsync(trainId);
+        return schedules.Any(s => s.DepartureTime <= newDepartureTime && s.ArrivalTime >= newDepartureTime);
+    }
+
+
     public async Task CreateSchedulesForTrainPassingAsync(Schedule largeSchedule)
     {
+        if (await IsTrainOccupied(largeSchedule.TrainId, largeSchedule.DepartureTime))
+        {
+            // Kiểm tra xem tàu đã hoàn thành lịch trình hay chưa, nếu chưa thì không cho tạo lịch trình mới
+            throw new BadRequestException(400, "Train is already occupied for another schedule.");
+        }
+
         // Get departure and arrival stations
         var departureStation = await _trainStationRepository.GetByIdAsync(largeSchedule.DepartureStationId);
         var arrivalStation = await _trainStationRepository.GetByIdAsync(largeSchedule.ArrivalStationId);
 
         if (departureStation == null || arrivalStation == null)
         {
-            throw new Exception("Departure or arrival station not found.");
+            throw new BadRequestException(400, "Departure or arrival station not found.");
         }
 
         // Get intermediate stations
@@ -261,7 +287,8 @@ public class ScheduleService : IScheduleService
                 var existingSchedule =
                     await _repository.GetScheduleByStationsAsync(largeSchedule.TrainId, departureStationId,
                         arrivalStationId);
-                if (existingSchedule == null)
+
+                if (existingSchedule == null || existingSchedule.DepartureTime != currentDepartureTime)
                 {
                     // Create a new schedule
                     var schedule = new Schedule
@@ -279,7 +306,7 @@ public class ScheduleService : IScheduleService
                     };
                     schedule.Price = await CalculatePrice(schedule);
                     // Add the schedule to the repository
-                    _repository.Add(schedule);
+                    await _repository.Add(schedule);
                 }
             }
 

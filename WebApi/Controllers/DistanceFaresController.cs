@@ -35,7 +35,7 @@ public class DistanceFaresController : BaseApiController
     }
 
     [HttpPost]
-    public async Task<IActionResult> PostDistanceFare([FromBody] DistanceFare distanceFare)
+    public async Task<ActionResult> PostDistanceFare([FromBody] DistanceFare distanceFare)
     {
 
         if (!ModelState.IsValid)
@@ -57,7 +57,7 @@ public class DistanceFaresController : BaseApiController
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> PutDistanceFare(int id, [FromBody] DistanceFare distanceFare)
+    public async Task<ActionResult> PutDistanceFare(int id, [FromBody] DistanceFare distanceFare)
     {
         if (id != distanceFare.Id) return BadRequest(new ErrorResponse(400));
 
@@ -84,7 +84,7 @@ public class DistanceFaresController : BaseApiController
     }
 
     [HttpPatch("{id}")]
-    public async Task<IActionResult> SoftDeleteDistanceFare(int id)
+    public async Task<ActionResult> SoftDeleteDistanceFare(int id)
     {
         var distanceFare = await _distanceFareService.GetByIdAsync(id);
         if (distanceFare is null) return NotFound(new ErrorResponse(404));

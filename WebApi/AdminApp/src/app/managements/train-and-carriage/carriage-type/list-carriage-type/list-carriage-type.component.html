@@ -33,7 +33,7 @@
           </span>
         </th>
 
-        <th scope="col" style="width: 15%">
+        <th scope="col" style="width: 25%">
           <span (click)="onSort('serviceChargeAsc')"
                 [class.text-primary]="currentSort.includes('serviceCharge')">
             Service Charge
@@ -73,11 +73,18 @@
           </button>
         </td>
       </tr>
+
+      <tr *ngIf="carriageTypes.length <= 0">
+        <td colspan="5" class="text-center">
+          <div class="text-muted py-4">No data found.</div>
+        </td>
+      </tr>
       </tbody>
     </table>
   </nb-card-body>
   <nb-card-footer>
     <app-pagination
+      selectOption="10"
       [pagination]="pagination"
       (pageChanged)="onPageChanged($event)"
       (pageSizeChanged)="onPageSizeChanged($event)">

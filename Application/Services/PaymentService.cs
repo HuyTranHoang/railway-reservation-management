@@ -17,13 +17,13 @@ public class PaymentService : IPaymentService
 
     public async Task AddAsync(Payment payment)
     {
-        _repository.Add(payment);
+        await _repository.Add(payment);
         await _unitOfWork.SaveChangesAsync();
     }
 
     public async Task DeleteAsync(Payment payment)
     {
-        _repository.Delete(payment);
+        await _repository.Delete(payment);
         await _unitOfWork.SaveChangesAsync();
     }
 
@@ -67,7 +67,7 @@ public class PaymentService : IPaymentService
 
     public async Task SoftDeleteAsync(Payment payment)
     {
-        _repository.SoftDelete(payment);
+        await _repository.SoftDelete(payment);
         await _unitOfWork.SaveChangesAsync();
     }
 

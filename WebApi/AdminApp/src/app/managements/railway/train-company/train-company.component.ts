@@ -9,6 +9,7 @@ import {
   ConfirmDeleteTrainCompanyComponent,
 } from './confirm-delete-train-company/confirm-delete-train-company.component';
 import {NbDialogService} from '@nebular/theme';
+import {SharedService} from '../../shared/shared.service';
 
 @Component({
   selector: 'ngx-train-company',
@@ -35,7 +36,9 @@ export class TrainCompanyComponent implements OnInit {
     createdAt: false,
   };
 
-  constructor(private trainCompanyService: TrainCompanyService, private dialogService: NbDialogService) {
+  constructor(private trainCompanyService: TrainCompanyService,
+              private sharedService: SharedService,
+              private dialogService: NbDialogService) {
   }
 
   ngOnInit(): void {
@@ -73,25 +76,10 @@ export class TrainCompanyComponent implements OnInit {
   }
 
   onSort(sort: string) {
-    const sortType = sort.split('Asc')[0];
-
-    if (this.queryParams.sort === sort) {
-      this.queryParams.sort = sort.endsWith('Asc') ? sort.replace('Asc', 'Desc') : sort.replace('Desc', 'Asc');
-      this.sortStates[sortType] = !this.sortStates[sortType];
-    } else {
-      this.queryParams.sort = sort;
-      for (const key in this.sortStates) {
-        if (this.sortStates.hasOwnProperty(key)) {
-          this.sortStates[key] = false;
-        }
-      }
-
-      this.sortStates[sortType] = sort.endsWith('Asc');
-    }
-
+    const result = this.sharedService.sortItems(this.queryParams, sort, this.sortStates);
+    this.queryParams = result.queryParams;
+    this.sortStates = result.sortStates;
     this.currentSort = this.queryParams.sort;
-
-    this.queryParams.pageNumber = 1;
     this.getAllTrainCompany();
   }
 
@@ -100,7 +88,7 @@ export class TrainCompanyComponent implements OnInit {
     const trainCompany = this.trainCompanies.find(x => x.id === id);
 
     const dialogRef = this.dialogService.open(ShowTrainCompanyComponent, {
-      context: { ...trainCompany },
+      context: {...trainCompany},
     });
 
     dialogRef.componentRef.instance.onShowDelete.subscribe(obj => {

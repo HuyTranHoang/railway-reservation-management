@@ -27,6 +27,16 @@ public class SeatTypesController : ControllerBase
         return Ok(seatTypesDto);
     }
 
+    [HttpGet("all")]
+    public async Task<ActionResult<List<SeatTypeDto>>> GetAllSeatType()
+    {
+        var seatsDto = await _seatTypeService.GetAllDtoNoPagingAsync();
+
+        return Ok(seatsDto);
+    }
+
+
+
     [HttpGet("{id}")]
     public async Task<ActionResult<SeatTypeDto>> GetById(int id)
     {
@@ -47,7 +57,7 @@ public class SeatTypesController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> Delete(int id)
+    public async Task<ActionResult> Delete(int id)
     {
         var seatType = await _seatTypeService.GetByIdAsync(id);
         if (seatType == null) return NotFound();
@@ -56,7 +66,7 @@ public class SeatTypesController : ControllerBase
     }
 
     [HttpPatch("{id}")]
-    public async Task<IActionResult> SoftDeleteSeatType(int id)
+    public async Task<ActionResult> SoftDeleteSeatType(int id)
     {
         var seatType = await _seatTypeService.GetByIdAsync(id);
 
@@ -68,7 +78,7 @@ public class SeatTypesController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update(int id, [FromBody] SeatType seatType)
+    public async Task<ActionResult> Update(int id, [FromBody] SeatType seatType)
     {
         if (id != seatType.Id) return BadRequest(new ErrorResponse(400));
 

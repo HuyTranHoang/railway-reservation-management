@@ -9,6 +9,7 @@ import {ShowCarriageTypeComponent} from '../show-carriage-type/show-carriage-typ
 import {
   ConfirmDeleteCarriageTypeComponent,
 } from '../confirm-delete-carriage-type/confirm-delete-carriage-type.component';
+import {SharedService} from '../../../shared/shared.service';
 
 @Component({
   selector: 'ngx-list-carriage-type',
@@ -30,12 +31,14 @@ export class ListCarriageTypeComponent implements OnInit {
 
   queryParams: QueryParams = {
     pageNumber: 1,
-    pageSize: 5,
+    pageSize: 10,
     searchTerm: '',
     sort: '',
   };
 
-  constructor(private carriageTypeService: CarriageTypeService, private dialogService: NbDialogService) {
+  constructor(private carriageTypeService: CarriageTypeService,
+              private sharedService: SharedService,
+              private dialogService: NbDialogService) {
   }
 
   ngOnInit(): void {
@@ -73,28 +76,12 @@ export class ListCarriageTypeComponent implements OnInit {
   }
 
   onSort(sort: string) {
-    const sortType = sort.split('Asc')[0];
-
-    if (this.queryParams.sort === sort) {
-      this.queryParams.sort = sort.endsWith('Asc') ? sort.replace('Asc', 'Desc') : sort.replace('Desc', 'Asc');
-      this.sortStates[sortType] = !this.sortStates[sortType];
-    } else {
-      this.queryParams.sort = sort;
-      for (const key in this.sortStates) {
-        if (this.sortStates.hasOwnProperty(key)) {
-          this.sortStates[key] = false;
-        }
-      }
-
-      this.sortStates[sortType] = sort.endsWith('Asc');
-    }
-
+    const result = this.sharedService.sortItems(this.queryParams, sort, this.sortStates);
+    this.queryParams = result.queryParams;
+    this.sortStates = result.sortStates;
     this.currentSort = this.queryParams.sort;
-
-    this.queryParams.pageNumber = 1;
     this.getAllCarriageType();
   }
-
 
   openShowDialog(id: number) {
     const carriageType = this.carriageTypes.find(x => x.id === id);

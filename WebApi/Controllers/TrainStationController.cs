@@ -24,6 +24,15 @@ namespace WebApi.Controllers
             return Ok(trainStationDto);
         }
 
+        [HttpGet("all")]
+        public async Task<ActionResult<IEnumerable<TrainStationDto>>> GetAllTrainStationsNoPaging()
+        {
+            var trainStationDtos = await _trainStationService.GetAllDtoNoPagingAsync();
+
+            return Ok(trainStationDtos);
+        }
+
+
         [HttpGet("{id}")]
         public async Task<ActionResult<TrainStationDto>> GetTrainStation(int id)
         {
@@ -35,7 +44,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddTrainStation([FromBody] TrainStation trainStation)
+        public async Task<ActionResult> AddTrainStation([FromBody] TrainStation trainStation)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
@@ -44,7 +53,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateTrainStation(int id, [FromBody] TrainStation trainStation)
+        public async Task<ActionResult> UpdateTrainStation(int id, [FromBody] TrainStation trainStation)
         {
             if (id != trainStation.Id) return BadRequest(new ErrorResponse(400));
 
@@ -63,7 +72,7 @@ namespace WebApi.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteTrainStation(int id)
+        public async Task<ActionResult> DeleteTrainStation(int id)
         {
             var trainStation = await _trainStationService.GetByIdAsync(id);
 
@@ -75,7 +84,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPatch("{id}")]
-        public async Task<IActionResult> SoftDeleteTrainStation(int id)
+        public async Task<ActionResult> SoftDeleteTrainStation(int id)
         {
             var trainStation = await _trainStationService.GetByIdAsync(id);
 

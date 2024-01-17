@@ -14,14 +14,16 @@ public class DistanceFareRepository : IDistanceFareRepository
         _context = context;
     }
 
-    public void Add(DistanceFare distanceFare)
+    public async Task Add(DistanceFare distanceFare)
     {
         _context.DistanceFares.Add(distanceFare);
+        await Task.CompletedTask;
     }
 
-    public void Delete(DistanceFare distanceFare)
+    public async Task Delete(DistanceFare distanceFare)
     {
         _context.DistanceFares.Remove(distanceFare);
+        await Task.CompletedTask;
     }
 
     public async Task<decimal?> GetByDistanceAsync(int distance, int trainCompanyId)
@@ -65,14 +67,16 @@ public class DistanceFareRepository : IDistanceFareRepository
                 .AsQueryable());
     }
 
-    public void SoftDelete(DistanceFare distanceFare)
+    public async Task SoftDelete(DistanceFare distanceFare)
     {
         distanceFare.IsDeleted = true;
         _context.Entry(distanceFare).State = EntityState.Modified;
+        await Task.CompletedTask;
     }
 
-    public void Update(DistanceFare distanceFare)
+    public async Task Update(DistanceFare distanceFare)
     {
         _context.Entry(distanceFare).State = EntityState.Modified;
+        await Task.CompletedTask;
     }
 }

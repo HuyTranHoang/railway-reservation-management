@@ -1,10 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {ScheduleAndTicketPricesComponent} from './schedule-and-ticket-prices.component';
-import {ScheduleComponent} from './schedule/schedule.component';
-import {DistanceFareComponent} from './distance-fare/distance-fare.component';
-
-
 
 const routes: Routes = [{
   path: '',
@@ -12,7 +8,8 @@ const routes: Routes = [{
   children: [
     {
       path: 'schedule',
-      component: ScheduleComponent,
+      loadChildren: () => import('./schedule/schedule.module')
+        .then(m => m.ScheduleModule),
     },
     {
       path: 'distance-fare',

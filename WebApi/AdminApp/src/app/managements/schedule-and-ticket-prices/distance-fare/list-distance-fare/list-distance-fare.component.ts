@@ -9,6 +9,7 @@ import {ShowDistanceFareComponent} from '../show-distance-fare/show-distance-far
 import {
   ConfirmDeleteDistanceFareComponent,
 } from '../confirm-delete-distance-fare/confirm-delete-distance-fare.component';
+import {SharedService} from '../../../shared/shared.service';
 
 @Component({
   selector: 'ngx-list-distance-fare',
@@ -31,12 +32,13 @@ export class ListDistanceFareComponent implements OnInit {
 
   queryParams: QueryParams = {
     pageNumber: 1,
-    pageSize: 5,
+    pageSize: 10,
     searchTerm: '',
     sort: '',
   };
 
   constructor(private distanceFareService: DistanceFareService,
+              private sharedService: SharedService,
               private dialogService: NbDialogService) {
   }
 
@@ -74,24 +76,10 @@ export class ListDistanceFareComponent implements OnInit {
   }
 
   onSort(sort: string) {
-    const sortType = sort.split('Asc')[0];
-
-    if (this.queryParams.sort === sort) {
-      this.queryParams.sort = sort.endsWith('Asc') ? sort.replace('Asc', 'Desc') : sort.replace('Desc', 'Asc');
-      this.sortStates[sortType] = !this.sortStates[sortType];
-    } else {
-      this.queryParams.sort = sort;
-      for (const key in this.sortStates) {
-        if (this.sortStates.hasOwnProperty(key)) {
-          this.sortStates[key] = false;
-        }
-      }
-
-      this.sortStates[sortType] = sort.endsWith('Asc');
-    }
-
+    const result = this.sharedService.sortItems(this.queryParams, sort, this.sortStates);
+    this.queryParams = result.queryParams;
+    this.sortStates = result.sortStates;
     this.currentSort = this.queryParams.sort;
-
     this.getAllDistanceFare();
   }
 

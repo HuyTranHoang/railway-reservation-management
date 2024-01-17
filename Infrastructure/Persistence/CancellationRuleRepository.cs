@@ -24,24 +24,33 @@ public class CancellationRuleRepository : ICancellationRuleRepository
         return await _context.CancellationRules.FindAsync(id);
     }
 
-    public void Add(CancellationRule cancellationRule)
+    public async Task Add(CancellationRule cancellationRule)
     {
         _context.CancellationRules.Add(cancellationRule);
+        await Task.CompletedTask;
     }
 
-    public void Update(CancellationRule cancellationRule)
+    public async Task Update(CancellationRule cancellationRule)
     {
         _context.Entry(cancellationRule).State = EntityState.Modified;
+        await Task.CompletedTask;
     }
 
-    public void Delete(CancellationRule cancellationRule)
+    public async Task Delete(CancellationRule cancellationRule)
     {
         _context.CancellationRules.Remove(cancellationRule);
+        await Task.CompletedTask;
     }
 
-    public void SoftDelete(CancellationRule cancellationRule)
+    public async Task SoftDelete(CancellationRule cancellationRule)
     {
         cancellationRule.IsDeleted = true;
         _context.Entry(cancellationRule).State = EntityState.Modified;
+        await Task.CompletedTask;
+    }
+
+    public Task<List<CancellationRule>> GetAllNoPagingAsync()
+    {
+        return _context.CancellationRules.ToListAsync();
     }
 }

@@ -24,6 +24,14 @@ public class CompartmentsController : BaseApiController
         return Ok(compartmentDto);
     }
 
+    [HttpGet("all")]
+    public async Task<ActionResult<List<CompartmentDto>>> GetAllSeats()
+    {
+        var seatsDto = await _compartmentService.GetAllDtoNoPagingAsync();
+
+        return Ok(seatsDto);
+    }
+
     [HttpGet("{id}")]
     public async Task<ActionResult<CompartmentDto>> GetCompartment(int id)
     {
@@ -67,7 +75,7 @@ public class CompartmentsController : BaseApiController
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> PutCompartment(int id, [FromBody] Compartment compartment)
+    public async Task<ActionResult> PutCompartment(int id, [FromBody] Compartment compartment)
     {
         if (id != compartment.Id) return BadRequest(new ErrorResponse(400));
 
@@ -96,7 +104,7 @@ public class CompartmentsController : BaseApiController
     }
 
     [HttpPatch("{id}")]
-    public async Task<IActionResult> SoftDeleteCompartment(int id)
+    public async Task<ActionResult> SoftDeleteCompartment(int id)
     {
         var compartment = await _compartmentService.GetByIdAsync(id);
 

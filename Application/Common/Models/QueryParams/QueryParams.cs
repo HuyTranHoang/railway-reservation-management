@@ -1,6 +1,4 @@
-﻿using Application.Common.Models.Pagination;
-
-namespace Application.Common.Models.QueryParams;
+﻿namespace Application.Common.Models.QueryParams;
 
 public class QueryParams : PaginationParams
 {

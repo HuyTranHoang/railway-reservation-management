@@ -34,13 +34,13 @@ public class SeatService : ISeatService
             throw new BadRequestException(400, "The number of seats is full");
         }
 
-        _repository.Add(seat);
+        await _repository.Add(seat);
         await _unitOfWork.SaveChangesAsync();
     }
 
     public async Task DeleteAsync(Seat seat)
     {
-        _repository.Delete(seat);
+        await _repository.Delete(seat);
         await _unitOfWork.SaveChangesAsync();
     }
 
@@ -59,14 +59,18 @@ public class SeatService : ISeatService
         }
 
         if (!string.IsNullOrEmpty(queryParams.SearchTerm))
-            query = query.Where(s => s.SeatType.Name.Contains(queryParams.SearchTerm.Trim()));
+            query = query.Where(s => s.Name.Contains(queryParams.SearchTerm.Trim()));
 
         query = queryParams.Sort switch
         {
+            "nameAsc" => query.OrderBy(s => s.Name),
+            "nameDesc" => query.OrderByDescending(s => s.Name),
             "seatTypeNameAsc" => query.OrderBy(s => s.SeatType.Name),
             "seatTypeNameDesc" => query.OrderByDescending(s => s.SeatType.Name),
             "compartmentNameAsc" => query.OrderBy(s => s.Compartment.Name),
             "compartmentNameDesc" => query.OrderByDescending(s => s.Compartment.Name),
+            "createdAtAsc" => query.OrderBy(s => s.CreatedAt),
+            "createdAtDesc" => query.OrderByDescending(s => s.CreatedAt),
             _ => query.OrderBy(s => s.CreatedAt)
         };
 
@@ -74,6 +78,12 @@ public class SeatService : ISeatService
 
         return await PagedList<SeatDto>.CreateAsync(seatDtoQuery, queryParams.PageNumber,
             queryParams.PageSize);
+    }
+
+    public async Task<List<SeatDto>> GetAllDtoNoPagingAsync()
+    {
+        var seat = await _repository.GetAllNoPagingAsync();
+        return _mapper.Map<List<SeatDto>>(seat);
     }
 
     public async Task<Seat> GetByIdAsync(int id)
@@ -89,7 +99,7 @@ public class SeatService : ISeatService
 
     public async Task SoftDeleteAsync(Seat seat)
     {
-        _repository.SoftDelete(seat);
+        await _repository.SoftDelete(seat);
         await _unitOfWork.SaveChangesAsync();
     }
 

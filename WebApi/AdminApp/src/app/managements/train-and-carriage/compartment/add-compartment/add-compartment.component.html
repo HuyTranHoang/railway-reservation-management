@@ -1,0 +1,73 @@
+<div class="col-md-6">
+    <nb-card>
+      <nb-card-header>
+        <div class="d-flex justify-content-between">
+          Define New Compartment
+          <button nbButton type="submit"
+          routerLink="/managements/train-and-carriage/compartment/"
+          status="primary">
+          Back to list
+          </button>
+        </div>
+      </nb-card-header>
+      <nb-card-body>
+        <form [formGroup]="compartmentForm" (ngSubmit)="onSubmit()">
+  
+          <app-input-field [control]="compartmentForm.get('name')"
+                           [label]="'Name'"
+                           [isSubmitted]="isSubmitted"
+                           [placeholder]="'Name of compartment..'">
+          </app-input-field>
+  
+          <div class="form-group">
+            <label class="label">Carriage</label>
+            <input #autoInput
+                   nbInput
+                   fullWidth
+                   type="text"
+                   [class.status-danger]="compartmentForm.get('carriageId')?.hasError('required') && (compartmentForm.get('carriageId')?.touched || isSubmitted)"
+                   (input)="onChange()"
+                   (blur)="onBlur()"
+                   placeholder="Enter carriage name"
+                   [nbAutocomplete]="autoCompartmentName" />
+            <span class="text-danger"
+                  *ngIf="compartmentForm.get('carriageId')?.hasError('required')
+                  && (compartmentForm.get('carriageId')?.touched || isSubmitted)
+                  && autoInput.value.length <= 0">
+              Carriage is required
+            </span>
+  
+            <nb-autocomplete #autoCompartmentName (selectedChange)="onSelectionChange($event)">
+              <nb-option *ngFor="let option of filteredOptions$ | async" [value]="option">
+                {{ option.name }}
+              </nb-option>
+            </nb-autocomplete>
+          </div>
+
+          <app-input-field [control]="compartmentForm.get('numberOfSeats')"
+                           [label]="'NumberOfSeats'"
+                           [isSubmitted]="isSubmitted"
+                           [placeholder]="'Number Of Seats'">
+          </app-input-field>
+  
+          <app-input-field [control]="compartmentForm.get('status')"
+                           [label]="'Status'"
+                           [isSubmitted]="isSubmitted"
+                           [placeholder]="'Status'">
+          </app-input-field>
+  
+  
+          <ul *ngIf="errorMessages.length > 0">
+            <li class="text-danger" *ngFor="let item of errorMessages">{{item}}</li>
+          </ul>
+  
+          <button type="submit" nbButton status="success" class="float-right">Submit</button>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </div>
+  
+  
+  
+  
+  

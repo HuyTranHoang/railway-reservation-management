@@ -1,0 +1,74 @@
+<div class="col-md-6">
+  <nb-card [nbSpinner]="isLoading" nbSpinnerSize="giant" nbSpinnerStatus="success">
+    <nb-card-header>
+      <div class="d-flex justify-content-between">
+        Edit Seat
+        <button nbButton type="submit"
+        routerLink="/managements/seat-and-seat-type/seat/"
+        status="primary">
+        Back to list
+        </button>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+
+        <input type="hidden" formControlName="id">
+
+        <app-input-field [control]="updateForm.get('name')"
+                         [label]="'Name'"
+                         [isSubmitted]="isSubmitted"
+                         [placeholder]="'Name of seat..'">
+        </app-input-field>
+
+        <div class="form-group">
+          <label class="label">Seat Type</label>
+          <nb-select formControlName="seatTypeId"
+                     [class.status-danger]="updateForm.get('seatTypeId')?.invalid && (updateForm.get('seatTypeId')?.touched || isSubmitted)"
+                     placeholder="Select seat type.."
+                     fullWidth>
+            <nb-option *ngFor="let item of seatTypes" [value]="item.id">{{item.name}}</nb-option>
+          </nb-select>
+
+          <span class="text-danger"
+                *ngIf="updateForm.get('seatTypeId')?.hasError('required')
+                && (updateForm.get('seatTypeId')?.touched || isSubmitted)">
+            Seat type is required
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label class="label">Compartment</label>
+          <nb-select formControlName="compartmentId"
+                     [class.status-danger]="updateForm.get('compartmentId')?.invalid && (updateForm.get('compartmentId')?.touched || isSubmitted)"
+                     placeholder="Select compartment.."
+                     fullWidth>
+            <nb-option *ngFor="let item of compartments" [value]="item.id">{{item.name}}</nb-option>
+          </nb-select>
+
+          <span class="text-danger"
+                *ngIf="updateForm.get('compartmentId')?.hasError('required')
+                && (updateForm.get('compartmentId')?.touched || isSubmitted)">
+            Compartment is required
+          </span>
+        </div>
+
+        <app-input-field [control]="updateForm.get('status')"
+                         [label]="'Status'"
+                         [placeholder]="'Status'">
+        </app-input-field>
+
+
+        <ul *ngIf="errorMessages.length > 0">
+          <li class="text-danger" *ngFor="let item of errorMessages">{{item}}</li>
+        </ul>
+
+        <button type="submit" nbButton status="success" class="float-right">Save</button>
+      </form>
+    </nb-card-body>
+  </nb-card>
+</div>
+
+
+
+

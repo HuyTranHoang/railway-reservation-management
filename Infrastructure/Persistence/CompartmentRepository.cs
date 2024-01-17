@@ -24,25 +24,29 @@ public class CompartmentRepository : ICompartmentRepository
         return await _context.Compartments.FindAsync(id);
     }
 
-    public void Add(Compartment compartment)
+    public async Task Add(Compartment compartment)
     {
         _context.Compartments.Add(compartment);
+        await Task.CompletedTask;
     }
 
-    public void Update(Compartment compartment)
+    public async Task Update(Compartment compartment)
     {
         _context.Entry(compartment).State = EntityState.Modified;
+        await Task.CompletedTask;
     }
 
-    public void Delete(Compartment compartment)
+    public async Task Delete(Compartment compartment)
     {
         _context.Compartments.Remove(compartment);
+        await Task.CompletedTask;
     }
 
-    public void SoftDelete(Compartment compartment)
+    public async Task SoftDelete(Compartment compartment)
     {
         compartment.IsDeleted = true;
         _context.Entry(compartment).State = EntityState.Modified;
+        await Task.CompletedTask;
     }
 
     public async Task<IQueryable<Compartment>> GetQueryWithCarriageAsync()
@@ -63,6 +67,11 @@ public class CompartmentRepository : ICompartmentRepository
             .Include(c => c.Carriage)
             .Where(c => c.CarriageId == carriageId)
             .ToListAsync();
+    }
+
+    public Task<List<Compartment>> GetAllNoPagingAsync()
+    {
+        return _context.Compartments.ToListAsync();
     }
 
 }

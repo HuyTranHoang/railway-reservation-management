@@ -10,10 +10,10 @@ import {AppComponent} from './app.component';
 import {AppRoutingModule} from './app-routing.module';
 import {BookingTrainComponent} from './booking-train/booking-train.component';
 import { SharedModule } from './shared/shared.module'
-import { NgxSpinnerModule } from 'ngx-spinner'
 import { JwtInterceptor } from './core/interceptors/jwt.interceptor';
 import { ContactComponent } from './contact/contact.component';
-import { AboutComponent } from './about/about.component'
+import { AboutComponent } from './about/about.component';
+import { FaqsComponent } from './faqs/faqs.component'
 
 
 @NgModule({
@@ -23,15 +23,17 @@ import { AboutComponent } from './about/about.component'
     BookingTrainComponent,
     ContactComponent,
     AboutComponent,
+    FaqsComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+
+    AppRoutingModule,
+
     CoreModule,
     SharedModule,
-    NgxSpinnerModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},

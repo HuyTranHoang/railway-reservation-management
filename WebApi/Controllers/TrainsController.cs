@@ -44,7 +44,7 @@ public class TrainsController : BaseApiController
 
 
     [HttpPost]
-    public async Task<IActionResult> PostTrain([FromBody] Train train)
+    public async Task<ActionResult> PostTrain([FromBody] Train train)
     {
 
         if (!ModelState.IsValid)
@@ -66,7 +66,7 @@ public class TrainsController : BaseApiController
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> PutTrainCompany(int id, [FromBody] Train train)
+    public async Task<ActionResult> PutTrainCompany(int id, [FromBody] Train train)
     {
         if (id != train.Id) return BadRequest(new ErrorResponse(400));
 
@@ -93,7 +93,7 @@ public class TrainsController : BaseApiController
     }
 
     [HttpPatch("{id}")]
-    public async Task<IActionResult> SoftDeleteTrain(int id)
+    public async Task<ActionResult> SoftDeleteTrain(int id)
     {
         var train = await _trainService.GetByIdAsync(id);
         if (train is null) return NotFound(new ErrorResponse(404));

@@ -9,7 +9,7 @@ public class CancellationRuleService : ICancellationRuleService
     private readonly IMapper _mapper;
 
     public CancellationRuleService(ICancellationRuleRepository repository,
-        IUnitOfWork unitOfWork ,IMapper mapper)
+        IUnitOfWork unitOfWork, IMapper mapper)
     {
         _repository = repository;
         _unitOfWork = unitOfWork;
@@ -23,7 +23,7 @@ public class CancellationRuleService : ICancellationRuleService
 
     public async Task AddAsync(CancellationRule cancellationRule)
     {
-        _repository.Add(cancellationRule);
+        await _repository.Add(cancellationRule);
         await _unitOfWork.SaveChangesAsync();
     }
 
@@ -37,8 +37,9 @@ public class CancellationRuleService : ICancellationRuleService
         cancellationRuleInDb.DepartureDateDifference = cancellationRule.DepartureDateDifference;
         cancellationRuleInDb.Fee = cancellationRule.Fee;
         cancellationRuleInDb.Status = cancellationRule.Status;
+        cancellationRuleInDb.UpdatedAt = DateTime.Now;
 
-        _repository.Update(cancellationRuleInDb);
+        await _repository.Update(cancellationRuleInDb);
 
         await _unitOfWork.SaveChangesAsync();
 
@@ -46,13 +47,13 @@ public class CancellationRuleService : ICancellationRuleService
 
     public async Task DeleteAsync(CancellationRule cancellationRule)
     {
-        _repository.Delete(cancellationRule);
+        await _repository.Delete(cancellationRule);
         await _unitOfWork.SaveChangesAsync();
     }
 
     public async Task SoftDeleteAsync(CancellationRule cancellationRule)
     {
-        _repository.SoftDelete(cancellationRule);
+        await _repository.SoftDelete(cancellationRule);
         await _unitOfWork.SaveChangesAsync();
     }
 
@@ -60,10 +61,19 @@ public class CancellationRuleService : ICancellationRuleService
     {
         var query = await _repository.GetQueryAsync();
 
+        if (!string.IsNullOrEmpty(queryParams.SearchTerm))
+            query = query.Where(cr => cr.Fee.ToString().Contains(queryParams.SearchTerm.Trim()) ||
+                                       cr.DepartureDateDifference.ToString().Contains(queryParams.SearchTerm.Trim()));
+
         query = queryParams.Sort switch
         {
             "feeAsc" => query.OrderBy(cr => cr.Fee),
             "feeDesc" => query.OrderByDescending(cr => cr.Fee),
+            "departureDateDifferenceAsc" => query.OrderBy(cr => cr.DepartureDateDifference),
+            "departureDateDifferenceDesc" => query.OrderByDescending(cr => cr.DepartureDateDifference),
+            "statusAsc" => query.OrderBy(cr => cr.Status),
+            "statusDesc" => query.OrderByDescending(cr => cr.Status),
+            "createdAtDesc" => query.OrderByDescending(cr => cr.CreatedAt),
             _ => query.OrderBy(cr => cr.CreatedAt)
         };
 
@@ -77,5 +87,11 @@ public class CancellationRuleService : ICancellationRuleService
     {
         var cancellationRule = await _repository.GetByIdAsync(id);
         return _mapper.Map<CancellationRuleDto>(cancellationRule);
+    }
+
+    public async Task<List<CancellationRuleDto>> GetAllDtoNoPagingAsync()
+    {
+        var cancellationRules = await _repository.GetAllNoPagingAsync();
+        return _mapper.Map<List<CancellationRuleDto>>(cancellationRules);
     }
 }
