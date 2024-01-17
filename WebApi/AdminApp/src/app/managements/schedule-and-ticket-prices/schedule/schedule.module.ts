@@ -7,6 +7,7 @@ import {AddScheduleComponent} from './add-schedule/add-schedule.component';
 import {ShowScheduleComponent} from './show-schedule/show-schedule.component';
 import {EditScheduleComponent} from './edit-schedule/edit-schedule.component';
 import {ScheduleRoutingModule} from './schedule-routing.module';
+import {ThemeModule} from '../../../@theme/theme.module';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import {ScheduleRoutingModule} from './schedule-routing.module';
     SharedModule,
 
     ScheduleRoutingModule,
+    ThemeModule,
   ],
 })
 export class ScheduleModule {

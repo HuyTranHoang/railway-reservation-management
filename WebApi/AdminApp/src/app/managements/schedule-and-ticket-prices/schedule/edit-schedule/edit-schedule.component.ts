@@ -52,6 +52,9 @@ export class EditScheduleComponent implements OnInit {
     this.scheduleService.getScheduleById(id).subscribe({
       next: (res) => {
         this.updateForm.patchValue(res);
+        this.updateForm.patchValue({
+          departureTime: new Date(res.departureTime),
+        });
       },
       error: () => {
         this.showToast('danger', 'Failed', 'Schedule does not exist!');

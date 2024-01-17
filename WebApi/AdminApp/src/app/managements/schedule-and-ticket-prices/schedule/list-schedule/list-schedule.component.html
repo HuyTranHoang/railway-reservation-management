@@ -15,13 +15,22 @@
           <nb-select class="ml-3"
                      style="min-width: 300px"
                      [(selected)]="queryParams.departureStationId"
-                     (selectedChange)="onFilterDepartureStation($event)"
+                     (selectedChange)="onFilterStation($event)"
                      placeholder="Filter by departure station">
             <nb-option *ngFor="let item of departureStationFilter" [value]="item.id">{{ item.name }}</nb-option>
           </nb-select>
+
+          <nb-select class="ml-3"
+                     style="min-width: 300px"
+                     [(selected)]="queryParams.arrivalStationId"
+                     (selectedChange)="onFilterStation($event)"
+                     placeholder="Filter by arrival station">
+            <nb-option *ngFor="let item of arrivalStationFilter" [value]="item.id">{{ item.name }}</nb-option>
+          </nb-select>
         </form>
 
-        <button *ngIf="queryParams.departureStationId !== null" nbButton hero status="danger" class="ml-3"
+        <button *ngIf="queryParams.departureStationId !== null || queryParams.arrivalStationId !== null"
+                nbButton hero status="danger" class="ml-3"
                 (click)="onFilterReset()">
           Reset
         </button>
@@ -123,7 +132,7 @@
       </tr>
 
       <tr *ngIf="schedules.length <= 0">
-        <td colspan="5" class="text-center">
+        <td colspan="8" class="text-center">
           <div class="text-muted py-4">No data found.</div>
         </td>
       </tr>

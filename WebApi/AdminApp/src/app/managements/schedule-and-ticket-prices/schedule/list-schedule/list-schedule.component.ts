@@ -24,6 +24,7 @@ export class ListScheduleComponent implements OnInit {
   currentSort = '';
 
   departureStationFilter: { id: number, name: string }[] = [];
+  arrivalStationFilter: { id: number, name: string }[] = [];
 
   sortStates = {
     scheduleName: false,
@@ -51,7 +52,7 @@ export class ListScheduleComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadAllDepartureStation();
+    this.loadAllDepartureAndArrivalStation();
     this.loadAllSchedule();
   }
 
@@ -66,10 +67,11 @@ export class ListScheduleComponent implements OnInit {
     });
   }
 
-  loadAllDepartureStation() {
+  loadAllDepartureAndArrivalStation() {
     this.trainStationService.getAllTrainStationNoPaging().subscribe({
       next: (res: TrainStation[]) => {
         this.departureStationFilter = [{id: 0, name: 'All departure station'} , ...res];
+        this.arrivalStationFilter = [{id: 0, name: 'All arrival station'} , ...res];
       },
     });
   }
@@ -135,7 +137,7 @@ export class ListScheduleComponent implements OnInit {
     this.loadAllSchedule();
   }
 
-  onFilterDepartureStation(trainStationId: number) {
+  onFilterStation(trainStationId: number) {
     this.loadAllSchedule();
   }
 
