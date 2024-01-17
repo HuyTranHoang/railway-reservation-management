@@ -5,6 +5,7 @@ namespace Application.Services
 {
     public class BookingService : IBookingService
     {
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly ITrainCompanyRepository _trainCompanyRepository;
         private readonly IScheduleRepository _scheduleRepository;
@@ -15,8 +16,12 @@ namespace Application.Services
         private readonly ICarriageRepository _carriageRepository;
         private readonly ICompartmentRepository _compartmentRepository;
         private readonly ISeatRepository _seatRepository;
+        private readonly IPaymentRepository _paymentRepository;
+        private readonly IPassengerRepository _passengerRepository;
+        private readonly ITicketRepository _ticketRepository;
 
         public BookingService(
+                                IUnitOfWork unitOfWork,
                                 IMapper mapper,
                                 ITrainCompanyRepository trainCompanyRepository,
                                 IScheduleRepository scheduleRepository,
@@ -26,8 +31,13 @@ namespace Application.Services
                                 ITrainRepository trainRepository,
                                 ICarriageRepository carriageRepository,
                                 ICompartmentRepository compartmentRepository,
-                                ISeatRepository seatRepository)
+                                ISeatRepository seatRepository,
+                                IPaymentRepository paymentRepository,
+                                IPassengerRepository passengerRepository,
+                                ITicketRepository ticketRepository
+                                )
         {
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
             _trainCompanyRepository = trainCompanyRepository;
             _scheduleRepository = scheduleRepository;
@@ -38,6 +48,9 @@ namespace Application.Services
             _carriageRepository = carriageRepository;
             _compartmentRepository = compartmentRepository;
             _seatRepository = seatRepository;
+            _paymentRepository = paymentRepository;
+            _passengerRepository = passengerRepository;
+            _ticketRepository = ticketRepository;
         }
 
         //Lấy danh sách các lịch trình kèm filter
@@ -122,5 +135,28 @@ namespace Application.Services
             return trainDetailsDto;
         }
 
+        //Noted:
+        //Sau khi chọn ghế sẽ chuyển sang step tiếp theo là nhập thông tin hành khách,
+        //Bao nhiêu ghế được chọn sẽ hiện ra bây nhiêu form nhập thông tin
+            //Sau khi nhập thông tin sẽ được lưu vào biến tạm
+        //=> Chuyển sang bước thanh toán thì hiện thị lại thông tin đã được chọn và thông tin hành khách từ biến tạm
+            //Thanh toán xong thì mới thực hiện hàm add Passenger, Payment, Ticket
+        public async Task AddPassengerAsync(Passenger passenger)
+        {
+            _passengerRepository.Add(passenger);
+            await _unitOfWork.SaveChangesAsync();
+        }
+
+        public async Task AddPaymentAsync(Payment payment)
+        {
+            _paymentRepository.Add(payment);
+            await _unitOfWork.SaveChangesAsync();
+        }
+
+        public async Task AddTicketAsync(Ticket ticket)
+        {
+            _ticketRepository.Add(ticket);
+            await _unitOfWork.SaveChangesAsync();
+        }
     }
 }
