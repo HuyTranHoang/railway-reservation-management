@@ -61,13 +61,17 @@ public class CompartmentRepository : ICompartmentRepository
             .FirstOrDefaultAsync(c => c.Id == id);
     }
 
-    public Task<List<Compartment>> GetAllAsync()
+    public async Task<List<Compartment>> GetCompartmentsByCarriageIdAsync(int carriageId)
     {
-        return _context.Compartments.ToListAsync();
+        return await _context.Compartments
+            .Include(c => c.Carriage)
+            .Where(c => c.CarriageId == carriageId)
+            .ToListAsync();
     }
 
     public Task<List<Compartment>> GetAllNoPagingAsync()
     {
         return _context.Compartments.ToListAsync();
     }
+
 }

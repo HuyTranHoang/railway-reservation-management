@@ -79,8 +79,12 @@ public class CarriageRepository : ICarriageRepository
         return carriage.ServiceCharge;
     }
 
-    public Task<List<Carriage>> GetAllAsync()
+    public async Task<List<Carriage>> GetCarriagesByTrainIdAsync(int trainId)
     {
-        return _context.Carriages.ToListAsync();
+        return await _context.Carriages
+            .Include(c => c.Train)
+            .Include(c => c.CarriageType)
+            .Where(c => c.TrainId == trainId)
+            .ToListAsync();
     }
 }

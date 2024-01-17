@@ -25,7 +25,7 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("schedule/{id}")]
-        public async Task<ActionResult<object[]>> GetScheduleById(int id)
+        public async Task<ActionResult<List<object>>> GetScheduleById(int id)
         {
             var schedules = await _bookingService.GetBookingInfoWithScheduleIdAsync(id);
             var carriageTypes = await _bookingService.GetAllCarriageTypeDtoAsync();
@@ -35,7 +35,7 @@ namespace WebApi.Controllers
                 return NotFound(new ErrorResponse(404));
             }
 
-            var result = new object[] { schedules, carriageTypes };
+            var result = new List<object> { schedules, carriageTypes };
 
             return Ok(result);
         }
@@ -48,6 +48,21 @@ namespace WebApi.Controllers
             if (carriageTypes is null) return NotFound(new ErrorResponse(404));
 
             return Ok(carriageTypes);
+        }
+
+        [HttpGet("train/{id}")]
+        public async Task<ActionResult<List<object>>> GetTrainByScheduleId(int id)
+        {
+            var train = await _bookingService.GetTrainDetailsWithTrainIdAsync(id);
+
+            if (train == null)
+            {
+                return NotFound(new ErrorResponse(404));
+            }
+
+            var result = new List<object> { train };
+
+            return Ok(result);
         }
 
     }

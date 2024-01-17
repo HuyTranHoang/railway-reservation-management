@@ -43,6 +43,7 @@ public class TrainRepository : ITrainRepository
     public async Task<Train> GetByIdAsync(int id)
     {
         return await _context.Trains
+            .Include(t => t.TrainCompany)
             .FirstOrDefaultAsync(x => x.Id == id);
     }
 
