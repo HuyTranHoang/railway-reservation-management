@@ -79,7 +79,7 @@ public class CompartmentService : ICompartmentService
 
     public async Task<PagedList<CompartmentDto>> GetAllDtoAsync(CompartmentQueryParams queryParams)
     {
-        var query = await _repository.GetQueryWithCarriageAsync();
+        var query = await _repository.GetQueryWithCarriageAndTrainAsync();
 
         if (!string.IsNullOrEmpty(queryParams.SearchTerm))
             query = query.Where(p => p.Name.Contains(queryParams.SearchTerm.Trim()));
