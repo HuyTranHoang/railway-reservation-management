@@ -105,27 +105,44 @@ export class LoginComponent implements OnInit, AfterViewInit {
   loginOrRegisterWithFacebook() {
     FB.login(async (fbResult: any) => {
       if (fbResult.authResponse) {
-        const accessToken = fbResult.authResponse.accessToken
-        const userId = fbResult.authResponse.userID
-        const model = new LoginWithExternal(accessToken, userId, 'facebook')
+        // Gọi API để lấy thông tin người dùng, bao gồm email
+
+        let email = '', firstName = '', lastName = '';
+        FB.api('/me', { fields: 'first_name,last_name,middle_name,email' }, (response: any) => {
+          console.log(">>>>> first Res", response)
+          email = response.email;
+          firstName = response.first_name;
+          lastName = response.last_name + ' ' + response.middle_name;
+        });
+
+        const accessToken = fbResult.authResponse.accessToken;
+        const userId = fbResult.authResponse.userID;
+        const model = new LoginWithExternal(accessToken, userId, 'facebook');
 
         this.authService.loginWithThirdParty(model).subscribe({
           next: (isUserRegistered: boolean) => {
-            console.log('>>>>>', isUserRegistered)
-
+            console.log(">>>>>", isUserRegistered)
             if (isUserRegistered) {
               // Người dùng đã đăng ký, chuyển hướng đến trang chủ hoặc trang đích
-              this.router.navigateByUrl('/')
+              this.router.navigateByUrl('/');
             } else {
-              // Người dùng chưa đăng ký, chuyển hướng đến trang đăng ký với thông tin Facebook
-              this.router.navigateByUrl(`/auth/register/third-party/facebook?accessToken=${accessToken}&userId=${userId}`)
+              const model = new RegisterWithExternal(firstName, lastName, email, userId, accessToken, 'facebook')
+              this.authService.registerWithThirdParty(model).subscribe({
+                next: _ => {
+                  this.router.navigateByUrl('/')
+                },
+                error: err => {
+                  console.log(err.errors)
+                  this.errorMessages = err.errors
+                }
+              })
             }
           },
           error: err => {
-            console.log(err.errors)
-            this.errorMessages = err.errors
+            console.log(err.errors);
+            this.errorMessages = err.errors;
           }
-        })
+        });
       } else {
         await Swal.fire({
           position: 'center',
@@ -133,9 +150,9 @@ export class LoginComponent implements OnInit, AfterViewInit {
           title: 'Facebook login failed',
           text: 'Please try again',
           showConfirmButton: true
-        })
+        });
       }
-    })
+    }, { scope: 'email' });
   }
 
   private initializeGoogleButton() {
@@ -177,7 +194,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
           // Người dùng đã đăng ký, chuyển hướng đến trang chủ hoặc trang đích
           this.router.navigateByUrl('/')
         } else {
-          const model = new RegisterWithExternal(firstName, lastName, email, userId, accessToken, 'facebook')
+          const model = new RegisterWithExternal(firstName, lastName, email, userId, accessToken, 'google')
           this.authService.registerWithThirdParty(model).subscribe({
             next: _ => {
               this.router.navigateByUrl('/')
