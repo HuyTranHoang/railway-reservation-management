@@ -28,6 +28,8 @@ public class CarriageTypeService : ICarriageTypeService
             "nameDesc" => query.OrderByDescending(ct => ct.Name),
             "numberOfCompartmentAsc" => query.OrderBy(ct => ct.NumberOfCompartments),
             "numberOfCompartmentDesc" => query.OrderByDescending(ct => ct.NumberOfCompartments),
+            "numberOfSeatsAsc" => query.OrderBy(ct => ct.NumberOfSeats),
+            "numberOfSeatsDesc" => query.OrderByDescending(ct => ct.NumberOfSeats),
             "serviceChargeAsc" => query.OrderBy(ct => ct.ServiceCharge),
             "serviceChargeDesc" => query.OrderByDescending(ct => ct.ServiceCharge),
             "createdAtDesc" => query.OrderByDescending(ct => ct.CreatedAt),

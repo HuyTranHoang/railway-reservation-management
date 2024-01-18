@@ -50,7 +50,6 @@ public class CompartmentService : ICompartmentService
 
         compartmentInDb.Name = compartment.Name;
         compartmentInDb.CarriageId = compartment.CarriageId;
-        compartmentInDb.NumberOfSeats = compartment.NumberOfSeats;
         compartmentInDb.Status = compartment.Status;
         compartmentInDb.UpdatedAt = DateTime.Now;
 
@@ -86,8 +85,6 @@ public class CompartmentService : ICompartmentService
 
         query = queryParams.Sort switch
         {
-            "numberOfSeatsAsc" => query.OrderBy(p => p.NumberOfSeats),
-            "numberOfSeatsDesc" => query.OrderByDescending(p => p.NumberOfSeats),
             "nameAsc" => query.OrderBy(p => p.Name),
             "nameDesc" => query.OrderByDescending(p => p.Name),
             "carriageNameAsc" => query.OrderBy(p => p.Carriage.Name),
