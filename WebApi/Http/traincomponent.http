@@ -10,19 +10,11 @@ Content-Type: application/json
 
 {
   "Name": "Test Carriage",
-  "TrainId": 20,
+  "TrainId": 19,
   "CarriageTypeId": 7,
   "Status": "Active"
 }
 
 ### 
-
-# @name getListOfTrainStations
-GET {{url}}/{{router}}?
-  &pageNumber=1
-  &pageSize=10
-  # &searchTerm= 2
-  &sort=coordinateValueDesc
-
 
 ### 
