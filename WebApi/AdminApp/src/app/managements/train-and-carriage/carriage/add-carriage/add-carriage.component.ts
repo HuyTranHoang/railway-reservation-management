@@ -6,6 +6,8 @@ import {Train} from '../../../../@models/train';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CarriageTypeService} from '../../carriage-type/carriage-type.service';
 import {CarriageType} from '../../../../@models/carriageType';
+import {CarriageService} from '../carriage.service';
+import {NbGlobalPhysicalPosition, NbToastrService} from '@nebular/theme';
 
 @Component({
   selector: 'ngx-add-carriage',
@@ -18,20 +20,22 @@ export class AddCarriageComponent implements OnInit {
   filteredOptions$: Observable<Train[]>;
 
   carriageTypes: CarriageType[] = [];
+  currentCarriageType: CarriageType;
+  currentNumberOfSeats: number = 0;
 
   isValidTrainSelected: boolean = false;
 
   carriageForm: FormGroup = this.fb.group({});
-  compartmentForm: FormGroup = this.fb.group({});
   isSubmitted = false;
-  isCompartmentSubmitted = false;
   errorMessages: string[] = [];
 
   @ViewChild('autoInput') input: { nativeElement: { value: string; }; };
 
 
   constructor(private trainService: TrainService,
+              private carriageService: CarriageService,
               private carriageTypeService: CarriageTypeService,
+              private toastrService: NbToastrService,
               private fb: FormBuilder) {
   }
 
@@ -61,13 +65,6 @@ export class AddCarriageComponent implements OnInit {
       name: ['', [Validators.required]],
       trainId: ['', [Validators.required]],
       carriageTypeId: ['', [Validators.required]],
-      status: [''],
-    });
-
-    this.compartmentForm = this.fb.group({
-      name: ['', [Validators.required]],
-      carriageId: ['', [Validators.required]],
-      numberOfSeats: [0, [Validators.required, Validators.min(1), Validators.max(4)]],
       status: [''],
     });
   }
@@ -108,6 +105,55 @@ export class AddCarriageComponent implements OnInit {
 
   firstNextBtnClick() {
     this.isSubmitted = true;
+
+    this.currentCarriageType = this.carriageTypes
+      .find(ct => ct.id === this.carriageForm.value.carriageTypeId);
+
+    if (this.currentCarriageType) {
+      if (this.currentCarriageType.name.includes('Ngồi mềm điều hòa')) {
+        this.currentNumberOfSeats = 32;
+      } else if (this.currentCarriageType.name.includes('Giường nằm khoang 4 điều hòa')) {
+        this.currentNumberOfSeats = 4;
+      } else {
+        this.currentNumberOfSeats = 6;
+      }
+    }
   }
+
+  onSubmit() {
+    this.isSubmitted = true;
+    this.errorMessages = [];
+    if (this.carriageForm.invalid) {
+      return;
+    }
+
+    this.carriageService.addCarriage(this.carriageForm.value).subscribe({
+      next: _ => {
+        this.showToast('success', 'Success', 'Add carriage, compartment and seat successfully!');
+        this.carriageForm.reset();
+        this.isSubmitted = false;
+        this.errorMessages = [];
+      },
+      error: (err) => {
+        this.showToast('danger', 'Failed', 'Add carriage, compartment and seat failed!');
+        this.errorMessages = err.error.errorMessages;
+      },
+    });
+  }
+
+  private showToast(type: string, title: string, body: string) {
+    const config = {
+      status: type,
+      destroyByClick: true,
+      duration: 2000,
+      hasIcon: true,
+      position: NbGlobalPhysicalPosition.TOP_RIGHT,
+    };
+    this.toastrService.show(
+      body,
+      title,
+      config);
+  }
+
 
 }

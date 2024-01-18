@@ -1,4 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {CarriageType} from '../../../../@models/carriageType';
 
 @Component({
   selector: 'app-preview-carriage',
@@ -6,6 +7,8 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./preview-carriage.component.scss'],
 })
 export class PreviewCarriageComponent implements OnInit {
+
+  @Input() carriageType: number = 0;
 
   seatRows: number[][] = [];
 
@@ -40,5 +43,7 @@ export class PreviewCarriageComponent implements OnInit {
 
     return seatRows;
   }
+
+
 
 }
