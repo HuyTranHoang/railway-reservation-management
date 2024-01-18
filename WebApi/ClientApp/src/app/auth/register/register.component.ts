@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
+import { Component, ElementRef, Inject, OnInit, Renderer2, ViewChild } from '@angular/core'
 import { AuthService } from '../auth.service'
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms'
 import Swal from 'sweetalert2'
@@ -7,7 +7,8 @@ import { take } from 'rxjs'
 import { LoginWithExternal } from '../../core/models/auth/loginWithExternal'
 import { RegisterWithExternal } from '../../core/models/auth/registerWithExternal'
 import { CredentialResponse } from 'google-one-tap'
-import jwt_decode from 'jwt-decode'
+import {jwtDecode} from 'jwt-decode'
+import { DOCUMENT } from '@angular/common'
 
 declare const FB: any
 
@@ -23,7 +24,11 @@ export class RegisterComponent implements OnInit {
   submitted = false
   errorMessages: string[] = []
 
-  constructor(private authService: AuthService, private fb: FormBuilder, private router: Router) {
+  constructor(private authService: AuthService,
+              private renderer2: Renderer2,
+              @Inject(DOCUMENT) private document: Document,
+              private fb: FormBuilder,
+              private router: Router) {
     this.authService.user$.pipe(take(1)).subscribe({
       next: (user) => {
         if (user) this.router.navigateByUrl('/')
@@ -34,6 +39,14 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
     this.initializeGoogleButton()
     this.initializeForm()
+  }
+
+  ngAfterViewInit() {
+    const script = this.renderer2.createElement('script')
+    script.src = 'https://accounts.google.com/gsi/client'
+    script.async = true
+    script.defer = true
+    this.renderer2.appendChild(this.document.body, script)
   }
 
   initializeForm(): void {
@@ -185,7 +198,41 @@ export class RegisterComponent implements OnInit {
   }}
 
   private async googleCallBack(res: CredentialResponse) {
-    const decodedToken: any = jwt_decode(res.credential)
+    const decodedToken: any = jwtDecode(res.credential)
+    console.log(decodedToken)
+
+    const email = decodedToken.email
+    const firstName = decodedToken.given_name
+    const lastName = decodedToken.family_name
+    const userId = decodedToken.sub
+    const accessToken = res.credential
+
+    const model = new LoginWithExternal(accessToken, userId, 'google');
+    this.authService.loginWithThirdParty(model).subscribe({
+      next: (isUserRegistered: boolean) => {
+        console.log(">>>>>", isUserRegistered)
+        if (isUserRegistered) {
+          // Người dùng đã đăng ký, chuyển hướng đến trang chủ hoặc trang đích
+          this.router.navigateByUrl('/');
+        } else {
+          const model = new RegisterWithExternal(firstName, lastName, email, userId, accessToken, 'facebook')
+          this.authService.registerWithThirdParty(model).subscribe({
+            next: _ => {
+              this.router.navigateByUrl('/')
+            },
+            error: err => {
+              console.log(err.errors)
+              this.errorMessages = err.errors
+            }
+          })
+        }
+      },
+      error: err => {
+        console.log(err.errors);
+        this.errorMessages = err.errors;
+      }
+    });
+
   }
 
 }
