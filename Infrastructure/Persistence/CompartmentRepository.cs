@@ -26,8 +26,7 @@ public class CompartmentRepository : ICompartmentRepository
 
     public async Task Add(Compartment compartment)
     {
-        _context.Compartments.Add(compartment);
-        await Task.CompletedTask;
+        await _context.Compartments.AddAsync(compartment);
     }
 
     public async Task Update(Compartment compartment)
@@ -83,4 +82,8 @@ public class CompartmentRepository : ICompartmentRepository
         return _context.Compartments.ToListAsync();
     }
 
+    public async Task AddRangeAsync(List<Compartment> compartments)
+    {
+        await _context.Compartments.AddRangeAsync(compartments);
+    }
 }

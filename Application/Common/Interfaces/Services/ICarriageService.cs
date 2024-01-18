@@ -6,4 +6,5 @@ public interface ICarriageService : IService<Carriage>
     Task<CarriageDto> GetDtoByIdAsync(int id);
     Task<int> GetCompartmentsBelongToCarriageCountAsync(int carriageId);
     Task<List<CarriageDto>> GetAllDtoNoPagingAsync();
+    Task AddWithCompartmentAndSeatAsync(Carriage carriage);
 }

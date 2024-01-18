@@ -14,8 +14,7 @@ namespace Infrastructure.Persistence
         }
         public async Task Add(T t)
         {
-            _context.Set<T>().Add(t);
-            await Task.CompletedTask;
+            await _context.Set<T>().AddAsync(t);
         }
 
         public async Task Delete(T t)

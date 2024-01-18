@@ -16,8 +16,7 @@ public class TrainCompanyRepository : ITrainCompanyRepository
 
     public async Task Add(TrainCompany trainCompany)
     {
-        _context.TrainCompanies.Add(trainCompany);
-        await Task.CompletedTask;
+        await _context.TrainCompanies.AddAsync(trainCompany);
     }
 
     public async Task Delete(TrainCompany trainCompany)

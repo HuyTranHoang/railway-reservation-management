@@ -26,8 +26,7 @@ public class CancellationRuleRepository : ICancellationRuleRepository
 
     public async Task Add(CancellationRule cancellationRule)
     {
-        _context.CancellationRules.Add(cancellationRule);
-        await Task.CompletedTask;
+        await _context.CancellationRules.AddAsync(cancellationRule);
     }
 
     public async Task Update(CancellationRule cancellationRule)
