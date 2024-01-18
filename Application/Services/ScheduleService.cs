@@ -77,6 +77,16 @@ public class ScheduleService : IScheduleService
             query = query.Where(t => t.ArrivalStationId == queryParams.ArrivalStationId);
         }
 
+        if (queryParams.DepartureTime != null)
+        {
+            query = query.Where(t => t.DepartureTime.Date == queryParams.DepartureTime.Value.Date);
+        }
+
+        if (queryParams.ArrivalTime != null)
+        {
+            query = query.Where(t => t.ArrivalTime.Date == queryParams.ArrivalTime.Value.Date);
+        }
+
         if (!string.IsNullOrEmpty(queryParams.SearchTerm))
         {
             query = query.Where(p => p.Name.Contains(queryParams.SearchTerm.Trim()) ||

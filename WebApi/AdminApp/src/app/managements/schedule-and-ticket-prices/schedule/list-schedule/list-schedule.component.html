@@ -27,9 +27,24 @@
                      placeholder="Filter by arrival station">
             <nb-option *ngFor="let item of arrivalStationFilter" [value]="item.id">{{ item.name }}</nb-option>
           </nb-select>
+
+          <input class="ml-3" nbInput
+                 #departureTime
+                 placeholder="Departure date"
+                 [nbDatepicker]="departureDate">
+          <nb-datepicker #departureDate (dateChange)="onFilterDepartureDate($event)"></nb-datepicker>
+
+          <input class="ml-3" nbInput
+                 #arrivalTime
+                 placeholder="Arrival date"
+                 [nbDatepicker]="arrivalDate">
+          <nb-datepicker #arrivalDate (dateChange)="onFilterArrivalDate($event)"></nb-datepicker>
         </form>
 
-        <button *ngIf="queryParams.departureStationId !== null || queryParams.arrivalStationId !== null"
+        <button *ngIf="queryParams.departureStationId !== null ||
+                       queryParams.arrivalStationId !== null ||
+                       queryParams.departureTime !== '' ||
+                       queryParams.arrivalTime !== ''"
                 nbButton hero status="danger" class="ml-3"
                 (click)="onFilterReset()">
           Reset
