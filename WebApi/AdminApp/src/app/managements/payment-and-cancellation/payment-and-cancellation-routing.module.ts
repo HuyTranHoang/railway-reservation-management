@@ -24,7 +24,8 @@ const routes: Routes = [{
     },
     {
       path: 'cancellation',
-      component: CancellationComponent,
+      loadChildren: () => import('./cancellation/cancellation.module')
+        .then(m => m.CancellationModule),
     },
     {
       path: 'cancellation-rule',

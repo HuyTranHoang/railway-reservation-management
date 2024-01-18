@@ -24,6 +24,7 @@ export class ListCompartmentComponent implements OnInit {
   sortStates = {
     name: false,
     carriageName: false,
+    trainName: false,
     numberOfSeats: false,
     createdAt: false,
   };

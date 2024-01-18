@@ -11,6 +11,7 @@ export class ShowCompartmentComponent {
   @Input() id: number;
   @Input() name: string;
   @Input() carriageName: string;
+  @Input() trainName: string;
   @Input() numberOfSeats: number;
   @Input() status: string;
   @Input() createdAt: string;
