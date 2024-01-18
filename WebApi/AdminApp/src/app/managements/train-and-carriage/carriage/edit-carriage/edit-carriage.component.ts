@@ -153,7 +153,7 @@ export class EditCarriageComponent implements OnInit {
       return;
     }
 
-    this.carriageService.addCarriage(this.carriageForm.value).subscribe({
+    this.carriageService.updateCarriage(this.carriageForm.value).subscribe({
       next: _ => {
         this.showToast('success', 'Success', 'Add carriage, compartment and seat successfully!');
         this.carriageForm.reset();
