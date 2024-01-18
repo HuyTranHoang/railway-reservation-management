@@ -30,6 +30,8 @@ public class CarriageTypeService : ICarriageTypeService
             "numberOfCompartmentDesc" => query.OrderByDescending(ct => ct.NumberOfCompartments),
             "numberOfSeatsAsc" => query.OrderBy(ct => ct.NumberOfSeats),
             "numberOfSeatsDesc" => query.OrderByDescending(ct => ct.NumberOfSeats),
+            "numberOfSeatTypesAsc" => query.OrderBy(ct => ct.NumberOfSeatTypes),
+            "numberOfSeatTypesDesc" => query.OrderByDescending(ct => ct.NumberOfSeatTypes),
             "serviceChargeAsc" => query.OrderBy(ct => ct.ServiceCharge),
             "serviceChargeDesc" => query.OrderByDescending(ct => ct.ServiceCharge),
             "createdAtDesc" => query.OrderByDescending(ct => ct.CreatedAt),
@@ -69,6 +71,8 @@ public class CarriageTypeService : ICarriageTypeService
         carriageTypeInDb.Name = carriageType.Name;
         carriageTypeInDb.ServiceCharge = carriageType.ServiceCharge;
         carriageTypeInDb.NumberOfCompartments = carriageType.NumberOfCompartments;
+        carriageTypeInDb.NumberOfSeats = carriageType.NumberOfSeats;
+        carriageTypeInDb.NumberOfSeatTypes = carriageType.NumberOfSeatTypes;
         carriageTypeInDb.Description = carriageType.Description;
         carriageTypeInDb.Status = carriageType.Status;
         carriageTypeInDb.UpdatedAt = DateTime.Now;

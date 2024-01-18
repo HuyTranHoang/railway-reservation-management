@@ -11,6 +11,7 @@ Content-Type: application/json
   "Name": "New type",
   "ServiceCharge": 123,
   "numberOfCompartments": 2,
+  "NumberOfSeats": ,
   "Status": "Active",
   "Description": "New type description"
 }
