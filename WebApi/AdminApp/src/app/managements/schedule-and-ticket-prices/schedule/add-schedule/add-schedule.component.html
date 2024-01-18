@@ -21,7 +21,11 @@
 
         <div class="form-group">
           <label class="label">Train name/code</label>
-          <nb-select formControlName="trainId" placeholder="Select train.." fullWidth>
+          <nb-select formControlName="trainId"
+                     [class.status-danger]="scheduleForm.get('trainId')?.hasError('required')
+                       && (scheduleForm.get('trainId')?.touched || isSubmitted)"
+                     placeholder="Select train.."
+                     fullWidth>
             <nb-option *ngFor="let train of trains" [value]="train.id">{{ train.name }}</nb-option>
           </nb-select>
 
@@ -34,7 +38,11 @@
 
         <div class="form-group">
           <label class="label">Departure Station</label>
-          <nb-select formControlName="departureStationId" placeholder="Select departure station.." fullWidth>
+          <nb-select formControlName="departureStationId"
+                     [class.status-danger]="scheduleForm.get('departureStationId')?.hasError('required')
+                       && (scheduleForm.get('departureStationId')?.touched || isSubmitted)"
+                     placeholder="Select departure station.."
+                     fullWidth>
             <nb-option *ngFor="let departure of trainStations" [value]="departure.id">{{ departure.name }}</nb-option>
           </nb-select>
 
@@ -47,7 +55,11 @@
 
         <div class="form-group">
           <label class="label">Arrival Station</label>
-          <nb-select formControlName="arrivalStationId" placeholder="Select arrival station.." fullWidth>
+          <nb-select formControlName="arrivalStationId"
+                      [class.status-danger]="scheduleForm.get('arrivalStationId')?.hasError('required')
+                        && (scheduleForm.get('arrivalStationId')?.touched || isSubmitted)"
+                     placeholder="Select arrival station.."
+                     fullWidth>
             <nb-option *ngFor="let arrival of trainStations" [value]="arrival.id">{{ arrival.name }}</nb-option>
           </nb-select>
 
@@ -61,21 +73,25 @@
         <div class="form-group">
           <label class="label" for="departureTime">Departure Time</label>
           <input nbInput fullWidth id="departureTime"
+                 [class.status-danger]="scheduleForm.get('departureTime')?.hasError('required')
+                   && (scheduleForm.get('departureTime')?.touched || isSubmitted)"
                  formControlName="departureTime"
                  placeholder="Pick departure time.."
                  [nbDatepicker]="dateTimePicker">
-          <nb-date-timepicker
-            #dateTimePicker
-            [step]="10">
-          </nb-date-timepicker>
+          <nb-date-timepicker #dateTimePicker></nb-date-timepicker>
+
+          <span class="text-danger"
+                  *ngIf="scheduleForm.get('departureTime')?.hasError('required')
+                  && (scheduleForm.get('departureTime')?.touched || isSubmitted)">
+              Departure time is required
+          </span>
         </div>
 
-        <app-input-field [control]="scheduleForm.get('status')"
-                         [label]="'Status'"
-                         [isSubmitted]="isSubmitted"
-                         [placeholder]="'Status'">
-        </app-input-field>
-
+<!--        <app-input-field [control]="scheduleForm.get('status')"-->
+<!--                         [label]="'Status'"-->
+<!--                         [isSubmitted]="isSubmitted"-->
+<!--                         [placeholder]="'Status'">-->
+<!--        </app-input-field>-->
 
         <ul *ngIf="errorMessages.length > 0">
           <li class="text-danger" *ngFor="let item of errorMessages">{{ item }}</li>
