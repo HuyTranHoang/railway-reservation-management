@@ -56,9 +56,10 @@ public static class Seed
         {
             FirstName = "Super",
             LastName = "Admin",
-            Email = "sa@gmail.com",
-            UserName = "sa@gmail.com",
-            EmailConfirmed = true
+            Email = SD.SuperAdminEmail,
+            UserName = SD.SuperAdminEmail,
+            EmailConfirmed = true,
+            DateCreated = DateTime.Now
         };
 
         await userManager.CreateAsync(superAdmin, "123456");
@@ -75,7 +76,8 @@ public static class Seed
             LastName = "RailTicketHub",
             Email = "admin@gmail.com",
             UserName = "admin@gmail.com",
-            EmailConfirmed = true
+            EmailConfirmed = true,
+            DateCreated = DateTime.Now
         };
 
         await userManager.CreateAsync(admin, "123456");
@@ -92,7 +94,8 @@ public static class Seed
             LastName = "RailTicketHub",
             Email = "user@mail.com",
             UserName = "user@gmail.com",
-            EmailConfirmed = true
+            EmailConfirmed = true,
+            DateCreated = DateTime.Now
         };
 
         await userManager.CreateAsync(user, "123456");

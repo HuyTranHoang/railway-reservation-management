@@ -1,7 +1,30 @@
 @url = https://localhost:5001
 @router = api/users
 
+
 ### 
+
+# @name getListUsers
+@email = nhokpio95@gmail.com
+
+GET {{url}}/{{router}}
+
+
+### 
+
+# @name lockUserById
+@lockId = b9bef31e-47d4-4b85-a926-53e3d6663338
+
+PUT {{url}}/{{router}}/lock-user/{{lockId}}
+
+###
+
+# @name unlockUserById
+@unlockId = b9bef31e-47d4-4b85-a926-53e3d6663338
+
+PUT {{url}}/{{router}}/unlock-user/{{unlockId}}
+
+###
 
 # @name getUserByemail
 @email = nhokpio95@gmail.com

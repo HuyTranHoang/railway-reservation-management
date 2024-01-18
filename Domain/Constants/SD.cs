@@ -9,4 +9,6 @@ public static class SD
     public const string SuperAdminRole = "SuperAdmin";
     public const string AdminRole = "Admin";
     public const string UserRole = "User";
+
+    public const string SuperAdminEmail = "sa@gmail.com";
 }
