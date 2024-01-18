@@ -2,6 +2,7 @@
 using Application.Common.Interfaces.Persistence;
 using Application.Common.Interfaces.Services;
 using Application.Services;
+using Domain.Constants;
 using Domain.Entities;
 using Infrastructure.Data;
 using Infrastructure.Identity;
@@ -55,6 +56,15 @@ public static class DepencyInjection
             });
 
         services.AddScoped<JwtService>();
+
+        services.AddAuthorization(opt =>
+        {
+            opt.AddPolicy("SuperAdminPolicy", policy => policy.RequireRole(SD.SuperAdminRole));
+            opt.AddPolicy("AdminPolicy", policy => policy.RequireRole(SD.AdminRole));
+            opt.AddPolicy("UserPolicy", policy => policy.RequireRole(SD.UserRole));
+
+            opt.AddPolicy("SuperAdminOrAdminPolicy", policy => policy.RequireRole(SD.SuperAdminRole, SD.AdminRole));
+        });
         // Persistence Service
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<ICarriageRepository, CarriageRepository>();
