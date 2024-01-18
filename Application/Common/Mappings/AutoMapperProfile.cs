@@ -30,6 +30,8 @@ public class AutoMapperProfile : Profile
             .ForMember(dest => dest.TrainName,
                 otp => otp.MapFrom(src => src.Carriage.Train.Name));
 
+        // CreateMap<List<Compartment>, List<CompartmentDto>>();
+
         CreateMap<CompartmentTemplate, CompartmentTemplateDto>();
 
         CreateMap<CarriageType, CarriageTypeDto>();

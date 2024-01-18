@@ -6,4 +6,6 @@ public interface ICompartmentService : IService<Compartment>
     Task<CompartmentDto> GetDtoByIdAsync(int id);
     Task<List<CompartmentDto>> GetAllDtoNoPagingAsync();
     Task<int> GetSeatsBelongToCompartmentCountAsync(int compartmentId);
+    Task<List<CompartmentDto>> GetCompartmentsByCarriageIdAsync(int carriageId);
+
 }

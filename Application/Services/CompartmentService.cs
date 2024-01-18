@@ -119,4 +119,11 @@ public class CompartmentService : ICompartmentService
 
         return compartment.Seats.Count;
     }
+
+    public async Task<List<CompartmentDto>> GetCompartmentsByCarriageIdAsync(int carriageId)
+        {
+            var compartments = await _repository.GetCompartmentsByCarriageIdAsync(carriageId);
+
+            return _mapper.Map<List<CompartmentDto>>(compartments);
+        }
 }
