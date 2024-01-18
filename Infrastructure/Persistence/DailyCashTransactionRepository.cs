@@ -15,8 +15,7 @@ namespace Infrastructure.Persistence
         }
         public async  Task Add(DailyCashTransaction dailyCashTransaction)
         {
-            _context.DailyCashTransactions.Add(dailyCashTransaction);
-            await Task.CompletedTask;
+            await _context.DailyCashTransactions.AddAsync(dailyCashTransaction);
         }
 
         public async  Task Delete(DailyCashTransaction dailyCashTransaction)

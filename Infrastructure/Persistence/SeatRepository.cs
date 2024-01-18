@@ -16,8 +16,7 @@ public class SeatRepository : ISeatRepository
 
     public async Task Add(Seat seat)
     {
-        _context.Seats.Add(seat);
-        await Task.CompletedTask;
+        await _context.Seats.AddAsync(seat);
     }
 
     public async Task Delete(Seat seat)
@@ -82,5 +81,10 @@ public class SeatRepository : ISeatRepository
             .Include(c => c.Compartment)
             .Where(c => c.CompartmentId == compartmentId)
             .ToListAsync();
+    }
+
+    public async Task AddRangeAsync(List<Seat> seats)
+    {
+        await _context.Seats.AddRangeAsync(seats);
     }
 }

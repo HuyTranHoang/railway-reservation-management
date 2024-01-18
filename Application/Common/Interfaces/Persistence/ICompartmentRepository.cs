@@ -7,4 +7,5 @@ public interface ICompartmentRepository : IRepository<Compartment>
     Task<Compartment> GetByIdWithSeatsAsync(int id);
     Task<List<Compartment>> GetCompartmentsByCarriageIdAsync(int carriageId);
     Task<List<Compartment>> GetAllNoPagingAsync();
+    Task AddRangeAsync(List<Compartment> compartments);
 }

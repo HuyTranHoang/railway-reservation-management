@@ -15,8 +15,7 @@ namespace Infrastructure.Persistence
         }
         public async Task Add(Cancellation cancellation)
         {
-            _context.Cancellations.Add(cancellation);
-            await Task.CompletedTask;
+            await _context.Cancellations.AddAsync(cancellation);
         }
 
         public async Task Delete(Cancellation cancellation)

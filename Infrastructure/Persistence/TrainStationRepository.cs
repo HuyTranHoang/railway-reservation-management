@@ -16,8 +16,7 @@ namespace Infrastructure.Persistence
 
         public async Task Add(TrainStation trainStation)
         {
-            _context.TrainStations.Add(trainStation);
-            await Task.CompletedTask;
+            await _context.TrainStations.AddAsync(trainStation);
 
         }
 

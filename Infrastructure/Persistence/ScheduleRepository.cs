@@ -16,8 +16,7 @@ public class ScheduleRepository : IScheduleRepository
     }
     public async Task Add(Schedule schedule)
     {
-        _context.Schedules.Add(schedule);
-        await Task.CompletedTask;
+        await _context.Schedules.AddAsync(schedule);
     }
 
     public async Task Delete(Schedule schedule)

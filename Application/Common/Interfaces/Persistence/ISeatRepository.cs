@@ -6,4 +6,5 @@ public interface ISeatRepository : IRepository<Seat>
     Task<List<Seat>> GetAllNoPagingAsync();
     Task<double> GetServiceChargeByIdAsync(int seatId);
     Task<List<Seat>> GetSeatsByCompartmentIdAsync(int compartmentId);
+    Task AddRangeAsync(List<Seat> seats);
 }

@@ -28,8 +28,7 @@ public class PassengerRepository : IPassengerRepository
 
     public async Task Add(Passenger passenger)
     {
-        _context.Passengers.Add(passenger);
-        await Task.CompletedTask;
+        await _context.Passengers.AddAsync(passenger);
     }
 
     public async Task Update(Passenger passenger)

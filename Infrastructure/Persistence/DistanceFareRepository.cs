@@ -16,8 +16,7 @@ public class DistanceFareRepository : IDistanceFareRepository
 
     public async Task Add(DistanceFare distanceFare)
     {
-        _context.DistanceFares.Add(distanceFare);
-        await Task.CompletedTask;
+        await _context.DistanceFares.AddAsync(distanceFare);
     }
 
     public async Task Delete(DistanceFare distanceFare)

@@ -61,7 +61,8 @@ public class CarriagesController : BaseApiController
         
         try
         {
-            await _carriageService.AddAsync(carriage);
+            // await _carriageService.AddAsync(carriage);
+            await _carriageService.AddWithCompartmentAndSeatAsync(carriage);
         }
         catch (BadRequestException ex)
         {
@@ -69,7 +70,9 @@ public class CarriagesController : BaseApiController
             return BadRequest(errorResponse);
         }
 
-        return CreatedAtAction("GetCarriage", new { id = carriage.Id }, carriage);
+        // return CreatedAtAction("GetCarriage", new { id = carriage.Id }, carriage);
+
+        return Ok(new JsonResult(new {message = "Success", id = carriage.Id }));
     }
 
     [HttpPut("{id}")]

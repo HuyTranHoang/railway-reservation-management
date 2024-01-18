@@ -16,8 +16,7 @@ public class PaymentRepository : IPaymentRepository
     }
     public async Task Add(Payment payment)
     {
-        _context.Payments.Add(payment);
-        await Task.CompletedTask;
+        await _context.Payments.AddAsync(payment);
     }
 
     public async Task Delete(Payment payment)

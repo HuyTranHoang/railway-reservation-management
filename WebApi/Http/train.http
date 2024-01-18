@@ -18,7 +18,7 @@ Content-Type: application/json
 # @name getListOfTrain
 GET {{url}}/{{router}}?
   &pageNumber=1
-  &pageSize=5
+  &pageSize=10
   # &searchTerm=New Train
   #&sort=nameDesc
   # &trainCompanyId=2
