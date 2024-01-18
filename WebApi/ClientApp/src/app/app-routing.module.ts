@@ -12,6 +12,7 @@ import { FaqsComponent } from './faqs/faqs.component'
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
+  {path: 'user', loadChildren: () => import('./user/user.module').then(mod => mod.UserModule)},
   {path: 'auth', loadChildren: () => import('./auth/auth.module').then(mod => mod.AuthModule)},
   {path: 'booking', loadChildren: () => import('./booking/booking.module').then(mod => mod.BookingModule)},
   {path: 'test-error', component: TestErrorComponent},

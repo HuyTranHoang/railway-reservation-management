@@ -4,8 +4,8 @@
 ### 
 
 # @name getUserByemail
-@email = nhokpio95@gmail.com
+@email = xjenkers@gmail.com
 
-GET {{url}}/{{router}}/{{email}}
+GET {{url}}/{{router}}
 
 ### 

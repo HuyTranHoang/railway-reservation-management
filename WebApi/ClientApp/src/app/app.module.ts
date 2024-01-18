@@ -13,8 +13,8 @@ import { SharedModule } from './shared/shared.module'
 import { JwtInterceptor } from './core/interceptors/jwt.interceptor';
 import { ContactComponent } from './contact/contact.component';
 import { AboutComponent } from './about/about.component';
-import { FaqsComponent } from './faqs/faqs.component'
-
+import { FaqsComponent } from './faqs/faqs.component';
+import { UserComponent } from './user/user.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +24,7 @@ import { FaqsComponent } from './faqs/faqs.component'
     ContactComponent,
     AboutComponent,
     FaqsComponent,
+    UserComponent,
   ],
   imports: [
     BrowserModule,
