@@ -9,8 +9,21 @@
 
 GET {{url}}/{{router}}
 
+### 
+
+# @name getUserByEmail
+@email = nhokpio95@gmail.com
+
+GET {{url}}/{{router}}/{{email}}
 
 ### 
+
+# @name getUserById
+@idToFind = b9bef31e-47d4-4b85-a926-53e3d6663338
+
+GET {{url}}/{{router}}/get-user-by-id/{{idToFind}}
+
+###
 
 # @name lockUserById
 @lockId = b9bef31e-47d4-4b85-a926-53e3d6663338
@@ -26,9 +39,21 @@ PUT {{url}}/{{router}}/unlock-user/{{unlockId}}
 
 ###
 
-# @name getUserByemail
-@email = nhokpio95@gmail.com
+# @name getApplicationRoles
+GET {{url}}/{{router}}/get-application-roles
 
-GET {{url}}/{{router}}/{{email}}
 
 ### 
+
+# @name addOrEditUser
+POST {{url}}/{{router}}/add-edit-user
+Content-Type: application/json
+
+{
+    "id": "",
+    "username": "1",
+    "firstName": "1",
+    "lastName": "1",
+    "password": "1",
+    "roles": "1"
+}

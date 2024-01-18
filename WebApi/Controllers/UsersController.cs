@@ -63,6 +63,46 @@ public class UsersController : BaseApiController
         return Ok(userDto);
     }
 
+    [HttpGet("get-user-by-id/{id}")]
+    public async Task<ActionResult<UserAddEditDto>> GetUserById(string id)
+    {
+        var user = await _userManager.FindByIdAsync(id);
+
+        if (user is null) return BadRequest(new ValidateInputError(400, "User with this id does not exist."));
+
+        var userDto = new UserAddEditDto
+        {
+            Id = user.Id,
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            UserName = user.UserName,
+            Roles = string.Join(",", _userManager.GetRolesAsync(user).Result)
+        };
+
+        return Ok(userDto);
+    }
+
+    [HttpPost("add-edit-user")]
+    public async Task<IActionResult> AddEditUser(UserAddEditDto userDto)
+    {
+        ApplicationUser user;
+
+        if (string.IsNullOrEmpty(userDto.Id))
+        {
+            if (string.IsNullOrEmpty(userDto.Password) || userDto.Password.Length < 6)
+            {
+                ModelState.AddModelError("errors", "Password is required and must be at least 6 characters.");
+                return BadRequest(ModelState);
+            }
+        }
+        else
+        {
+
+        }
+
+        return Ok();
+    }
+
     [HttpPut("lock-user/{id}")]
     public async Task<ActionResult> LockUser(string id)
     {
@@ -97,6 +137,14 @@ public class UsersController : BaseApiController
         await _userManager.SetLockoutEndDateAsync(user, DateTimeOffset.UtcNow);
 
         return NoContent();
+    }
+
+    [HttpGet("get-application-roles")]
+    public async Task<ActionResult<IEnumerable<string>>> GetApplicationRoles()
+    {
+        var roles = await _roleManager.Roles.Select(r => r.Name).ToListAsync();
+
+        return Ok(roles);
     }
 
     private bool IsAdminUserId(string id)
