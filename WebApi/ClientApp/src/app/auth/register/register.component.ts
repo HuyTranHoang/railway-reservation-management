@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { AuthService } from '../auth.service'
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms'
 import Swal from 'sweetalert2'
@@ -6,6 +6,8 @@ import { Router } from '@angular/router'
 import { take } from 'rxjs'
 import { LoginWithExternal } from '../../core/models/auth/loginWithExternal'
 import { RegisterWithExternal } from '../../core/models/auth/registerWithExternal'
+import { CredentialResponse } from 'google-one-tap'
+import jwt_decode from 'jwt-decode'
 
 declare const FB: any
 
@@ -15,6 +17,8 @@ declare const FB: any
   styleUrls: ['../login-and-register.component.scss']
 })
 export class RegisterComponent implements OnInit {
+  @ViewChild('googleButton', { static: true }) googleButton: ElementRef = new ElementRef({})
+
   registerForm: FormGroup = new FormGroup({})
   submitted = false
   errorMessages: string[] = []
@@ -28,6 +32,7 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.initializeGoogleButton()
     this.initializeForm()
   }
 
@@ -157,6 +162,30 @@ export class RegisterComponent implements OnInit {
         });
       }
     }, { scope: 'email' });
+  }
+
+  private initializeGoogleButton() {
+    (window as any).onGoogleLibraryLoad = () => {
+      // @ts-ignore
+      google.accounts.id.initialize({
+        client_id: '217119227296-rbmp1am2ba21unl12u3ffuht8e1hgo94.apps.googleusercontent.com',
+        callback: this.googleCallBack.bind(this),
+        auto_select: false,
+        cancel_on_tap_outside: true
+      })
+
+      // @ts-ignore
+      google.accounts.id.renderButton(this.googleButton.nativeElement, {
+        theme: 'outline',
+        size: 'medium',
+        text: 'continue_with',
+        shape: 'rectangular',
+        width: 240
+      })
+  }}
+
+  private async googleCallBack(res: CredentialResponse) {
+    const decodedToken: any = jwt_decode(res.credential)
   }
 
 }

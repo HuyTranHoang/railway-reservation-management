@@ -132,18 +132,28 @@
         </div>
       </form>
 
-      <div style="margin-top: 80px" class="d-flex align-items-center">
-        <span class="social-label">Or register with</span>
-        <ul class="socials d-flex">
-          <li>
-            <a (click)="loginOrRegisterWithFacebook()">
-              <i class="social-icon facebook fa-brands fa-facebook-f"></i>
-            </a>
-          </li>
-          <li>
-            <a><i class="social-icon google fa-brands fa-google"></i></a>
-          </li>
-        </ul>
+      <div class="divider" style="width: 240px">
+        <hr>
+        <span class="divider-text">Or</span>
+        <hr>
+      </div>
+
+
+      <div class="d-flex flex-column">
+
+        <div class="facebook-button" (click)="loginOrRegisterWithFacebook()">
+          <a class="px-3">
+            <i class="fa-brands fa-facebook-f"></i>
+          </a>
+          <span class="flex-grow-1">
+            Continue with Facebook
+          </span>
+        </div>
+
+        <div>
+          <a #googleButton></a>
+        </div>
+
       </div>
 
     </div>
