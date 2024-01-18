@@ -1,0 +1,28 @@
+@url = https://localhost:5001
+@router = api/traincomponent
+
+### 
+
+# @name addTrainComponents
+@id = 20
+POST {{url}}/{{router}}/{{id}}
+Content-Type: application/json
+
+{
+  "Name": "Test Carriage",
+  "TrainId": 20,
+  "CarriageTypeId": 7,
+  "Status": "Active"
+}
+
+### 
+
+# @name getListOfTrainStations
+GET {{url}}/{{router}}?
+  &pageNumber=1
+  &pageSize=10
+  # &searchTerm= 2
+  &sort=coordinateValueDesc
+
+
+### 
