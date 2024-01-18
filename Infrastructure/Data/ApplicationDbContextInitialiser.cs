@@ -16,10 +16,13 @@ public static class ApplicationDbContextInitialiser
         try
         {
             var context = services.GetRequiredService<ApplicationDbContext>();
+            var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
             var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+
             await context.Database.MigrateAsync();
-            await Seed.SeedUsers(userManager);
             await Seed.SeedAllData(context);
+            await Seed.SeedRoles(roleManager);
+            await Seed.SeedUsers(userManager);
         }
         catch (Exception ex)
         {
