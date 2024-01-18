@@ -15,6 +15,8 @@ export class EditCarriageTypeComponent implements OnInit {
   isSubmitted = false;
   errorMessages: string[] = [];
 
+  isLoading = false;
+
   constructor(private carriageTypeService: CarriageTypeService,
               private toastrService: NbToastrService,
               private activatedRoute: ActivatedRoute,
@@ -38,24 +40,24 @@ export class EditCarriageTypeComponent implements OnInit {
     });
 
     const id = this.activatedRoute.snapshot.params.id;
+    this.isLoading = true;
 
-    this.carriageTypeService.getCarriageTypeById(id)
-      .subscribe({
-        next: (res) => {
-          this.carriageTypeForm.patchValue(res);
-        },
-        error: (err) => {
-          this.showToast('danger', 'Failed', 'Carriages type doest not exist!');
-          this.router.navigateByUrl('/managements/train-and-carriage/carriage-type');
-        },
-      });
-
+    this.carriageTypeService.getCarriageTypeById(id).subscribe({
+      next: (res) => {
+        this.carriageTypeForm.patchValue(res);
+        this.isLoading = false;
+      },
+      error: (err) => {
+        this.showToast('danger', 'Failed', 'Carriages type doest not exist!');
+        this.router.navigateByUrl('/managements/train-and-carriage/carriage-type');
+      },
+    });
   }
 
   numberValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       if (control.value == null || control.value === '') return null;
-      return !isNaN(parseFloat(control.value)) && isFinite(control.value) ? null : { 'notANumber': true };
+      return !isNaN(parseFloat(control.value)) && isFinite(control.value) ? null : {'notANumber': true};
     };
   }
 

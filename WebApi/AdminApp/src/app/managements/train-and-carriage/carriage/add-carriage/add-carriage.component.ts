@@ -155,5 +155,4 @@ export class AddCarriageComponent implements OnInit {
       config);
   }
 
-
 }

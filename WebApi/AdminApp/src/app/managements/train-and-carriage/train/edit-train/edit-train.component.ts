@@ -20,6 +20,8 @@ export class EditTrainComponent implements OnInit {
   isSubmitted: boolean = false;
   errorMessages: string[] = [];
 
+  isLoading = false;
+
   constructor(
     private trainService: TrainService,
     private trainCompanyService: TrainCompanyService,
@@ -44,10 +46,11 @@ export class EditTrainComponent implements OnInit {
     });
 
     const id = this.activatedRoute.snapshot.params.id;
-
+    this.isLoading = true;
     this.trainService.getTrainById(id).subscribe({
       next: (res) => {
         this.updateForm.patchValue(res);
+        this.isLoading = false;
       },
       error: _ => {
         this.showToast('danger', 'Failed', 'Train does not exist!');

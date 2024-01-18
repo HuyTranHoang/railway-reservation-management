@@ -1,1 +1,114 @@
-<p>edit-carriage works!</p>
+<nb-card [nbSpinner]="isLoading" nbSpinnerSize="giant" nbSpinnerStatus="success">
+  <nb-card-header>Define New Carriage</nb-card-header>
+  <nb-card-body>
+    <nb-stepper orientation="vertical" disableStepNavigation>
+
+      <nb-step [label]="labelOne" [stepControl]="carriageForm" class="row">
+        <ng-template #labelOne>First step</ng-template>
+        <div style="width: 600px">
+          <h4>Edit Carriage</h4>
+
+          <form [formGroup]="carriageForm" class="my-4 p-0">
+
+            <div class="form-group">
+              <label class="label">Train name/code</label>
+              <input #autoInput
+                     class="mr-4"
+                     [class.status-danger]="isSubmitted && !isValidTrainSelected"
+                     nbInput
+                     fullWidth
+                     type="text"
+                     (input)="onChange()"
+                     (blur)="onInputBlur()"
+                     placeholder="Choose train name/code.."
+                     [nbAutocomplete]="autoTrainName" />
+              <nb-autocomplete #autoTrainName (selectedChange)="onSelectionChange($event)">
+                <nb-option *ngFor="let option of filteredOptions$ | async" [value]="option">
+                  {{ option.name }}
+                </nb-option>
+              </nb-autocomplete>
+              <span *ngIf="isSubmitted && !isValidTrainSelected" class="text-danger">
+              *Please select a valid train
+            </span>
+            </div>
+
+            <div class="form-group">
+              <label class="label">Carriage Type</label>
+              <nb-select fullWidth formControlName="carriageTypeId"
+                         [class.status-danger]="carriageForm.get('carriageTypeId').hasError('required') && isSubmitted"
+                         placeholder="Type of this carriage..">
+                <nb-option *ngFor="let option of carriageTypes" [value]="option.id">{{ option.name }}</nb-option>
+              </nb-select>
+              <span class="text-danger"
+                    *ngIf="carriageForm.get('carriageTypeId').hasError('required') && isSubmitted">
+                *Please select a valid carriage type
+              </span>
+            </div>
+
+            <app-input-field [control]="carriageForm.get('name')"
+                             [label]="'Name'"
+                             [isSubmitted]="isSubmitted"
+                             [placeholder]="'Name of carriage..'">
+            </app-input-field>
+
+            <app-input-field [control]="carriageForm.get('status')"
+                             [label]="'Status'"
+                             [isSubmitted]="isSubmitted"
+                             [placeholder]="'Status..'">
+            </app-input-field>
+
+          </form>
+
+          <div *ngIf="isSubmitted && carriageForm.invalid" class="mb-3">
+            <span class="text-danger">*Please fill the valid form to continue</span>
+          </div>
+        </div>
+
+        <button class="prev-button" nbButton disabled nbStepperNext>prev</button>
+        <button class="next-button" nbButton nbStepperNext (click)="firstNextBtnClick()">next</button>
+      </nb-step>
+
+      <nb-step [label]="labelTwo">
+        <ng-template #labelTwo>Second step</ng-template>
+        <h4>Preview compartment belong to this carriage</h4>
+        <hr>
+        <p>
+          This section provides an automated preview of the compartment and seating layout based on your <b>previously selected carriage type</b>.
+          It is designed to help you visualize the interior configuration and ensure the arrangement meets your requirements for space and comfort.
+        </p>
+        <p>
+          Please review the compartment and seat details shown here to confirm they align with your expectations for the carriage design.
+        </p>
+        <div class="row">
+          <div class="col-4" *ngIf="currentCarriageType">
+            <h6>Compartment information</h6>
+            <div class="form-group">
+              <label class="label">Name</label>
+              <input type="text" class="text-black-50" nbInput fullWidth disabled [value]="currentCarriageType.name">
+            </div>
+            <div class="form-group">
+              <label class="label">Total compartments</label>
+              <input type="text" class="text-black-50" nbInput fullWidth disabled [value]="currentCarriageType.numberOfCompartments">
+            </div>
+            <div class="form-group">
+              <label class="label">Number of seats (per compartment)</label>
+              <input type="text" class="text-black-50" nbInput fullWidth disabled [value]="currentNumberOfSeats">
+            </div>
+          </div>
+
+          <div class="col-6" style="margin-top: 32px">
+            <label class="label">Carriage preview</label>
+            <div class="mt-3">
+              <app-preview-carriage [carriageType]="carriageForm.get('carriageTypeId').value">
+              </app-preview-carriage>
+            </div>
+          </div>
+        </div>
+
+        <button class="prev-button" nbButton nbStepperPrevious>prev</button>
+        <button class="next-button mr-3" nbButton disabled nbStepperNext>next</button>
+        <button nbButton status="success" (click)="onSubmit()">Save</button>
+      </nb-step>
+    </nb-stepper>
+  </nb-card-body>
+</nb-card>

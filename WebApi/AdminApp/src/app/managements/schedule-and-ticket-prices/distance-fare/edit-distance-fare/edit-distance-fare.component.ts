@@ -18,6 +18,8 @@ export class EditDistanceFareComponent implements OnInit {
   isSubmitted: boolean = false;
   errorMessages: string[] = [];
 
+  isLoading = false;
+
   constructor(private distanceFareService: DistanceFareService,
               private trainCompanyService: TrainCompanyService,
               private toastrService: NbToastrService,
@@ -42,11 +44,12 @@ export class EditDistanceFareComponent implements OnInit {
     });
 
     const id = this.activatedRoute.snapshot.params.id;
-
+    this.isLoading = true;
     this.distanceFareService.getDistanceFareById(id)
       .subscribe({
         next: (res) => {
           this.updateForm.patchValue(res);
+          this.isLoading = false;
         },
         error: _ => {
           this.showToast('danger', 'Failed', 'distance fare doest not exist!');

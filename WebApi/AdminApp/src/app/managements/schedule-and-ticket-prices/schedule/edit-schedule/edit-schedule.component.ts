@@ -21,6 +21,8 @@ export class EditScheduleComponent implements OnInit {
   isSubmitted: boolean = false;
   errorMessages: string[] = [];
 
+  isLoading = false;
+
   constructor(private scheduleService: ScheduleService,
               private trainService: TrainService,
               private trainStationService: TrainStationService,
@@ -48,13 +50,14 @@ export class EditScheduleComponent implements OnInit {
 
 
     const id = this.activatedRoute.snapshot.params.id;
-
+    this.isLoading = true;
     this.scheduleService.getScheduleById(id).subscribe({
       next: (res) => {
         this.updateForm.patchValue(res);
         this.updateForm.patchValue({
           departureTime: new Date(res.departureTime),
         });
+        this.isLoading = false;
       },
       error: () => {
         this.showToast('danger', 'Failed', 'Schedule does not exist!');

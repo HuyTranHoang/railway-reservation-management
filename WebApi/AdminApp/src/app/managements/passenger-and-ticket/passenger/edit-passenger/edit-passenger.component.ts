@@ -14,6 +14,8 @@ export class EditPassengerComponent implements OnInit {
   isSubmitted: boolean = false;
   errorMessages: string[] = [];
 
+  isLoading = false;
+
   constructor(private passengerSerivce: PassengerService,
               private toastrService: NbToastrService,
               private fb: FormBuilder,
@@ -37,10 +39,11 @@ export class EditPassengerComponent implements OnInit {
     });
 
     const id = this.activatedRoute.snapshot.params.id;
-
+    this.isLoading = true;
     this.passengerSerivce.getPassengerById(id).subscribe({
       next: (res) => {
         this.passengerForm.patchValue(res);
+        this.isLoading = false;
       },
       error: (err) => {
         this.showToast('danger', 'Failed', 'Passenger doest not exist!');

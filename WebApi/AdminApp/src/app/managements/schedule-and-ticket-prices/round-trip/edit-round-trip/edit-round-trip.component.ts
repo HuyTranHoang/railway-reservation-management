@@ -20,6 +20,8 @@ export class EditRoundTripComponent implements OnInit {
   isSubmitted: boolean = false;
   errorMessages: string[] = [];
 
+  isLoading = false;
+
   constructor(private roundTripService: RoundTripService,
               private trainCompanyService: TrainCompanyService,
               private toastrService: NbToastrService,
@@ -42,11 +44,12 @@ export class EditRoundTripComponent implements OnInit {
     });
 
     const id = this.activatedRoute.snapshot.params.id;
-
+    this.isLoading = true;
     this.roundTripService.getRoundTripById(id)
       .subscribe({
         next: (res) => {
           this.updateForm.patchValue(res);
+          this.isLoading = false;
         },
         error: (err) => {
           this.showToast('danger', 'Failed', 'Round Trip doest not exist!');

@@ -1,5 +1,5 @@
 <div class="col-md-6">
-    <nb-card>
+    <nb-card [nbSpinner]="isLoading" nbSpinnerSize="giant" nbSpinnerStatus="success">
       <nb-card-header>
         <div class="d-flex justify-content-between">
           Edit Compartment
@@ -12,14 +12,14 @@
       </nb-card-header>
       <nb-card-body>
         <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
-  
+
           <input type="hidden" formControlName="id">
-  
+
           <app-input-field [control]="updateForm.get('name')"
                            [label]="'Name'"
                            [placeholder]="'Name of train..'">
           </app-input-field>
-  
+
           <div class="form-group">
             <label class="label">Carriage</label>
             <input #autoInput
@@ -38,7 +38,7 @@
                   && autoInput.value.length <= 0">
               Carriage is required
             </span>
-  
+
             <nb-autocomplete #autoCarriageName (selectedChange)="onSelectionChange($event)">
               <nb-option *ngFor="let option of filteredOptions$ | async" [value]="option">
                 {{ option.name }}
@@ -50,24 +50,23 @@
                            [label]="'NumberOfSeats'"
                            [placeholder]="'Number Of Seats'">
           </app-input-field>
-  
+
           <app-input-field [control]="updateForm.get('status')"
                            [label]="'Status'"
                            [placeholder]="'Status'">
           </app-input-field>
-  
+
           <ul *ngIf="errorMessages.length > 0">
             <li class="text-danger" *ngFor="let item of errorMessages">{{item}}</li>
           </ul>
-  
+
           <button type="submit" nbButton status="success" class="float-right">Save</button>
         </form>
       </nb-card-body>
     </nb-card>
   </div>
-  
-  
-  
-  
-  
-  
+
+
+
+
+
