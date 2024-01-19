@@ -1,21 +1,34 @@
-<div class="container">
+<div class="banner">
+  <div class="bg-banner"
+       style="background: url(https://mediaim.expedia.com/destination/1/c63446536e347399b089bf0c51fa8431.jpg) center center no-repeat;background-size: cover">
+  </div>
+  <div class="banner-content">
+    <div class="container">
+      <h1 class="poppins">Frequently Asked Questions</h1>
+    </div>
+  </div>
+</div>
 
-  <h3>
-    Frequently Asked Questions
-  </h3>
-
-  <h5>
+<div class="container mt-3">
+  <h4>
     Travel planning and booking
-  </h5>
+  </h4>
 
   <accordion [isAnimated]="true">
-    <accordion-group>
+    <accordion-group panelClass="customClass" (isOpenChange)="togglePanel($event, 1)">
       <button
         class="btn btn-link btn-block justify-content-between d-flex w-100  shadow-none"
         accordion-heading type="button">
         <div class="pull-left float-left">How to book train tickets in Vietnam?</div>
-        <span class="btn btn-sm rounded-circle text-white float-right pull-right" style="background-color: #fb0">
+        <span *ngIf="!isPanelOpen[1]"
+              class="btn btn-sm rounded-circle text-white float-right pull-right"
+              style="background-color: #fb0">
           <i class="fa-solid fa-plus"></i>
+        </span>
+        <span *ngIf="isPanelOpen[1]"
+              class="btn btn-sm rounded-circle text-white float-right pull-right"
+              style="background-color: #c4c4c4">
+          <i class="fa-solid fa-minus"></i>
         </span>
       </button>
       <p>
@@ -62,13 +75,20 @@
         In the following 24 hours you will receive the itinerary and booking confirmation by email with the electronic ticket issued by Vietnam Railways or the private railway companies attached in PDF format.
       </p>
     </accordion-group>
-    <accordion-group>
+    <accordion-group panelClass="customClass" (isOpenChange)="togglePanel($event, 2)">
       <button
         class="btn btn-link btn-block justify-content-between d-flex w-100  shadow-none"
         accordion-heading type="button">
         <div class="pull-left float-left">How early does the ticket sale open?</div>
-        <span class="btn btn-sm rounded-circle text-white float-right pull-right" style="background-color: #fb0">
+        <span *ngIf="!isPanelOpen[2]"
+              class="btn btn-sm rounded-circle text-white float-right pull-right"
+              style="background-color: #fb0">
           <i class="fa-solid fa-plus"></i>
+        </span>
+        <span *ngIf="isPanelOpen[2]"
+              class="btn btn-sm rounded-circle text-white float-right pull-right"
+              style="background-color: #c4c4c4">
+          <i class="fa-solid fa-minus"></i>
         </span>
       </button>
       <p>
@@ -92,13 +112,20 @@
       </p>
 
     </accordion-group>
-    <accordion-group>
+    <accordion-group panelClass="customClass" (isOpenChange)="togglePanel($event, 3)">
       <button
         class="btn btn-link btn-block justify-content-between d-flex w-100  shadow-none"
         accordion-heading type="button">
         <div class="pull-left float-left">How late does the ticket sale end?</div>
-        <span class="btn btn-sm rounded-circle text-white float-right pull-right" style="background-color: #fb0">
+        <span *ngIf="!isPanelOpen[3]"
+              class="btn btn-sm rounded-circle text-white float-right pull-right"
+              style="background-color: #fb0">
           <i class="fa-solid fa-plus"></i>
+        </span>
+        <span *ngIf="isPanelOpen[3]"
+              class="btn btn-sm rounded-circle text-white float-right pull-right"
+              style="background-color: #c4c4c4">
+          <i class="fa-solid fa-minus"></i>
         </span>
       </button>
       <p>
@@ -113,18 +140,25 @@
     </accordion-group>
   </accordion>
 
-  <h5>
+  <h4>
     Payment
-  </h5>
+  </h4>
 
   <accordion [isAnimated]="true">
-    <accordion-group>
+    <accordion-group panelClass="customClass" (isOpenChange)="togglePanel($event, 4)">
       <button
         class="btn btn-link btn-block justify-content-between d-flex w-100  shadow-none"
         accordion-heading type="button">
         <div class="pull-left float-left">What options are available for payment?</div>
-        <span class="btn btn-sm rounded-circle text-white float-right pull-right" style="background-color: #fb0">
+        <span *ngIf="!isPanelOpen[4]"
+              class="btn btn-sm rounded-circle text-white float-right pull-right"
+              style="background-color: #fb0">
           <i class="fa-solid fa-plus"></i>
+        </span>
+        <span *ngIf="isPanelOpen[4]"
+              class="btn btn-sm rounded-circle text-white float-right pull-right"
+              style="background-color: #c4c4c4">
+          <i class="fa-solid fa-minus"></i>
         </span>
       </button>
       <p>
@@ -167,13 +201,20 @@
         All payment options are subject to processing fees, which are collected by the payment gateway that processes the transaction.
       </p>
     </accordion-group>
-    <accordion-group>
+    <accordion-group panelClass="customClass" (isOpenChange)="togglePanel($event, 5)">
       <button
         class="btn btn-link btn-block justify-content-between d-flex w-100  shadow-none"
         accordion-heading type="button">
         <div class="pull-left float-left">What can I do if payment fails?</div>
-        <span class="btn btn-sm rounded-circle text-white float-right pull-right" style="background-color: #fb0">
+        <span *ngIf="!isPanelOpen[5]"
+              class="btn btn-sm rounded-circle text-white float-right pull-right"
+              style="background-color: #fb0">
           <i class="fa-solid fa-plus"></i>
+        </span>
+        <span *ngIf="isPanelOpen[5]"
+              class="btn btn-sm rounded-circle text-white float-right pull-right"
+              style="background-color: #c4c4c4">
+          <i class="fa-solid fa-minus"></i>
         </span>
       </button>
       <p>
@@ -192,31 +233,45 @@
     </accordion-group>
   </accordion>
 
-  <h5>
+  <h4>
     Changes and Cancellations
-  </h5>
+  </h4>
 
   <accordion [isAnimated]="true">
-    <accordion-group>
+    <accordion-group panelClass="customClass" (isOpenChange)="togglePanel($event, 6)">
       <button
         class="btn btn-link btn-block justify-content-between d-flex w-100  shadow-none"
         accordion-heading type="button">
         <div class="pull-left float-left">After I book a ticket, can I change the Itinerary?</div>
-        <span class="btn btn-sm rounded-circle text-white float-right pull-right" style="background-color: #fb0">
+        <span *ngIf="!isPanelOpen[6]"
+              class="btn btn-sm rounded-circle text-white float-right pull-right"
+              style="background-color: #fb0">
           <i class="fa-solid fa-plus"></i>
+        </span>
+        <span *ngIf="isPanelOpen[6]"
+              class="btn btn-sm rounded-circle text-white float-right pull-right"
+              style="background-color: #c4c4c4">
+          <i class="fa-solid fa-minus"></i>
         </span>
       </button>
       <p>
         Change itinerary or origin/destination is not permitted.
       </p>
     </accordion-group>
-    <accordion-group>
+    <accordion-group panelClass="customClass" (isOpenChange)="togglePanel($event, 7)">
       <button
         class="btn btn-link btn-block justify-content-between d-flex w-100  shadow-none"
         accordion-heading type="button">
         <div class="pull-left float-left">After I book a ticket, can I change the Passengers?</div>
-        <span class="btn btn-sm rounded-circle text-white float-right pull-right" style="background-color: #fb0">
+        <span *ngIf="!isPanelOpen[7]"
+              class="btn btn-sm rounded-circle text-white float-right pull-right"
+              style="background-color: #fb0">
           <i class="fa-solid fa-plus"></i>
+        </span>
+        <span *ngIf="isPanelOpen[7]"
+              class="btn btn-sm rounded-circle text-white float-right pull-right"
+              style="background-color: #c4c4c4">
+          <i class="fa-solid fa-minus"></i>
         </span>
       </button>
       <p>
@@ -226,13 +281,20 @@
         Small typing mistakes in the name of the passengers or the passport number will require a modification of the booking, subject to additional fees.
       </p>
     </accordion-group>
-    <accordion-group>
+    <accordion-group panelClass="customClass" (isOpenChange)="togglePanel($event, 8)">
       <button
         class="btn btn-link btn-block justify-content-between d-flex w-100  shadow-none"
         accordion-heading type="button">
         <div class="pull-left float-left">After I book a ticket, can I make a cancellation?</div>
-        <span class="btn btn-sm rounded-circle text-white float-right pull-right" style="background-color: #fb0">
+        <span *ngIf="!isPanelOpen[8]"
+              class="btn btn-sm rounded-circle text-white float-right pull-right"
+              style="background-color: #fb0">
           <i class="fa-solid fa-plus"></i>
+        </span>
+        <span *ngIf="isPanelOpen[8]"
+              class="btn btn-sm rounded-circle text-white float-right pull-right"
+              style="background-color: #c4c4c4">
+          <i class="fa-solid fa-minus"></i>
         </span>
       </button>
       <p>
@@ -288,26 +350,40 @@
         - For promotion tickets, the amount is subject to the railway authority + 25,000 VND / 35,000 VND per ticket
       </p>
     </accordion-group>
-    <accordion-group>
+    <accordion-group panelClass="customClass" (isOpenChange)="togglePanel($event, 9)">
       <button
         class="btn btn-link btn-block justify-content-between d-flex w-100  shadow-none"
         accordion-heading type="button">
         <div class="pull-left float-left">I missed the departure, can I change the travel date?</div>
-        <span class="btn btn-sm rounded-circle text-white float-right pull-right" style="background-color: #fb0">
+        <span *ngIf="!isPanelOpen[9]"
+              class="btn btn-sm rounded-circle text-white float-right pull-right"
+              style="background-color: #fb0">
           <i class="fa-solid fa-plus"></i>
+        </span>
+        <span *ngIf="isPanelOpen[9]"
+              class="btn btn-sm rounded-circle text-white float-right pull-right"
+              style="background-color: #c4c4c4">
+          <i class="fa-solid fa-minus"></i>
         </span>
       </button>
       <p>
         Missed check-in or failure to board on the required date will result in forfeit of the ticket. Change after departure is not permitted.
       </p>
     </accordion-group>
-    <accordion-group>
+    <accordion-group panelClass="customClass" (isOpenChange)="togglePanel($event, 10)">
       <button
         class="btn btn-link btn-block justify-content-between d-flex w-100  shadow-none"
         accordion-heading type="button">
         <div class="pull-left float-left">I missed the departure, can I make a cancellation?</div>
-        <span class="btn btn-sm rounded-circle text-white float-right pull-right" style="background-color: #fb0">
+        <span *ngIf="!isPanelOpen[10]"
+              class="btn btn-sm rounded-circle text-white float-right pull-right"
+              style="background-color: #fb0">
           <i class="fa-solid fa-plus"></i>
+        </span>
+        <span *ngIf="isPanelOpen[10]"
+              class="btn btn-sm rounded-circle text-white float-right pull-right"
+              style="background-color: #c4c4c4">
+          <i class="fa-solid fa-minus"></i>
         </span>
       </button>
       <p>
@@ -317,6 +393,6 @@
   </accordion>
 
   <h5>
-    If you could not find your question listed, please feel free to <a routerLink="/contact">Contact Us</a>
+    If you could not find your question listed, please feel free to <a class="fw-semibold" routerLink="/contact">Contact Us</a>
   </h5>
 </div>

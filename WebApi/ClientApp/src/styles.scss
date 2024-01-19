@@ -26,3 +26,11 @@ body {
 *, ::after, ::before {
   box-sizing: border-box;
 }
+
+// FAQs
+.card.customClass, .card.customClass .card-header, .panel.customClass {
+  background-color: #ffffff;
+  border: none;
+  border-bottom: 1px solid #e6e6e6;
+  color: #fff;
+}
