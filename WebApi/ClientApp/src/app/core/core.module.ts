@@ -6,6 +6,7 @@ import {NotFoundComponent} from './not-found/not-found.component'
 import {TestErrorComponent} from './test-error/test-error.component'
 import {RouterModule} from '@angular/router';
 import { FooterComponent } from './footer/footer.component'
+import { SharedModule } from '../shared/shared.module'
 
 
 @NgModule({

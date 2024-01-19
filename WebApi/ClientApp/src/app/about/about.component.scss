@@ -1,6 +1,6 @@
 .banner {
   position: relative;
-  height: 30vh;
+  height: 50vh;
   z-index: 0;
 }
 
@@ -20,7 +20,7 @@
 .banner-content {
   position: absolute;
   text-align: center;
-  top: 50%;
+  top: 45%;
   right: 0;
   left: 0;
   transform: translate(0, -50%);

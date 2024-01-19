@@ -11,8 +11,7 @@ import { Location } from '@angular/common'
 export class BookingComponent implements OnInit {
 
   constructor(public bookingService: BookingService,
-              private router: Router,
-              private location: Location) {}
+              private router: Router) {}
 
   ngOnInit(): void {
   }
