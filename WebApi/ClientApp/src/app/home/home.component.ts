@@ -25,6 +25,7 @@ export class HomeComponent implements OnInit {
 
   departureDate = new Date()
   returnDate = new Date()
+  currentDate = new Date()
 
   roundTrip = false
 
@@ -117,13 +118,15 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  dateChange(newDate: any, isForm:boolean) {
+  dateChange(newDate: any, isForm: boolean) {
     if (isForm) {
-      this.departureDate = newDate
+      this.departureDate = newDate;
+      this.departureDate.setMinutes(this.departureDate.getMinutes() + 1)
     } else {
-      this.returnDate = newDate
+      this.returnDate = newDate;
     }
   }
+
 
   toRoundTrip() {
     this.roundTrip = true
@@ -136,8 +139,8 @@ export class HomeComponent implements OnInit {
   onSubmitSearch() {
 
     console.log(this.departureDate)
-    console.log(new Date())
-
+    console.log(this.returnDate)
+    console.log(this.currentDate)
 
     const departureStationId = this.originalStations
       .find((station) => station.name === this.fromCurrentStation)?.id
@@ -160,7 +163,7 @@ export class HomeComponent implements OnInit {
       return
     }
 
-    if (this.departureDate.getDate() < new Date().getDate()) {
+    if (this.departureDate < this.currentDate) {
       Swal.fire('Error', 'Departure date cannot be in the past', 'error')
       return
     }
