@@ -27,6 +27,12 @@ import { RouterModule } from '@angular/router'
     CommonModule,
     BookingRoutingModule,
     SharedModule
+  ],
+  exports :[
+    DepartureInputFieldComponent,
+    DepartureDatepickerFieldComponent,
+    DepartureComponent,
+    DepartureInfoComponent,
   ]
 })
 export class BookingModule { }
