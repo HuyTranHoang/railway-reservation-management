@@ -100,7 +100,7 @@ p {
   background-color: #c6c6c6;
 }
 
-.seat-selected, .bed-selected {
+.seat-selected, .bed-selected, .seat-selected:hover, .bed-selected:hover {
   background-color: #FFBB00;
   color: #fff;
 }
@@ -109,7 +109,7 @@ p {
   background-color: #FFBB00;
 }
 
-.seat-unavailable, .bed-unavailable {
+.seat-unavailable, .bed-unavailable, .seat-unavailable:hover, .bed-unavailable:hover {
   background-color: #df5327;
   color: #fff;
 }

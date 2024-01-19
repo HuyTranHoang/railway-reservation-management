@@ -63,12 +63,18 @@
         <div class="d-flex">
           <div>
             <div class="seat-row">
-              <button class="seat seat-available" *ngFor="let seat of seatRows[0]">
+              <button class="seat seat-available"
+                      [class.seat-selected]="seatStatus[0][colIndex]"
+                      (click)="toggleSeat(0, colIndex)"
+                      *ngFor="let seat of seatRows[0]; let colIndex = index">
                 {{ seat }}
               </button>
             </div>
             <div class="seat-row mt-1">
-              <button class="seat seat-available" *ngFor="let seat of seatRows[1]">
+              <button class="seat seat-available"
+                      [class.seat-selected]="seatStatus[1][colIndex]"
+                      (click)="toggleSeat(1, colIndex)"
+                      *ngFor="let seat of seatRows[1]; let colIndex = index">
                 {{ seat }}
               </button>
             </div>
@@ -76,12 +82,18 @@
           <div class="seat-separator"></div>
           <div>
             <div class="seat-row">
-              <button class="seat seat-available" *ngFor="let seat of seatRows[4]">
+              <button class="seat seat-available"
+                      [class.seat-selected]="seatStatus[4][colIndex]"
+                      (click)="toggleSeat(4, colIndex)"
+                      *ngFor="let seat of seatRows[4]; let colIndex = index">
                 {{ seat }}
               </button>
             </div>
             <div class="seat-row mt-1">
-              <button class="seat seat-available" *ngFor="let seat of seatRows[5]">
+              <button class="seat seat-available"
+                      [class.seat-selected]="seatStatus[5][colIndex]"
+                      (click)="toggleSeat(5, colIndex)"
+                      *ngFor="let seat of seatRows[5]; let colIndex = index">
                 {{ seat }}
               </button>
             </div>
@@ -90,12 +102,18 @@
         <div class="d-flex mt-4">
           <div>
             <div class="seat-row">
-              <button class="seat seat-available" *ngFor="let seat of seatRows[2]">
+              <button class="seat seat-available"
+                      [class.seat-selected]="seatStatus[2][colIndex]"
+                      (click)="toggleSeat(2, colIndex)"
+                      *ngFor="let seat of seatRows[2]; let colIndex = index">
                 {{ seat }}
               </button>
             </div>
             <div class="seat-row mt-1">
-              <button class="seat seat-available" *ngFor="let seat of seatRows[3]">
+              <button class="seat seat-available"
+                      [class.seat-selected]="seatStatus[3][colIndex]"
+                      (click)="toggleSeat(3, colIndex)"
+                      *ngFor="let seat of seatRows[3]; let colIndex = index">
                 {{ seat }}
               </button>
             </div>
@@ -103,12 +121,18 @@
           <div class="seat-separator"></div>
           <div>
             <div class="seat-row">
-              <button class="seat seat-available" *ngFor="let seat of seatRows[6]">
+              <button class="seat seat-available"
+                      [class.seat-selected]="seatStatus[6][colIndex]"
+                      (click)="toggleSeat(6, colIndex)"
+                      *ngFor="let seat of seatRows[6]; let colIndex = index">
                 {{ seat }}
               </button>
             </div>
             <div class="seat-row mt-1">
-              <button class="seat seat-available" *ngFor="let seat of seatRows[7]">
+              <button class="seat seat-available"
+                      [class.seat-selected]="seatStatus[7][colIndex]"
+                      (click)="toggleSeat(7, colIndex)"
+                      *ngFor="let seat of seatRows[7]; let colIndex = index">
                 {{ seat }}
               </button>
             </div>
