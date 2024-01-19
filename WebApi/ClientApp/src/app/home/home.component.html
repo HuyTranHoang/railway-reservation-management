@@ -75,13 +75,17 @@
           <div class="col-6">
             <app-departure-datepicker-field label="Depart"
                                             placeholder="Departure date.."
+                                            (onHandleDateChange)="dateChange($event, true)"
+                                            [date]="departureDate"
                                             icon="fa-calendar-days">
             </app-departure-datepicker-field>
           </div>
 
           <div class="col-6">
             <app-departure-datepicker-field label="Return"
+                                            [isDisabled]="!roundTrip"
                                             placeholder="Return date.."
+                                            (onHandleDateChange)="dateChange($event, false)"
                                             icon="fa-calendar-days">
             </app-departure-datepicker-field>
           </div>
@@ -95,11 +99,11 @@
             <div class="form-group">
               <label>JOURNEY</label>
               <ul class="nav nav-pills">
-                <li class="">
+                <li (click)="toRoundTrip()"  [class.active]="roundTrip">
                   <a>Round trip</a>
                 </li>
                 <!--  Active thêm class vào li   -->
-                <li class="active">
+                <li (click)="toOneWay()" [class.active]="!roundTrip">
                   <a>One way</a>
                 </li>
               </ul>
@@ -109,7 +113,9 @@
 
           <div class="col-6" style="margin-top: 33px">
             <div class="form-group">
-              <button id="searchButton" class="btn icon-search green btn-block bold"
+              <button id="searchButton"
+                      (click)="onSubmitSearch()"
+                      class="btn icon-search green btn-block bold"
                       style="width: 215px"
                       type="submit" name="input" value="Search">
                 SEARCH
@@ -163,7 +169,7 @@
   </div>
 </div>
 
-<div style="background-color: #74A600 ; color: #fff;text-align: center ;border-radius: 10px; padding: 30px;"
+<div style="background-color: #74A600 ; color: #fff;text-align: center; padding: 30px;"
      class="landing-section--pattern container-fluid">
   <div class="container">
     <h2 class="teko" style="color:white; ">TOP DESTINATIONS</h2>
@@ -173,7 +179,7 @@
   </div>
 </div>
 
-<div style="background-color: #2D3E52 ; color: #fff;text-align: center ; border-radius: 10px;  padding: 30px;"
+<div style="background-color: #2D3E52 ; color: #fff;text-align: center; padding: 30px;"
      class="landing-section--pattern container-fluid">
   <div class="container">
     <h2 class="teko" style="color:white; ">ALL THE TRANSPORTATION IN ONE PLACE</h2>

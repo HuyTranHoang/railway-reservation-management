@@ -1,5 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { TrainStationService } from '../core/services/train-station.service'
+import Swal from 'sweetalert2'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-home',
@@ -21,7 +23,13 @@ export class HomeComponent implements OnInit {
   fromResultStations = this.originalStations
   toResultStations = this.originalStations
 
-  constructor(private trainStationService: TrainStationService) {
+  departureDate = new Date()
+  returnDate = new Date()
+
+  roundTrip = false
+
+  constructor(private trainStationService: TrainStationService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -107,5 +115,76 @@ export class HomeComponent implements OnInit {
       this.toResultStations = [...this.originalStations];
       this.toCurrentStation = 'City, station';
     }
+  }
+
+  dateChange(newDate: any, isForm:boolean) {
+    if (isForm) {
+      this.departureDate = newDate
+    } else {
+      this.returnDate = newDate
+    }
+  }
+
+  toRoundTrip() {
+    this.roundTrip = true
+  }
+
+  toOneWay() {
+    this.roundTrip = false
+  }
+
+  onSubmitSearch() {
+
+    console.log(this.departureDate)
+    console.log(new Date())
+
+
+    const departureStationId = this.originalStations
+      .find((station) => station.name === this.fromCurrentStation)?.id
+
+    const arrivalStationId = this.originalStations
+      .find((station) => station.name === this.toCurrentStation)?.id
+
+    if (!departureStationId) {
+      Swal.fire('Error', 'Please select a valid departure station', 'error')
+      return
+    }
+
+    if (!arrivalStationId) {
+      Swal.fire('Error', 'Please select a valid arrival station', 'error')
+      return
+    }
+
+    if (departureStationId === arrivalStationId) {
+      Swal.fire('Error', 'Departure station and arrival station cannot be the same', 'error')
+      return
+    }
+
+    if (this.departureDate.getDate() < new Date().getDate()) {
+      Swal.fire('Error', 'Departure date cannot be in the past', 'error')
+      return
+    }
+
+    if (this.roundTrip && this.returnDate < this.departureDate) {
+      Swal.fire('Error', 'Return date cannot be before departure date', 'error')
+      return
+    }
+
+    const departureDate = this.departureDate.toISOString().split('T')[0]
+    let returnDate = null;
+
+    if (this.returnDate) {
+      returnDate = this.returnDate.toISOString().split('T')[0]
+    }
+
+    const queryParams: any = {
+      departureStationId,
+      arrivalStationId,
+      departureDate,
+      returnDate,
+      roundTrip: this.roundTrip
+    }
+
+    this.router.navigate(['/booking'], { queryParams })
   }
 }
