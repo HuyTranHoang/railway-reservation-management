@@ -26,3 +26,6 @@ body {
 *, ::after, ::before {
   box-sizing: border-box;
 }
+
+/* Importing Bootstrap SCSS file. */
+@import "./node_modules/bootstrap/scss/bootstrap";

@@ -1,21 +1,261 @@
-<div class="container mt-5">
-  <div class="d-flex flex-column align-items-center">
+<carousel [isAnimated]="true">
+  <slide>
+    <img src="assets/highspeed-train-station-blurred-city-background-high-resolution-highquality-image-travel-short-period-time-fast-travel-be-time-technology-progress-ai_579956-3242.avif" alt="first slide" style="display: block; width: 100%; height:550px;">
+  </slide>
+  <slide>
+    <img src="assets/istockphoto-182262339-612x612.jpg" alt="second slide" style="display: block; width: 100%; height: 550px;">
+  </slide>
+  <slide>
+    <img src="assets/pngtree-a-motion-blur-image-of-a-train-in-it-stops-at-image_13138324.png" alt="third slide" style="display: block; width: 100%; height: 550px;">
+  </slide>
+</carousel>
 
-    <h1>Home Page</h1>
+<div class="container">
+<div class="row form-padding mt-2 bg-white">
+  <div class="col-8">
+    <div class="row">
 
-    <div class="alert alert-success" role="alert">
-      <h4>Nếu mọi người thấy trang này thì có nghĩa là nó chưa được làm xong.</h4>
+      <div class="col-6 row-padding">
+        <app-departure-input-field label="FROM"
+                                   placeholder="City, station.."
+                                   icon="fa-location-dot">
+        </app-departure-input-field>
+      </div>
+
+      <div class="col-6 row-padding">
+        <app-departure-input-field label="To"
+                                   placeholder="City, station.."
+                                   icon="fa-location-dot">
+        </app-departure-input-field>
+      </div>
+
+      <div class="col-6 row-padding">
+        <app-departure-datepicker-field label="Depart"
+                                        placeholder="Departure date.."
+                                        icon="fa-calendar-days">
+        </app-departure-datepicker-field>
+      </div>
+
+      <div class="col-6 row-padding">
+        <app-departure-datepicker-field label="Return"
+                                        placeholder="Return date.."
+                                        icon="fa-calendar-days">
+        </app-departure-datepicker-field>
+      </div>
+
     </div>
+  </div>
 
+  <div class="col-4">
+    <div class="row">
+      <div class="col-7">
+        <div class="form-group">
+          <label>JOURNEY</label>
+          <ul class="nav nav-pills">
+            <li class="">
+              <a>Round trip</a>
+            </li>
+            <!--  Active thêm class vào li   -->
+            <li class="active">
+              <a>One way</a>
+            </li>
+          </ul>
 
-    <img src="https://pbs.twimg.com/media/GBx4AjabgAAQDjR.jpg" style="width: 500px" alt="">
+        </div>
+      </div>
 
+      <div class="col-6 mt-5">
+        <div class="form-group">
+          <label>PASSENGERS</label>
+          <div id="passenger_selector" class="input-group">
+            <ul>
+              <li>
+                <button type="button" class="btn-circle fas fa-minus"></button>
+              </li>
+              <li>
+                <input id="passengers_count" type="text" readonly=""
+                       class="input-number text-center" value="1" >
+              </li>
+              <li>
+                <button type="button" class="btn-circle fas fa-plus"></button>
+              </li>
+            </ul>
+          </div>
 
+        </div>
+      </div>
 
-    <h5>Nên Gura cuti sẽ ở đây để chào mọi người <i class="fa-light fa-hand-wave"></i></h5>
-
-    <h5>Chúc mọi người có thời gian coding vui vẻ nha.</h5>
-
-    <h6 class="fst-italic text-success">Xách mông lên và code nào mọi người ơi uwu</h6>
+    
+    </div>
+  </div>
+  <div class="col-12">
+    <div class="form-group d-flex justify-content-center ">
+      <button id="searchButton" class="btn icon-search fixed-width green btn-block bold "
+              type="submit" name="input" value="Search" style="border-radius: 5px; padding: 20px ; width: 200px; ">
+        SEARCH
+        <i class="fa-regular fa-magnifying-glass"></i>
+      </button>
+    </div>
   </div>
 </div>
+</div>
+
+<div style="padding-bottom: 50px; background-color: #F5F5F5; border-radius: 10px;" class="p-5 shadow panel-dark js-scrollto-section landing-section__intro text-center">
+  <div class="container">
+  <div class="row">
+  <div class="gap gap-section"></div>
+  <div class="col-md-12 col-xs-12">
+  <h2 class="teko">WELCOME TO RailTicketHub</h2>
+  <p class="landing-section__subtitle" style="color: #65696e">We make travel easy</p>
+  </div>  
+  <div class="gap gap-small hidden-lg hidden-md"></div>
+  <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+  <img style="width: 200px;" class=" lazyloaded" data-src="https://booking.baolau.com/images/icons/welcome-1.png" src="https://booking.baolau.com/images/icons/welcome-1.png"> <br>
+  <h4 class="teko">PLAN YOUR TRIP</h4>
+  <p>Find the best route to your destination thanks to our travel search technology. Organize your trip anywhere, anytime.</p>
+  </div>
+  <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+  <img style="width: 200px;" class=" lazyloaded" data-src="https://booking.baolau.com/images/icons/welcome-2.png" src="https://booking.baolau.com/images/icons/welcome-2.png"> <br>
+  <h4 class="teko">SEARCH AND COMPARE</h4>
+  <p>Compare all the transport options available for your journey and book your flights, trains, buses and ferries quickly in minutes.</p>
+  </div>
+
+  <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+  <img style="width: 200px;" class=" lazyloaded" data-src="https://booking.baolau.com/images/icons/welcome-3.png" src="https://booking.baolau.com/images/icons/welcome-3.png"> <br>
+  <h4 class="teko">PAY EASILY AND SAFELY</h4>
+  <p>Choose from multiple payment methods. We accept international credit or debit card and bank transfer for selected currencies.</p>
+  </div>
+  <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+  <img style="width: 200px;" class=" lazyloaded" data-src="https://booking.baolau.com/images/icons/welcome-4.png" src="https://booking.baolau.com/images/icons/welcome-4.png"> <br>
+  <h4 class="teko">READY TO TRAVEL</h4>
+  <p>Receive your itinerary and your e-tickets via email. You can print the boarding pass or carry on your mobile phone, ready for boarding.</p>
+  </div>
+  </div>
+  </div>
+  </div>
+
+
+  <div style="background-color: #74A600 ; color: #fff;text-align: center ;border-radius: 10px; padding: 30px;" class="landing-section--pattern container-fluid">
+    <div class="container">
+    <h2 class="teko" style="color:white; ">TOP DESTINATIONS</h2>
+    <p class="landing-section__subtitle" >What do you expect from Asia? Cities and monuments, palaces and pagodas, evergreen forests and deep jungles, limestone mountains and natural parks, pristine beaches and lost islands... whatever it is, you can find it in our list of destinations.</p>
+    </div>
+    </div>
+  <div class="container">
+
+    <div class="content">
+       <div class="wrapper">
+        <div class="box vintage">
+          <img src="https://source.unsplash.com/900x900/?vintage" alt="EMMYLOU">
+          <h2>EMMYLOU</h2>
+          <p>I'll be your Emmylou and I'll be your June</p>
+        </div>
+      </div>
+      <div class="wrapper">
+        <div class="box w-content">
+          <img src="https://source.unsplash.com/900x900/?art,history
+    " alt="Jenny of Oldstones">
+          <div class="frame">
+            <h2>Jenny of Oldstones</h2>
+          </div>
+        </div>
+      </div>
+      <div class="wrapper">
+        <div class="box postcard">
+          <img src="https://source.unsplash.com/900x900/?ocean,sunset" alt="BOX">
+          <h2>The Pursuit of  <p class="hide">HAPPINESS</p></h2>
+        </div>
+      </div>
+      <div class="wrapper">
+        <div class="box zoom-in">
+          <img src="https://source.unsplash.com/900x900/?italy,travel
+  " alt="Postcards From Italy">
+          <h2>Postcards From Italy</h2>
+          <p>And I will love to see that day</p>
+        </div>
+      </div>
+      <div class="wrapper">
+        <div class="box blury-card" >
+          <img src="https://source.unsplash.com/900x900/?street,travel
+  " alt="Blue Ridge Mountains">
+          <div class="frame">
+            <h2>Blue Ridge</h2>
+            <p>MOUNTAINS</p>
+          </div>  
+        </div>
+      </div>
+      <div class="wrapper">
+        <div class="box zoom-out">
+          <img src="https://source.unsplash.com/900x900/?photography
+  " alt="Melody Noir">
+          <div class="frame">
+            <h2>MELODY <span>NOIR</span></h2>
+            <p>Tell me where the wind is blowing 'cause that's where the music's going</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="background-color: #2D3E52 ; color: #fff;text-align: center ; border-radius: 10px;  padding: 30px;" class="landing-section--pattern container-fluid">
+    <div class="container">
+    <h2 class="teko" style="color:white; ">ALL THE TRANSPORTATION IN ONE PLACE</h2>
+    <p class="landing-section__subtitle" >Whether you travel by air, rail, land or sea, you can find all the information to plan your journey through Asia here.</p>
+    </div>
+    </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-4">
+      <img class=" lazyloaded" style="width: 350px; height: 200px;" data-src="https://www.baolau.com/images/blogs/transportation_guides/train-vietnam.jpg" src="https://www.baolau.com/images/blogs/transportation_guides/train-vietnam.jpg">
+      <div style="display: inline-block; text-align: center; padding-top: 30px;">
+        <ul>
+        <li><i class="icon icon-train inline" style="font-size: 20px;"></i> <strong><a href="https://www.baolau.com/en/s/Hanoi/Ninh-Binh/train" target="_blank">Hanoi to Ninh Binh</a></strong></li>
+        <li><i class="icon icon-train inline" style="font-size: 20px;"></i> <strong><a href="https://www.baolau.com/en/s/Hanoi/Hue/train" target="_blank">Hanoi to Hue</a></strong></li>
+        <li><i class="icon icon-train inline" style="font-size: 20px;"></i> <strong><a href="https://www.baolau.com/en/s/Hue/Da-Nang/train" target="_blank">Hue to Da Nang</a></strong></li>
+        <li><i class="icon icon-train inline" style="font-size: 20px;"></i> <strong><a href="https://www.baolau.com/en/s/Ho-Chi-Minh/Nha-Trang/train" target="_blank">Ho Chi Minh to Nha Trang</a></strong></li>
+        <li><i class="icon icon-train inline" style="font-size: 20px;"></i> <strong><a href="https://www.baolau.com/en/s/Ho-Chi-Minh/Phan-Thiet/train" target="_blank">Ho Chi Minh to Phan Thiet</a></strong></li>
+        </ul>
+        <div style="padding-top: 8px; padding-bottom: 8px;">
+          <a href="https://www.baolau.com/en/transportation/thailand/trains" class="small-text" style="border: 1px solid #EDA44F; border-radius: 3px; text-align: center; color: #EDA44F; padding: 10px 18px;">ALL TRAIN ROUTES IN VIETNAM </a>
+          </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <img class=" lazyloaded" style="width: 350px; height: 200px;" data-src="https://www.baolau.com/images/blogs/transportation_guides/train-cambodia.jpg" src="https://www.baolau.com/images/blogs/transportation_guides/train-cambodia.jpg">
+      <div style="text-align: center;">
+        <div style="display: inline-block; text-align: center; padding-top: 30px;">
+        <ul>
+        <li><i class="icon icon-train inline" style="font-size: 20px;"></i> <strong><a href="https://www.baolau.com/en/s/Phnom-Penh/Battambang/train" target="_blank">Phnom Penh to Battambang</a></strong></li>
+        <li><i class="icon icon-train inline" style="font-size: 20px;"></i> <strong><a href="https://www.baolau.com/en/s/Phnom-Penh/Pursat/train" target="_blank">Phnom Penh to Pursat</a></strong></li>
+        <li><i class="icon icon-train inline" style="font-size: 20px;"></i> <strong><a href="https://www.baolau.com/en/s/Phnom-Penh/Kampot/train" target="_blank">Phnom Penh to Kampot</a></strong></li>
+        <li><i class="icon icon-train inline" style="font-size: 20px;"></i> <strong><a href="https://www.baolau.com/en/s/Phnom-Penh/Krong-Kep/train" target="_blank">Phnom Penh to Kep</a></strong></li>
+        <li><i class="icon icon-train inline" style="font-size: 20px;"></i> <strong><a href="https://www.baolau.com/en/s/Phnom-Penh/Sihanoukville/train" target="_blank">Phnom Penh to Sihanoukville</a></strong></li>
+        </ul>
+        </div>
+        <div style="padding-top: 8px; padding-bottom: 8px;">
+        <a href="https://www.baolau.com/en/transportation/cambodia/trains" class="small-text" style="border: 1px solid #FFC000; border-radius: 3px; text-align: center; color: #FFC000; padding: 10px 18px;">ALL TRAIN ROUTES IN CAMBODIA </a>
+        </div>
+        </div>
+    </div>
+    <div class="col-4">
+      <img class=" lazyloaded" style="width: 350px; height: 200px;"  data-src="https://www.baolau.com/images/blogs/transportation_guides/train-thailand.jpg" src="https://www.baolau.com/images/blogs/transportation_guides/train-thailand.jpg">
+      <div style="text-align: center;">
+        <div style="display: inline-block; text-align: center; padding-top: 30px;">
+        <ul>
+        <li><i class="icon icon-train inline" style="font-size: 20px;"></i> <strong><a href="https://www.baolau.com/en/s/Bangkok/Chiang-Mai/train" target="_blank">Bangkok to Chiang Mai</a></strong></li>
+        <li><i class="icon icon-train inline" style="font-size: 20px;"></i> <strong><a href="https://www.baolau.com/en/s/Bangkok/Nong-Khai/train" target="_blank">Bangkok to Nong Khai</a></strong></li>
+        <li><i class="icon icon-train inline" style="font-size: 20px;"></i> <strong><a href="https://www.baolau.com/en/s/Bangkok/Ayutthaya/train" target="_blank">Bangkok to Ayutthaya</a></strong></li>
+        <li><i class="icon icon-train inline" style="font-size: 20px;"></i> <strong><a href="https://www.baolau.com/en/s/Bangkok/Hua-Hin/train" target="_blank">Bangkok to Hua Hin</a></strong></li>
+        <li><i class="icon icon-train inline" style="font-size: 20px;"></i> <strong><a href="https://www.baolau.com/en/s/Bangkok/Surat-Thani/train" target="_blank">Bangkok to Surat Thani</a></strong></li>
+        </ul>
+        </div>
+        <div style="padding-top: 8px; padding-bottom: 8px;">
+        <a href="https://www.baolau.com/en/transportation/thailand/trains" class="small-text" style="border: 1px solid #EDA44F; border-radius: 3px; text-align: center; color: #EDA44F; padding: 10px 18px;">ALL TRAIN ROUTES IN THAILAND </a>
+        </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+

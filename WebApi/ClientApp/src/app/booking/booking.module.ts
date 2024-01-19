@@ -24,6 +24,12 @@ import { PassengersComponent } from './passengers/passengers.component'
     CommonModule,
     BookingRoutingModule,
     SharedModule
+  ],
+  exports :[
+    DepartureInputFieldComponent,
+    DepartureDatepickerFieldComponent,
+    DepartureComponent,
+    DepartureInfoComponent,
   ]
 })
 export class BookingModule { }
