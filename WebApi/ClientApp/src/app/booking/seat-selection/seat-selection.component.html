@@ -1,1 +1,140 @@
-<p>seat-selection works!</p>
+<h2>Seat selection</h2>
+<div class="horizontal-divider"></div>
+
+<div class="panel">
+  <div class="text-center item">
+    <p class="big-text bold" style="text-transform: capitalize">
+      Soft seat Premium </p>
+  </div>
+
+  <div class="row my-5">
+    <div class="col-2 offset-3 d-flex flex-column align-items-center">
+      <div class="d-flex">
+        <button class="seat seat-available seat-available-sample"></button>
+
+        <div class="bed-border d-flex">
+          <div>
+            <button class="bed bed-available bed-available-sample"></button>
+            <div class="bed-illustration"></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        Available
+      </div>
+    </div>
+
+    <div class="col-2 d-flex flex-column align-items-center">
+      <div class="d-flex">
+        <button class="seat seat-selected seat-selected-sample"></button>
+
+        <div class="bed-border d-flex">
+          <div>
+            <button class="bed bed-selected bed-selected-sample"></button>
+            <div class="bed-illustration"></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        Selected
+      </div>
+    </div>
+
+    <div class="col-2 d-flex flex-column align-items-center">
+      <div class="d-flex">
+        <button class="seat seat-unavailable seat-unavailable-sample"></button>
+
+        <div class="bed-border d-flex">
+          <div>
+            <button class="bed bed-unavailable bed-unavailable-sample"></button>
+            <div class="bed-illustration"></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        Sold out
+      </div>
+    </div>
+
+    <div class="horizontal-divider my-5"></div>
+
+    <div class="d-flex justify-content-center">
+      <section class="seat-floor">
+        <div class="d-flex">
+          <div>
+            <div class="seat-row">
+              <button class="seat seat-available" *ngFor="let seat of seatRows[0]">
+                {{ seat }}
+              </button>
+            </div>
+            <div class="seat-row mt-1">
+              <button class="seat seat-available" *ngFor="let seat of seatRows[1]">
+                {{ seat }}
+              </button>
+            </div>
+          </div>
+          <div class="seat-separator"></div>
+          <div>
+            <div class="seat-row">
+              <button class="seat seat-available" *ngFor="let seat of seatRows[4]">
+                {{ seat }}
+              </button>
+            </div>
+            <div class="seat-row mt-1">
+              <button class="seat seat-available" *ngFor="let seat of seatRows[5]">
+                {{ seat }}
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex mt-4">
+          <div>
+            <div class="seat-row">
+              <button class="seat seat-available" *ngFor="let seat of seatRows[2]">
+                {{ seat }}
+              </button>
+            </div>
+            <div class="seat-row mt-1">
+              <button class="seat seat-available" *ngFor="let seat of seatRows[3]">
+                {{ seat }}
+              </button>
+            </div>
+          </div>
+          <div class="seat-separator"></div>
+          <div>
+            <div class="seat-row">
+              <button class="seat seat-available" *ngFor="let seat of seatRows[6]">
+                {{ seat }}
+              </button>
+            </div>
+            <div class="seat-row mt-1">
+              <button class="seat seat-available" *ngFor="let seat of seatRows[7]">
+                {{ seat }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  </div>
+</div>
+
+<div class="panel" style="border-left: 3px solid #5bc0de;">
+  <div class="d-flex align-items-center">
+    <img class="me-3" style="width: 30px" src="https://booking.baolau.com/images/icons/avatar-baolau.png" alt="avatar">
+    <h6 style="line-height: 30px; font-size: 18px; margin: 0">
+      Seat position not guaranteed
+    </h6>
+  </div>
+  <div class="horizontal-divider"></div>
+  <p class="mt-3 fst-italic">
+    Please note that the position of the seats is just for reference. The railway operator may change the orientation of the carriage at the departure station anytime at their convenience. We hope you understand that this situation escapes our control and we cannot guarantee that the position of your seat will be the same as you select here.
+  </p>
+</div>
+
+<div class="mt-3">
+  <a class="btn green w-100" routerLink="/booking/passengers">
+    <span class="bold">CONTINUE</span>
+  </a>
+</div>
