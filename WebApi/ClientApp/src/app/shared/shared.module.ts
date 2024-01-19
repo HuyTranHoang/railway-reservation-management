@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { NgxSpinnerModule } from 'ngx-spinner'
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker'
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 
@@ -11,6 +10,7 @@ import { AccordionModule } from 'ngx-bootstrap/accordion';
   imports: [
     NgxSpinnerModule,
     BsDatepickerModule.forRoot(),
+    AccordionModule.forRoot(),
   ],
   exports: [
     NgxSpinnerModule,
