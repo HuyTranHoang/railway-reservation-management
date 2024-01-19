@@ -4,7 +4,7 @@ import { DOCUMENT } from '@angular/common'
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss', '../booking/departure/departure.shared.scss']
 })
 export class HomeComponent implements AfterViewInit {
 
