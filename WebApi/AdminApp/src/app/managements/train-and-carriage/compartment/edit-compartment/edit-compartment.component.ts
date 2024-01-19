@@ -11,12 +11,14 @@ import {map} from 'rxjs/operators';
 @Component({
   selector: 'ngx-edit-compartment',
   templateUrl: './edit-compartment.component.html',
-  styleUrls: ['./edit-compartment.component.scss']
+  styleUrls: ['./edit-compartment.component.scss'],
 })
-export class EditCompartmentComponent implements OnInit{
+export class EditCompartmentComponent implements OnInit {
   options: Carriage[];
   filteredOptions$: Observable<Carriage[]>;
   isCarriageSelected: boolean = false;
+
+  isLoading = false;
 
   @ViewChild('autoInput') input: { nativeElement: { value: string; }; };
 
@@ -49,7 +51,7 @@ export class EditCompartmentComponent implements OnInit{
     });
 
     const id = this.activatedRoute.snapshot.params.id;
-
+    this.isLoading = true;
     this.compartmentService.getCompartmentById(id).subscribe({
       next: (res) => {
         this.updateForm.patchValue(res);
@@ -59,6 +61,8 @@ export class EditCompartmentComponent implements OnInit{
           this.input.nativeElement.value = matchingCarriage.name;
           this.isCarriageSelected = true;
         }
+
+        this.isLoading = false;
       },
       error: (err) => {
         this.showToast('danger', 'Failed', 'Compartment does not exist!');
@@ -70,7 +74,7 @@ export class EditCompartmentComponent implements OnInit{
   numberValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       if (control.value == null || control.value === '') return null;
-      return !isNaN(parseFloat(control.value)) && isFinite(control.value) ? null : { 'notANumber': true };
+      return !isNaN(parseFloat(control.value)) && isFinite(control.value) ? null : {'notANumber': true};
     };
   }
 
@@ -138,14 +142,14 @@ export class EditCompartmentComponent implements OnInit{
     const matchingCarriage = this.options.find(carriage => carriage.name === inputValue);
 
     if (!matchingCarriage) {
-      this.updateForm.patchValue({ carriageId: null });
+      this.updateForm.patchValue({carriageId: null});
       this.isCarriageSelected = false;
     }
   }
 
   onSelectionChange(carriage: Carriage) {
     this.isCarriageSelected = true;
-    this.updateForm.patchValue({ carriageId: carriage.id });
+    this.updateForm.patchValue({carriageId: carriage.id});
     this.input.nativeElement.value = carriage.name;
   }
 }

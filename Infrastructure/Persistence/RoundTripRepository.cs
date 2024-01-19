@@ -15,8 +15,7 @@ namespace Infrastructure.Persistence
         }
         public async Task Add(RoundTrip roundTrip)
         {
-            _context.RoundTrips.Add(roundTrip);
-            await Task.CompletedTask;
+            await _context.RoundTrips.AddAsync(roundTrip);
         }
 
         public async Task Delete(RoundTrip roundTrip)

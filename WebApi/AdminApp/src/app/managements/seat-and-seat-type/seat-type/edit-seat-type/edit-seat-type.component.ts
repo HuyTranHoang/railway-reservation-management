@@ -15,6 +15,8 @@ export class EditSeatTypeComponent implements OnInit {
   isSubmitted = false;
   errorMessages: string[] = [];
 
+  isLoading = false;
+
   constructor(private seatTypeService: SeatTypeService,
               private fb: FormBuilder,
               private activatedRoute: ActivatedRoute,
@@ -28,18 +30,22 @@ export class EditSeatTypeComponent implements OnInit {
   }
 
   initForm() {
-    const id = this.activatedRoute.snapshot.params.id;
 
+    this.updateForm = this.fb.group({
+      id: ['', Validators.required],
+      name: ['', Validators.required],
+      serviceCharge: [0, [Validators.required, Validators.min(0), this.numberValidator()]],
+      status: ['', Validators.required],
+      description: ['', Validators.required],
+    });
+
+    const id = this.activatedRoute.snapshot.params.id;
+    this.isLoading = true;
     this.seatTypeService.getSeatTypeById(id)
       .subscribe({
         next: (res) => {
-          this.updateForm = this.fb.group({
-            id: [res.id, Validators.required],
-            name: [res.name, Validators.required],
-            serviceCharge: [res.serviceCharge, [Validators.required, Validators.min(0), this.numberValidator()]],
-            status: [res.status, Validators.required],
-            description: [res.description, Validators.required],
-          });
+          this.updateForm.patchValue(res);
+          this.isLoading = false;
         },
         error: (err) => {
           this.showToast('danger', 'Failed', 'This seat type doest not exist!');
@@ -68,6 +74,7 @@ export class EditSeatTypeComponent implements OnInit {
         },
         error: (err) => {
           this.showToast('danger', 'Failed', 'Fail to update seat type!');
+          this.errorMessages = err.error.errors;
         },
       });
     }

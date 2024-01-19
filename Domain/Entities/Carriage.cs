@@ -19,10 +19,6 @@ namespace Domain.Entities
         public int CarriageTypeId { get; set; }
         public CarriageType CarriageType { get; set; }
 
-        [Required]
-        [Range(1, int.MaxValue, ErrorMessage = "Please enter a number of compartments bigger than 0")]
-        public int NumberOfCompartments { get; set; }
-
         [StringLength(100)] public string Status { get; set; }
 
         public ICollection<Compartment> Compartments { get; set; }

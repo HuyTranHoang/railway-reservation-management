@@ -10,16 +10,23 @@
       </div>
 
       <div class="form-group row">
+        <label class="label col-sm-3 col-form-label">Number of Compartments</label>
+        <div class="col-sm-9">
+          <input type="text" nbInput fullWidth [value]="numberOfCompartments" disabled>
+        </div>
+      </div>
+
+      <div class="form-group row">
         <label class="label col-sm-3 col-form-label">Service Charge</label>
         <div class="col-sm-9">
-          <input type="text" nbInput fullWidth [value]="serviceCharge" disabled>
+          <input type="text" nbInput fullWidth [value]="serviceCharge | currency" disabled>
         </div>
       </div>
 
       <div class="form-group row">
         <label class="label col-sm-3 col-form-label">Description</label>
         <div class="col-sm-9">
-          <textarea nbInput fullWidth disabled style="color: black">{{description}}</textarea>
+          <textarea nbInput fullWidth disabled rows="8" style="color: black">{{description}}</textarea>
         </div>
       </div>
 

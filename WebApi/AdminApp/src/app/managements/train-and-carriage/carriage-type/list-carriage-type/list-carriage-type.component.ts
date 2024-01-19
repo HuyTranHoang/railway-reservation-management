@@ -25,6 +25,7 @@ export class ListCarriageTypeComponent implements OnInit {
 
   sortStates = {
     name: false,
+    numberOfCompartment: false,
     serviceCharge: false,
     createdAt: false,
   };

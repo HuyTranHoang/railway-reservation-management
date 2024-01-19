@@ -10,6 +10,9 @@ Content-Type: application/json
 {
   "Name": "New type",
   "ServiceCharge": 123,
+  "numberOfCompartments": 2,
+  "NumberOfSeats": 32,
+  "NumberOfSeatTypes": 2,
   "Status": "Active",
   "Description": "New type description"
 }
@@ -39,16 +42,17 @@ GET {{url}}/{{router}}/{{id}}
 
 
 ### 
-
+#  NOTED: NumberOfCompartments: Nghiệp vụ mặc định Compartment dựa theo CarriageType
 # @name updateCarriageType
 @updateId = 1
 
 PUT {{url}}/{{router}}/{{updateId}}
 Content-Type: application/json
-
+#
 {
   "Id": {{updateId}},
   "Name": "New type Update",
+  "NumberOfCompartments": 4,
   "ServiceCharge": 222,
   "Status": "Active"
 }

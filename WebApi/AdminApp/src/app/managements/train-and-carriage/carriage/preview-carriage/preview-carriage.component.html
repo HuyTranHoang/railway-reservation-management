@@ -1,0 +1,494 @@
+<section *ngIf="carriageType === 1" class="seat-floor">
+  <div class="d-flex">
+    <div>
+      <div class="seat-row">
+        <button class="seat seat-available" *ngFor="let seat of seatRows[0]">
+          {{ seat }}
+        </button>
+      </div>
+      <div class="seat-row mt-1">
+        <button class="seat seat-available" *ngFor="let seat of seatRows[1]">
+          {{ seat }}
+        </button>
+      </div>
+    </div>
+    <div class="seat-separator"></div>
+    <div>
+      <div class="seat-row">
+        <button class="seat seat-available" *ngFor="let seat of seatRows[4]">
+          {{ seat }}
+        </button>
+      </div>
+      <div class="seat-row mt-1">
+        <button class="seat seat-available" *ngFor="let seat of seatRows[5]">
+          {{ seat }}
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex mt-4">
+    <div>
+      <div class="seat-row">
+        <button class="seat seat-available" *ngFor="let seat of seatRows[2]">
+          {{ seat }}
+        </button>
+      </div>
+      <div class="seat-row mt-1">
+        <button class="seat seat-available" *ngFor="let seat of seatRows[3]">
+          {{ seat }}
+        </button>
+      </div>
+    </div>
+    <div class="seat-separator"></div>
+    <div>
+      <div class="seat-row">
+        <button class="seat seat-available" *ngFor="let seat of seatRows[6]">
+          {{ seat }}
+        </button>
+      </div>
+      <div class="seat-row mt-1">
+        <button class="seat seat-available" *ngFor="let seat of seatRows[7]">
+          {{ seat }}
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section *ngIf="carriageType === 2" class="seat-floor d-flex align-items-end">
+
+  <div class="d-flex flex-column">
+    <button nbButton status="danger" ghost>
+      T2
+    </button>
+    <button nbButton status="danger" ghost>
+      T1
+    </button>
+  </div>
+  <div class="bed-outer">
+    <label class="label w-100 text-center">Khoang 1</label>
+    <div class="bed-border d-flex">
+      <div>
+        <button class="bed">1</button>
+        <div class="bed-illustration"></div>
+      </div>
+      <div class="ml-2">
+        <button class="bed">2</button>
+        <div class="bed-illustration"></div>
+      </div>
+    </div>
+
+    <div class="bed-border d-flex">
+      <div>
+        <button class="bed">3</button>
+        <div class="bed-illustration"></div>
+      </div>
+      <div class="ml-2">
+        <button class="bed">4</button>
+        <div class="bed-illustration"></div>
+      </div>
+    </div>
+  </div>
+  <div class="bed-outer">
+    <label class="label w-100 text-center">Khoang 2</label>
+    <div class="bed-border d-flex">
+      <div>
+        <button class="bed">1</button>
+        <div class="bed-illustration"></div>
+      </div>
+      <div class="ml-2">
+        <button class="bed">2</button>
+        <div class="bed-illustration"></div>
+      </div>
+    </div>
+
+    <div class="bed-border d-flex">
+      <div>
+        <button class="bed">3</button>
+        <div class="bed-illustration"></div>
+      </div>
+      <div class="ml-2">
+        <button class="bed">4</button>
+        <div class="bed-illustration"></div>
+      </div>
+    </div>
+  </div>
+  <div class="bed-outer">
+    <label class="label w-100 text-center">Khoang 3</label>
+    <div class="bed-border d-flex">
+      <div>
+        <button class="bed">1</button>
+        <div class="bed-illustration"></div>
+      </div>
+      <div class="ml-2">
+        <button class="bed">2</button>
+        <div class="bed-illustration"></div>
+      </div>
+    </div>
+
+    <div class="bed-border d-flex">
+      <div>
+        <button class="bed">3</button>
+        <div class="bed-illustration"></div>
+      </div>
+      <div class="ml-2">
+        <button class="bed">4</button>
+        <div class="bed-illustration"></div>
+      </div>
+    </div>
+  </div>
+  <div class="bed-outer">
+    <label class="label w-100 text-center">Khoang 4</label>
+    <div class="bed-border d-flex">
+      <div>
+        <button class="bed">1</button>
+        <div class="bed-illustration"></div>
+      </div>
+      <div class="ml-2">
+        <button class="bed">2</button>
+        <div class="bed-illustration"></div>
+      </div>
+    </div>
+
+    <div class="bed-border d-flex">
+      <div>
+        <button class="bed">3</button>
+        <div class="bed-illustration"></div>
+      </div>
+      <div class="ml-2">
+        <button class="bed">4</button>
+        <div class="bed-illustration"></div>
+      </div>
+    </div>
+  </div>
+  <div class="bed-outer">
+    <label class="label w-100 text-center">Khoang 5</label>
+    <div class="bed-border d-flex">
+      <div>
+        <button class="bed">1</button>
+        <div class="bed-illustration"></div>
+      </div>
+      <div class="ml-2">
+        <button class="bed">2</button>
+        <div class="bed-illustration"></div>
+      </div>
+    </div>
+
+    <div class="bed-border d-flex">
+      <div>
+        <button class="bed">3</button>
+        <div class="bed-illustration"></div>
+      </div>
+      <div class="ml-2">
+        <button class="bed">4</button>
+        <div class="bed-illustration"></div>
+      </div>
+    </div>
+  </div>
+  <div class="bed-outer">
+    <label class="label w-100 text-center">Khoang 6</label>
+    <div class="bed-border d-flex">
+      <div>
+        <button class="bed">1</button>
+        <div class="bed-illustration"></div>
+      </div>
+      <div class="ml-2">
+        <button class="bed">2</button>
+        <div class="bed-illustration"></div>
+      </div>
+    </div>
+
+    <div class="bed-border d-flex">
+      <div>
+        <button class="bed">3</button>
+        <div class="bed-illustration"></div>
+      </div>
+      <div class="ml-2">
+        <button class="bed">4</button>
+        <div class="bed-illustration"></div>
+      </div>
+    </div>
+  </div>
+  <div class="bed-outer">
+    <label class="label w-100 text-center">Khoang 7</label>
+    <div class="bed-border d-flex">
+      <div>
+        <button class="bed">1</button>
+        <div class="bed-illustration"></div>
+      </div>
+      <div class="ml-2">
+        <button class="bed">2</button>
+        <div class="bed-illustration"></div>
+      </div>
+    </div>
+
+    <div class="bed-border d-flex">
+      <div>
+        <button class="bed">3</button>
+        <div class="bed-illustration"></div>
+      </div>
+      <div class="ml-2">
+        <button class="bed">4</button>
+        <div class="bed-illustration"></div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<section *ngIf="carriageType === 3" class="seat-floor d-flex align-items-end">
+
+  <div class="d-flex flex-column">
+    <button nbButton status="danger" ghost>
+      T3
+    </button>
+    <button nbButton status="danger" ghost>
+      T2
+    </button>
+    <button nbButton status="danger" ghost>
+      T1
+    </button>
+  </div>
+  <div class="bed-outer">
+    <label class="label w-100 text-center">Khoang 1</label>
+    <div class="bed-border d-flex">
+      <div>
+        <button class="bed">1</button>
+        <div class="bed-illustration"></div>
+      </div>
+      <div class="ml-2">
+        <button class="bed">2</button>
+        <div class="bed-illustration"></div>
+      </div>
+    </div>
+
+    <div class="bed-border d-flex">
+      <div>
+        <button class="bed">3</button>
+        <div class="bed-illustration"></div>
+      </div>
+      <div class="ml-2">
+        <button class="bed">4</button>
+        <div class="bed-illustration"></div>
+      </div>
+    </div>
+
+    <div class="bed-border d-flex">
+      <div>
+        <button class="bed">5</button>
+        <div class="bed-illustration"></div>
+      </div>
+      <div class="ml-2">
+        <button class="bed">6</button>
+        <div class="bed-illustration"></div>
+      </div>
+    </div>
+  </div>
+  <div class="bed-outer">
+    <label class="label w-100 text-center">Khoang 2</label>
+    <div class="bed-border d-flex">
+      <div>
+        <button class="bed">1</button>
+        <div class="bed-illustration"></div>
+      </div>
+      <div class="ml-2">
+        <button class="bed">2</button>
+        <div class="bed-illustration"></div>
+      </div>
+    </div>
+
+    <div class="bed-border d-flex">
+      <div>
+        <button class="bed">3</button>
+        <div class="bed-illustration"></div>
+      </div>
+      <div class="ml-2">
+        <button class="bed">4</button>
+        <div class="bed-illustration"></div>
+      </div>
+    </div>
+    <div class="bed-border d-flex">
+      <div>
+        <button class="bed">5</button>
+        <div class="bed-illustration"></div>
+      </div>
+      <div class="ml-2">
+        <button class="bed">6</button>
+        <div class="bed-illustration"></div>
+      </div>
+    </div>
+  </div>
+  <div class="bed-outer">
+    <label class="label w-100 text-center">Khoang 3</label>
+    <div class="bed-border d-flex">
+      <div>
+        <button class="bed">1</button>
+        <div class="bed-illustration"></div>
+      </div>
+      <div class="ml-2">
+        <button class="bed">2</button>
+        <div class="bed-illustration"></div>
+      </div>
+    </div>
+
+    <div class="bed-border d-flex">
+      <div>
+        <button class="bed">3</button>
+        <div class="bed-illustration"></div>
+      </div>
+      <div class="ml-2">
+        <button class="bed">4</button>
+        <div class="bed-illustration"></div>
+      </div>
+    </div>
+
+    <div class="bed-border d-flex">
+      <div>
+        <button class="bed">5</button>
+        <div class="bed-illustration"></div>
+      </div>
+      <div class="ml-2">
+        <button class="bed">6</button>
+        <div class="bed-illustration"></div>
+      </div>
+    </div>
+  </div>
+  <div class="bed-outer">
+    <label class="label w-100 text-center">Khoang 4</label>
+    <div class="bed-border d-flex">
+      <div>
+        <button class="bed">1</button>
+        <div class="bed-illustration"></div>
+      </div>
+      <div class="ml-2">
+        <button class="bed">2</button>
+        <div class="bed-illustration"></div>
+      </div>
+    </div>
+
+    <div class="bed-border d-flex">
+      <div>
+        <button class="bed">3</button>
+        <div class="bed-illustration"></div>
+      </div>
+      <div class="ml-2">
+        <button class="bed">4</button>
+        <div class="bed-illustration"></div>
+      </div>
+    </div>
+
+    <div class="bed-border d-flex">
+      <div>
+        <button class="bed">5</button>
+        <div class="bed-illustration"></div>
+      </div>
+      <div class="ml-2">
+        <button class="bed">6</button>
+        <div class="bed-illustration"></div>
+      </div>
+    </div>
+  </div>
+  <div class="bed-outer">
+    <label class="label w-100 text-center">Khoang 5</label>
+    <div class="bed-border d-flex">
+      <div>
+        <button class="bed">1</button>
+        <div class="bed-illustration"></div>
+      </div>
+      <div class="ml-2">
+        <button class="bed">2</button>
+        <div class="bed-illustration"></div>
+      </div>
+    </div>
+
+    <div class="bed-border d-flex">
+      <div>
+        <button class="bed">3</button>
+        <div class="bed-illustration"></div>
+      </div>
+      <div class="ml-2">
+        <button class="bed">4</button>
+        <div class="bed-illustration"></div>
+      </div>
+    </div>
+    <div class="bed-border d-flex">
+      <div>
+        <button class="bed">5</button>
+        <div class="bed-illustration"></div>
+      </div>
+      <div class="ml-2">
+        <button class="bed">6</button>
+        <div class="bed-illustration"></div>
+      </div>
+    </div>
+  </div>
+  <div class="bed-outer">
+    <label class="label w-100 text-center">Khoang 6</label>
+    <div class="bed-border d-flex">
+      <div>
+        <button class="bed">1</button>
+        <div class="bed-illustration"></div>
+      </div>
+      <div class="ml-2">
+        <button class="bed">2</button>
+        <div class="bed-illustration"></div>
+      </div>
+    </div>
+
+    <div class="bed-border d-flex">
+      <div>
+        <button class="bed">3</button>
+        <div class="bed-illustration"></div>
+      </div>
+      <div class="ml-2">
+        <button class="bed">4</button>
+        <div class="bed-illustration"></div>
+      </div>
+    </div>
+    <div class="bed-border d-flex">
+      <div>
+        <button class="bed">5</button>
+        <div class="bed-illustration"></div>
+      </div>
+      <div class="ml-2">
+        <button class="bed">6</button>
+        <div class="bed-illustration"></div>
+      </div>
+    </div>
+  </div>
+  <div class="bed-outer">
+    <label class="label w-100 text-center">Khoang 7</label>
+    <div class="bed-border d-flex">
+      <div>
+        <button class="bed">1</button>
+        <div class="bed-illustration"></div>
+      </div>
+      <div class="ml-2">
+        <button class="bed">2</button>
+        <div class="bed-illustration"></div>
+      </div>
+    </div>
+
+    <div class="bed-border d-flex">
+      <div>
+        <button class="bed">3</button>
+        <div class="bed-illustration"></div>
+      </div>
+      <div class="ml-2">
+        <button class="bed">4</button>
+        <div class="bed-illustration"></div>
+      </div>
+    </div>
+    <div class="bed-border d-flex">
+      <div>
+        <button class="bed">5</button>
+        <div class="bed-illustration"></div>
+      </div>
+      <div class="ml-2">
+        <button class="bed">6</button>
+        <div class="bed-illustration"></div>
+      </div>
+    </div>
+  </div>
+
+</section>

@@ -51,18 +51,9 @@
         <th scope="col" style="width: 15%">
           <span (click)="onSort('trainNameAsc')"
                 [class.text-primary]="currentSort.includes('trainName')">
-            Belong to Train
+            Train Name
             <nb-icon icon="arrow-down-outline" pack="eva" *ngIf="!sortStates.trainName"></nb-icon>
             <nb-icon icon="arrow-up-outline" pack="eva" *ngIf="sortStates.trainName"></nb-icon>
-          </span>
-        </th>
-
-        <th scope="col" style="width: 20%">
-          <span (click)="onSort('numberOfCompartmentAsc')"
-                [class.text-primary]="currentSort.includes('numberOfCompartment')">
-            Total Compartments
-            <nb-icon icon="arrow-down-outline" pack="eva" *ngIf="!sortStates.numberOfCompartment"></nb-icon>
-            <nb-icon icon="arrow-up-outline" pack="eva" *ngIf="sortStates.numberOfCompartment"></nb-icon>
           </span>
         </th>
 
@@ -92,7 +83,6 @@
         <th scope="row">{{ index + 1 }}</th>
         <td>{{ item.name }}</td>
         <td>{{ item.trainName }}</td>
-        <td>{{ item.numberOfCompartments }}</td>
         <td>{{ item.carriageTypeName }}</td>
         <td>{{ item.createdAt |date: 'medium' }}</td>
         <td class="text-right">
@@ -100,7 +90,7 @@
             <nb-icon icon="eye-outline" pack="eva"></nb-icon>
           </button>
           <button nbButton status="primary" class="mr-3"
-                  routerLink="/managements/train-and-carriage/carriage-type/{{item.id}}/edit">
+                  routerLink="/managements/train-and-carriage/carriage/{{item.id}}/edit">
             <nb-icon icon="edit-outline" pack="eva"></nb-icon>
           </button>
           <button nbButton status="danger" (click)="openConfirmDialog(item.id, item.name)">

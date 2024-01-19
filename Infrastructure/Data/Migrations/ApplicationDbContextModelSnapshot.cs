@@ -207,9 +207,6 @@ namespace Infrastructure.Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int>("NumberOfCompartments")
-                        .HasColumnType("int");
-
                     b.Property<string>("Status")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
@@ -298,6 +295,15 @@ namespace Infrastructure.Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<int>("NumberOfCompartments")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumberOfSeatTypes")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumberOfSeats")
+                        .HasColumnType("int");
+
                     b.Property<double>("ServiceCharge")
                         .HasColumnType("float");
 
@@ -336,9 +342,6 @@ namespace Infrastructure.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
-
-                    b.Property<int>("NumberOfSeats")
-                        .HasColumnType("int");
 
                     b.Property<string>("Status")
                         .HasMaxLength(100)

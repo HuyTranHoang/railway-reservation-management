@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {NbGlobalPhysicalPosition, NbToastrService} from '@nebular/theme';
 import {Train} from '../../../../@models/train';
 import {TrainStation} from '../../../../@models/trainStation';
@@ -20,6 +20,8 @@ export class EditScheduleComponent implements OnInit {
   updateForm: FormGroup = this.fb.group({});
   isSubmitted: boolean = false;
   errorMessages: string[] = [];
+
+  isLoading = false;
 
   constructor(private scheduleService: ScheduleService,
               private trainService: TrainService,
@@ -43,18 +45,20 @@ export class EditScheduleComponent implements OnInit {
       departureStationId: ['', Validators.required],
       arrivalStationId: ['', Validators.required],
       departureTime: ['', Validators.required],
+      arrivalTime: ['', Validators.required],
       status: [''],
     });
 
 
     const id = this.activatedRoute.snapshot.params.id;
-
+    this.isLoading = true;
     this.scheduleService.getScheduleById(id).subscribe({
       next: (res) => {
         this.updateForm.patchValue(res);
         this.updateForm.patchValue({
           departureTime: new Date(res.departureTime),
         });
+        this.isLoading = false;
       },
       error: () => {
         this.showToast('danger', 'Failed', 'Schedule does not exist!');
@@ -68,16 +72,15 @@ export class EditScheduleComponent implements OnInit {
     this.errorMessages = [];
 
     if (this.updateForm.valid) {
-      this.scheduleService.addSchedule(this.updateForm.value).subscribe({
+      this.scheduleService.updateSchedule(this.updateForm.value).subscribe({
         next: (res) => {
-          this.showToast('success', 'Success', 'Add schedule successfully!');
-          this.updateForm.reset();
+          this.showToast('success', 'Success', 'Update schedule successfully!');
           this.isSubmitted = false;
           this.errorMessages = [];
         },
         error: (err) => {
           this.errorMessages = err.error.errors;
-          this.showToast('danger', 'Failed', 'Add schedule failed!');
+          this.showToast('danger', 'Failed', 'Update schedule failed!');
         },
       });
     }
@@ -95,13 +98,6 @@ export class EditScheduleComponent implements OnInit {
         this.trainStations = res;
       },
     });
-  }
-
-  numberValidator(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      if (control.value == null || control.value === '') return null;
-      return !isNaN(parseFloat(control.value)) && isFinite(control.value) ? null : {'notANumber': true};
-    };
   }
 
   private showToast(type: string, title: string, body: string) {

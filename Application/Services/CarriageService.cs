@@ -5,12 +5,26 @@ namespace Application.Services;
 public class CarriageService : ICarriageService
 {
     private readonly ICarriageRepository _repository;
+    private readonly ICarriageTypeRepository _carriageTypeRepository;
+    private readonly ICompartmentRepository _compartmentRepository;
+    private readonly ISeatRepository _seatRepository;
+    private readonly ISeatTypeRepository _seatTypeRepository;
     private readonly IMapper _mapper;
     private readonly IUnitOfWork _unitOfWork;
 
-    public CarriageService(ICarriageRepository repository, IUnitOfWork unitOfWork, IMapper mapper)
+    public CarriageService(ICarriageRepository repository,
+        ICarriageTypeRepository carriageTypeRepository,
+        ICompartmentRepository compartmentRepository,
+        ISeatRepository seatRepository,
+        ISeatTypeRepository seatTypeRepository,
+        IUnitOfWork unitOfWork,
+        IMapper mapper)
     {
         _repository = repository;
+        _carriageTypeRepository = carriageTypeRepository;
+        _compartmentRepository = compartmentRepository;
+        _seatRepository = seatRepository;
+        _seatTypeRepository = seatTypeRepository;
         _unitOfWork = unitOfWork;
         _mapper = mapper;
     }
@@ -54,8 +68,6 @@ public class CarriageService : ICarriageService
             "trainNameDesc" => query.OrderByDescending(p => p.Train.Name),
             "typeNameAsc" => query.OrderBy(p => p.CarriageType.Name),
             "typeNameDesc" => query.OrderByDescending(p => p.CarriageType.Name),
-            "numberOfCompartmentAsc" => query.OrderBy(p => p.NumberOfCompartments),
-            "numberOfCompartmentDesc" => query.OrderByDescending(p => p.NumberOfCompartments),
             "createdAtDesc" => query.OrderByDescending(p => p.CreatedAt),
             _ => query.OrderBy(p => p.CreatedAt)
         };
@@ -92,7 +104,6 @@ public class CarriageService : ICarriageService
         carriageInDb.Name = carriage.Name;
         carriageInDb.TrainId = carriage.TrainId;
         carriageInDb.CarriageTypeId = carriage.CarriageTypeId;
-        carriageInDb.NumberOfCompartments = carriage.NumberOfCompartments;
         carriageInDb.Status = carriage.Status;
         carriageInDb.UpdatedAt = DateTime.Now;
 
@@ -105,6 +116,72 @@ public class CarriageService : ICarriageService
     {
         var carriages = await _repository.GetAllNoPagingAsync();
         return _mapper.Map<List<CarriageDto>>(carriages);
+    }
+
+    public async Task AddWithCompartmentAndSeatAsync(Carriage carriage)
+    {
+        await _repository.Add(carriage);
+
+        await _unitOfWork.SaveChangesAsync();
+
+        var carriageType = await _carriageTypeRepository.GetByIdAsync(carriage.CarriageTypeId);
+        if (carriageType == null)
+        {
+            throw new NotFoundException(nameof(CarriageType), carriage.CarriageTypeId);
+        }
+
+        var compartments = new List<Compartment>();
+        var seats = new List<Seat>();
+
+        for (var i = 1; i <= carriageType.NumberOfCompartments; i++)
+        {
+            var compartment = new Compartment
+            {
+                Name = carriageType.Name + '-' + i,
+                CarriageId = carriage.Id,
+                Status = "Active",
+                CreatedAt = DateTime.Now,
+                UpdatedAt = DateTime.Now
+            };
+            compartments.Add(compartment);
+        }
+        
+        await _compartmentRepository.AddRangeAsync(compartments);
+        await _unitOfWork.SaveChangesAsync();
+
+        var numberOfSeatsPerCompartment = carriageType.Name switch
+        {
+            "Ngồi mềm điều hòa" => 32,
+            "Giường nằm khoang 4 điều hòa" => 4,
+            _ => 6 // Giường nằm khoang 6 điều hòa
+            // Có thể phải cần đem cái này vào database thay vì hardcode như này.
+        };
+
+        foreach (var compartment in compartments)
+        {
+            // var seatType = await _seatTypeRepository.GetByIdAsync(carriageType.SeatTypeId);
+            // if (seatType == null)
+            // {
+            //     throw new NotFoundException(nameof(SeatType), carriageType.SeatTypeId);
+            // }
+
+            for (var i = 1; i <= numberOfSeatsPerCompartment; i++)
+            {
+                var seat = new Seat
+                {
+                    Name = compartment.Name + '-' + i,
+                    CompartmentId = compartment.Id,
+                    SeatTypeId = 1, //Phải set lại chỗ này
+                    Status = "Active",
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now
+                };
+                seats.Add(seat);
+            }
+        }
+
+        await _seatRepository.AddRangeAsync(seats);
+        await _unitOfWork.SaveChangesAsync();
     }
 
     public async Task<int> GetCompartmentsBelongToCarriageCountAsync(int carriageId)

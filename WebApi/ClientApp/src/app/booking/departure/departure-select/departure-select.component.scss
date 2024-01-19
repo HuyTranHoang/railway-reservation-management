@@ -1,8 +1,30 @@
-h4 {
-  margin-top: 30px;
-  margin-bottom: 15px;
+::placeholder {
+  color: rgb(137, 149, 155);
+  opacity: 1; /* Firefox */
+}
+
+.h1, .h2, .h3, h1, h2, h3 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+h2 {
   font-size: 24px;
+  font-weight: 600;
   color: #49525b;
+}
+
+p {
+  margin: 0 0 10px;
+  color: #65696e;
+}
+
+.bold {
+  font-weight: 600;
+}
+
+.big-text {
+  font-size: 18px;
 }
 
 h5 {
@@ -265,7 +287,6 @@ button {
   &:hover {
     background: #81b900;
   }
-
 }
 
 

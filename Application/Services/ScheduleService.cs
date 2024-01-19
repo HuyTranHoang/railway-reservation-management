@@ -77,6 +77,16 @@ public class ScheduleService : IScheduleService
             query = query.Where(t => t.ArrivalStationId == queryParams.ArrivalStationId);
         }
 
+        if (queryParams.DepartureTime != null)
+        {
+            query = query.Where(t => t.DepartureTime.Date == queryParams.DepartureTime.Value.Date);
+        }
+
+        if (queryParams.ArrivalTime != null)
+        {
+            query = query.Where(t => t.ArrivalTime.Date == queryParams.ArrivalTime.Value.Date);
+        }
+
         if (!string.IsNullOrEmpty(queryParams.SearchTerm))
         {
             query = query.Where(p => p.Name.Contains(queryParams.SearchTerm.Trim()) ||
@@ -170,16 +180,20 @@ public class ScheduleService : IScheduleService
             .GetQueryAsync()
             .Result
             .Any(s =>
-                s.TrainId != schedule.TrainId && //đúng
-                s.DepartureStationId == schedule.DepartureStationId || //đúng
-                s.ArrivalStationId == schedule.ArrivalStationId && //đúng
+                s.Id != schedule.Id && // Thêm điều kiện này để bỏ qua chính nó khi update
                 (
-                    (s.DepartureTime <= schedule.DepartureTime && s.ArrivalTime >= schedule.DepartureTime) ||
-                    (s.DepartureTime <= schedule.ArrivalTime && s.ArrivalTime >= schedule.ArrivalTime) ||
-                    (s.DepartureTime >= schedule.DepartureTime && s.DepartureTime <= schedule.ArrivalTime)
+                    s.TrainId != schedule.TrainId &&
+                    s.DepartureStationId == schedule.DepartureStationId ||
+                    s.ArrivalStationId == schedule.ArrivalStationId &&
+                    (
+                        (s.DepartureTime <= schedule.DepartureTime && s.ArrivalTime >= schedule.DepartureTime) ||
+                        (s.DepartureTime <= schedule.ArrivalTime && s.ArrivalTime >= schedule.ArrivalTime) ||
+                        (s.DepartureTime >= schedule.DepartureTime && s.DepartureTime <= schedule.ArrivalTime)
+                    )
                 )
             );
     }
+
 
     private async Task<double> CalculatePrice(Schedule schedule)
     {

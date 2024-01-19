@@ -19,6 +19,8 @@ export class EditPaymentComponent implements OnInit {
   isSubmitted = false;
   errorMessages: string[] = [];
 
+  isLoading = false;
+
   constructor(private paymentService: PaymentService,
               private userService: UserService,
               private toastrService: NbToastrService,
@@ -40,15 +42,11 @@ export class EditPaymentComponent implements OnInit {
     });
 
     const id = this.activatedRoute.snapshot.params.id;
-
+    this.isLoading = true;
     this.paymentService.getPaymentById(id).subscribe({
       next: (res) => {
-        this.paymentForm.patchValue({
-          id: res.id,
-          aspNetUserId: res.aspNetUserId,
-          email: res.aspNetUserEmail,
-          status: res.status,
-        });
+        this.paymentForm.patchValue(res);
+        this.isLoading = false;
       },
       error: (err) => {
         this.showToast('danger', 'Failed', 'Payment doest not exist!');

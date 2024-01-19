@@ -19,6 +19,12 @@
                          [placeholder]="'Name of carriage type..'">
         </app-input-field>
 
+        <app-input-field [control]="carriageTypeForm.get('numberOfCompartments')"
+                         [label]="'Number Of Compartments'"
+                         [isSubmitted]="isSubmitted"
+                         [placeholder]="'Number of compartments..'">
+        </app-input-field>
+
         <app-input-field [control]="carriageTypeForm.get('serviceCharge')"
                          [label]="'Service Charge'"
                          [isSubmitted]="isSubmitted"
@@ -33,7 +39,7 @@
 
         <div class="form-group">
           <label for="description" class="label">Description</label>
-          <textarea nbInput fullWidth id="description"
+          <textarea nbInput fullWidth rows="4" id="description"
                     [class.status-danger]="carriageTypeForm.get('description').invalid
                     && (carriageTypeForm.get('description').touched || isSubmitted)"
                     formControlName="description"

@@ -1,44 +1,26 @@
 ﻿[
   {
-    "Name": "First Class",
-    "ServiceCharge": 20,
-    "Status": "Active",
-    "Description": "First Class"
-  },
-  {
-    "Name": "Second Class",
-    "ServiceCharge": 15,
-    "Status": "Active",
-    "Description": "Second Class"
-  },
-  {
-    "Name": "Third Class",
+    "Name": "Ngồi mềm điều hòa",
+    "NumberOfCompartments": 2,
+    "NumberOfSeats" : 32,
     "ServiceCharge": 10,
-    "Status": "Inactive",
-    "Description": "Third Class"
-  },
-  {
-    "Name": "Sleeper",
-    "ServiceCharge": 25,
-    "Status": "Inactive",
-    "Description": "Sleeper"
-  },
-  {
-    "Name": "Luxury",
-    "ServiceCharge": 25,
     "Status": "Active",
-    "Description": "Luxury"
+    "Description": "Toa ngồi mềm điều hòa này có 2 khoang, đặc biệt phù hợp cho những hành trình ngắn hoặc trung bình. Với ghế ngồi mềm và hệ thống điều hòa hiện đại, hành khách sẽ cảm thấy thoải mái và dễ chịu trong suốt hành trình. Toa này cung cấp một không gian lý tưởng cho việc đọc sách, thư giãn hoặc ngắm cảnh qua cửa sổ. Phí dịch vụ là 10 đơn vị tiền tệ."
   },
   {
-    "Name": "Economy",
-    "ServiceCharge": 5,
-    "Status": "Inactive",
-    "Description": "Economy"
-  },
-  {
-    "Name": "Business",
-    "ServiceCharge": 25,
+    "Name": "Giường nằm khoang 4 điều hòa",
+    "NumberOfCompartments": 7,
+    "NumberOfSeats" : 32,
+    "ServiceCharge": 30,
     "Status": "Active",
-    "Description": "Business"
+    "Description": "Toa giường nằm khoang 4 điều hòa gồm 7 khoang, mỗi khoang có 4 giường nằm, là lựa chọn hoàn hảo cho những hành trình dài. Mỗi giường được trang bị nệm mềm, chăn, gối và có hệ thống điều hòa nhiệt độ, đảm bảo sự thoải mái tối đa cho hành khách. Toa này cũng có không gian riêng tư hơn, thích hợp cho những ai muốn nghỉ ngơi yên tĩnh. Phí dịch vụ là 30 đơn vị tiền tệ."
+  },
+  {
+    "Name": "Giường nằm khoang 6 điều hòa",
+    "NumberOfCompartments": 7,
+    "NumberOfSeats" : 32,
+    "ServiceCharge": 20,
+    "Status": "Inactive",
+    "Description": "Toa giường nằm khoang 6 điều hòa gồm 7 khoang, mỗi khoang có 6 giường nằm, cung cấp một lựa chọn kinh tế hơn cho hành trình dài. Mặc dù giá cả phải chăng hơn, nhưng mỗi giường vẫn được trang bị đầy đủ tiện nghi như nệm, chăn, gối và điều hòa không khí. Tuy nhiên, toa này hiện đang không hoạt động. Phí dịch vụ là 20 đơn vị tiền tệ."
   }
 ]

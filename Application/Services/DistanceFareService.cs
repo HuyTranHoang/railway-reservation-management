@@ -100,4 +100,11 @@ public class DistanceFareService : IDistanceFareService
 
         await _unitOfWork.SaveChangesAsync();
     }
+
+    public async Task<double> TestDistance(int distance)
+    {
+        var fare = await _repository.GetByDistanceAsync(distance, 1);
+        if (fare != null) return (double)fare;
+        return -1;
+    }
 }

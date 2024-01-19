@@ -16,8 +16,7 @@ public class CarriageRepository : ICarriageRepository
 
     public async Task Add(Carriage carriage)
     {
-        _context.Carriages.Add(carriage);
-        await Task.CompletedTask;
+        await _context.Carriages.AddAsync(carriage);
     }
 
     public async Task Delete(Carriage carriage)

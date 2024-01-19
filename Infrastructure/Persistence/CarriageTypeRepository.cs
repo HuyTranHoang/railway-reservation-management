@@ -26,8 +26,7 @@ public class CarriageTypeRepository : ICarriageTypeRepository
 
     public async Task Add(CarriageType carriageType)
     {
-        _context.CarriageTypes.Add(carriageType);
-        await Task.CompletedTask;
+        await _context.CarriageTypes.AddAsync(carriageType);
     }
 
     public async Task Update(CarriageType carriageType)

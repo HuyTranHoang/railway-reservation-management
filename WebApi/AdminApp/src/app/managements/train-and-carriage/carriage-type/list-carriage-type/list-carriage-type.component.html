@@ -33,6 +33,15 @@
           </span>
         </th>
 
+        <th scope="col">
+          <span (click)="onSort('numberOfCompartmentAsc')"
+                [class.text-primary]="currentSort.includes('numberOfCompartment')">
+            Number of compartments
+            <nb-icon icon="arrow-down-outline" pack="eva" *ngIf="!sortStates.numberOfCompartment"></nb-icon>
+            <nb-icon icon="arrow-up-outline" pack="eva" *ngIf="sortStates.numberOfCompartment"></nb-icon>
+          </span>
+        </th>
+
         <th scope="col" style="width: 25%">
           <span (click)="onSort('serviceChargeAsc')"
                 [class.text-primary]="currentSort.includes('serviceCharge')">
@@ -58,6 +67,7 @@
       <tr *ngFor="let item of carriageTypes; let index = index">
         <th scope="row">{{ index + 1 }}</th>
         <td>{{ item.name }}</td>
+        <td>{{ item.numberOfCompartments }}</td>
         <td>{{ item.serviceCharge | currency }}</td>
         <td>{{ item.createdAt |date: 'medium' }}</td>
         <td class="text-right">

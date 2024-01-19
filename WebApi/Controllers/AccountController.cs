@@ -5,6 +5,7 @@ using Application.Common.Models.Authentication;
 using Application.Services;
 using Domain.Constants;
 using Domain.Exceptions;
+using Google.Apis.Auth;
 using Infrastructure.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -53,6 +54,11 @@ public class AccountController : BaseApiController
             return Unauthorized(new ErrorResponse(401, "Please confirm your email to login"));
 
         var result = await _signInManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
+
+        if (result.IsLockedOut)
+        {
+            return Unauthorized(new ErrorResponse(401, "Your account has been locked. Please contact support"));
+        }
 
         if (!result.Succeeded) return Unauthorized(new ErrorResponse(401, "Invalid username or password"));
 
@@ -118,7 +124,17 @@ public class AccountController : BaseApiController
             }
         } else if (model.Provider.Equals(SD.Google))
         {
-
+            try
+            {
+                if (!GoogleValidatedAsync(model.AccessToken, model.UserId).GetAwaiter().GetResult())
+                {
+                    return Unauthorized(new ErrorResponse(401, "Unable to register with google"));
+                }
+            }
+            catch (Exception)
+            {
+                return Unauthorized(new ErrorResponse(401, "Unable to register with google"));
+            }
         }
         else
         {
@@ -386,6 +402,28 @@ public class AccountController : BaseApiController
             $"/debug_token?input_token={accessToken}&access_token={facebookKeys}");
 
         if (fbResult == null || fbResult.Data.Is_Valid == false || !fbResult.Data.User_Id.Equals(userId))
+            return false;
+
+        return true;
+    }
+
+    private async Task<bool> GoogleValidatedAsync(string accessToken, string userId)
+    {
+        var payload = await GoogleJsonWebSignature.ValidateAsync(accessToken);
+
+        if (!payload.Audience.Equals(_config["Google:ClientId"]))
+            return false;
+
+        if (!payload.Issuer.Equals("accounts.google.com") && !payload.Issuer.Equals("https://accounts.google.com"))
+            return false;
+
+        if (payload.ExpirationTimeSeconds == null)
+            return false;
+
+        DateTime now = DateTime.Now;
+        DateTime expiration = DateTimeOffset.FromUnixTimeSeconds((long)payload.ExpirationTimeSeconds).DateTime;
+
+        if (!payload.Subject.Equals(userId))
             return false;
 
         return true;

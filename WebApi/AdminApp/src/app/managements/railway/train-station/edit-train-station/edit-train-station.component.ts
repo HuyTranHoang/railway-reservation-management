@@ -11,6 +11,9 @@ import {NbGlobalPhysicalPosition, NbToastrService} from '@nebular/theme';
 })
 export class EditTrainStationComponent implements OnInit {
   updateForm: FormGroup = new FormGroup({});
+  isSubmitted: boolean = false;
+  errorMessages: string[] = [];
+  isLoading = false;
 
   constructor(private trainStationService: TrainStationService,
               private fb: FormBuilder,
@@ -33,11 +36,12 @@ export class EditTrainStationComponent implements OnInit {
     });
 
     const id = this.activatedRoute.snapshot.params.id;
-
+    this.isLoading = true;
     this.trainStationService.getTrainStationById(id)
       .subscribe({
         next: (res) => {
           this.updateForm.patchValue(res);
+          this.isLoading = false;
         },
         error: (err) => {
           this.showToast('danger', 'Failed', 'This train station doest not exist!');
@@ -54,10 +58,13 @@ export class EditTrainStationComponent implements OnInit {
   }
 
   onSubmit() {
+    this.isSubmitted = true;
     if (this.updateForm.valid) {
       this.trainStationService.updateTrainStation(this.updateForm.value).subscribe({
         next: _ => {
           this.showToast('success', 'Success', 'Update train station successfully!');
+          this.isSubmitted = false;
+          this.errorMessages = [];
         },
         error: _ => {
           this.showToast('danger', 'Failed', 'Update train station failed!');

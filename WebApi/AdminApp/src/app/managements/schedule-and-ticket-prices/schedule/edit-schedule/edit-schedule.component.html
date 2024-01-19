@@ -1,5 +1,5 @@
 <div class="col-md-6">
-  <nb-card>
+  <nb-card [nbSpinner]="isLoading" nbSpinnerSize="giant" nbSpinnerStatus="success">
     <nb-card-header>
       <div class="d-flex justify-content-between">
         Edi Schedule
@@ -14,6 +14,7 @@
       <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
 
         <input type="hidden" formControlName="id">
+        <input type="hidden" formControlName="arrivalTime">
 
         <app-input-field [control]="updateForm.get('name')"
                          [label]="'Name'"
@@ -23,7 +24,11 @@
 
         <div class="form-group">
           <label class="label">Train name/code</label>
-          <nb-select formControlName="trainId" placeholder="Select train.." fullWidth>
+          <nb-select formControlName="trainId"
+                     [class.status-danger]="updateForm.get('trainId')?.hasError('required')
+                       && (updateForm.get('trainId')?.touched || isSubmitted)"
+                     placeholder="Select train.."
+                     fullWidth>
             <nb-option *ngFor="let train of trains" [value]="train.id">{{ train.name }}</nb-option>
           </nb-select>
 
@@ -36,7 +41,11 @@
 
         <div class="form-group">
           <label class="label">Departure Station</label>
-          <nb-select formControlName="departureStationId" placeholder="Select departure station.." fullWidth>
+          <nb-select formControlName="departureStationId"
+                     [class.status-danger]="updateForm.get('departureStationId')?.hasError('required')
+                       && (updateForm.get('departureStationId')?.touched || isSubmitted)"
+                     placeholder="Select departure station.."
+                     fullWidth>
             <nb-option *ngFor="let departure of trainStations" [value]="departure.id">{{ departure.name }}</nb-option>
           </nb-select>
 
@@ -49,7 +58,11 @@
 
         <div class="form-group">
           <label class="label">Arrival Station</label>
-          <nb-select formControlName="arrivalStationId" placeholder="Select arrival station.." fullWidth>
+          <nb-select formControlName="arrivalStationId"
+                     [class.status-danger]="updateForm.get('arrivalStationId')?.hasError('required')
+                        && (updateForm.get('arrivalStationId')?.touched || isSubmitted)"
+                     placeholder="Select arrival station.."
+                     fullWidth>
             <nb-option *ngFor="let arrival of trainStations" [value]="arrival.id">{{ arrival.name }}</nb-option>
           </nb-select>
 
@@ -63,13 +76,12 @@
         <div class="form-group">
           <label class="label" for="departureTime">Departure Time</label>
           <input nbInput fullWidth id="departureTime"
+                 [class.status-danger]="updateForm.get('departureTime')?.hasError('required')
+                   && (updateForm.get('departureTime')?.touched || isSubmitted)"
                  formControlName="departureTime"
                  placeholder="Pick departure time.."
                  [nbDatepicker]="dateTimePicker">
-          <nb-date-timepicker
-            #dateTimePicker
-            [step]="10">
-          </nb-date-timepicker>
+          <nb-date-timepicker #dateTimePicker></nb-date-timepicker>
         </div>
 
         <app-input-field [control]="updateForm.get('status')"
@@ -77,7 +89,6 @@
                          [isSubmitted]="isSubmitted"
                          [placeholder]="'Status'">
         </app-input-field>
-
 
         <ul *ngIf="errorMessages.length > 0">
           <li class="text-danger" *ngFor="let item of errorMessages">{{ item }}</li>

@@ -11,7 +11,9 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class EditTrainCompanyComponent implements OnInit {
   trainCompanyForm: FormGroup = this.fb.group({});
-
+  isSubmitted: boolean = false;
+  errorMessages: string[] = [];
+  isLoading = false;
   constructor(private trainCompanyService: TrainCompanyService,
               private toastrService: NbToastrService,
               private activatedRoute: ActivatedRoute,
@@ -32,10 +34,12 @@ export class EditTrainCompanyComponent implements OnInit {
 
     const id = this.activatedRoute.snapshot.params.id;
 
+    this.isLoading = true;
     this.trainCompanyService.getTrainCompanyById(id)
       .subscribe({
         next: (res) => {
           this.trainCompanyForm.patchValue(res);
+          this.isLoading = false;
         },
         error: _ => {
           this.showToast('danger', 'Failed', 'Train Company doest not exist!');
@@ -45,10 +49,13 @@ export class EditTrainCompanyComponent implements OnInit {
   }
 
   onSubmit() {
+    this.isSubmitted = true;
     if (this.trainCompanyForm.valid) {
       this.trainCompanyService.updateTrainCompany(this.trainCompanyForm.value).subscribe({
         next: (res) => {
           this.showToast('success', 'Success', 'Update train company successfully!');
+          this.isSubmitted = false;
+          this.errorMessages = [];
         },
         error: (err) => {
           this.showToast('danger', 'Failed', 'Update train company failed!');

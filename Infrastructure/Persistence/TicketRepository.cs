@@ -15,8 +15,7 @@ namespace Infrastructure.Persistence
         }
         public async Task Add(Ticket ticket)
         {
-            _context.Tickets.Add(ticket);
-            await Task.CompletedTask;
+            await _context.Tickets.AddAsync(ticket);
         }
 
         public async Task Delete(Ticket ticket)

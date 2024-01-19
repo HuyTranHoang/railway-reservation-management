@@ -10,6 +10,7 @@ import {Router} from '@angular/router';
 export class ShowCarriageTypeComponent {
   @Input() id: number;
   @Input() name: string;
+  @Input() numberOfCompartments: number;
   @Input() serviceCharge: number;
   @Input() description: string;
   @Input() status: string;

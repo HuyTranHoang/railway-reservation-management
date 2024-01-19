@@ -19,8 +19,8 @@ Content-Type: application/json
 
 # @name getListOfCompartment
 GET {{url}}/{{router}}?
-  &pageNumber=1
-  &pageSize=5
+  &pageNumber=2
+  &pageSize=20
   #&searchTerm=Khoang 1
   #&sort=numberOfSeatsAsc
   #&carriageId=1

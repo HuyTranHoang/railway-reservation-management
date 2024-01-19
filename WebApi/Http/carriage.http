@@ -8,10 +8,9 @@ POST {{url}}/{{router}}
 Content-Type: application/json
 
 {
-  "Name" : "Test",
-  "TrainId" : 1,
-  "CarriageTypeId" : 1,
-  "NumberOfCompartments" : 2,
+  "Name" : "Test 1",
+  "TrainId" : 10,
+  "CarriageTypeId" : 2,
   "Status" : "Active"
 }
 
@@ -19,7 +18,7 @@ Content-Type: application/json
 ### 
 
 # @name getNumberOfCompartmentsBelongsTo
-@idToCount = 2
+@idToCount = 14
 
 GET {{url}}/{{router}}/{{idToCount}}/compartments
 
@@ -29,7 +28,7 @@ GET {{url}}/{{router}}/{{idToCount}}/compartments
 
 GET {{url}}/{{router}}?
   &pageNumber=1
-  &pageSize=5
+  &pageSize=20
   # &searchTerm=New Train
   # &sort=nameDesc
   # &trainCompanyId=2

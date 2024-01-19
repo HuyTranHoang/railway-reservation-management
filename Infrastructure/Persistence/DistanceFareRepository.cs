@@ -16,8 +16,7 @@ public class DistanceFareRepository : IDistanceFareRepository
 
     public async Task Add(DistanceFare distanceFare)
     {
-        _context.DistanceFares.Add(distanceFare);
-        await Task.CompletedTask;
+        await _context.DistanceFares.AddAsync(distanceFare);
     }
 
     public async Task Delete(DistanceFare distanceFare)
@@ -29,11 +28,11 @@ public class DistanceFareRepository : IDistanceFareRepository
     public async Task<decimal?> GetByDistanceAsync(int distance, int trainCompanyId)
     {
         var fare = await _context.DistanceFares
-                            .Where(d => d.TrainCompanyId == trainCompanyId)
-                            .Where(d => d.Distance <= distance)
+                            .Where(d => d.Distance <= distance && d.TrainCompanyId == trainCompanyId)
                             .OrderByDescending(d => d.Distance)
                             .Select(d => d.Price)
                             .FirstOrDefaultAsync();
+
         return (decimal?)fare;
     }
 

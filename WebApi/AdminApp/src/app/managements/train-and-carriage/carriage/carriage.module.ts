@@ -8,6 +8,7 @@ import {ConfirmDeleteCarriageComponent} from './confirm-delete-carriage/confirm-
 import {SharedModule} from '../../shared/shared.module';
 import {CarriageRoutingModule} from './carriage-routing.module';
 import {NbAutocompleteModule, NbStepperModule} from '@nebular/theme';
+import { PreviewCarriageComponent } from './preview-carriage/preview-carriage.component';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import {NbAutocompleteModule, NbStepperModule} from '@nebular/theme';
     EditCarriageComponent,
     ShowCarriageComponent,
     ConfirmDeleteCarriageComponent,
+    PreviewCarriageComponent,
   ],
   imports: [
     CommonModule,

@@ -34,10 +34,6 @@ public class CompartmentService : ICompartmentService
             throw new NotFoundException(nameof(Carriage), compartment.CarriageId);
         }
 
-        if (carriage.Compartments.Count >= carriage.NumberOfCompartments)
-        {
-            throw new BadRequestException(400, "The number of compartments is full");
-        }
 
         await _repository.Add(compartment);
         await _unitOfWork.SaveChangesAsync();
@@ -54,7 +50,6 @@ public class CompartmentService : ICompartmentService
 
         compartmentInDb.Name = compartment.Name;
         compartmentInDb.CarriageId = compartment.CarriageId;
-        compartmentInDb.NumberOfSeats = compartment.NumberOfSeats;
         compartmentInDb.Status = compartment.Status;
         compartmentInDb.UpdatedAt = DateTime.Now;
 
@@ -83,15 +78,13 @@ public class CompartmentService : ICompartmentService
 
     public async Task<PagedList<CompartmentDto>> GetAllDtoAsync(CompartmentQueryParams queryParams)
     {
-        var query = await _repository.GetQueryWithCarriageAsync();
+        var query = await _repository.GetQueryWithCarriageAndTrainAsync();
 
         if (!string.IsNullOrEmpty(queryParams.SearchTerm))
             query = query.Where(p => p.Name.Contains(queryParams.SearchTerm.Trim()));
 
         query = queryParams.Sort switch
         {
-            "numberOfSeatsAsc" => query.OrderBy(p => p.NumberOfSeats),
-            "numberOfSeatsDesc" => query.OrderByDescending(p => p.NumberOfSeats),
             "nameAsc" => query.OrderBy(p => p.Name),
             "nameDesc" => query.OrderByDescending(p => p.Name),
             "carriageNameAsc" => query.OrderBy(p => p.Carriage.Name),
@@ -123,4 +116,11 @@ public class CompartmentService : ICompartmentService
 
         return compartment.Seats.Count;
     }
+
+    public async Task<List<CompartmentDto>> GetCompartmentsByCarriageIdAsync(int carriageId)
+        {
+            var compartments = await _repository.GetCompartmentsByCarriageIdAsync(carriageId);
+
+            return _mapper.Map<List<CompartmentDto>>(compartments);
+        }
 }

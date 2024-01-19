@@ -25,7 +25,6 @@ export class EditSeatComponent implements OnInit {
 
   isLoading = false;
 
-
   constructor(private seatService: SeatService,
               private seatTypeService: SeatTypeService,
               private compartmentService: CompartmentService,

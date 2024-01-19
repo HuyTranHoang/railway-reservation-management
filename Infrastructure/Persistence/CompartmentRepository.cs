@@ -26,8 +26,7 @@ public class CompartmentRepository : ICompartmentRepository
 
     public async Task Add(Compartment compartment)
     {
-        _context.Compartments.Add(compartment);
-        await Task.CompletedTask;
+        await _context.Compartments.AddAsync(compartment);
     }
 
     public async Task Update(Compartment compartment)
@@ -54,6 +53,15 @@ public class CompartmentRepository : ICompartmentRepository
         return await Task.FromResult(_context.Compartments.Include(c => c.Carriage).AsQueryable());
     }
 
+    public async Task<IQueryable<Compartment>> GetQueryWithCarriageAndTrainAsync()
+    {
+        return await Task.FromResult(
+            _context.Compartments
+                .Include(c => c.Carriage)
+                .ThenInclude(c => c.Train)
+                .AsQueryable());
+    }
+
     public async Task<Compartment> GetByIdWithSeatsAsync(int id)
     {
         return await _context.Compartments
@@ -74,4 +82,8 @@ public class CompartmentRepository : ICompartmentRepository
         return _context.Compartments.ToListAsync();
     }
 
+    public async Task AddRangeAsync(List<Compartment> compartments)
+    {
+        await _context.Compartments.AddRangeAsync(compartments);
+    }
 }

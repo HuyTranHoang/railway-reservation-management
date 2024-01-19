@@ -1,10 +1,14 @@
-import { Component, OnInit } from '@angular/core'
+import { AfterViewInit, Component, ElementRef, Inject, OnInit, Renderer2, ViewChild } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { AuthService } from '../auth.service'
 import { ActivatedRoute, Router } from '@angular/router'
 import Swal from 'sweetalert2'
 import { take } from 'rxjs'
 import { LoginWithExternal } from '../../core/models/auth/loginWithExternal'
+import { DOCUMENT } from '@angular/common'
+import { CredentialResponse } from 'google-one-tap'
+import { jwtDecode } from 'jwt-decode'
+import { RegisterWithExternal } from '../../core/models/auth/registerWithExternal'
 
 declare const FB: any
 
@@ -13,7 +17,8 @@ declare const FB: any
   templateUrl: './login.component.html',
   styleUrls: ['../login-and-register.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, AfterViewInit {
+  @ViewChild('googleButton', { static: true }) googleButton: ElementRef = new ElementRef({})
   loginForm: FormGroup = new FormGroup({})
   submitted = false
   errorMessages: string[] = []
@@ -22,6 +27,8 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthService,
               private fb: FormBuilder,
+              private renderer2: Renderer2,
+              @Inject(DOCUMENT) private document: Document,
               private activatedRouter: ActivatedRoute,
               private router: Router) {
     this.authService.user$.pipe(take(1)).subscribe({
@@ -39,14 +46,24 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.initializeGoogleButton()
     this.initializeForm()
   }
+
+  ngAfterViewInit() {
+    const script = this.renderer2.createElement('script')
+    script.src = 'https://accounts.google.com/gsi/client'
+    script.async = true
+    script.defer = true
+    this.renderer2.appendChild(this.document.body, script)
+  }
+
 
   initializeForm(): void {
     this.loginForm = this.fb.group({
       userName: ['', Validators.required],
       password: ['', Validators.required]
-    });
+    })
   }
 
   onSubmit() {
@@ -69,12 +86,12 @@ export class LoginComponent implements OnInit {
         })
         if (this.returnUrl)
           this.router.navigateByUrl(this.returnUrl)
-          else
-        this.router.navigateByUrl('/')
+        else
+          this.router.navigateByUrl('/')
       },
       error: (err: any) => {
         console.log(err)
-        if (err.statusCode === 401 && err.message != "Invalid username or password") {
+        if (err.statusCode === 401 && err.message != 'Invalid username or password') {
           this.isResendEmail = true
         }
       }
@@ -82,42 +99,22 @@ export class LoginComponent implements OnInit {
   }
 
   resendEmailConfirmationLink() {
-    this.router.navigateByUrl('/auth/send-email/resend-email-confirmation-link');
+    this.router.navigateByUrl('/auth/send-email/resend-email-confirmation-link')
   }
-
-  // loginWithFacebook() {
-  //   FB.login(async (fbResult: any) => {
-  //     if (fbResult.authResponse) {
-  //       console.log(fbResult)
-  //       const accessToken = fbResult.authResponse.accessToken
-  //       const userId = fbResult.authResponse.userID
-  //
-  //       const model = new LoginWithExternal(accessToken, userId, 'facebook')
-  //
-  //       this.authService.loginWithThirdParty(model).subscribe({
-  //         next: _ => {
-  //           this.router.navigateByUrl('/')
-  //         },
-  //         error: err => {
-  //           console.log(err.errors)
-  //           this.errorMessages = err.errors
-  //         }
-  //       })
-  //     } else {
-  //       await Swal.fire({
-  //         position: 'center',
-  //         icon: 'error',
-  //         title: 'Facebook login failed',
-  //         text: 'Please try again',
-  //         showConfirmButton: true
-  //       })
-  //     }
-  //   })
-  // }
 
   loginOrRegisterWithFacebook() {
     FB.login(async (fbResult: any) => {
       if (fbResult.authResponse) {
+        // Gọi API để lấy thông tin người dùng, bao gồm email
+
+        let email = '', firstName = '', lastName = '';
+        FB.api('/me', { fields: 'first_name,last_name,middle_name,email' }, (response: any) => {
+          console.log(">>>>> first Res", response)
+          email = response.email;
+          firstName = response.first_name;
+          lastName = response.last_name + ' ' + response.middle_name;
+        });
+
         const accessToken = fbResult.authResponse.accessToken;
         const userId = fbResult.authResponse.userID;
         const model = new LoginWithExternal(accessToken, userId, 'facebook');
@@ -125,13 +122,20 @@ export class LoginComponent implements OnInit {
         this.authService.loginWithThirdParty(model).subscribe({
           next: (isUserRegistered: boolean) => {
             console.log(">>>>>", isUserRegistered)
-
             if (isUserRegistered) {
               // Người dùng đã đăng ký, chuyển hướng đến trang chủ hoặc trang đích
               this.router.navigateByUrl('/');
             } else {
-              // Người dùng chưa đăng ký, chuyển hướng đến trang đăng ký với thông tin Facebook
-              this.router.navigateByUrl(`/auth/register/third-party/facebook?accessToken=${accessToken}&userId=${userId}`);
+              const model = new RegisterWithExternal(firstName, lastName, email, userId, accessToken, 'facebook')
+              this.authService.registerWithThirdParty(model).subscribe({
+                next: _ => {
+                  this.router.navigateByUrl('/')
+                },
+                error: err => {
+                  console.log(err.errors)
+                  this.errorMessages = err.errors
+                }
+              })
             }
           },
           error: err => {
@@ -148,7 +152,66 @@ export class LoginComponent implements OnInit {
           showConfirmButton: true
         });
       }
-    });
+    }, { scope: 'email' });
+  }
+
+  private initializeGoogleButton() {
+    (window as any).onGoogleLibraryLoad = () => {
+      // @ts-ignore
+      google.accounts.id.initialize({
+        client_id: '217119227296-rbmp1am2ba21unl12u3ffuht8e1hgo94.apps.googleusercontent.com',
+        callback: this.googleCallBack.bind(this),
+        auto_select: false,
+        cancel_on_tap_outside: true
+      })
+
+      // @ts-ignore
+      google.accounts.id.renderButton(this.googleButton.nativeElement, {
+        theme: 'outline',
+        size: 'medium',
+        text: 'continue_with',
+        shape: 'rectangular',
+        width: 240
+      })
+    }
+  }
+
+  private async googleCallBack(res: CredentialResponse) {
+    const decodedToken: any = jwtDecode(res.credential)
+    console.log(decodedToken)
+
+    const email = decodedToken.email
+    const firstName = decodedToken.given_name
+    const lastName = decodedToken.family_name
+    const userId = decodedToken.sub
+    const accessToken = res.credential
+
+    const model = new LoginWithExternal(accessToken, userId, 'google')
+    this.authService.loginWithThirdParty(model).subscribe({
+      next: (isUserRegistered: boolean) => {
+        console.log('>>>>>', isUserRegistered)
+        if (isUserRegistered) {
+          // Người dùng đã đăng ký, chuyển hướng đến trang chủ hoặc trang đích
+          this.router.navigateByUrl('/')
+        } else {
+          const model = new RegisterWithExternal(firstName, lastName, email, userId, accessToken, 'google')
+          this.authService.registerWithThirdParty(model).subscribe({
+            next: _ => {
+              this.router.navigateByUrl('/')
+            },
+            error: err => {
+              console.log(err.errors)
+              this.errorMessages = err.errors
+            }
+          })
+        }
+      },
+      error: err => {
+        console.log(err.errors)
+        this.errorMessages = err.errors
+      }
+    })
+
   }
 
 }

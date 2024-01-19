@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Schedule} from '../../../../@models/schedule';
 import {ScheduleService} from '../schedule.service';
-import {NbDialogService} from '@nebular/theme';
+import {NbDatepicker, NbDialogService} from '@nebular/theme';
 import {PaginatedResult} from '../../../../@models/paginatedResult';
 import {Pagination} from '../../../../@models/pagination';
 import {ConfirmDeleteScheduleComponent} from '../confirm-delete-schedule/confirm-delete-schedule.component';
@@ -22,6 +22,9 @@ export class ListScheduleComponent implements OnInit {
 
   currentSearchTerm = '';
   currentSort = '';
+
+  @ViewChild('departureTime') departureTime: { nativeElement: { value: string; }; };
+  @ViewChild('arrivalTime') arrivalTime: { nativeElement: { value: string; }; };
 
   departureStationFilter: { id: number, name: string }[] = [];
   arrivalStationFilter: { id: number, name: string }[] = [];
@@ -44,6 +47,8 @@ export class ListScheduleComponent implements OnInit {
     trainId: null,
     departureStationId: null,
     arrivalStationId: null,
+    departureTime: '',
+    arrivalTime: '',
   };
 
   constructor(private scheduleService: ScheduleService,
@@ -146,6 +151,29 @@ export class ListScheduleComponent implements OnInit {
     this.queryParams.trainId = null;
     this.queryParams.departureStationId = null;
     this.queryParams.arrivalStationId = null;
+    this.queryParams.departureTime = '';
+    this.queryParams.arrivalTime = '';
+
+    this.departureTime.nativeElement.value = '';
+    this.arrivalTime.nativeElement.value = '';
+
+    this.loadAllSchedule();
+  }
+
+  onFilterDepartureDate(date: Date) {
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1; // getMonth() trả về giá trị từ 0 đến 11
+    const day = date.getDate();
+    this.queryParams.departureTime = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+    this.loadAllSchedule();
+  }
+
+
+  onFilterArrivalDate(date: Date) {
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    this.queryParams.arrivalTime = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
     this.loadAllSchedule();
   }
 }

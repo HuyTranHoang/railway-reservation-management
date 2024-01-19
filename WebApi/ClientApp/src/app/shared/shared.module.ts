@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { NgxSpinnerModule } from 'ngx-spinner'
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker'
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { BrowserModule } from '@angular/platform-browser';
@@ -15,7 +14,11 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
   imports: [
     NgxSpinnerModule,
     BsDatepickerModule.forRoot(),
+<<<<<<< HEAD
     CarouselModule
+=======
+    AccordionModule.forRoot(),
+>>>>>>> a723e7c670a6d973797ed0e1ee5a091ad53409d3
   ],
   exports: [
     NgxSpinnerModule,

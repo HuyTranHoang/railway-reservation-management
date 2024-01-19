@@ -1,58 +1,51 @@
 [
   {
-    "name": "AC1",
+    "name": "Ngồi mềm điều hòa",
     "trainId": 1,
     "CarriageTypeId": 1,
-    "numberOfCompartments": 2,
     "serviceCharge": 40,
-    "status": ""
+    "status": "(1, 1, 40, 'AC1')"
   },
   {
-    "name": "AC2",
+    "name": "Giường nằm khoang 4 điều hòa",
     "trainId": 1,
     "CarriageTypeId": 2,
-    "numberOfCompartments": 2,
     "serviceCharge": 30,
-    "status": ""
+    "status": "(2, 1, 30, 'AC2')"
   },
   {
-    "name": "AC3",
+    "name": "Giường nằm khoang 6 điều hòa",
     "trainId": 1,
     "CarriageTypeId": 3,
-    "numberOfCompartments": 2,
     "serviceCharge": 20,
-    "status": ""
+    "status": "(3, 1, 20, 'AC3')"
   },
   {
-    "name": "AC2",
+    "name": "Giường nằm khoang 4 điều hòa",
     "trainId": 2,
     "CarriageTypeId": 2,
-    "numberOfCompartments": 2,
     "serviceCharge": 30,
-    "status": ""
+    "status": "(4, 2, 30, 'AC2')"
   },
   {
-    "name": "AC3",
+    "name": "Giường nằm khoang 4 điều hòa",
     "trainId": 2,
     "CarriageTypeId": 2,
-    "numberOfCompartments": 2,
     "serviceCharge": 10,
-    "status": ""
+    "status": "(5, 2, 10, 'AC3')"
   },
   {
-    "name": "Sleeper",
+    "name": "Giường nằm khoang 4 điều hòa",
     "trainId": 2,
     "CarriageTypeId": 2,
-    "numberOfCompartments": 6,
     "serviceCharge": 50,
-    "status": ""
+    "status": "(6, 2, 50, 'Sleeper')"
   },
   {
-    "name": "General",
+    "name": "Ngồi mềm điều hòa",
     "trainId": 2,
-    "CarriageTypeId": 6,
-    "numberOfCompartments": 2,
+    "CarriageTypeId": 1,
     "serviceCharge": 10,
-    "status": ""
+    "status": "(7, 2, 10, 'General')"
   }
 ]

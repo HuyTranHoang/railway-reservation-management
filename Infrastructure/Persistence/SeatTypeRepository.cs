@@ -27,8 +27,7 @@ public class SeatTypeRepository : ISeatTypeRepository
 
     public async Task Add(SeatType seatType)
     {
-        _context.SeatTypes.Add(seatType);
-        await Task.CompletedTask;
+        await _context.SeatTypes.AddAsync(seatType);
     }
 
     public async Task Update(SeatType seatType)

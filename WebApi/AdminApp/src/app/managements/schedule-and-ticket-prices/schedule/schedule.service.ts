@@ -30,6 +30,14 @@ export class ScheduleService {
       params = params.append('arrivalStationId', queryParams.arrivalStationId.toString());
     }
 
+    if (queryParams.departureTime) {
+      params = params.append('departureTime', queryParams.departureTime);
+    }
+
+    if (queryParams.arrivalTime) {
+      params = params.append('arrivalTime', queryParams.arrivalTime);
+    }
+
     if (queryParams.searchTerm) {
       params = params.append('searchTerm', queryParams.searchTerm);
     }

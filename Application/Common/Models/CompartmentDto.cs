@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace Application.Common.Models
 {
     public class CompartmentDto
@@ -12,11 +7,8 @@ namespace Application.Common.Models
         public string Name { get; set; }
 
         public int CarriageId { get; set; }
-        
         public string CarriageName { get; set; }
-
-        public int NumberOfSeats { get; set; }
-
+        public string TrainName { get; set; }
         public string Status { get; set; }
 
         public DateTime CreatedAt { get; set; }
