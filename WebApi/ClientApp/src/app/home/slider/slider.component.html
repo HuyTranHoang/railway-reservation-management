@@ -1,0 +1,15 @@
+<swiper-container pagination="false" effect="coverflow" autoplay="true" autoplay-delay="15000"
+                  grab-cursor="true" centered-slides="true"
+                  coverflow-effect-stretch="0" coverflow-effect-depth="200"
+                  coverflow-effect-modifier="1" coverflow-effect-slide-shadow="false"
+                  slides-per-view="auto" coverflow-effect-rotate="0">
+  <swiper-slide *ngFor="let image of sliderImages">
+    <div class="position-relative">
+      <img class="img-fluid" [src]="image" alt="image slider">
+      <div class="position-absolute top-50 start-50 translate-middle d-flex flex-column align-items-center">
+        <h1>WHERE DO YOU WANT TO GO?</h1>
+        <h4 class="mt-5">Search and book trains in Vietnam</h4>
+      </div>
+    </div>
+  </swiper-slide>
+</swiper-container>

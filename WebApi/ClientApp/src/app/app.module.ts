@@ -14,7 +14,9 @@ import { JwtInterceptor } from './core/interceptors/jwt.interceptor'
 import { ContactComponent } from './contact/contact.component'
 import { AboutComponent } from './about/about.component'
 import { FaqsComponent } from './faqs/faqs.component'
-import { BookingModule } from './booking/booking.module'
+import { BookingModule } from './booking/booking.module';
+import { SliderComponent } from './home/slider/slider.component'
+import { FormsModule } from '@angular/forms'
 
 @NgModule({
   declarations: [
@@ -23,11 +25,13 @@ import { BookingModule } from './booking/booking.module'
     BookingTrainComponent,
     ContactComponent,
     AboutComponent,
-    FaqsComponent
+    FaqsComponent,
+    SliderComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    FormsModule,
     HttpClientModule,
     AppRoutingModule,
     CoreModule,

@@ -151,33 +151,110 @@ input[readonly] {
 }
 
 
-swiper-slide img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: brightness(80%);
+/// Input drop down
+
+.wrapper {
+  background-color: rgb(245, 245, 245);
 }
 
-swiper-slide h1 {
-  font-family: 'Teko', sans-serif;
-  font-weight: 400;
-  font-size: 66px;
-  color: #fff !important;
-  text-transform: uppercase;
-  letter-spacing: 4px;
-  text-shadow: 1px 1px 1px #65717d;
-  line-height: 1.3;
+.select-btn, .options li {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
 }
 
-swiper-slide h4 {
-  font-family: 'Poppins', sans-serif;
-  font-weight: 400;
+.select-btn {
+  height: 40px;
+  font-size: 16px;
+  color: rgb(115, 121, 127);
+  display: flex;
+  cursor: pointer;
+  padding: 0 20px;
+  border-radius: 7px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.select-btn i {
   font-size: 20px;
-  color: #fff !important;
-  letter-spacing: 1px;
-  text-shadow: 1px 1px 1px #65717d;
+  transition: transform 0.3s linear;
 }
+
+.wrapper.active .select-btn i {
+  transform: rotate(-180deg);
+}
+
+.content {
+  display: none;
+  padding: 10px 20px;
+  margin-top: 15px;
+  border-radius: 2px;
+  width: 410px;
+  position: absolute;
+  z-index: 100;
+  background-color: rgb(235, 235, 235);
+}
+
+.wrapper.active .content {
+  display: block;
+}
+
+.content .search {
+  position: relative;
+}
+
+.search i {
+  left: 15px;
+  color: #999;
+  font-size: 14px;
+  line-height: 33px;
+  position: absolute;
+
+}
+.search input {
+  height: 33px;
+  width: 100%;
+  outline: none;
+  font-size: 17px;
+  border-radius: 5px;
+  padding: 0 15px 0 43px;
+  border: 1px solid #b3b3b3;
+}
+
+.content .options {
+  margin-top: 10px;
+  max-height: 200px;
+  overflow-y: auto;
+  padding-right: 7px;
+}
+
+.options::-webkit-scrollbar {
+  width: 7px;
+}
+
+.options::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 25px;
+}
+
+.options::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 25px;
+}
+
+.options li {
+  height: 40px;
+  padding: 0 13px;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+.options li:hover, li.selected {
+  background: #d9d9d9;
+}
+
+
+/// WELCOME TO RAIL TICKET HUB Section
 
 p {
   color: #65696e;
@@ -187,7 +264,6 @@ p {
   letter-spacing: .3px;
 }
 
-///
 h2.teko {
   color: #6e757f;
   font-family: "Teko", sans-serif;
@@ -215,3 +291,4 @@ h4.teko {
   letter-spacing: 1.5px;
   color: #fff;
 }
+
