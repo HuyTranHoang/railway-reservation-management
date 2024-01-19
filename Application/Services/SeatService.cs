@@ -29,10 +29,10 @@ public class SeatService : ISeatService
             throw new NotFoundException(nameof(Compartment), seat.CompartmentId);
         }
 
-        if (compartment.Seats.Count >= compartment.NumberOfSeats)
-        {
-            throw new BadRequestException(400, "The number of seats is full");
-        }
+        // if (compartment.Seats.Count >= compartment.NumberOfSeats)
+        // {
+        //     throw new BadRequestException(400, "The number of seats is full");
+        // }
 
         await _repository.Add(seat);
         await _unitOfWork.SaveChangesAsync();

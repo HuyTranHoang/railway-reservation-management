@@ -41,16 +41,16 @@ namespace Application.Services
                 var compartment = new Compartment
                 {
                     Name = $"Conpartment-{i+1}",
-                    CarriageId = carriageId,
-                    NumberOfSeats = 6, //Nghiệp vu mặc định NumberOfSeats dựa theo Compartment
+                    CarriageId = carriageId
                 };
 
                 await _compartmentRepository.Add(compartment);
                 await _unitOfWork.SaveChangesAsync();
 
+                var numberOfSeatsInCompartment = carriageType.NumberOfSeats / carriageType.NumberOfCompartments;
 
-                //Loop thêm 1 lần nữa để add Seat dựa trên NumberOfSeats trong Compartment
-                for (int j = 0; j < compartment.NumberOfSeats; j++)
+                //Loop thêm 1 lần nữa để add Seat dựa trên NumberOfSeats trong CarriageType
+                for (int j = 0; j < numberOfSeatsInCompartment; j++)
                 {
                     var seat = new Seat
                     {
