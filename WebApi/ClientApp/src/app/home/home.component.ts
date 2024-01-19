@@ -1,16 +1,27 @@
-import {Component} from '@angular/core';
+import { AfterViewInit, Component, Inject, Renderer2 } from '@angular/core'
+import { DOCUMENT } from '@angular/common'
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent  {
-  myInterval = 1500;
-  activeSlideIndex = 0;
-  slides: {image: string; text?: string}[] = [
-    {image: 'assets/images/nature/3.jpg'},
-    {image: 'assets/images/nature/2.jpg'},
-    {image: 'assets/images/nature/1.jpg'}
-  ];
+export class HomeComponent implements AfterViewInit {
+
+  sliderImages = [
+    'assets/slider/train-japan.jpg',
+    'assets/slider/train-thailand.jpg',
+    'assets/slider/train-vietnam.jpg',
+  ]
+
+  constructor( private renderer2: Renderer2,
+               @Inject(DOCUMENT) private document: Document,) {
+  }
+
+  ngAfterViewInit() {
+    const script = this.renderer2.createElement('script')
+    script.src = 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js'
+    script.defer = true
+    this.renderer2.appendChild(this.document.body, script)
+  }
 }

@@ -10,13 +10,11 @@ import { CarouselModule } from 'ngx-bootstrap/carousel'
     NgxSpinnerModule,
     BsDatepickerModule.forRoot(),
     AccordionModule.forRoot(),
-    CarouselModule.forRoot()
   ],
   exports: [
     NgxSpinnerModule,
     BsDatepickerModule,
-    AccordionModule,
-    CarouselModule
+    AccordionModule
   ]
 })
 export class SharedModule { }
