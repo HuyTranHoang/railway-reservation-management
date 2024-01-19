@@ -6,4 +6,5 @@ public interface ISeatTypeService : IService<SeatType>
 
     Task<List<SeatTypeDto>> GetAllDtoNoPagingAsync();
     Task<SeatTypeDto> GetDtoByIdAsync(int id);
+    Task<SeatTypeDto> GetDtoByNameAsync(string name);
 }
