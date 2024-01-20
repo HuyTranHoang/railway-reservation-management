@@ -291,3 +291,35 @@ h4.teko {
   letter-spacing: 1.5px;
   color: #fff;
 }
+
+.btn-next {
+  height: 34px;
+  width: 34px;
+  position: absolute;
+  left: 50%;
+  bottom: -20px;
+  transform: translate(-50%);
+  box-shadow: 0 0 10px rgba(0,0,0,.05);
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  background: #6e757f;
+  font-size: 14px;
+  color: #fff;
+  cursor: pointer;
+  line-height: 34px;
+}
+
+.btn-next i {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  text-align: center;
+}
+
+.btn-next:hover {
+  opacity: 1;
+  background-color: #efaf00;
+  transition: background-color .3s linear,background-position .3s linear;
+}

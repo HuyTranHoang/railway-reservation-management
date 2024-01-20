@@ -191,4 +191,11 @@ export class HomeComponent implements OnInit {
 
     this.router.navigate(['/booking'], { queryParams })
   }
+
+  scroll(el: HTMLElement) {
+    const yOffset = 50; // Khoảng cách cần cuộn
+    const y = el.getBoundingClientRect().top + window.pageYOffset - yOffset;
+
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  }
 }

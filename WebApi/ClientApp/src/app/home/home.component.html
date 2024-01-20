@@ -1,6 +1,6 @@
 <app-slider></app-slider>
 
-<section class="bg-white py-5">
+<section class="bg-white py-4 position-relative">
   <div class="container">
     <div class="row form-padding mt-2">
       <div class="col-8">
@@ -127,12 +127,16 @@
       </div>
     </div>
   </div>
+
+  <div (click)="scroll(target)" class="btn-next">
+    <i class="fas fa-chevron-down"></i>
+  </div>
 </section>
 
 
-<section style="padding-bottom: 50px; background-color: #F5F5F5; border-radius: 10px;"
+<section #target style="padding-bottom: 50px; background-color: #F5F5F5; border-radius: 10px;"
          class="p-5 shadow panel-dark js-scrollto-section landing-section__intro text-center">
-  <div class="container" style="max-width: 1670px">
+  <div class="container pt-4" style="max-width: 1670px">
     <div class="row">
       <div class="col-md-12 col-xs-12">
         <h2 class="teko">WELCOME TO RAIL TICKET HUB</h2>
