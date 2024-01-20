@@ -11,7 +11,7 @@
               <label>FROM</label>
               <div class="wrapper" [class.active]="isFromActivated">
                 <div (click)="toggleSelect(true)" class="select-btn">
-                  <span>{{fromCurrentStation}}</span>
+                  <span>{{ fromCurrentStation }}</span>
                   <button type="button" class="input-icon">
                     <i class="fa-regular fa-chevron-down"></i>
                   </button>
@@ -31,7 +31,7 @@
                     <li (click)="updateName(item.name, true)"
                         [class.selected]="item.name === fromCurrentStation"
                         *ngFor="let item of fromResultStations">
-                      {{item.name}}
+                      {{ item.name }}
                     </li>
                   </ul>
                 </div>
@@ -44,7 +44,7 @@
               <label>TO</label>
               <div class="wrapper" [class.active]="isToActivated">
                 <div (click)="toggleSelect(false)" class="select-btn">
-                  <span>{{toCurrentStation}}</span>
+                  <span>{{ toCurrentStation }}</span>
                   <button type="button" class="input-icon">
                     <i class="fa-regular fa-chevron-down"></i>
                   </button>
@@ -64,7 +64,7 @@
                     <li (click)="updateName(item.name, false)"
                         [class.selected]="item.name === toCurrentStation"
                         *ngFor="let item of toResultStations">
-                      {{item.name}}
+                      {{ item.name }}
                     </li>
                   </ul>
                 </div>
@@ -99,7 +99,7 @@
             <div class="form-group">
               <label>JOURNEY</label>
               <ul class="nav nav-pills">
-                <li (click)="toRoundTrip()"  [class.active]="roundTrip">
+                <li (click)="toRoundTrip()" [class.active]="roundTrip">
                   <a>Round trip</a>
                 </li>
                 <!--  Active thêm class vào li   -->
@@ -128,8 +128,10 @@
     </div>
   </div>
 </section>
-<div style="padding-bottom: 50px; background-color: #F5F5F5; border-radius: 10px;"
-     class="p-5 shadow panel-dark js-scrollto-section landing-section__intro text-center">
+
+
+<section style="padding-bottom: 50px; background-color: #F5F5F5; border-radius: 10px;"
+         class="p-5 shadow panel-dark js-scrollto-section landing-section__intro text-center">
   <div class="container" style="max-width: 1670px">
     <div class="row">
       <div class="col-md-12 col-xs-12">
@@ -167,17 +169,22 @@
       </div>
     </div>
   </div>
-</div>
+</section>
 
-<div style="background-color: #74A600 ; color: #fff;text-align: center; padding: 30px;"
-     class="landing-section--pattern container-fluid">
+<section style="background-color: #74A600 ; color: #fff;text-align: center; padding: 30px;"
+         class="landing-section--pattern container-fluid">
   <div class="container">
     <h2 class="teko" style="color:white; ">TOP DESTINATIONS</h2>
     <p class="landing-section__subtitle">What do you expect from Asia? Cities and monuments, palaces and pagodas,
       evergreen forests and deep jungles, limestone mountains and natural parks, pristine beaches and lost islands...
       whatever it is, you can find it in our list of destinations.</p>
   </div>
-</div>
+</section>
+<section>
+  <div class="container my-3">
+    <app-gallery></app-gallery>
+  </div>
+</section>
 
 <div style="background-color: #2D3E52 ; color: #fff;text-align: center; padding: 30px;"
      class="landing-section--pattern container-fluid">

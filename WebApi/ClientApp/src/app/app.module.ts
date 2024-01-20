@@ -16,7 +16,8 @@ import { AboutComponent } from './about/about.component'
 import { FaqsComponent } from './faqs/faqs.component'
 import { BookingModule } from './booking/booking.module';
 import { SliderComponent } from './home/slider/slider.component'
-import { FormsModule } from '@angular/forms'
+import { FormsModule } from '@angular/forms';
+import { GalleryComponent } from './home/gallery/gallery.component'
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { FormsModule } from '@angular/forms'
     ContactComponent,
     AboutComponent,
     FaqsComponent,
-    SliderComponent
+    SliderComponent,
+    GalleryComponent
   ],
   imports: [
     BrowserModule,
