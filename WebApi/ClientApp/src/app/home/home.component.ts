@@ -138,11 +138,6 @@ export class HomeComponent implements OnInit {
   }
 
   onSubmitSearch() {
-
-    console.log(this.departureTime)
-    console.log(this.returnDate)
-    console.log(this.currentDate)
-
     const departureStationId = this.originalStations
       .find((station) => station.name === this.fromCurrentStation)?.id
 

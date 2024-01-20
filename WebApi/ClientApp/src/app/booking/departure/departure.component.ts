@@ -74,10 +74,11 @@ export class DepartureComponent implements OnInit {
 
       if (departureStationId && arrivalStationId && departureTime) {
         this.departureService.loadScheduleInfo(departureStationId, arrivalStationId, departureTime)
+        this.fromCurrentStation = this.departureService.scheduleInfo?.fromStationName || 'City, station'
+        this.toCurrentStation = this.departureService.scheduleInfo?.toStationName || 'City, station'
       }
 
       if (this.schedulesParams) {
-        console.log('this.schedulesParams: ', this.schedulesParams)
         this.departureService.loadSchedule(this.schedulesParams)
       }
 
@@ -227,17 +228,17 @@ export class DepartureComponent implements OnInit {
       return
     }
 
-    const departureDate = this.currentDepartureDate.toISOString().split('T')[0]
-    let returnDate = null
+    const departureTime = this.currentDepartureDate.toISOString()
+    let returnDate = null;
 
     if (this.currentReturnDate) {
-      returnDate = this.currentReturnDate.toISOString().split('T')[0]
+      returnDate = this.currentReturnDate.toISOString()
     }
 
-    const queryParams: any = {
+    const queryParams: BookingScheduleParams = {
       departureStationId,
       arrivalStationId,
-      departureDate,
+      departureTime,
       returnDate,
       roundTrip: this.roundTrip
     }
