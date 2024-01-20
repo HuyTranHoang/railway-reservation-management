@@ -7,6 +7,8 @@ import { Component } from '@angular/core';
 })
 export class GalleryComponent {
 
+  // https://www.freecodecamp.org/news/how-to-create-an-image-gallery-with-css-grid-e0f0fd666a5c/
+
   galleryImages = [
     { title: 'FUJI', url: 'https://www.baolau.com/images/destinations/JPFJI.jpg' },
     { title: 'HA GIANG', url: 'https://www.baolau.com/images/destinations/HGI.jpg' },
