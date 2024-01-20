@@ -81,12 +81,16 @@ public class CompartmentService : ICompartmentService
         var query = await _repository.GetQueryWithCarriageAndTrainAsync();
 
         if (!string.IsNullOrEmpty(queryParams.SearchTerm))
-            query = query.Where(p => p.Name.Contains(queryParams.SearchTerm.Trim()));
+            query = query.Where(p => p.Name.Contains(queryParams.SearchTerm.Trim()) ||
+                                     p.Carriage.Train.Name.Contains(queryParams.SearchTerm.Trim()) ||
+                                     p.Carriage.Name.Contains(queryParams.SearchTerm.Trim()));
 
         query = queryParams.Sort switch
         {
             "nameAsc" => query.OrderBy(p => p.Name),
             "nameDesc" => query.OrderByDescending(p => p.Name),
+            "trainNameAsc" => query.OrderBy(p => p.Carriage.Train.Name),
+            "trainNameDesc" => query.OrderByDescending(p => p.Carriage.Train.Name),
             "carriageNameAsc" => query.OrderBy(p => p.Carriage.Name),
             "carriageNameDesc" => query.OrderByDescending(p => p.Carriage.Name),
             "createdAtDesc" => query.OrderByDescending(p => p.CreatedAt),

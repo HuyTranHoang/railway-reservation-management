@@ -1,6 +1,6 @@
 import {CompartmentService} from '../compartment.service';
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {NbGlobalPhysicalPosition, NbToastrService} from '@nebular/theme';
 import {CarriageService} from '../../carriage/carriage.service';
 import {Carriage} from '../../../../@models/carriage';
@@ -10,7 +10,7 @@ import {Observable, of} from 'rxjs';
 @Component({
   selector: 'ngx-add-compartment',
   templateUrl: './add-compartment.component.html',
-  styleUrls: ['./add-compartment.component.scss']
+  styleUrls: ['./add-compartment.component.scss'],
 })
 export class AddCompartmentComponent implements OnInit {
   options: Carriage[];
@@ -38,16 +38,8 @@ export class AddCompartmentComponent implements OnInit {
     this.compartmentForm = this.fb.group({
       name: ['', Validators.required],
       carriageId: ['', Validators.required],
-      numberOfSeats: [0, [Validators.required, Validators.min(0), this.numberValidator()]],
       status: [''],
     });
-  }
-
-  numberValidator(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      if (control.value == null || control.value === '') return null;
-      return !isNaN(parseFloat(control.value)) && isFinite(control.value) ? null : { 'notANumber': true };
-    };
   }
 
   onSubmit() {
@@ -64,6 +56,7 @@ export class AddCompartmentComponent implements OnInit {
         next: (res) => {
           this.showToast('success', 'Success', 'Add compartment successfully!');
           this.compartmentForm.reset();
+          this.input.nativeElement.value = '';
           this.isSubmitted = false;
           this.errorMessages = [];
         },
@@ -104,14 +97,14 @@ export class AddCompartmentComponent implements OnInit {
     const matchingCarriage = this.options.find(carriage => carriage.name === inputValue);
 
     if (!matchingCarriage) {
-      this.compartmentForm.patchValue({ carriageId: null });
+      this.compartmentForm.patchValue({carriageId: null});
       this.isCarriageSelected = false;
     }
   }
 
   onSelectionChange(carriage: Carriage) {
     this.isCarriageSelected = true;
-    this.compartmentForm.patchValue({ carriageId: carriage.id });
+    this.compartmentForm.patchValue({carriageId: carriage.id});
     this.input.nativeElement.value = carriage.name;
   }
 

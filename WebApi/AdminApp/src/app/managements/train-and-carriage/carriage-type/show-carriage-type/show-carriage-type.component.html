@@ -17,6 +17,20 @@
       </div>
 
       <div class="form-group row">
+        <label class="label col-sm-3 col-form-label">Number of Seats</label>
+        <div class="col-sm-9">
+          <input type="text" nbInput fullWidth [value]="numberOfSeats" disabled>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="label col-sm-3 col-form-label">Number of Seat Types</label>
+        <div class="col-sm-9">
+          <input type="text" nbInput fullWidth [value]="numberOfSeatTypes" disabled>
+        </div>
+      </div>
+
+      <div class="form-group row">
         <label class="label col-sm-3 col-form-label">Service Charge</label>
         <div class="col-sm-9">
           <input type="text" nbInput fullWidth [value]="serviceCharge | currency" disabled>

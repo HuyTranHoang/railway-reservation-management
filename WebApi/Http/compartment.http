@@ -10,7 +10,6 @@ Content-Type: application/json
 {
   "Name" : "Khoang 3",
   "CarriageId" : 1,
-  "NumberOfSeats" : 1,
   "Status" : "Test"
 }
 
@@ -19,7 +18,7 @@ Content-Type: application/json
 
 # @name getListOfCompartment
 GET {{url}}/{{router}}?
-  &pageNumber=2
+  &pageNumber=1
   &pageSize=20
   #&searchTerm=Khoang 1
   #&sort=numberOfSeatsAsc

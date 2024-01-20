@@ -3,6 +3,7 @@ export interface Train {
   name: string;
   trainCompanyId: number;
   trainCompanyName: string;
+  trainCompanyLogo: string;
   status: any;
   createdAt: string;
 }
