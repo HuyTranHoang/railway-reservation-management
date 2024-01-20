@@ -1,6 +1,8 @@
 <!-- Info -->
 
-<app-departure-info (modifyButtonClicked)="onModifyButtonClicked($event)"></app-departure-info>
+<app-departure-info (modifyButtonClicked)="onModifyButtonClicked($event)"
+                    [scheduleInfo]="scheduleInfo"></app-departure-info>
+
 
 <!-- Form -->
 
@@ -8,31 +10,87 @@
   <div class="row form-padding mt-2 bg-white">
     <div class="col-8">
       <div class="row">
-
         <div class="col-6 row-padding">
-          <app-departure-input-field label="FROM"
-                                     placeholder="City, station.."
-                                     icon="fa-location-dot">
-          </app-departure-input-field>
+          <div class="form-group position-relative">
+            <label>FROM</label>
+            <div class="wrapper" [class.active]="isFromActivated">
+              <div (click)="toggleSelect(true)" class="select-btn">
+                <span>{{ fromCurrentStation }}</span>
+                <button type="button" class="input-icon">
+                  <i class="fa-regular fa-chevron-down"></i>
+                </button>
+              </div>
+              <div class="content">
+                <div class="search">
+                  <i class="fa fa-search"></i>
+                  <input (keyup)="searchStation($event, true)"
+                         (keyup.enter)="selectFirstInResult(fromResultStations, fromCurrentStation, true)"
+                         (keyup.escape)="resetSearch(true)"
+                         [(ngModel)]="fromSearchText"
+                         #fromSearchInput
+                         type="text"
+                         placeholder="Search city, station..">
+                </div>
+                <ul class="options">
+                  <li (click)="updateName(item.name, true)"
+                      [class.selected]="item.name === fromCurrentStation"
+                      *ngFor="let item of fromResultStations">
+                    {{ item.name }}
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="col-6 row-padding">
-          <app-departure-input-field label="To"
-                                     placeholder="City, station.."
-                                     icon="fa-location-dot">
-          </app-departure-input-field>
+          <div class="form-group position-relative">
+            <label>TO</label>
+            <div class="wrapper" [class.active]="isToActivated">
+              <div (click)="toggleSelect(false)" class="select-btn">
+                <span>{{ toCurrentStation }}</span>
+                <button type="button" class="input-icon">
+                  <i class="fa-regular fa-chevron-down"></i>
+                </button>
+              </div>
+              <div class="content">
+                <div class="search">
+                  <i class="fa fa-search"></i>
+                  <input (keyup)="searchStation($event, false)"
+                         (keyup.enter)="selectFirstInResult(toResultStations, toCurrentStation, false)"
+                         (keyup.escape)="resetSearch(false)"
+                         [(ngModel)]="toSearchText"
+                         #toSearchInput
+                         type="text"
+                         placeholder="Search city, station..">
+                </div>
+                <ul class="options">
+                  <li (click)="updateName(item.name, false)"
+                      [class.selected]="item.name === toCurrentStation"
+                      *ngFor="let item of toResultStations">
+                    {{ item.name }}
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="col-6 row-padding">
+        <div class="col-6">
           <app-departure-datepicker-field label="Depart"
                                           placeholder="Departure date.."
+                                          (onHandleDateChange)="dateChange($event, true)"
+                                          [date]="currentDepartureDate"
                                           icon="fa-calendar-days">
           </app-departure-datepicker-field>
         </div>
 
-        <div class="col-6 row-padding">
+        <div class="col-6">
           <app-departure-datepicker-field label="Return"
+                                          [isDisabled]="!roundTrip"
                                           placeholder="Return date.."
+
+                                          [date]="currentReturnDate"
                                           icon="fa-calendar-days">
           </app-departure-datepicker-field>
         </div>
@@ -61,6 +119,7 @@
         <div class="col-6" style="margin-top: 33px">
           <div>
             <button id="searchButton" class="btn icon-search green btn-block bold"
+                    (click)="onSubmitSearch()"
                     style="width: 215px"
                     type="submit" name="input" value="Search">
               SEARCH
@@ -73,6 +132,9 @@
   </div>
 </div>
 
+<pre>
+  asdasd
+  {{scheduleInfo | json}}
+</pre>
 <!-- Select depart -->
-
 <app-departure-select (bookNow)="onBookNowClick($event)"></app-departure-select>

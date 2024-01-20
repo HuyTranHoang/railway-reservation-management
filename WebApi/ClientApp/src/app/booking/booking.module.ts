@@ -11,6 +11,7 @@ import { DepartureSelectComponent } from './departure/departure-select/departure
 import { PassengersComponent } from './passengers/passengers.component';
 import { SeatSelectionComponent } from './seat-selection/seat-selection.component'
 import { RouterModule } from '@angular/router'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 
 @NgModule({
   declarations: [
@@ -26,7 +27,9 @@ import { RouterModule } from '@angular/router'
   imports: [
     CommonModule,
     BookingRoutingModule,
-    SharedModule
+    FormsModule,
+    ReactiveFormsModule,
+    SharedModule,
   ],
   exports :[
     DepartureInputFieldComponent,

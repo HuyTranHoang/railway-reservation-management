@@ -13,4 +13,8 @@ export class TrainStationService {
   getTrainStationsNoPaging() {
     return this.http.get<TrainStation[]>(this.baseUrl + 'trainStation/all')
   }
+
+  getStationById(id: string) {
+    return this.http.get<TrainStation>(this.baseUrl + 'trainStation/' + id)
+  }
 }

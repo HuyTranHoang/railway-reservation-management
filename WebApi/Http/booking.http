@@ -6,14 +6,13 @@
 
 # @name getListOfBookingSchedule
 GET {{url}}/{{router}}/schedule?
-  &pageNumber=1
-  &pageSize=10
   # &searchTerm= "A-2-4"
   # &sort=nameDesc
   &DepartureStationId=1
   &ArrivalStationId=3
   &DepartureTime=2024-01-20
   # &ArivalTime = 2024-01-18 16:18:28.0000000
+  &RoundTrip=false
 
 
 ### 

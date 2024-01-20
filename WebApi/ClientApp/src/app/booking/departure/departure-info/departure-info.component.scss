@@ -11,7 +11,8 @@ $text-color: #a1a8ae;
   font-family: inherit;
 }
 
-#search-modify .padded-panel {
+#search-modify .padded-panel,
+#search-modify1 .padded-panel{
   padding: 20px 35px 15px;
   margin-left: 0;
   margin-right: 0;
@@ -58,7 +59,7 @@ $text-color: #a1a8ae;
   background-color: #a1a1a1;
 }
 
-#modifyButton:hover i, #modifyButton.active i {
+#modifyButton:hover i, #modifyButton.active i{
   background-color: #2d3e52;
 }
 

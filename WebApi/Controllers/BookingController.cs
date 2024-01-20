@@ -12,15 +12,9 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("schedule")]
-        public async Task<ActionResult> GetBookingSchedule([FromQuery] BookingQueryParams queryParams)
+        public async Task<ActionResult<List<ScheduleDto>>> GetBookingSchedule([FromQuery] BookingQueryParams queryParams)
         {
             var schedulesDto = await _bookingService.GetBookingInfoWithScheduleAsync(queryParams);
-
-            var paginationHeader = new PaginationHeader(queryParams.PageNumber, queryParams.PageSize,
-            schedulesDto.TotalCount, schedulesDto.TotalPages);
-
-            Response.AddPaginationHeader(paginationHeader);
-
             return Ok(schedulesDto);
         }
 

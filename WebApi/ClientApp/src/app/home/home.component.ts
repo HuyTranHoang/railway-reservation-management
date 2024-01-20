@@ -149,27 +149,27 @@ export class HomeComponent implements OnInit {
       .find((station) => station.name === this.toCurrentStation)?.id
 
     if (!departureStationId) {
-      Swal.fire('Error', 'Please select a valid departure station', 'error')
+      Swal.fire('Oops', 'Please select a valid departure station', 'error')
       return
     }
 
     if (!arrivalStationId) {
-      Swal.fire('Error', 'Please select a valid arrival station', 'error')
+      Swal.fire('Oops', 'Please select a valid arrival station', 'error')
       return
     }
 
     if (departureStationId === arrivalStationId) {
-      Swal.fire('Error', 'Departure station and arrival station cannot be the same', 'error')
+      Swal.fire('Oops', 'Departure station and arrival station cannot be the same', 'error')
       return
     }
 
     if (this.departureDate < this.currentDate) {
-      Swal.fire('Error', 'Departure date cannot be in the past', 'error')
+      Swal.fire('Oops', 'Departure date cannot be in the past', 'error')
       return
     }
 
     if (this.roundTrip && this.returnDate < this.departureDate) {
-      Swal.fire('Error', 'Return date cannot be before departure date', 'error')
+      Swal.fire('Oops', 'Return date cannot be before departure date', 'error')
       return
     }
 

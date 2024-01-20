@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+
 namespace Application.Services;
 
 public class BookingService : IBookingService
@@ -51,7 +53,7 @@ public class BookingService : IBookingService
         }
 
         //Lấy danh sách các lịch trình kèm filter
-        public async Task<PagedList<ScheduleDto>> GetBookingInfoWithScheduleAsync(BookingQueryParams queryParams)
+        public async Task<List<ScheduleDto>> GetBookingInfoWithScheduleAsync(BookingQueryParams queryParams)
         {
            var query = await _scheduleRepository.GetQueryWithTrainAndStationAsync();
 
@@ -76,10 +78,8 @@ public class BookingService : IBookingService
                 _ => query.OrderBy(t => t.Train.TrainCompany.Name)
             };
 
-
-
             var bookingDtoQuery = query.Select(t => _mapper.Map<ScheduleDto>(t));
-            return await PagedList<ScheduleDto>.CreateAsync(bookingDtoQuery, queryParams.PageNumber, queryParams.PageSize);
+            return await bookingDtoQuery.ToListAsync();
 
         }
 
