@@ -1,0 +1,11 @@
+@url = https://localhost:5001
+@router = api/lookup
+
+### 
+
+# @name getTicketByCodeAndEmail
+@code = 2001240905061111
+@email = kochcruz@goko.com
+
+GET {{url}}/api/lookup/{{code}}/{{email}}
+### 

@@ -37,6 +37,7 @@ public static class DepencyInjection
     services.AddScoped(typeof(TemplateService<>));
     services.AddScoped<IBookingService, BookingService>();
     services.AddScoped<ITrainComponentService, TrainComponentService>();
+    services.AddScoped<ILookUpService, LookUpService>();
     
     return services;
 
