@@ -7,6 +7,8 @@ namespace Application.Common.Models
         public int TrainCompanyId { get; set; }
 
         public string TrainCompanyName { get; set; }
+        
+        public string TrainCompanyLogo { get; set; }
 
         public double Discount { get; set; }
 
