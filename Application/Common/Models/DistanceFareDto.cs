@@ -9,6 +9,8 @@ public class DistanceFareDto
 
     public string TrainCompanyName { get; set; }
 
+    public string TrainCompanyLogo { get; set; }
+
     public int Distance { get; set; }
 
     public double Price { get; set; }

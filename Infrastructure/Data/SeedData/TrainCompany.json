@@ -1,12 +1,12 @@
 [
-  { "name": "Indian Railways" },
-  { "name": "Konkan Railway Corporation Limited" },
-  { "name": "Mumbai Metro Rail Corporation Limited" },
-  { "name": "Delhi Metro Rail Corporation Limited" },
-  { "name": "Chennai Metro Rail Limited" },
-  { "name": "Kolkata Metro" },
-  { "name": "Bangalore Metro Rail Corporation Limited" },
-  { "name": "Jaipur Metro Rail Corporation Limited" },
-  { "name": "Gujarat Metro Rail Corporation (MEGA)" },
-  { "name": "Lucknow Metro Rail Corporation Limited" }
+  { "name": "Indian Railways", "logo": "train-logo.jpeg" },
+  { "name": "Konkan Railway Corporation Limited", "logo": "train-logo.jpeg" },
+  { "name": "Mumbai Metro Rail Corporation Limited", "logo": "train-logo.jpeg" },
+  { "name": "Delhi Metro Rail Corporation Limited", "logo": "train-logo.jpeg" },
+  { "name": "Chennai Metro Rail Limited", "logo": "train-logo.jpeg" },
+  { "name": "Kolkata Metro", "logo": "train-logo.jpeg" },
+  { "name": "Bangalore Metro Rail Corporation Limited", "logo": "train-logo.jpeg" },
+  { "name": "Jaipur Metro Rail Corporation Limited", "logo": "train-logo.jpeg" },
+  { "name": "Gujarat Metro Rail Corporation (MEGA)", "logo": "train-logo.jpeg" },
+  { "name": "Lucknow Metro Rail Corporation Limited", "logo": "train-logo.jpeg" }
 ]

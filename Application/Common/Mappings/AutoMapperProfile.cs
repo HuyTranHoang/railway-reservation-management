@@ -8,7 +8,9 @@ public class AutoMapperProfile : Profile
 
         CreateMap<Train, TrainDto>()
             .ForMember(dest => dest.TrainCompanyName,
-                opt => opt.MapFrom(src => src.TrainCompany.Name));
+                opt => opt.MapFrom(src => src.TrainCompany.Name))
+            .ForMember(dest => dest.TrainCompanyLogo,
+                opt => opt.MapFrom(src => src.TrainCompany.Logo));
 
         CreateMap<Passenger, PassengerDto>();
 
@@ -50,7 +52,9 @@ public class AutoMapperProfile : Profile
 
         CreateMap<RoundTrip, RoundTripDto>()
             .ForMember(dest => dest.TrainCompanyName,
-                opt => opt.MapFrom(src => src.TrainCompany.Name));
+                opt => opt.MapFrom(src => src.TrainCompany.Name))
+            .ForMember(dest => dest.TrainCompanyLogo,
+                opt => opt.MapFrom(src => src.TrainCompany.Logo));
 
         CreateMap<Ticket, TicketDto>()
             .ForMember(dest => dest.PassengerName,
@@ -74,7 +78,9 @@ public class AutoMapperProfile : Profile
 
         CreateMap<DistanceFare, DistanceFareDto>()
             .ForMember(dest => dest.TrainCompanyName,
-                opt => opt.MapFrom(src => src.TrainCompany.Name));
+                opt => opt.MapFrom(src => src.TrainCompany.Name))
+            .ForMember(dest => dest.TrainCompanyLogo,
+                opt => opt.MapFrom(src => src.TrainCompany.Logo));
 
         CreateMap<Payment, PaymentDto>()
             .ForMember(dest => dest.AspNetUserFullName,
