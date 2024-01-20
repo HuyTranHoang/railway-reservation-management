@@ -2,7 +2,9 @@
   <figure *ngFor="let item of galleryImages; let i = index" class="gallery__item gallery__item--{{i + 1}}">
     <figcaption class="gallery__caption d-flex flex-column">
       {{item.title}}
-      <span>Take me there</span>
+      <div>
+        <span>Take me there</span>
+      </div>
     </figcaption>
 
     <img src="{{item.url}}" class="gallery__img" alt="{{item.title}}">
