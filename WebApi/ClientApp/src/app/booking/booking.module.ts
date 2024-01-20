@@ -10,8 +10,8 @@ import { DepartureDatepickerFieldComponent } from './departure/departure-datepic
 import { DepartureSelectComponent } from './departure/departure-select/departure-select.component';
 import { PassengersComponent } from './passengers/passengers.component';
 import { SeatSelectionComponent } from './seat-selection/seat-selection.component'
-import { RouterModule } from '@angular/router'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { DurationToHoursMinutesPipe } from './duration-to-hours-minutes.pipe'
 
 @NgModule({
   declarations: [
@@ -22,7 +22,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
     DepartureDatepickerFieldComponent,
     DepartureSelectComponent,
     PassengersComponent,
-    SeatSelectionComponent
+    SeatSelectionComponent,
+    DurationToHoursMinutesPipe
   ],
   imports: [
     CommonModule,

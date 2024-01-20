@@ -1,13 +1,17 @@
 <h2>Select your departing trip</h2>
+
+<pre>
+  {{ departureService.schedules | json}}
+</pre>
 <div class="horizontal-devider"></div>
 
 <h5 style="margin-top: 0">
   Results from
-  <span class="blue-text bold">Hanoi</span>
+  <span class="blue-text bold">{{departureService.scheduleInfo?.fromStationName}}</span>
   to
-  <span class="blue-text bold">Ninh Binh</span>
+  <span class="blue-text bold">{{departureService.scheduleInfo?.toStationName}}</span>
   on
-  <span>Thursday, 11 January 2024</span>
+  <span>{{departureService.scheduleInfo?.departureDate | date}}</span>
 </h5>
 
 
@@ -27,56 +31,60 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
+
+
+  <ng-container *ngFor="let item of departureService.schedules; let i = index">
+    <tr [class.table-light]="openStates[i]">
       <td style="text-align: center; width: 172px;">
         <img class="logo" src="https://booking.baolau.com/images/logos/transports/logo-vr.png" alt="logo">
-        <div class="hidden-xs hidden-sm" style="font-size: 13px;">SE3</div>
+        <div class="hidden-xs hidden-sm" style="font-size: 13px;">{{item.trainName}}</div>
       </td>
 
       <td class="text-end" style="width: 178px;">
-        <div class="bold ">19:20</div>
-        <div>Th, 11/01</div>
+        <div class="bold ">{{item.departureTime | date: 'shortTime'}}</div>
+        <div>{{item.departureTime | date}}</div>
       </td>
 
       <td class="text-end" style="width: 162px;">
-        <div class="bold ">21:31</div>
-        <div>Th, 11/01</div>
+        <div class="bold ">{{item.arrivalTime | date: 'shortTime'}}</div>
+        <div>{{item.arrivalTime | date}}</div>
       </td>
 
       <td class="text-center" style="width: 196px;">
-        2h 11m
+        {{item.duration | durationToHoursMinutes }}
       </td>
 
       <td class="searchresult-itenerary" style="width: 313px;">
-        <span style="display:inline-block">
-          HANOI
-          <br>
-          <span style="font-size:13px">Hanoi</span>
+        <div class="d-flex align-items-center">
+          <span style="max-width: 40%">
+          {{item.departureStationName}}
+            <br>
+            <!--          <span style="font-size:13px">{{item.departureStationName}}</span>-->
         </span>
-        <i class="fa-solid fa-train icon"></i>
-        <span style="display:inline-block">
-          NINH BINH
-          <br>
-          <span style="font-size:13px">Ninh Binh</span>
+          <i class="fa-solid fa-train icon"></i>
+          <span style="max-width: 40%">
+          {{item.arrivalStationName}}
+            <br>
+            <!--          <span style="font-size:13px">{{item.arrivalStationName}}</span>-->
         </span>
+        </div>
       </td>
 
       <td class="text-start" style="">
         <div class="yellow-text bold">
-          <span class="money">{{99 | currency}}</span>
+          <span class="money">{{item.price | currency}}</span>
         </div>
       </td>
 
       <td>
-        <i class="fa-solid fa-chevron-{{isOpen ? 'up' : 'down'}}"
-           (click)="onChevronClick()"
+        <i class="fa-solid fa-chevron-{{openStates[i] ? 'up' : 'down'}}"
+           (click)="onChevronClick(i)"
            style="color: #65696e; cursor: pointer"></i>
       </td>
     </tr>
-
     <tr>
       <td colspan="7" style="padding: 0">
-        <div class="table-container" [class.open]="isOpen">
+        <div class="table-container" [class.open]="openStates[i]">
           <div style="color: #7a8085;">
             <table>
               <!-- Origin -->
@@ -85,8 +93,8 @@
                 <td style="width: 172px; height: 116px;"></td>
 
                 <td class="text-end" style="width: 178px;">
-                  <span class="bold">19:20</span>
-                  <div>Th, 11/01</div>
+                  <span class="bold">{{item.departureTime | date: 'shortTime'}}</span>
+                  <div>{{item.departureTime | date}}</div>
                 </td>
 
                 <td class="relative text-center" style="width: 162px;">
@@ -187,7 +195,7 @@
                 </td>
                 <td class="text-end" style="width: 178px;">
                   <i class="fa-solid fa-train"></i>
-                  <div class="bold">2h 11m</div>
+                  <div class="bold">{{item.duration | durationToHoursMinutes}}</div>
                 </td>
                 <td class="text-center" style="width: 162px;">
                   <div class="searchresult-timeline">
@@ -198,19 +206,10 @@
                   <button class="" style="padding: 0; background: transparent;">
                     <img class="searchresult-thumb-logo" src="https://booking.baolau.com/images/logos/transports/thumb/logo-vr.png">
                   </button>
-                  <div>
+                  <div class="d-flex flex-column">
                     <span class="bold underline " style="cursor: pointer;">Vietnam Railways</span>
-                    <span> SE3</span>
+                    <span>{{item.trainName}}</span>
                   </div>
-                  <button class="" style="padding: 4px 0; background: transparent;">
-                    <div class="rating yellow-text">
-                      <i class="fa fa-star" aria-hidden="true"></i>
-                      <i class="fa fa-star" aria-hidden="true"></i>
-                      <i class="fa fa-star" aria-hidden="true"></i>
-                      <i class="fa fa-star-half-alt" aria-hidden="true"></i>
-                      <i class="far fa-star" aria-hidden="true"></i>
-                    </div>
-                  </button>
                 </td>
               </tr> <!-- end Transport-->
 
@@ -218,8 +217,8 @@
               <tr style="border:none">
                 <td style="width: 172px; height: 116px;"></td>
                 <td class="text-end" style="width: 178px;">
-                  <span class="bold">21:31</span>
-                  <div>Th, 11/01</div>
+                  <span class="bold">{{item.arrivalTime | date: 'shortTime'}}</span>
+                  <div>{{item.arrivalTime | date}}</div>
                 </td>
                 <td class="relative text-center" style="width: 162px;">
                   <div class="searchresult-timeline">
@@ -240,16 +239,14 @@
 
           </div>
           <div>
-            <a class="btn green w-100" routerLink="/booking/seat-selection" (click)="onBookNowClick(1)">
+            <a class="btn green w-100" routerLink="/booking/seat-selection" (click)="onBookNowClick(item.id)">
               <span class="bold">BOOK NOW</span>
             </a>
           </div>
         </div>
       </td>
     </tr>
-
-
-  asdsadasd
+  </ng-container>
 
   </tbody>
 </table>

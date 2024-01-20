@@ -1,7 +1,6 @@
 <!-- Info -->
 
-<app-departure-info (modifyButtonClicked)="onModifyButtonClicked($event)"
-                    [scheduleInfo]="scheduleInfo"></app-departure-info>
+<app-departure-info (modifyButtonClicked)="onModifyButtonClicked($event)"></app-departure-info>
 
 
 <!-- Form -->
@@ -132,9 +131,5 @@
   </div>
 </div>
 
-<pre>
-  asdasd
-  {{scheduleInfo | json}}
-</pre>
 <!-- Select depart -->
 <app-departure-select (bookNow)="onBookNowClick($event)"></app-departure-select>

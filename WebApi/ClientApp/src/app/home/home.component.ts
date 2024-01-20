@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { TrainStationService } from '../core/services/train-station.service'
 import Swal from 'sweetalert2'
 import { Router } from '@angular/router'
+import { BookingScheduleParams } from '../core/models/params/bookingScheduleParams'
 
 @Component({
   selector: 'app-home',
@@ -23,7 +24,7 @@ export class HomeComponent implements OnInit {
   fromResultStations = this.originalStations
   toResultStations = this.originalStations
 
-  departureDate = new Date()
+  departureTime = new Date()
   returnDate = new Date()
   currentDate = new Date()
 
@@ -120,8 +121,8 @@ export class HomeComponent implements OnInit {
 
   dateChange(newDate: any, isForm: boolean) {
     if (isForm) {
-      this.departureDate = newDate;
-      this.departureDate.setMinutes(this.departureDate.getMinutes() + 1)
+      this.departureTime = newDate;
+      this.departureTime.setMinutes(this.departureTime.getMinutes() + 1)
     } else {
       this.returnDate = newDate;
     }
@@ -138,7 +139,7 @@ export class HomeComponent implements OnInit {
 
   onSubmitSearch() {
 
-    console.log(this.departureDate)
+    console.log(this.departureTime)
     console.log(this.returnDate)
     console.log(this.currentDate)
 
@@ -163,27 +164,27 @@ export class HomeComponent implements OnInit {
       return
     }
 
-    if (this.departureDate < this.currentDate) {
+    if (this.departureTime < this.currentDate) {
       Swal.fire('Oops', 'Departure date cannot be in the past', 'error')
       return
     }
 
-    if (this.roundTrip && this.returnDate < this.departureDate) {
+    if (this.roundTrip && this.returnDate < this.departureTime) {
       Swal.fire('Oops', 'Return date cannot be before departure date', 'error')
       return
     }
 
-    const departureDate = this.departureDate.toISOString().split('T')[0]
+    const departureTime = this.departureTime.toISOString()
     let returnDate = null;
 
     if (this.returnDate) {
-      returnDate = this.returnDate.toISOString().split('T')[0]
+      returnDate = this.returnDate.toISOString()
     }
 
-    const queryParams: any = {
+    const queryParams: BookingScheduleParams = {
       departureStationId,
       arrivalStationId,
-      departureDate,
+      departureTime,
       returnDate,
       roundTrip: this.roundTrip
     }

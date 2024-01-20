@@ -5,12 +5,12 @@
           <span>
             From
             <br>
-            <b class="super-bold">{{scheduleInfo?.fromStationName}}</b>
+            <b class="super-bold">{{departureService.scheduleInfo?.fromStationName}}</b>
           </span>
         <span><i class="fas fa-long-arrow-alt-right"></i></span>
         <span>
             To <br>
-            <b class="super-bold">{{scheduleInfo?.toStationName}}</b>
+            <b class="super-bold">{{departureService.scheduleInfo?.toStationName}}</b>
           </span>
       </div>
 
@@ -20,7 +20,7 @@
           </span>
         <span>
             Depart <br>
-            <b class="super-bold">{{scheduleInfo?.departureDate | date}}</b>
+            <b class="super-bold">{{departureService.scheduleInfo?.departureDate | date}}</b>
           </span>
       </div>
 

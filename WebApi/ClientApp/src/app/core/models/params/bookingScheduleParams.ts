@@ -1,7 +1,7 @@
 export interface BookingScheduleParams {
   departureStationId: number;
   arrivalStationId: number;
-  departureDate: string;
+  departureTime: string;
   returnDate: string | null;
   roundTrip: boolean;
 }

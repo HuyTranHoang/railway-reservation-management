@@ -1,10 +1,10 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { BookingService } from '../booking.service'
 import { ActivatedRoute, Router } from '@angular/router'
-import { Schedule } from '../../core/models/schedule'
 import { BookingScheduleParams } from '../../core/models/params/bookingScheduleParams'
 import { TrainStationService } from '../../core/services/train-station.service'
 import Swal from 'sweetalert2'
+import { DepartureService } from './departure.service'
 
 @Component({
   selector: 'app-departure',
@@ -14,14 +14,12 @@ import Swal from 'sweetalert2'
 export class DepartureComponent implements OnInit {
 
   // Departure section
-  schedules: Schedule[] = []
   schedulesParams: BookingScheduleParams | undefined
   isModify = false
   roundTrip = false
   currentDepartureDate = new Date()
   currentReturnDate: Date | undefined
   currentDate = new Date()
-  scheduleInfo: { fromStationName: string, toStationName: string, departureDate: string } | undefined
 
   @ViewChild('fromSearchInput') fromSearchInput: ElementRef | undefined
   @ViewChild('toSearchInput') toSearchInput: ElementRef | undefined
@@ -41,6 +39,7 @@ export class DepartureComponent implements OnInit {
 
   constructor(private bookingService: BookingService,
               private trainStationService: TrainStationService,
+              private departureService: DepartureService,
               private router: Router,
               private activatedRoute: ActivatedRoute) {}
 
@@ -51,7 +50,6 @@ export class DepartureComponent implements OnInit {
 
     this.loadStations()
     this.loadQueryParams()
-    this.loadSchedule()
   }
 
 
@@ -60,7 +58,7 @@ export class DepartureComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe(params => {
       const departureStationId = params['departureStationId']
       const arrivalStationId = params['arrivalStationId']
-      const departureDate = params['departureDate']
+      const departureTime = params['departureTime']
       let returnDate: string | null = null
       const roundTrip = params['roundTrip']
 
@@ -71,25 +69,20 @@ export class DepartureComponent implements OnInit {
         }
       }
 
-      this.schedulesParams = { departureStationId, arrivalStationId, departureDate, returnDate, roundTrip }
+      this.schedulesParams = { departureStationId, arrivalStationId, departureTime, returnDate, roundTrip }
 
-      if (departureStationId && arrivalStationId && departureDate) {
-        let fromStationName = '', toStationName = ''
 
-        this.trainStationService.getStationById(departureStationId).subscribe((res) => {
-          fromStationName = res.name
-          this.fromCurrentStation = fromStationName
-          this.trainStationService.getStationById(arrivalStationId).subscribe((res) => {
-            toStationName = res.name
-            this.toCurrentStation = toStationName
-
-            this.scheduleInfo = { fromStationName, toStationName, departureDate }
-          })
-        })
+      if (departureStationId && arrivalStationId && departureTime) {
+        this.departureService.loadScheduleInfo(departureStationId, arrivalStationId, departureTime)
       }
 
-      if (departureDate) {
-        this.currentDepartureDate = new Date(departureDate)
+      if (this.schedulesParams) {
+        console.log('this.schedulesParams: ', this.schedulesParams)
+        this.departureService.loadSchedule(this.schedulesParams)
+      }
+
+      if (departureTime) {
+        this.currentDepartureDate = new Date(departureTime)
       }
 
       if (roundTrip) {
@@ -252,19 +245,6 @@ export class DepartureComponent implements OnInit {
     this.router.navigate(['/booking'], { queryParams })
   }
 
-
-  loadSchedule() {
-    if (this.schedulesParams) {
-      this.bookingService.getBookingSchedule(this.schedulesParams).subscribe({
-        next: (schedules: Schedule[]) => {
-          this.schedules = schedules
-        },
-        error: (err: any) => {
-          console.log(err)
-        }
-      })
-    }
-  }
 
   onModifyButtonClicked(isModified: boolean) {
     this.isModify = isModified

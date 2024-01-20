@@ -25,8 +25,8 @@ export class BookingService {
       params = params.append('arrivalStationId', queryParams.arrivalStationId)
     }
 
-    if (queryParams.departureDate) {
-      params = params.append('departureDate', queryParams.departureDate)
+    if (queryParams.departureTime) {
+      params = params.append('departureTime', queryParams.departureTime)
     }
 
     if (queryParams.roundTrip) {
