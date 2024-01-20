@@ -78,8 +78,11 @@ export class DepartureComponent implements OnInit {
 
         this.trainStationService.getStationById(departureStationId).subscribe((res) => {
           fromStationName = res.name
+          this.fromCurrentStation = fromStationName
           this.trainStationService.getStationById(arrivalStationId).subscribe((res) => {
             toStationName = res.name
+            this.toCurrentStation = toStationName
+
             this.scheduleInfo = { fromStationName, toStationName, departureDate }
           })
         })

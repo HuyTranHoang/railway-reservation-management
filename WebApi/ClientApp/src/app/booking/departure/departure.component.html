@@ -89,7 +89,7 @@
           <app-departure-datepicker-field label="Return"
                                           [isDisabled]="!roundTrip"
                                           placeholder="Return date.."
-
+                                          (onHandleDateChange)="dateChange($event, false)"
                                           [date]="currentReturnDate"
                                           icon="fa-calendar-days">
           </app-departure-datepicker-field>
@@ -104,11 +104,11 @@
           <div class="form-group">
             <label>JOURNEY</label>
             <ul class="nav nav-pills">
-              <li class="">
+              <li (click)="toRoundTrip()" [class.active]="roundTrip">
                 <a>Round trip</a>
               </li>
               <!--  Active thêm class vào li   -->
-              <li class="active">
+              <li (click)="toOneWay()" [class.active]="!roundTrip">
                 <a>One way</a>
               </li>
             </ul>
