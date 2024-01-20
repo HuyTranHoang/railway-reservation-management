@@ -24,11 +24,32 @@ namespace Infrastructure.Persistence
             await Task.CompletedTask;
         }
 
+        public async Task<Ticket> GetByCodeAndEmail(string code, string email)
+        {
+            var ticket = await _context.Tickets
+            .Include(d => d.Passenger)
+            .Include(d => d.Train)
+            .Include(d => d.DistanceFare)
+            .Include(d => d.Carriage)
+            .Include(d => d.Seat)
+            .Include(d => d.Schedule)
+            .Include(d => d.Payment)
+            .Where(d => d.Code == code)
+            .FirstOrDefaultAsync();
+
+        if (ticket != null && ticket.Passenger != null && ticket.Passenger.Email == email)
+        {
+            return ticket;
+        }
+        else
+        {
+            return null;
+        }
+        }
+
         public async Task<Ticket> GetByIdAsync(int id)
         {
             return await _context.Tickets.FindAsync(id);
-
-            
         }
 
         public async Task<IQueryable<Ticket>> GetQueryAsync()

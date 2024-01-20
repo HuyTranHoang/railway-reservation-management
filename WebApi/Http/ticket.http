@@ -14,7 +14,7 @@ Content-Type: application/json
   "CarriageId" : 1,
   "SeatId" : 1,
   "ScheduleId" : 1,
-  "PaymentId": 1,
+  "PaymentId": 2,
   "Status" : "Active"
 }
 
@@ -34,7 +34,7 @@ GET {{url}}/{{router}}?
 ### 
 
 # @name getTicketById
-@id = 7
+@id = 5
 
 GET {{url}}/{{router}}/{{id}}
 
