@@ -1,9 +1,6 @@
+namespace Application.Services;
 
-using Microsoft.EntityFrameworkCore;
-
-namespace Application.Services
-{
-    public class BookingService : IBookingService
+public class BookingService : IBookingService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -62,8 +59,8 @@ namespace Application.Services
                 .Where(t =>
                     (queryParams.DepartureStationId == 0 || t.DepartureStationId == queryParams.DepartureStationId) &&
                     (queryParams.ArrivalStationId == 0 || t.ArrivalStationId == queryParams.ArrivalStationId) &&
-                    (!queryParams.DepartureTime.HasValue || t.DepartureTime == queryParams.DepartureTime.Value) &&
-                    (!queryParams.ArrivalTime.HasValue || t.ArrivalTime == queryParams.ArrivalTime.Value)
+                    (!queryParams.DepartureTime.HasValue || t.DepartureTime.Date == queryParams.DepartureTime.Value.Date) &&
+                    (!queryParams.ArrivalTime.HasValue || t.ArrivalTime.Date == queryParams.ArrivalTime.Value.Date)
                 );
 
             query = queryParams.Sort switch
@@ -83,7 +80,7 @@ namespace Application.Services
 
             var bookingDtoQuery = query.Select(t => _mapper.Map<ScheduleDto>(t));
             return await PagedList<ScheduleDto>.CreateAsync(bookingDtoQuery, queryParams.PageNumber, queryParams.PageSize);
-        
+
         }
 
         //Lấy lịch trình theo Id
@@ -159,4 +156,3 @@ namespace Application.Services
             await _unitOfWork.SaveChangesAsync();
         }
     }
-}
