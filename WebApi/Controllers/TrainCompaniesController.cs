@@ -128,7 +128,7 @@ public class TrainCompaniesController : BaseApiController
             }
             else
             {
-                trainCompany.Logo = "default.jpg";
+                trainCompany.Logo = "train-logo.jpeg";
                 await _trainCompanySerivce.AddAsync(trainCompany);
             }
         }

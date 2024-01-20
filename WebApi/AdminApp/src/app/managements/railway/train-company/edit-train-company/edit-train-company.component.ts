@@ -12,6 +12,10 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class EditTrainCompanyComponent implements OnInit {
   trainCompanyForm: FormGroup = this.fb.group({});
   isSubmitted: boolean = false;
+
+  logo: File | null = null;
+
+
   errorMessages: string[] = [];
   isLoading = false;
   constructor(private trainCompanyService: TrainCompanyService,
@@ -29,6 +33,7 @@ export class EditTrainCompanyComponent implements OnInit {
     this.trainCompanyForm = this.fb.group({
       id: [0, Validators.required],
       name: ['', Validators.required],
+      logo: [''],
       status: [''],
     });
 
@@ -38,7 +43,11 @@ export class EditTrainCompanyComponent implements OnInit {
     this.trainCompanyService.getTrainCompanyById(id)
       .subscribe({
         next: (res) => {
-          this.trainCompanyForm.patchValue(res);
+          this.trainCompanyForm.patchValue({
+            id: res.id,
+            name: res.name,
+            status: res.status,
+          });
           this.isLoading = false;
         },
         error: _ => {
@@ -50,7 +59,8 @@ export class EditTrainCompanyComponent implements OnInit {
 
   onSubmit() {
     this.isSubmitted = true;
-    if (this.trainCompanyForm.valid) {
+
+    if (this.trainCompanyForm.valid && !this.logo) {
       this.trainCompanyService.updateTrainCompany(this.trainCompanyForm.value).subscribe({
         next: (res) => {
           this.showToast('success', 'Success', 'Update train company successfully!');
@@ -59,9 +69,34 @@ export class EditTrainCompanyComponent implements OnInit {
         },
         error: (err) => {
           this.showToast('danger', 'Failed', 'Update train company failed!');
+          if (err.error.errorMessages) {
+            this.errorMessages = err.error.errorMessages;
+          } else {
+            this.errorMessages = [err.error.title];
+          }
+        },
+      });
+    } else if (this.trainCompanyForm.valid && this.logo) {
+      this.trainCompanyService.updateTrainCompanyWithLogo(this.trainCompanyForm.value, this.logo).subscribe({
+        next: (res) => {
+          this.showToast('success', 'Success', 'Update train company successfully!');
+          this.isSubmitted = false;
+          this.errorMessages = [];
+        },
+        error: (err) => {
+          this.showToast('danger', 'Failed', 'Update train company failed!');
+          if (err.error.errorMessages) {
+            this.errorMessages = err.error.errorMessages;
+          } else {
+            this.errorMessages = [err.error.title];
+          }
         },
       });
     }
+  }
+
+  getFile(event: any) {
+    this.logo = event.target.files[0];
   }
 
   private showToast(type: string, title: string, body: string) {

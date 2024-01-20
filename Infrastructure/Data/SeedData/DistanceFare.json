@@ -223,30 +223,5 @@
     "TrainCompanyId": 9,
     "Distance": 3000,
     "Price": 250
-  },
-  {
-    "TrainCompanyId": 10,
-    "Distance": 0,
-    "Price": 50
-  },
-  {
-    "TrainCompanyId": 10,
-    "Distance": 500,
-    "Price": 100
-  },
-  {
-    "TrainCompanyId": 10,
-    "Distance": 1000,
-    "Price": 150
-  },
-  {
-    "TrainCompanyId": 10,
-    "Distance": 2000,
-    "Price": 200
-  },
-  {
-    "TrainCompanyId": 10,
-    "Distance": 3000,
-    "Price": 250
   }
 ]

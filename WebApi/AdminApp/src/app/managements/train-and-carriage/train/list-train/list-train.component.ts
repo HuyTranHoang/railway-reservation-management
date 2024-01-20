@@ -9,6 +9,7 @@ import {ShowTrainComponent} from '../show-train/show-train.component';
 import {TrainQueryParams} from '../../../../@models/params/trainQueryParams';
 import {SharedService} from '../../../shared/shared.service';
 import {TrainCompanyService} from '../../../railway/train-company/train-company.service';
+import {TrainCompany} from '../../../../@models/trainCompany';
 
 @Component({
   selector: 'ngx-list-train',
@@ -63,7 +64,7 @@ export class ListTrainComponent implements OnInit {
 
   loadTrainCompany() {
     this.trainCompanyService.getAllTrainCompanyNoPaging().subscribe({
-      next: (res: Train[]) => {
+      next: (res: TrainCompany[]) => {
         this.trainCompaniesFilter = [{id: 0, name: 'All train companies'} , ...res];
       },
     });
