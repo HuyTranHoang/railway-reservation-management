@@ -55,6 +55,11 @@ public class AccountController : BaseApiController
 
         var result = await _signInManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
 
+        if (result.IsLockedOut)
+        {
+            return Unauthorized(new ErrorResponse(401, "Your account has been locked. Please contact support"));
+        }
+
         if (!result.Succeeded) return Unauthorized(new ErrorResponse(401, "Invalid username or password"));
 
         return CreateApplicationUserDto(user);

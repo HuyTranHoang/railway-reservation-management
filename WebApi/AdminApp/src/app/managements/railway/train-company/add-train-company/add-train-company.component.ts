@@ -14,6 +14,8 @@ export class AddTrainCompanyComponent implements OnInit {
   isSubmitted = false;
   errorMessages: string[] = [];
 
+  logo: File | null = null;
+
   constructor(
     private trainCompanyService: TrainCompanyService,
     private fb: FormBuilder,
@@ -28,6 +30,7 @@ export class AddTrainCompanyComponent implements OnInit {
   initForm() {
     this.trainCompanyForm = this.fb.group({
       name: ['', Validators.required],
+      logo: [''],
       status: [''],
     });
   }
@@ -35,7 +38,7 @@ export class AddTrainCompanyComponent implements OnInit {
   onSubmit() {
     this.isSubmitted = true;
     if (this.trainCompanyForm.valid) {
-      this.trainCompanyService.addTrainCompany(this.trainCompanyForm.value).subscribe({
+      this.trainCompanyService.addTrainCompanyWithLogo(this.trainCompanyForm.value, this.logo).subscribe({
         next: (res) => {
           this.showToast('success', 'Success', 'Add train company successfully!');
           this.trainCompanyForm.reset();
@@ -44,10 +47,18 @@ export class AddTrainCompanyComponent implements OnInit {
         },
         error: (err) => {
           this.showToast('danger', 'Failed', 'Add train company failed!');
-          this.errorMessages = err.error.errorMessages;
+          if (err.error.errorMessages) {
+            this.errorMessages = err.error.errorMessages;
+          } else {
+            this.errorMessages = [err.error.title];
+          }
         },
       });
     }
+  }
+
+  getFile(event: any) {
+    this.logo = event.target.files[0];
   }
 
   private showToast(type: string, title: string, body: string) {

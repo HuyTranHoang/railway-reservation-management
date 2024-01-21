@@ -26,6 +26,11 @@ GET {{url}}/{{router}}?
 
 ### 
 
+# @name getListOfTrainStationsNoPaging
+GET {{url}}/{{router}}/all
+
+### 
+
 # @name getTrainStationById
 @id = 1
 

@@ -1,13 +1,11 @@
-
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.Services
-{
-    public class BookingService : IBookingService
+namespace Application.Services;
+
+public class BookingService : IBookingService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        private readonly ITrainCompanyRepository _trainCompanyRepository;
         private readonly IScheduleRepository _scheduleRepository;
         private readonly IDistanceFareRepository _distanceFareRepository;
         private readonly IRoundTripRepository _roundTripRepository;
@@ -23,7 +21,6 @@ namespace Application.Services
         public BookingService(
                                 IUnitOfWork unitOfWork,
                                 IMapper mapper,
-                                ITrainCompanyRepository trainCompanyRepository,
                                 IScheduleRepository scheduleRepository,
                                 IDistanceFareRepository distanceFareRepository,
                                 IRoundTripRepository roundTripRepository,
@@ -39,7 +36,6 @@ namespace Application.Services
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
-            _trainCompanyRepository = trainCompanyRepository;
             _scheduleRepository = scheduleRepository;
             _distanceFareRepository = distanceFareRepository;
             _roundTripRepository = roundTripRepository;
@@ -54,7 +50,7 @@ namespace Application.Services
         }
 
         //Lấy danh sách các lịch trình kèm filter
-        public async Task<PagedList<ScheduleDto>> GetBookingInfoWithScheduleAsync(BookingQueryParams queryParams)
+        public async Task<List<ScheduleDto>> GetBookingInfoWithScheduleAsync(BookingQueryParams queryParams)
         {
            var query = await _scheduleRepository.GetQueryWithTrainAndStationAsync();
 
@@ -62,8 +58,8 @@ namespace Application.Services
                 .Where(t =>
                     (queryParams.DepartureStationId == 0 || t.DepartureStationId == queryParams.DepartureStationId) &&
                     (queryParams.ArrivalStationId == 0 || t.ArrivalStationId == queryParams.ArrivalStationId) &&
-                    (!queryParams.DepartureTime.HasValue || t.DepartureTime == queryParams.DepartureTime.Value) &&
-                    (!queryParams.ArrivalTime.HasValue || t.ArrivalTime == queryParams.ArrivalTime.Value)
+                    (!queryParams.DepartureTime.HasValue || t.DepartureTime.Date == queryParams.DepartureTime.Value.Date) &&
+                    (!queryParams.ArrivalTime.HasValue || t.ArrivalTime.Date == queryParams.ArrivalTime.Value.Date)
                 );
 
             query = queryParams.Sort switch
@@ -79,11 +75,40 @@ namespace Application.Services
                 _ => query.OrderBy(t => t.Train.TrainCompany.Name)
             };
 
+            var scheduleDtoQuery = await query.Select(t => new ScheduleDto()
+            {
+                Id = t.Id,
+                Name = t.Name,
+                TrainId = t.TrainId,
+                TrainName = t.Train.Name,
+                TrainCompanyName = t.Train.TrainCompany.Name,
+                TrainCompanyLogo = t.Train.TrainCompany.Logo,
+                DepartureStationId = t.DepartureStationId,
+                DepartureStationName = t.DepartureStation.Name,
+                DepartureStationAddress = t.DepartureStation.Address,
+                ArrivalStationId = t.ArrivalStationId,
+                ArrivalStationName = t.ArrivalStation.Name,
+                ArrivalStationAddress = t.ArrivalStation.Address,
+                DepartureTime = t.DepartureTime,
+                ArrivalTime = t.ArrivalTime,
+                Duration = t.Duration,
+                Price = t.Price,
+                Status = t.Status
+            }).ToListAsync();
 
+            foreach (var item in scheduleDtoQuery)
+            {
+                var carriageTypes = await _carriageTypeRepository.GetCarriageTypeByTrainIdAsync(item.TrainId);
+                item.ScheduleCarriageTypes = carriageTypes.Select(t => new ScheduleCarriageType()
+                {
+                    Id = t.Id,
+                    Name = t.Name,
+                    ServiceCharge = t.ServiceCharge
+                }).ToList();
+            }
 
-            var bookingDtoQuery = query.Select(t => _mapper.Map<ScheduleDto>(t));
-            return await PagedList<ScheduleDto>.CreateAsync(bookingDtoQuery, queryParams.PageNumber, queryParams.PageSize);
-        
+            return scheduleDtoQuery;
+
         }
 
         //Lấy lịch trình theo Id
@@ -158,5 +183,11 @@ namespace Application.Services
             await _ticketRepository.Add(ticket);
             await _unitOfWork.SaveChangesAsync();
         }
+
+    public async Task<List<CarriageTypeDto>> GetCarriageTypesByTrainIdAsync(int trainId)
+    {
+        var carriageTypes = await _carriageTypeRepository.GetCarriageTypeByTrainIdAsync(trainId);
+        return _mapper.Map<List<CarriageTypeDto>>(carriageTypes);
     }
+
 }

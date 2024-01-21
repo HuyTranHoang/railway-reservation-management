@@ -24,8 +24,16 @@
                          [placeholder]="'Status..'">
         </app-input-field>
 
+
+        <div class="form-group">
+          <label class="label">Logo</label>
+          <input type="file" nbInput fullWidth
+                 (change)="getFile($event)"
+                 formControlName="logo">
+        </div>
+
         <ul *ngIf="errorMessages.length > 0">
-          <li class="text-danger" *ngFor="let item of errorMessages">{{item}}</li>
+          <li class="text-danger" *ngFor="let item of errorMessages">{{ item }}</li>
         </ul>
 
         <button type="submit" nbButton status="success" class="float-right">Submit</button>

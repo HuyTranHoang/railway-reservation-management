@@ -13,11 +13,13 @@
 @import "node_modules/ngx-bootstrap/datepicker/bs-datepicker";
 
 /*
-  Importing Poppins, Montserrat  font.
+  Importing Poppins, Montserrat, Teko font.
   font-family: 'Montserrat', sans-serif;
   font-family: 'Poppins', sans-serif;
+  font-family: 'Teko', sans-serif;
 */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Poppins:wght@400;600;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Teko:wght@400;600;800&display=swap');
 
 body {
   background-color: #f8f8f8;
@@ -26,3 +28,12 @@ body {
 *, ::after, ::before {
   box-sizing: border-box;
 }
+
+// FAQs
+.card.customClass, .card.customClass .card-header, .panel.customClass {
+  background-color: #ffffff;
+  border: none;
+  border-bottom: 1px solid #e6e6e6;
+  color: #fff;
+}
+

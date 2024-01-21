@@ -1,4 +1,6 @@
-import { Component, EventEmitter, Output } from '@angular/core'
+import { Component, EventEmitter, Input, Output } from '@angular/core'
+import { Schedule } from '../../../core/models/schedule'
+import { DepartureService } from '../departure.service'
 
 @Component({
   selector: 'app-departure-select',
@@ -8,11 +10,12 @@ import { Component, EventEmitter, Output } from '@angular/core'
 export class DepartureSelectComponent {
 
   @Output() bookNow = new EventEmitter<number>();
+  openStates: boolean[] = []; // Array to track open/closed state for each item
 
-  isOpen = false;
+  constructor(public departureService: DepartureService) {}
 
-  onChevronClick () {
-    this.isOpen = !this.isOpen;
+  onChevronClick(index: number) {
+    this.openStates[index] = !this.openStates[index]; // Toggle the state for the specific item
   }
 
   onBookNowClick(id: number) {

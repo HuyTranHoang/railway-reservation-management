@@ -1,0 +1,225 @@
+<h2>Seat selection</h2>
+<div class="horizontal-divider"></div>
+
+<div class="panel">
+  <div class="text-center item">
+    <p class="big-text bold" style="text-transform: capitalize">
+      Soft seat Premium </p>
+  </div>
+
+  <div class="row my-5">
+    <div class="col-2 offset-3 d-flex flex-column align-items-center">
+      <div class="d-flex">
+        <button class="seat seat-available seat-available-sample"></button>
+
+        <div class="bed-border d-flex">
+          <div>
+            <button class="bed bed-available bed-available-sample"></button>
+            <div class="bed-illustration"></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        Available
+      </div>
+    </div>
+
+    <div class="col-2 d-flex flex-column align-items-center">
+      <div class="d-flex">
+        <button class="seat seat-selected seat-selected-sample"></button>
+
+        <div class="bed-border d-flex">
+          <div>
+            <button class="bed bed-selected bed-selected-sample"></button>
+            <div class="bed-illustration"></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        Selected
+      </div>
+    </div>
+
+    <div class="col-2 d-flex flex-column align-items-center">
+      <div class="d-flex">
+        <button class="seat seat-unavailable seat-unavailable-sample"></button>
+
+        <div class="bed-border d-flex">
+          <div>
+            <button class="bed bed-unavailable bed-unavailable-sample"></button>
+            <div class="bed-illustration"></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        Sold out
+      </div>
+    </div>
+
+    <div class="col-2 offset-3 d-flex flex-column align-items-center mt-4">
+      <div class="car-icon car-icon-available">
+        <img src="https://dsvn.vn/images/trainCar2.png">
+      </div>
+      <span>
+          Has tickets
+      </span>
+    </div>
+
+    <div class="col-2 d-flex flex-column align-items-center mt-4">
+      <div class="car-icon car-icon-selected">
+        <img src="https://dsvn.vn/images/trainCar2.png">
+      </div>
+      <span>
+          Currently selected
+      </span>
+    </div>
+
+    <div class="col-2 d-flex flex-column align-items-center mt-4">
+      <div class="car-icon car-icon-sold-out">
+        <img src="https://dsvn.vn/images/trainCar2.png">
+      </div>
+      <span>
+        Ticket is sold out
+      </span>
+    </div>
+
+    <div class="horizontal-divider my-5"></div>
+
+    <div class="d-flex flex-column align-items-center justify-content-center">
+
+      <div class="d-flex align-items-center justify-content-center">
+        <div class="car-block">
+          <div class="car-icon car-icon-sold-out">
+            <img src="https://dsvn.vn/images/trainCar2.png">
+          </div>
+          <div class="text-center text-info car-label">3</div>
+        </div>
+
+        <div class="car-block">
+          <div class="car-icon car-icon-selected">
+            <img src="https://dsvn.vn/images/trainCar2.png">
+          </div>
+          <div class="text-center text-info car-label">2</div>
+        </div>
+
+        <div class="car-block">
+          <div class="car-icon car-icon-available">
+            <img src="https://dsvn.vn/images/trainCar2.png">
+          </div>
+          <div class="text-center text-info car-label">1</div>
+        </div>
+
+        <div class="car-block">
+          <div class="car-icon">
+            <img src="https://dsvn.vn/images/train2.png">
+          </div>
+          <div class="text-center text-info car-label">
+            SE7
+          </div>
+        </div>
+      </div>
+
+
+      <section class="seat-floor">
+        <div class="d-flex">
+          <div>
+            <div class="seat-row">
+              <button class="seat seat-available"
+                      [class.seat-selected]="seatStatus[0][colIndex]"
+                      (click)="toggleSeat(0, colIndex)"
+                      *ngFor="let seat of seatRows[0]; let colIndex = index">
+                {{ seat }}
+              </button>
+            </div>
+            <div class="seat-row mt-1">
+              <button class="seat seat-available"
+                      [class.seat-selected]="seatStatus[1][colIndex]"
+                      (click)="toggleSeat(1, colIndex)"
+                      *ngFor="let seat of seatRows[1]; let colIndex = index">
+                {{ seat }}
+              </button>
+            </div>
+          </div>
+          <div class="seat-separator"></div>
+          <div>
+            <div class="seat-row">
+              <button class="seat seat-available"
+                      [class.seat-selected]="seatStatus[4][colIndex]"
+                      (click)="toggleSeat(4, colIndex)"
+                      *ngFor="let seat of seatRows[4]; let colIndex = index">
+                {{ seat }}
+              </button>
+            </div>
+            <div class="seat-row mt-1">
+              <button class="seat seat-available"
+                      [class.seat-selected]="seatStatus[5][colIndex]"
+                      (click)="toggleSeat(5, colIndex)"
+                      *ngFor="let seat of seatRows[5]; let colIndex = index">
+                {{ seat }}
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex mt-4">
+          <div>
+            <div class="seat-row">
+              <button class="seat seat-available"
+                      [class.seat-selected]="seatStatus[2][colIndex]"
+                      (click)="toggleSeat(2, colIndex)"
+                      *ngFor="let seat of seatRows[2]; let colIndex = index">
+                {{ seat }}
+              </button>
+            </div>
+            <div class="seat-row mt-1">
+              <button class="seat seat-available"
+                      [class.seat-selected]="seatStatus[3][colIndex]"
+                      (click)="toggleSeat(3, colIndex)"
+                      *ngFor="let seat of seatRows[3]; let colIndex = index">
+                {{ seat }}
+              </button>
+            </div>
+          </div>
+          <div class="seat-separator"></div>
+          <div>
+            <div class="seat-row">
+              <button class="seat seat-available"
+                      [class.seat-selected]="seatStatus[6][colIndex]"
+                      (click)="toggleSeat(6, colIndex)"
+                      *ngFor="let seat of seatRows[6]; let colIndex = index">
+                {{ seat }}
+              </button>
+            </div>
+            <div class="seat-row mt-1">
+              <button class="seat seat-available"
+                      [class.seat-selected]="seatStatus[7][colIndex]"
+                      (click)="toggleSeat(7, colIndex)"
+                      *ngFor="let seat of seatRows[7]; let colIndex = index">
+                {{ seat }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  </div>
+</div>
+
+<div class="panel" style="border-left: 3px solid #5bc0de;">
+  <div class="d-flex align-items-center">
+    <img class="me-3" style="width: 30px" src="https://booking.baolau.com/images/icons/avatar-baolau.png" alt="avatar">
+    <h6 style="line-height: 30px; font-size: 18px; margin: 0">
+      Seat position not guaranteed
+    </h6>
+  </div>
+  <div class="horizontal-divider"></div>
+  <p class="mt-3 fst-italic">
+    Please note that the position of the seats is just for reference. The railway operator may change the orientation of the carriage at the departure station anytime at their convenience. We hope you understand that this situation escapes our control and we cannot guarantee that the position of your seat will be the same as you select here.
+  </p>
+</div>
+
+<div class="mt-3">
+  <a class="btn green w-100" routerLink="/booking/passengers">
+    <span class="bold">CONTINUE</span>
+  </a>
+</div>

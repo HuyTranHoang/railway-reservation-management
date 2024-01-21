@@ -1,21 +1,194 @@
-<div class="container mt-5">
-  <div class="d-flex flex-column align-items-center">
+<app-slider></app-slider>
 
-    <h1>Home Page</h1>
+<section class="bg-white py-4 position-relative">
+  <div class="container">
+    <div class="row form-padding mt-2">
+      <div class="col-8">
+        <div class="row">
 
-    <div class="alert alert-success" role="alert">
-      <h4>Nếu mọi người thấy trang này thì có nghĩa là nó chưa được làm xong.</h4>
+          <div class="col-6">
+            <div class="form-group position-relative">
+              <label>FROM</label>
+              <div class="wrapper" [class.active]="isFromActivated">
+                <div (click)="toggleSelect(true)" class="select-btn">
+                  <span>{{ fromCurrentStation }}</span>
+                  <button type="button" class="input-icon">
+                    <i class="fa-regular fa-chevron-down"></i>
+                  </button>
+                </div>
+                <div class="content">
+                  <div class="search">
+                    <i class="fa fa-search"></i>
+                    <input (keyup)="searchStation($event, true)"
+                           (keyup.enter)="selectFirstInResult(fromResultStations, fromCurrentStation, true)"
+                           (keyup.escape)="resetSearch(true)"
+                           [(ngModel)]="fromSearchText"
+                           #fromSearchInput
+                           type="text"
+                           placeholder="Search city, station..">
+                  </div>
+                  <ul class="options">
+                    <li (click)="updateName(item.name, true)"
+                        [class.selected]="item.name === fromCurrentStation"
+                        *ngFor="let item of fromResultStations">
+                      {{ item.name }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="form-group position-relative">
+              <label>TO</label>
+              <div class="wrapper" [class.active]="isToActivated">
+                <div (click)="toggleSelect(false)" class="select-btn">
+                  <span>{{ toCurrentStation }}</span>
+                  <button type="button" class="input-icon">
+                    <i class="fa-regular fa-chevron-down"></i>
+                  </button>
+                </div>
+                <div class="content">
+                  <div class="search">
+                    <i class="fa fa-search"></i>
+                    <input (keyup)="searchStation($event, false)"
+                           (keyup.enter)="selectFirstInResult(toResultStations, toCurrentStation, false)"
+                           (keyup.escape)="resetSearch(false)"
+                           [(ngModel)]="toSearchText"
+                           #toSearchInput
+                           type="text"
+                           placeholder="Search city, station..">
+                  </div>
+                  <ul class="options">
+                    <li (click)="updateName(item.name, false)"
+                        [class.selected]="item.name === toCurrentStation"
+                        *ngFor="let item of toResultStations">
+                      {{ item.name }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <app-departure-datepicker-field label="Depart"
+                                            placeholder="Departure date.."
+                                            (onHandleDateChange)="dateChange($event, true)"
+                                            [date]="departureTime"
+                                            icon="fa-calendar-days">
+            </app-departure-datepicker-field>
+          </div>
+
+          <div class="col-6">
+            <app-departure-datepicker-field label="Return"
+                                            [isDisabled]="!roundTrip"
+                                            placeholder="Return date.."
+                                            (onHandleDateChange)="dateChange($event, false)"
+                                            icon="fa-calendar-days">
+            </app-departure-datepicker-field>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="col-4">
+        <div class="row">
+          <div class="col-7">
+            <div class="form-group">
+              <label>JOURNEY</label>
+              <ul class="nav nav-pills">
+                <li (click)="toRoundTrip()" [class.active]="roundTrip">
+                  <a>Round trip</a>
+                </li>
+                <!--  Active thêm class vào li   -->
+                <li (click)="toOneWay()" [class.active]="!roundTrip">
+                  <a>One way</a>
+                </li>
+              </ul>
+
+            </div>
+          </div>
+
+          <div class="col-6" style="margin-top: 33px">
+            <div class="form-group">
+              <button id="searchButton"
+                      (click)="onSubmitSearch()"
+                      class="btn icon-search green btn-block bold"
+                      style="width: 215px"
+                      type="submit" name="input" value="Search">
+                SEARCH
+                <i class="fa-regular fa-magnifying-glass"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-
-
-    <img src="https://pbs.twimg.com/media/GBx4AjabgAAQDjR.jpg" style="width: 500px" alt="">
-
-
-
-    <h5>Nên Gura cuti sẽ ở đây để chào mọi người <i class="fa-light fa-hand-wave"></i></h5>
-
-    <h5>Chúc mọi người có thời gian coding vui vẻ nha.</h5>
-
-    <h6 class="fst-italic text-success">Xách mông lên và code nào mọi người ơi uwu</h6>
   </div>
-</div>
+
+  <div (click)="scroll(target)" class="btn-next">
+    <i class="fas fa-chevron-down"></i>
+  </div>
+</section>
+
+
+<section #target style="padding-bottom: 50px; background-color: #F5F5F5; border-radius: 10px;"
+         class="p-5 shadow panel-dark js-scrollto-section landing-section__intro text-center">
+  <div class="container pt-4" style="max-width: 1670px">
+    <div class="row">
+      <div class="col-md-12 col-xs-12">
+        <h2 class="teko">WELCOME TO RAIL TICKET HUB</h2>
+        <p class="landing-section__subtitle" style="color: #65696e">We make travel easy</p>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+        <img style="width: 200px;" class=" lazyloaded" data-src="https://booking.baolau.com/images/icons/welcome-1.png"
+             src="https://booking.baolau.com/images/icons/welcome-1.png"> <br>
+        <h4 class="teko">PLAN YOUR TRIP</h4>
+        <p>Find the best route to your destination thanks to our travel search technology. Organize your trip anywhere,
+          anytime.</p>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+        <img style="width: 200px;" class=" lazyloaded" data-src="https://booking.baolau.com/images/icons/welcome-2.png"
+             src="https://booking.baolau.com/images/icons/welcome-2.png"> <br>
+        <h4 class="teko">SEARCH AND COMPARE</h4>
+        <p>Compare all the transport options available for your journey and book your flights, trains, buses and ferries
+          quickly in minutes.</p>
+      </div>
+
+      <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+        <img style="width: 200px;" class=" lazyloaded" data-src="https://booking.baolau.com/images/icons/welcome-3.png"
+             src="https://booking.baolau.com/images/icons/welcome-3.png"> <br>
+        <h4 class="teko">PAY EASILY AND SAFELY</h4>
+        <p>Choose from multiple payment methods. We accept international credit or debit card and bank transfer for
+          selected currencies.</p>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+        <img style="width: 200px;" class=" lazyloaded" data-src="https://booking.baolau.com/images/icons/welcome-4.png"
+             src="https://booking.baolau.com/images/icons/welcome-4.png"> <br>
+        <h4 class="teko">READY TO TRAVEL</h4>
+        <p>Receive your itinerary and your e-tickets via email. You can print the boarding pass or carry on your mobile
+          phone, ready for boarding.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div style="background-color: #74A600 ; color: #fff;text-align: center; padding: 30px;">
+    <div class="container">
+      <h2 class="teko" style="color:white; ">TOP DESTINATIONS</h2>
+      <p class="landing-section__subtitle">What do you expect from Asia? Cities and monuments, palaces and pagodas,
+        evergreen forests and deep jungles, limestone mountains and natural parks, pristine beaches and lost islands...
+        whatever it is, you can find it in our list of destinations.</p>
+    </div>
+  </div>
+
+  <div class="container my-3" style="max-width: 1670px">
+    <app-gallery></app-gallery>
+  </div>
+</section>
+
+
+

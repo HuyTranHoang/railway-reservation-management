@@ -9,8 +9,8 @@ Content-Type: application/json
 
 {
 
-  "name": "A",
-  "trainId": 1,
+  "name": "B",
+  "trainId": 2,
   "departureStationId": 1,
   "arrivalStationId": 5,
   "departureTime": "2024-01-17T21:00:00",

@@ -11,21 +11,27 @@ Content-Type: application/json
   "Name": "New Train Company",
   "Status": "Test"
 }
+### 
 
+# @name addTrainCompanyWithLogo
+POST {{url}}/{{route}}/create
+
+### 
+
+# @name updateTrainCompanyWithLogo
+POST {{url}}/{{route}}/update/{{id}}
 
 ### 
 
 # @name getListOfTrainCompany
 GET {{url}}/{{route}}?
   &pageNumber=1
-  &pageSize=3
+  &pageSize=10
   # &searchTerm=New Train
   # &sort=nameDesc
 
 
 ### 
-
-
 
 # @name getAllTrainCompany
 GET {{url}}/{{route}}/all

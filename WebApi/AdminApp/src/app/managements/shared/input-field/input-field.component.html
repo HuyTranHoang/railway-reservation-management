@@ -1,6 +1,6 @@
 <div class="form-group">
   <label class="label">{{ label }}</label>
-  <input type="text" nbInput fullWidth
+  <input type="{{type}}" nbInput fullWidth
          [class.status-danger]="control.invalid && (control.touched || isSubmitted)"
          [placeholder]="placeholder"
          [formControl]="$any(control)">

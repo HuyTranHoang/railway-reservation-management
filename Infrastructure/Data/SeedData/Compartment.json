@@ -2,37 +2,31 @@
   {
     "Name": "Khoang Ghế 1",
     "CarriageId": 1,
-    "NumberOfSeats": 20,
     "Status": "Aviable"
   },
   {
     "Name": "Khoang Ghế 2",
     "CarriageId": 1,
-    "NumberOfSeats": 20,
     "Status": "Aviable"
   },
   {
     "Name": "Khoang Ghế 1",
     "CarriageId": 2,
-    "NumberOfSeats": 20,
     "Status": "Aviable"
   },
   {
     "Name": "Khoang Ghế 2",
     "CarriageId": 2,
-    "NumberOfSeats": 20,
     "Status": "Aviable"
   },
   {
     "Name": "Khoang Ghế 1",
     "CarriageId": 3,
-    "NumberOfSeats": 20,
     "Status": "Aviable"
   },
   {
     "Name": "Khoang Ghế 2",
     "CarriageId": 3,
-    "NumberOfSeats": 20,
     "Status": "Aviable"
   },
   {
@@ -44,19 +38,16 @@
   {
     "Name": "Khoang Ghế 2",
     "CarriageId": 4,
-    "NumberOfSeats": 20,
     "Status": "Aviable"
   },
   {
     "Name": "Khoang Ghế 1",
     "CarriageId": 5,
-    "NumberOfSeats": 20,
     "Status": "Aviable"
   },
   {
     "Name": "Khoang Ghế 2",
     "CarriageId": 5,
-    "NumberOfSeats": 20,
     "Status": "Aviable"
   },
   {
@@ -68,25 +59,21 @@
   {
     "Name": "Khoang Giường 2",
     "CarriageId": 6,
-    "NumberOfSeats": 4,
     "Status": "Aviable"
   },
   {
     "Name": "Khoang Giường 3",
     "CarriageId": 6,
-    "NumberOfSeats": 4,
     "Status": "Aviable"
   },
   {
     "Name": "Khoang Giường 4",
     "CarriageId": 6,
-    "NumberOfSeats": 4,
     "Status": "Aviable"
   },
   {
     "Name": "Khoang Giường 5",
     "CarriageId": 6,
-    "NumberOfSeats": 4,
     "Status": "Aviable"
   },
   {
@@ -98,13 +85,11 @@
   {
     "Name": "Khoang Ghế 1",
     "CarriageId": 7,
-    "NumberOfSeats": 30,
     "Status": "Aviable"
   },
   {
     "Name": "Khoang Ghế 2",
     "CarriageId": 7,
-    "NumberOfSeats": 30,
     "Status": "Aviable"
   }
 ]

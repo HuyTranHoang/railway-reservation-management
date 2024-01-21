@@ -60,7 +60,7 @@ namespace WebApi.Controllers
 
                 var compartments = await _compartmentService.GetCompartmentsByCarriageIdAsync(carriage.Id);
 
-                return CreatedAtAction("GetTrainComponents", new { id = carriage.Id }, carriage);
+                return Ok(new JsonResult(new {message = "Success", id = carriage.Id }));
             }
             catch (BadRequestException ex)
             {

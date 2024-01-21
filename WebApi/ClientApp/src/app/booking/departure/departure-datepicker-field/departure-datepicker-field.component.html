@@ -5,6 +5,9 @@
            class="form-control"
            placeholder="{{placeholder}}"
            [bsConfig]="bsConfig"
+           (bsValueChange)="onDateChange($event)"
+           [bsValue]="date"
+           [disabled]="isDisabled"
            bsDatepicker>
     <button type="button" class="input-icon">
       <i class="fa-regular {{icon}}"></i>

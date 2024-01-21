@@ -8,7 +8,10 @@ import { DepartureInfoComponent } from './departure/departure-info/departure-inf
 import { DepartureInputFieldComponent } from './departure/departure-input-field/departure-input-field.component';
 import { DepartureDatepickerFieldComponent } from './departure/departure-datepicker-field/departure-datepicker-field.component';
 import { DepartureSelectComponent } from './departure/departure-select/departure-select.component';
-import { PassengersComponent } from './passengers/passengers.component'
+import { PassengersComponent } from './passengers/passengers.component';
+import { SeatSelectionComponent } from './seat-selection/seat-selection.component'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { DurationToHoursMinutesPipe } from './duration-to-hours-minutes.pipe'
 
 @NgModule({
   declarations: [
@@ -18,12 +21,22 @@ import { PassengersComponent } from './passengers/passengers.component'
     DepartureInputFieldComponent,
     DepartureDatepickerFieldComponent,
     DepartureSelectComponent,
-    PassengersComponent
+    PassengersComponent,
+    SeatSelectionComponent,
+    DurationToHoursMinutesPipe
   ],
   imports: [
     CommonModule,
     BookingRoutingModule,
-    SharedModule
+    FormsModule,
+    ReactiveFormsModule,
+    SharedModule,
+  ],
+  exports :[
+    DepartureInputFieldComponent,
+    DepartureDatepickerFieldComponent,
+    DepartureComponent,
+    DepartureInfoComponent,
   ]
 })
 export class BookingModule { }

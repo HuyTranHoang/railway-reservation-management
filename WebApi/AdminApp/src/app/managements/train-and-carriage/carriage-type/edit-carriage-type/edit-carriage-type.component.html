@@ -26,6 +26,18 @@
                          [placeholder]="'Number of compartments..'">
         </app-input-field>
 
+        <app-input-field [control]="carriageTypeForm.get('numberOfSeats')"
+                         [label]="'Number Of Seats'"
+                         [isSubmitted]="isSubmitted"
+                         [placeholder]="'Number of seats..'">
+        </app-input-field>
+
+        <app-input-field [control]="carriageTypeForm.get('numberOfSeatTypes')"
+                         [label]="'Number Of Seat Types'"
+                         [isSubmitted]="isSubmitted"
+                         [placeholder]="'Number of seat types..'">
+        </app-input-field>
+
         <app-input-field [control]="carriageTypeForm.get('serviceCharge')"
                          [label]="'Service Charge'"
                          [placeholder]="'Service charge..'">

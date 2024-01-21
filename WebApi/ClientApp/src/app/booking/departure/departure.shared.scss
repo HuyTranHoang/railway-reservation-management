@@ -98,3 +98,14 @@ button {
     -webkit-appearance: none;
   }
 }
+
+input:focus:disabled, input:active:disabled{
+  background: #f5f5f5;
+  color: #a1a8ae;
+  border: 2px solid #bababa;
+}
+
+input:disabled + .input-icon {
+  color: #fff;
+  background: #bababa;
+}
