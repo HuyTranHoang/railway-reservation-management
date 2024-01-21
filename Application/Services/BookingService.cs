@@ -6,7 +6,6 @@ public class BookingService : IBookingService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        private readonly ITrainCompanyRepository _trainCompanyRepository;
         private readonly IScheduleRepository _scheduleRepository;
         private readonly IDistanceFareRepository _distanceFareRepository;
         private readonly IRoundTripRepository _roundTripRepository;
@@ -22,7 +21,6 @@ public class BookingService : IBookingService
         public BookingService(
                                 IUnitOfWork unitOfWork,
                                 IMapper mapper,
-                                ITrainCompanyRepository trainCompanyRepository,
                                 IScheduleRepository scheduleRepository,
                                 IDistanceFareRepository distanceFareRepository,
                                 IRoundTripRepository roundTripRepository,
@@ -38,7 +36,6 @@ public class BookingService : IBookingService
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
-            _trainCompanyRepository = trainCompanyRepository;
             _scheduleRepository = scheduleRepository;
             _distanceFareRepository = distanceFareRepository;
             _roundTripRepository = roundTripRepository;
@@ -155,4 +152,11 @@ public class BookingService : IBookingService
             await _ticketRepository.Add(ticket);
             await _unitOfWork.SaveChangesAsync();
         }
+
+    public async Task<List<CarriageTypeDto>> GetCarriageTypesByTrainIdAsync(int trainId)
+    {
+        var carriageTypes = await _carriageTypeRepository.GetCarriageTypeByTrainIdAsync(trainId);
+        return _mapper.Map<List<CarriageTypeDto>>(carriageTypes);
     }
+
+}
