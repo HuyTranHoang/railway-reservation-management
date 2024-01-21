@@ -34,7 +34,10 @@ namespace Application.Common.Models
 
         public double Price { get; set; }
 
+        public bool RoundTrip { get; set; }
+
         public string Status { get; set; }
+        public List<CarriageTypeDto> CarriageTypes { get; set; }
 
     }
 }
