@@ -254,7 +254,7 @@ export class DepartureComponent implements OnInit {
 
   onBookNowClick(currentSelectSchedule: Schedule) {
     this.bookingService.currentSelectSchedule = currentSelectSchedule
-    this.router.navigate(['/booking/seat-selection'])
+    this.router.navigate(['/booking/seat-selection'], { fragment: 'bookingHeader' })
   }
 
   // End of departure section
