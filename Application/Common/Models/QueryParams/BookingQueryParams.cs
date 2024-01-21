@@ -7,5 +7,6 @@ namespace Application.Common.Models.QueryParams
         public DateTime? DepartureTime { get; set; }
         public DateTime? ArrivalTime { get; set; }
         public bool RoundTrip { get; set; }
+
     }
 }
