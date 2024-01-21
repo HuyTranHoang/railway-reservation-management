@@ -20,7 +20,6 @@ GET {{url}}/{{router}}/schedule?
 # @name getScheduleById
 @id = 1
 
-
 GET {{url}}/{{router}}/schedule/{{id}}
 
 ### 
@@ -34,5 +33,5 @@ GET {{url}}/{{router}}/train/{{id}}
 ### 
 
 # @name getCarriageTypes
-
-GET {{url}}/{{router}}/carriageTypes
+@id = 2
+GET {{url}}/{{router}}/carriageTypes/{{id}}

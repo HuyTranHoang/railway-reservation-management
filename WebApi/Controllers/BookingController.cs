@@ -21,23 +21,24 @@ namespace WebApi.Controllers
         [HttpGet("schedule/{id}")]
         public async Task<ActionResult<List<object>>> GetScheduleById(int id)
         {
-            var schedules = await _bookingService.GetBookingInfoWithScheduleIdAsync(id);
-            var carriageTypes = await _bookingService.GetAllCarriageTypeDtoAsync();
+            var schedule = await _bookingService.GetBookingInfoWithScheduleIdAsync(id);
+            var carriageTypes = await _bookingService.GetCarriageTypesByTrainIdAsync(schedule.TrainId);
 
-            if (schedules == null || carriageTypes == null)
+
+            if (schedule == null || carriageTypes == null)
             {
                 return NotFound(new ErrorResponse(404));
             }
 
-            var result = new List<object> { schedules, carriageTypes };
+            var result = new List<object> { schedule, carriageTypes };
 
             return Ok(result);
         }
 
-        [HttpGet("carriageTypes")]
-        public async Task<ActionResult> GetCarriageTypes()
+        [HttpGet("carriageTypes/{id}")]
+        public async Task<ActionResult> GetCarriageTypesByTrainId(int id)
         {
-            var carriageTypes = await _bookingService.GetAllCarriageTypeDtoAsync();
+            var carriageTypes = await _bookingService.GetCarriageTypesByTrainIdAsync(id);
 
             if (carriageTypes is null) return NotFound(new ErrorResponse(404));
 
