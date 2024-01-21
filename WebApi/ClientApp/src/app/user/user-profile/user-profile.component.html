@@ -4,31 +4,31 @@
   <div class="row">
     <div class="col-4 py-3 px-5 bg-body rounded-3 shadow" style="min-height: 310px">
       <div class="text-body-secondary">
-        <h3 class="fw-medium ">Personal information</h3>
+        <h3 class="fw-medium">Personal information</h3>
         <hr>
-        <ul>
+        <ul *ngIf="(authService.user$ | async) as user">
           <li>
             <div class="d-flex justify-content-between">
               <span class="fw-medium">First name</span>
-              <span class="text-body-tertiary">John Doe</span>
+              <span class="text-body-tertiary">{{user.firstName | titlecase}}</span>
             </div>
           </li>
           <li>
             <div class="d-flex justify-content-between">
               <span class="fw-medium">Last name</span>
-              <span class="text-body-tertiary">John Doe</span>
+              <span class="text-body-tertiary">{{user.lastName | titlecase}}</span>
             </div>
           </li>
           <li>
             <div class="d-flex justify-content-between">
               <span class="fw-medium">Email</span>
-              <span class="text-body-tertiary">asdasdasd</span>
+              <span class="text-body-tertiary">{{user.email}}</span>
             </div>
           </li>
           <li>
             <div class="d-flex justify-content-between">
               <span class="fw-medium">Phone number</span>
-              <span class="text-body-tertiary">123123</span>
+              <span class="text-body-tertiary">{{user.phoneNumber ?? 'Not updated yet'}}</span>
             </div>
           </li>
         </ul>

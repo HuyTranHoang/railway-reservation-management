@@ -342,6 +342,8 @@ public class AccountController : BaseApiController
         {
             FirstName = user.FirstName,
             LastName = user.LastName,
+            Email = user.Email,
+            PhoneNumber = user.PhoneNumber,
             Jwt = _jwtService.GenerateJwtToken(user)
         };
     }
