@@ -1,6 +1,6 @@
 <header class="d-flex flex-row align-items-center p-3 px-4 justify-content-between fixed-top"
-  [class.shadow]="isScroll || checkStartsWith(href)" [class.border-bottom]="isScroll || checkStartsWith(href)"
-  [class.bg-white]="isScroll || checkStartsWith(href)">
+        [class.shadow]="isScroll || checkStartsWith(href)" [class.border-bottom]="isScroll || checkStartsWith(href)"
+        [class.bg-white]="isScroll || checkStartsWith(href)">
   <div class="d-flex align-items-center" style="cursor: pointer" routerLink="/">
     <h2 [class.is-scrolled]="isScroll || checkStartsWith(href)">
       RailTicket<b class="small">Hub</b>
@@ -9,86 +9,70 @@
 
   <nav class="my-2 text-uppercase fs-5">
     <a [routerLinkActiveOptions]="{ exact: true }" class="p-2 mx-2 nav-item"
-      [class.is-scrolled]="isScroll || checkStartsWith(href)" routerLink="/" routerLinkActive="active">Home</a>
+       [class.is-scrolled]="isScroll || checkStartsWith(href)" routerLink="/" routerLinkActive="active">Home</a>
 
     <a class="p-2 mx-2" routerLink="/test-error" [class.is-scrolled]="isScroll || checkStartsWith(href)"
-      routerLinkActive="active">Errors</a>
+       routerLinkActive="active">Errors</a>
 
     <a class="p-2 mx-2" routerLink="/booking" [class.is-scrolled]="isScroll || checkStartsWith(href)"
-      routerLinkActive="active">Booking</a>
+       routerLinkActive="active">Booking</a>
 
     <a class="p-2 mx-2" routerLink="/booking-train" [class.is-scrolled]="isScroll || checkStartsWith(href)"
-      routerLinkActive="active">Train ticket</a>
+       routerLinkActive="active">Train ticket</a>
 
     <a class="p-2 mx-2" routerLink="/faqs" [class.is-scrolled]="isScroll || checkStartsWith(href)"
-      routerLinkActive="active">FAQS</a>
+       routerLinkActive="active">FAQS</a>
 
     <a class="p-2 mx-2" routerLink="/about" [class.is-scrolled]="isScroll || checkStartsWith(href)"
-      routerLinkActive="active">About</a>
+       routerLinkActive="active">About</a>
 
     <a class="p-2 mx-2" routerLink="/contact" [class.is-scrolled]="isScroll || checkStartsWith(href)"
-      routerLinkActive="active">Contact</a>
+       routerLinkActive="active">Contact</a>
   </nav>
 
   <div class="d-flex align-items-center" *ngIf="(authService.user$ | async) === null">
     <a class="me-3 py-2 d-flex icon-wrapper position-relative line-border-right" routerLink="/auth/login"
-      [class.is-scrolled]="isScroll || checkStartsWith(href)" routerLinkActive="active">
+       [class.is-scrolled]="isScroll || checkStartsWith(href)" routerLinkActive="active">
       <div class="position-relative">
         <i class="fa-light fa-right-to-bracket icon first-icon"
-          [class.is-scrolled]="isScroll || checkStartsWith(href)"></i>
+           [class.is-scrolled]="isScroll || checkStartsWith(href)"></i>
         <i class="fa-light fa-person-to-portal icon second-icon"
-          [class.is-scrolled]="isScroll || checkStartsWith(href)"></i>
+           [class.is-scrolled]="isScroll || checkStartsWith(href)"></i>
       </div>
       <span [class.is-scrolled]="isScroll || checkStartsWith(href)">Login</span>
     </a>
 
     <a class="me-3 py-2 icon-wrapper" routerLink="/auth/register"
-      [class.is-scrolled]="isScroll || checkStartsWith(href)" routerLinkActive="active">
+       [class.is-scrolled]="isScroll || checkStartsWith(href)" routerLinkActive="active">
       <span [class.is-scrolled]="isScroll || checkStartsWith(href)">Register</span>
     </a>
   </div>
 
   <div class="d-flex align-items-center" *ngIf="authService.user$ | async as user">
-    <!-- <div>
-      <i class="fa-light fa-user me-2" [class.is-scrolled]="isScroll || checkStartsWith(href)"></i>
-      <span [class.is-scrolled]="isScroll || checkStartsWith(href)">Hi, </span>
-      <a class="me-3 py-2 position-relative line-border-right" routerLink="/user/profile"
-        [class.is-scrolled]="isScroll || checkStartsWith(href)" routerLinkActive="active">
-        <strong>{{user.firstName | titlecase}} {{user.lastName |
-          titlecase}}</strong>
-      </a>
-    </div>
-
-    <a class="me-3 py-2 hover-color" (click)="logout()">
-      <i class="fa-light fa-right-from-bracket me-2" [class.is-scrolled]="isScroll || checkStartsWith(href)"></i>
-      <span [class.is-scrolled]="isScroll || checkStartsWith(href)">Logout</span>
-    </a> -->
-
     <div>
       <i class="fa-light fa-user me-2" [class.is-scrolled]="isScroll || checkStartsWith(href)"></i>
       <div class="me-3 dropdown line-border-right">
 
         <span [class.is-scrolled]="isScroll || checkStartsWith(href)">Hi, </span>
 
-        <button class="py-2 position-relative dropdown-toggle" type="button"
-          [class.is-scrolled]="isScroll || checkStartsWith(href)">
-          <strong>{{ user.firstName | titlecase }}
-            {{ user.lastName | titlecase }}</strong>
+        <button class="py-2 position-relative dropdown-toggle"
+                [class.is-scrolled]="isScroll || checkStartsWith(href)">
+          <strong>{{ user.firstName | titlecase }} {{ user.lastName | titlecase }}</strong>
         </button>
 
         <div class="dropdown-content shadow" [class.is-scrolled]="isScroll || checkStartsWith(href)">
 
           <div class="d-flex align-items-center">
-            <i class="fa-light fa-id-card ms-2"></i>
-            <a class="py-2 position-relative" routerLink="/user/profile" routerLinkActive="active">
-              My Profile
+            <i class="fa-light fa-id-card ms-2" style="min-width: 25px"></i>
+            <a class="py-2 flex-grow-1 position-relative active" routerLink="/user/profile" routerLinkActive="active">
+              Personal Details
             </a>
           </div>
 
           <div class="d-flex align-items-center">
-            <i class="fa-regular fa-file ms-2"></i>
-            <a class="py-2 position-relative" routerLink="/user/booking" routerLinkActive="active">
-              My Bookings
+            <i class="fa-light fa-tickets ms-2" style="min-width: 25px"></i>
+            <a class="py-2 flex-grow-1 position-relative" routerLink="/user/booking" routerLinkActive="active">
+              Booking History
             </a>
           </div>
 
