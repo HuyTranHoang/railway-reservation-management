@@ -50,7 +50,7 @@ public class BookingService : IBookingService
         }
 
         //Lấy danh sách các lịch trình kèm filter
-        public async Task<List<ScheduleDto>> GetBookingInfoWithScheduleAsync(BookingQueryParams queryParams)
+        public async Task<List<BookingDto>> GetBookingInfoWithScheduleAsync(BookingQueryParams queryParams)
         {
            var query = await _scheduleRepository.GetQueryWithTrainAndStationAsync();
 
@@ -75,8 +75,34 @@ public class BookingService : IBookingService
                 _ => query.OrderBy(t => t.Train.TrainCompany.Name)
             };
 
-            var bookingDtoQuery = query.Select(t => _mapper.Map<ScheduleDto>(t));
-            return await bookingDtoQuery.ToListAsync();
+            var bookingDtoQuery = await query.Select(t => new BookingDto
+            {
+                Id = t.Id,
+                Name = t.Name,
+                TrainId = t.TrainId,
+                TrainName = t.Train.Name,
+                TrainCompanyName = t.Train.TrainCompany.Name,
+                TrainCompanyLogo = t.Train.TrainCompany.Logo,
+                DepartureStationId = t.DepartureStationId,
+                DepartureStationName = t.DepartureStation.Name,
+                DepartureStationAddress = t.DepartureStation.Address,
+                ArrivalStationId = t.ArrivalStationId,
+                ArrivalStationName = t.ArrivalStation.Name,
+                ArrivalStationAddress = t.ArrivalStation.Address,
+                DepartureTime = t.DepartureTime,
+                ArrivalTime = t.ArrivalTime,
+                Duration = t.Duration,
+                Price = t.Price,
+                RoundTrip = queryParams.RoundTrip,
+                Status = t.Status
+            }).ToListAsync();
+
+            foreach (var bookingDto in bookingDtoQuery)
+            {
+                bookingDto.CarriageTypes = await GetCarriageTypesByTrainIdAsync(bookingDto.TrainId);
+            }
+
+            return bookingDtoQuery;
 
         }
 
