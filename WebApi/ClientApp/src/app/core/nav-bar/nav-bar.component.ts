@@ -17,6 +17,7 @@ export class NavBarComponent implements OnInit {
     '/auth/register',
     '/auth/forgot-password',
     '/test-error',
+    '/server-error',
     '/not-found',
     '/booking',
     '/user'

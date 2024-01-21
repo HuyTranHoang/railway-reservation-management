@@ -325,6 +325,50 @@ public class AccountController : BaseApiController
     }
 
     [Authorize]
+    [HttpPut("change-password")]
+    public async Task<IActionResult> ChangePassword(ChangePasswordDto changePasswordDto)
+    {
+        var user = await _userManager.FindByNameAsync(User.FindFirstValue(ClaimTypes.Email));
+
+        if (user == null) return Unauthorized("Invalid username or password");
+
+        var result = await _userManager.ChangePasswordAsync(user, changePasswordDto.CurrentPassword,
+            changePasswordDto.NewPassword);
+
+        if (result.Succeeded)
+        {
+            return Ok(new JsonResult(new { title = "Password Changed", message = "You can now login with new password" }));
+        }
+
+        return BadRequest(new ErrorResponse(400, "Invalid current password. Please try again"));
+    }
+
+    [Authorize]
+    [HttpPut("update-profile")]
+    public async Task<ActionResult<UserDto>> UpdateProfile(UpdateProfileDto updateProfileDto)
+    {
+        var user = await _userManager.FindByNameAsync(User.FindFirstValue(ClaimTypes.Email));
+
+        if (user == null) return Unauthorized("Invalid username or password");
+
+        user.FirstName = updateProfileDto.FirstName;
+        user.LastName = updateProfileDto.LastName;
+        if (!string.IsNullOrEmpty(updateProfileDto.PhoneNumber))
+        {
+            user.PhoneNumber = updateProfileDto.PhoneNumber;
+        }
+
+        var result = await _userManager.UpdateAsync(user);
+
+        if (result.Succeeded)
+        {
+            return CreateApplicationUserDto(user);
+        }
+
+        return BadRequest(new ErrorResponse(400, "Failed to update profile. Please try again"));
+    }
+
+    [Authorize]
     [HttpGet("refresh-user-token")]
     public async Task<ActionResult<UserDto>> RefreshUserToken()
     {

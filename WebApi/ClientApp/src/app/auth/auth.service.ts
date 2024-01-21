@@ -10,6 +10,8 @@ import { ConfirmEmail } from '../core/models/auth/confirmEmail'
 import { ResetPassword } from '../core/models/auth/resetPassword'
 import { RegisterWithExternal } from '../core/models/auth/registerWithExternal'
 import { LoginWithExternal } from '../core/models/auth/loginWithExternal'
+import { ChangePassword } from '../core/models/auth/changePassword'
+import { UpdateProfile } from '../core/models/auth/updateProfile'
 
 @Injectable({
   providedIn: 'root'
@@ -110,6 +112,20 @@ export class AuthService {
   }
   resetPassword(model: ResetPassword) {
     return this.http.put(this.baseUrl + 'account/reset-password', model)
+  }
+
+  changePassword(model: ChangePassword) {
+    return this.http.put(this.baseUrl + 'account/change-password', model)
+  }
+
+  updateProfile(model: UpdateProfile) {
+    return this.http.put<User>(this.baseUrl + 'account/update-profile', model).pipe(
+      map((user: User) => {
+        if (user) {
+          this.setUser(user)
+        }
+      })
+    )
   }
 
   private setUser(user: User) {
