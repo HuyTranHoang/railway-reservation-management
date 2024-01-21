@@ -5,6 +5,7 @@ import {AuthRoutingModule} from './auth-routing.module';
 import { AuthComponent } from './auth.component';
 import {HttpClientModule} from '@angular/common/http';
 import {NbInputModule, NbLayoutModule} from '@nebular/theme';
+import {SharedModule} from '../managements/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import {NbInputModule, NbLayoutModule} from '@nebular/theme';
     AuthRoutingModule,
     NbInputModule,
     NbLayoutModule,
+    SharedModule,
   ],
 })
 
