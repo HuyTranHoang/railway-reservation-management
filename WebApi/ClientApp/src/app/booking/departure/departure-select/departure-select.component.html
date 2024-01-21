@@ -1,8 +1,8 @@
 <h2>Select your departing trip</h2>
 
-<pre>
-  {{ departureService.schedules | json }}
-</pre>
+<!--<pre>-->
+<!--  {{ departureService.schedules | json }}-->
+<!--</pre>-->
 <div class="horizontal-devider"></div>
 
 <h5 style="margin-top: 0">
@@ -115,8 +115,13 @@
                       <div *ngFor="let type of item.scheduleCarriageTypes; let i = index" class="relative fares-choose-items">
 
                         <div class="fares-choose radio">
-                          <input id="fare_{{i}}" type="radio" name="fare" class="fare_radio" checked="">
-                          <label for="fare_{{i}}"></label>
+                          <input id="fare_{{item.id}}_{{i}}"
+                                 type="radio"
+                                 name="fare_{{item.id}}"
+                                 class="fare_radio"
+                                 (change)="onSelectSeatTypeClick(item, type)"
+                                 checked="{{i === 0 ? 'checked' : ''}}">
+                          <label for="fare_{{item.id}}_{{i}}"></label>
                         </div>
 
                         <label class="fares-description">
@@ -238,7 +243,7 @@
 
           </div>
           <div>
-            <a class="btn green w-100" routerLink="/booking/seat-selection" (click)="onBookNowClick(item.id)">
+            <a class="btn green w-100" (click)="onBookNowClick(item)">
               <span class="bold">BOOK NOW</span>
             </a>
           </div>

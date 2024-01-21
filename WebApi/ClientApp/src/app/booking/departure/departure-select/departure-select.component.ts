@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core'
-import { Schedule } from '../../../core/models/schedule'
+import { Schedule, ScheduleCarriageType } from '../../../core/models/schedule'
 import { DepartureService } from '../departure.service'
 
 @Component({
@@ -9,8 +9,9 @@ import { DepartureService } from '../departure.service'
 })
 export class DepartureSelectComponent {
 
-  @Output() bookNow = new EventEmitter<number>();
+  @Output() bookNow = new EventEmitter<Schedule>();
   openStates: boolean[] = []; // Array to track open/closed state for each item
+  currentSelectSchedule: Schedule | undefined;
 
   constructor(public departureService: DepartureService) {}
 
@@ -18,8 +19,16 @@ export class DepartureSelectComponent {
     this.openStates[index] = !this.openStates[index]; // Toggle the state for the specific item
   }
 
-  onBookNowClick(id: number) {
-    this.bookNow.emit(id);
+  onBookNowClick(item: Schedule) {
+    if (!item.selectedSeatType) {
+      item.selectedSeatType = item.scheduleCarriageTypes[0];
+    }
+
+    this.bookNow.emit(item); // Emit đến departure.component.ts
+  }
+
+  onSelectSeatTypeClick(item: Schedule, type: ScheduleCarriageType) {
+    item.selectedSeatType = type;
   }
 
 }
