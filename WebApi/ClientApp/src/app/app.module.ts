@@ -18,6 +18,7 @@ import { BookingModule } from './booking/booking.module';
 import { SliderComponent } from './home/slider/slider.component'
 import { FormsModule } from '@angular/forms';
 import { GalleryComponent } from './home/gallery/gallery.component';
+import { UserComponent } from './user/user.component'
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { GalleryComponent } from './home/gallery/gallery.component';
     FaqsComponent,
     SliderComponent,
     GalleryComponent,
+    UserComponent,
   ],
   imports: [
     BrowserModule,
