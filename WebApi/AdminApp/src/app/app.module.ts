@@ -15,7 +15,7 @@ import {
   NbChatModule,
   NbDatepickerModule,
   NbDialogModule,
-  NbIconModule,
+  NbIconModule, NbLayoutModule,
   NbMenuModule,
   NbSidebarModule,
   NbToastrModule,
@@ -40,6 +40,7 @@ import {
     }),
     CoreModule.forRoot(),
     ThemeModule.forRoot(),
+    NbLayoutModule,
   ],
   bootstrap: [AppComponent],
 })

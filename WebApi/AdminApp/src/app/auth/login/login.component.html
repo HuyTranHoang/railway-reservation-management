@@ -1,17 +1,20 @@
 <div class="d-flex justify-content-center" style="margin-top: 15vh">
   <nb-card style="width: 550px; padding-bottom: 30px">
     <nb-card-body>
-      <div>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <div class="text-center">
-          <h2>Login</h2>
+          <h2 class="pt-4">Login</h2>
           <span>Hello! Log in with your email</span>
         </div>
 
         <div class="mt-5">
           <label class="label">Email address:</label>
-          <input type="text" nbInput fullWidth>
-          <span class="text-danger">
-            <small>Email is required</small>
+          <input type="text" nbInput fullWidth
+                 formControlName="userName"
+                 [class.status-danger]="submitted && loginForm.get('userName')?.errors">
+          <span class="text-danger small"
+                *ngIf="submitted && loginForm.get('userName')?.hasError('required')">
+                Email is required
           </span>
         </div>
 
@@ -20,17 +23,20 @@
             Password:
             <a class="font-weight-light">Forgot password?</a>
           </label>
-          <input type="password" nbInput fullWidth>
-          <span class="text-danger">
-            <small>Password is required</small>
+          <input type="password" nbInput fullWidth
+                 formControlName="password"
+                 [class.status-danger]="submitted && loginForm.get('password')?.errors">
+          <span class="text-danger small"
+                *ngIf="submitted && loginForm.get('password')?.hasError('required')">
+                Password is required
           </span>
         </div>
 
         <div class="mt-5">
-          <button nbButton fullWidth size="large" status="primary">Log In</button>
+          <button nbButton fullWidth type="submit" size="large" status="primary">Log In</button>
         </div>
 
-      </div>
+      </form>
     </nb-card-body>
   </nb-card>
 

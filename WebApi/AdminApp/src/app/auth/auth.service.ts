@@ -27,11 +27,11 @@ export class AuthService {
   }
 
   register(model: Register) {
-    return this.http.post(this.baseUrl + 'account/register', model);
+    return this.http.post(this.baseUrl + '/account/register', model);
   }
 
   registerWithThirdParty(model: RegisterWithExternal) {
-    return this.http.post<User>(this.baseUrl + 'account/register-with-third-party', model).pipe(
+    return this.http.post<User>(this.baseUrl + '/account/register-with-third-party', model).pipe(
       map((user: User) => {
         if (user) {
           this.setUser(user);
@@ -44,7 +44,7 @@ export class AuthService {
   }
 
   authLogin(model: Login) {
-    return this.http.post<User>(this.baseUrl + 'account/login', model).pipe(
+    return this.http.post<User>(this.baseUrl + '/account/login', model).pipe(
       map((user: User) => {
         if (user) {
           this.setUser(user);
@@ -65,7 +65,7 @@ export class AuthService {
     let headers = new HttpHeaders();
     headers = headers.set('Authorization', `Bearer ${jwt}`);
 
-    return this.http.get<User>(this.baseUrl + 'account/refresh-user-token', {headers}).pipe(
+    return this.http.get<User>(this.baseUrl + '/account/refresh-user-token', {headers}).pipe(
       map((user: User) => {
         if (user) {
           this.setUser(user);
@@ -78,7 +78,7 @@ export class AuthService {
     return this.http.post<{
       isUserRegistered: boolean,
       user: User,
-    }>(this.baseUrl + 'account/login-with-third-party', model).pipe(
+    }>(this.baseUrl + '/account/login-with-third-party', model).pipe(
       map((res: { isUserRegistered: boolean, user: User }) => {
         if (res.isUserRegistered) {
           this.setUser(res.user);
@@ -106,27 +106,27 @@ export class AuthService {
   }
 
   confirmEmail(model: ConfirmEmail) {
-    return this.http.put(this.baseUrl + 'account/confirm-email', model);
+    return this.http.put(this.baseUrl + '/account/confirm-email', model);
   }
 
   resendEmailConfirmation(email: string) {
-    return this.http.post(this.baseUrl + `account/resend-email-confirmation-link/${email}`, {});
+    return this.http.post(this.baseUrl + `/account/resend-email-confirmation-link/${email}`, {});
   }
 
   forgotPassword(email: string) {
-    return this.http.post(this.baseUrl + `account/forgot-password/${email}`, {});
+    return this.http.post(this.baseUrl + `/account/forgot-password/${email}`, {});
   }
 
   resetPassword(model: ResetPassword) {
-    return this.http.put(this.baseUrl + 'account/reset-password', model);
+    return this.http.put(this.baseUrl + '/account/reset-password', model);
   }
 
   changePassword(model: ChangePassword) {
-    return this.http.put(this.baseUrl + 'account/change-password', model);
+    return this.http.put(this.baseUrl + '/account/change-password', model);
   }
 
   updateProfile(model: UpdateProfile) {
-    return this.http.put<User>(this.baseUrl + 'account/update-profile', model).pipe(
+    return this.http.put<User>(this.baseUrl + '/account/update-profile', model).pipe(
       map((user: User) => {
         if (user) {
           this.setUser(user);

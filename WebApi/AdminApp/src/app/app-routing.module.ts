@@ -1,5 +1,6 @@
 import {ExtraOptions, RouterModule, Routes} from '@angular/router';
 import {NgModule} from '@angular/core';
+import {AuthorizationGuard} from './guards/authorization.guard';
 
 export const routes: Routes = [
   {
@@ -11,14 +12,16 @@ export const routes: Routes = [
     path: 'managements',
     loadChildren: () => import('./managements/managements.module')
       .then(m => m.ManagementsModule),
+    runGuardsAndResolvers: 'always',
+    canActivate: [AuthorizationGuard],
   },
   {
     path: 'auth',
     loadChildren: () => import('./auth/auth.module')
       .then(m => m.AuthModule),
   },
-  {path: '', redirectTo: 'pages', pathMatch: 'full'},
-  {path: '**', redirectTo: 'pages'},
+  {path: '', redirectTo: 'auth', pathMatch: 'full'},
+  {path: '**', redirectTo: 'auth'},
 ];
 
 const config: ExtraOptions = {
