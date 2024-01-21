@@ -48,7 +48,15 @@ public class AutoMapperProfile : Profile
             .ForMember(dest => dest.DepartureStationName,
             otp => otp.MapFrom(src => src.DepartureStation.Name))
             .ForMember(dest => dest.ArrivalStationName,
-            otp => otp.MapFrom(src => src.ArrivalStation.Name));
+            otp => otp.MapFrom(src => src.ArrivalStation.Name))
+            .ForMember(dest => dest.DepartureStationAddress,
+            otp => otp.MapFrom(src => src.DepartureStation.Address))
+            .ForMember(dest => dest.ArrivalStationAddress,
+            otp => otp.MapFrom(src => src.ArrivalStation.Address))
+            .ForMember(dest => dest.TrainCompanyName,
+            otp => otp.MapFrom(src => src.Train.TrainCompany.Name))
+            .ForMember(dest => dest.TrainCompanyLogo,
+            otp => otp.MapFrom(src => src.Train.TrainCompany.Logo));
 
         CreateMap<RoundTrip, RoundTripDto>()
             .ForMember(dest => dest.TrainCompanyName,

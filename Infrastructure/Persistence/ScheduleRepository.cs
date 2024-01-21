@@ -27,7 +27,12 @@ public class ScheduleRepository : IScheduleRepository
 
     public async Task<Schedule> GetByIdAsync(int id)
     {
-        return await _context.Schedules.FirstOrDefaultAsync(p => p.Id == id);
+        return await _context.Schedules
+            .Include(s => s.Train)
+            .Include(s => s.ArrivalStation)
+            .Include(s => s.DepartureStation)
+            .Include(s => s.Train.TrainCompany)
+            .FirstOrDefaultAsync(p => p.Id == id);
     }
 
     public async Task<IQueryable<Schedule>> GetQueryAsync()
@@ -39,9 +44,10 @@ public class ScheduleRepository : IScheduleRepository
     {
         return await Task.FromResult(_context
         .Schedules
-            .Include(t => t.Train)
+            .Include(s => s.Train)
             .Include(s => s.ArrivalStation)
             .Include(s => s.DepartureStation)
+            .Include(s => s.Train.TrainCompany)
             .AsQueryable());
     }
 
@@ -61,6 +67,10 @@ public class ScheduleRepository : IScheduleRepository
     public async Task<Schedule> GetScheduleByStationsAsync(int trainId, int departureStationId, int arrivalStationId)
     {
         return await _context.Schedules
+            .Include(s => s.Train)
+            .Include(s => s.ArrivalStation)
+            .Include(s => s.DepartureStation)
+            .Include(s => s.Train.TrainCompany)
             .FirstOrDefaultAsync(schedule =>
                 schedule.TrainId == trainId &&
                 schedule.DepartureStationId == departureStationId &&
@@ -70,6 +80,10 @@ public class ScheduleRepository : IScheduleRepository
     public async Task<List<Schedule>> GetSchedulesByTrainAsync(int trainId)
     {
         return await _context.Schedules
+            .Include(s => s.Train)
+            .Include(s => s.ArrivalStation)
+            .Include(s => s.DepartureStation)
+            .Include(s => s.Train.TrainCompany)
             .Where(schedule => schedule.TrainId == trainId)
             .ToListAsync();
     }
