@@ -13,9 +13,7 @@ export class NavBarComponent implements OnInit {
   isScroll = false;
 
   specialRoutes = [ // Các route không cần hiển thị nav-bar trong suốt
-    '/auth/login',
-    '/auth/register',
-    '/auth/forgot-password',
+    '/auth',
     '/test-error',
     '/server-error',
     '/not-found',
