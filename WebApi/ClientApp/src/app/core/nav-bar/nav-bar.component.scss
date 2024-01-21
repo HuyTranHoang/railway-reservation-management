@@ -68,8 +68,9 @@ nav {
 .dropdown-content {
   display: none;
   position: absolute;
+  left: -15px;
   background-color: rgba(255, 255, 255, 0.3);
-  min-width: 160px;
+  min-width: 200px;
   z-index: 1;
   border-radius: 10px;
   font-weight: bold;
@@ -148,7 +149,7 @@ b {
 }
 
 span {
-  transition: all 0.3s ease-in-out;
+  //transition: all 0.3s ease-in-out;
   font-size: 1.2rem;
 }
 

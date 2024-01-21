@@ -5,7 +5,6 @@
 ### 
 
 # @name getListUsers
-@email = nhokpio95@gmail.com
 
 GET {{url}}/{{router}}
 
@@ -15,8 +14,7 @@ GET {{url}}/{{router}}
 # @name getUserByEmail
 @email = nhokpio95@gmail.com
 
-
-GET {{url}}/{{router}}
+GET {{url}}/{{router}}/{{email}}
 
 ### 
 
