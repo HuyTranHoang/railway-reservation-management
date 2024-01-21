@@ -1,87 +1,88 @@
 <div class="container mt-5">
   <!-- Contact Deitals -->
-    <div class="py-2">
-      <div class="bg-body rounded-3 shadow">
-        <div class="py-3 px-5">
-          <div class="text-body-secondary">
-            <h3 class="fw-medium">Contact details</h3>
-            <hr>
-          </div>
-          <form class="form">
-            <div class="row ">
-              <div class="col-6">
-                <label for="firtsName" class="form-label fw-normal text-body-secondary ">First name</label>
-                <input type="text" class="form-control
-                                            bg-body-tertiary
-                                            text-body-tertiary
-                                            border-danger" id="firtsName" name="firtsName" value="Huynh">
-                <span class="text-danger" style="font-size: 15px;">
-                  First name is required
-                </span>
-               </div>
-              <div class="col-6">
-                  <label for="lastName" class="form-label fw-normal text-body-secondary ">Last name</label>
-                  <input type="text" class="form-control
-                                            bg-body-tertiary
-                                            text-body-tertiary" id="lastName" name="lastName" value="Bao">
-                  <span class="text-danger" style="font-size: 15px;">
-                    Last name is required
-                  </span>
-              </div>
+
+  <div class="row">
+    <div class="col-4 py-3 px-5 bg-body rounded-3 shadow" style="min-height: 310px">
+      <div class="text-body-secondary">
+        <h3 class="fw-medium ">Personal information</h3>
+        <hr>
+        <ul>
+          <li>
+            <div class="d-flex justify-content-between">
+              <span class="fw-medium">First name</span>
+              <span class="text-body-tertiary">John Doe</span>
             </div>
-            <div class="row pt-2">
-              <div class="col-6">
-                <label for="email" class="form-label fw-normal text-body-secondary ">Email</label>
-                  <input type="text" disabled class="form-control
-                                            fst-italic
-                                            bg-body-tertiary
-                                            text-body-tertiary" id="email" name="email" value="xjenkers@gmail.com">
-               </div>
-              <div class="col-6">
-                <label for="numberPhone" class="form-label fw-normal text-body-secondary ">Phone</label>
-                <input type="text" class="form-control
-                                          bg-body-tertiary
-                                          text-body-tertiary" id="numberPhone" name="numberPhone" value="0969026600">
-                  <span class="text-danger" style="font-size: 15px;">
-                    Phone is required
-                  </span>
-              </div>
+          </li>
+          <li>
+            <div class="d-flex justify-content-between">
+              <span class="fw-medium">Last name</span>
+              <span class="text-body-tertiary">John Doe</span>
             </div>
-            <div class="pt-3 d-flex justify-content-end ">
-              <button type="button" id="submit" name="submit" class="btn btn-warning shadow">Update</button>
+          </li>
+          <li>
+            <div class="d-flex justify-content-between">
+              <span class="fw-medium">Email</span>
+              <span class="text-body-tertiary">asdasdasd</span>
             </div>
-          </form>
-        </div>
+          </li>
+          <li>
+            <div class="d-flex justify-content-between">
+              <span class="fw-medium">Phone number</span>
+              <span class="text-body-tertiary">123123</span>
+            </div>
+          </li>
+        </ul>
       </div>
     </div>
 
-     <!-- Change Password -->
-    <div class="pt-5">
-      <div class="bg-body rounded-3 shadow">
-        <div class="py-3 px-5">
-          <div class="text-body-secondary">
-            <h3 class="fw-medium ">Change Password</h3>
-            <hr>
-          </div>
-          <form class="form row">
-              <div class="col-6">
-                  <label for="newPassword" class="form-label fw-normal text-body-secondary ">New password</label>
-                  <input type="password" class="form-control
-                                            bg-body-tertiary
-                                            text-body-tertiary" id="newPassword" name="newPassword" value="99999999">
-               </div>
+    <div class="col-8">
+      <div>
+        <tabset>
+          <tab heading="Change personal information">
+            <div class="p-4 bg-body rounded-3 shadow">
+              <form class="form row">
+                <div class="col-6">
+                  <label class="form-label fw-normal text-body-secondary">First name</label>
+                  <input type="text" class="form-control bg-body-tertiary text-body-tertiary">
+                </div>
 
-               <div class="col-6">
-                <label for="confirmPassword" class="form-label fw-normal text-body-secondary ">Confirm password</label>
-                <input type="password" class="form-control
-                                          bg-body-tertiary
-                                          text-body-tertiary" id="confirmPassword" name="confirmPassword" value="99999999">
-               </div>
-            <div class="pt-3 d-flex justify-content-end ">
-              <button type="button" id="submit" name="submit" class="btn btn-warning shadow">Update</button>
+                <div class="col-6">
+                  <label class="form-label fw-normal text-body-secondary">Last name</label>
+                  <input type="text" class="form-control bg-body-tertiary text-body-tertiary">
+                </div>
+
+                <div class="col-6 mt-3">
+                  <label class="form-label fw-normal text-body-secondary">Phone number</label>
+                  <input type="text" class="form-control bg-body-tertiary text-body-tertiary">
+                </div>
+
+                <div class="mt-4 text-end">
+                  <button type="button" class="btn btn-warning shadow">Update</button>
+                </div>
+              </form>
             </div>
-          </form>
-        </div>
+          </tab>
+          <tab heading="Change password">
+            <div class="p-4 bg-body rounded-3 shadow">
+              <form class="form row">
+                <div class="col-6">
+                  <label class="form-label fw-normal text-body-secondary ">New password</label>
+                  <input type="password" class="form-control bg-body-tertiary text-body-tertiary">
+                </div>
+
+                <div class="col-6">
+                  <label class="form-label fw-normal text-body-secondary ">Confirm password</label>
+                  <input type="password" class="form-control bg-body-tertiary text-body-tertiary">
+                </div>
+
+                <div class="mt-4 text-end">
+                  <button type="button" class="btn btn-warning shadow">Update</button>
+                </div>
+              </form>
+            </div>
+          </tab>
+        </tabset>
       </div>
     </div>
+  </div>
 </div>

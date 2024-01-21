@@ -70,7 +70,7 @@
   <div class="d-flex align-items-center" *ngIf="(authService.user$ | async) as user">
 
     <div>
-      <i class="fa-light fa-user me-2" [class.is-scrolled]="isScroll"></i>
+      <i class="fa-light fa-user me-2" [class.is-scrolled]="isScroll || checkStartsWith(href)"></i>
       <span [class.is-scrolled]="isScroll || checkStartsWith(href)">Hi, </span>
       <a class="me-3 py-2 position-relative line-border-right"
          routerLink="/user/profile"
@@ -90,4 +90,4 @@
 </header>
 
 <div *ngIf="checkStartsWith(href)"
-  style="margin-bottom: 130px"></div>
+  style="margin-bottom: 60px"></div>
