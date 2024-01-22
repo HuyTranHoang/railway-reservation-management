@@ -161,16 +161,19 @@ public class BookingService : IBookingService
             //Sau khi nhập thông tin sẽ được lưu vào biến tạm
         //=> Chuyển sang bước thanh toán thì hiện thị lại thông tin đã được chọn và thông tin hành khách từ biến tạm
             //Thanh toán xong thì mới thực hiện hàm add Passenger, Payment, Ticket
-        public async Task AddPassengerAsync(Passenger passenger)
+        public async Task<PassengerDto> AddPassengerAsync(Passenger passenger)
         {
             await _passengerRepository.Add(passenger);
             await _unitOfWork.SaveChangesAsync();
+            return _mapper.Map<PassengerDto>(passenger);
         }
 
-        public async Task AddPaymentAsync(Payment payment)
+        public async Task<PaymentDto> AddPaymentAsync(Payment payment)
         {
             await _paymentRepository.Add(payment);
             await _unitOfWork.SaveChangesAsync();
+            return _mapper.Map<PaymentDto>(payment);
+
         }
 
         public async Task AddTicketAsync(Ticket ticket)

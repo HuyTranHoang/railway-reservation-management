@@ -7,8 +7,8 @@ namespace Application.Common.Interfaces.Services
         Task<List<CarriageTypeDto>> GetAllCarriageTypeDtoAsync();
         Task<List<CarriageTypeDto>> GetCarriageTypesByTrainIdAsync(int trainId);
         Task<TrainDetailsDto> GetTrainDetailsWithTrainIdAsync(int trainId);
-        Task AddPassengerAsync(Passenger passenger);
-        Task AddPaymentAsync(Payment payment);
+        Task<PassengerDto> AddPassengerAsync(Passenger passenger);
+        Task<PaymentDto> AddPaymentAsync(Payment payment);
         Task AddTicketAsync(Ticket ticket);
 
     }

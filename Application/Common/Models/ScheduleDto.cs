@@ -28,7 +28,7 @@ public class ScheduleDto
 
     public DateTime DepartureTime { get; set; }
 
-    public DateTime ArrivalTime { get; set; }
+    public DateTime? ArrivalTime { get; set; }
 
     public int Duration { get; set; }
 
