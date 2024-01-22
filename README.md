@@ -23,7 +23,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/HuyTranHoang/railway-reservation-management">
-    <img src="https://i.imgur.com/Ajgv1Hy.png" alt="Logo" height="80">
+    <img src="https://i.imgur.com/z7SFTce.png" alt="Logo" height="80">
   </a>
 
 <h3 align="center">Rail ticket hub</h3>
@@ -121,7 +121,7 @@ This is an example of how to list things you need to use the software and how to
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-[product-screenshot]: https://i.imgur.com/D2X2RSC.png
+[product-screenshot]: https://i.imgur.com/wkc3RYf.png
 [Angular.io]: https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white
 [Angular-url]: https://angular.io/
 [Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
