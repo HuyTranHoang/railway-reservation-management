@@ -93,8 +93,6 @@ public class CompartmentService : ICompartmentService
             "trainNameDesc" => query.OrderByDescending(p => p.Carriage.Train.Name),
             "carriageNameAsc" => query.OrderBy(p => p.Carriage.Name),
             "carriageNameDesc" => query.OrderByDescending(p => p.Carriage.Name),
-            "trainNameAsc" => query.OrderBy(p => p.Carriage.Train.Name),
-            "trainNameDesc" => query.OrderByDescending(p => p.Carriage.Train.Name),
             "createdAtDesc" => query.OrderByDescending(p => p.CreatedAt),
             _ => query.OrderBy(p => p.CreatedAt)
         };
