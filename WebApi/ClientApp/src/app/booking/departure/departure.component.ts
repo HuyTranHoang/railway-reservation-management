@@ -229,11 +229,11 @@ export class DepartureComponent implements OnInit {
       return
     }
 
-    const departureTime = this.currentDepartureDate.toISOString()
+    const departureTime = new Date(this.currentDepartureDate.getTime() + (7 * 60 * 60 * 1000)).toISOString();
     let returnDate = null
 
     if (this.currentReturnDate) {
-      returnDate = this.currentReturnDate.toISOString()
+      returnDate = new Date(this.currentReturnDate.getTime() + (7 * 60 * 60 * 1000)).toISOString();
     }
 
     const queryParams: BookingScheduleParams = {
@@ -254,7 +254,7 @@ export class DepartureComponent implements OnInit {
 
   onBookNowClick(currentSelectSchedule: Schedule) {
     this.bookingService.currentSelectSchedule = currentSelectSchedule
-    this.router.navigate(['/booking/seat-selection'], { fragment: 'bookingHeader' })
+    this.router.navigate(['/booking/seat-selection'])
   }
 
   // End of departure section
