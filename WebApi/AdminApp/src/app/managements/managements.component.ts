@@ -20,7 +20,16 @@ export class ManagementsComponent {
       home: true,
     },
     {
-      title: 'MANAGEMENTS',
+      title: 'USER MANAGEMENTS',
+      group: true,
+    },
+    {
+      title: 'User',
+      icon: 'person-outline',
+      link: '/managements/user',
+    },
+    {
+      title: 'APPLICATION MANAGEMENTS',
       group: true,
     },
     {
