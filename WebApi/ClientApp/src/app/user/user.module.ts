@@ -5,14 +5,11 @@ import { SharedModule } from '../shared/shared.module';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserBookingHistoryComponent } from './user-booking-history/user-booking-history.component';
-import { UserBookingHistoryHeaderComponent } from './user-booking-history/user-booking-history-header/user-booking-history-header.component';
-
 
 @NgModule({
   declarations: [
     UserProfileComponent,
     UserBookingHistoryComponent,
-    UserBookingHistoryHeaderComponent,
   ],
   imports: [
     CommonModule,

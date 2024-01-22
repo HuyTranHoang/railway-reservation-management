@@ -18,7 +18,7 @@ export class NavBarComponent implements OnInit {
     '/server-error',
     '/not-found',
     '/booking',
-    '/user'
+    '/user/profile'
   ];
 
   constructor(public authService: AuthService,
@@ -44,7 +44,7 @@ export class NavBarComponent implements OnInit {
 
   checkScroll() {
     const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-    this.isScroll = scrollPosition >= 300;
+    this.isScroll = scrollPosition >= 240;
   }
 
   logout() {
