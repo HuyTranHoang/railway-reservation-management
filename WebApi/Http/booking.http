@@ -16,15 +16,15 @@ GET {{url}}/{{router}}/schedule?
 
 ### 
 
-# @name getScheduleById
-@id = 2
+# # @name getScheduleById
+# @id = 2
 
-GET {{url}}/{{router}}/schedule/{{id}}
+# GET {{url}}/{{router}}/schedule/{{id}}
 
 ### 
 
 # @name getTrainDetailsByScheduleId
-@id = 1
+@id = 28
 
 GET {{url}}/{{router}}/train/{{id}}
 
@@ -36,22 +36,40 @@ POST {{url}}/{{router}}/payment
 Content-Type: application/json
 
 {
-  "paymentDto": {
-    "passenger": {
-      "FullName": "Truong Thai Bao",
-      "CardId": "1234 4321 1234",
-      "Age": 18,
-      "Gender": "Male",
-      "Phone": "123 456 7890",
-      "Email": "test@gmail.com"
+  "paymentDto": 
+  {
+    "Passengers": 
+    [
+      {
+        "FullName": "Hành khách 1",
+        "CardId": "1234 5678 9012",
+        "Age": 25,
+        "Gender": "Female",
+        "Phone": "987 654 3210",
+        "Email": "passenger1@example.com"
+      },
+      {
+        "FullName": "Hành khách 2",
+        "CardId": "3456 7890 1234",
+        "Age": 30,
+        "Gender": "Male",
+        "Phone": "123 456 7890",
+        "Email": "passenger2@example.com"
+      }
+    ],
+    "Tickets":
+    [
+    {
+      "carriageId": 8,
+      "seatId": 22
+    },
+    {
+      "carriageId": 8,
+      "seatId": 23
     }
+  ]
   },
-  "userId": "21e266ce-13f1-492d-9c09-5fee4a17f4f3",
-  "carriageId": 8,
-  "seatId": 21
+  "userId": "21e266ce-13f1-492d-9c09-5fee4a17f4f3"
 }
 ### 
 
-# # @name getCarriageTypes
-# @id = 2
-# GET {{url}}/{{router}}/carriageTypes/{{id}}
