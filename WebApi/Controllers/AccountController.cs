@@ -164,6 +164,9 @@ public class AccountController : BaseApiController
 
         if (!result.Succeeded) return BadRequest(result.Errors);
 
+        await _userManager.AddToRoleAsync(userToAdd, SD.UserRole);
+        await _userManager.UpdateAsync(userToAdd);
+
         return CreateApplicationUserDto(userToAdd);
     }
 
