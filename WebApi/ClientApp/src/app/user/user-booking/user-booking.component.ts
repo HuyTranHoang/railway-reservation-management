@@ -8,13 +8,10 @@ import { AuthService } from 'src/app/auth/auth.service';
   styleUrls: ['./user-booking.component.scss']
 })
 export class UserBookingComponent implements OnInit {
-  image = 'assets/booking.jpg'
 
-  constructor(public authService : AuthService){
-
+  constructor(){
   }
 
   ngOnInit(): void {
-
   }
 }

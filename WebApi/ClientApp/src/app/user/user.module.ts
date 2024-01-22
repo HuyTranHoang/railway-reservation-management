@@ -5,20 +5,20 @@ import { SharedModule } from '../shared/shared.module';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserBookingComponent } from './user-booking/user-booking.component';
-import { TabsModule } from 'ngx-bootstrap/tabs';
+import { HeaderComponent } from './user-booking/header/header.component';
 
 
 @NgModule({
   declarations: [
     UserProfileComponent,
     UserBookingComponent,
+    HeaderComponent,
   ],
   imports: [
     CommonModule,
     UserRoutingModule,
     SharedModule,
     ReactiveFormsModule,
-    TabsModule,
   ]
 })
 export class UserModule { }
