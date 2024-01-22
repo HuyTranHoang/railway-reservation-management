@@ -6,6 +6,7 @@ import {NbDialogService} from '@nebular/theme';
 import {PaginatedResult} from '../../../@models/paginatedResult';
 import {UserService} from '../user.service';
 import {User} from '../../../@models/auth/applicationUser';
+import {ConfirmLockUserComponent} from '../confirm-lock-user/confirm-lock-user.component';
 
 @Component({
   selector: 'ngx-list-user',
@@ -82,30 +83,26 @@ export class ListUserComponent implements OnInit {
     this.loadAllUsers();
   }
 
-  openShowDialog(id: number) {
-    // const carriageType = this.carriageTypes.find(x => x.id === id);
-    //
-    // const dialogRef = this.dialogService.open(ShowCarriageTypeComponent, {
-    //   context: {...carriageType},
-    // });
-    //
-    // dialogRef.componentRef.instance.onShowDelete.subscribe(obj => {
-    //   this.openConfirmDialog(obj.id, obj.name);
-    // });
+  // openShowDialog(email: string) {
+  //   const user = this.users.find(x => x.email === email);
+  //
+  //   const dialogRef = this.dialogService.open(ShowCarriageTypeComponent, {
+  //     context: {...carriageType},
+  //   });
+  //
+  //   dialogRef.componentRef.instance.onShowDelete.subscribe(obj => {
+  //     this.openConfirmDialog(obj.id, obj.name);
+  //   });
+  // }
 
-  }
+  openConfirmDialog(id: string, fullName: string, isLocked: boolean) {
+    const dialogRef = this.dialogService.open(ConfirmLockUserComponent, {
+      context: { id, fullName, isLocked },
+    });
 
-  openConfirmDialog(id: number, name: string) {
-    // const dialogRef = this.dialogService.open(ConfirmDeleteCarriageTypeComponent, {
-    //   context: {
-    //     id,
-    //     name,
-    //   },
-    // });
-    //
-    // dialogRef.componentRef.instance.onConfirmDelete.subscribe(_ => {
-    //   this.getAllCarriageType();
-    // });
+    dialogRef.componentRef.instance.onConfirmLock.subscribe(_ => {
+      this.loadAllUsers();
+    });
   }
 
   onPageChanged(newPage: number) {

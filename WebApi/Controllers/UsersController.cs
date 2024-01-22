@@ -1,5 +1,6 @@
 using Domain.Constants;
 using Domain.Exceptions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -129,6 +130,7 @@ public class UsersController : BaseApiController
         return Ok();
     }
 
+    [Authorize(policy: "SuperAdminOrAdminPolicy")]
     [HttpPut("lock-user/{id}")]
     public async Task<ActionResult> LockUser(string id)
     {
@@ -147,6 +149,7 @@ public class UsersController : BaseApiController
         return NoContent();
     }
 
+    [Authorize(policy: "SuperAdminOrAdminPolicy")]
     [HttpPut("unlock-user/{id}")]
     public async Task<ActionResult> UnlockUser(string id)
     {

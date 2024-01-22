@@ -34,4 +34,12 @@ export class UserService {
   getUserByEmail(email: string) {
     return this.http.get<User>(this.baseUrl + '/users/' + email);
   }
+
+  lockUser(id: string) {
+    return this.http.put(this.baseUrl + '/users/lock-user/' + id, {});
+  }
+
+  unlockUser(id: string) {
+    return this.http.put(this.baseUrl + '/users/unlock-user/' + id, {});
+  }
 }
