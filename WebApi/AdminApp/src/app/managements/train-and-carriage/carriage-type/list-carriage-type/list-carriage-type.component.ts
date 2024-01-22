@@ -119,5 +119,4 @@ export class ListCarriageTypeComponent implements OnInit {
     this.queryParams.pageSize = newSize;
     this.getAllCarriageType();
   }
-
 }

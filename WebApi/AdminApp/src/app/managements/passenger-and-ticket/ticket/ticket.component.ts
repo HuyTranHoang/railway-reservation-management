@@ -2,8 +2,9 @@ import {Component} from '@angular/core';
 
 @Component({
   selector: 'ngx-ticket',
-  templateUrl: './ticket.component.html',
-  styleUrls: ['./ticket.component.scss']
+  template: `
+  <router-outlet></router-outlet>
+`,
 })
 export class TicketComponent {
 

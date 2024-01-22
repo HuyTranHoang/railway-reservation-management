@@ -1,5 +1,5 @@
 @url = https://localhost:5001
-@router = api/ticket
+@router = api/tickets
 
 ### 
 
@@ -14,7 +14,7 @@ Content-Type: application/json
   "CarriageId" : 1,
   "SeatId" : 1,
   "ScheduleId" : 1,
-  "PaymentId": 2,
+  "PaymentId": 1,
   "Status" : "Active"
 }
 

@@ -11,13 +11,16 @@ import {AddPaymentComponent} from './payment/add-payment/add-payment.component';
 import {EditPaymentComponent} from './payment/edit-payment/edit-payment.component';
 import {ShowPaymentComponent} from './payment/show-payment/show-payment.component';
 import {ConfirmDeletePaymentComponent} from './payment/confirm-delete-payment/confirm-delete-payment.component';
+import { CancellationModule } from './cancellation/cancellation.module';
 
 @NgModule({
   declarations: [
     PaymentAndCancellationComponent,
+
     PaymentComponent,
     CancellationComponent,
     CancellationRuleComponent,
+
     AddPaymentComponent,
     EditPaymentComponent,
     ShowPaymentComponent,
@@ -28,6 +31,7 @@ import {ConfirmDeletePaymentComponent} from './payment/confirm-delete-payment/co
     SharedModule,
 
     CancellationRuleModule,
+    CancellationModule,
 
     PaymentAndCancellationRoutingModule,
   ],

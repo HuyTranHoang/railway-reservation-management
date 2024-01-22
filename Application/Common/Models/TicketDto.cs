@@ -5,7 +5,7 @@ namespace Application.Common.Models
         public int Id { get; set; }
 
         public string Code { get; set; }
-        
+
         public int PassengerId { get; set; }
 
         public string PassengerName { get; set; }
@@ -17,7 +17,6 @@ namespace Application.Common.Models
         public int CarriageId { get; set; }
 
         public string CarriageName { get; set; }
-
 
         public int DistanceFareId { get; set; }
 
@@ -35,6 +34,7 @@ namespace Application.Common.Models
 
         public string Status { get; set; }
 
+        public DateTime CreatedAt { get; set; }
 
     }
 }
