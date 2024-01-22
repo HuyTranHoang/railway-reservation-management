@@ -33,7 +33,11 @@
         </div>
 
         <div class="mt-5">
-          <button nbButton fullWidth type="submit" size="large" status="primary">Log In</button>
+          <button nbButton fullWidth
+                  [disabled]="loginForm.invalid"
+                  type="submit"
+                  size="large"
+                  status="primary">Log In</button>
         </div>
 
       </form>
