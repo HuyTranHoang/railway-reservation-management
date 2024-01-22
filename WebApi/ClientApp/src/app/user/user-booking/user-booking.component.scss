@@ -1,0 +1,63 @@
+.image {
+  width: 100%;
+  height: 430px;
+  object-fit: cover;
+  object-position: center center;
+}
+
+h1.teko {
+  color: #fff;
+  font-family: "Teko", sans-serif;
+  font-weight: 300;
+  font-size: 66px;
+  line-height: 1.3;
+  letter-spacing: 4.5px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+::ng-deep tabset {
+  .nav {
+    justify-content: center;
+    background: white;
+    border-bottom: 0;
+    color: #B6A7A5;
+    font-size: 16px;
+  }
+
+  .nav-link,
+  .nav-link.active {
+    border-radius: 0;
+    background: white;
+    padding: 17px 20px;
+    color: #B6A7A5;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .nav-link.active {
+    border: 0;
+    span {
+      color: #fb0;
+    }
+  }
+
+  .active {
+    border-bottom: 3px solid #fb0;
+    span {
+      color: #fb0;
+    }
+  }
+
+  span {
+    color: #B6A7A5;
+  }
+}
+
+::ng-deep tab {
+  padding: 10px;
+  display: block;
+}
+
+::ng-deep tab.active {
+  border-bottom: 0;
+}

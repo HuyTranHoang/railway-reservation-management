@@ -1,7 +1,19 @@
 <div class="position-relative">
-    <img [src]="image" class="d-block  w-100" alt="...">
-    <div class="position-absolute top-50  start-50 translate-middle d-flex flex-column align-items-center">
-      <h1>Hi, Huynh. Welcome to Rail Ticket!</h1>
-    </div>
+  <img class="image" [src]="image" [alt]="image">
+  <div class="position-absolute top-50 start-50 translate-middle d-flex flex-column align-items-center"
+    *ngIf="authService.user$ | async as user">
+    <h1 class="teko">Hi, {{user.lastName}}. Welcome to Rail Ticket!</h1>
+  </div>
 </div>
 
+<tabset #tabset>
+  <tab class="container" heading="Upcomming">
+    Tab 1 content
+  </tab>
+  <tab class="container" heading="Past Trips">
+    Tab 2 content
+  </tab>
+  <tab class="container" heading="Cancelled">
+    Tab 3 content
+  </tab>
+</tabset>

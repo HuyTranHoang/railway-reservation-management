@@ -5,6 +5,7 @@ import { SharedModule } from '../shared/shared.module';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserBookingComponent } from './user-booking/user-booking.component';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { UserBookingComponent } from './user-booking/user-booking.component';
     UserRoutingModule,
     SharedModule,
     ReactiveFormsModule,
+    TabsModule,
   ]
 })
 export class UserModule { }
