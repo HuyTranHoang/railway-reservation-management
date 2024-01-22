@@ -1,0 +1,46 @@
+::ng-deep tabset {
+  .nav {
+    justify-content: center;
+    background: white;
+    border-bottom: 0;
+    color: #B6A7A5;
+    font-size: 16px;
+  }
+
+  .nav-link,
+  .nav-link.active {
+    border-radius: 0;
+    background: white;
+    padding: 17px 20px;
+    color: #B6A7A5;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .nav-link.active {
+    border: 0;
+    span {
+      color: #fb0;
+    }
+  }
+
+  .active {
+    border-bottom: 3px solid #fb0;
+    span {
+      color: #fb0;
+    }
+  }
+
+  span {
+    color: #B6A7A5;
+  }
+}
+
+::ng-deep tab {
+  padding: 10px;
+  display: block;
+}
+
+::ng-deep tab.active {
+  border-bottom: 0;
+}
