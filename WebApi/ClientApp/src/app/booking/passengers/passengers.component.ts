@@ -12,7 +12,7 @@ export class PassengersComponent implements OnInit{
 
   ngOnInit(): void {
     setTimeout(() => {
-      this.bookingService.currentStep = 2;
+      this.bookingService.currentStep = 3;
     }, 0);
   }
 

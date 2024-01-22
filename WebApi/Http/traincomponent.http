@@ -9,9 +9,9 @@ POST {{url}}/{{router}}/{{id}}
 Content-Type: application/json
 
 {
-  "Name": "Test Carriage",
-  "TrainId": 19,
-  "CarriageTypeId": 7,
+  "Name": "Test Carriage 1",
+  "TrainId": 20,
+  "CarriageTypeId": 3,
   "Status": "Active"
 }
 

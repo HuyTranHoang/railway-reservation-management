@@ -11,6 +11,8 @@ export class ShowCarriageTypeComponent {
   @Input() id: number;
   @Input() name: string;
   @Input() numberOfCompartments: number;
+  @Input() numberOfSeats: number;
+  @Input() numberOfSeatTypes: number;
   @Input() serviceCharge: number;
   @Input() description: string;
   @Input() status: string;

@@ -30,6 +30,8 @@ export class AddCarriageTypeComponent implements OnInit {
     this.carriageTypeForm = this.fb.group({
       name: ['', Validators.required],
       numberOfCompartments: [0, [Validators.required, Validators.min(1), this.numberValidator()]],
+      numberOfSeats: [0, [Validators.required, Validators.min(1), this.numberValidator()]],
+      numberOfSeatTypes: [0, [Validators.required, Validators.min(1), this.numberValidator()]],
       serviceCharge: [0, [Validators.required, Validators.min(0), this.numberValidator()]],
       status: [''],
       description: ['', Validators.required],

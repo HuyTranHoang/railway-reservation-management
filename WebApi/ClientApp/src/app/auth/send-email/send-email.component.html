@@ -18,6 +18,10 @@
         Forgot password
       </h2>
 
+      <p *ngIf="mode.includes('forgot-password')">
+        Enter your email address and we’ll send a link to reset your password
+      </p>
+
       <form class="register-form"
             autocomplete="off"
             [formGroup]="emailForm"

@@ -5,14 +5,13 @@ import {Router} from '@angular/router';
 @Component({
   selector: 'ngx-show-compartment',
   templateUrl: './show-compartment.component.html',
-  styleUrls: ['./show-compartment.component.scss']
+  styleUrls: ['./show-compartment.component.scss'],
 })
 export class ShowCompartmentComponent {
   @Input() id: number;
   @Input() name: string;
   @Input() carriageName: string;
   @Input() trainName: string;
-  @Input() numberOfSeats: number;
   @Input() status: string;
   @Input() createdAt: string;
 

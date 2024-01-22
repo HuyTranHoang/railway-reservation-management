@@ -25,26 +25,43 @@ export class TrainCompanyService {
       params = params.append('sort', queryParams.sort);
     }
 
-    return this.paginationService.getPaginatedResult<TrainCompany[]>(this.baseUrl + '/traincompanies', params);
+    return this.paginationService.getPaginatedResult<TrainCompany[]>(this.baseUrl + '/trainCompanies', params);
   }
 
   getAllTrainCompanyNoPaging() {
-    return this.http.get<TrainCompany[]>(this.baseUrl + '/traincompanies/all');
+    return this.http.get<TrainCompany[]>(this.baseUrl + '/trainCompanies/all');
   }
 
   addTrainCompany(trainCompany: TrainCompany) {
-    return this.http.post<TrainCompany>(this.baseUrl + '/traincompanies', trainCompany);
+    return this.http.post<TrainCompany>(this.baseUrl + '/trainCompanies', trainCompany);
+  }
+
+  addTrainCompanyWithLogo(trainCompany: TrainCompany, logo: File) {
+    const formData = new FormData();
+    formData.append('name', trainCompany.name);
+    formData.append('logo', logo);
+    formData.append('status', trainCompany.status);
+    return this.http.post<TrainCompany>(this.baseUrl + '/trainCompanies/create', formData);
   }
 
   getTrainCompanyById(id: number) {
-    return this.http.get<TrainCompany>(this.baseUrl + '/traincompanies/' + id);
+    return this.http.get<TrainCompany>(this.baseUrl + '/trainCompanies/' + id);
   }
 
   updateTrainCompany(trainCompany: TrainCompany) {
-    return this.http.put<TrainCompany>(this.baseUrl + '/traincompanies/' + trainCompany.id, trainCompany);
+    return this.http.put<TrainCompany>(this.baseUrl + '/trainCompanies/' + trainCompany.id, trainCompany);
+  }
+
+  updateTrainCompanyWithLogo(trainCompany: TrainCompany, logo: File) {
+    const formData = new FormData();
+    formData.append('id', trainCompany.id.toString());
+    formData.append('name', trainCompany.name);
+    formData.append('logo', logo);
+    formData.append('status', trainCompany.status);
+    return this.http.put<TrainCompany>(this.baseUrl + '/trainCompanies/update/' + trainCompany.id, formData);
   }
 
   deleteTrainCompany(id: number) {
-    return this.http.patch(this.baseUrl + '/traincompanies/' + id, {});
+    return this.http.patch(this.baseUrl + '/trainCompanies/' + id, {});
   }
 }

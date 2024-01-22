@@ -1,9 +1,10 @@
 ﻿using System.Reflection;
+using System.Security.Claims;
 using System.Text.Json;
+using Domain.Constants;
 using Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Serilog;
 
 namespace Infrastructure.Data;
 
@@ -14,7 +15,8 @@ public static class Seed
     private static string ProjectRoot => Directory.GetParent(BaseDirectory)!.Parent!.Parent!.Parent!.FullName;
     private static string DataPath => Path.Combine(ProjectRoot, "Infrastructure", "Data", "SeedData");
 
-    private static async Task SeedData<T>(ApplicationDbContext context, string fileName, Func<ApplicationDbContext, DbSet<T>> dbSetSelector) where T : class
+    private static async Task SeedData<T>(ApplicationDbContext context, string fileName,
+        Func<ApplicationDbContext, DbSet<T>> dbSetSelector) where T : class
     {
         if (await dbSetSelector(context).AnyAsync()) return;
 
@@ -50,12 +52,72 @@ public static class Seed
     {
         if (await userManager.Users.AnyAsync()) return;
 
-        var userData = await File.ReadAllTextAsync(Path.Combine(DataPath, "User.json"));
-        var users = JsonSerializer.Deserialize<List<ApplicationUser>>(userData, JsonOptions);
-
-        foreach (var user in users)
+        var superAdmin = new ApplicationUser
         {
-            await userManager.CreateAsync(user, "Pa$$w0rd");
+            FirstName = "Super",
+            LastName = "Admin",
+            Email = SD.SuperAdminEmail,
+            UserName = SD.SuperAdminEmail,
+            EmailConfirmed = true,
+        };
+
+        await userManager.CreateAsync(superAdmin, "123456");
+        await userManager.AddToRolesAsync(superAdmin, new[] { SD.SuperAdminRole, SD.AdminRole, SD.UserRole });
+        await userManager.AddClaimsAsync(superAdmin, new Claim[]
+        {
+            new(ClaimTypes.Email, superAdmin.Email),
+            new(ClaimTypes.Surname, superAdmin.LastName),
+        });
+
+        var admin = new ApplicationUser
+        {
+            FirstName = "Admin",
+            LastName = "RailTicketHub",
+            Email = "admin@gmail.com",
+            UserName = "admin@gmail.com",
+            EmailConfirmed = true,
+        };
+
+        await userManager.CreateAsync(admin, "123456");
+        await userManager.AddToRolesAsync(admin, new[] { SD.AdminRole });
+        await userManager.AddClaimsAsync(admin, new Claim[]
+        {
+            new(ClaimTypes.Email, admin.Email),
+            new(ClaimTypes.Surname, admin.LastName),
+        });
+
+        var user = new ApplicationUser
+        {
+            FirstName = "User",
+            LastName = "RailTicketHub",
+            Email = "user@mail.com",
+            UserName = "user@gmail.com",
+            EmailConfirmed = true,
+        };
+
+        await userManager.CreateAsync(user, "123456");
+        await userManager.AddToRolesAsync(user, new[] { SD.UserRole });
+        await userManager.AddClaimsAsync(user, new Claim[]
+        {
+            new(ClaimTypes.Email, user.Email),
+            new(ClaimTypes.Surname, user.LastName),
+        });
+    }
+
+    public static async Task SeedRoles(RoleManager<IdentityRole> roleManager)
+    {
+        if (await roleManager.Roles.AnyAsync()) return;
+
+        var roles = new List<IdentityRole>
+        {
+            new() { Name = SD.SuperAdminRole },
+            new() { Name = SD.AdminRole },
+            new() { Name = SD.UserRole }
+        };
+
+        foreach (var role in roles)
+        {
+            await roleManager.CreateAsync(role);
         }
     }
 }

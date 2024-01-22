@@ -10,10 +10,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
-// builder.Services.AddControllers().AddJsonOptions(options =>
-// {
-//     options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
-// });
 
 builder.Services
     .AddApplication()
@@ -64,6 +60,8 @@ app.UseCors(b => b.AllowAnyHeader()
     .AllowCredentials()
     .WithOrigins("http://localhost:4200", "https://localhost:4200",
         "http://localhost:4300", "https://localhost:4300"));
+
+app.UseStaticFiles();
 
 app.UseHttpsRedirection();
 

@@ -1,12 +1,38 @@
 [
-  { "name": "Indian Railways" },
-  { "name": "Konkan Railway Corporation Limited" },
-  { "name": "Mumbai Metro Rail Corporation Limited" },
-  { "name": "Delhi Metro Rail Corporation Limited" },
-  { "name": "Chennai Metro Rail Limited" },
-  { "name": "Kolkata Metro" },
-  { "name": "Bangalore Metro Rail Corporation Limited" },
-  { "name": "Jaipur Metro Rail Corporation Limited" },
-  { "name": "Gujarat Metro Rail Corporation (MEGA)" },
-  { "name": "Lucknow Metro Rail Corporation Limited" }
+  {
+    "name": "Chapa Express",
+    "logo": "chapa-express.png"
+  },
+  {
+    "name": "Damitrans Express",
+    "logo": "damitrans-express.png"
+  },
+  {
+    "name": "Halo Express",
+    "logo" : "halo-express.png"
+  },
+  {
+    "name": "Laman Express",
+    "logo": "laman-express.png"
+  },
+  {
+    "name": "New Livitrans Express",
+    "logo": "new-livitrans-express.png"
+  },
+  {
+    "name": "Sapaly Express",
+    "logo": "sapaly-express.png"
+  },
+  {
+    "name": "Violette Trains",
+    "logo": "violette-trains.png"
+  },
+  {
+    "name": "Vic Sapa Train",
+    "logo": "vic-sapa-train.png"
+  },
+  {
+    "name": "Vietnam Railways",
+    "logo": "vietnam-railways.png"
+  }
 ]

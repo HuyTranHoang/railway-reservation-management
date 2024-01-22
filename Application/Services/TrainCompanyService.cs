@@ -74,6 +74,11 @@ public class TrainCompanyService : ITrainCompanyService
         if (trainCompanyInDb == null) throw new NotFoundException(nameof(Passenger), trainCompany.Id);
 
         trainCompanyInDb.Name = trainCompany.Name;
+
+        if (!string.IsNullOrEmpty(trainCompany.Logo))
+        {
+            trainCompanyInDb.Logo = trainCompanyInDb.Logo;
+        }
         trainCompanyInDb.Status = trainCompany.Status;
         trainCompanyInDb.UpdatedAt = DateTime.Now;
 

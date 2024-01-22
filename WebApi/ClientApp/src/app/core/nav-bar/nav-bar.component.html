@@ -1,87 +1,104 @@
-<header
-  class="d-flex flex-row align-items-center p-3 px-4 justify-content-between  bg-white border-bottom fixed-top shadow">
-  <div class="d-flex align-items-center" style="cursor:pointer;" routerLink="/">
-    <h2>RailTicket<b class="small">Hub</b></h2>
+<header class="d-flex flex-row align-items-center p-3 px-4 justify-content-between fixed-top"
+        [class.shadow]="isScroll || checkStartsWith(href)" [class.border-bottom]="isScroll || checkStartsWith(href)"
+        [class.bg-white]="isScroll || checkStartsWith(href)">
+  <div class="d-flex align-items-center" style="cursor: pointer" routerLink="/">
+    <h2 [class.is-scrolled]="isScroll || checkStartsWith(href)">
+      RailTicket<b class="small">Hub</b>
+    </h2>
   </div>
 
   <nav class="my-2 text-uppercase fs-5">
-    <a [routerLinkActiveOptions]="{exact: true}"
-       class="p-2 mx-2 nav-item"
-       routerLink="/"
-       routerLinkActive="active">Home</a>
+    <a [routerLinkActiveOptions]="{ exact: true }" class="p-2 mx-2 nav-item"
+       [class.is-scrolled]="isScroll || checkStartsWith(href)" routerLink="/" routerLinkActive="active">Home</a>
 
-    <a class="p-2 mx-2"
-       routerLink="/test-error"
+    <a class="p-2 mx-2" routerLink="/test-error" [class.is-scrolled]="isScroll || checkStartsWith(href)"
        routerLinkActive="active">Errors</a>
 
-    <a class="p-2 mx-2"
-       routerLink="/booking"
+    <a class="p-2 mx-2" routerLink="/booking" [class.is-scrolled]="isScroll || checkStartsWith(href)"
        routerLinkActive="active">Booking</a>
 
-    <a class="p-2 mx-2"
-       routerLink="/booking-train"
+    <a class="p-2 mx-2" routerLink="/booking-train" [class.is-scrolled]="isScroll || checkStartsWith(href)"
        routerLinkActive="active">Train ticket</a>
 
-    <a class="p-2 mx-2"
-       routerLink="/faqs"
+    <a class="p-2 mx-2" routerLink="/faqs" [class.is-scrolled]="isScroll || checkStartsWith(href)"
        routerLinkActive="active">FAQS</a>
 
-    <a class="p-2 mx-2"
-       routerLink="/about"
+    <a class="p-2 mx-2" routerLink="/about" [class.is-scrolled]="isScroll || checkStartsWith(href)"
        routerLinkActive="active">About</a>
 
-    <a class="p-2 mx-2"
-       routerLink="/contact"
+    <a class="p-2 mx-2" routerLink="/contact" [class.is-scrolled]="isScroll || checkStartsWith(href)"
        routerLinkActive="active">Contact</a>
-
-    <div class="p-2 mx-2 dropdown" style="background: #fff;">
-      <a>Mores <i class="fa-solid fa-caret-down"></i></a>
-      <div class="dropdown-content">
-        <a><i class="fa fa-circle-exclamation"></i> Train Enquiry </a>
-        <a><i class="fa fa-cube"></i> Bulk Orders</a>
-        <a><i class="fa fa-headphones"></i> Help</a>
-      </div>
-    </div>
   </nav>
 
-
   <div class="d-flex align-items-center" *ngIf="(authService.user$ | async) === null">
-    <a class="me-3 py-2 d-flex icon-wrapper position-relative line-border-right"
-       routerLink="/auth/login"
-       routerLinkActive="active">
+    <a class="me-3 py-2 d-flex icon-wrapper position-relative line-border-right" routerLink="/auth/login"
+       [class.is-scrolled]="isScroll || checkStartsWith(href)" routerLinkActive="active">
       <div class="position-relative">
-        <i class="fa-light fa-right-to-bracket icon first-icon"></i>
-        <i class="fa-light fa-person-to-portal icon second-icon"></i>
+        <i class="fa-light fa-right-to-bracket icon first-icon"
+           [class.is-scrolled]="isScroll || checkStartsWith(href)"></i>
+        <i class="fa-light fa-person-to-portal icon second-icon"
+           [class.is-scrolled]="isScroll || checkStartsWith(href)"></i>
       </div>
-      <span>Login</span>
+      <span [class.is-scrolled]="isScroll || checkStartsWith(href)">Login</span>
     </a>
 
-    <a class="me-3 py-2 icon-wrapper"
-       routerLink="/auth/register"
-       routerLinkActive="active">
-      <span>Register</span>
+    <a class="me-3 py-2 icon-wrapper" routerLink="/auth/register"
+       [class.is-scrolled]="isScroll || checkStartsWith(href)" routerLinkActive="active">
+      <span [class.is-scrolled]="isScroll || checkStartsWith(href)">Register</span>
     </a>
   </div>
 
-  <div class="d-flex align-items-center" *ngIf="(authService.user$ | async) as user">
-
+  <div class="d-flex align-items-center" *ngIf="authService.user$ | async as user">
     <div>
-      <i class="fa-light fa-user me-2"></i>
-      <span>Hi, </span>
-      <a class="me-3 py-2 position-relative line-border-right"
-         routerLink="/user/profile"
-         routerLinkActive="active">
-        <strong>{{user.firstName | titlecase}} {{user.lastName | titlecase}}</strong>
-      </a>
+      <i class="fa-light fa-user me-2" [class.is-scrolled]="isScroll || checkStartsWith(href)"></i>
+      <div class="me-3 dropdown">
+
+        <span [class.is-scrolled]="isScroll || checkStartsWith(href)">Hi, </span>
+
+        <button class="py-2 position-relative dropdown-toggle"
+                [class.is-scrolled]="isScroll || checkStartsWith(href)">
+          <strong>{{ user.firstName | titlecase }} {{ user.lastName | titlecase }}</strong>
+        </button>
+
+        <div class="dropdown-content py-2 px-3 shadow" [class.is-scrolled]="isScroll || checkStartsWith(href)">
+
+          <div class="d-flex align-items-center">
+            <i class="fa-light fa-id-card ms-2" style="min-width: 25px"></i>
+            <a class="py-2 flex-grow-1 position-relative active" routerLink="/user/profile" routerLinkActive="active">
+              Personal Details
+            </a>
+          </div>
+
+          <div class="d-flex align-items-center">
+            <i class="fa-light fa-tickets ms-2" style="min-width: 25px"></i>
+            <a class="py-2 flex-grow-1 position-relative" routerLink="/user/booking" routerLinkActive="active">
+              Booking History
+            </a>
+          </div>
+
+          <div>
+            <hr style="color: #fff" class="my-2">
+          </div>
+
+          <div *ngIf="user.roles.includes('Admin') || user.roles.includes('SuperAdmin')"  class="d-flex align-items-center">
+            <i class="fa-light fa-user-tie ms-2" style="min-width: 25px"></i>
+            <a class="py-2 flex-grow-1 position-relative" target="_blank" href="https://localhost:4300/">
+              Admin Panel
+            </a>
+          </div>
+
+          <div class="d-flex align-items-center" (click)="logout()">
+            <i class="fa-light fa-right-from-bracket ms-2" style="min-width: 25px"></i>
+            <a class="py-2 flex-grow-1 position-relative" routerLink="/user/booking" routerLinkActive="active">
+              Logout
+            </a>
+          </div>
+
+        </div>
+      </div>
     </div>
 
-    <a class="me-3 py-2 hover-color"
-       (click)="logout()">
-      <i class="fa-light fa-right-from-bracket me-2"></i>
-      <span>Logout</span>
-    </a>
-
   </div>
-
-
 </header>
+
+<div *ngIf="checkStartsWith(href)" style="margin-bottom: 60px"></div>

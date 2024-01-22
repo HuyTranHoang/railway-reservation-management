@@ -2,7 +2,7 @@
     <nb-card-header>
       <div class="d-flex justify-content-between align-items-center">
         <form class="position-relative" (ngSubmit)="onSearch()">
-          <input nbInput placeholder="Search by compartment name.."
+          <input nbInput placeholder="Compartment, train, carriage name.."
                  name="searchTerm"
                  (keyup.escape)="onResetSearch()"
                  [(ngModel)]="currentSearchTerm"
@@ -33,21 +33,12 @@
             </span>
           </th>
 
-          <th scope="col" style="width: 15%">
+          <th scope="col" style="width: 20%">
             <span (click)="onSort('trainNameAsc')"
                   [class.text-primary]="currentSort.includes('trainName')">
-              Train Name
+              Train
               <nb-icon icon="arrow-down-outline" pack="eva" *ngIf="!sortStates.trainName"></nb-icon>
               <nb-icon icon="arrow-up-outline" pack="eva" *ngIf="sortStates.trainName"></nb-icon>
-            </span>
-          </th>
-
-          <th scope="col" style="width: 15%">
-            <span (click)="onSort('numberOfSeatsAsc')"
-                  [class.text-primary]="currentSort.includes('numberOfSeats')">
-              Number Of Seats
-              <nb-icon icon="arrow-down-outline" pack="eva" *ngIf="!sortStates.numberOfSeats"></nb-icon>
-              <nb-icon icon="arrow-up-outline" pack="eva" *ngIf="sortStates.numberOfSeats"></nb-icon>
             </span>
           </th>
 
@@ -77,7 +68,6 @@
           <th scope="row">{{ index + 1 }}</th>
           <td>{{ item.name }}</td>
           <td>{{ item.trainName }}</td>
-          <td>{{ item.numberOfSeats }}</td>
           <td>{{ item.carriageName }}</td>
           <td>{{ item.createdAt |date: 'medium' }}</td>
           <td class="text-right">

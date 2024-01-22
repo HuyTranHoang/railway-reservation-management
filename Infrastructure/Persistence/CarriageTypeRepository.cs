@@ -52,4 +52,16 @@ public class CarriageTypeRepository : ICarriageTypeRepository
     {
         return await _context.CarriageTypes.ToListAsync();
     }
+
+    public async Task<List<CarriageType>> GetCarriageTypeByTrainIdAsync(int trainId)
+    {
+        var carriageTypes = await _context.Trains
+            .Where(t => t.Id == trainId)
+            .SelectMany(t => t.Carriages)
+            .Select(carriage => carriage.CarriageType)
+            .Distinct()
+            .ToListAsync();
+
+        return carriageTypes;
+    }
 }

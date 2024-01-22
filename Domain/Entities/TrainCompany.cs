@@ -9,5 +9,7 @@ public class TrainCompany : BaseEntity
 
     [Required][StringLength(100)] public string Name { get; set; }
 
+    [StringLength(100)] public string Logo { get; set; }
+
     [StringLength(100)] public string Status { get; set; }
 }

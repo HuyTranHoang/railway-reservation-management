@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Carriage} from '../../../../@models/carriage';
 import {Observable, of} from 'rxjs';
-import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CompartmentService} from '../compartment.service';
 import {CarriageService} from '../../carriage/carriage.service';
 import {NbGlobalPhysicalPosition, NbToastrService} from '@nebular/theme';
@@ -46,7 +46,6 @@ export class EditCompartmentComponent implements OnInit {
       id: ['', Validators.required],
       name: ['', Validators.required],
       carriageId: ['', Validators.required],
-      numberOfSeats: [0, [Validators.required, Validators.min(0), this.numberValidator()]],
       status: [''],
     });
 
@@ -69,13 +68,6 @@ export class EditCompartmentComponent implements OnInit {
         this.router.navigateByUrl('/managements/train-and-carriage/compartment');
       },
     });
-  }
-
-  numberValidator(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      if (control.value == null || control.value === '') return null;
-      return !isNaN(parseFloat(control.value)) && isFinite(control.value) ? null : {'notANumber': true};
-    };
   }
 
   onSubmit() {

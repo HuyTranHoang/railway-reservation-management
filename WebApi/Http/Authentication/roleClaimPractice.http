@@ -1,0 +1,39 @@
+@url = https://localhost:5001
+@router = api/roleClaimPractice
+
+@authToken = {{login.response.body.jwt}}
+
+###
+
+GET {{url}}/{{router}}/public
+
+###
+
+GET {{url}}/{{router}}/admin-role
+Authorization: Bearer {{authToken}}
+
+###
+
+GET {{url}}/{{router}}/super-admin-role
+Authorization: Bearer {{authToken}}
+
+###
+GET {{url}}/{{router}}/admin-policy
+Authorization: Bearer {{authToken}}
+
+###
+
+GET {{url}}/{{router}}/super-admin-policy
+Authorization: Bearer {{authToken}}
+
+###
+
+
+# @name login
+POST {{url}}/api/account/login
+Content-Type: application/json
+
+{
+    "username": "admin@gmail.com",
+    "password": "123456"
+}

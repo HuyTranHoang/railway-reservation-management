@@ -88,4 +88,12 @@ public class SeatTypeService : ISeatTypeService
         var seatType = await _repository.GetAllNoPagingAsync();
         return _mapper.Map<List<SeatTypeDto>>(seatType);
     }
+
+    public async Task<SeatTypeDto> GetDtoByNameAsync(string name)
+    {
+        var seatType = await _repository.GetSeatTypeByNameAsync(name);
+        var seatTypeDto = _mapper.Map<SeatTypeDto>(seatType);
+
+        return seatTypeDto;
+    }
 }

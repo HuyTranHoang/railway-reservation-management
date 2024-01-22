@@ -25,7 +25,6 @@ export class ListCompartmentComponent implements OnInit {
     name: false,
     carriageName: false,
     trainName: false,
-    numberOfSeats: false,
     createdAt: false,
   };
 

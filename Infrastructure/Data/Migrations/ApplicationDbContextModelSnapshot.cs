@@ -34,7 +34,7 @@ namespace Infrastructure.Data.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("DateCreated")
+                    b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
@@ -298,6 +298,12 @@ namespace Infrastructure.Data.Migrations
                     b.Property<int>("NumberOfCompartments")
                         .HasColumnType("int");
 
+                    b.Property<int>("NumberOfSeatTypes")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumberOfSeats")
+                        .HasColumnType("int");
+
                     b.Property<double>("ServiceCharge")
                         .HasColumnType("float");
 
@@ -336,9 +342,6 @@ namespace Infrastructure.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
-
-                    b.Property<int>("NumberOfSeats")
-                        .HasColumnType("int");
 
                     b.Property<string>("Status")
                         .HasMaxLength(100)
@@ -855,6 +858,10 @@ namespace Infrastructure.Data.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit")
                         .HasColumnOrder(997);
+
+                    b.Property<string>("Logo")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Name")
                         .IsRequired()

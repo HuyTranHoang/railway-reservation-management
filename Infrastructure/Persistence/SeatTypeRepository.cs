@@ -53,4 +53,10 @@ public class SeatTypeRepository : ISeatTypeRepository
     {
         return _context.SeatTypes.ToListAsync();
     }
+
+    public async Task<SeatType> GetSeatTypeByNameAsync(string name)
+    {
+        return await _context.SeatTypes
+            .FirstOrDefaultAsync(x => x.Name == name);
+    }
 }

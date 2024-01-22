@@ -1,10 +1,12 @@
 ﻿using System.Globalization;
 using System.Security.Claims;
 using System.Text;
+using Application.Common.Interfaces.Persistence;
 using Application.Common.Models.Authentication;
 using Application.Services;
 using Domain.Constants;
 using Domain.Exceptions;
+using Google.Apis.Auth;
 using Infrastructure.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -54,6 +56,11 @@ public class AccountController : BaseApiController
 
         var result = await _signInManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
 
+        if (result.IsLockedOut)
+        {
+            return Unauthorized(new ErrorResponse(401, "Your account has been locked. Please contact support"));
+        }
+
         if (!result.Succeeded) return Unauthorized(new ErrorResponse(401, "Invalid username or password"));
 
         return CreateApplicationUserDto(user);
@@ -72,12 +79,18 @@ public class AccountController : BaseApiController
             FirstName = registerDto.FirstName.ToLower(),
             LastName = registerDto.LastName.ToLower(),
             Email = registerDto.Email.ToLower(),
-            UserName = registerDto.Email.ToLower()
+            UserName = registerDto.Email.ToLower(),
         };
 
         var result = await _userManager.CreateAsync(user, registerDto.Password);
 
         if (!result.Succeeded) return BadRequest(result.Errors);
+
+        await _userManager.AddToRoleAsync(user, SD.UserRole);
+
+        user.FirstName = "123123213123123";
+
+        await _userManager.UpdateAsync(user);
 
         try
         {
@@ -118,7 +131,17 @@ public class AccountController : BaseApiController
             }
         } else if (model.Provider.Equals(SD.Google))
         {
-
+            try
+            {
+                if (!GoogleValidatedAsync(model.AccessToken, model.UserId).GetAwaiter().GetResult())
+                {
+                    return Unauthorized(new ErrorResponse(401, "Unable to register with google"));
+                }
+            }
+            catch (Exception)
+            {
+                return Unauthorized(new ErrorResponse(401, "Unable to register with google"));
+            }
         }
         else
         {
@@ -309,6 +332,50 @@ public class AccountController : BaseApiController
     }
 
     [Authorize]
+    [HttpPut("change-password")]
+    public async Task<IActionResult> ChangePassword(ChangePasswordDto changePasswordDto)
+    {
+        var user = await _userManager.FindByNameAsync(User.FindFirstValue(ClaimTypes.Email));
+
+        if (user == null) return Unauthorized("Invalid username or password");
+
+        var result = await _userManager.ChangePasswordAsync(user, changePasswordDto.CurrentPassword,
+            changePasswordDto.NewPassword);
+
+        if (result.Succeeded)
+        {
+            return Ok(new JsonResult(new { title = "Password Changed", message = "You can now login with new password" }));
+        }
+
+        return BadRequest(new ErrorResponse(400, "Invalid current password. Please try again"));
+    }
+
+    [Authorize]
+    [HttpPut("update-profile")]
+    public async Task<ActionResult<UserDto>> UpdateProfile(UpdateProfileDto updateProfileDto)
+    {
+        var user = await _userManager.FindByNameAsync(User.FindFirstValue(ClaimTypes.Email));
+
+        if (user == null) return Unauthorized("Invalid username or password");
+
+        user.FirstName = updateProfileDto.FirstName;
+        user.LastName = updateProfileDto.LastName;
+        if (!string.IsNullOrEmpty(updateProfileDto.PhoneNumber))
+        {
+            user.PhoneNumber = updateProfileDto.PhoneNumber;
+        }
+
+        var result = await _userManager.UpdateAsync(user);
+
+        if (result.Succeeded)
+        {
+            return CreateApplicationUserDto(user);
+        }
+
+        return BadRequest(new ErrorResponse(400, "Failed to update profile. Please try again"));
+    }
+
+    [Authorize]
     [HttpGet("refresh-user-token")]
     public async Task<ActionResult<UserDto>> RefreshUserToken()
     {
@@ -326,6 +393,9 @@ public class AccountController : BaseApiController
         {
             FirstName = user.FirstName,
             LastName = user.LastName,
+            Email = user.Email,
+            PhoneNumber = user.PhoneNumber,
+            Roles = _userManager.GetRolesAsync(user).Result,
             Jwt = _jwtService.GenerateJwtToken(user)
         };
     }
@@ -386,6 +456,28 @@ public class AccountController : BaseApiController
             $"/debug_token?input_token={accessToken}&access_token={facebookKeys}");
 
         if (fbResult == null || fbResult.Data.Is_Valid == false || !fbResult.Data.User_Id.Equals(userId))
+            return false;
+
+        return true;
+    }
+
+    private async Task<bool> GoogleValidatedAsync(string accessToken, string userId)
+    {
+        var payload = await GoogleJsonWebSignature.ValidateAsync(accessToken);
+
+        if (!payload.Audience.Equals(_config["Google:ClientId"]))
+            return false;
+
+        if (!payload.Issuer.Equals("accounts.google.com") && !payload.Issuer.Equals("https://accounts.google.com"))
+            return false;
+
+        if (payload.ExpirationTimeSeconds == null)
+            return false;
+
+        DateTime now = DateTime.Now;
+        DateTime expiration = DateTimeOffset.FromUnixTimeSeconds((long)payload.ExpirationTimeSeconds).DateTime;
+
+        if (!payload.Subject.Equals(userId))
             return false;
 
         return true;

@@ -7,7 +7,8 @@ import {NbMenuItem} from '@nebular/theme';
     <ngx-one-column-layout>
       <nb-menu [items]="menu"></nb-menu>
       <router-outlet></router-outlet>
-    </ngx-one-column-layout>`,
+    </ngx-one-column-layout>
+  `,
 })
 
 export class ManagementsComponent {
@@ -19,7 +20,16 @@ export class ManagementsComponent {
       home: true,
     },
     {
-      title: 'MANAGEMENTS',
+      title: 'USER MANAGEMENTS',
+      group: true,
+    },
+    {
+      title: 'User',
+      icon: 'person-outline',
+      link: '/managements/user',
+    },
+    {
+      title: 'APPLICATION MANAGEMENTS',
       group: true,
     },
     {

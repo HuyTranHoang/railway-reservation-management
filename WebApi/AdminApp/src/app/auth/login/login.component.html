@@ -1,0 +1,43 @@
+<div class="d-flex justify-content-center" style="margin-top: 15vh">
+  <nb-card style="width: 550px; padding-bottom: 30px">
+    <nb-card-body>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="text-center">
+          <h2 class="pt-4">Login</h2>
+          <span>Hello! Log in with your email</span>
+        </div>
+
+        <div class="mt-5">
+          <label class="label">Email address:</label>
+          <input type="text" nbInput fullWidth
+                 formControlName="userName"
+                 [class.status-danger]="submitted && loginForm.get('userName')?.errors">
+          <span class="text-danger small"
+                *ngIf="submitted && loginForm.get('userName')?.hasError('required')">
+                Email is required
+          </span>
+        </div>
+
+        <div class="mt-4">
+          <label class="label d-flex justify-content-between">
+            Password:
+            <a class="font-weight-light">Forgot password?</a>
+          </label>
+          <input type="password" nbInput fullWidth
+                 formControlName="password"
+                 [class.status-danger]="submitted && loginForm.get('password')?.errors">
+          <span class="text-danger small"
+                *ngIf="submitted && loginForm.get('password')?.hasError('required')">
+                Password is required
+          </span>
+        </div>
+
+        <div class="mt-5">
+          <button nbButton fullWidth type="submit" size="large" status="primary">Log In</button>
+        </div>
+
+      </form>
+    </nb-card-body>
+  </nb-card>
+
+</div>
