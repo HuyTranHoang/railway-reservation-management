@@ -26,7 +26,7 @@
     <img src="https://i.imgur.com/z7SFTce.png" alt="Logo" height="80">
   </a>
 
-<h3 align="center">Rail ticket hub</h3>
+<h3 align="center">Swift Rails</h3>
 
   <p align="center">
     Railway Reservation Management

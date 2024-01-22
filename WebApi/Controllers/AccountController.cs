@@ -87,9 +87,6 @@ public class AccountController : BaseApiController
         if (!result.Succeeded) return BadRequest(result.Errors);
 
         await _userManager.AddToRoleAsync(user, SD.UserRole);
-
-        user.FirstName = "123123213123123";
-
         await _userManager.UpdateAsync(user);
 
         try
