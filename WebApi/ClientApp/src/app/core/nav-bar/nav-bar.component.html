@@ -20,14 +20,13 @@
     <a class="p-2 mx-2" routerLink="/booking-train" [class.is-scrolled]="isScroll || checkStartsWith(href)"
        routerLinkActive="active">Train ticket</a>
 
-    <a class="p-2 mx-2" routerLink="/faqs" [class.is-scrolled]="isScroll || checkStartsWith(href)"
-       routerLinkActive="active">FAQS</a>
+    <a class="p-2 mx-2" routerLink="/help"
+       [class.is-scrolled]="isScroll || checkStartsWith(href)"
+       routerLinkActive="active">Faqs</a>
 
     <a class="p-2 mx-2" routerLink="/about" [class.is-scrolled]="isScroll || checkStartsWith(href)"
        routerLinkActive="active">About</a>
 
-    <a class="p-2 mx-2" routerLink="/contact" [class.is-scrolled]="isScroll || checkStartsWith(href)"
-       routerLinkActive="active">Contact</a>
   </nav>
 
   <div class="d-flex align-items-center" *ngIf="(authService.user$ | async) === null">

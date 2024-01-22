@@ -1,0 +1,35 @@
+a {
+  padding-left: 0;
+  color: #fb0;
+  text-decoration: none;
+}
+
+h4 {
+  margin: 25px 0;
+}
+
+h6 {
+  color: #63676b;
+  font-weight: 600;
+  margin-bottom: 25px;
+}
+
+p {
+  color: #7a8085;
+  letter-spacing: .8px;
+  line-height: 1.8;
+  margin-bottom: 25px;
+}
+
+.panel {
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  margin-bottom: 5px;
+
+  .btn-link {
+    color: #4c4f52;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+}

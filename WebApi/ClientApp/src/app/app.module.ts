@@ -11,26 +11,28 @@ import { AppRoutingModule } from './app-routing.module'
 import { BookingTrainComponent } from './booking-train/booking-train.component'
 import { SharedModule } from './shared/shared.module'
 import { JwtInterceptor } from './core/interceptors/jwt.interceptor'
-import { ContactComponent } from './contact/contact.component'
+import { HelpComponent } from './help/help.component'
 import { AboutComponent } from './about/about.component'
-import { FaqsComponent } from './faqs/faqs.component'
 import { BookingModule } from './booking/booking.module';
 import { SliderComponent } from './home/slider/slider.component'
 import { FormsModule } from '@angular/forms';
 import { GalleryComponent } from './home/gallery/gallery.component';
-import { UserComponent } from './user/user.component'
+import { UserComponent } from './user/user.component';
+import { HelpContactComponent } from './help/help-contact/help-contact.component';
+import { HelpFaqsComponent } from './help/help-faqs/help-faqs.component'
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     BookingTrainComponent,
-    ContactComponent,
+    HelpComponent,
     AboutComponent,
-    FaqsComponent,
     SliderComponent,
     GalleryComponent,
     UserComponent,
+    HelpContactComponent,
+    HelpFaqsComponent,
   ],
   imports: [
     BrowserModule,
