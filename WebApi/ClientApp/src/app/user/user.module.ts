@@ -4,15 +4,15 @@ import { UserRoutingModule } from './user-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { UserBookingComponent } from './user-booking/user-booking.component';
-import { HeaderComponent } from './user-booking/header/header.component';
+import { UserBookingHistoryComponent } from './user-booking-history/user-booking-history.component';
+import { UserBookingHistoryHeaderComponent } from './user-booking-history/user-booking-history-header/user-booking-history-header.component';
 
 
 @NgModule({
   declarations: [
     UserProfileComponent,
-    UserBookingComponent,
-    HeaderComponent,
+    UserBookingHistoryComponent,
+    UserBookingHistoryHeaderComponent,
   ],
   imports: [
     CommonModule,

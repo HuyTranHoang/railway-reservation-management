@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { UserProfileComponent } from './user-profile/user-profile.component';
-import { UserBookingComponent } from './user-booking/user-booking.component';
+import { UserBookingHistoryComponent } from './user-booking-history/user-booking-history.component';
 
 const routes: Routes = [
   {
@@ -10,7 +10,7 @@ const routes: Routes = [
   },
   {
     path: 'booking',
-    component : UserBookingComponent,
+    component : UserBookingHistoryComponent,
   }
 ];
 
