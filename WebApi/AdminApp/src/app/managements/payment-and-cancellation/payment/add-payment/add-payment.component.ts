@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {NbGlobalPhysicalPosition, NbToastrService} from '@nebular/theme';
 import {PaymentService} from '../payment.service';
-import {UserService} from '../../../services/user.service';
-import {ApplicationUser} from '../../../../@models/applicationUser';
+import {UserService} from '../../../user/user.service';
+import {User} from '../../../../@models/auth/applicationUser';
 
 @Component({
   selector: 'ngx-add-payment',
@@ -12,7 +12,7 @@ import {ApplicationUser} from '../../../../@models/applicationUser';
 })
 export class AddPaymentComponent implements OnInit {
 
-  user: ApplicationUser | undefined;
+  user: User | undefined;
   paymentForm: FormGroup = this.fb.group({});
   isSubmitted = false;
   errorMessages: string[] = [];

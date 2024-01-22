@@ -3,5 +3,8 @@ export interface User {
   email: string;
   firstName: string;
   lastName: string;
-  phoneNumber: any;
+  phoneNumber: string;
+  isLocked: boolean;
+  createdAt: string;
+  roles: string[];
 }

@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using System.Security.Claims;
 using System.Text;
+using Application.Common.Interfaces.Persistence;
 using Application.Common.Models.Authentication;
 using Application.Services;
 using Domain.Constants;
@@ -78,12 +79,18 @@ public class AccountController : BaseApiController
             FirstName = registerDto.FirstName.ToLower(),
             LastName = registerDto.LastName.ToLower(),
             Email = registerDto.Email.ToLower(),
-            UserName = registerDto.Email.ToLower()
+            UserName = registerDto.Email.ToLower(),
         };
 
         var result = await _userManager.CreateAsync(user, registerDto.Password);
 
         if (!result.Succeeded) return BadRequest(result.Errors);
+
+        await _userManager.AddToRoleAsync(user, SD.UserRole);
+
+        user.FirstName = "123123213123123";
+
+        await _userManager.UpdateAsync(user);
 
         try
         {

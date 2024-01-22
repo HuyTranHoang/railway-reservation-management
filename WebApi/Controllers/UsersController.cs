@@ -19,23 +19,48 @@ public class UsersController : BaseApiController
     [HttpGet]
     public async Task<ActionResult<IEnumerable<ApplicationUserDto>>> GetUsers([FromQuery] QueryParams queryParams)
     {
-        var usersList = await _userManager.Users
-            .Where(u => u.UserName != SD.SuperAdminEmail)
-            .ToListAsync();
+        var query = _userManager.Users
+            .Where(u => u.UserName != SD.SuperAdminEmail);
 
-        var usersDto = usersList.Select(user => new ApplicationUserDto
+        if (!string.IsNullOrEmpty(queryParams.SearchTerm))
+            query = query.Where(ct => ct.FirstName.Contains(queryParams.SearchTerm.Trim()) ||
+                                      ct.LastName.Contains(queryParams.SearchTerm.Trim()) ||
+                                      ct.Email.Contains(queryParams.SearchTerm.Trim()) ||
+                                      ct.PhoneNumber.Contains(queryParams.SearchTerm.Trim()));
+
+        query = queryParams.Sort switch
+        {
+            "firstNameAsc" => query.OrderBy(u => u.FirstName),
+            "firstNameDesc" => query.OrderByDescending(u => u.FirstName),
+            "lastNameAsc" => query.OrderBy(u => u.LastName),
+            "lastNameDesc" => query.OrderByDescending(u => u.LastName),
+            "emailAsc" => query.OrderBy(u => u.Email),
+            "emailDesc" => query.OrderByDescending(u => u.Email),
+            "phoneNumberAsc" => query.OrderBy(u => u.PhoneNumber),
+            "phoneNumberDesc" => query.OrderByDescending(u => u.PhoneNumber),
+            "isLockedAsc" => query.OrderBy(u => u.LockoutEnd),
+            "isLockedDesc" => query.OrderByDescending(u => u.LockoutEnd),
+            "createdAtDesc" => query.OrderByDescending(u => u.CreatedAt),
+            _ => query.OrderBy(u => u.CreatedAt)
+        };
+
+        var usersDtoPagedList = await PagedList<ApplicationUser>.CreateAsync(query, queryParams.PageNumber,
+            queryParams.PageSize);
+
+        var usersDto = usersDtoPagedList.Select(user => new ApplicationUserDto
         {
             Id = user.Id,
             Email = user.Email,
             FirstName = user.FirstName,
             LastName = user.LastName,
             PhoneNumber = user.PhoneNumber,
+            CreatedAt = user.CreatedAt,
             IsLocked = _userManager.IsLockedOutAsync(user).Result,
             Roles = _userManager.GetRolesAsync(user).Result
         }).ToList();
 
         var paginationHeader = new PaginationHeader(queryParams.PageNumber, queryParams.PageSize,
-            usersDto.Count, usersDto.Count);
+            usersDtoPagedList.TotalCount, usersDtoPagedList.TotalPages);
 
         Response.AddPaginationHeader(paginationHeader);
 
@@ -56,6 +81,7 @@ public class UsersController : BaseApiController
             FirstName = user.FirstName,
             LastName = user.LastName,
             PhoneNumber = user.PhoneNumber,
+            CreatedAt = user.CreatedAt,
             IsLocked = _userManager.IsLockedOutAsync(user).Result,
             Roles = _userManager.GetRolesAsync(user).Result
         };

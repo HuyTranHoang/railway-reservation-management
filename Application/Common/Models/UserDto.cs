@@ -8,6 +8,7 @@ public class ApplicationUserDto
     public string LastName { get; set; }
     public string PhoneNumber { get; set; }
     public bool IsLocked { get; set; }
-    public DateTime DateCreated { get; set; }
+
+    public DateTime CreatedAt { get; set; }
     public IEnumerable<string> Roles { get; set; }
 }
