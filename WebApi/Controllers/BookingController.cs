@@ -33,39 +33,6 @@ namespace WebApi.Controllers
             return Ok(result);
         }
 
-        // [HttpGet("schedule/{id}")]
-        // public async Task<ActionResult<List<object>>> GetScheduleById(int id)
-        // {
-        //     // Lấy giá trị queryParams từ Session
-        //     var queryParamsJson = HttpContext.Session.GetString("BookingParams");
-
-        //     if (string.IsNullOrEmpty(queryParamsJson))
-        //     {
-        //         return BadRequest("BookingParams is missing in session.");
-        //     }
-
-        //     // Chuyển đổi từ dạng đã lưu trữ về đối tượng ban đầu
-        //     var queryParams = JsonConvert.DeserializeObject<BookingQueryParams>(queryParamsJson);
-
-
-        //     var schedule = await _bookingService.GetBookingInfoWithScheduleIdAsync(id);
-        //     var carriageTypes = await _bookingService.GetCarriageTypesByTrainIdAsync(schedule.TrainId);
-
-
-        //     if (schedule == null || carriageTypes == null)
-        //     {
-        //         return NotFound(new ErrorResponse(404));
-        //     }
-
-        //     var result = new {
-        //         Schedule = schedule,
-        //         CarriageTypes = carriageTypes,
-        //         BookingParams = queryParams
-        //     };
-
-        //     return Ok(result);
-        // }
-
         [HttpGet("train/{id}")]
         public async Task<ActionResult<List<object>>> GetTrainDetailsByScheduleId(int id)
         {

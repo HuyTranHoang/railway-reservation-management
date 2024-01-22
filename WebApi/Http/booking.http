@@ -14,12 +14,6 @@ GET {{url}}/{{router}}/schedule?
   # &ArivalTime = 2024-01-18 16:18:28.0000000
   &RoundTrip=false
 
-### 
-
-# # @name getScheduleById
-# @id = 2
-
-# GET {{url}}/{{router}}/schedule/{{id}}
 
 ### 
 
