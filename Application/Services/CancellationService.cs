@@ -50,6 +50,9 @@ namespace Application.Services
                 "ticketCodeDesc" => query.OrderByDescending(p => p.Ticket.Code),
                 "departureDateDifferenceAsc" => query.OrderBy(p => p.CancellationRule.DepartureDateDifference),
                 "departureDateDifferenceDesc" => query.OrderByDescending(p => p.CancellationRule.DepartureDateDifference),
+                "reasonAsc" => query.OrderBy(p => p.Reason),
+                "reasonDesc" => query.OrderByDescending(p => p.Reason),
+                "createdAtDesc" => query.OrderByDescending(cr => cr.CreatedAt),
                 _ => query.OrderBy(p => p.CreatedAt)
             };
 
