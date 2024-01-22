@@ -8,7 +8,7 @@ import { BookingTrainComponent } from './booking-train/booking-train.component'
 import { AuthorizationGuard } from './core/guards/authorization.guard'
 import { ContactComponent } from './contact/contact.component'
 import { AboutComponent } from './about/about.component'
-import { FaqsComponent } from './core/faqs/faqs.component'
+import { FaqsComponent } from './faqs/faqs.component'
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
