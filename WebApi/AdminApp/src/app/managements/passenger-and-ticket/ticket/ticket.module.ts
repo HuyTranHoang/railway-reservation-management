@@ -6,9 +6,11 @@ import {EditTicketComponent} from './edit-ticket/edit-ticket.component';
 import {ConfirmDeleteTicketComponent} from './confirm-delete-ticket/confirm-delete-ticket.component';
 import {TicketRoutingModule} from './ticket-routing.module';
 import {SharedModule} from '../../shared/shared.module';
+import {ListTicketComponent} from './list-ticket/list-ticket.component';
 
 @NgModule({
   declarations: [
+    ListTicketComponent,
     AddTicketComponent,
     ShowTicketComponent,
     EditTicketComponent,

@@ -2,12 +2,12 @@ using Domain.Exceptions;
 
 namespace WebApi.Controllers
 {
-    public class TicketController : BaseApiController
+    public class TicketsController : BaseApiController
     {
         private readonly ITicketService _ticketService;
         
 
-        public TicketController(ITicketService ticketService)
+        public TicketsController(ITicketService ticketService)
         {
             _ticketService = ticketService;
         }
