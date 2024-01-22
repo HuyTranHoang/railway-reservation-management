@@ -90,7 +90,7 @@ public static class Seed
         {
             FirstName = "User",
             LastName = "RailTicketHub",
-            Email = "user@mail.com",
+            Email = "user@gmail.com",
             UserName = "user@gmail.com",
             EmailConfirmed = true,
         };
