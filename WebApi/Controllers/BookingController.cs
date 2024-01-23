@@ -70,7 +70,7 @@ namespace WebApi.Controllers
             {
                 return BadRequest("TrainDetails is missing in session.");
             }
-            var trainDetails = JsonConvert.DeserializeObject<TrainDetailsDto>(trainDetailsJson);
+            var trainDetails = JsonConvert.DeserializeObject<TrainDetailDto>(trainDetailsJson);
 
             var scheduleIdJson = HttpContext.Session.GetString("ScheduleId");
             if (string.IsNullOrEmpty(scheduleIdJson))
@@ -122,7 +122,7 @@ namespace WebApi.Controllers
                         var ticket = new Ticket
                         {
                             PassengerId = passenger.Id,
-                            TrainId = trainDetails.TrainDetails.Id,
+                            TrainId = trainDetails.Id,
                             CarriageId = ticketData.CarriageId,
                             SeatId = ticketData.SeatId,
                             ScheduleId = scheduleId,
