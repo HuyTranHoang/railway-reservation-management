@@ -40,6 +40,7 @@ public class SeatDtoDetail
 {
     public int Id { get; set; }
     public string Name { get; set; }
+    public int SeatTypeId { get; set; }
     public bool Booked { get; set; }
 }
 

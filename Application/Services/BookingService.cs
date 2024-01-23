@@ -188,6 +188,7 @@ public class BookingService : IBookingService
                     {
                         Id = seat.Id,
                         Name = seat.Name,
+                        SeatTypeId = seat.SeatTypeId,
                         Booked = isSeatAndScheduleExistsInTickets
                     };
 

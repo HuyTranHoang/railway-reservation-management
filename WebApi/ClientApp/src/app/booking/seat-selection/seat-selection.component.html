@@ -101,20 +101,23 @@
 <!--          <div class="text-center text-info car-label">2</div>-->
 <!--        </div>-->
 
-        <div class="car-block" *ngFor="let item of carriageMatchType; let i = index">
-          <div class="car-icon car-icon-available">
-            <img src="https://dsvn.vn/images/trainCar2.png">
-          </div>
-          <div class="text-center text-info car-label">{{i+1}}</div>
-        </div>
-
         <div class="car-block">
-          <div class="car-icon">
+          <div class="car-icon" style="transform: rotate(-180deg) scaleY(-1);">
             <img src="https://dsvn.vn/images/train2.png">
           </div>
           <div class="text-center text-info car-label">
             {{trainDetail?.name}}
           </div>
+        </div>
+
+        <div class="car-block"
+             (click)="selectCarriage(item)"
+             *ngFor="let item of carriageMatchType; let i = index">
+          <div class="car-icon"
+               [ngClass]="item.id == currentSelectCarriage?.id ? 'car-icon-selected' : 'car-icon-available'">
+            <img src="https://dsvn.vn/images/trainCar2.png">
+          </div>
+          <div class="text-center text-info car-label">{{i+1}}</div>
         </div>
       </div>
 
@@ -127,8 +130,8 @@
                       [ngClass]="seat.booked ? 'seat-unavailable' : 'seat-available'"
                       (click)="toggleSelectSeat(seat)"
                       [class.seat-selected]="seat.selected"
-                      *ngFor="let seat of compartmentOfCarriage[0].seats.slice(0, 8); let colIndex = index">
-                {{ seat.id }}
+                      *ngFor="let seat of seatRows[0]">
+                {{ seat.name }}
               </button>
             </div>
 
@@ -137,8 +140,8 @@
                       [ngClass]="seat.booked ? 'seat-unavailable' : 'seat-available'"
                       (click)="toggleSelectSeat(seat)"
                       [class.seat-selected]="seat.selected"
-                      *ngFor="let seat of compartmentOfCarriage[0].seats.slice(8, 16); let colIndex = index">
-                {{ seat.id }}
+                      *ngFor="let seat of seatRows[1]">
+                {{ seat.name }}
               </button>
             </div>
 
@@ -151,8 +154,8 @@
                         [ngClass]="seat.booked ? 'seat-unavailable' : 'seat-available'"
                         (click)="toggleSelectSeat(seat)"
                         [class.seat-selected]="seat.selected"
-                        *ngFor="let seat of compartmentOfCarriage[1].seats.slice(0, 8); let colIndex = index">
-                  {{ seat.id }}
+                        *ngFor="let seat of seatRows[4]">
+                  {{ seat.name }}
                 </button>
               </div>
             </div>
@@ -162,8 +165,8 @@
                         [ngClass]="seat.booked ? 'seat-unavailable' : 'seat-available'"
                         (click)="toggleSelectSeat(seat)"
                         [class.seat-selected]="seat.selected"
-                        *ngFor="let seat of compartmentOfCarriage[1].seats.slice(8, 16); let colIndex = index">
-                  {{ seat.id }}
+                        *ngFor="let seat of seatRows[5]">
+                  {{ seat.name }}
                 </button>
               </div>
             </div>
@@ -176,8 +179,8 @@
                       [ngClass]="seat.booked ? 'seat-unavailable' : 'seat-available'"
                       (click)="toggleSelectSeat(seat)"
                       [class.seat-selected]="seat.selected"
-                      *ngFor="let seat of compartmentOfCarriage[0].seats.slice(16, 24); let colIndex = index">
-                {{ seat.id }}
+                      *ngFor="let seat of seatRows[2]">
+                {{ seat.name }}
               </button>
             </div>
             <div class="seat-row mt-1">
@@ -185,8 +188,8 @@
                       [ngClass]="seat.booked ? 'seat-unavailable' : 'seat-available'"
                       (click)="toggleSelectSeat(seat)"
                       [class.seat-selected]="seat.selected"
-                      *ngFor="let seat of compartmentOfCarriage[0].seats.slice(24, 32); let colIndex = index">
-                {{ seat.id }}
+                      *ngFor="let seat of seatRows[3]">
+                {{ seat.name }}
               </button>
             </div>
           </div>
@@ -197,8 +200,8 @@
                       [ngClass]="seat.booked ? 'seat-unavailable' : 'seat-available'"
                       (click)="toggleSelectSeat(seat)"
                       [class.seat-selected]="seat.selected"
-                      *ngFor="let seat of compartmentOfCarriage[1].seats.slice(16, 24); let colIndex = index">
-                {{ seat.id }}
+                      *ngFor="let seat of seatRows[6]">
+                {{ seat.name }}
               </button>
             </div>
             <div class="seat-row mt-1">
@@ -206,8 +209,8 @@
                       [ngClass]="seat.booked ? 'seat-unavailable' : 'seat-available'"
                       (click)="toggleSelectSeat(seat)"
                       [class.seat-selected]="seat.selected"
-                      *ngFor="let seat of compartmentOfCarriage[0].seats.slice(24, 32); let colIndex = index">
-                {{ seat.id }}
+                      *ngFor="let seat of seatRows[7]">
+                {{ seat.name }}
               </button>
 <!--              <button class="seat seat-available"-->
 <!--                      [class.seat-selected]="seatStatus[7][colIndex]"-->

@@ -19,6 +19,8 @@ export class SeatSelectionComponent implements OnInit {
 
   selectedSeat: Seat[] = []
 
+  seatRows: Seat[][] = []
+
   constructor(public bookingService: BookingService,
               private seatSelectionService: SeatSelectionService,
               private viewportScroller: ViewportScroller) {}
@@ -32,7 +34,6 @@ export class SeatSelectionComponent implements OnInit {
     if (this.bookingService.currentSelectSchedule) {
       this.getTrainDetailsByScheduleId(this.bookingService.currentSelectSchedule.id)
     }
-    // this.generateSeatRows()
   }
 
   getTrainDetailsByScheduleId(scheduleId: number) {
@@ -44,9 +45,42 @@ export class SeatSelectionComponent implements OnInit {
 
         this.currentSelectCarriage = this.carriageMatchType[0]
         this.compartmentOfCarriage = this.currentSelectCarriage?.compartments || []
+
+
+        const seatsPerRow = 8;
+        const numberOfRows = 4
+
+        for (let i = 0; i < numberOfRows; i++) {
+          const row: Seat[] = [];
+
+          for (let j = 0; j < seatsPerRow; j++) {
+            const seatIndex = i + j * numberOfRows;
+            if (seatIndex < this.compartmentOfCarriage[0].seats.length) {
+              row.push(this.compartmentOfCarriage[0].seats[seatIndex]);
+            }
+          }
+
+          this.seatRows.push(row);
+        }
+
+        for (let i = 0; i < numberOfRows; i++) {
+          const row: Seat[] = [];
+
+          for (let j = 0; j < seatsPerRow; j++) {
+            const seatIndex = i + j * numberOfRows;
+            if (seatIndex < this.compartmentOfCarriage[1].seats.length) {
+              row.push(this.compartmentOfCarriage[1].seats[seatIndex]);
+            }
+          }
+
+          this.seatRows.push(row);
+        }
+
+
       }
     })
   }
+
   toggleSelectSeat(seat: Seat) {
     seat.selected = !seat.selected
 
@@ -55,6 +89,11 @@ export class SeatSelectionComponent implements OnInit {
     } else {
       this.selectedSeat = this.selectedSeat.filter(s => s.id !== seat.id)
     }
+  }
+
+  selectCarriage(carriage: Carriage) {
+    this.currentSelectCarriage = carriage
+    this.compartmentOfCarriage = this.currentSelectCarriage?.compartments || []
   }
 
   scrollToTop(): void {
