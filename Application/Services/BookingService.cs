@@ -221,27 +221,4 @@ public class BookingService : IBookingService
         var carriageTypes = await _carriageTypeRepository.GetCarriageTypeByTrainIdAsync(trainId);
         return _mapper.Map<List<CarriageTypeDto>>(carriageTypes);
     }
-
-    public async Task<List<TicketDto>> AddTicketListAsync(List<Ticket> tickets)
-    {
-        if (tickets == null || !tickets.Any())
-        {
-            throw new ArgumentException("The list of tickets is null or empty.");
-        }
-
-        try
-        {
-            foreach (var ticket in tickets)
-            {
-                await _ticketRepository.Add(ticket);
-            }
-
-            await _unitOfWork.SaveChangesAsync();
-            return _mapper.Map<List<TicketDto>>(tickets);
-        }
-        catch (Exception ex)
-        {
-            throw new Exception($"Error adding tickets: {ex.Message}");
-        }
-    }
 }

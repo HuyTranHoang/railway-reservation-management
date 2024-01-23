@@ -38,20 +38,24 @@ namespace WebApi.Controllers
             var trainDetailsJson = JsonConvert.SerializeObject(train);// Chuyển đối tượng thành JSON
             HttpContext.Session.SetString("TrainDetails", trainDetailsJson);// Lưu trữ vào Session
 
+            var scheduleIdJson = JsonConvert.SerializeObject(id);// Chuyển đối tượng thành JSON
+            HttpContext.Session.SetString("ScheduleId", scheduleIdJson);// Lưu trữ vào Session
+
             if (train == null)
             {
                 return NotFound(new ErrorResponse(404));
             }
 
             var result = new {
-                TrainDetails = train
+                TrainDetails = train,
+                ScheduleId = id
             };
 
             return Ok(result);
         }
 
         [HttpPost("payment")]
-        public async Task<IActionResult> Payment([FromBody] PaymentDto paymentDto, string userId, int carriageId, int seatId)
+        public async Task<IActionResult> Payment([FromBody] PaymentDto paymentDto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
@@ -67,9 +71,15 @@ namespace WebApi.Controllers
             {
                 return BadRequest("TrainDetails is missing in session.");
             }
-            var trainDetails = JsonConvert.DeserializeObject<BookingQueryParams>(trainDetailsJson);
+            var trainDetails = JsonConvert.DeserializeObject<TrainDetailsDto>(trainDetailsJson);
 
-            ScheduleDto schedule = null;
+            var scheduleIdJson = HttpContext.Session.GetString("ScheduleId");
+            if (string.IsNullOrEmpty(scheduleIdJson))
+            {
+                return BadRequest("ScheduleId is missing in session.");
+            }
+            var scheduleId = JsonConvert.DeserializeObject<int>(scheduleIdJson);
+
             
             //Kiểm tra RoundTrip
             if (queryParams.RoundTrip == true)
@@ -83,8 +93,6 @@ namespace WebApi.Controllers
                     RoundTrip = false
                 };
 
-                var schedulesDto = await GetBookingSchedule(roundTripParams);
-
                 // ...
 
                 return Ok("Payment successful.");
@@ -92,48 +100,45 @@ namespace WebApi.Controllers
             {
                 try
                 {
-                    paymentDto.Tickets = new List<Ticket>();
                     if (paymentDto.Passengers == null || !paymentDto.Passengers.Any())
                     {
                         return BadRequest("The list of passengers is null or empty.");
                     }
-
-                    foreach (var passengerData in paymentDto.Passengers)
+                    
+                    if (paymentDto.Passengers.Count != paymentDto.Tickets.Count)
                     {
-                        var passenger = await _bookingService.AddPassengerAsync(passengerData);
-                        paymentDto.Payments.AspNetUserId = userId;
-                        paymentDto.Payments ??= new Payment();
+                        return BadRequest("Mismatched number of passengers and tickets.");
+                    }
 
-                        var payment = await _bookingService.AddPaymentAsync(paymentDto.Payments);
+                    var payment = await _bookingService.AddPaymentAsync(paymentDto.Payments);
+
+                    for (int i = 0; i < paymentDto.Passengers.Count; i++)
+                    {
+                        var passengerData = paymentDto.Passengers[i];
+                        var ticketData = paymentDto.Tickets[i];
+
+                        var passenger = await _bookingService.AddPassengerAsync(passengerData);
 
                         var ticket = new Ticket
                         {
                             PassengerId = passenger.Id,
-                            TrainId = schedule.TrainId,
+                            TrainId = trainDetails.TrainDetails.Id,
                             DistanceFareId = payment.Ticket.DistanceFareId,
-                            CarriageId = carriageId,
-                            SeatId = seatId,
-                            ScheduleId = schedule.Id,
+                            CarriageId = ticketData.CarriageId,
+                            SeatId = ticketData.SeatId,
+                            ScheduleId = scheduleId,
                             PaymentId = payment.Id
                         };
-                        paymentDto.Tickets.Add(ticket);
+
+                        await _bookingService.AddTicketAsync(ticket);
                     }
 
-                    if (paymentDto.Tickets.Any())
-                    {
-                        await _bookingService.AddTicketListAsync(paymentDto.Tickets);
-                    }
-                    else
-                    {
-                        return BadRequest("The list of tickets is empty.");
-                    }
+                    return Ok("Payment successful.");
                 }
                 catch (Exception ex)
                 {
                     return BadRequest($"Error processing payment: {ex.Message}");
                 }
-
-                return Ok("Payment successful.");
             }
         }
     }

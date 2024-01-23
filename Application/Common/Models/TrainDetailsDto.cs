@@ -1,9 +1,15 @@
+
 namespace Application.Common.Models
 {
     public class TrainDetailsDto
     {
         public TrainDto TrainDetails { get; set; }
         public List<CarriageDetailDto> Carriages { get; set; }
+
+        public static implicit operator int(TrainDetailsDto v)
+        {
+            throw new NotImplementedException();
+        }
     }
     public class CarriageDetailDto
     {

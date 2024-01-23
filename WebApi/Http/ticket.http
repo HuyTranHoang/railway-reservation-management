@@ -10,7 +10,6 @@ Content-Type: application/json
 {
   "PassengerId" : 1 ,
   "TrainId" : 20,
-  "DistanceFareId" : 1,
   "CarriageId" : 8,
   "SeatId" : 21,
   "ScheduleId" : 31,
