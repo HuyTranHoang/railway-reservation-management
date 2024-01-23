@@ -1,3 +1,8 @@
+export interface ScheduleWithBookingParams {
+  schedule: Schedule[]
+  bookingParams: string
+}
+
 export interface Schedule {
   id: number
   name: string

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http'
 import { environment } from '../../environments/environment.development'
 import { BookingScheduleParams } from '../core/models/params/bookingScheduleParams'
-import { Schedule } from '../core/models/schedule'
+import { Schedule, ScheduleWithBookingParams } from '../core/models/schedule'
 
 @Injectable({
   providedIn: 'root'
@@ -35,7 +35,7 @@ export class BookingService {
       params = params.append('roundTrip', queryParams.roundTrip)
     }
 
-    return this.http.get<Schedule[]>(this.baseUrl + 'booking/schedule', { params })
+    return this.http.get<ScheduleWithBookingParams>(this.baseUrl + 'booking/schedule', { params })
   }
 
 }
