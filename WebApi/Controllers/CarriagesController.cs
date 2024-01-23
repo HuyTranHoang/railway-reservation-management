@@ -5,10 +5,12 @@ namespace WebApi.Controllers;
 public class CarriagesController : BaseApiController
 {
     private readonly ICarriageService _carriageService;
+    private readonly ITrainComponentService _trainComponentService;
 
-    public CarriagesController(ICarriageService carriageService)
+    public CarriagesController(ICarriageService carriageService, ITrainComponentService trainComponentService)
     {
         _carriageService = carriageService;
+        _trainComponentService = trainComponentService;
     }
 
     [HttpGet]
@@ -62,7 +64,8 @@ public class CarriagesController : BaseApiController
         try
         {
             // await _carriageService.AddAsync(carriage);
-            await _carriageService.AddWithCompartmentAndSeatAsync(carriage);
+            await _trainComponentService.AddTrainComponentsAsync(carriage);
+            // await _carriageService.AddWithCompartmentAndSeatAsync(carriage);
         }
         catch (BadRequestException ex)
         {

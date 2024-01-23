@@ -32,15 +32,16 @@ public static class Seed
     {
         await SeedData<Passenger>(context, "Passenger.json", c => c.Passengers);
         await SeedData<TrainCompany>(context, "TrainCompany.json", c => c.TrainCompanies);
-        await SeedData<Train>(context, "Train.json", c => c.Trains);
+
         await SeedData<SeatType>(context, "SeatType.json", c => c.SeatTypes);
         await SeedData<CarriageType>(context, "CarriageType.json", c => c.CarriageTypes);
         await SeedData<CancellationRule>(context, "CancellationRule.json", c => c.CancellationRules);
         await SeedData<TrainStation>(context, "TrainStation.json", c => c.TrainStations);
         await SeedData<RoundTrip>(context, "RoundTrip.json", c => c.RoundTrips);
-        await SeedData<Carriage>(context, "Carriage.json", c => c.Carriages);
-        await SeedData<Compartment>(context, "Compartment.json", c => c.Compartments);
-        await SeedData<Seat>(context, "Seat.json", c => c.Seats);
+        // await SeedData<Train>(context, "Train.json", c => c.Trains);
+        // await SeedData<Carriage>(context, "Carriage.json", c => c.Carriages);
+        // await SeedData<Compartment>(context, "Compartment.json", c => c.Compartments);
+        // await SeedData<Seat>(context, "Seat.json", c => c.Seats);
         await SeedData<DistanceFare>(context, "DistanceFare.json", c => c.DistanceFares);
         await SeedData<CompartmentTemplate>(context, "CompartmentTemplate.json", c => c.CompartmentTemplates);
 

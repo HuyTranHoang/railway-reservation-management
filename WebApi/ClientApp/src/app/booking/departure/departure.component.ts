@@ -229,11 +229,11 @@ export class DepartureComponent implements OnInit {
       return
     }
 
-    const departureTime = new Date(this.currentDepartureDate.getTime() + (7 * 60 * 60 * 1000)).toISOString();
+    const departureTime = this.currentDepartureDate.toISOString()
     let returnDate = null
 
     if (this.currentReturnDate) {
-      returnDate = new Date(this.currentReturnDate.getTime() + (7 * 60 * 60 * 1000)).toISOString();
+      returnDate = this.currentReturnDate.toISOString()
     }
 
     const queryParams: BookingScheduleParams = {

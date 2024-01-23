@@ -24,7 +24,8 @@ namespace WebApi.Controllers
 
             var schedulesDto = await _bookingService.GetBookingInfoWithScheduleAsync(queryParams);
 
-            var result = new {
+            var result = new
+            {
                 Schedule = schedulesDto,
                 BookingParams = queryParamsJson
             };
@@ -36,7 +37,7 @@ namespace WebApi.Controllers
         public async Task<ActionResult<List<object>>> GetTrainDetailsByScheduleId(int id)
         {
             // var schedule = await _bookingService.GetBookingInfoWithScheduleIdAsync(id);
-            var train = await _bookingService.GetTrainDetailsWithTrainIdAsync(id);
+            var train = await _bookingService.GetTrainDetailsByScheduleIdAsync(id);
 
             var trainDetailsJson = JsonConvert.SerializeObject(train);// Chuyển đối tượng thành JSON
             HttpContext.Session.SetString("TrainDetails", trainDetailsJson);// Lưu trữ vào Session
@@ -49,12 +50,7 @@ namespace WebApi.Controllers
                 return NotFound(new ErrorResponse(404));
             }
 
-            var result = new {
-                TrainDetails = train,
-                ScheduleId = id
-            };
-
-            return Ok(result);
+            return Ok(train);
         }
 
         [HttpPost("payment")]
@@ -83,10 +79,10 @@ namespace WebApi.Controllers
             }
             var scheduleId = JsonConvert.DeserializeObject<int>(scheduleIdJson);
 
-            
+
             //Kiểm tra RoundTrip
             if (queryParams.RoundTrip == true)
-            {   
+            {
                 BookingQueryParams roundTripParams = new BookingQueryParams
                 {
                     DepartureStationId = queryParams.ArrivalStationId,
@@ -99,7 +95,8 @@ namespace WebApi.Controllers
                 // ...
 
                 return Ok("Payment successful.");
-            } else
+            }
+            else
             {
                 try
                 {
@@ -107,7 +104,7 @@ namespace WebApi.Controllers
                     {
                         return BadRequest("The list of passengers is null or empty.");
                     }
-                    
+
                     if (paymentDto.Passengers.Count != paymentDto.Tickets.Count)
                     {
                         return BadRequest("Mismatched number of passengers and tickets.");

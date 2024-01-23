@@ -17,7 +17,7 @@ GET {{url}}/{{router}}/schedule?
 ### 
 
 # @name getTrainDetailsByScheduleId
-@id = 31
+@id = 1
 
 GET {{url}}/{{router}}/schedule/{{id}}
 
