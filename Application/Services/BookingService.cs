@@ -106,13 +106,13 @@ public class BookingService : IBookingService
 
         }
 
-        //Lấy lịch trình theo Id
-        public async Task<ScheduleDto> GetBookingInfoWithScheduleIdAsync(int scheduleId)
-        {
-            var schedule = await _scheduleRepository.GetByIdAsync(scheduleId);
+        // //Lấy lịch trình theo Id
+        // public async Task<ScheduleDto> GetBookingInfoWithScheduleIdAsync(int scheduleId)
+        // {
+        //     var schedule = await _scheduleRepository.GetByIdAsync(scheduleId);
 
-            return _mapper.Map<ScheduleDto>(schedule);
-        }
+        //     return _mapper.Map<ScheduleDto>(schedule);
+        // }
 
         //Lấy danh sách CarriageType và Service Charge tương ứng
         public async Task<List<CarriageTypeDto>> GetAllCarriageTypeDtoAsync()
@@ -122,10 +122,11 @@ public class BookingService : IBookingService
             return carriageTypeDtos;
         }
 
-        public async Task<TrainDetailsDto> GetTrainDetailsWithTrainIdAsync(int trainId)
+        public async Task<TrainDetailsDto> GetTrainDetailsWithTrainIdAsync(int scheduleId)
         {
-            var train = await _trainRepository.GetByIdAsync(trainId);
-            var carriages = await _carriageRepository.GetCarriagesByTrainIdAsync(trainId);
+            var schedule = await _scheduleRepository.GetByIdAsync(scheduleId);
+            var train = await _trainRepository.GetByIdAsync(schedule.TrainId);
+            var carriages = await _carriageRepository.GetCarriagesByTrainIdAsync(schedule.TrainId);
 
             var trainDto = _mapper.Map<TrainDto>(train);
             var carriageDtos = _mapper.Map<List<CarriageDto>>(carriages);
@@ -151,6 +152,22 @@ public class BookingService : IBookingService
                 {
                     var seats = await _seatRepository.GetSeatsByCompartmentIdAsync(compartmentDto.Id);
                     var seatDtos = _mapper.Map<List<SeatDto>>(seats);
+
+                    foreach (var seat in seatDtos)
+                    {
+                        List<Ticket> tickets = _ticketRepository.GetAllTickets();
+
+                        bool isSeatAndScheduleExistsInTickets = tickets.Any(ticket => ticket.SeatId == seat.Id && ticket.ScheduleId == scheduleId);
+
+                        if (isSeatAndScheduleExistsInTickets)
+                        {
+                            seat.Booked = true;
+                        }
+                        else
+                        {
+                            seat.Booked = false;
+                        }
+                    }
 
                     var compartmentDetailDto = new CompartmentDetailDto
                     {

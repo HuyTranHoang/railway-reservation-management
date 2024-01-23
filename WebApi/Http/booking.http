@@ -10,7 +10,7 @@ GET {{url}}/{{router}}/schedule?
   # &sort=nameDesc
   &DepartureStationId=1
   &ArrivalStationId=2
-  &DepartureTime= 2024-01-17T21:00:00
+  &DepartureTime= 2024-01-23T21:00:00
   # &ArivalTime = 2024-01-18 16:18:28.0000000
   &RoundTrip=false
 
@@ -18,13 +18,14 @@ GET {{url}}/{{router}}/schedule?
 ### 
 
 # @name getTrainDetailsByScheduleId
-@id = 28
+@id = 31
 
-GET {{url}}/{{router}}/train/{{id}}
+GET {{url}}/{{router}}/schedule/{{id}}
 
 ###
 
 # @name DoPayment
+//Chưa làm xong
 
 POST {{url}}/{{router}}/payment
 Content-Type: application/json

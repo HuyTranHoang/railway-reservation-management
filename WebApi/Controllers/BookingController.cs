@@ -33,7 +33,7 @@ namespace WebApi.Controllers
             return Ok(result);
         }
 
-        [HttpGet("train/{id}")]
+        [HttpGet("schedule/{id}")]
         public async Task<ActionResult<List<object>>> GetTrainDetailsByScheduleId(int id)
         {
             var queryParamsJson = HttpContext.Session.GetString("BookingParams");
@@ -45,8 +45,8 @@ namespace WebApi.Controllers
             var queryParams = JsonConvert.DeserializeObject<BookingQueryParams>(queryParamsJson);
             
             
-            var schedule = await _bookingService.GetBookingInfoWithScheduleIdAsync(id);
-            var train = await _bookingService.GetTrainDetailsWithTrainIdAsync(schedule.TrainId);
+            // var schedule = await _bookingService.GetBookingInfoWithScheduleIdAsync(id);
+            var train = await _bookingService.GetTrainDetailsWithTrainIdAsync(id);
 
             var trainDetailsJson = JsonConvert.SerializeObject(queryParams);
             HttpContext.Session.SetString("TrainDetails", trainDetailsJson);
