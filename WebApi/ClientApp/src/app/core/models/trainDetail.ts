@@ -33,5 +33,6 @@ export interface Seat {
   id: number
   name: string
   booked: boolean
+  selected: boolean
 }
 
