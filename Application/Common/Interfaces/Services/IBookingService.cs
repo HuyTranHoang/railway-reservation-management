@@ -2,7 +2,7 @@ namespace Application.Common.Interfaces.Services
 {
     public interface IBookingService
     {
-        Task<List<BookingDto>> GetBookingInfoWithScheduleAsync(BookingQueryParams queryParams);
+        Task<List<ScheduleDto>> GetBookingInfoWithScheduleAsync(BookingQueryParams queryParams);
         // Task<ScheduleDto> GetBookingInfoWithScheduleIdAsync(int scheduleId);
         Task<List<CarriageTypeDto>> GetAllCarriageTypeDtoAsync();
         Task<List<CarriageTypeDto>> GetCarriageTypesByTrainIdAsync(int trainId);
