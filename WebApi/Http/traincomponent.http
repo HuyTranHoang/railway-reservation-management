@@ -10,8 +10,8 @@ Content-Type: application/json
 
 {
   "Name": "Test Carriage 1",
-  "TrainId": 20,
-  "CarriageTypeId": 3,
+  "TrainId": 1,
+  "CarriageTypeId": 1,
   "Status": "Active"
 }
 

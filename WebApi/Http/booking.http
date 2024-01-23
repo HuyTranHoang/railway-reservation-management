@@ -9,28 +9,61 @@ GET {{url}}/{{router}}/schedule?
   # &searchTerm= "A-2-4"
   # &sort=nameDesc
   &DepartureStationId=1
-  &ArrivalStationId=3
-  &DepartureTime=2024-01-24
+  &ArrivalStationId=2
+  &DepartureTime= 2024-01-23T21:00:00
   # &ArivalTime = 2024-01-18 16:18:28.0000000
   &RoundTrip=false
 
 ### 
 
-# @name getScheduleById
-@id = 2
+# @name getTrainDetailsByScheduleId
+@id = 31
 
 GET {{url}}/{{router}}/schedule/{{id}}
 
+###
+
+# @name DoPayment
+//Chưa làm xong
+
+POST {{url}}/{{router}}/payment
+Content-Type: application/json
+
+{
+  "paymentDto": 
+  {
+    "Passengers": 
+    [
+      {
+        "FullName": "Hành khách 1",
+        "CardId": "1234 5678 9012",
+        "Age": 25,
+        "Gender": "Female",
+        "Phone": "987 654 3210",
+        "Email": "passenger1@example.com"
+      },
+      {
+        "FullName": "Hành khách 2",
+        "CardId": "3456 7890 1234",
+        "Age": 30,
+        "Gender": "Male",
+        "Phone": "123 456 7890",
+        "Email": "passenger2@example.com"
+      }
+    ],
+    "Tickets":
+    [
+    {
+      "carriageId": 8,
+      "seatId": 22
+    },
+    {
+      "carriageId": 8,
+      "seatId": 23
+    }
+  ]
+  },
+  "userId": "21e266ce-13f1-492d-9c09-5fee4a17f4f3"
+}
 ### 
 
-# @name getTrainDetailsByScheduleId
-@id = 1
-
-GET {{url}}/{{router}}/train/{{id}}
-
-
-### 
-
-# @name getCarriageTypes
-@id = 2
-GET {{url}}/{{router}}/carriageTypes/{{id}}

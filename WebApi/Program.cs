@@ -25,6 +25,9 @@ Log.Logger = new LoggerConfiguration()
     .ReadFrom.Configuration(builder.Configuration)
     .CreateLogger();
 
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession();
+
 builder.Host.UseSerilog();
 
 var app = builder.Build();
@@ -71,5 +74,7 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.MigrateAndSeedDatabase();
+
+app.UseSession();
 
 app.Run();

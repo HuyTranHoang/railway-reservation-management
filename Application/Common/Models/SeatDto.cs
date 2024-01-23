@@ -15,5 +15,6 @@ namespace Application.Common.Models
         public string CompartmentName { get; set; }
         public string Status { get; set; }
         public DateTime CreatedAt { get; set; }
+        public bool Booked { get; set; }
     }
 }

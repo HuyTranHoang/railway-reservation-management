@@ -4,6 +4,6 @@ namespace Application.Common.Interfaces.Persistence
     {
         Task<IQueryable<Ticket>> GetQueryWithRelationshipTableAsync();
         Task<Ticket> GetByCodeAndEmail(string code, string email);
-
+        List<Ticket> GetAllTickets();
     }
 }

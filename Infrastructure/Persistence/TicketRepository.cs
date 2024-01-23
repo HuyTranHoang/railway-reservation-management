@@ -24,6 +24,11 @@ namespace Infrastructure.Persistence
             await Task.CompletedTask;
         }
 
+        public List<Ticket> GetAllTickets()
+        {
+            return _context.Tickets.ToList();
+        }
+
         public async Task<Ticket> GetByCodeAndEmail(string code, string email)
         {
             var ticket = await _context.Tickets
