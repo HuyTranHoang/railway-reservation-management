@@ -11,7 +11,7 @@ namespace Application.Common.Models
         public List<Passenger> Passengers { get; set; }
         public Payment Payments { get; set; }
         public List<Ticket> Tickets { get; set; }
-        public Ticket Ticket { get; set; }
+        // public Ticket Ticket { get; set; }
         public int CarriageId { get; set; }
         public int SeatId { get; set; }
     }

@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 namespace Application.Services;
 
@@ -209,12 +210,6 @@ public class BookingService : IBookingService
         return _mapper.Map<PaymentDto>(payment);
     }
 
-    public async Task<TicketDto> AddTicketAsync(Ticket ticket)
-    {
-        await _ticketRepository.Add(ticket);
-        await _unitOfWork.SaveChangesAsync();
-        return _mapper.Map<TicketDto>(ticket);
-    }
 
     public async Task<List<CarriageTypeDto>> GetCarriageTypesByTrainIdAsync(int trainId)
     {

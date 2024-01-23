@@ -7,10 +7,13 @@ namespace WebApi.Controllers
     public class BookingController : BaseApiController
     {
         private readonly IBookingService _bookingService;
-        
-        public BookingController(IBookingService bookingService)
+        private readonly ITicketService _ticketService;
+
+        public BookingController(IBookingService bookingService,
+                                ITicketService ticketService)
         {
             _bookingService = bookingService;
+            _ticketService = ticketService;
         }
 
         [HttpGet("schedule")]
@@ -123,14 +126,13 @@ namespace WebApi.Controllers
                         {
                             PassengerId = passenger.Id,
                             TrainId = trainDetails.TrainDetails.Id,
-                            DistanceFareId = payment.Ticket.DistanceFareId,
                             CarriageId = ticketData.CarriageId,
                             SeatId = ticketData.SeatId,
                             ScheduleId = scheduleId,
                             PaymentId = payment.Id
                         };
 
-                        await _bookingService.AddTicketAsync(ticket);
+                        await _ticketService.AddAsync(ticket);
                     }
 
                     return Ok("Payment successful.");
