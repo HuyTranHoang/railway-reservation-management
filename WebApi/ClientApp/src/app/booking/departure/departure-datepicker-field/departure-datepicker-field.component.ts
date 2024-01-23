@@ -7,7 +7,6 @@ import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker'
   styleUrls: ['../departure.shared.scss']
 })
 export class DepartureDatepickerFieldComponent {
-
   @Input() label: string = '';
   @Input() placeholder: string = '';
   @Input() icon: string = '';
@@ -17,7 +16,6 @@ export class DepartureDatepickerFieldComponent {
 
   colorTheme = 'theme-orange';
   bsConfig?: Partial<BsDatepickerConfig> = Object.assign({}, { containerClass: this.colorTheme });
-
 
   onDateChange(newDate: any) {
     this.onHandleDateChange.emit(newDate);
