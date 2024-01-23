@@ -48,8 +48,6 @@ export class SeatSelectionComponent implements OnInit {
 
         if (this.bookingService.currentSelectSchedule?.selectedCarriageType?.id == 1)
           this.generateSeatRows()
-        else if (this.bookingService.currentSelectSchedule?.selectedCarriageType?.id == 2)
-          this.generateBedFour()
       }
     })
   }
@@ -83,10 +81,6 @@ export class SeatSelectionComponent implements OnInit {
 
       this.seatRows.push(row);
     }
-  }
-
-  generateBedFour() {
-
   }
 
   toggleSelectSeat(seat: Seat) {

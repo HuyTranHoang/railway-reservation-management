@@ -229,7 +229,7 @@
       <section *ngIf="bookingService.currentSelectSchedule?.selectedCarriageType?.id == 2"
                class="seat-floor d-flex align-items-end">
 
-        <div class="d-flex flex-column mt-2" *ngIf="currentSelectCarriage?.compartments">
+        <div class="d-flex flex-column mb-2" *ngIf="currentSelectCarriage?.compartments">
           <button class="btn">
             T2
           </button>
@@ -278,6 +278,83 @@
           </div>
         </div>
       </section>
+
+      <!--Giường 6 khoang-->
+
+      <section *ngIf="bookingService.currentSelectSchedule?.selectedCarriageType?.id == 3" class="seat-floor d-flex align-items-end">
+        <div class="d-flex flex-column mb-2" *ngIf="currentSelectCarriage?.compartments">
+          <button class="btn">
+            T3
+          </button>
+          <button class="btn">
+            T2
+          </button>
+          <button class="btn">
+            T1
+          </button>
+        </div>
+        <div class="bed-outer" *ngFor="let item of currentSelectCarriage?.compartments; let i = index">
+          <label class="label w-100 text-center">Khoang {{i + 1}}</label>
+          <div class="bed-border d-flex">
+            <div>
+              <button class="bed"
+                      (click)="toggleSelectSeat(item.seats[2])"
+                      [class.seat-selected]="item.seats[2].selected"
+                      [ngClass]="item.seats[2].booked ? 'seat-unavailable' : 'seat-available'">
+                {{item.seats[2].name}}</button>
+              <div class="bed-illustration"></div>
+            </div>
+            <div class="ml-2">
+              <button class="bed"
+                      (click)="toggleSelectSeat(item.seats[5])"
+                      [class.seat-selected]="item.seats[5].selected"
+                      [ngClass]="item.seats[5].booked ? 'seat-unavailable' : 'seat-available'">
+                {{item.seats[5].name}}</button>
+              <div class="bed-illustration"></div>
+            </div>
+          </div>
+
+          <div class="bed-border d-flex">
+            <div>
+              <button class="bed"
+                      (click)="toggleSelectSeat(item.seats[1])"
+                      [class.seat-selected]="item.seats[1].selected"
+                      [ngClass]="item.seats[1].booked ? 'seat-unavailable' : 'seat-available'">
+                {{item.seats[1].name}}</button>
+              <div class="bed-illustration"></div>
+            </div>
+            <div class="ml-2">
+              <button class="bed"
+                      (click)="toggleSelectSeat(item.seats[4])"
+                      [class.seat-selected]="item.seats[4].selected"
+                      [ngClass]="item.seats[4].booked ? 'seat-unavailable' : 'seat-available'">
+                {{item.seats[4].name}}</button>
+              <div class="bed-illustration"></div>
+            </div>
+          </div>
+
+          <div class="bed-border d-flex">
+            <div>
+              <button class="bed"
+                      (click)="toggleSelectSeat(item.seats[0])"
+                      [class.seat-selected]="item.seats[0].selected"
+                      [ngClass]="item.seats[0].booked ? 'seat-unavailable' : 'seat-available'">
+                {{item.seats[0].name}}</button>
+              <div class="bed-illustration"></div>
+            </div>
+            <div class="ml-2">
+              <button class="bed"
+                      (click)="toggleSelectSeat(item.seats[3])"
+                      [class.seat-selected]="item.seats[3].selected"
+                      [ngClass]="item.seats[3].booked ? 'seat-unavailable' : 'seat-available'">
+                {{item.seats[3].name}}</button>
+              <div class="bed-illustration"></div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
     </div>
 
   </div>
@@ -302,25 +379,25 @@
   </a>
 </div>
 
-<pre>
-  currentBookingScheduleParams
-  {{ bookingService.currentBookingScheduleParams | json }}
-  ----------------
-  currentSelectSchedule
-  {{ bookingService.currentSelectSchedule | json }}
-  ----------------
-  trainDetail
-  {{ trainDetail | json }}
-  ----------------
-  carriageMatchType
-  {{ carriageMatchType | json }}
-  ----------------
-  currentSelectCarriage
-  {{ currentSelectCarriage | json }}
-  ----------------
-  compartmentOfCarriage
-  {{ compartmentOfCarriage | json }}
-  ----------------
-  selectedSeat
-  {{ selectedSeat | json }}
-</pre>
+<!--<pre>-->
+<!--  currentBookingScheduleParams-->
+<!--  {{ bookingService.currentBookingScheduleParams | json }}-->
+<!--  &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
+<!--  currentSelectSchedule-->
+<!--  {{ bookingService.currentSelectSchedule | json }}-->
+<!--  &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
+<!--  trainDetail-->
+<!--  {{ trainDetail | json }}-->
+<!--  &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
+<!--  carriageMatchType-->
+<!--  {{ carriageMatchType | json }}-->
+<!--  &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
+<!--  currentSelectCarriage-->
+<!--  {{ currentSelectCarriage | json }}-->
+<!--  &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
+<!--  compartmentOfCarriage-->
+<!--  {{ compartmentOfCarriage | json }}-->
+<!--  &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
+<!--  selectedSeat-->
+<!--  {{ selectedSeat | json }}-->
+<!--</pre>-->
