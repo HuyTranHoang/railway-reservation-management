@@ -21,13 +21,9 @@ namespace WebApi.Controllers
 
             var schedulesDto = await _bookingService.GetBookingInfoWithScheduleAsync(queryParams);
 
-            var scheduleJson = JsonConvert.SerializeObject(schedulesDto);
-            HttpContext.Session.SetString("ScheduleParams", queryParamsJson);
-
             var result = new {
                 Schedule = schedulesDto,
-                BookingParams = queryParamsJson,
-                ScheduleParams = scheduleJson
+                BookingParams = queryParamsJson
             };
 
             return Ok(result);
@@ -36,23 +32,11 @@ namespace WebApi.Controllers
         [HttpGet("schedule/{id}")]
         public async Task<ActionResult<List<object>>> GetTrainDetailsByScheduleId(int id)
         {
-            var queryParamsJson = HttpContext.Session.GetString("BookingParams");
-
-            if (string.IsNullOrEmpty(queryParamsJson))
-            {
-                return BadRequest("BookingRoundTripParams is missing in session.");
-            }
-            var queryParams = JsonConvert.DeserializeObject<BookingQueryParams>(queryParamsJson);
-            
-            
             // var schedule = await _bookingService.GetBookingInfoWithScheduleIdAsync(id);
             var train = await _bookingService.GetTrainDetailsWithTrainIdAsync(id);
 
-            var trainDetailsJson = JsonConvert.SerializeObject(queryParams);
-            HttpContext.Session.SetString("TrainDetails", trainDetailsJson);
-
-            var scheduleJson = JsonConvert.SerializeObject(id);
-            HttpContext.Session.SetString("ScheduleId", scheduleJson);
+            var trainDetailsJson = JsonConvert.SerializeObject(train);// Chuyển đối tượng thành JSON
+            HttpContext.Session.SetString("TrainDetails", trainDetailsJson);// Lưu trữ vào Session
 
             if (train == null)
             {
@@ -60,9 +44,7 @@ namespace WebApi.Controllers
             }
 
             var result = new {
-                Train = train,
-                BookingParams = queryParams
-
+                TrainDetails = train
             };
 
             return Ok(result);
@@ -74,31 +56,23 @@ namespace WebApi.Controllers
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
             var queryParamsJson = HttpContext.Session.GetString("BookingParams");
-
             if (string.IsNullOrEmpty(queryParamsJson))
             {
-                return BadRequest("BookingRoundTripParams is missing in session.");
+                return BadRequest("BookingParams is missing in session.");
             }
             var queryParams = JsonConvert.DeserializeObject<BookingQueryParams>(queryParamsJson);
-            var scheduleParamsJson = HttpContext.Session.GetString("ScheduleParams");
 
-            if (string.IsNullOrEmpty(scheduleParamsJson))
+            var trainDetailsJson = HttpContext.Session.GetString("TrainDetails");
+            if (string.IsNullOrEmpty(trainDetailsJson))
             {
-                return BadRequest("ScheduleParams is missing in session.");
+                return BadRequest("TrainDetails is missing in session.");
             }
+            var trainDetails = JsonConvert.DeserializeObject<BookingQueryParams>(trainDetailsJson);
 
             ScheduleDto schedule = null;
-            try
-            {
-                schedule = JsonConvert.DeserializeObject<ScheduleDto>(scheduleParamsJson);
-            }
-            catch (JsonException ex)
-            {
-                return BadRequest("Error deserializing ScheduleId. " + ex.Message);
-            }
             
             //Kiểm tra RoundTrip
-            if (queryParams.RoundTrip)
+            if (queryParams.RoundTrip == true)
             {   
                 BookingQueryParams roundTripParams = new BookingQueryParams
                 {

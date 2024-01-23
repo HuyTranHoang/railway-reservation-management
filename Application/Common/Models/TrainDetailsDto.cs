@@ -2,7 +2,7 @@ namespace Application.Common.Models
 {
     public class TrainDetailsDto
     {
-        public TrainDto Train { get; set; }
+        public TrainDto TrainDetails { get; set; }
         public List<CarriageDetailDto> Carriages { get; set; }
     }
     public class CarriageDetailDto

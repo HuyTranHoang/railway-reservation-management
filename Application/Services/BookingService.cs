@@ -133,7 +133,7 @@ public class BookingService : IBookingService
 
             var trainDetailDtos = new TrainDetailsDto
             {
-                Train = trainDto,
+                TrainDetails = trainDto,
                 Carriages = new List<CarriageDetailDto>()
             };
 
