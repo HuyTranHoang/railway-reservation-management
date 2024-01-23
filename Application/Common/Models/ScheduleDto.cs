@@ -36,4 +36,13 @@ public class ScheduleDto
 
     public string Status { get; set; }
     public DateTime CreatedAt { get; set; }
+
+    public List<ScheduleCarriageType> ScheduleCarriageTypes { get; set; }
+}
+
+public class ScheduleCarriageType
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public double ServiceCharge { get; set; }
 }

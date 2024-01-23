@@ -1,5 +1,5 @@
 @url = https://localhost:5001
-@router = api/ticket
+@router = api/tickets
 
 ### 
 

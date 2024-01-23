@@ -1,8 +1,8 @@
 <h2>Select your departing trip</h2>
 
-<pre>
-  {{ departureService.schedules | json }}
-</pre>
+<!--<pre>-->
+<!--  {{ departureService.schedules | json }}-->
+<!--</pre>-->
 <div class="horizontal-devider"></div>
 
 <h5 style="margin-top: 0">
@@ -34,7 +34,7 @@
   <ng-container *ngFor="let item of departureService.schedules; let i = index">
     <tr [class.table-light]="openStates[i]">
       <td style="text-align: center; width: 172px;">
-        <img class="logo" src="https://booking.baolau.com/images/logos/transports/logo-vr.png" alt="logo">
+        <img class="logo" src="https://localhost:5001/images/trainLogo/{{item.trainCompanyLogo}}" alt="logo">
         <div class="hidden-xs hidden-sm" style="font-size: 13px;">{{ item.trainName }}</div>
       </td>
 
@@ -103,25 +103,29 @@
 
                 <td colspan="4" class="padded-left padded-right" style="width: 509px;">
                   <!-- style="border-right:1px solid #ddd;" -->
-                  <span class="text-uppercase bold">HANOI</span>
-                  <div>Hanoi Railway Station</div>
-                  <span style="font-size: 13px">120 Lê Duẩn, Quận Hoàn Kiếm, Hà Nội</span>
+                  <span class="text-uppercase bold">{{item.departureStationName}}</span>
+                  <div>{{item.departureStationName}}</div>
+                  <span style="font-size: 13px">{{item.departureStationAddress}}</span>
                 </td>
 
                 <!-- Fares -->
                 <td colspan="2" rowspan="3" style="padding: 10px 20px 10px 0; width: 618px;">
-                  <div class="fares" data-route="112973779">
+                  <div class="fares">
                     <div class="desktop-fares">
-
-                      <div class="relative fares-choose-items active ">
+                      <div *ngFor="let type of item.scheduleCarriageTypes; let i = index" class="relative fares-choose-items">
 
                         <div class="fares-choose radio">
-                          <input id="fare_1" type="radio" name="fare" class="fare_radio" checked="">
-                          <label for="fare_1"></label>
+                          <input id="fare_{{item.id}}_{{i}}"
+                                 type="radio"
+                                 name="fare_{{item.id}}"
+                                 class="fare_radio"
+                                 (change)="onSelectSeatTypeClick(item, type)"
+                                 checked="{{i === 0 ? 'checked' : ''}}">
+                          <label for="fare_{{item.id}}_{{i}}"></label>
                         </div>
 
                         <label class="fares-description">
-                          <p class="underline js-fare-info" style="margin: 0;">Soft seat Premium</p>
+                          <p class="underline js-fare-info" style="margin: 0;">{{type.name}}</p>
                           <button class="js-fare-info" style="padding: 2px 0; background: transparent;">
                             <i class="fas fa-times" style="font-size: 11px; padding: 0 1px;"></i>
                             <span class="fare-info-summary">Change</span>
@@ -132,55 +136,55 @@
                           <br>
 
                           <div>
-                            <span class="yellow-text bold">{{ 99 | currency }}</span>
+                            <span class="yellow-text bold">{{ item.price + type.serviceCharge | currency }}</span>
                           </div>
                         </label>
                       </div>
 
-                      <div class="relative fares-choose-items">
+<!--                      <div class="relative fares-choose-items">-->
 
-                        <div class="fares-choose radio">
-                          <input id="fare_2" type="radio" name="fare" class="fare_radio">
-                          <label for="fare_2"></label>
-                        </div>
-                        <label class="fares-description">
-                          <p class="underline js-fare-info" style="margin: 0;">Sleeper 6-Berth</p>
-                          <button class="js-fare-info" style="padding: 2px 0; background: transparent;">
-                            <i class="fas fa-times" style="font-size: 11px; padding: 0 1px;"></i>
-                            <span class="fare-info-summary">Change</span>
-                            <i class="fas fa-check" style="font-size: 11px;"></i>
-                            <span class="fare-info-summary">Cancellation</span>
-                          </button>
-                          <br>
-                          <div>
-                            <span class="yellow-text">{{ 159 | currency }}</span>
-                          </div>
+<!--                        <div class="fares-choose radio">-->
+<!--                          <input id="fare_2" type="radio" name="fare" class="fare_radio">-->
+<!--                          <label for="fare_2"></label>-->
+<!--                        </div>-->
+<!--                        <label class="fares-description">-->
+<!--                          <p class="underline js-fare-info" style="margin: 0;">Sleeper 6-Berth</p>-->
+<!--                          <button class="js-fare-info" style="padding: 2px 0; background: transparent;">-->
+<!--                            <i class="fas fa-times" style="font-size: 11px; padding: 0 1px;"></i>-->
+<!--                            <span class="fare-info-summary">Change</span>-->
+<!--                            <i class="fas fa-check" style="font-size: 11px;"></i>-->
+<!--                            <span class="fare-info-summary">Cancellation</span>-->
+<!--                          </button>-->
+<!--                          <br>-->
+<!--                          <div>-->
+<!--                            <span class="yellow-text">{{ 159 | currency }}</span>-->
+<!--                          </div>-->
 
-                        </label>
-                      </div>
+<!--                        </label>-->
+<!--                      </div>-->
 
-                      <div class="relative fares-choose-items">
+<!--                      <div class="relative fares-choose-items">-->
 
-                        <div class="fares-choose radio">
-                          <input id="fare_3" type="radio" name="fare" class="fare_radio">
-                          <label for="fare_3"></label>
-                        </div>
+<!--                        <div class="fares-choose radio">-->
+<!--                          <input id="fare_3" type="radio" name="fare" class="fare_radio">-->
+<!--                          <label for="fare_3"></label>-->
+<!--                        </div>-->
 
-                        <label class="fares-description">
-                          <p class="underline js-fare-info" style="margin: 0;">Sleeper 4-Berth</p>
-                          <button class="js-fare-info" style="padding: 2px 0; background: transparent;">
-                            <i class="fas fa-times" style="font-size: 11px; padding: 0 1px;"></i>
-                            <span class="fare-info-summary">Change</span>
-                            <i class="fas fa-check" style="font-size: 11px;"></i>
-                            <span class="fare-info-summary">Cancellation</span>
-                          </button>
-                          <br>
-                          <div>
-                            <span class="yellow-text">{{ 174 | currency }}</span>
-                          </div>
+<!--                        <label class="fares-description">-->
+<!--                          <p class="underline js-fare-info" style="margin: 0;">Sleeper 4-Berth</p>-->
+<!--                          <button class="js-fare-info" style="padding: 2px 0; background: transparent;">-->
+<!--                            <i class="fas fa-times" style="font-size: 11px; padding: 0 1px;"></i>-->
+<!--                            <span class="fare-info-summary">Change</span>-->
+<!--                            <i class="fas fa-check" style="font-size: 11px;"></i>-->
+<!--                            <span class="fare-info-summary">Cancellation</span>-->
+<!--                          </button>-->
+<!--                          <br>-->
+<!--                          <div>-->
+<!--                            <span class="yellow-text">{{ 174 | currency }}</span>-->
+<!--                          </div>-->
 
-                        </label>
-                      </div>
+<!--                        </label>-->
+<!--                      </div>-->
                     </div>
                   </div>
                 </td>
@@ -204,10 +208,10 @@
                 <td colspan="2" class="padded-left padded-right" style="width: 509px;">
                   <button class="" style="padding: 0; background: transparent;">
                     <img class="searchresult-thumb-logo"
-                         src="https://booking.baolau.com/images/logos/transports/thumb/logo-vr.png">
+                         src="https://localhost:5001/images/trainLogo/{{item.trainCompanyLogo}}">
                   </button>
                   <div class="d-flex flex-column">
-                    <span class="bold underline " style="cursor: pointer;">Vietnam Railways</span>
+                    <span class="bold underline " style="cursor: pointer;">{{item.trainCompanyName}}</span>
                     <span>{{ item.trainName }}</span>
                   </div>
                 </td>
@@ -226,9 +230,9 @@
                   </div>
                 </td>
                 <td colspan="2" class="padded-left padded-right" style="width: 509px;">
-                  <span class="text-uppercase bold">NINH BINH</span>
-                  <div>Ninh Binh Railway Station</div>
-                  <span style="font-size: 13px">1 Ngõ 41 Hoàng Hoa Thám, Nam Bình, Ninh Bình</span>
+                  <span class="text-uppercase bold">{{item.arrivalStationName}}</span>
+                  <div>{{item.arrivalStationName}}</div>
+                  <span style="font-size: 13px">{{item.arrivalStationAddress}}</span>
                 </td>
               </tr>
               <!-- end Destination-->
@@ -239,7 +243,7 @@
 
           </div>
           <div>
-            <a class="btn green w-100" routerLink="/booking/seat-selection" (click)="onBookNowClick(item.id)">
+            <a class="btn green w-100" (click)="onBookNowClick(item)">
               <span class="bold">BOOK NOW</span>
             </a>
           </div>

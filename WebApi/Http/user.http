@@ -5,14 +5,18 @@
 ### 
 
 # @name getListUsers
-@email = nhokpio95@gmail.com
 
-GET {{url}}/{{router}}
+GET {{url}}/{{router}}?
+  &pageNumber=1
+  &pageSize=3
+  # &searchTerm=Standard
+#   &sort=serviceDesc
 
 ### 
 
+
 # @name getUserByEmail
-@email = nhokpio95@gmail.com
+@email = test6@gmail.com
 
 GET {{url}}/{{router}}/{{email}}
 

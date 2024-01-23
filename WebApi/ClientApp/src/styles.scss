@@ -4,7 +4,7 @@
 @import "node_modules/bootstrap/scss/bootstrap";
 
 /* Importing Font Awesome CSS file. */
-@import "https://site-assets.fontawesome.com/releases/v6.3.0/css/all.css";
+@import "https://site-assets.fontawesome.com/releases/v6.5.0/css/all.css";
 
 /* Importing ngx-spinner CSS file. */
 @import "node_modules/ngx-spinner/animations/line-scale-party.css";
@@ -37,3 +37,68 @@ body {
   color: #fff;
 }
 
+.card.customClass .card-header, .panel.customClass {
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+}
+
+// Profile
+tabset .nav-link, tabset .nav-link:hover {
+  color: #ffbb00;
+  font-weight: 600;
+}
+
+tabset .nav-item {
+  background-color: #f2f2f2;
+}
+
+
+// User Booking History
+tabset.user-booking-history {
+  tab {
+    padding: 10px;
+    display: block;
+  }
+
+  tab.active {
+    border-bottom: 0;
+  }
+
+  span {
+    color: #B6A7A5;
+  }
+
+  .active {
+    border-bottom: 3px solid #fb0;
+
+    span {
+      color: #fb0;
+    }
+  }
+
+  .nav {
+    justify-content: center;
+    background: white;
+    border-bottom: 0;
+    color: #B6A7A5;
+    font-size: 16px;
+  }
+
+  .nav-link {
+    border: 0;
+    border-radius: 0;
+    background: white;
+    padding: 17px 60px;
+    color: #B6A7A5;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+    &.active {
+      border: 0;
+
+      span {
+        color: #fb0;
+      }
+    }
+  }
+
+}

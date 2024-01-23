@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { NgxSpinnerModule } from 'ngx-spinner'
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker'
 import { AccordionModule } from 'ngx-bootstrap/accordion';
-import { CarouselModule } from 'ngx-bootstrap/carousel'
+import { TabsModule } from 'ngx-bootstrap/tabs'
 
 @NgModule({
   declarations: [],
@@ -10,11 +10,13 @@ import { CarouselModule } from 'ngx-bootstrap/carousel'
     NgxSpinnerModule,
     BsDatepickerModule.forRoot(),
     AccordionModule.forRoot(),
+    TabsModule.forRoot()
   ],
   exports: [
     NgxSpinnerModule,
     BsDatepickerModule,
-    AccordionModule
+    AccordionModule,
+    TabsModule
   ]
 })
 export class SharedModule { }

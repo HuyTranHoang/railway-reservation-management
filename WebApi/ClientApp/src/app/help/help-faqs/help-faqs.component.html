@@ -1,0 +1,385 @@
+<h4>
+  Travel planning and booking
+</h4>
+
+<accordion [isAnimated]="true">
+  <accordion-group panelClass="customClass" (isOpenChange)="togglePanel($event, 1)">
+    <button
+      class="btn btn-link btn-block justify-content-between d-flex w-100  shadow-none"
+      accordion-heading type="button">
+      <div class="pull-left float-left">How to book train tickets in Vietnam?</div>
+      <span *ngIf="!isPanelOpen[1]"
+            class="btn btn-sm rounded-circle text-white float-right pull-right"
+            style="background-color: #fb0">
+          <i class="fa-solid fa-plus"></i>
+        </span>
+      <span *ngIf="isPanelOpen[1]"
+            class="btn btn-sm rounded-circle text-white float-right pull-right"
+            style="background-color: #c4c4c4">
+          <i class="fa-solid fa-minus"></i>
+        </span>
+    </button>
+    <p>
+      We support advance ticket booking for more than 160 stations across Vietnam, including Hanoi, Lao Cai, Yen Bai, Lang Son, Ha Long and Hai Phong in the North, Ninh Binh, Dong Hoi, Hue, Da Nang, Quy Nhon, Nha Trang, Phan Rang and Phan Thiet along the Central Coast, and Ho Chi Minh in the South.
+    </p>
+    <p>
+      Booking your train tickets in Vietnam is very quick and simple. Search for train routes between any two cities for your travel dates.
+    </p>
+
+    <img class="img-fluid" src="./assets/faq-1.png" alt="faq 1">
+
+    <h6>Select your route</h6>
+    <p>
+      After search, we will display the results for your itinerary.
+    </p>
+    <p>
+      <i class="fa-solid fa-person-seat"></i>
+      Soft seat arranged in 2+2 row configuration
+      <br>
+      <i class="fa-solid fa-bed"></i>
+      Sleeper 6-Berth (Compartments for 1-6 passengers with hard bed) arranged in 3 levels of bunks (Upper, Middle and Lower)
+      <br>
+      <i class="fa-solid fa-bed"></i>
+      Sleeper 4-Berth (Compartments for 1-4 passengers with soft bed) arranged in 2 levels of bunks (Upper and Lower)
+    </p>
+
+    <h6>Fill in the passenger and contact details</h6>
+    <p>
+      Next, select your seats.
+    </p>
+    <p>
+      RailTicketHub supports seat and berth selection for all trains operated by Vietnam Railways. For private railway companies, you can indicate your berth preference, Upper and Lower, and we will consider your request depending on the availability.
+    </p>
+    <h6>Complete your payment</h6>
+    <p>
+      Select your payment method. We accept international credit or debit cards.
+      <br>
+      Check your itinerary and price breakdown. Confirm that the booking information is correct. Before you proceed to payment, you must read and accept the terms and conditions of booking.
+    </p>
+    <h6>Receive your tickets by email</h6>
+    <p>
+      Once your payment is complete, your reservation will be processed.
+      <br>
+      In the following 24 hours you will receive the itinerary and booking confirmation by email with the electronic ticket issued by Vietnam Railways or the private railway companies attached in PDF format.
+    </p>
+  </accordion-group>
+  <accordion-group panelClass="customClass" (isOpenChange)="togglePanel($event, 2)">
+    <button
+      class="btn btn-link btn-block justify-content-between d-flex w-100  shadow-none"
+      accordion-heading type="button">
+      <div class="pull-left float-left">How early does the ticket sale open?</div>
+      <span *ngIf="!isPanelOpen[2]"
+            class="btn btn-sm rounded-circle text-white float-right pull-right"
+            style="background-color: #fb0">
+          <i class="fa-solid fa-plus"></i>
+        </span>
+      <span *ngIf="isPanelOpen[2]"
+            class="btn btn-sm rounded-circle text-white float-right pull-right"
+            style="background-color: #c4c4c4">
+          <i class="fa-solid fa-minus"></i>
+        </span>
+    </button>
+    <p>
+      Ticket booking is available 30-60-90 days in advance, depending on the transport provider.
+      <br>
+      Keep in mind that some train providers will open first the fares for long journeys, whereas the fares for short journeys are blocked and will open later, usually few weeks or few days before departure, depending on the occupancy rate and with no exact schedule.
+    </p>
+    <h6>FARE NOT YET OPEN</h6>
+    <p>
+      During the time that the sale period is not yet open or it is open but a particular fare is still locked, we will display the fare as "Not yet open".
+      <br>
+      In this case, we suggest that you check our site regularly and wait for the fare to open or else choose a different fare or a different route, if available. Should you wish to be notified by email when the fare is available for booking, you can subscribe to our automatic Fare Alert service.
+      <br>
+      If you have a tight schedule and need to travel on a specific train you may consider booking the end-to-end or half-way journey, which usually has all the fares available, in order to secure your tickets as soon as possible. Once you collect the tickets, you can board or get off the train in any station of the railway line. When booking with us, this option does not incur a higher cost of the service fee.
+    </p>
+    <h6>FARE SOLD OUT</h6>
+    <p>
+      During the time that the sale period is open, if all the tickets for a particular fare have been sold already we will display it as "Sold out".
+      <br>
+      In this case, we suggest that you choose a different fare or a different route, if available.
+    </p>
+
+  </accordion-group>
+  <accordion-group panelClass="customClass" (isOpenChange)="togglePanel($event, 3)">
+    <button
+      class="btn btn-link btn-block justify-content-between d-flex w-100  shadow-none"
+      accordion-heading type="button">
+      <div class="pull-left float-left">How late does the ticket sale end?</div>
+      <span *ngIf="!isPanelOpen[3]"
+            class="btn btn-sm rounded-circle text-white float-right pull-right"
+            style="background-color: #fb0">
+          <i class="fa-solid fa-plus"></i>
+        </span>
+      <span *ngIf="isPanelOpen[3]"
+            class="btn btn-sm rounded-circle text-white float-right pull-right"
+            style="background-color: #c4c4c4">
+          <i class="fa-solid fa-minus"></i>
+        </span>
+    </button>
+    <p>
+      Ticket booking is available until 24 hours before departure up to 2 hours, depending on the transport provider.
+    </p>
+    <h6>ONLINE BOOKING HAS ENDED</h6>
+    <p>
+      Once the transport provider has ended the online sale period, we will display the fare as "Not available".
+      <br>
+      In those cases in which the transport provider still maintains the offline sale open until the time of departure, we will continue displaying the route information in case you have time to head to the departure point and purchase the ticket in person at the ticket office.
+    </p>
+  </accordion-group>
+</accordion>
+
+<h4>
+  Payment
+</h4>
+
+<accordion [isAnimated]="true">
+  <accordion-group panelClass="customClass" (isOpenChange)="togglePanel($event, 4)">
+    <button
+      class="btn btn-link btn-block justify-content-between d-flex w-100  shadow-none"
+      accordion-heading type="button">
+      <div class="pull-left float-left">What options are available for payment?</div>
+      <span *ngIf="!isPanelOpen[4]"
+            class="btn btn-sm rounded-circle text-white float-right pull-right"
+            style="background-color: #fb0">
+          <i class="fa-solid fa-plus"></i>
+        </span>
+      <span *ngIf="isPanelOpen[4]"
+            class="btn btn-sm rounded-circle text-white float-right pull-right"
+            style="background-color: #c4c4c4">
+          <i class="fa-solid fa-minus"></i>
+        </span>
+    </button>
+    <p>
+      We accept payments with international credit or debit cards:
+    </p>
+
+    <p>
+      <i class="fa-solid fa-credit-card"></i>
+      Visa
+      <br>
+      <i class="fa-solid fa-credit-card"></i>
+      MasterCard
+      <br>
+      <i class="fa-solid fa-credit-card"></i>
+      American Express
+      <br>
+      <i class="fa-solid fa-credit-card"></i>
+      JCB
+      <br>
+      <i class="fa-solid fa-credit-card"></i>
+      UnionPay
+    </p>
+
+    <p>
+      We accept payments with the following e-wallets:
+    </p>
+
+    <p>
+      <i class="fa-solid fa-wallet"></i>
+      Alipay
+      <br>
+      <i class="fa-solid fa-wallet"></i>
+      ViettelPay
+      <br>
+      <i class="fa-solid fa-wallet"></i>
+      PromptPay
+    </p>
+
+    <p>
+      All payment options are subject to processing fees, which are collected by the payment gateway that processes the transaction.
+    </p>
+  </accordion-group>
+  <accordion-group panelClass="customClass" (isOpenChange)="togglePanel($event, 5)">
+    <button
+      class="btn btn-link btn-block justify-content-between d-flex w-100  shadow-none"
+      accordion-heading type="button">
+      <div class="pull-left float-left">What can I do if payment fails?</div>
+      <span *ngIf="!isPanelOpen[5]"
+            class="btn btn-sm rounded-circle text-white float-right pull-right"
+            style="background-color: #fb0">
+          <i class="fa-solid fa-plus"></i>
+        </span>
+      <span *ngIf="isPanelOpen[5]"
+            class="btn btn-sm rounded-circle text-white float-right pull-right"
+            style="background-color: #c4c4c4">
+          <i class="fa-solid fa-minus"></i>
+        </span>
+    </button>
+    <p>
+      Our payment gateway implements security authentication controls Verified by Visa and MasterCard SecureCode.
+    </p>
+    <h6>VERIFIED BY VISA / MASTERCARD SECURECODE</h6>
+    <p>
+      Verified by Visa and MasterCard SecureCode is a Visa / MasterCard program designed to provide merchants the security of having issuing banks authenticate individual cardholders and approve the payment transactions for fraud protection or chargeback.
+    </p>
+    <p>
+      If your issuing bank has enrolled your card with the 3D-Secure Program, either Verified by Visa (for Visa cards) or MasterCard SecureCode (for MasterCard cards), you need to enter a code to authorize the payment. Some banks require the customer to set a fixed code and some others send a random code via sms or via app to the customer’s phone number for verification during the payment transaction.
+    </p>
+    <p>
+      If our payment gateway displays the error "Cannot authenticate by 3D-Secure Program", you should confirm with your bank that your card is activated for online shopping and is enrolled in Verified by Visa or MasterCard SecureCode.
+    </p>
+  </accordion-group>
+</accordion>
+
+<h4>
+  Changes and Cancellations
+</h4>
+
+<accordion [isAnimated]="true">
+  <accordion-group panelClass="customClass" (isOpenChange)="togglePanel($event, 6)">
+    <button
+      class="btn btn-link btn-block justify-content-between d-flex w-100  shadow-none"
+      accordion-heading type="button">
+      <div class="pull-left float-left">After I book a ticket, can I change the Itinerary?</div>
+      <span *ngIf="!isPanelOpen[6]"
+            class="btn btn-sm rounded-circle text-white float-right pull-right"
+            style="background-color: #fb0">
+          <i class="fa-solid fa-plus"></i>
+        </span>
+      <span *ngIf="isPanelOpen[6]"
+            class="btn btn-sm rounded-circle text-white float-right pull-right"
+            style="background-color: #c4c4c4">
+          <i class="fa-solid fa-minus"></i>
+        </span>
+    </button>
+    <p>
+      Change itinerary or origin/destination is not permitted.
+    </p>
+  </accordion-group>
+  <accordion-group panelClass="customClass" (isOpenChange)="togglePanel($event, 7)">
+    <button
+      class="btn btn-link btn-block justify-content-between d-flex w-100  shadow-none"
+      accordion-heading type="button">
+      <div class="pull-left float-left">After I book a ticket, can I change the Passengers?</div>
+      <span *ngIf="!isPanelOpen[7]"
+            class="btn btn-sm rounded-circle text-white float-right pull-right"
+            style="background-color: #fb0">
+          <i class="fa-solid fa-plus"></i>
+        </span>
+      <span *ngIf="isPanelOpen[7]"
+            class="btn btn-sm rounded-circle text-white float-right pull-right"
+            style="background-color: #c4c4c4">
+          <i class="fa-solid fa-minus"></i>
+        </span>
+    </button>
+    <p>
+      Change passengers is not permitted.
+    </p>
+    <p>
+      Small typing mistakes in the name of the passengers or the passport number will require a modification of the booking, subject to additional fees.
+    </p>
+  </accordion-group>
+  <accordion-group panelClass="customClass" (isOpenChange)="togglePanel($event, 8)">
+    <button
+      class="btn btn-link btn-block justify-content-between d-flex w-100  shadow-none"
+      accordion-heading type="button">
+      <div class="pull-left float-left">After I book a ticket, can I make a cancellation?</div>
+      <span *ngIf="!isPanelOpen[8]"
+            class="btn btn-sm rounded-circle text-white float-right pull-right"
+            style="background-color: #fb0">
+          <i class="fa-solid fa-plus"></i>
+        </span>
+      <span *ngIf="isPanelOpen[8]"
+            class="btn btn-sm rounded-circle text-white float-right pull-right"
+            style="background-color: #c4c4c4">
+          <i class="fa-solid fa-minus"></i>
+        </span>
+    </button>
+    <p>
+      Cancellation before departure is permitted according to the terms of the Passenger Carrier.
+    </p>
+
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <tbody><tr style="border-bottom: 1px solid #ddd;background-color: #d1cfcf">
+          <td style="width: 50%; background-color: #c4c4c4;"><span class="bold">Vietnam Railways</span></td>
+          <td style="width: 50%; background-color: #ddd;">Cancellation before departure</td>
+        </tr>
+        <tr>
+          <td style="background-color: #ddd">Fare Sleeper 4-Berth</td>
+          <td style="background-color: #f7f7f7"><i class="fa fas fa-check"></i> Permitted with fees</td>
+        </tr>
+        <tr>
+          <td style="background-color: #ddd">Fare Sleeper 6-Berth</td>
+          <td style="background-color: #f7f7f7"><i class="fa fas fa-check"></i> Permitted with fees</td>
+        </tr>
+        <tr>
+          <td style="background-color: #ddd">Fare Soft seat</td>
+          <td style="background-color: #f7f7f7"><i class="fa fas fa-check"></i> Permitted with fees</td>
+        </tr>
+        <tr>
+          <td style="background-color: #ddd">Fare Hard seat</td>
+          <td style="background-color: #f7f7f7"><i class="fa fas fa-check"></i> Permitted with fees</td>
+        </tr>
+        <tr>
+          <td style="background-color: #ddd">Fare Supplementary seat</td>
+          <td style="background-color: #f7f7f7"><i class="fa fas fa-check"></i> Permitted with fees</td>
+        </tr>
+        <tr>
+          <td style="background-color: #ddd">Fare No seat</td>
+          <td style="background-color: #f7f7f7"><i class="fa fas fa-check"></i> Permitted with fees</td>
+        </tr>
+        </tbody></table>
+    </div>
+
+    <p>
+      If you wish to cancel your booking with Vietnam Railways, kindly manage your booking and request a cancellation to proceed with the refund. This option is available until 24 hours before departure, except in public holidays and promotion tickets.
+    </p>
+
+    <p>
+      Service fees will not be refunded. Cancellation fees will apply.
+    </p>
+
+    <p>
+      - For standard tickets, 20% of the ticket fare + 25,000 VND / 35,000 VND per ticket
+      <br>
+      - For the route Hanoi - Lao Cai and tickets on public holidays, 50% of the ticket fare + 25,000 VND / 35,000 VND per ticket
+      <br>
+      - For promotion tickets, the amount is subject to the railway authority + 25,000 VND / 35,000 VND per ticket
+    </p>
+  </accordion-group>
+  <accordion-group panelClass="customClass" (isOpenChange)="togglePanel($event, 9)">
+    <button
+      class="btn btn-link btn-block justify-content-between d-flex w-100  shadow-none"
+      accordion-heading type="button">
+      <div class="pull-left float-left">I missed the departure, can I change the travel date?</div>
+      <span *ngIf="!isPanelOpen[9]"
+            class="btn btn-sm rounded-circle text-white float-right pull-right"
+            style="background-color: #fb0">
+          <i class="fa-solid fa-plus"></i>
+        </span>
+      <span *ngIf="isPanelOpen[9]"
+            class="btn btn-sm rounded-circle text-white float-right pull-right"
+            style="background-color: #c4c4c4">
+          <i class="fa-solid fa-minus"></i>
+        </span>
+    </button>
+    <p>
+      Missed check-in or failure to board on the required date will result in forfeit of the ticket. Change after departure is not permitted.
+    </p>
+  </accordion-group>
+  <accordion-group panelClass="customClass" (isOpenChange)="togglePanel($event, 10)">
+    <button
+      class="btn btn-link btn-block justify-content-between d-flex w-100  shadow-none"
+      accordion-heading type="button">
+      <div class="pull-left float-left">I missed the departure, can I make a cancellation?</div>
+      <span *ngIf="!isPanelOpen[10]"
+            class="btn btn-sm rounded-circle text-white float-right pull-right"
+            style="background-color: #fb0">
+          <i class="fa-solid fa-plus"></i>
+        </span>
+      <span *ngIf="isPanelOpen[10]"
+            class="btn btn-sm rounded-circle text-white float-right pull-right"
+            style="background-color: #c4c4c4">
+          <i class="fa-solid fa-minus"></i>
+        </span>
+    </button>
+    <p>
+      Missed check-in or failure to board within the required time will result in no refund. Cancellation after departure is not permitted.
+    </p>
+  </accordion-group>
+</accordion>
+
+<h5 class="py-5">
+  If you could not find your question listed, please feel free to <a class="fw-semibold" routerLink="/contact">Contact Us</a>
+</h5>

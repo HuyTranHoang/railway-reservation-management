@@ -21,7 +21,7 @@ export class BookingComponent implements OnInit {
       this.bookingService.currentStep = stepToNavigate;
       switch (stepToNavigate) {
         case 1:
-          this.router.navigate(['/booking']);
+          this.router.navigate(['/booking'], {queryParams: this.bookingService.currentBookingScheduleParams});
           break;
         case 2:
           this.router.navigate(['/booking/seat-selection']);

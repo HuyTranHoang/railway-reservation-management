@@ -27,6 +27,10 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.initializeForm()
+
+    this.registerForm.get('password')?.valueChanges.subscribe(() => {
+      this.registerForm.get('confirmPassword')?.updateValueAndValidity();
+    });
   }
 
 

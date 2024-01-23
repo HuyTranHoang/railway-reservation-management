@@ -17,7 +17,7 @@ export class JwtInterceptor implements HttpInterceptor {
     this.authService.user$.pipe(take(1)).subscribe({
       next: (user) => {
         if (user) {
-          // Clone from the coming request and add Authorization header
+          // Clone from the coming request and add Authorization user-booking-history-header
           request = request.clone({
             setHeaders: {
               Authorization: `Bearer ${user.jwt}`

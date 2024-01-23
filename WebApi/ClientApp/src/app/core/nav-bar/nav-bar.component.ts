@@ -13,12 +13,12 @@ export class NavBarComponent implements OnInit {
   isScroll = false;
 
   specialRoutes = [ // Các route không cần hiển thị nav-bar trong suốt
-    '/auth/login',
-    '/auth/register',
-    '/auth/forgot-password',
+    '/auth',
     '/test-error',
+    '/server-error',
     '/not-found',
     '/booking',
+    '/user/profile'
   ];
 
   constructor(public authService: AuthService,
@@ -44,10 +44,12 @@ export class NavBarComponent implements OnInit {
 
   checkScroll() {
     const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-    this.isScroll = scrollPosition >= 300;
+    this.isScroll = scrollPosition >= 240;
   }
 
   logout() {
     this.authService.logout();
   }
+
+
 }

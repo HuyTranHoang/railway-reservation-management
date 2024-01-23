@@ -33,7 +33,6 @@ export class DepartureService {
 
     this.bookingService.getBookingSchedule(scheduleParams).subscribe({
       next: (schedules: Schedule[]) => {
-        console.log(schedules)
         this.schedules = schedules
       },
       error: (err: any) => {

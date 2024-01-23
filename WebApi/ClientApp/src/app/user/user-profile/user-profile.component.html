@@ -1,0 +1,172 @@
+<div class="container mt-5">
+  <!-- Contact Deitals -->
+
+  <div class="row">
+    <div class="col-4 py-3 px-5 bg-body rounded-3 shadow" style="min-height: 310px">
+      <div class="text-body-secondary">
+        <h3 class="fw-medium">Personal information</h3>
+        <hr>
+        <ul *ngIf="(authService.user$ | async) as user">
+          <li>
+            <div class="d-flex justify-content-between">
+              <span class="fw-medium">First name</span>
+              <span class="text-body-tertiary">{{ user.firstName | titlecase }}</span>
+            </div>
+          </li>
+          <li>
+            <div class="d-flex justify-content-between">
+              <span class="fw-medium">Last name</span>
+              <span class="text-body-tertiary">{{ user.lastName | titlecase }}</span>
+            </div>
+          </li>
+          <li>
+            <div class="d-flex justify-content-between">
+              <span class="fw-medium">Email</span>
+              <span class="text-body-tertiary">{{ user.email }}</span>
+            </div>
+          </li>
+          <li>
+            <div class="d-flex justify-content-between">
+              <span class="fw-medium">Phone number</span>
+              <span class="text-body-tertiary">{{ user.phoneNumber }}</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col-8">
+      <div>
+        <tabset>
+          <tab heading="Change personal information">
+            <div class="p-4 bg-body rounded-3 shadow">
+              <form [formGroup]="profileForm" (ngSubmit)="onProfileSubmit()" class="form row">
+                <div class="col-6">
+                  <label class="form-label fw-normal text-body-secondary">
+                    First name <span class="text-danger">*</span>
+                  </label>
+                  <input type="text"
+                         formControlName="firstName"
+                         [class.is-invalid]="isSubmitted && profileForm.get('firstName')?.errors"
+                         class="form-control bg-body-tertiary text-body-tertiary">
+                  <span class="text-danger" style="font-size: 15px;"
+                        *ngIf="isSubmitted && profileForm.get('firstName')?.hasError('required')">
+                        First name is required
+                  </span>
+                  <span class="text-danger" style="font-size: 15px;"
+                        *ngIf="isSubmitted && profileForm.get('firstName')?.hasError('minlength')
+                        || isSubmitted && profileForm.get('firstName')?.hasError('maxlength')">
+                        First name must be at least 3, and maximum 15 characters
+                  </span>
+                </div>
+
+                <div class="col-6">
+                  <label class="form-label fw-normal text-body-secondary">
+                    Last name <span class="text-danger">*</span>
+                  </label>
+                  <input type="text"
+                         formControlName="lastName"
+                         [class.is-invalid]="isSubmitted && profileForm.get('lastName')?.errors"
+                         class="form-control bg-body-tertiary text-body-tertiary">
+                  <span class="text-danger" style="font-size: 15px;"
+                        *ngIf="isSubmitted && profileForm.get('lastName')?.hasError('required')">
+                        Last name is required
+                  </span>
+                  <span class="text-danger" style="font-size: 15px;"
+                        *ngIf="isSubmitted && profileForm.get('lastName')?.hasError('minlength')
+                        || isSubmitted && profileForm.get('lastName')?.hasError('maxlength')">
+                        Last name must be at least 3, and maximum 15 characters
+                  </span>
+                </div>
+
+                <div class="col-6 mt-3">
+                  <label class="form-label fw-normal text-body-secondary">Phone number</label>
+                  <input type="text"
+                         formControlName="phoneNumber"
+                         [class.is-invalid]="isSubmitted && profileForm.get('phoneNumber')?.errors"
+                         class="form-control bg-body-tertiary text-body-tertiary">
+                </div>
+
+                <ul style="list-style: none" *ngIf="errorMessages.length > 0">
+                  <li *ngFor="let item of errorMessages" class="text-danger">
+                    {{ item }}
+                  </li>
+                </ul>
+
+                <div class="mt-4">
+                  <button type="submit" class="btn btn-warning shadow">Update</button>
+                </div>
+              </form>
+            </div>
+          </tab>
+          <tab heading="Change password">
+            <div class="p-4 bg-body rounded-3 shadow">
+              <form [formGroup]="passwordForm" (ngSubmit)="onChangePasswordSubmit()" class="row" autocomplete="off">
+                <div class="col-6 me-5">
+                  <label class="form-label fw-normal text-body-secondary">
+                    Current password <span class="text-danger">*</span>
+                  </label>
+                  <input type="password"
+                         formControlName="currentPassword"
+                         [class.is-invalid]="isSubmitted && passwordForm.get('currentPassword')?.errors"
+                         class="form-control bg-body-tertiary text-body-tertiary">
+                  <span class="text-danger" style="font-size: 15px;"
+                        *ngIf="isSubmitted && passwordForm.get('currentPassword')?.hasError('required')">
+                        Current password is required
+                  </span>
+                  <span class="text-danger" style="font-size: 15px;"
+                        *ngIf="isSubmitted && passwordForm.get('currentPassword')?.hasError('minlength')
+                        || isSubmitted && passwordForm.get('currentPassword')?.hasError('maxlength')">
+                        Current password must be at least 6, and maximum 15 characters
+                  </span>
+                </div>
+
+                <div class="col-6 mt-3 me-5">
+                  <label class="form-label fw-normal text-body-secondary">
+                    New password <span class="text-danger">*</span>
+                  </label>
+                  <input type="password"
+                         formControlName="newPassword"
+                         [class.is-invalid]="isSubmitted && passwordForm.get('newPassword')?.errors"
+                         class="form-control bg-body-tertiary text-body-tertiary">
+                  <span class="text-danger" style="font-size: 15px;"
+                        *ngIf="isSubmitted && passwordForm.get('newPassword')?.hasError('required')">
+                        New password is required
+                  </span>
+                  <span class="text-danger" style="font-size: 15px;"
+                        *ngIf="isSubmitted && passwordForm.get('newPassword')?.hasError('minlength')
+                        || isSubmitted && passwordForm.get('password')?.hasError('maxlength')">
+                        New password must be at least 6, and maximum 15 characters
+                  </span>
+                </div>
+
+                <div class="col-6 mt-3 me-5">
+                  <label class="form-label fw-normal text-body-secondary">
+                    Confirm password <span class="text-danger">*</span>
+                  </label>
+                  <input type="password"
+                         formControlName="confirmPassword"
+                         [class.is-invalid]="isSubmitted && passwordForm.get('confirmPassword')?.errors"
+                         class="form-control bg-body-tertiary text-body-tertiary">
+                  <span class="text-danger" style="font-size: 15px;"
+                        *ngIf="isSubmitted && passwordForm.get('confirmPassword')?.hasError('required')">
+                        Confirm password is required
+                  </span>
+                  <span class="text-danger" style="font-size: 15px;"
+                        *ngIf="isSubmitted && !passwordForm.get('confirmPassword')?.hasError('required')
+                        && passwordForm.get('confirmPassword')?.hasError('mismatch')">
+                        Password mismatch
+                  </span>
+                </div>
+
+                <div class="mt-4">
+                  <button type="submit" class="btn btn-warning shadow">Update</button>
+                </div>
+              </form>
+            </div>
+          </tab>
+        </tabset>
+      </div>
+    </div>
+  </div>
+</div>

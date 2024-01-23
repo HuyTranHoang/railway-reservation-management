@@ -5,6 +5,7 @@ import { BookingScheduleParams } from '../../core/models/params/bookingScheduleP
 import { TrainStationService } from '../../core/services/train-station.service'
 import Swal from 'sweetalert2'
 import { DepartureService } from './departure.service'
+import { Schedule } from '../../core/models/schedule'
 
 @Component({
   selector: 'app-departure',
@@ -70,7 +71,7 @@ export class DepartureComponent implements OnInit {
       }
 
       this.schedulesParams = { departureStationId, arrivalStationId, departureTime, returnDate, roundTrip }
-
+      this.bookingService.currentBookingScheduleParams = this.schedulesParams
 
       if (departureStationId && arrivalStationId && departureTime) {
         this.departureService.loadScheduleInfo(departureStationId, arrivalStationId, departureTime)
@@ -228,11 +229,11 @@ export class DepartureComponent implements OnInit {
       return
     }
 
-    const departureTime = this.currentDepartureDate.toISOString()
-    let returnDate = null;
+    const departureTime = new Date(this.currentDepartureDate.getTime() + (7 * 60 * 60 * 1000)).toISOString();
+    let returnDate = null
 
     if (this.currentReturnDate) {
-      returnDate = this.currentReturnDate.toISOString()
+      returnDate = new Date(this.currentReturnDate.getTime() + (7 * 60 * 60 * 1000)).toISOString();
     }
 
     const queryParams: BookingScheduleParams = {
@@ -251,8 +252,9 @@ export class DepartureComponent implements OnInit {
     this.isModify = isModified
   }
 
-  onBookNowClick(id: number) {
-    console.log('Book now clicked for train id: ', id)
+  onBookNowClick(currentSelectSchedule: Schedule) {
+    this.bookingService.currentSelectSchedule = currentSelectSchedule
+    this.router.navigate(['/booking/seat-selection'])
   }
 
   // End of departure section

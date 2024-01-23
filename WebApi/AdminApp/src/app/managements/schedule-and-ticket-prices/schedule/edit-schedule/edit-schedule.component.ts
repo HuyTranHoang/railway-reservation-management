@@ -72,6 +72,11 @@ export class EditScheduleComponent implements OnInit {
     this.errorMessages = [];
 
     if (this.updateForm.valid) {
+
+      const departureTime = new Date(this.updateForm.value.departureTime);
+      departureTime.setHours(departureTime.getHours() + 7);
+      this.updateForm.patchValue({ departureTime });
+
       this.scheduleService.updateSchedule(this.updateForm.value).subscribe({
         next: (res) => {
           this.showToast('success', 'Success', 'Update schedule successfully!');

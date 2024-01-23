@@ -50,7 +50,7 @@ public class BookingService : IBookingService
         }
 
         //Lấy danh sách các lịch trình kèm filter
-        public async Task<List<BookingDto>> GetBookingInfoWithScheduleAsync(BookingQueryParams queryParams)
+        public async Task<List<ScheduleDto>> GetBookingInfoWithScheduleAsync(BookingQueryParams queryParams)
         {
            var query = await _scheduleRepository.GetQueryWithTrainAndStationAsync();
 
@@ -75,7 +75,7 @@ public class BookingService : IBookingService
                 _ => query.OrderBy(t => t.Train.TrainCompany.Name)
             };
 
-            var bookingDtoQuery = await query.Select(t => new BookingDto
+            var scheduleDtoQuery = await query.Select(t => new ScheduleDto()
             {
                 Id = t.Id,
                 Name = t.Name,
@@ -93,16 +93,21 @@ public class BookingService : IBookingService
                 ArrivalTime = t.ArrivalTime,
                 Duration = t.Duration,
                 Price = t.Price,
-                RoundTrip = queryParams.RoundTrip,
                 Status = t.Status
             }).ToListAsync();
 
-            foreach (var bookingDto in bookingDtoQuery)
+            foreach (var item in scheduleDtoQuery)
             {
-                bookingDto.CarriageTypes = await GetCarriageTypesByTrainIdAsync(bookingDto.TrainId);
+                var carriageTypes = await _carriageTypeRepository.GetCarriageTypeByTrainIdAsync(item.TrainId);
+                item.ScheduleCarriageTypes = carriageTypes.Select(t => new ScheduleCarriageType()
+                {
+                    Id = t.Id,
+                    Name = t.Name,
+                    ServiceCharge = t.ServiceCharge
+                }).ToList();
             }
 
-            return bookingDtoQuery;
+            return scheduleDtoQuery;
 
         }
 

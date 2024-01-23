@@ -13,7 +13,7 @@ export class HomeComponent implements OnInit {
   @ViewChild('fromSearchInput') fromSearchInput: ElementRef | undefined
   @ViewChild('toSearchInput') toSearchInput: ElementRef | undefined
 
-  originalStations: {id: number, name: string}[] = []
+  originalStations: { id: number, name: string }[] = []
 
   isFromActivated = false
   isToActivated = false
@@ -45,37 +45,37 @@ export class HomeComponent implements OnInit {
 
   toggleSelect(isFrom: boolean) {
     if (isFrom) {
-      this.isFromActivated = !this.isFromActivated;
-      this.fromSearchText = '';
-      this.resultStationsHandler(this.fromResultStations, this.originalStations);
-      this.setFocus(this.fromSearchInput);
+      this.isFromActivated = !this.isFromActivated
+      this.fromSearchText = ''
+      this.resultStationsHandler(this.fromResultStations, this.originalStations)
+      this.setFocus(this.fromSearchInput)
     } else {
-      this.isToActivated = !this.isToActivated;
-      this.toSearchText = '';
-      this.resultStationsHandler(this.toResultStations, this.originalStations);
-      this.setFocus(this.toSearchInput);
+      this.isToActivated = !this.isToActivated
+      this.toSearchText = ''
+      this.resultStationsHandler(this.toResultStations, this.originalStations)
+      this.setFocus(this.toSearchInput)
     }
   }
 
   resultStationsHandler(resultStations: any, originalStations: any) {
     if (resultStations.length === 0) {
-      resultStations = [...originalStations];
+      resultStations = [...originalStations]
     }
   }
 
   setFocus(element: ElementRef | undefined) {
     setTimeout(() => {
-      element?.nativeElement.focus();
-    }, 100);
+      element?.nativeElement.focus()
+    }, 100)
   }
 
   updateName(name: string, isFrom: boolean) {
     if (isFrom) {
-      this.fromCurrentStation = name;
-      this.isFromActivated = false;
+      this.fromCurrentStation = name
+      this.isFromActivated = false
     } else {
-      this.toCurrentStation = name;
-      this.isToActivated = false;
+      this.toCurrentStation = name
+      this.isToActivated = false
     }
   }
 
@@ -102,29 +102,29 @@ export class HomeComponent implements OnInit {
 
   selectFirstInResult(resultStations: any[], currentStation: string, isFrom: boolean) {
     if (resultStations.length > 0 && resultStations[0].name !== 'No Record Found') {
-      isFrom ? this.fromCurrentStation = resultStations[0].name : this.toCurrentStation = resultStations[0].name;
-      isFrom ? this.isFromActivated = false : this.isToActivated = false;
+      isFrom ? this.fromCurrentStation = resultStations[0].name : this.toCurrentStation = resultStations[0].name
+      isFrom ? this.isFromActivated = false : this.isToActivated = false
     }
   }
 
   resetSearch(isFrom: boolean) {
     if (isFrom) {
-      this.fromSearchText = '';
-      this.fromResultStations = [...this.originalStations];
-      this.fromCurrentStation = 'City, station';
+      this.fromSearchText = ''
+      this.fromResultStations = [...this.originalStations]
+      this.fromCurrentStation = 'City, station'
     } else {
-      this.toSearchText = '';
-      this.toResultStations = [...this.originalStations];
-      this.toCurrentStation = 'City, station';
+      this.toSearchText = ''
+      this.toResultStations = [...this.originalStations]
+      this.toCurrentStation = 'City, station'
     }
   }
 
   dateChange(newDate: any, isForm: boolean) {
     if (isForm) {
-      this.departureTime = newDate;
+      this.departureTime = newDate
       this.departureTime.setMinutes(this.departureTime.getMinutes() + 1)
     } else {
-      this.returnDate = newDate;
+      this.returnDate = newDate
     }
   }
 
@@ -169,11 +169,11 @@ export class HomeComponent implements OnInit {
       return
     }
 
-    const departureTime = this.departureTime.toISOString()
-    let returnDate = null;
+    const departureTime = new Date(this.departureTime.getTime() + (7 * 60 * 60 * 1000)).toISOString();
+    let returnDate = null
 
     if (this.returnDate) {
-      returnDate = this.returnDate.toISOString()
+      returnDate = new Date(this.returnDate.getTime() + (7 * 60 * 60 * 1000)).toISOString();
     }
 
     const queryParams: BookingScheduleParams = {
@@ -188,9 +188,9 @@ export class HomeComponent implements OnInit {
   }
 
   scroll(el: HTMLElement) {
-    const yOffset = 50; // Khoảng cách cần cuộn
-    const y = el.getBoundingClientRect().top + window.pageYOffset - yOffset;
+    const yOffset = 50 // Khoảng cách cần cuộn
+    const y = el.getBoundingClientRect().top + window.pageYOffset - yOffset
 
-    window.scrollTo({ top: y, behavior: 'smooth' });
+    window.scrollTo({ top: y, behavior: 'smooth' })
   }
 }

@@ -1,6 +1,6 @@
 .banner {
   position: relative;
-  height: 50vh;
+  height: 45vh;
   z-index: 0;
 }
 
@@ -20,26 +20,22 @@
 .banner-content {
   position: absolute;
   text-align: center;
-  top: 45%;
+  top: 50%;
   right: 0;
   left: 0;
   transform: translate(0, -50%);
   z-index: 1;
 }
 
-h1.poppins {
+h1.teko {
   color: #fff;
-  text-shadow: 1px 1px 1px #65717d;
-}
-
-h1.poppins {
-  font-family: "Poppins", sans-serif;
-  font-weight: 400;
-  font-size: 50px;
+  font-family: "Teko", sans-serif;
+  font-weight: 300;
+  font-size: 66px;
   line-height: 1.3;
-  letter-spacing: 4.5px;
+  letter-spacing: 8px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
-
 
 .bold {
   font-weight: 600;
@@ -47,9 +43,4 @@ h1.poppins {
 
 img {
   width: 300px;
-}
-
-.teko {
-  padding: 50px;
-  margin: 20px;
 }

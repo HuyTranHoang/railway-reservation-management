@@ -7,8 +7,9 @@ import {DashboardModule} from '../pages/dashboard/dashboard.module';
 import {ECommerceModule} from '../pages/e-commerce/e-commerce.module';
 import {MiscellaneousModule} from '../pages/miscellaneous/miscellaneous.module';
 import {ManagementsRoutingModule} from './managements-routing.module';
-import {DashboardComponent} from './dashboard/dashboard.component';
 import {HttpClientModule} from '@angular/common/http';
+import {SharedModule} from './shared/shared.module';
+import {DashboardComponent} from './dashboard/dashboard.component';
 
 
 @NgModule({
@@ -26,6 +27,8 @@ import {HttpClientModule} from '@angular/common/http';
     ECommerceModule,
     MiscellaneousModule,
     NbInputModule,
+
+    SharedModule,
   ],
 })
 export class ManagementsModule {
