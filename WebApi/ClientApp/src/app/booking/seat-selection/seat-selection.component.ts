@@ -41,44 +41,45 @@ export class SeatSelectionComponent implements OnInit {
       next: (res) => {
         this.trainDetail = res
         this.carriageMatchType = this.trainDetail.carriages
-          .filter(c => c.type.id === this.bookingService.currentSelectSchedule?.selectedSeatType?.id)
+          .filter(c => c.type.id === this.bookingService.currentSelectSchedule?.selectedCarriageType?.id)
 
         this.currentSelectCarriage = this.carriageMatchType[0]
         this.compartmentOfCarriage = this.currentSelectCarriage?.compartments || []
 
-
-        const seatsPerRow = 8;
-        const numberOfRows = 4
-
-        for (let i = 0; i < numberOfRows; i++) {
-          const row: Seat[] = [];
-
-          for (let j = 0; j < seatsPerRow; j++) {
-            const seatIndex = i + j * numberOfRows;
-            if (seatIndex < this.compartmentOfCarriage[0].seats.length) {
-              row.push(this.compartmentOfCarriage[0].seats[seatIndex]);
-            }
-          }
-
-          this.seatRows.push(row);
-        }
-
-        for (let i = 0; i < numberOfRows; i++) {
-          const row: Seat[] = [];
-
-          for (let j = 0; j < seatsPerRow; j++) {
-            const seatIndex = i + j * numberOfRows;
-            if (seatIndex < this.compartmentOfCarriage[1].seats.length) {
-              row.push(this.compartmentOfCarriage[1].seats[seatIndex]);
-            }
-          }
-
-          this.seatRows.push(row);
-        }
-
-
+        this.generateSeatRows()
       }
     })
+  }
+
+  generateSeatRows() {
+    const seatsPerRow = 8;
+    const numberOfRows = 4
+
+    for (let i = 0; i < numberOfRows; i++) {
+      const row: Seat[] = [];
+
+      for (let j = 0; j < seatsPerRow; j++) {
+        const seatIndex = i + j * numberOfRows;
+        if (seatIndex < this.compartmentOfCarriage[0].seats.length) {
+          row.push(this.compartmentOfCarriage[0].seats[seatIndex]);
+        }
+      }
+
+      this.seatRows.push(row);
+    }
+
+    for (let i = 0; i < numberOfRows; i++) {
+      const row: Seat[] = [];
+
+      for (let j = 0; j < seatsPerRow; j++) {
+        const seatIndex = i + j * numberOfRows;
+        if (seatIndex < this.compartmentOfCarriage[1].seats.length) {
+          row.push(this.compartmentOfCarriage[1].seats[seatIndex]);
+        }
+      }
+
+      this.seatRows.push(row);
+    }
   }
 
   toggleSelectSeat(seat: Seat) {

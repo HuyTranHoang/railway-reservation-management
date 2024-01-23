@@ -20,15 +20,15 @@ export class DepartureSelectComponent {
   }
 
   onBookNowClick(item: Schedule) {
-    if (!item.selectedSeatType) {
-      item.selectedSeatType = item.scheduleCarriageTypes[0];
+    if (!item.selectedCarriageType) {
+      item.selectedCarriageType = item.scheduleCarriageTypes[0];
     }
 
     this.bookNow.emit(item); // Emit đến departure.component.ts
   }
 
   onSelectSeatTypeClick(item: Schedule, type: ScheduleCarriageType) {
-    item.selectedSeatType = type;
+    item.selectedCarriageType = type;
   }
 
 }

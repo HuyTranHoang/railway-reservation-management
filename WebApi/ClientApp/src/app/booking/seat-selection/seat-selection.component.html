@@ -121,8 +121,9 @@
         </div>
       </div>
 
-
-      <section class="seat-floor">
+      <!--Ghế mềm-->
+      <section class="seat-floor"
+               *ngIf="bookingService.currentSelectSchedule?.selectedCarriageType?.id == 1">
         <div class="d-flex">
           <div *ngIf="compartmentOfCarriage && compartmentOfCarriage[0] && compartmentOfCarriage[0].seats">
             <div class="seat-row">
@@ -222,6 +223,190 @@
           </div>
         </div>
       </section>
+
+      <!--Giường 4 khoang-->
+
+      <section *ngIf="bookingService.currentSelectSchedule?.selectedCarriageType?.id == 2"
+               class="seat-floor d-flex align-items-end">
+
+        <div class="d-flex flex-column">
+          <button>
+            T2
+          </button>
+          <button>
+            T1
+          </button>
+        </div>
+        <div class="bed-outer">
+          <label class="label w-100 text-center">Khoang 1</label>
+          <div class="bed-border d-flex">
+            <div>
+              <button class="bed">1</button>
+              <div class="bed-illustration"></div>
+            </div>
+            <div class="ml-2">
+              <button class="bed">2</button>
+              <div class="bed-illustration"></div>
+            </div>
+          </div>
+
+          <div class="bed-border d-flex">
+            <div>
+              <button class="bed">3</button>
+              <div class="bed-illustration"></div>
+            </div>
+            <div class="ml-2">
+              <button class="bed">4</button>
+              <div class="bed-illustration"></div>
+            </div>
+          </div>
+        </div>
+        <div class="bed-outer">
+          <label class="label w-100 text-center">Khoang 2</label>
+          <div class="bed-border d-flex">
+            <div>
+              <button class="bed">1</button>
+              <div class="bed-illustration"></div>
+            </div>
+            <div class="ml-2">
+              <button class="bed">2</button>
+              <div class="bed-illustration"></div>
+            </div>
+          </div>
+
+          <div class="bed-border d-flex">
+            <div>
+              <button class="bed">3</button>
+              <div class="bed-illustration"></div>
+            </div>
+            <div class="ml-2">
+              <button class="bed">4</button>
+              <div class="bed-illustration"></div>
+            </div>
+          </div>
+        </div>
+        <div class="bed-outer">
+          <label class="label w-100 text-center">Khoang 3</label>
+          <div class="bed-border d-flex">
+            <div>
+              <button class="bed">1</button>
+              <div class="bed-illustration"></div>
+            </div>
+            <div class="ml-2">
+              <button class="bed">2</button>
+              <div class="bed-illustration"></div>
+            </div>
+          </div>
+
+          <div class="bed-border d-flex">
+            <div>
+              <button class="bed">3</button>
+              <div class="bed-illustration"></div>
+            </div>
+            <div class="ml-2">
+              <button class="bed">4</button>
+              <div class="bed-illustration"></div>
+            </div>
+          </div>
+        </div>
+        <div class="bed-outer">
+          <label class="label w-100 text-center">Khoang 4</label>
+          <div class="bed-border d-flex">
+            <div>
+              <button class="bed">1</button>
+              <div class="bed-illustration"></div>
+            </div>
+            <div class="ml-2">
+              <button class="bed">2</button>
+              <div class="bed-illustration"></div>
+            </div>
+          </div>
+
+          <div class="bed-border d-flex">
+            <div>
+              <button class="bed">3</button>
+              <div class="bed-illustration"></div>
+            </div>
+            <div class="ml-2">
+              <button class="bed">4</button>
+              <div class="bed-illustration"></div>
+            </div>
+          </div>
+        </div>
+        <div class="bed-outer">
+          <label class="label w-100 text-center">Khoang 5</label>
+          <div class="bed-border d-flex">
+            <div>
+              <button class="bed">1</button>
+              <div class="bed-illustration"></div>
+            </div>
+            <div class="ml-2">
+              <button class="bed">2</button>
+              <div class="bed-illustration"></div>
+            </div>
+          </div>
+
+          <div class="bed-border d-flex">
+            <div>
+              <button class="bed">3</button>
+              <div class="bed-illustration"></div>
+            </div>
+            <div class="ml-2">
+              <button class="bed">4</button>
+              <div class="bed-illustration"></div>
+            </div>
+          </div>
+        </div>
+        <div class="bed-outer">
+          <label class="label w-100 text-center">Khoang 6</label>
+          <div class="bed-border d-flex">
+            <div>
+              <button class="bed">1</button>
+              <div class="bed-illustration"></div>
+            </div>
+            <div class="ml-2">
+              <button class="bed">2</button>
+              <div class="bed-illustration"></div>
+            </div>
+          </div>
+
+          <div class="bed-border d-flex">
+            <div>
+              <button class="bed">3</button>
+              <div class="bed-illustration"></div>
+            </div>
+            <div class="ml-2">
+              <button class="bed">4</button>
+              <div class="bed-illustration"></div>
+            </div>
+          </div>
+        </div>
+        <div class="bed-outer">
+          <label class="label w-100 text-center">Khoang 7</label>
+          <div class="bed-border d-flex">
+            <div>
+              <button class="bed">1</button>
+              <div class="bed-illustration"></div>
+            </div>
+            <div class="ml-2">
+              <button class="bed">2</button>
+              <div class="bed-illustration"></div>
+            </div>
+          </div>
+
+          <div class="bed-border d-flex">
+            <div>
+              <button class="bed">3</button>
+              <div class="bed-illustration"></div>
+            </div>
+            <div class="ml-2">
+              <button class="bed">4</button>
+              <div class="bed-illustration"></div>
+            </div>
+          </div>
+        </div>
+
+      </section>
     </div>
 
   </div>
@@ -247,20 +432,20 @@
 </div>
 
 <pre>
-<!--  currentBookingScheduleParams-->
-<!--  {{ bookingService.currentBookingScheduleParams | json }}-->
-<!--  &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
-<!--  currentSelectSchedule-->
-<!--  {{ bookingService.currentSelectSchedule | json }}-->
-<!--  &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
-<!--  trainDetail-->
-<!--  {{ trainDetail | json }}-->
-<!--  &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
-<!--  carriageMatchType-->
-<!--  {{ carriageMatchType | json }}-->
-<!--  &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
-<!--  currentSelectCarriage-->
-<!--  {{ currentSelectCarriage | json }}-->
+  currentBookingScheduleParams
+  {{ bookingService.currentBookingScheduleParams | json }}
+  ----------------
+  currentSelectSchedule
+  {{ bookingService.currentSelectSchedule | json }}
+  ----------------
+  trainDetail
+  {{ trainDetail | json }}
+  ----------------
+  carriageMatchType
+  {{ carriageMatchType | json }}
+  ----------------
+  currentSelectCarriage
+  {{ currentSelectCarriage | json }}
   ----------------
   compartmentOfCarriage
   {{ compartmentOfCarriage | json }}
