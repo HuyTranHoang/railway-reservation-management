@@ -33,7 +33,7 @@ namespace WebApi.Controllers
         public async Task<ActionResult<List<object>>> GetTrainDetailsByScheduleId(int id)
         {
             // var schedule = await _bookingService.GetBookingInfoWithScheduleIdAsync(id);
-            var train = await _bookingService.GetTrainDetailsWithTrainIdAsync(id);
+            var train = await _bookingService.GetTrainDetailsByScheduleIdAsync(id);
 
             var trainDetailsJson = JsonConvert.SerializeObject(train);// Chuyển đối tượng thành JSON
             HttpContext.Session.SetString("TrainDetails", trainDetailsJson);// Lưu trữ vào Session
@@ -43,11 +43,7 @@ namespace WebApi.Controllers
                 return NotFound(new ErrorResponse(404));
             }
 
-            var result = new {
-                TrainDetails = train
-            };
-
-            return Ok(result);
+            return Ok(train);
         }
 
         [HttpPost("payment")]

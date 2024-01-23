@@ -169,13 +169,13 @@ export class HomeComponent implements OnInit {
       return
     }
 
-    // const departureTime = new Date(this.departureTime.getTime() + (7 * 60 * 60 * 1000)).toISOString();
-    const departureTime = this.departureTime.toUTCString()
+    const departureTime = new Date(this.departureTime.getTime() + (7 * 60 * 60 * 1000)).toUTCString();
+    // const departureTime = this.departureTime.toUTCString()
     let returnDate = null
 
     if (this.returnDate) {
-      // returnDate = new Date(this.returnDate.getTime() + (7 * 60 * 60 * 1000)).toISOString();
-      returnDate = this.returnDate.toUTCString()
+      returnDate = new Date(this.returnDate.getTime() + (7 * 60 * 60 * 1000)).toUTCString();
+      // returnDate = this.returnDate.toUTCString()
     }
 
     const queryParams: BookingScheduleParams = {
