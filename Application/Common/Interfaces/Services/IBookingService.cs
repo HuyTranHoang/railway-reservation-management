@@ -9,7 +9,5 @@ namespace Application.Common.Interfaces.Services
         Task<TrainDetailDto> GetTrainDetailsByScheduleIdAsync(int trainId);
         Task<PassengerDto> AddPassengerAsync(Passenger passenger);
         Task<PaymentDto> AddPaymentAsync(Payment payment);
-        Task<TicketDto> AddTicketAsync(Ticket ticket);
-        Task<List<TicketDto>> AddTicketListAsync(List<Ticket> tickets);
     }
 }

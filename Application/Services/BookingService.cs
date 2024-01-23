@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 namespace Application.Services;
 
@@ -223,39 +224,10 @@ public class BookingService : IBookingService
         return _mapper.Map<PaymentDto>(payment);
     }
 
-    public async Task<TicketDto> AddTicketAsync(Ticket ticket)
-    {
-        await _ticketRepository.Add(ticket);
-        await _unitOfWork.SaveChangesAsync();
-        return _mapper.Map<TicketDto>(ticket);
-    }
 
     public async Task<List<CarriageTypeDto>> GetCarriageTypesByTrainIdAsync(int trainId)
     {
         var carriageTypes = await _carriageTypeRepository.GetCarriageTypeByTrainIdAsync(trainId);
         return _mapper.Map<List<CarriageTypeDto>>(carriageTypes);
-    }
-
-    public async Task<List<TicketDto>> AddTicketListAsync(List<Ticket> tickets)
-    {
-        if (tickets == null || !tickets.Any())
-        {
-            throw new ArgumentException("The list of tickets is null or empty.");
-        }
-
-        try
-        {
-            foreach (var ticket in tickets)
-            {
-                await _ticketRepository.Add(ticket);
-            }
-
-            await _unitOfWork.SaveChangesAsync();
-            return _mapper.Map<List<TicketDto>>(tickets);
-        }
-        catch (Exception ex)
-        {
-            throw new Exception($"Error adding tickets: {ex.Message}");
-        }
     }
 }
