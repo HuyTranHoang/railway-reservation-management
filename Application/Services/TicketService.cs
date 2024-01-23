@@ -192,7 +192,7 @@ namespace Application.Services
             var arrivalValue = arrivalStation.CoordinateValue;
             var distance = Math.Abs(departureValue - arrivalValue);
 
-            var distanceFareId = await _distanceFare.GetIdByDistanceAndTrainCompanyAsync(trainCompanyId, distance);
+            var distanceFareId = await _distanceFare.GetIdByDistanceAndTrainCompanyAsync(distance, trainCompanyId);
 
             return distanceFareId;
         }
