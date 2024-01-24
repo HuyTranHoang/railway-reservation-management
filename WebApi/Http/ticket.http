@@ -13,7 +13,7 @@ Content-Type: application/json
   "DistanceFareId" : 1,
   "CarriageId" : 8,
   "SeatId" : 21,
-  "ScheduleId" : 31,
+  "ScheduleId" : 12,
   "PaymentId": 2,
   "Status" : "Active"
 }
