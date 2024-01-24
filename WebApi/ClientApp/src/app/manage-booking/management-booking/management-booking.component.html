@@ -1,0 +1,15 @@
+
+<div class="container-fluid  text-center "   
+style="padding-top: 120px; padding-bottom: 120px ; background: url(https://1.bp.blogspot.com/-TJAu7FF76Do/YT3KhmMNr_I/AAAAAAAAHys/B-EAKcjW4fcp_XgC3-Rn-GYrF_cNtHYmwCLcBGAsYHQ/s0-rw/bo-hinh-nen-phong-canh-chat-luong-cao-full-hd-dep-nhat-15.jpg) center center no-repeat;background-size: cover">
+<h1 class="text-header card-header" style="color: #F79A24;  ">BOOKED WITH US?</h1>
+<p style=" color: #fff;" class="card-title">To access an existing booking, please enter your Booking ID and your Email address below.</p>
+<form (ngSubmit)="onSubmit()" class="form form-control w-50 m-auto mt-5" style="background: rgba(0,0,0,0.5); ">
+<label class="form-label p-2" style="color: #fff; float : left">Input your Booking Id</label>
+<input class="form-control p-2" type="text" style="background: rgba(0,0,0,0.5); color : #fff" id="code" [(ngModel)]="code" name="code"  required>
+<label class="form-label p-2" style="color: #fff;  float : left">Input your Email</label>
+<input class="form-control p-2" type="email" style="background: rgba(0,0,0,0.5); color : #fff" id="email" [(ngModel)]="email" name="email" required>
+<button  style="background-color: #F79A24; margin-top: 20px; margin-bottom: 20px; color: #fff; font-weight: bold;" class="form-control w-100 p-2" type="submit">Revice</button>
+<p class="text-bg-danger ">{{wrong}}</p>
+</form>
+</div>
+

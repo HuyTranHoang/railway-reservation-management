@@ -1,0 +1,397 @@
+*{
+    font-family: "Teko", sans-serif;
+}
+.banner {
+  position: relative;
+  height: 45vh;
+  z-index: 0;
+}
+
+.bg-banner {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 1;
+  filter: brightness(80%);
+  background-size: cover;
+  background-position: center;
+}
+
+.banner-content {
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  right: 0;
+  left: 0;
+  transform: translate(0, -50%);
+  z-index: 1;
+}
+
+h1.teko {
+  color: #fff;
+  font-family: "Teko", sans-serif;
+  font-weight: 300;
+  font-size: 66px;
+  line-height: 1.3;
+  letter-spacing: 8px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.bold {
+  font-weight: 600;
+}
+
+img {
+  width: 300px;
+}
+.text-header{
+    font-family: "Teko", sans-serif;
+    font-weight: 300;
+    font-size: 66px;
+    padding: 20px;
+    letter-spacing: 8px;
+}
+/*--------------------
+Body
+--------------------*/
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  margin: 0;  
+  background: radial-gradient(ellipse farthest-corner at center top, #ECECEC, #999);
+  color: #363c44;
+  font-size: 14px;
+  font-family: 'Roboto', sans-serif;
+}
+
+@mixin center {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+/*--------------------
+Boarding Pass
+--------------------*/
+.boarding-pass {
+  @include center;
+  width: 600px;
+  height: 380px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 5px 30px rgba(0, 0, 0, .2);
+  overflow: hidden;
+  text-transform: uppercase;
+
+  small {
+    display: block;
+    font-size: 11px;
+    color: #A2A9B3;
+    margin-bottom: 2px;
+  }
+
+  strong {
+    font-size: 15px;
+    display: block;
+  }
+
+  /*--------------------
+  Header
+  --------------------*/
+  & header {
+    background: linear-gradient(to bottom, #36475f, #2c394f);
+    padding: 12px 20px;
+    height: 53px;
+
+    .logo {
+      float: left;
+      width: 104px;
+      height: 31px;
+    }
+
+    .flight {
+      float: right;
+      color: #fff;
+      text-align: right;
+
+      small {
+        font-size: 8px;
+        margin-bottom: 2px;
+        opacity: 0.8;
+      }
+
+      strong {
+        font-size: 18px;
+      }
+
+    }
+  }
+
+  /*--------------------
+  Cities
+  --------------------*/
+  .cities {
+    position: relative;
+
+    &::after {
+      content: '';
+      display: table;
+      clear: both;
+    }
+
+    .city {
+      padding: 20px 18px;
+      float: left;
+
+      &:nth-child(2) {
+        float: right;
+      }
+
+      strong {
+        font-size: 40px;
+        font-weight: 300;
+        line-height: 1;
+      }
+
+      small {
+        margin-bottom: 0px;
+        margin-left: 3px;
+      }
+    }
+
+    .airplane {
+      position: absolute;
+      width: 30px;
+      height: 25px;
+      top: 57%;
+      left: 30%;
+      opacity: 0;
+      transform: translate(-50%, -50%);
+      animation: move 3s infinite;
+    }
+
+    @keyframes move {
+      40% {
+        left: 50%;
+        opacity: 1;
+      }
+      100% {
+        left: 70%;
+        opacity: 0;
+      }
+    }
+  }
+
+  
+  /*--------------------
+  Infos
+  --------------------*/
+  .infos {
+    display: flex;
+    border-top: 1px solid #99D298;
+
+    .places,
+    .times {
+      width: 50%;
+      padding: 10px 0;
+
+      &::after {
+        content: '';
+        display: table;
+        clear: both;
+      }
+    }
+    
+    .times {
+      
+      strong {
+        transform: scale(0.9);
+        transform-origin: left bottom;
+      }
+    }
+
+    .places {
+      background: #ECECEC;
+      border-right: 1px solid #99D298;
+      
+      small {
+        color: #97A1AD;
+      }
+
+      strong {
+        color: #239422;
+      }
+    }
+
+    .box {
+      padding: 10px 20px 10px;
+      width: 47%;
+      float: left;
+
+      small {
+        font-size: 10px;
+      }
+    }
+  }
+
+  
+  /*--------------------
+  Strap
+  --------------------*/
+  .strap {
+    clear: both;
+    position: relative;
+    border-top: 1px solid #99D298;
+
+    &::after {
+      content: '';
+      display: table;
+      clear: both;
+    }
+
+    .box {
+      padding: 23px 0 20px 20px;
+
+      & div {
+        margin-bottom: 15px;
+        
+        small {
+          font-size: 10px;
+        }
+
+        strong {
+          font-size: 13px;
+        }
+      }
+
+      sup {
+        font-size: 8px;
+        position: relative;
+        top: -5px;
+      }
+    }
+    .qrcode {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 80px;
+      height: 80px;
+    }
+  }
+}
+
+@import url(//fonts.googleapis.com/css?family=Lato:300:400);
+
+body {
+  margin:0;
+}
+
+h1 {
+  font-family: 'Lato', sans-serif;
+  font-weight:300;
+  letter-spacing: 2px;
+  font-size:48px;
+}
+p {
+  font-family: 'Lato', sans-serif;
+  letter-spacing: 1px;
+  font-size:14px;
+  color: #333333;
+}
+
+.header {
+  position:relative;
+  text-align:center;
+  background: linear-gradient(60deg, rgba(84,58,183,1) 0%, rgba(0,172,193,1) 100%);
+  color:white;
+}
+.logo {
+  width:50px;
+  fill:white;
+  padding-right:15px;
+  display:inline-block;
+  vertical-align: middle;
+}
+
+.inner-header {
+  height:10vh;
+  width:100%;
+  margin: 0;
+  padding: 0;
+}
+
+.flex { /*Flexbox for containers*/
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.waves {
+  position:relative;
+  width: 100%;
+  height:15vh;
+  margin-bottom:-7px; /*Fix for safari gap*/
+  min-height:100px;
+  max-height:150px;
+}
+
+.content {
+  position:relative;
+  height:20vh;
+  text-align:center;
+  background-color: white;
+}
+
+/* Animation */
+
+.parallax > use {
+  animation: move-forever 25s cubic-bezier(.55,.5,.45,.5)     infinite;
+}
+.parallax > use:nth-child(1) {
+  animation-delay: -2s;
+  animation-duration: 7s;
+}
+.parallax > use:nth-child(2) {
+  animation-delay: -3s;
+  animation-duration: 10s;
+}
+.parallax > use:nth-child(3) {
+  animation-delay: -4s;
+  animation-duration: 13s;
+}
+.parallax > use:nth-child(4) {
+  animation-delay: -5s;
+  animation-duration: 20s;
+}
+@keyframes move-forever {
+  0% {
+   transform: translate3d(-90px,0,0);
+  }
+  100% { 
+    transform: translate3d(85px,0,0);
+  }
+}
+/*Shrinking for mobile*/
+@media (max-width: 768px) {
+  .waves {
+    height:40px;
+    min-height:40px;
+  }
+  .content {
+    height:30vh;
+  }
+  h1 {
+    font-size:24px;
+  }
+}

@@ -8,6 +8,13 @@ POST {{url}}/{{router}}
 Content-Type: application/json
 
 {
+  "PassengerId" : 1 ,
+  "TrainId" : 20,
+  "DistanceFareId" : 1,
+  "CarriageId" : 8,
+  "SeatId" : 21,
+  "ScheduleId" : 12,
+  "PaymentId": 2,
   "PassengerId" : 2,
   "TrainId" : 1,
   "CarriageId" : 3,
