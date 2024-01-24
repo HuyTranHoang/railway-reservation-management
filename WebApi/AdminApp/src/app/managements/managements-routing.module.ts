@@ -3,6 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {ManagementsComponent} from './managements.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {NotFoundComponent} from '../pages/miscellaneous/not-found/not-found.component';
+import {DailyTransactionComponent} from './daily-transaction/daily-transaction.component';
 
 const routes: Routes = [{
   path: '',
@@ -13,10 +14,15 @@ const routes: Routes = [{
       component: DashboardComponent,
     },
     {
+      path: 'daily-transaction',
+      component: DailyTransactionComponent,
+    },
+    {
       path: '',
       redirectTo: 'dashboard',
       pathMatch: 'full',
     },
+
     {
       path: 'railway',
       loadChildren: () => import('./railway/railway.module')
