@@ -4,7 +4,6 @@ import {LoginComponent} from './login/login.component';
 import {NotFoundComponent} from '../pages/miscellaneous/not-found/not-found.component';
 import {AuthComponent} from './auth.component';
 import { SendEmailComponent } from './send-email/send-email.component';
-import { NbResetPasswordComponent } from '@nebular/auth';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 
