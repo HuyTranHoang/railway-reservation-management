@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { BookingService } from '../booking.service'
+import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 
 @Component({
   selector: 'app-payment',
@@ -8,9 +9,10 @@ import { BookingService } from '../booking.service'
 })
 export class PaymentComponent implements OnInit {
 
+  paymentForm: FormGroup = new FormGroup({})
   totalAmount = 0
 
-  constructor(public bookingService: BookingService) {}
+  constructor(public bookingService: BookingService, private fb: FormBuilder) {}
 
   ngOnInit(): void {
     setTimeout(() => {
@@ -18,6 +20,10 @@ export class PaymentComponent implements OnInit {
     }, 0)
 
     this.loadTotalAmount()
+
+    this.paymentForm = this.fb.group({
+      nameOnCard: ['', Validators.required]
+    })
   }
 
   loadTotalAmount() {

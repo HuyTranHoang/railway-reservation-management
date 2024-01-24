@@ -95,6 +95,39 @@
 </div>
 
 
+<h2 class="mt-5">Payment information</h2>
+<div class="horizontal-divider"></div>
+<div class="row bg-white mb-3 ms-0 me-0">
+  <form class="pt-4" [formGroup]="paymentForm">
+    <div class="col-12 d-flex" style="padding: 0 15px 18px;">
+      <div class="me-3" style="width: 60%">
+        <input type="text"
+               formControlName="nameOnCard"
+               class="form-control" placeholder="Name on card">
+      </div>
+    </div>
+    <div class="col-12 d-flex" style="padding: 0 15px 18px;">
+      <div class="me-3" style="width: 19%">
+        <input type="text" #cardNumber
+               class="form-control" placeholder="Card number">
+
+      </div>
+      <div class="me-3" style="width: 19%">
+        <input type="text" #cardExpiry
+               class="form-control" placeholder="Card expiry">
+
+      </div>
+      <div style="width: 240px">
+        <input type="text" #cardCvc
+               class="form-control" placeholder="Card cvc">
+
+      </div>
+    </div>
+  </form>
+
+</div>
+
+
 <div class="mt-3 mb-5">
   <a class="btn green w-100" (click)="onSubmit()">
     <span class="bold">PROCEED TO PAYMENT</span>

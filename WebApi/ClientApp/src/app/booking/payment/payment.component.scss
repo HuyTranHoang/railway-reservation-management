@@ -39,6 +39,22 @@ p {
   margin-bottom: 10px;
 }
 
+.form-control {
+  height: 40px;
+  color: rgba(115,121,127,1);
+  font-size: 16px;
+  padding-left: 20px;
+  border-radius: 0;
+  border: 1px solid transparent;
+  box-shadow: none;
+  background: #f5f5f5;
+
+  &:focus {
+    border: 1px solid #fb0;
+    box-shadow: none;
+  }
+}
+
 .station-title {
   color: #65696e;
   font-size: 18px;
