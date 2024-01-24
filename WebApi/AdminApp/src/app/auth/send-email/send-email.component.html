@@ -1,0 +1,28 @@
+<div class="d-flex justify-content-center" style="margin-top: 15vh">
+  <nb-card style="width: 550px; padding-bottom: 30px">
+    <nb-card-body>
+      <form [formGroup]="emailForm" (ngSubmit)="onSubmit()">
+        <div class="text-center">
+          <h2 class="pt-4">Forgot Password</h2>
+          <span>Enter your email address and we’ll send a link to reset your password</span>
+        </div>
+
+        <div class="mt-5">
+          <label class="label">Enter your email address:</label>
+          <input type="text" nbInput fullWidth formControlName="email"
+            [class.status-danger]="submitted && emailForm.get('email')?.errors">
+          <span class="text-danger small" *ngIf="submitted && emailForm.get('email')?.hasError('required')">
+            Email is required
+          </span>
+        </div>
+
+        <div class="mt-5">
+          <button nbButton fullWidth [disabled]="emailForm.invalid" type="submit" size="large" status="primary">Send
+            Email</button>
+        </div>
+
+      </form>
+    </nb-card-body>
+  </nb-card>
+
+</div>

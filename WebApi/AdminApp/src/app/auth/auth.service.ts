@@ -117,6 +117,10 @@ export class AuthService {
     return this.http.post(this.baseUrl + `/account/forgot-password/${email}`, {});
   }
 
+  forgotPasswordAdmin(email: string) {
+    return this.http.post(this.baseUrl + `/account/forgot-password-admin/${email}`, {});
+  }
+
   resetPassword(model: ResetPassword) {
     return this.http.put(this.baseUrl + '/account/reset-password', model);
   }
