@@ -3,7 +3,7 @@ import { CancellationService } from '../cancellation.service';
 import { Cancellation } from '../../../../@models/cancellation';
 import {Pagination} from '../../../../@models/pagination';
 import {PaginatedResult} from '../../../../@models/paginatedResult';
-import {QueryParams} from '../../../../@models/params/queryParams';
+import { CancellationQueryParams } from '../../../../@models/params/cancellationQueryParams';
 import { ShowCancellationComponent } from '../show-cancellation/show-cancellation.component';
 import { ConfirmDeleteCancellationComponent } from '../confirm-delete-cancellation/confirm-delete-cancellation.component';
 import {NbDialogService} from '@nebular/theme';
@@ -21,16 +21,19 @@ export class ListCancellationComponent implements OnInit{
   currentSearchTerm: string = '';
   currentSort: string = '';
 
-  queryParams: QueryParams = {
+  queryParams: CancellationQueryParams = {
     pageNumber: 1,
     pageSize: 10,
     searchTerm: '',
     sort: '',
+    ticketId: null,
+    cancellationRuleId: null,
   };
 
   sortStates = {
     ticketCode: false,
-    departureDateDifference: false,
+    cancellationRuleDepartureDateDifference: false,
+    cancellationRuleFee: false,
     reason: false,
     createdAt: false,
   };

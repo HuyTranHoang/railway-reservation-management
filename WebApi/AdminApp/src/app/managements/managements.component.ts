@@ -132,5 +132,10 @@ export class ManagementsComponent {
         },
       ],
     },
+    {
+      title: 'Daily Transaction',
+      icon: 'pie-chart-outline',
+      link: '/managements/daily-transaction',
+    },
   ];
 }

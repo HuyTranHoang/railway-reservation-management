@@ -1,4 +1,3 @@
-
 using Domain.Exceptions;
 
 namespace Application.Services
@@ -12,11 +11,17 @@ namespace Application.Services
         private readonly IDistanceFareRepository _distanceFare;
         private readonly ICarriageRepository _carriage;
         private readonly ISeatRepository _seat;
+        private readonly ITrainStationRepository _trainStation;
+        private readonly IScheduleRepository _schedule;
+        private readonly ITrainRepository _train;
 
         public TicketService(ITicketRepository repository, IUnitOfWork unitOfWork, IMapper mapper,
-                                IDistanceFareRepository distanceFare,
-                                ICarriageRepository carriage,
-                                ISeatRepository seat)
+            IDistanceFareRepository distanceFare,
+            ICarriageRepository carriage,
+            ISeatRepository seat,
+            ITrainStationRepository trainStation,
+            IScheduleRepository schedule,
+            ITrainRepository train)
         {
             _repository = repository;
             _unitOfWork = unitOfWork;
@@ -24,12 +29,30 @@ namespace Application.Services
             _distanceFare = distanceFare;
             _carriage = carriage;
             _seat = seat;
+            _trainStation = trainStation;
+            _schedule = schedule;
+            _train = train;
         }
+
         public async Task AddAsync(Ticket ticket)
         {
+            var tickets = await _repository.GetAllNoPagingAsync();
+
+
             ticket.Code = GenerateUniqueCode(ticket);
 
             ticket.Price = await CalculatePrice(ticket);
+
+            int distanceFareId = await CaculateDistanceFareId(ticket);
+            ticket.DistanceFareId = distanceFareId;
+
+            bool isSeatAndScheduleExistsInTickets = tickets.Any(t =>
+                t.SeatId == ticket.SeatId && t.ScheduleId == ticket.ScheduleId);
+
+            if (isSeatAndScheduleExistsInTickets)
+            {
+                throw new BadRequestException(400, "Seat has been booked");
+            }
 
             await _repository.Add(ticket);
             await _unitOfWork.SaveChangesAsync();
@@ -168,5 +191,27 @@ namespace Application.Services
             return ticketAmount;
         }
 
+        public async Task<List<TicketDto>> GetAllDtoNoPagingAsync()
+        {
+            var tickets = await _repository.GetAllNoPagingAsync();
+            return _mapper.Map<List<TicketDto>>(tickets);
+        }
+
+        public async Task<int> CaculateDistanceFareId(Ticket ticket)
+        {
+            var schedule = await _schedule.GetByIdAsync(ticket.ScheduleId);
+            var train = await _train.GetByIdAsync(schedule.TrainId);
+            var trainCompanyId = train.TrainCompanyId;
+
+            var departureStation = await _trainStation.GetByIdAsync(schedule.DepartureStationId);
+            var departureValue = departureStation.CoordinateValue;
+            var arrivalStation = await _trainStation.GetByIdAsync(schedule.ArrivalStationId);
+            var arrivalValue = arrivalStation.CoordinateValue;
+            var distance = Math.Abs(departureValue - arrivalValue);
+
+            var distanceFareId = await _distanceFare.GetIdByDistanceAndTrainCompanyAsync(distance, trainCompanyId);
+
+            return distanceFareId;
+        }
     }
 }

@@ -3,7 +3,8 @@ export interface Cancellation {
     ticketId: number;
     ticketCode: string;
     cancellationRuleId: number;
-    departureDateDifference: number;
+    cancellationRuleDepartureDateDifference: number;
+    cancellationRuleFee: number;
     reason: string;
     status: string;
     createdAt: string;

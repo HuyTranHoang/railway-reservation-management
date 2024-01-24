@@ -13,7 +13,14 @@
         <div class="form-group row">
           <label class="label col-sm-3 col-form-label">Departure Date Difference</label>
           <div class="col-sm-9">
-            <input type="text" nbInput fullWidth [value]="departureDateDifference" disabled>
+            <input type="text" nbInput fullWidth [value]="cancellationRuleDepartureDateDifference" disabled>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="label col-sm-3 col-form-label">Fee</label>
+          <div class="col-sm-9">
+            <input type="text" nbInput fullWidth [value]="cancellationRuleFee" disabled>
           </div>
         </div>
 
@@ -44,10 +51,10 @@
       <div class="d-flex justify-content-between">
         <button nbButton hero status="primary" (click)="dismiss()">Dismiss Dialog</button>
 
-        <div>
-          <button nbButton hero status="primary" class="mr-3" (click)="onEdit()">Edit</button>
-          <button nbButton hero status="danger" (click)="onDelete()">Delete</button>
-        </div>
+<!--        <div>-->
+<!--          <button nbButton hero status="primary" class="mr-3" (click)="onEdit()">Edit</button>-->
+<!--          <button nbButton hero status="danger" (click)="onDelete()">Delete</button>-->
+<!--        </div>-->
       </div>
     </nb-card-footer>
   </nb-card>

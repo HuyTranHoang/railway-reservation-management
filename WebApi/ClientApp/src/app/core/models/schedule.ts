@@ -23,7 +23,7 @@ export interface Schedule {
   status: string
   createdAt: string
   scheduleCarriageTypes: ScheduleCarriageType[]
-  selectedSeatType: ScheduleCarriageType
+  selectedCarriageType: ScheduleCarriageType
 }
 
 export interface ScheduleCarriageType {

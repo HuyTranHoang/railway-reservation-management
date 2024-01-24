@@ -2,7 +2,7 @@
   {
     "Name": "Ngồi mềm điều hòa",
     "NumberOfCompartments": 2,
-    "NumberOfSeats" : 32,
+    "NumberOfSeats" : 64,
     "NumberOfSeatTypes": 1,
     "ServiceCharge": 10,
     "Status": "Active",

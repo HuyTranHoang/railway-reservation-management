@@ -1,1 +1,69 @@
-<p>edit-cancellation works!</p>
+<div class="col-md-6">
+    <nb-card [nbSpinner]="isLoading" nbSpinnerSize="giant" nbSpinnerStatus="success">
+      <nb-card-header>
+        <div class="d-flex justify-content-between">
+          Edit Cancellation
+          <button nbButton type="submit"
+          routerLink="/managements/payment-and-cancellation/cancellation/"
+          status="primary">
+          Back to list
+          </button>
+        </div>
+      </nb-card-header>
+      <nb-card-body>
+        <form [formGroup]="updateForm">
+          <div class="form-group">
+              <label class="label">Ticket code</label>
+              <input #autoInput
+                     class="mr-4"
+                     [class.status-danger]="isSubmitted && !isValidTicketSelected"
+                     nbInput
+                     fullWidth
+                     type="text"
+                     (input)="onChange()"
+                     (blur)="onInputBlur()"
+                     placeholder="Choose ticket code.."
+                     [nbAutocomplete]="autoTicketCode" />
+              <nb-autocomplete #autoTicketCode (selectedChange)="onSelectionChange($event)">
+                <nb-option *ngFor="let option of filteredOptions$ | async" [value]="option">
+                  {{ option.code }}
+                </nb-option>
+              </nb-autocomplete>
+              <span *ngIf="isSubmitted && !isValidTicketSelected" class="text-danger">
+              *Please select a valid ticket code
+            </span>
+            </div>
+
+            <div class="form-group">
+              <label class="label">Departure Date Difference</label>
+              <nb-select fullWidth formControlName="cancellationRuleId"
+                         [class.status-danger]="updateForm.get('cancellationRuleId').hasError('required') && isSubmitted"
+                         placeholder="Type of this carriage..">
+                <nb-option *ngFor="let option of cancellationRules" [value]="option.id">{{ option.departureDateDifference }}</nb-option>
+              </nb-select>
+              <span class="text-danger"
+                    *ngIf="updateForm.get('cancellationRuleId').hasError('required') && isSubmitted">
+                *Please select a valid departure date difference
+              </span>
+            </div>
+
+          <app-input-field [control]="updateForm.get('reason')"
+                           [label]="'Reason'"
+                           [placeholder]="'Reason..'">
+          </app-input-field>
+
+          <app-input-field [control]="updateForm.get('status')"
+                           [label]="'Status'"
+                           [placeholder]="'Status'">
+          </app-input-field>
+
+          <button nbButton status="success" class="float-right" (click)="onSubmit()">Save</button>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </div>
+
+
+
+
+

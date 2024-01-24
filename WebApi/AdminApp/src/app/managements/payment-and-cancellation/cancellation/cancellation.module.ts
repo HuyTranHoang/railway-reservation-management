@@ -7,6 +7,7 @@ import {AddCancellationComponent} from './add-cancellation/add-cancellation.comp
 import {EditCancellationComponent} from './edit-cancellation/edit-cancellation.component';
 import {ShowCancellationComponent} from './show-cancellation/show-cancellation.component';
 import {ConfirmDeleteCancellationComponent} from './confirm-delete-cancellation/confirm-delete-cancellation.component';
+import {NbAutocompleteModule, NbStepperModule} from '@nebular/theme';
 
 
 @NgModule({
@@ -22,6 +23,9 @@ import {ConfirmDeleteCancellationComponent} from './confirm-delete-cancellation/
     SharedModule,
 
     CancellationRoutingModule,
+
+    NbStepperModule,
+    NbAutocompleteModule,
   ]
 })
 export class CancellationModule {}

@@ -7,10 +7,13 @@ namespace WebApi.Controllers
     public class BookingController : BaseApiController
     {
         private readonly IBookingService _bookingService;
-        
-        public BookingController(IBookingService bookingService)
+        private readonly ITicketService _ticketService;
+
+        public BookingController(IBookingService bookingService,
+                                ITicketService ticketService)
         {
             _bookingService = bookingService;
+            _ticketService = ticketService;
         }
 
         [HttpGet("schedule")]
@@ -21,7 +24,8 @@ namespace WebApi.Controllers
 
             var schedulesDto = await _bookingService.GetBookingInfoWithScheduleAsync(queryParams);
 
-            var result = new {
+            var result = new
+            {
                 Schedule = schedulesDto,
                 BookingParams = queryParamsJson
             };
@@ -33,25 +37,24 @@ namespace WebApi.Controllers
         public async Task<ActionResult<List<object>>> GetTrainDetailsByScheduleId(int id)
         {
             // var schedule = await _bookingService.GetBookingInfoWithScheduleIdAsync(id);
-            var train = await _bookingService.GetTrainDetailsWithTrainIdAsync(id);
+            var train = await _bookingService.GetTrainDetailsByScheduleIdAsync(id);
 
             var trainDetailsJson = JsonConvert.SerializeObject(train);// Chuyển đối tượng thành JSON
             HttpContext.Session.SetString("TrainDetails", trainDetailsJson);// Lưu trữ vào Session
+
+            var scheduleIdJson = JsonConvert.SerializeObject(id);// Chuyển đối tượng thành JSON
+            HttpContext.Session.SetString("ScheduleId", scheduleIdJson);// Lưu trữ vào Session
 
             if (train == null)
             {
                 return NotFound(new ErrorResponse(404));
             }
 
-            var result = new {
-                TrainDetails = train
-            };
-
-            return Ok(result);
+            return Ok(train);
         }
 
         [HttpPost("payment")]
-        public async Task<IActionResult> Payment([FromBody] PaymentDto paymentDto, string userId, int carriageId, int seatId)
+        public async Task<IActionResult> Payment([FromBody] PaymentDto paymentDto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
@@ -67,13 +70,19 @@ namespace WebApi.Controllers
             {
                 return BadRequest("TrainDetails is missing in session.");
             }
-            var trainDetails = JsonConvert.DeserializeObject<BookingQueryParams>(trainDetailsJson);
+            var trainDetails = JsonConvert.DeserializeObject<TrainDetailDto>(trainDetailsJson);
 
-            ScheduleDto schedule = null;
-            
+            var scheduleIdJson = HttpContext.Session.GetString("ScheduleId");
+            if (string.IsNullOrEmpty(scheduleIdJson))
+            {
+                return BadRequest("ScheduleId is missing in session.");
+            }
+            var scheduleId = JsonConvert.DeserializeObject<int>(scheduleIdJson);
+
+
             //Kiểm tra RoundTrip
             if (queryParams.RoundTrip == true)
-            {   
+            {
                 BookingQueryParams roundTripParams = new BookingQueryParams
                 {
                     DepartureStationId = queryParams.ArrivalStationId,
@@ -83,57 +92,52 @@ namespace WebApi.Controllers
                     RoundTrip = false
                 };
 
-                var schedulesDto = await GetBookingSchedule(roundTripParams);
-
                 // ...
 
                 return Ok("Payment successful.");
-            } else
+            }
+            else
             {
                 try
                 {
-                    paymentDto.Tickets = new List<Ticket>();
                     if (paymentDto.Passengers == null || !paymentDto.Passengers.Any())
                     {
                         return BadRequest("The list of passengers is null or empty.");
                     }
 
-                    foreach (var passengerData in paymentDto.Passengers)
+                    if (paymentDto.Passengers.Count != paymentDto.Tickets.Count)
                     {
-                        var passenger = await _bookingService.AddPassengerAsync(passengerData);
-                        paymentDto.Payments.AspNetUserId = userId;
-                        paymentDto.Payments ??= new Payment();
+                        return BadRequest("Mismatched number of passengers and tickets.");
+                    }
 
-                        var payment = await _bookingService.AddPaymentAsync(paymentDto.Payments);
+                    var payment = await _bookingService.AddPaymentAsync(paymentDto.Payments);
+
+                    for (int i = 0; i < paymentDto.Passengers.Count; i++)
+                    {
+                        var passengerData = paymentDto.Passengers[i];
+                        var ticketData = paymentDto.Tickets[i];
+
+                        var passenger = await _bookingService.AddPassengerAsync(passengerData);
 
                         var ticket = new Ticket
                         {
                             PassengerId = passenger.Id,
-                            TrainId = schedule.TrainId,
-                            DistanceFareId = payment.Ticket.DistanceFareId,
-                            CarriageId = carriageId,
-                            SeatId = seatId,
-                            ScheduleId = schedule.Id,
+                            TrainId = trainDetails.Id,
+                            CarriageId = ticketData.CarriageId,
+                            SeatId = ticketData.SeatId,
+                            ScheduleId = scheduleId,
                             PaymentId = payment.Id
                         };
-                        paymentDto.Tickets.Add(ticket);
+
+                        await _ticketService.AddAsync(ticket);
                     }
 
-                    if (paymentDto.Tickets.Any())
-                    {
-                        await _bookingService.AddTicketListAsync(paymentDto.Tickets);
-                    }
-                    else
-                    {
-                        return BadRequest("The list of tickets is empty.");
-                    }
+                    return Ok("Payment successful.");
                 }
                 catch (Exception ex)
                 {
                     return BadRequest($"Error processing payment: {ex.Message}");
                 }
-
-                return Ok("Payment successful.");
             }
         }
     }

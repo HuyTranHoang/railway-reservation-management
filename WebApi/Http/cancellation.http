@@ -8,8 +8,7 @@ POST {{url}}/{{router}}
 Content-Type: application/json
 
 {
-  "TicketId": 2,
-  "CancellationRuleId": 1,
+  "TicketId": 4,
   "Reason" : "I like that"
 }
 

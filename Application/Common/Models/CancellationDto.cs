@@ -9,6 +9,7 @@ namespace Application.Common.Models
         public string TicketCode { get; set; }
 
         public int CancellationRuleId { get; set; }
+        public int CancellationRuleDepartureDateDifference { get; set; }
 
         public double CancellationRuleFee { get; set; }
 

@@ -52,6 +52,17 @@ public class DistanceFareRepository : IDistanceFareRepository
         return distanceFare;
     }
 
+    public async Task<int> GetIdByDistanceAndTrainCompanyAsync(int distance, int trainCompanyId)
+    {
+        var distanceFareId = await _context.DistanceFares
+                            .Where(d => d.Distance <= distance && d.TrainCompanyId == trainCompanyId)
+                            .OrderByDescending(d => d.Distance)
+                            .Select(d => d.Id)
+                            .FirstOrDefaultAsync();
+
+        return distanceFareId;
+    }
+
     public async Task<IQueryable<DistanceFare>> GetQueryAsync()
     {
         return await Task.FromResult(
