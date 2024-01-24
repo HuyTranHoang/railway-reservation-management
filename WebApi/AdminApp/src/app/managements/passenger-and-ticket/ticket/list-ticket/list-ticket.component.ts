@@ -6,6 +6,8 @@ import {PaginatedResult} from '../../../../@models/paginatedResult';
 import {TicketService} from '../ticket.service';
 import {Ticket} from '../../../../@models/ticket';
 import {TicketQueryParams} from '../../../../@models/params/ticketQueryParams';
+import {ShowTicketComponent} from '../show-ticket/show-ticket.component';
+import {ConfirmDeleteTicketComponent} from '../confirm-delete-ticket/confirm-delete-ticket.component';
 
 @Component({
   selector: 'ngx-list-ticket',
@@ -89,26 +91,25 @@ export class ListTicketComponent implements OnInit {
   }
 
   openShowDialog(id: number) {
-    // const carriageType = this.carriageTypes.find(x => x.id === id);
-    //
-    // const dialogRef = this.dialogService.open(ShowCarriageTypeComponent, {
-    //   context: {...carriageType},
-    // });
-    //
-    // dialogRef.componentRef.instance.onShowDelete.subscribe(obj => {
-    //   this.openConfirmDialog(obj.id, obj.name);
-    // });
+    const ticket = this.tickets.find(x => x.id === id);
 
+    const dialogRef = this.dialogService.open(ShowTicketComponent, {
+      context: {...ticket},
+    });
+
+    dialogRef.componentRef.instance.onShowCancel.subscribe(obj => {
+      this.openConfirmDialog(obj.id, obj.code);
+    });
   }
 
-  openConfirmDialog(id: number, name: string) {
-    // const dialogRef = this.dialogService.open(ConfirmDeleteCarriageTypeComponent, {
-    //   context: { id, name },
-    // });
-    //
-    // dialogRef.componentRef.instance.onConfirmDelete.subscribe(_ => {
-    //   this.getAllCarriageType();
-    // });
+  openConfirmDialog(id: number, code: string) {
+    const dialogRef = this.dialogService.open(ConfirmDeleteTicketComponent, {
+      context: { id, code },
+    });
+
+    dialogRef.componentRef.instance.onConfirmCancel.subscribe(_ => {
+      this.loadAllTickets();
+    });
   }
 
   onPageChanged(newPage: number) {

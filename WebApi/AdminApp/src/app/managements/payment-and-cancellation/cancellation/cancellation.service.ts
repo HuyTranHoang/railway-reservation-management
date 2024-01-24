@@ -3,10 +3,10 @@ import {environment} from '../../../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {PaginationService} from '../../shared/pagination.service';
 import {Cancellation} from '../../../@models/cancellation';
-import { CancellationQueryParams } from '../../../@models/params/cancellationQueryParams';
+import {CancellationQueryParams} from '../../../@models/params/cancellationQueryParams';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CancellationService {
   baseUrl = environment.apiUrl;
