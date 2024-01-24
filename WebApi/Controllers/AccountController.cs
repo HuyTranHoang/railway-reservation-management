@@ -1,7 +1,6 @@
 ﻿using System.Globalization;
 using System.Security.Claims;
 using System.Text;
-using Application.Common.Interfaces.Persistence;
 using Application.Common.Models.Authentication;
 using Application.Services;
 using Domain.Constants;
@@ -126,7 +125,8 @@ public class AccountController : BaseApiController
             {
                 return Unauthorized(new ErrorResponse(401, "Unable to register with facebook"));
             }
-        } else if (model.Provider.Equals(SD.Google))
+        }
+        else if (model.Provider.Equals(SD.Google))
         {
             try
             {
@@ -186,8 +186,9 @@ public class AccountController : BaseApiController
             {
                 return Unauthorized(new ErrorResponse(401, "Unable to login with facebook"));
             }
-            
-        } else if (model.Provider.Equals(SD.Google))
+
+        }
+        else if (model.Provider.Equals(SD.Google))
         {
 
         }
@@ -287,6 +288,37 @@ public class AccountController : BaseApiController
         try
         {
             if (await SendForgotPasswordEmailAsync(user))
+            {
+                return Ok(new JsonResult(
+                    new
+                    {
+                        title = "Reset Password Link Sent",
+                        message = "Please check your email for reset password link"
+                    }));
+            }
+            return BadRequest(new ErrorResponse(400, "Failed to send email. Please contact support"));
+
+        }
+        catch (Exception)
+        {
+            return BadRequest(new ErrorResponse(400, "Failed to send email. Please contact support"));
+        }
+    }
+
+    [HttpPost("forgot-password-admin/{email}")]
+    public async Task<IActionResult> ForgotPasswordAdmin(string email)
+    {
+        if (string.IsNullOrEmpty(email) || string.IsNullOrWhiteSpace(email))
+            return BadRequest(new ErrorResponse(400, "Invalid email address"));
+
+        var user = await _userManager.FindByEmailAsync(email);
+
+        if (user == null)
+            return Unauthorized(new ErrorResponse(401, "This email has not been registered"));
+
+        try
+        {
+            if (await SendAdminForgotPasswordEmailAsync(user))
             {
                 return Ok(new JsonResult(
                     new
@@ -448,6 +480,29 @@ public class AccountController : BaseApiController
 
         return await _emailService.SendEmailAsync(emailSend);
     }
+
+    private async Task<bool> SendAdminForgotPasswordEmailAsync(ApplicationUser user)
+    {
+        var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+        token = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(token));
+        var url = $"{_config["JWT:AdminUrl"]}/{_config["Email:ResetPasswordPath"]}?email={user.Email}&token={token}";
+
+        var templatePath = Path.Combine(_hostingEnvironment.WebRootPath, "forgot_password_template.html");
+
+        using var reader = new StreamReader(templatePath);
+        var emailTemplate = await reader.ReadToEndAsync();
+
+        emailTemplate = emailTemplate.Replace("{FirstName}", CultureInfo.CurrentCulture.TextInfo.ToTitleCase(user.FirstName));
+        emailTemplate = emailTemplate.Replace("{LastName}", CultureInfo.CurrentCulture.TextInfo.ToTitleCase(user.LastName));
+
+        emailTemplate = emailTemplate.Replace("{ApplicationName}", _config["Email:ApplicationName"]);
+        emailTemplate = emailTemplate.Replace("{ResetPasswordLink}", url);
+
+        var emailSend = new EmailSendDto(user.Email, "Reset your password", emailTemplate);
+
+        return await _emailService.SendEmailAsync(emailSend);
+    }
+
 
     private async Task<bool> FacebookValidatedAsync(string accessToken, string userId)
     {
