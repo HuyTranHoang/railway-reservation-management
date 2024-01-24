@@ -19,7 +19,9 @@ import { FormsModule } from '@angular/forms';
 import { GalleryComponent } from './home/gallery/gallery.component';
 import { UserComponent } from './user/user.component';
 import { HelpContactComponent } from './help/help-contact/help-contact.component';
-import { HelpFaqsComponent } from './help/help-faqs/help-faqs.component'
+import { HelpFaqsComponent } from './help/help-faqs/help-faqs.component';
+import { ManageBookingModule } from './manage-booking/manage-booking.module';
+import { ManagementBookingComponent } from './manage-booking/management-booking/management-booking.component'
 
 @NgModule({
   declarations: [
@@ -42,7 +44,8 @@ import { HelpFaqsComponent } from './help/help-faqs/help-faqs.component'
     AppRoutingModule,
     CoreModule,
     SharedModule,
-    BookingModule
+    BookingModule,
+    ManageBookingModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

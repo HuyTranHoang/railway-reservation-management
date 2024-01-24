@@ -70,3 +70,13 @@ p {
     box-shadow: none;
   }
 }
+
+.btn.green {
+  background: #9ccd19;
+  color: white;
+  border-radius: 0;
+
+  &:hover {
+    background: #81b900;
+  }
+}

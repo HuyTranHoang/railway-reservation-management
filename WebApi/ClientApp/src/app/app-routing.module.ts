@@ -9,6 +9,7 @@ import { AuthorizationGuard } from './core/guards/authorization.guard'
 import { HelpComponent } from './help/help.component'
 import { AboutComponent } from './about/about.component'
 
+
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'user', loadChildren: () => import('./user/user.module').then(mod => mod.UserModule) },
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'server-error', component: ServerErrorComponent },
   { path: 'help', component: HelpComponent },
   { path: 'about', component: AboutComponent },
+  { path: 'management', loadChildren: () => import('./manage-booking/manage-booking.module').then(mod => mod.ManageBookingModule) },
   { path: 'not-implemented', redirectTo: '', pathMatch: 'full' },
   {
     path: 'booking-train',

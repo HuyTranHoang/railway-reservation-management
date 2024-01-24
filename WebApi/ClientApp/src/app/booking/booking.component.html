@@ -23,7 +23,9 @@
         <em class="progress-bar-arrow"></em>
       </li>
 
-      <li class="">
+      <li (click)="navigateBack(4)"
+          [class.current]="bookingService.currentStep === 4"
+          [class.active]="bookingService.currentStep > 4">
         <span>Payment</span>
         <em class="progress-bar-arrow"></em>
       </li>

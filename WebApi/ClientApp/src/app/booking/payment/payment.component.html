@@ -1,0 +1,136 @@
+<!--<pre>-->
+<!--  currentSelectSeats-->
+<!--  {{ bookingService.currentSelectSeats | json }}-->
+<!--  currentSelectPassengers-->
+<!--  {{ bookingService.currentSelectPassengers | json }}-->
+<!--  currentSelectSchedule-->
+<!--  {{ bookingService.currentSelectSchedule | json }}-->
+<!--</pre>-->
+
+<h2>Price breakdown</h2>
+<div class="horizontal-divider"></div>
+<div class="row bg-white mb-3 ms-0 me-0">
+  <div class="col" style="padding: 20px 3% 24px;">
+    <span class="bold station-title">
+      {{ bookingService.currentSelectSchedule?.departureStationName }}
+      <i class="fa-solid fa-train"></i>
+      {{ bookingService.currentSelectSchedule?.arrivalStationName }}
+    </span>
+  </div>
+
+  <div class="horizontal-divider"></div>
+  <div class="col-12 d-flex" style="padding: 14px 3% 18px 3%;">
+    <div class="row w-100">
+      <div class="col-3">
+        <i class="fa-light fa-calendar-days me-2"></i>
+        {{ bookingService.currentSelectSchedule?.departureTime | date: 'fullDate' }}
+      </div>
+      <div class="col-3">
+        <i class="fa-light fa-clock"></i>
+        <span class="blue-text bold">
+          {{ bookingService.currentSelectSchedule?.departureTime | date: 'shortTime' }}
+        </span>
+      </div>
+      <div class="col-3">
+        <span class="bold">
+          {{ bookingService.currentSelectSchedule?.trainCompanyName }}
+        </span>
+        {{ bookingService.currentSelectSchedule?.trainName }}
+      </div>
+    </div>
+  </div>
+  <div class="col-12 d-flex border-top"
+       *ngFor="let item of bookingService.currentSelectPassengers; let i = index"
+       style="padding: 14px 3% 18px 3%;">
+    <div class="row w-100">
+      <div class="col-3">
+        <span class="bold">
+          {{ i + 1}}. {{ item.title == 'male' ? 'Mr.' : 'Ms.' }} {{ item.fullName | titlecase }}
+        </span>
+      </div>
+      <div class="col-3">
+        {{ item.passportNumber}}
+      </div>
+      <div class="col-3">
+        {{ bookingService.currentSelectSchedule?.selectedCarriageType?.name }}
+      </div>
+
+      <div class="col-3 text-end yellow-text"
+           *ngIf="bookingService.currentSelectSchedule && bookingService.currentSelectSchedule.selectedCarriageType">
+        {{
+          bookingService.currentSelectSchedule.price
+          + bookingService.currentSelectSchedule.selectedCarriageType.serviceCharge | currency
+        }}
+      </div>
+
+      <div class="offset-6 col-3" *ngIf="bookingService.currentSelectSeats">
+        Seat type {{ bookingService.currentSelectSeats[i].seatTypeName}}
+      </div>
+
+      <div class="col-3 text-end yellow-text" *ngIf="bookingService.currentSelectSeats">
+        {{ bookingService.currentSelectSeats[i].serviceCharge | currency}}
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="row bg-white mb-3 ms-0 me-0 mt-3">
+  <div class="col-12 d-flex" style="padding: 14px 3% 18px 3%;">
+    <div class="row w-100">
+      <div class="offset-6 col-3">
+        <span class="bold">
+          Total
+        </span>
+      </div>
+
+      <div class="col-3 text-end yellow-text">
+        <span class="bold yellow-text">
+          {{totalAmount | currency}}
+        </span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<h2 class="mt-5">Payment information</h2>
+<div class="horizontal-divider"></div>
+<div class="row bg-white mb-3 ms-0 me-0">
+  <form class="pt-4" [formGroup]="paymentForm">
+    <div class="col-12 d-flex" style="padding: 0 15px 18px;">
+      <div class="me-3" style="width: 60%">
+        <input type="text"
+               formControlName="nameOnCard"
+               class="form-control" placeholder="Name on card">
+      </div>
+    </div>
+    <div class="col-12 d-flex" style="padding: 0 15px 18px;">
+      <div class="me-3" style="width: 19%">
+        <input type="text" #cardNumber
+               class="form-control" placeholder="Card number">
+
+      </div>
+      <div class="me-3" style="width: 19%">
+        <input type="text" #cardExpiry
+               class="form-control" placeholder="Card expiry">
+
+      </div>
+      <div style="width: 240px">
+        <input type="text" #cardCvc
+               class="form-control" placeholder="Card cvc">
+
+      </div>
+    </div>
+  </form>
+
+</div>
+
+
+<div class="mt-3 mb-5">
+  <a class="btn green w-100" (click)="onSubmit()">
+    <span class="bold">PROCEED TO PAYMENT</span>
+  </a>
+</div>
+

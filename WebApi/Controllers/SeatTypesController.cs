@@ -35,8 +35,6 @@ public class SeatTypesController : ControllerBase
         return Ok(seatsDto);
     }
 
-
-
     [HttpGet("{id}")]
     public async Task<ActionResult<SeatTypeDto>> GetById(int id)
     {

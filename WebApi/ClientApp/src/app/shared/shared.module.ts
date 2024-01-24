@@ -10,13 +10,14 @@ import { TabsModule } from 'ngx-bootstrap/tabs'
     NgxSpinnerModule,
     BsDatepickerModule.forRoot(),
     AccordionModule.forRoot(),
-    TabsModule.forRoot()
+    TabsModule.forRoot(),
+
   ],
   exports: [
     NgxSpinnerModule,
     BsDatepickerModule,
     AccordionModule,
-    TabsModule
+    TabsModule,
   ]
 })
 export class SharedModule { }

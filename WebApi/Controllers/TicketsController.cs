@@ -25,6 +25,14 @@ namespace WebApi.Controllers
             return Ok(ticketssDto);
         }
 
+        [HttpGet("all")]
+        public async Task<ActionResult<List<TicketDto>>> GetAllTickets()
+        {
+            var ticketsDto = await _ticketService.GetAllDtoNoPagingAsync();
+
+            return Ok(ticketsDto);
+        }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<TicketDto>> GetTicKet(int id)
         {

@@ -50,7 +50,9 @@ namespace WebApi.Controllers
                 return BadRequest(errorResponse);
             }
 
-            return CreatedAtAction("GetCancellation", new { id = cancellation.Id }, cancellation);
+            // return CreatedAtAction("GetCancellation", new { id = cancellation.Id }, cancellation);
+
+            return Ok(new JsonResult(new { message = "Cancellation added successfully" }));
         }
 
         [HttpPut("{id}")]
@@ -96,7 +98,7 @@ namespace WebApi.Controllers
 
             if (ticket == null) return NotFound(new ErrorResponse(404));
 
-            await _cancellationService.DeleteAsync(ticket);
+            await _cancellationService.SoftDeleteAsync(ticket);
 
             return NoContent();
         }

@@ -24,13 +24,18 @@ GET {{url}}/{{router}}/{{id}}
 # @name GetAll
 GET {{url}}/{{router}}?
   &pageNumber=1
-  &pageSize=2
+  &pageSize=10
   # &searchTerm=Standard
   &sort=serviceDesc
 
 
 ### 
 
+
+# @name GetAllNoPaging
+GET {{url}}/{{router}}/all
+
+###
 # @name Update
 @updateId = 1
 

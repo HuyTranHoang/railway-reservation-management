@@ -2,11 +2,11 @@ import {Injectable} from '@angular/core';
 import {environment} from '../../../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {PaginationService} from '../../shared/pagination.service';
-import {QueryParams} from '../../../@models/params/queryParams';
 import {Cancellation} from '../../../@models/cancellation';
+import {CancellationQueryParams} from '../../../@models/params/cancellationQueryParams';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CancellationService {
   baseUrl = environment.apiUrl;
@@ -14,7 +14,7 @@ export class CancellationService {
   constructor(private http: HttpClient, private paginationService: PaginationService) {
   }
 
-  getAllCancellation(queryParams: QueryParams) {
+  getAllCancellation(queryParams: CancellationQueryParams) {
     let params = this.paginationService.getPaginationHeaders(queryParams.pageNumber, queryParams.pageSize);
 
     if (queryParams.searchTerm) {
@@ -23,6 +23,14 @@ export class CancellationService {
 
     if (queryParams.sort) {
       params = params.append('sort', queryParams.sort);
+    }
+
+    if (queryParams.ticketId) {
+      params = params.append('ticketId', queryParams.ticketId);
+    }
+
+    if (queryParams.cancellationRuleId) {
+      params = params.append('cancellationRuleId', queryParams.cancellationRuleId);
     }
 
     return this.paginationService.getPaginatedResult<Cancellation[]>(
@@ -42,8 +50,7 @@ export class CancellationService {
   }
 
   updateCancellation(cancellation: Cancellation) {
-    return this.http.put<Cancellation>(
-      this.baseUrl + '/cancellation/' + cancellation.id, cancellation);
+    return this.http.put<Cancellation>(this.baseUrl + '/cancellation/' + cancellation.id, cancellation);
   }
 
   deleteCancellation(id: number) {
