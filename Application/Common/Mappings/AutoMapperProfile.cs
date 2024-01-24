@@ -116,5 +116,11 @@ public class AutoMapperProfile : Profile
             .ForMember(dest => dest.CancellationRuleFee,
                 opt => opt.MapFrom(src => src.CancellationRule.Fee));
 
+        // CreateMap<CarriageType, CarriageTypeDetailDto>();
+        // CreateMap<Train, TrainDetailDto>();
+        // CreateMap<Carriage, CarriageDetailDto>();
+        // CreateMap<Compartment, CompartmentDetailDto>();
+        // CreateMap<Seat, SeatDtoDetail>();
+
     }
 }

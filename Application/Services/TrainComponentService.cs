@@ -27,9 +27,8 @@ namespace Application.Services
             _seatRepository = seatRepository;
             _seatTypeRepository = seatTypeRepository;
         }
-        public async Task AddTrainComponentsAsync(Carriage carriage, int trainId)
+        public async Task AddTrainComponentsAsync(Carriage carriage)
         {
-            carriage.TrainId = trainId;
             await _carriageRepository.Add(carriage);
             await _unitOfWork.SaveChangesAsync();
 

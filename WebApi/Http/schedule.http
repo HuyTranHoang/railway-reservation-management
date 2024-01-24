@@ -23,7 +23,7 @@ Content-Type: application/json
 # @name getListOfSchedule
 GET {{url}}/{{router}}?
   &pageNumber=1
-  &pageSize=5
+  &pageSize=50
   #&searchTerm=Schedule-1
   #&sort=numberOfSeatsAsc
   #&carriageId=1

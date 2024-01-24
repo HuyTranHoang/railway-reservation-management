@@ -17,7 +17,7 @@ GET {{url}}/{{router}}/schedule?
 ### 
 
 # @name getTrainDetailsByScheduleId
-@id = 31
+@id = 1
 
 GET {{url}}/{{router}}/schedule/{{id}}
 
@@ -30,29 +30,27 @@ POST {{url}}/{{router}}/payment
 Content-Type: application/json
 
 {
-  "paymentDto": 
-  {
-    "Passengers": 
-    [
-      {
-        "FullName": "Hành khách 1",
-        "CardId": "1234 5678 9012",
-        "Age": 25,
-        "Gender": "Female",
-        "Phone": "987 654 3210",
-        "Email": "passenger1@example.com"
-      },
-      {
-        "FullName": "Hành khách 2",
-        "CardId": "3456 7890 1234",
-        "Age": 30,
-        "Gender": "Male",
-        "Phone": "123 456 7890",
-        "Email": "passenger2@example.com"
-      }
-    ],
-    "Tickets":
-    [
+  "Passengers": 
+  [
+    {
+      "FullName": "Hành khách 1",
+      "CardId": "1234 5678 9012",
+      "Age": 25,
+      "Gender": "Female",
+      "Phone": "987 654 3210",
+      "Email": "passenger1@example.com"
+    },
+    {
+      "FullName": "Hành khách 2",
+      "CardId": "3456 7890 1234",
+      "Age": 30,
+      "Gender": "Male",
+      "Phone": "123 456 7890",
+      "Email": "passenger2@example.com"
+    }
+  ],
+  "Tickets":
+  [
     {
       "carriageId": 8,
       "seatId": 22
@@ -61,9 +59,12 @@ Content-Type: application/json
       "carriageId": 8,
       "seatId": 23
     }
-  ]
-  },
-  "userId": "21e266ce-13f1-492d-9c09-5fee4a17f4f3"
+  ],
+  
+  "Payments":
+  {
+    "AspNetUserId": "21e266ce-13f1-492d-9c09-5fee4a17f4f3"
+  }
 }
 ### 
 

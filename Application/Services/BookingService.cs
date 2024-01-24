@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 namespace Application.Services;
 
@@ -11,6 +12,7 @@ public class BookingService : IBookingService
     private readonly IRoundTripRepository _roundTripRepository;
     private readonly ICarriageTypeRepository _carriageTypeRepository;
     private readonly ITrainRepository _trainRepository;
+    private readonly ITrainCompanyRepository _trainCompanyRepository;
     private readonly ICarriageRepository _carriageRepository;
     private readonly ICompartmentRepository _compartmentRepository;
     private readonly ISeatRepository _seatRepository;
@@ -26,6 +28,7 @@ public class BookingService : IBookingService
         IRoundTripRepository roundTripRepository,
         ICarriageTypeRepository carriageTypeRepository,
         ITrainRepository trainRepository,
+        ITrainCompanyRepository trainCompanyRepository,
         ICarriageRepository carriageRepository,
         ICompartmentRepository compartmentRepository,
         ISeatRepository seatRepository,
@@ -41,6 +44,7 @@ public class BookingService : IBookingService
         _roundTripRepository = roundTripRepository;
         _carriageTypeRepository = carriageTypeRepository;
         _trainRepository = trainRepository;
+        _trainCompanyRepository = trainCompanyRepository;
         _carriageRepository = carriageRepository;
         _compartmentRepository = compartmentRepository;
         _seatRepository = seatRepository;
@@ -126,63 +130,74 @@ public class BookingService : IBookingService
         return carriageTypeDtos;
     }
 
-    public async Task<TrainDetailsDto> GetTrainDetailsWithTrainIdAsync(int scheduleId)
+    public async Task<TrainDetailDto> GetTrainDetailsByScheduleIdAsync(int scheduleId)
     {
         var schedule = await _scheduleRepository.GetByIdAsync(scheduleId);
         var train = await _trainRepository.GetByIdAsync(schedule.TrainId);
+        var trainCompany = await _trainCompanyRepository.GetByIdAsync(train.TrainCompanyId);
         var carriages = await _carriageRepository.GetCarriagesByTrainIdAsync(schedule.TrainId);
 
-        var trainDto = _mapper.Map<TrainDto>(train);
-        var carriageDtos = _mapper.Map<List<CarriageDto>>(carriages);
-
-        var trainDetailDtos = new TrainDetailsDto
+        var trainDetailDtos = new TrainDetailDto
         {
-            TrainDetails = trainDto,
+            Id = train.Id,
+            Name = train.Name,
+            TrainCompany = new TrainCompanyDetailDto
+            {
+                Id = trainCompany.Id,
+                Name = trainCompany.Name,
+                Logo = trainCompany.Logo
+            },
             Carriages = new List<CarriageDetailDto>()
         };
 
-        foreach (var carriageDto in carriageDtos)
+        foreach (var carriage in carriages)
         {
-            var compartments = await _compartmentRepository.GetCompartmentsByCarriageIdAsync(carriageDto.Id);
-            var compartmentDtos = _mapper.Map<List<CompartmentDto>>(compartments);
+            var compartments = await _compartmentRepository.GetCompartmentsByCarriageIdAsync(carriage.Id);
+            var carriageType = await _carriageTypeRepository.GetByIdAsync(carriage.CarriageTypeId);
 
             var carriageDetailDto = new CarriageDetailDto
             {
-                Carriage = carriageDto,
+                Id = carriage.Id,
+                Name = carriage.Name,
+                Type = new CarriageTypeDetailDto
+                {
+                    Id = carriageType.Id,
+                    Name = carriageType.Name
+                },
                 Compartments = new List<CompartmentDetailDto>()
             };
 
-            foreach (var compartmentDto in compartmentDtos)
+            foreach (var compartment in compartments)
             {
-                var seats = await _seatRepository.GetSeatsByCompartmentIdAsync(compartmentDto.Id);
-                var seatDtos = _mapper.Map<List<SeatDto>>(seats);
+                var seats = await _seatRepository.GetSeatsByCompartmentIdAsync(compartment.Id);
 
-                foreach (var seat in seatDtos)
+                var compartmentDetailDto = new CompartmentDetailDto
+                {
+                    Id = compartment.Id,
+                    Name = compartment.Name,
+                    Seats = new List<SeatDtoDetail>()
+                };
+
+                foreach (var seat in seats)
                 {
                     List<Ticket> tickets = _ticketRepository.GetAllTickets();
 
                     bool isSeatAndScheduleExistsInTickets = tickets.Any(ticket =>
                         ticket.SeatId == seat.Id && ticket.ScheduleId == scheduleId);
 
-                    if (isSeatAndScheduleExistsInTickets)
+                    var seatDtoDetail = new SeatDtoDetail
                     {
-                        seat.Booked = true;
-                    }
-                    else
-                    {
-                        seat.Booked = false;
-                    }
-                }
+                        Id = seat.Id,
+                        Name = seat.Name,
+                        SeatTypeId = seat.SeatTypeId,
+                        Booked = isSeatAndScheduleExistsInTickets
+                    };
 
-                var compartmentDetailDto = new CompartmentDetailDto
-                {
-                    Compartment = compartmentDto,
-                    Seats = seatDtos
-                };
+                    compartmentDetailDto.Seats.Add(seatDtoDetail);
+                }
 
                 carriageDetailDto.Compartments.Add(compartmentDetailDto);
             }
-
             trainDetailDtos.Carriages.Add(carriageDetailDto);
         }
 
@@ -209,39 +224,10 @@ public class BookingService : IBookingService
         return _mapper.Map<PaymentDto>(payment);
     }
 
-    public async Task<TicketDto> AddTicketAsync(Ticket ticket)
-    {
-        await _ticketRepository.Add(ticket);
-        await _unitOfWork.SaveChangesAsync();
-        return _mapper.Map<TicketDto>(ticket);
-    }
 
     public async Task<List<CarriageTypeDto>> GetCarriageTypesByTrainIdAsync(int trainId)
     {
         var carriageTypes = await _carriageTypeRepository.GetCarriageTypeByTrainIdAsync(trainId);
         return _mapper.Map<List<CarriageTypeDto>>(carriageTypes);
-    }
-
-    public async Task<List<TicketDto>> AddTicketListAsync(List<Ticket> tickets)
-    {
-        if (tickets == null || !tickets.Any())
-        {
-            throw new ArgumentException("The list of tickets is null or empty.");
-        }
-
-        try
-        {
-            foreach (var ticket in tickets)
-            {
-                await _ticketRepository.Add(ticket);
-            }
-
-            await _unitOfWork.SaveChangesAsync();
-            return _mapper.Map<List<TicketDto>>(tickets);
-        }
-        catch (Exception ex)
-        {
-            throw new Exception($"Error adding tickets: {ex.Message}");
-        }
     }
 }
