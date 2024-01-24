@@ -24,6 +24,11 @@ namespace Infrastructure.Persistence
             await Task.CompletedTask;
         }
 
+        public Task<List<Ticket>> GetAllNoPagingAsync()
+        {
+            return _context.Tickets.ToListAsync();
+        }
+
         public List<Ticket> GetAllTickets()
         {
             return _context.Tickets.ToList();

@@ -96,7 +96,7 @@ namespace WebApi.Controllers
 
             if (ticket == null) return NotFound(new ErrorResponse(404));
 
-            await _cancellationService.DeleteAsync(ticket);
+            await _cancellationService.SoftDeleteAsync(ticket);
 
             return NoContent();
         }

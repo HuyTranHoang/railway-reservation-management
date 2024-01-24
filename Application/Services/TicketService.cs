@@ -168,5 +168,10 @@ namespace Application.Services
             return ticketAmount;
         }
 
+        public async Task<List<TicketDto>> GetAllDtoNoPagingAsync()
+        {
+            var tickets = await _repository.GetAllNoPagingAsync();
+            return _mapper.Map<List<TicketDto>>(tickets);
+        }
     }
 }

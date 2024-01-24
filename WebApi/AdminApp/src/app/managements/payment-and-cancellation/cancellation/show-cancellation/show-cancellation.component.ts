@@ -10,7 +10,8 @@ import {Router} from '@angular/router';
 export class ShowCancellationComponent {
   @Input() id: number;
   @Input() ticketCode: string;
-  @Input() departureDateDifference: number;
+  @Input() cancellationRuleDepartureDateDifference: number;
+  @Input() cancellationRuleFee: number;
   @Input() reason: string;
   @Input() status: string;
   @Input() createdAt: string;
