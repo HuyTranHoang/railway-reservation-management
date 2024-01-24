@@ -3,6 +3,8 @@ import { BookingService } from '../booking.service'
 import { ViewportScroller } from '@angular/common'
 import { SeatSelectionService } from './seat-selection.service'
 import { Carriage, Compartment, Seat, TrainDetail } from '../../core/models/trainDetail'
+import { Router } from '@angular/router'
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-seat-selection',
@@ -17,12 +19,13 @@ export class SeatSelectionComponent implements OnInit {
   currentSelectCarriage: Carriage | undefined
   compartmentOfCarriage: Compartment[] = []
 
-  selectedSeat: Seat[] = []
+  selectedSeats: Seat[] = []
 
   seatRows: Seat[][] = []
 
   constructor(public bookingService: BookingService,
               private seatSelectionService: SeatSelectionService,
+              private router: Router,
               private viewportScroller: ViewportScroller) {}
 
   ngOnInit(): void {
@@ -87,15 +90,31 @@ export class SeatSelectionComponent implements OnInit {
     seat.selected = !seat.selected
 
     if (seat.selected && !seat.booked) {
-      this.selectedSeat.push(seat)
+      this.selectedSeats.push(seat)
     } else {
-      this.selectedSeat = this.selectedSeat.filter(s => s.id !== seat.id)
+      this.selectedSeats = this.selectedSeats.filter(s => s.id !== seat.id)
     }
   }
 
   selectCarriage(carriage: Carriage) {
     this.currentSelectCarriage = carriage
     this.compartmentOfCarriage = this.currentSelectCarriage?.compartments || []
+  }
+
+  onSubmit() {
+
+    if (this.selectedSeats.length === 0) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Please select at least one seat'
+      })
+      return
+    }
+
+    this.bookingService.currentSelectSeats = []
+    this.bookingService.currentSelectSeats = this.selectedSeats
+    this.router.navigate(['/booking/passengers'])
   }
 
   scrollToTop(): void {

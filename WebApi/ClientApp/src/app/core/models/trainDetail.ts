@@ -37,3 +37,10 @@ export interface Seat {
   selected: boolean
 }
 
+export interface Passenger {
+  title: string
+  surname: string
+  givenName: string
+  passportNumber: string
+}
+
