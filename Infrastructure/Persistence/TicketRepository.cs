@@ -13,6 +13,7 @@ namespace Infrastructure.Persistence
         {
             _context = context;
         }
+
         public async Task Add(Ticket ticket)
         {
             await _context.Tickets.AddAsync(ticket);
@@ -34,27 +35,25 @@ namespace Infrastructure.Persistence
             return _context.Tickets.ToList();
         }
 
-        public async Task<Ticket> GetByCodeAndEmail(string code, string email)
+        public async Task<Ticket> GetByCodeAndPhone(string code, string phone)
         {
             var ticket = await _context.Tickets
-            .Include(d => d.Passenger)
-            .Include(d => d.Train)
-            .Include(d => d.DistanceFare)
-            .Include(d => d.Carriage)
-            .Include(d => d.Seat)
-            .Include(d => d.Schedule)
-            .Include(d => d.Payment)
-            .Where(d => d.Code == code)
-            .FirstOrDefaultAsync();
+                .Include(d => d.Passenger)
+                .Include(d => d.Train)
+                .Include(d => d.DistanceFare)
+                .Include(d => d.Carriage)
+                .Include(d => d.Seat)
+                .Include(d => d.Schedule)
+                .Include(d => d.Payment)
+                .Where(d => d.Code == code)
+                .FirstOrDefaultAsync();
 
-        if (ticket != null && ticket.Passenger != null && ticket.Passenger.Email == email)
-        {
-            return ticket;
-        }
-        else
-        {
+            if (ticket != null && ticket.Passenger != null && ticket.Passenger.Phone == phone)
+            {
+                return ticket;
+            }
+
             return null;
-        }
         }
 
         public async Task<Ticket> GetByIdAsync(int id)
@@ -70,17 +69,17 @@ namespace Infrastructure.Persistence
         public async Task<IQueryable<Ticket>> GetQueryWithRelationshipTableAsync()
         {
             return await Task.FromResult(
-            _context.Tickets
-                .Include(t => t.Passenger)
-                .Include(t => t.Train)
-                .Include(t => t.DistanceFare)
-                .Include(t => t.Carriage)
-                .Include(t => t.Seat)
-                .Include(t => t.Schedule)
-                .Include(t => t.Payment)
-                .AsQueryable());
+                _context.Tickets
+                    .Include(t => t.Passenger)
+                    .Include(t => t.Train)
+                    .Include(t => t.DistanceFare)
+                    .Include(t => t.Carriage)
+                    .Include(t => t.Seat)
+                    .Include(t => t.Schedule)
+                    .Include(t => t.Payment)
+                    .AsQueryable());
         }
-        
+
         public async Task SoftDelete(Ticket ticket)
         {
             ticket.IsDeleted = true;

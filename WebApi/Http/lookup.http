@@ -3,9 +3,9 @@
 
 ### 
 
-# @name getTicketByCodeAndEmail
-@code = 2001240905061111
-@email = kochcruz@goko.com
+# @name getTicketByCodeAndPhone
+@code = 2401240327231111
+@phone = +1 (103) 667-1899
 
-GET {{url}}/api/lookup/{{code}}/{{email}}
+GET {{url}}/api/lookup/{{code}}/{{phone}}
 ### 

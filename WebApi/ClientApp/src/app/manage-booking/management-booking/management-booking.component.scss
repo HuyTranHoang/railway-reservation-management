@@ -1,6 +1,25 @@
-*{
-    font-family: "Teko", sans-serif;
+img {
+  width: 300px;
 }
+
+input {
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff
+}
+
+label {
+  color: #fff;
+  float: left
+}
+
+button {
+  background-color: #F79A24;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color: #fff;
+  font-weight: bold;
+}
+
 .banner {
   position: relative;
   height: 45vh;
@@ -42,15 +61,4 @@ h1.teko {
 
 .bold {
   font-weight: 600;
-}
-
-img {
-  width: 300px;
-}
-.text-header{
-    font-family: "Teko", sans-serif;
-    font-weight: 300;
-    font-size: 66px;
-    padding: 20px;
-    letter-spacing: 8px;
 }

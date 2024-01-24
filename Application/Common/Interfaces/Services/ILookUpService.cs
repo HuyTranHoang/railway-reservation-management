@@ -2,6 +2,6 @@ namespace Application.Common.Interfaces.Services
 {
     public interface ILookUpService
     {
-        Task<TicketDto> GetInfoWithCodeAndEmailAsync(string code, string email);
+        Task<TicketDto> GetByCodeAndPhoneAsync(string code, string email);
     }
 }

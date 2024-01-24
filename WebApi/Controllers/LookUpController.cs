@@ -11,10 +11,10 @@ namespace WebApi.Controllers
             _lookUpService = lookUpService;
         }
 
-        [HttpGet("{code}/{email}")]
-        public async Task<ActionResult<TicketDto>> GetTicketByCodeAndEmail(string code, string email)
+        [HttpGet("{code}/{phone}")]
+        public async Task<ActionResult<TicketDto>> GetTicketByCodeAndPhone(string code, string phone)
         {
-            var ticketDto = await _lookUpService.GetInfoWithCodeAndEmailAsync(code, email);
+            var ticketDto = await _lookUpService.GetByCodeAndPhoneAsync(code, phone);
 
             if (ticketDto is null) return NotFound(new ErrorResponse(404));
 
