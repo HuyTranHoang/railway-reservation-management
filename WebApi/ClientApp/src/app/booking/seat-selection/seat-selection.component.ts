@@ -5,6 +5,7 @@ import { SeatSelectionService } from './seat-selection.service'
 import { Carriage, Compartment, Seat, TrainDetail } from '../../core/models/trainDetail'
 import { Router } from '@angular/router'
 import Swal from 'sweetalert2'
+import { SeatType } from '../../core/models/seatType'
 
 @Component({
   selector: 'app-seat-selection',
@@ -12,6 +13,8 @@ import Swal from 'sweetalert2'
   styleUrls: ['./seat-selection.component.scss']
 })
 export class SeatSelectionComponent implements OnInit {
+
+  seatTypes: SeatType[] = []
 
   trainDetail: TrainDetail | undefined
 
@@ -34,9 +37,19 @@ export class SeatSelectionComponent implements OnInit {
       this.scrollToTop()
     }, 0)
 
+    this.getSeatTypes()
+
     if (this.bookingService.currentSelectSchedule) {
       this.getTrainDetailsByScheduleId(this.bookingService.currentSelectSchedule.id)
     }
+  }
+
+  getSeatTypes() {
+    this.seatSelectionService.getAllSeatTypes().subscribe({
+      next: (res) => {
+        this.seatTypes = res
+      }
+    })
   }
 
   getTrainDetailsByScheduleId(scheduleId: number) {
@@ -111,6 +124,11 @@ export class SeatSelectionComponent implements OnInit {
       })
       return
     }
+
+    this.selectedSeats.forEach(s => {
+      s.serviceCharge = this.seatTypes.find(st => st.id === s.seatTypeId)?.serviceCharge || 0
+      s.seatTypeName = this.seatTypes.find(st => st.id === s.seatTypeId)?.name || ''
+    })
 
     this.bookingService.currentSelectSeats = []
     this.bookingService.currentSelectSeats = this.selectedSeats

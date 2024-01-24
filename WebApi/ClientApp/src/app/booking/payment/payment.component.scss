@@ -14,6 +14,10 @@ h2 {
   color: #49525b;
 }
 
+div {
+  color: #65696e;
+}
+
 p {
   margin: 0 0 10px;
   color: #65696e;
@@ -33,4 +37,34 @@ p {
   height: 1px;
   margin-top: 4px;
   margin-bottom: 10px;
+}
+
+.station-title {
+  color: #65696e;
+  font-size: 18px;
+  line-height: 1.8em;
+  font-weight: 600;
+  letter-spacing: .3px;
+  i {
+    font-size: 18px;
+    color: #428bca;
+  }
+}
+
+.blue-text {
+  color: #42c8f4;
+}
+
+.yellow-text {
+  color: #fb0;
+}
+
+.btn.green {
+  background: #9ccd19;
+  color: white;
+  border-radius: 0;
+
+  &:hover {
+    background: #81b900;
+  }
 }

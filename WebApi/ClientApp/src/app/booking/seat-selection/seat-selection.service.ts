@@ -15,4 +15,8 @@ export class SeatSelectionService {
   getTrainDetailsByScheduleId(scheduleId: number) {
     return this.http.get<TrainDetail>(this.baseUrl + 'booking/schedule/' + scheduleId)
   }
+
+  getAllSeatTypes() {
+    return this.http.get<any>(this.baseUrl + 'seatTypes/all')
+  }
 }
