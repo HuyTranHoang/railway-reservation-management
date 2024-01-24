@@ -1,74 +1,61 @@
 <div class="col-md-6">
-    <nb-card>
-      <nb-card-header>
-        <div class="d-flex justify-content-between">
-          Define New Cancellation
-          <button nbButton type="submit"
-          routerLink="/managements/payment-and-cancellation/cancellation/"
-          status="primary">
+  <nb-card>
+    <nb-card-header>
+      <div class="d-flex justify-content-between">
+        Define New Cancellation
+        <button nbButton type="submit"
+                routerLink="/managements/payment-and-cancellation/cancellation/"
+                status="primary">
           Back to list
-          </button>
-        </div>
-      </nb-card-header>
-      <nb-card-body>
-        <form [formGroup]="cancellationForm" (ngSubmit)="onSubmit()">
-            <div class="form-group">
-                <label class="label">Ticket code</label>
-                <input #autoInput
-                       class="mr-4"
-                       [class.status-danger]="isSubmitted && !isValidTicketSelected"
-                       nbInput
-                       fullWidth
-                       type="text"
-                       (input)="onChange()"
-                       (blur)="onInputBlur()"
-                       placeholder="Choose ticket code.."
-                       [nbAutocomplete]="autoTrainName" />
-                <nb-autocomplete #autoTrainName (selectedChange)="onSelectionChange($event)">
-                  <nb-option *ngFor="let option of filteredOptions$ | async" [value]="option">
-                    {{ option.code }}
-                  </nb-option>
-                </nb-autocomplete>
-                <span *ngIf="isSubmitted && !isValidTicketSelected" class="text-danger">
+        </button>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <form [formGroup]="cancellationForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label class="label">Ticket code</label>
+          <input #autoInput
+                 class="mr-4"
+                 [class.status-danger]="isSubmitted && !isValidTicketSelected"
+                 nbInput
+                 fullWidth
+                 type="text"
+                 (input)="onChange()"
+                 (blur)="onInputBlur()"
+                 placeholder="Choose ticket code.."
+                 [nbAutocomplete]="autoTrainName"/>
+          <nb-autocomplete #autoTrainName (selectedChange)="onSelectionChange($event)">
+            <nb-option *ngFor="let option of filteredOptions$ | async" [value]="option">
+              {{ option.code }}
+            </nb-option>
+          </nb-autocomplete>
+          <span *ngIf="isSubmitted && !isValidTicketSelected" class="text-danger">
                 *Please select a valid ticket
               </span>
-            </div>
+        </div>
 
-            <div class="form-group">
-                <label class="label">Departure date difference</label>
-                <nb-select fullWidth formControlName="cancellationRuleId"
-                           [class.status-danger]="cancellationForm.get('cancellationRuleId').hasError('required') && isSubmitted"
-                           placeholder="Choose departure date difference...">
-                  <nb-option *ngFor="let option of cancellationRules" [value]="option.id">{{ option.departureDateDifference }}</nb-option>
-                </nb-select>
-                <span class="text-danger"
-                      *ngIf="cancellationForm.get('cancellationRuleId').hasError('required') && isSubmitted">
-                  *Please select a valid cancellation rule
-                </span>
-            </div>
+        <app-input-field [control]="cancellationForm.get('reason')"
+                         [label]="'Reason'"
+                         [isSubmitted]="isSubmitted"
+                         [placeholder]="'Reason...'">
+        </app-input-field>
 
-            <app-input-field [control]="cancellationForm.get('reason')"
-                            [label]="'Reason'"
-                            [isSubmitted]="isSubmitted"
-                            [placeholder]="'Reason...'">
-            </app-input-field>
-
-            <app-input-field [control]="cancellationForm.get('status')"
-                            [label]="'Status'"
-                            [isSubmitted]="isSubmitted"
-                            [placeholder]="'Status'">
-            </app-input-field>
+        <app-input-field [control]="cancellationForm.get('status')"
+                         [label]="'Status'"
+                         [isSubmitted]="isSubmitted"
+                         [placeholder]="'Status'">
+        </app-input-field>
 
 
-            <ul *ngIf="errorMessages.length > 0">
-                <li class="text-danger" *ngFor="let item of errorMessages">{{item}}</li>
-            </ul>
+        <ul *ngIf="errorMessages.length > 0">
+          <li class="text-danger" *ngFor="let item of errorMessages">{{ item }}</li>
+        </ul>
 
-          <button type="submit" nbButton status="success" class="float-right">Submit</button>
-        </form>
-      </nb-card-body>
-    </nb-card>
-  </div>
+        <button type="submit" nbButton status="success" class="float-right">Submit</button>
+      </form>
+    </nb-card-body>
+  </nb-card>
+</div>
 
 
 

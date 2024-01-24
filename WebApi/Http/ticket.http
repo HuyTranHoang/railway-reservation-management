@@ -11,8 +11,8 @@ Content-Type: application/json
   "PassengerId" : 2,
   "TrainId" : 1,
   "CarriageId" : 3,
-  "SeatId" : 155,
-  "ScheduleId" : 1,
+  "SeatId" : 150,
+  "ScheduleId" : 11,
   "PaymentId": 1,
   "Status" : "Active"
 }

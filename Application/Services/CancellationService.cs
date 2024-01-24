@@ -6,17 +6,50 @@ namespace Application.Services
     public class CancellationService : ICancellationService
     {
         private readonly ICancellationRepository _repository;
+        private readonly ITicketRepository _ticketRepository;
+        private readonly IScheduleRepository _scheduleRepository;
+        private readonly ICancellationRuleRepository _cancellationRuleRepository;
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
 
-        public CancellationService(ICancellationRepository repository, IMapper mapper, IUnitOfWork unitOfWork)
+        public CancellationService(ICancellationRepository repository,
+            ITicketRepository ticketRepository,
+            IScheduleRepository scheduleRepository,
+            ICancellationRuleRepository cancellationRuleRepository,
+            IMapper mapper,
+            IUnitOfWork unitOfWork)
         {
             _repository = repository;
+            _ticketRepository = ticketRepository;
+            _scheduleRepository = scheduleRepository;
+            _cancellationRuleRepository = cancellationRuleRepository;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
         public async Task AddAsync(Cancellation cancellation)
         {
+            var today = DateTime.UtcNow;
+
+            var ticket = await _ticketRepository.GetByIdAsync(cancellation.TicketId);
+            if (ticket == null) throw new NotFoundException(nameof(Ticket), cancellation.TicketId);
+
+            var schedule = await _scheduleRepository.GetByIdAsync(ticket.ScheduleId);
+            if (schedule == null) throw new NotFoundException(nameof(Schedule), ticket.ScheduleId);
+
+            var isCancelled = await _repository.GetByTicketIdAsync(cancellation.TicketId);
+            if (isCancelled != null) throw new BadRequestException(400,"Ticket has been cancelled");
+
+            if (schedule.DepartureTime < today)
+            {
+                throw new BadRequestException(400,"Cannot cancel ticket after departure time");
+            }
+
+            var dateDifference = (schedule.DepartureTime - today).Days;
+
+            var cancellationRule = await _cancellationRuleRepository.GetByDifferenDateAsync(dateDifference);
+
+            cancellation.CancellationRuleId = cancellationRule.Id;
+
             await _repository.Add(cancellation);
             await _unitOfWork.SaveChangesAsync();
         }

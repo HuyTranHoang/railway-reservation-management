@@ -43,6 +43,14 @@ namespace Infrastructure.Persistence
                 .AsQueryable());
         }
 
+        public async Task<Cancellation> GetByTicketIdAsync(int ticketId)
+        {
+            return await _context.Cancellations
+                .Include(t => t.Ticket)
+                .Include(t => t.CancellationRule)
+                .FirstOrDefaultAsync(t => t.TicketId == ticketId);
+        }
+
         public async Task SoftDelete(Cancellation cancellation)
         {
             cancellation.IsDeleted = true;

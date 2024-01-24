@@ -1,26 +1,20 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Observable, of} from 'rxjs';
 import {map} from 'rxjs/operators';
-import { Ticket } from '../../../../@models/ticket';
-import { TicketService } from '../../../passenger-and-ticket/ticket/ticket.service';
+import {Ticket} from '../../../../@models/ticket';
+import {TicketService} from '../../../passenger-and-ticket/ticket/ticket.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { CancellationRule } from '../../../../@models/cancellationRule';
-import { CancellationRuleService } from '../../cancellation-rule/cancellation-rule.service';
-import { CancellationService } from '../cancellation.service';
+import {CancellationService} from '../cancellation.service';
 import {NbGlobalPhysicalPosition, NbToastrService} from '@nebular/theme';
 
 @Component({
   selector: 'ngx-add-cancellation',
   templateUrl: './add-cancellation.component.html',
-  styleUrls: ['./add-cancellation.component.scss']
+  styleUrls: ['./add-cancellation.component.scss'],
 })
-export class AddCancellationComponent implements OnInit{
+export class AddCancellationComponent implements OnInit {
   options: Ticket[];
   filteredOptions$: Observable<Ticket[]>;
-
-  cancellationRules: CancellationRule[] = [];
-  currentcancellationRule: CancellationRule;
-
   isValidTicketSelected: boolean = false;
 
   cancellationForm: FormGroup = this.fb.group({});
@@ -31,7 +25,6 @@ export class AddCancellationComponent implements OnInit{
 
 
   constructor(private ticketService: TicketService,
-              private cancellationRuleService: CancellationRuleService,
               private cancellationService: CancellationService,
               private toastrService: NbToastrService,
               private fb: FormBuilder) {
@@ -39,7 +32,6 @@ export class AddCancellationComponent implements OnInit{
 
   ngOnInit() {
     this.loadTickets();
-    this.loadCancellationRules();
     this.initForm();
   }
 
@@ -50,18 +42,9 @@ export class AddCancellationComponent implements OnInit{
     });
   }
 
-  private loadCancellationRules() {
-    this.cancellationRuleService.getAllCancellationRuleNoPaging().subscribe({
-      next: (res) => {
-        this.cancellationRules = res;
-      },
-    });
-  }
-
   initForm() {
     this.cancellationForm = this.fb.group({
       ticketId: ['', [Validators.required]],
-      cancellationRuleId: ['', [Validators.required]],
       reason: [''],
       status: [''],
     });
@@ -117,7 +100,11 @@ export class AddCancellationComponent implements OnInit{
       },
       error: (err) => {
         this.showToast('danger', 'Failed', 'Add cancellation failed!');
-        this.errorMessages = err.error.errorMessages;
+        if (err.error.errors) {
+          this.errorMessages = err.error.errors;
+        } else {
+          this.errorMessages = err.error.errorMessages;
+        }
       },
     });
   }

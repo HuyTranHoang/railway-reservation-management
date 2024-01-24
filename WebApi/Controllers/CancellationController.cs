@@ -50,7 +50,9 @@ namespace WebApi.Controllers
                 return BadRequest(errorResponse);
             }
 
-            return CreatedAtAction("GetCancellation", new { id = cancellation.Id }, cancellation);
+            // return CreatedAtAction("GetCancellation", new { id = cancellation.Id }, cancellation);
+
+            return Ok(new JsonResult(new { message = "Cancellation added successfully" }));
         }
 
         [HttpPut("{id}")]

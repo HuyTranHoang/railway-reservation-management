@@ -52,4 +52,14 @@ public class CancellationRuleRepository : ICancellationRuleRepository
     {
         return _context.CancellationRules.ToListAsync();
     }
+
+    public async Task<CancellationRule> GetByDifferenDateAsync(int differenDate)
+    {
+        var rule = await _context.CancellationRules
+            .Where(d => d.DepartureDateDifference <= differenDate)
+            .OrderByDescending(d => d.DepartureDateDifference)
+            .FirstOrDefaultAsync();
+
+        return rule;
+    }
 }
