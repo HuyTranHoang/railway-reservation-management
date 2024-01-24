@@ -180,6 +180,12 @@ namespace Application.Services
             return ticketAmount;
         }
 
+        public async Task<List<TicketDto>> GetAllDtoNoPagingAsync()
+        {
+            var tickets = await _repository.GetAllNoPagingAsync();
+            return _mapper.Map<List<TicketDto>>(tickets);
+        }
+        
         public async Task<int> CaculateDistanceFareId(Ticket ticket)
         {
             var schedule = await _schedule.GetByIdAsync(ticket.ScheduleId);
@@ -196,6 +202,6 @@ namespace Application.Services
 
             return distanceFareId;
         }
-        
+
     }
 }

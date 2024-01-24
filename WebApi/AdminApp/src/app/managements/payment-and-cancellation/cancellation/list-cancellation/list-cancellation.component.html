@@ -2,7 +2,7 @@
     <nb-card-header>
       <div class="d-flex justify-content-between align-items-center">
         <form class="position-relative" (ngSubmit)="onSearch()">
-          <input nbInput placeholder="Search by ..."
+          <input nbInput placeholder="Search by ticket code..."
                  name="searchTerm"
                  (keyup.escape)="onResetSearch()"
                  [(ngModel)]="currentSearchTerm"
@@ -33,13 +33,22 @@
                   <nb-icon icon="arrow-up-outline" pack="eva" *ngIf="sortStates.ticketCode"></nb-icon>
                 </span>
           </th>
-  
+
           <th scope="col" style="width: 20%">
-              <span (click)="onSort('departureDateDifferenceAsc')"
-                    [class.text-primary]="currentSort.includes('departureDateDifference')">
+            <span (click)="onSort('cancellationRuleDepartureDateDifferenceAsc')"
+                  [class.text-primary]="currentSort.includes('cancellationRuleDepartureDateDifference')">
                 Departure Date Difference
-                <nb-icon icon="arrow-down-outline" pack="eva" *ngIf="!sortStates.departureDateDifference"></nb-icon>
-                <nb-icon icon="arrow-up-outline" pack="eva" *ngIf="sortStates.departureDateDifference"></nb-icon>
+              <nb-icon icon="arrow-down-outline" pack="eva" *ngIf="!sortStates.cancellationRuleDepartureDateDifference"></nb-icon>
+              <nb-icon icon="arrow-up-outline" pack="eva" *ngIf="sortStates.cancellationRuleDepartureDateDifference"></nb-icon>
+            </span>
+        </th>
+  
+          <th scope="col" style="width: 10%">
+              <span (click)="onSort('cancellationRuleFeeAsc')"
+                    [class.text-primary]="currentSort.includes('cancellationRuleFee')">
+                  Fee
+                <nb-icon icon="arrow-down-outline" pack="eva" *ngIf="!sortStates.cancellationRuleFee"></nb-icon>
+                <nb-icon icon="arrow-up-outline" pack="eva" *ngIf="sortStates.cancellationRuleFee"></nb-icon>
               </span>
           </th>
   
@@ -67,7 +76,8 @@
         <tr *ngFor="let item of cancellations; let index = index">
           <th scope="row">{{ index + 1 }}</th>
           <td>{{ item.ticketCode }}</td>
-          <td>{{ item.departureDateDifference }}</td>
+          <td>{{ item.cancellationRuleDepartureDateDifference }}</td>
+          <td>{{ item.cancellationRuleFee | currency }}</td>
           <td>{{ item.reason }}</td>
           <td>{{ item.createdAt | date: 'medium' }}</td>
           <td class="text-right">
