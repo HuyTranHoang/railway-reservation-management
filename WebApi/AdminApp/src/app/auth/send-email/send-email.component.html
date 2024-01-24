@@ -4,21 +4,38 @@
       <form [formGroup]="emailForm" (ngSubmit)="onSubmit()">
         <div class="text-center">
           <h2 class="pt-4">Forgot Password</h2>
-          <span>Enter your email address and we’ll send a link to reset your password</span>
+          <span>
+            Enter your email address and we’ll send a link to reset your password
+          </span>
         </div>
 
         <div class="mt-5">
-          <label class="label">Enter your email address:</label>
+          <label class="label d-flex justify-content-between">
+            Enter your email address:
+
+            <label class="font-weight-light text-decoration-none"
+                   style="cursor:pointer;"
+                   [routerLink]="['/auth/']">
+              Back to login
+            </label>
+          </label>
           <input type="text" nbInput fullWidth formControlName="email"
-            [class.status-danger]="submitted && emailForm.get('email')?.errors">
+                 [class.status-danger]="submitted && emailForm.get('email')?.errors">
           <span class="text-danger small" *ngIf="submitted && emailForm.get('email')?.hasError('required')">
             Email is required
           </span>
         </div>
 
+        <ul class="mt-4">
+          <li class="text-danger" *ngFor="let item of errorMessages">
+            {{ item }}
+          </li>
+        </ul>
+
         <div class="mt-5">
-          <button nbButton fullWidth [disabled]="emailForm.invalid" type="submit" size="large" status="primary">Send
-            Email</button>
+          <button nbButton fullWidth [disabled]="emailForm.invalid" type="submit" size="large" status="primary">
+            Send Email
+          </button>
         </div>
 
       </form>

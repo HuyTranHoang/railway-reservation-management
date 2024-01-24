@@ -57,7 +57,12 @@ export class LoginComponent implements OnInit {
     }
 
     this.authService.authLogin(this.loginForm.value).subscribe({
-      next: (res: User) => {
+      next: (res: any) => {
+
+        if (res === 'NotAdmin') {
+          this.showToast('danger', 'Failed', 'You are not authorized to access this page');
+          return;
+        }
 
         if (res.roles.includes('Admin'))
           this.showToast('success', 'Success', 'Login successfully!');
@@ -78,7 +83,7 @@ export class LoginComponent implements OnInit {
     const config = {
       status: type,
       destroyByClick: true,
-      duration: 2000,
+      duration: 4000,
       hasIcon: true,
       position: NbGlobalPhysicalPosition.TOP_RIGHT,
     };

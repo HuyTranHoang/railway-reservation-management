@@ -25,7 +25,7 @@ export class AuthorizationGuard {
           return true;
         } else {
           this.showToast('danger', 'Failed', 'You are not authorized to access this page');
-          this.router.navigate(['auth'], {queryParams: {returnUrl: state.url}});
+          this.router.navigate(['auth']);
           return false;
         }
       }),

@@ -9,19 +9,13 @@
 
         <div class="mt-5">
           <label class="label">Email address:</label>
-          <input
-            type="text"
-            nbInput
-            fullWidth
-            formControlName="userName"
-            [class.status-danger]="
-              submitted && loginForm.get('userName')?.errors
-            "
-          />
+          <input type="text"
+                 nbInput fullWidth
+                 formControlName="userName"
+                 [class.status-danger]="submitted && loginForm.get('userName')?.errors"/>
           <span
             class="text-danger small"
-            *ngIf="submitted && loginForm.get('userName')?.hasError('required')"
-          >
+            *ngIf="submitted && loginForm.get('userName')?.hasError('required')">
             Email is required
           </span>
         </div>
@@ -29,39 +23,29 @@
         <div class="mt-4">
           <label class="label d-flex justify-content-between">
             Password:
+
+            <label class="font-weight-light text-decoration-none"
+                   style="cursor:pointer;"
+                   routerLink="/auth/send-email/forgot-password">
+              Forgot password?
+            </label>
           </label>
-          <input
-            type="password"
-            nbInput
-            fullWidth
-            formControlName="password"
-            [class.status-danger]="
-              submitted && loginForm.get('password')?.errors
-            "
-          />
-          <span
-            class="text-danger small"
-            *ngIf="submitted && loginForm.get('password')?.hasError('required')"
-          >
+          <input type="password"
+                 nbInput fullWidth
+                 formControlName="password"
+                 [class.status-danger]=" submitted && loginForm.get('password')?.errors"/>
+          <span class="text-danger small"
+                *ngIf="submitted && loginForm.get('password')?.hasError('required')">
             Password is required
           </span>
         </div>
 
-        <a
-          class="font-weight-light text-decoration-none"
-          [routerLink]="['/auth/send-email/forgot-password']"
-          routerLinkActive="router-link-active"
-          >Forgot password?</a
-        >
         <div class="mt-5">
-          <button
-            nbButton
-            fullWidth
-            [disabled]="loginForm.invalid"
-            type="submit"
-            size="large"
-            status="primary"
-          >
+          <button nbButton fullWidth
+                  [disabled]="loginForm.invalid"
+                  type="submit"
+                  size="large"
+                  status="primary">
             Log In
           </button>
         </div>

@@ -46,11 +46,12 @@ export class AuthService {
   authLogin(model: Login) {
     return this.http.post<User>(this.baseUrl + '/account/login', model).pipe(
       map((user: User) => {
-        if (user) {
+        if (user && user.roles.includes('Admin')) {
           this.setUser(user);
           return user;
+        } else if (user && !user.roles.includes('Admin')) {
+          return 'NotAdmin';
         }
-
         return null;
       }),
     );
