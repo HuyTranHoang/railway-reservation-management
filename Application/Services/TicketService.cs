@@ -1,4 +1,3 @@
-
 using Domain.Exceptions;
 
 namespace Application.Services
@@ -17,12 +16,12 @@ namespace Application.Services
         private readonly ITrainRepository _train;
 
         public TicketService(ITicketRepository repository, IUnitOfWork unitOfWork, IMapper mapper,
-                                IDistanceFareRepository distanceFare,
-                                ICarriageRepository carriage,
-                                ISeatRepository seat,
-                                ITrainStationRepository trainStation,
-                                IScheduleRepository schedule,
-                                ITrainRepository train)
+            IDistanceFareRepository distanceFare,
+            ICarriageRepository carriage,
+            ISeatRepository seat,
+            ITrainStationRepository trainStation,
+            IScheduleRepository schedule,
+            ITrainRepository train)
         {
             _repository = repository;
             _unitOfWork = unitOfWork;
@@ -34,14 +33,26 @@ namespace Application.Services
             _schedule = schedule;
             _train = train;
         }
+
         public async Task AddAsync(Ticket ticket)
         {
+            var tickets = await _repository.GetAllNoPagingAsync();
+
+
             ticket.Code = GenerateUniqueCode(ticket);
 
             ticket.Price = await CalculatePrice(ticket);
 
             int distanceFareId = await CaculateDistanceFareId(ticket);
             ticket.DistanceFareId = distanceFareId;
+
+            bool isSeatAndScheduleExistsInTickets = tickets.Any(t =>
+                t.SeatId == ticket.SeatId && t.ScheduleId == ticket.ScheduleId);
+
+            if (isSeatAndScheduleExistsInTickets)
+            {
+                throw new BadRequestException(400, "Seat has been booked");
+            }
 
             await _repository.Add(ticket);
             await _unitOfWork.SaveChangesAsync();
@@ -185,7 +196,7 @@ namespace Application.Services
             var tickets = await _repository.GetAllNoPagingAsync();
             return _mapper.Map<List<TicketDto>>(tickets);
         }
-        
+
         public async Task<int> CaculateDistanceFareId(Ticket ticket)
         {
             var schedule = await _schedule.GetByIdAsync(ticket.ScheduleId);
@@ -202,6 +213,5 @@ namespace Application.Services
 
             return distanceFareId;
         }
-
     }
 }
