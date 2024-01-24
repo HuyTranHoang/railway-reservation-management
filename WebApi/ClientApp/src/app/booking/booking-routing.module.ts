@@ -4,7 +4,7 @@ import { BookingComponent } from './booking.component'
 import { DepartureComponent } from './departure/departure.component'
 import { PassengersComponent } from './passengers/passengers.component'
 import { SeatSelectionComponent } from './seat-selection/seat-selection.component'
-
+import { PaymentComponent } from './payment/payment.component'
 
 const routes: Routes = [
   {
@@ -13,7 +13,9 @@ const routes: Routes = [
     children: [
       { path: '', component: DepartureComponent },
       { path: 'seat-selection', component: SeatSelectionComponent },
-      { path: 'passengers', component: PassengersComponent }
+      { path: 'passengers', component: PassengersComponent },
+      { path: 'payment', component: PaymentComponent },
+      { path: '**', redirectTo: '' }
     ]
   }
 ]

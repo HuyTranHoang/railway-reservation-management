@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { BookingService } from '../booking.service'
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-passengers',
@@ -13,6 +14,7 @@ export class PassengersComponent implements OnInit {
   isSubmitted = false
 
   constructor(public bookingService: BookingService,
+              private router: Router,
               private fb: FormBuilder) {}
 
   ngOnInit(): void {
@@ -35,10 +37,12 @@ export class PassengersComponent implements OnInit {
 
   addPassenger() {
     const passengerGroup = this.fb.group({
-      title: ['—'], // Giới tính (Mr., Ms., ...)
-      surname: ['', Validators.required],
-      givenName: ['', Validators.required],
-      passportNumber: ['', Validators.required]
+      title: ['male', Validators.required], // Giới tính (Mr., Ms., ...)
+      fullName: ['', Validators.required],
+      passportNumber: ['', Validators.required],
+      phoneNumber: ['', Validators.required],
+      email: ['', Validators.email],
+      dob: ['', Validators.required],
     });
 
     this.passengers.push(passengerGroup);
@@ -67,7 +71,7 @@ export class PassengersComponent implements OnInit {
     this.isSubmitted = false
     this.bookingService.currentSelectPassengers = []
     this.bookingService.currentSelectPassengers = this.passengerForm.value.passengers
-    // this.router.navigate(['/booking/passengers'])
+    this.router.navigate(['/booking/payment'])
   }
 
 }

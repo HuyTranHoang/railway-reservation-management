@@ -11,7 +11,8 @@ import { DepartureSelectComponent } from './departure/departure-select/departure
 import { PassengersComponent } from './passengers/passengers.component';
 import { SeatSelectionComponent } from './seat-selection/seat-selection.component'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { DurationToHoursMinutesPipe } from './duration-to-hours-minutes.pipe'
+import { DurationToHoursMinutesPipe } from './duration-to-hours-minutes.pipe';
+import { PaymentComponent } from './payment/payment.component'
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { DurationToHoursMinutesPipe } from './duration-to-hours-minutes.pipe'
     DepartureSelectComponent,
     PassengersComponent,
     SeatSelectionComponent,
-    DurationToHoursMinutesPipe
+    DurationToHoursMinutesPipe,
+    PaymentComponent
   ],
   imports: [
     CommonModule,

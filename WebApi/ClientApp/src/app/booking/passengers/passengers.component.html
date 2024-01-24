@@ -22,41 +22,63 @@
       </div>
 
       <div class="horizontal-divider"></div>
-      <div class="col d-flex" style="padding: 14px 3% 18px 3%;" [formGroupName]="i">
+      <div class="col-12 d-flex" style="padding: 14px 3% 18px 3%;" [formGroupName]="i">
         <div class="gender-selector">
           <select class="form-select rounded-0 bootstrap-select" formControlName="title">
-            <option selected> — </option>
             <option value="male">Mr.</option>
             <option value="female">Ms.</option>
           </select>
           <i class="fa-solid fa-caret-down" style="position: absolute; top: 25%; right: 30px;"></i>
-        </div>
-
-        <div class="me-3" style="width: 33%">
-          <input type="text"
-                 formControlName="surname"
-                 class="form-control" placeholder="surname (last name)">
           <span class="text-danger small"
-                *ngIf="isSubmitted && isFieldInvalid('passengers', i, 'surname')">
-            Last name is required</span>
+                *ngIf="isSubmitted && isFieldInvalid('passengers', i, 'title')">
+            Title is required</span>
         </div>
 
-        <div class="me-3" style="width: 33%">
+        <div class="me-3" style="width: 40%">
           <input type="text"
-                 formControlName="givenName"
-                 class="form-control" placeholder="given name (first and middle name)">
+                 formControlName="fullName"
+                 class="form-control" placeholder="full name">
           <span class="text-danger small"
-                *ngIf="isSubmitted && isFieldInvalid('passengers', i, 'givenName')">
-            First name is required</span>
+                *ngIf="isSubmitted && isFieldInvalid('passengers', i, 'fullName')">
+            Full name is required</span>
         </div>
 
-        <div style="width: 20%">
+        <div class="me-3" style="width: 25%">
+          <input type="text"
+                 formControlName="phoneNumber"
+                 class="form-control" placeholder="phone number">
+          <span class="text-danger small"
+                *ngIf="isSubmitted && isFieldInvalid('passengers', i, 'phoneNumber')">
+            Phone number is required</span>
+        </div>
+
+        <div style="width: 25%">
           <input type="text"
                  formControlName="passportNumber"
                  class="form-control" placeholder="passport number">
           <span class="text-danger small"
                 *ngIf="isSubmitted && isFieldInvalid('passengers', i, 'passportNumber')">
             Passport number is required</span>
+        </div>
+      </div>
+
+      <div class="col-12 d-flex justify-content-end" style="padding: 0 3% 18px 3%;" [formGroupName]="i">
+        <div class="me-3" style="width: 295px">
+          <input type="text"
+                 formControlName="email"
+                 class="form-control" placeholder="email">
+          <span class="text-danger small"
+                *ngIf="isSubmitted && isFieldInvalid('passengers', i, 'email')">
+            Incorrect email format</span>
+        </div>
+
+        <div style="width: 295px;">
+          <input type="date"
+                 formControlName="dob"
+                 class="form-control" placeholder="date of birth">
+          <span class="text-danger small"
+                *ngIf="isSubmitted && isFieldInvalid('passengers', i, 'dob')">
+            Date of birth is required</span>
         </div>
       </div>
 
