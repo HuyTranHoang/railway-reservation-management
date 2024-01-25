@@ -3,6 +3,7 @@ import { NgxSpinnerModule } from 'ngx-spinner'
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker'
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { TabsModule } from 'ngx-bootstrap/tabs'
+import { TooltipModule } from 'ngx-bootstrap/tooltip'
 
 @NgModule({
   declarations: [],
@@ -11,6 +12,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs'
     BsDatepickerModule.forRoot(),
     AccordionModule.forRoot(),
     TabsModule.forRoot(),
+    TooltipModule.forRoot()
 
   ],
   exports: [
@@ -18,6 +20,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs'
     BsDatepickerModule,
     AccordionModule,
     TabsModule,
+    TooltipModule
   ]
 })
 export class SharedModule { }

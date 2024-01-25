@@ -37,6 +37,7 @@ export interface Seat {
   seatTypeId: number
   seatTypeName: string
   serviceCharge: number
+  seatTotalPrice: number
   booked: boolean
   selected: boolean
 }
