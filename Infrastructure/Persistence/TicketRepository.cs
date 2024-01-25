@@ -45,10 +45,11 @@ namespace Infrastructure.Persistence
                 .Include(d => d.Seat)
                 .Include(d => d.Schedule)
                 .Include(d => d.Payment)
+                .Include(d => d.Payment.AspNetUser)
                 .Where(d => d.Code == code)
                 .FirstOrDefaultAsync();
 
-            if (ticket != null && ticket.Passenger != null && ticket.Payment.AspNetUser.Email == email)
+            if (ticket != null && ticket.Payment.AspNetUser != null && ticket.Payment.AspNetUser.Email == email)
             {
                 return ticket;
             }
