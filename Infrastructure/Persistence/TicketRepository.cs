@@ -35,7 +35,7 @@ namespace Infrastructure.Persistence
             return _context.Tickets.ToList();
         }
 
-        public async Task<Ticket> GetByCodeAndPhone(string code, string phone)
+        public async Task<Ticket> GetByCodeAndEmail(string code, string email)
         {
             var ticket = await _context.Tickets
                 .Include(d => d.Passenger)
@@ -48,7 +48,7 @@ namespace Infrastructure.Persistence
                 .Where(d => d.Code == code)
                 .FirstOrDefaultAsync();
 
-            if (ticket != null && ticket.Passenger != null && ticket.Passenger.Phone == phone)
+            if (ticket != null && ticket.Passenger != null && ticket.Payment.AspNetUser.Email == email)
             {
                 return ticket;
             }

@@ -12,9 +12,9 @@ namespace Application.Services
             _mapper = mapper;
             _ticketRepository = ticketRepository;
         }
-        public async Task<TicketDto> GetByCodeAndPhoneAsync(string code, string phone)
+        public async Task<TicketDto> GetByCodeAndEmailAsync(string code, string email)
         {
-            var ticket = await _ticketRepository.GetByCodeAndPhone(code, phone);
+            var ticket = await _ticketRepository.GetByCodeAndEmail(code, email);
 
             return _mapper.Map<TicketDto>(ticket);
         }
