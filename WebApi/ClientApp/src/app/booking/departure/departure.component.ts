@@ -70,6 +70,11 @@ export class DepartureComponent implements OnInit {
         }
       }
 
+      if (!departureStationId || !arrivalStationId || !departureTime) {
+        Swal.fire('Oops', 'Please select a valid departure station, arrival station and departure date', 'error')
+        this.router.navigate(['/'])
+      }
+
       this.schedulesParams = { departureStationId, arrivalStationId, departureTime, returnDate, roundTrip }
       this.bookingService.currentBookingScheduleParams = this.schedulesParams
 

@@ -8,7 +8,6 @@ import { ErrorInterceptor } from './core/interceptors/error.interceptor'
 import { CoreModule } from './core/core.module'
 import { AppComponent } from './app.component'
 import { AppRoutingModule } from './app-routing.module'
-import { BookingTrainComponent } from './booking-train/booking-train.component'
 import { SharedModule } from './shared/shared.module'
 import { JwtInterceptor } from './core/interceptors/jwt.interceptor'
 import { HelpComponent } from './help/help.component'
@@ -21,14 +20,12 @@ import { UserComponent } from './user/user.component';
 import { HelpContactComponent } from './help/help-contact/help-contact.component';
 import { HelpFaqsComponent } from './help/help-faqs/help-faqs.component';
 import { ManageBookingModule } from './manage-booking/manage-booking.module';
-import { ManagementBookingComponent } from './manage-booking/management-booking/management-booking.component';
 import { PaymentSuccessComponent } from './payment-success/payment-success.component'
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    BookingTrainComponent,
     HelpComponent,
     AboutComponent,
     SliderComponent,
