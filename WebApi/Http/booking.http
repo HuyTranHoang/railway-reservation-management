@@ -39,32 +39,24 @@ Content-Type: application/json
       "Gender": "Female",
       "Phone": "987 654 3210",
       "Email": "passenger1@example.com"
-    },
-    {
-      "FullName": "Hành khách 2",
-      "CardId": "3456 7890 1234",
-      "Age": 30,
-      "Gender": "Male",
-      "Phone": "123 456 7890",
-      "Email": "passenger2@example.com"
     }
   ],
   "Tickets":
   [
     {
-      "carriageId": 8,
-      "seatId": 22
-    },
-    {
-      "carriageId": 8,
-      "seatId": 23
+      "carriageId": 3,
+      "seatId": 129
     }
   ],
-  
-  "Payments":
-  {
-    "AspNetUserId": "21e266ce-13f1-492d-9c09-5fee4a17f4f3"
-  }
+  "PaymentId": 1, // Payment id sẽ có trước khi có ticket, sẽ lấy để truyền vào
+  "TrainId": 1,
+  "ScheduleId": 1,
 }
+
+# "Payments": 
+# {
+#   "AspNetUserId": "21e266ce-13f1-492d-9c09-5fee4a17f4f3" --- Phần này sẽ lấy từ server, không cần client gửi
+# }
+
 ### 
 

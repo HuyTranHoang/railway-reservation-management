@@ -31,7 +31,7 @@ Content-Type: application/json
 
 GET {{url}}/{{router}}?
   &pageNumber=1
-  &pageSize=5
+  &pageSize=50
   # &searchTerm=
   # &sort=nameDesc
   # &trainCompanyId=2

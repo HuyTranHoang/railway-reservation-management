@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core'
 import { BookingService } from '../booking.service'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { PaymentPassenger, PaymentTicket } from '../../core/models/paymentTransaction'
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-payment',
@@ -10,6 +12,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 export class PaymentComponent implements OnInit {
 
   paymentForm: FormGroup = new FormGroup({})
+  ticketForm: FormGroup = new FormGroup({})
   totalAmount = 0
 
   constructor(public bookingService: BookingService, private fb: FormBuilder) {}
@@ -23,6 +26,14 @@ export class PaymentComponent implements OnInit {
 
     this.paymentForm = this.fb.group({
       nameOnCard: ['', Validators.required]
+    })
+
+    this.ticketForm = this.fb.group({
+      passengers: [],
+      tickets: [],
+      trainId: [0],
+      scheduleId: [0],
+      paymentId: [0] // Lấy khi thanh toán thành công
     })
   }
 
@@ -38,8 +49,73 @@ export class PaymentComponent implements OnInit {
     }
   }
 
-  onSubmit() {
+  calculatedAge(dob: string) {
+    const dobDate = new Date(dob)
+    const timeDiff = Math.abs(Date.now() - dobDate.getTime())
+    return Math.floor(timeDiff / (1000 * 3600 * 24) / 365.25)
+  }
 
+  onSubmit() {
+    // if (this.paymentForm.invalid) {
+    //   return
+    // }
+
+    let passengers: PaymentPassenger[] = []
+
+    this.bookingService.currentSelectPassengers?.forEach((p) => {
+      passengers.push({
+        fullName: p.fullName,
+        age: this.calculatedAge(p.dob),
+        email: p.email,
+        cardId: p.passportNumber,
+        gender: p.title,
+        phone: p.phoneNumber
+      })
+    })
+
+    let tickets: PaymentTicket[] = []
+
+    this.bookingService.currentSelectSeats?.forEach((s) => {
+      tickets.push({
+        carriageId: s.carriageId,
+        seatId: s.id
+      })
+    })
+
+    // const paymentTransaction: PaymentTransaction = {
+    //   passengers: passengers,
+    //   tickets: tickets,
+    //   trainId: this.bookingService.currentSelectSchedule?.trainId || 0,
+    //   scheduleId: this.bookingService.currentSelectSchedule?.id || 0,
+    //   paymentId: 1 // Lấy khi thanh toán thành công
+    // }
+
+    this.ticketForm.patchValue({
+      passengers: passengers,
+      tickets: tickets,
+      trainId: this.bookingService.currentSelectSchedule?.trainId || 0,
+      scheduleId: this.bookingService.currentSelectSchedule?.id || 0,
+      paymentId: 1 // Lấy khi thanh toán thành công
+    })
+
+    this.bookingService.addTicket(this.ticketForm.value).subscribe({
+      next: (res) => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Đặt vé thành công',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      },
+      error: (err) => {
+        console.log(err)
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: err.message
+        })
+      }
+    })
   }
 
 }
