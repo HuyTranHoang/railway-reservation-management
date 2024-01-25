@@ -1,29 +1,29 @@
 ﻿[
   {
-    "Name": "Ngồi mềm điều hòa",
+    "Name": "Soft Seating",
     "NumberOfCompartments": 2,
-    "NumberOfSeats" : 64,
+    "NumberOfSeats": 64,
     "NumberOfSeatTypes": 1,
     "ServiceCharge": 10,
     "Status": "Active",
-    "Description": "Toa ngồi mềm điều hòa này có 2 khoang, đặc biệt phù hợp cho những hành trình ngắn hoặc trung bình. Với ghế ngồi mềm và hệ thống điều hòa hiện đại, hành khách sẽ cảm thấy thoải mái và dễ chịu trong suốt hành trình. Toa này cung cấp một không gian lý tưởng cho việc đọc sách, thư giãn hoặc ngắm cảnh qua cửa sổ. Phí dịch vụ là 10 đơn vị tiền tệ."
+    "Description": "This soft air-conditioned seating carriage has 2 compartments, especially suitable for short or medium journeys. With soft seats and a modern air-conditioning system, passengers will feel comfortable and relaxed throughout the journey. This carriage provides an ideal space for reading, relaxing, or enjoying the scenery through the window. The service charge is 10 currency units."
   },
   {
-    "Name": "Giường nằm khoang 4 điều hòa",
+    "Name": "Sleeper (4-Berth)",
     "NumberOfCompartments": 7,
-    "NumberOfSeats" : 28,
+    "NumberOfSeats": 28,
     "NumberOfSeatTypes": 2,
     "ServiceCharge": 30,
     "Status": "Active",
-    "Description": "Toa giường nằm khoang 4 điều hòa gồm 7 khoang, mỗi khoang có 4 giường nằm, là lựa chọn hoàn hảo cho những hành trình dài. Mỗi giường được trang bị nệm mềm, chăn, gối và có hệ thống điều hòa nhiệt độ, đảm bảo sự thoải mái tối đa cho hành khách. Toa này cũng có không gian riêng tư hơn, thích hợp cho những ai muốn nghỉ ngơi yên tĩnh. Phí dịch vụ là 30 đơn vị tiền tệ."
+    "Description": "The air-conditioned compartment sleeper carriage (4-berth) consists of 7 compartments, each with 4 sleeper berths, making it a perfect choice for long journeys. Each berth is equipped with a soft mattress, blanket, pillow, and air-conditioning system, ensuring maximum comfort for passengers. This carriage also offers more privacy, suitable for those who prefer a quiet rest. The service charge is 30 currency units."
   },
   {
-    "Name": "Giường nằm khoang 6 điều hòa",
+    "Name": "Sleeper (6-Berth)",
     "NumberOfCompartments": 7,
-    "NumberOfSeats" : 42,
+    "NumberOfSeats": 42,
     "NumberOfSeatTypes": 3,
     "ServiceCharge": 20,
-    "Status": "Inactive",
-    "Description": "Toa giường nằm khoang 6 điều hòa gồm 7 khoang, mỗi khoang có 6 giường nằm, cung cấp một lựa chọn kinh tế hơn cho hành trình dài. Mặc dù giá cả phải chăng hơn, nhưng mỗi giường vẫn được trang bị đầy đủ tiện nghi như nệm, chăn, gối và điều hòa không khí. Tuy nhiên, toa này hiện đang không hoạt động. Phí dịch vụ là 20 đơn vị tiền tệ."
+    "Status": "Active",
+    "Description": "The air-conditioned compartment sleeper carriage (6-berth) consists of 7 compartments, each with 6 sleeper berths, providing a more economical option for long journeys. Although more affordable, each berth is still equipped with amenities such as a mattress, blanket, pillow, and air conditioning. However, this carriage is currently inactive. The service charge is 20 currency units."
   }
 ]
