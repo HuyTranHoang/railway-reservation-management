@@ -21,7 +21,8 @@ import { UserComponent } from './user/user.component';
 import { HelpContactComponent } from './help/help-contact/help-contact.component';
 import { HelpFaqsComponent } from './help/help-faqs/help-faqs.component';
 import { ManageBookingModule } from './manage-booking/manage-booking.module';
-import { ManagementBookingComponent } from './manage-booking/management-booking/management-booking.component'
+import { ManagementBookingComponent } from './manage-booking/management-booking/management-booking.component';
+import { PaymentSuccessComponent } from './payment-success/payment-success.component'
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { ManagementBookingComponent } from './manage-booking/management-booking/
     UserComponent,
     HelpContactComponent,
     HelpFaqsComponent,
+    PaymentSuccessComponent,
   ],
   imports: [
     BrowserModule,

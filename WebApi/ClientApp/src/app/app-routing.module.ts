@@ -8,6 +8,7 @@ import { BookingTrainComponent } from './booking-train/booking-train.component'
 import { AuthorizationGuard } from './core/guards/authorization.guard'
 import { HelpComponent } from './help/help.component'
 import { AboutComponent } from './about/about.component'
+import { PaymentSuccessComponent } from './payment-success/payment-success.component'
 
 
 const routes: Routes = [
@@ -20,7 +21,11 @@ const routes: Routes = [
   { path: 'server-error', component: ServerErrorComponent },
   { path: 'help', component: HelpComponent },
   { path: 'about', component: AboutComponent },
-  { path: 'management', loadChildren: () => import('./manage-booking/manage-booking.module').then(mod => mod.ManageBookingModule) },
+  { path: 'payment-success', component: PaymentSuccessComponent },
+  {
+    path: 'management',
+    loadChildren: () => import('./manage-booking/manage-booking.module').then(mod => mod.ManageBookingModule)
+  },
   { path: 'not-implemented', redirectTo: '', pathMatch: 'full' },
   {
     path: 'booking-train',

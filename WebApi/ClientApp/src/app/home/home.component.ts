@@ -40,6 +40,9 @@ export class HomeComponent implements OnInit {
       this.fromResultStations = [...res]
       this.toResultStations = [...res]
     })
+
+    this.isFromActivated = false
+    this.isToActivated = false
   }
 
 

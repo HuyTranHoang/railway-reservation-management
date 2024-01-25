@@ -3,6 +3,7 @@ import { BookingService } from '../booking.service'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { PaymentPassenger, PaymentTicket } from '../../core/models/paymentTransaction'
 import Swal from 'sweetalert2'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-payment',
@@ -15,7 +16,9 @@ export class PaymentComponent implements OnInit {
   ticketForm: FormGroup = new FormGroup({})
   totalAmount = 0
 
-  constructor(public bookingService: BookingService, private fb: FormBuilder) {}
+  constructor(public bookingService: BookingService,
+              private router: Router,
+              private fb: FormBuilder) {}
 
   ngOnInit(): void {
     setTimeout(() => {
@@ -100,12 +103,13 @@ export class PaymentComponent implements OnInit {
 
     this.bookingService.addTicket(this.ticketForm.value).subscribe({
       next: (res) => {
-        Swal.fire({
-          icon: 'success',
-          title: 'Đặt vé thành công',
-          showConfirmButton: false,
-          timer: 1500
-        })
+        // Swal.fire({
+        //   icon: 'success',
+        //   title: 'Đặt vé thành công',
+        //   showConfirmButton: false,
+        //   timer: 1500
+        // })
+        this.router.navigateByUrl('/payment-success')
       },
       error: (err) => {
         console.log(err)

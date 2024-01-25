@@ -5,6 +5,7 @@ import { DepartureComponent } from './departure/departure.component'
 import { PassengersComponent } from './passengers/passengers.component'
 import { SeatSelectionComponent } from './seat-selection/seat-selection.component'
 import { PaymentComponent } from './payment/payment.component'
+import { AuthorizationGuard } from '../core/guards/authorization.guard'
 
 const routes: Routes = [
   {
@@ -12,9 +13,24 @@ const routes: Routes = [
     component: BookingComponent,
     children: [
       { path: '', component: DepartureComponent },
-      { path: 'seat-selection', component: SeatSelectionComponent },
-      { path: 'passengers', component: PassengersComponent },
-      { path: 'payment', component: PaymentComponent },
+      {
+        path: 'seat-selection',
+        runGuardsAndResolvers: 'always',
+        canActivate: [AuthorizationGuard],
+        component: SeatSelectionComponent
+      },
+      {
+        path: 'passengers',
+        runGuardsAndResolvers: 'always',
+        canActivate: [AuthorizationGuard],
+        component: PassengersComponent
+      },
+      {
+        path: 'payment',
+        runGuardsAndResolvers: 'always',
+        canActivate: [AuthorizationGuard],
+        component: PaymentComponent
+      },
       { path: '**', redirectTo: '' }
     ]
   }

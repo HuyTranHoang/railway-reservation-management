@@ -20,8 +20,12 @@ public class PaymentPassengerDto
     [Required] [StringLength(30)] public string CardId { get; set; }
     public int Age { get; set; }
     [StringLength(256)] public string Gender { get; set; }
-    [Required] [StringLength(256)] public string Phone { get; set; }
-    [EmailAddress] [StringLength(256)] public string Email { get; set; }
+
+    [Required]
+    [RegularExpression(@"^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$",
+        ErrorMessage = "Invalid Phone Number")]
+    [StringLength(256)] public string Phone { get; set; }
+    [StringLength(256)] public string Email { get; set; }
 }
 
 public class PaymentTicketDto
