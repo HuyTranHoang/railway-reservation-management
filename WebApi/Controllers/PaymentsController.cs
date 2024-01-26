@@ -1,4 +1,6 @@
+using System.Security.Claims;
 using Domain.Exceptions;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SignalR;
 
 namespace WebApi.Controllers;
@@ -9,18 +11,21 @@ public class PaymentsController : BaseApiController
     private readonly IConfiguration _configuration;
     private readonly IVnPayService _vnPayService;
     private readonly IHubContext<PaymentHub> _hubContext;
+    private readonly UserManager<ApplicationUser> _userManager;
     private readonly ILogger<PaymentsController> _logger;
 
     public PaymentsController(IPaymentService paymentService,
         IConfiguration configuration,
         IVnPayService vnPayService,
         IHubContext<PaymentHub> hubContext,
+        UserManager<ApplicationUser> userManager,
         ILogger<PaymentsController> logger)
     {
         _paymentService = paymentService;
         _configuration = configuration;
         _vnPayService = vnPayService;
         _hubContext = hubContext;
+        _userManager = userManager;
         _logger = logger;
     }
 
@@ -66,6 +71,32 @@ public class PaymentsController : BaseApiController
         }
 
         return CreatedAtAction("GetPayment", new { id = payment.Id }, payment);
+    }
+
+    [HttpPost("addPaymentByEmail/{email}")]
+    public async Task<ActionResult> PostPaymentByEmail(string email)
+    {
+        var user = await _userManager.FindByEmailAsync(email);
+        if (user is null) return NotFound(new ErrorResponse(404));
+
+        var payment = new Payment
+        {
+            AspNetUserId = user.Id,
+            Status = "Success"
+        };
+
+        try
+        {
+            await _paymentService.AddAsync(payment);
+        }
+        catch (BadRequestException ex)
+        {
+            var errorResponse = new ValidateInputError(400, new List<string> { ex.Message });
+            return BadRequest(errorResponse);
+        }
+
+        return Ok(new { paymentId = payment.Id, message = "Add payment successful" });
+        // return CreatedAtAction("GetPayment", new { id = payment.Id }, payment);
     }
 
     [HttpPut("{id}")]
@@ -125,7 +156,7 @@ public class PaymentsController : BaseApiController
     }
 
     [HttpGet("callback")]
-    public IActionResult PaymentCallback()
+    public async Task<IActionResult> PaymentCallback()
     {
         try
         {
@@ -133,13 +164,14 @@ public class PaymentsController : BaseApiController
 
             if (response.Success)
             {
-                _hubContext.Clients.All.SendAsync("PaymentSuccess", "PaymentSuccess");
+                await _hubContext.Clients.All.SendAsync("PaymentSuccess", "PaymentSuccess");
+                // await _hubContext.Clients.User(user.Id).SendAsync("PaymentSuccess", "PaymentSuccess");
+
                 return Ok(new JsonResult(new { message = "Payment successful" }));
             }
-            else
-            {
-                return BadRequest(new { Message = "Payment failed" });
-            }
+
+
+            return BadRequest(new { Message = "Payment failed" });
         }
         catch (Exception)
         {

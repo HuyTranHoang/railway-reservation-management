@@ -16,6 +16,10 @@ export class PaymentService {
 
   constructor(private http: HttpClient) { }
 
+  addPaymentByEmail(email: string) {
+    return this.http.post(this.baseUrl + 'payments/addPaymentByEmail/' + email, {})
+  }
+
   createPaymentUrl(paymentInfo: PaymentInformation): Observable<any> {
     return this.http.post(this.baseUrl + 'payments/createUrlVnPay', paymentInfo)
   }

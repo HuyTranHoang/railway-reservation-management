@@ -12,13 +12,17 @@ Content-Type: application/json
   "Status": "Okela"
 }
 
+###
+
+# @name addPaymentByEmail
+POST {{url}}/{{router}}/addPaymentByEmail/admin@gmail.com
 
 ### 
 
 # @name getListOfPayment
 GET {{url}}/{{router}}?
   &pageNumber=1
-  &pageSize=5
+  &pageSize=50
   # &searchTerm=New Payment
   #&sort=nameDesc
   # &PaymentCompanyId=2

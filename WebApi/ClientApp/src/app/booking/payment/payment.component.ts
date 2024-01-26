@@ -6,8 +6,9 @@ import { PaymentInformation } from '../../core/models/paymentInformation'
 import { PaymentPassenger, PaymentTicket } from '../../core/models/paymentTransaction'
 import Swal from 'sweetalert2'
 import { Router } from '@angular/router'
-import { environment } from '../../../environments/environment.development'
 import * as signalR from '@microsoft/signalr';
+import { AuthService } from '../../auth/auth.service'
+import { User } from '../../core/models/auth/user'
 
 @Component({
   selector: 'app-payment',
@@ -16,15 +17,15 @@ import * as signalR from '@microsoft/signalr';
 })
 export class PaymentComponent implements OnInit {
 
-  baseUrl = environment.apiUrl
   private hubConnection: signalR.HubConnection | undefined;
 
+  currentUser: User = {} as User
   paymentInfo: PaymentInformation = {} as PaymentInformation
-  paymentForm: FormGroup = new FormGroup({})
   ticketForm: FormGroup = new FormGroup({})
   totalAmount = 0
 
   constructor(public bookingService: BookingService,
+              private authService: AuthService,
               private paymentService: PaymentService,
               private router: Router,
               private fb: FormBuilder) {}
@@ -34,12 +35,13 @@ export class PaymentComponent implements OnInit {
       this.bookingService.currentStep = 4
     }, 0)
 
+    this.authService.user$.subscribe({
+      next: (user) => {
+        if (user) this.currentUser = user
+      }
+    })
 
     this.loadTotalAmount()
-
-    this.paymentForm = this.fb.group({
-      nameOnCard: ['', Validators.required]
-    })
 
     this.ticketForm = this.fb.group({
       passengers: [],
@@ -92,9 +94,9 @@ export class PaymentComponent implements OnInit {
 
   createPaymentUrl() {
     this.paymentInfo.orderType = 'booking';
-    this.paymentInfo.amount = 50000; // Sử dụng tổng số tiền cần thanh toán
+    this.paymentInfo.amount = this.totalAmount; // Sử dụng tổng số tiền cần thanh toán
     this.paymentInfo.orderDescription = 'Booking ticket';
-    this.paymentInfo.name = 'Huy nek';
+    this.paymentInfo.name = this.currentUser.firstName + ' ' + this.currentUser.lastName;
 
     this.paymentService.createPaymentUrl(this.paymentInfo).subscribe({
       next: (res: any) => {
@@ -114,46 +116,59 @@ export class PaymentComponent implements OnInit {
 
 
   addTicket() {
-    let passengers: PaymentPassenger[] = []
 
-    this.bookingService.currentSelectPassengers?.forEach((p) => {
-      passengers.push({
-        fullName: p.fullName,
-        age: this.calculatedAge(p.dob),
-        email: p.email,
-        cardId: p.passportNumber,
-        gender: p.title,
-        phone: p.phoneNumber
-      })
-    })
 
-    let tickets: PaymentTicket[] = []
+    this.paymentService.addPaymentByEmail(this.currentUser.email).subscribe({
+      next: (res: any) => {
+        console.log(res)
 
-    this.bookingService.currentSelectSeats?.forEach((s) => {
-      tickets.push({
-        carriageId: s.carriageId,
-        seatId: s.id
-      })
-    })
+        let passengers: PaymentPassenger[] = []
 
-    this.ticketForm.patchValue({
-      passengers: passengers,
-      tickets: tickets,
-      trainId: this.bookingService.currentSelectSchedule?.trainId || 0,
-      scheduleId: this.bookingService.currentSelectSchedule?.id || 0,
-      paymentId: 1 // Lấy khi thanh toán thành công
-    })
+        this.bookingService.currentSelectPassengers?.forEach((p) => {
+          passengers.push({
+            fullName: p.fullName,
+            age: this.calculatedAge(p.dob),
+            email: p.email,
+            cardId: p.passportNumber,
+            gender: p.title,
+            phone: p.phoneNumber
+          })
+        })
 
-    this.bookingService.addTicket(this.ticketForm.value).subscribe({
-      next: (res) => {
-        this.paymentService.setPaymentStatus('Pending')
-        this.router.navigateByUrl('/payment-success')
+        let tickets: PaymentTicket[] = []
+
+        this.bookingService.currentSelectSeats?.forEach((s) => {
+          tickets.push({
+            carriageId: s.carriageId,
+            seatId: s.id
+          })
+        })
+
+        this.ticketForm.patchValue({
+          passengers: passengers,
+          tickets: tickets,
+          trainId: this.bookingService.currentSelectSchedule?.trainId || 0,
+          scheduleId: this.bookingService.currentSelectSchedule?.id || 0,
+          paymentId: res.paymentId
+        })
+
+        this.bookingService.addTicket(this.ticketForm.value).subscribe({
+          next: (res) => {
+            this.paymentService.setPaymentStatus('Pending')
+            this.hubConnection?.stop()
+            this.router.navigateByUrl('/payment-success')
+          },
+          error: (err) => {
+            console.log(err)
+            Swal.fire({ icon: 'error', title: 'Oops...', text: 'Something went wrong!' })
+          }
+        })
       },
       error: (err) => {
         console.log(err)
-        Swal.fire({ icon: 'error', title: 'Oops...', text: err.message })
       }
     })
+
   }
 
   onSubmit() {
