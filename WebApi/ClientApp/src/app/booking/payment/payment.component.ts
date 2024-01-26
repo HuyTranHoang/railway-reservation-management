@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnDestroy, OnInit } from '@angular/core'
 import { BookingService } from '../booking.service'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { PaymentService } from './payment.service'
@@ -6,6 +6,7 @@ import { PaymentInformation } from '../../core/models/paymentInformation'
 import { PaymentPassenger, PaymentTicket } from '../../core/models/paymentTransaction'
 import Swal from 'sweetalert2'
 import { Router } from '@angular/router'
+import { environment } from '../../../environments/environment.development'
 
 @Component({
   selector: 'app-payment',
@@ -14,10 +15,14 @@ import { Router } from '@angular/router'
 })
 export class PaymentComponent implements OnInit {
 
+  baseUrl = environment.apiUrl
+
   paymentInfo: PaymentInformation = {} as PaymentInformation
   paymentForm: FormGroup = new FormGroup({})
   ticketForm: FormGroup = new FormGroup({})
   totalAmount = 0
+
+  paymentStatus: string | null = null
 
   constructor(public bookingService: BookingService,
               private paymentService: PaymentService,
@@ -28,6 +33,7 @@ export class PaymentComponent implements OnInit {
     setTimeout(() => {
       this.bookingService.currentStep = 4
     }, 0)
+
 
     this.loadTotalAmount()
 
@@ -42,6 +48,15 @@ export class PaymentComponent implements OnInit {
       scheduleId: [0],
       paymentId: [0] // Lấy khi thanh toán thành công
     })
+
+    this.paymentService.paymentStatus$.subscribe(status => {
+      this.paymentStatus = status
+      // Nếu trạng thái là Success, tự động thực hiện addTicket
+      if (status === 'PaymentSuccess') {
+        this.addTicket()
+      }
+    })
+
   }
 
   loadTotalAmount() {
@@ -63,28 +78,29 @@ export class PaymentComponent implements OnInit {
   }
 
   createPaymentUrl() {
-    this.paymentInfo.orderType = 'booking'
-    this.paymentInfo.amount = 50000
-    this.paymentInfo.orderDescription = 'Booking ticket'
-    this.paymentInfo.name = 'Huy nek'
-
+    this.paymentInfo.orderType = 'booking';
+    this.paymentInfo.amount = 50000; // Sử dụng tổng số tiền cần thanh toán
+    this.paymentInfo.orderDescription = 'Booking ticket';
+    this.paymentInfo.name = 'Huy nek';
 
     this.paymentService.createPaymentUrl(this.paymentInfo).subscribe({
       next: (res: any) => {
-        console.log(res.paymentUrl)
-        // window.location.href = res.data
+        console.log(res.paymentUrl);
+
+        // Lưu trạng thái thanh toán khi đã tạo URL thành công
+        this.paymentStatus = 'PaymentPending';
+
+        // Mở một cửa sổ mới và chuyển hướng đến URL thanh toán
+        window.open(res.paymentUrl, '_blank');
       },
       error: (err: any) => {
-        console.log(err)
+        console.log(err);
       }
-    })
+    });
   }
 
-  onSubmit() {
-    // if (this.paymentForm.invalid) {
-    //   return
-    // }
 
+  addTicket() {
     let passengers: PaymentPassenger[] = []
 
     this.bookingService.currentSelectPassengers?.forEach((p) => {
@@ -115,16 +131,19 @@ export class PaymentComponent implements OnInit {
       paymentId: 1 // Lấy khi thanh toán thành công
     })
 
-
     this.bookingService.addTicket(this.ticketForm.value).subscribe({
       next: (res) => {
         this.router.navigateByUrl('/payment-success')
       },
       error: (err) => {
         console.log(err)
-        Swal.fire({icon: 'error',title: 'Oops...',text: err.message})
+        Swal.fire({ icon: 'error', title: 'Oops...', text: err.message })
       }
     })
+  }
+
+  onSubmit() {
+    this.createPaymentUrl()
   }
 
 }

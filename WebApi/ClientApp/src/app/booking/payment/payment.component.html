@@ -45,11 +45,11 @@
     <div class="row w-100">
       <div class="col-3">
         <span class="bold">
-          {{ i + 1}}. {{ item.title == 'male' ? 'Mr.' : 'Ms.' }} {{ item.fullName | titlecase }}
+          {{ i + 1 }}. {{ item.title == 'male' ? 'Mr.' : 'Ms.' }} {{ item.fullName | titlecase }}
         </span>
       </div>
       <div class="col-3">
-        {{ item.passportNumber}}
+        {{ item.passportNumber }}
       </div>
       <div class="col-3">
         {{ bookingService.currentSelectSchedule?.selectedCarriageType?.name }}
@@ -64,11 +64,11 @@
       </div>
 
       <div class="offset-6 col-3" *ngIf="bookingService.currentSelectSeats">
-        Seat type {{ bookingService.currentSelectSeats[i].seatTypeName}}
+        Seat type {{ bookingService.currentSelectSeats[i].seatTypeName }}
       </div>
 
       <div class="col-3 text-end yellow-text" *ngIf="bookingService.currentSelectSeats">
-        {{ bookingService.currentSelectSeats[i].serviceCharge | currency}}
+        {{ bookingService.currentSelectSeats[i].serviceCharge | currency }}
       </div>
     </div>
   </div>
@@ -86,45 +86,12 @@
 
       <div class="col-3 text-end yellow-text">
         <span class="bold yellow-text">
-          {{totalAmount | currency}}
+          {{ totalAmount | currency }}
         </span>
       </div>
     </div>
 
   </div>
-</div>
-
-
-<h2 class="mt-5">Payment information</h2>
-<div class="horizontal-divider"></div>
-<div class="row bg-white mb-3 ms-0 me-0">
-  <form class="pt-4" [formGroup]="paymentForm">
-    <div class="col-12 d-flex" style="padding: 0 15px 18px;">
-      <div class="me-3" style="width: 60%">
-        <input type="text"
-               formControlName="nameOnCard"
-               class="form-control" placeholder="Name on card">
-      </div>
-    </div>
-    <div class="col-12 d-flex" style="padding: 0 15px 18px;">
-      <div class="me-3" style="width: 19%">
-        <input type="text" #cardNumber
-               class="form-control" placeholder="Card number">
-
-      </div>
-      <div class="me-3" style="width: 19%">
-        <input type="text" #cardExpiry
-               class="form-control" placeholder="Card expiry">
-
-      </div>
-      <div style="width: 240px">
-        <input type="text" #cardCvc
-               class="form-control" placeholder="Card cvc">
-
-      </div>
-    </div>
-  </form>
-
 </div>
 
 

@@ -15,9 +15,9 @@ public class PaymentsController : BaseApiController
     private readonly ILogger<PaymentsController> _logger;
 
     public PaymentsController(IPaymentService paymentService,
-                            IConfiguration configuration,
-                            IVnPayService vnPayService,
-                            ILogger<PaymentsController> logger)
+        IConfiguration configuration,
+        IVnPayService vnPayService,
+        ILogger<PaymentsController> logger)
     {
         _paymentService = paymentService;
         _configuration = configuration;
@@ -51,7 +51,6 @@ public class PaymentsController : BaseApiController
     [HttpPost]
     public async Task<ActionResult> PostPayment([FromBody] Payment payment)
     {
-
         if (!ModelState.IsValid)
         {
             return BadRequest(ModelState);
@@ -119,14 +118,14 @@ public class PaymentsController : BaseApiController
         catch (Exception ex)
         {
             // Ghi log chi tiết về ngoại lệ
-        _logger.LogError(ex, "Đã xảy ra lỗi trong hành động CreateUrlVnPay.");
-        
+            _logger.LogError(ex, "Đã xảy ra lỗi trong hành động CreateUrlVnPay.");
+
             // Log or handle the exception as needed
             return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error");
         }
     }
 
-    [HttpPost("callback")]
+    [HttpGet("callback")]
     public IActionResult PaymentCallback()
     {
         try
