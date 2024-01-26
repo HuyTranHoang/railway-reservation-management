@@ -1,9 +1,5 @@
-using Application.Common.Models.Payments;
-using Application.Services;
 using Domain.Exceptions;
-using Sek.Module.Payment.VnPay;
-using Sek.Module.Payment.VnPay.AspNetCore;
-using Sek.Module.Payment.VnPay.Common;
+using Microsoft.AspNetCore.SignalR;
 
 namespace WebApi.Controllers;
 
@@ -12,16 +8,19 @@ public class PaymentsController : BaseApiController
     private readonly IPaymentService _paymentService;
     private readonly IConfiguration _configuration;
     private readonly IVnPayService _vnPayService;
+    private readonly IHubContext<PaymentHub> _hubContext;
     private readonly ILogger<PaymentsController> _logger;
 
     public PaymentsController(IPaymentService paymentService,
         IConfiguration configuration,
         IVnPayService vnPayService,
+        IHubContext<PaymentHub> hubContext,
         ILogger<PaymentsController> logger)
     {
         _paymentService = paymentService;
         _configuration = configuration;
         _vnPayService = vnPayService;
+        _hubContext = hubContext;
         _logger = logger;
     }
 
@@ -134,6 +133,7 @@ public class PaymentsController : BaseApiController
 
             if (response.Success)
             {
+                _hubContext.Clients.All.SendAsync("PaymentSuccess", "PaymentSuccess");
                 return Ok(new JsonResult(new { message = "Payment successful" }));
             }
             else

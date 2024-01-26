@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { BookingService } from '../booking.service'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { PaymentService } from './payment.service'
@@ -7,6 +7,7 @@ import { PaymentPassenger, PaymentTicket } from '../../core/models/paymentTransa
 import Swal from 'sweetalert2'
 import { Router } from '@angular/router'
 import { environment } from '../../../environments/environment.development'
+import * as signalR from '@microsoft/signalr';
 
 @Component({
   selector: 'app-payment',
@@ -16,13 +17,12 @@ import { environment } from '../../../environments/environment.development'
 export class PaymentComponent implements OnInit {
 
   baseUrl = environment.apiUrl
+  private hubConnection: signalR.HubConnection | undefined;
 
   paymentInfo: PaymentInformation = {} as PaymentInformation
   paymentForm: FormGroup = new FormGroup({})
   ticketForm: FormGroup = new FormGroup({})
   totalAmount = 0
-
-  paymentStatus: string | null = null
 
   constructor(public bookingService: BookingService,
               private paymentService: PaymentService,
@@ -50,12 +50,25 @@ export class PaymentComponent implements OnInit {
     })
 
     this.paymentService.paymentStatus$.subscribe(status => {
-      this.paymentStatus = status
       // Nếu trạng thái là Success, tự động thực hiện addTicket
       if (status === 'PaymentSuccess') {
         this.addTicket()
       }
     })
+
+
+    this.hubConnection = new signalR.HubConnectionBuilder()
+      .withUrl('https://localhost:5001/paymentHub')
+      .build();
+
+    this.hubConnection.start().then(() => {
+      console.log('SignalR Connected');
+    });
+
+    this.hubConnection.on('PaymentSuccess', (message: string) => {
+      console.log('Payment successful:', message);
+      this.paymentService.setPaymentStatus(message);
+    });
 
   }
 
@@ -88,7 +101,7 @@ export class PaymentComponent implements OnInit {
         console.log(res.paymentUrl);
 
         // Lưu trạng thái thanh toán khi đã tạo URL thành công
-        this.paymentStatus = 'PaymentPending';
+        // this.paymentStatus = 'PaymentPending';
 
         // Mở một cửa sổ mới và chuyển hướng đến URL thanh toán
         window.open(res.paymentUrl, '_blank');
@@ -133,6 +146,7 @@ export class PaymentComponent implements OnInit {
 
     this.bookingService.addTicket(this.ticketForm.value).subscribe({
       next: (res) => {
+        this.paymentService.setPaymentStatus('Pending')
         this.router.navigateByUrl('/payment-success')
       },
       error: (err) => {

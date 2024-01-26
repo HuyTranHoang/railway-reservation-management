@@ -3,6 +3,7 @@ using Hangfire;
 using Infrastructure;
 using Infrastructure.Data;
 using Serilog;
+using WebApi.Controllers;
 using WebApi.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -29,6 +30,8 @@ Log.Logger = new LoggerConfiguration()
 builder.Services.AddDistributedMemoryCache();
 
 builder.Host.UseSerilog();
+
+builder.Services.AddSignalR();
 
 builder.Services.AddSession();
 
@@ -76,6 +79,7 @@ app.UseSession();
 
 app.UseEndpoints(endpoints =>
 {
+    endpoints.MapHub<PaymentHub>("/paymentHub");
     endpoints.MapControllers();
 });
 
