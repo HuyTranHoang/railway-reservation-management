@@ -1,13 +1,13 @@
 ﻿[
   {
     "Name": "A",
-    "ServiceCharge": 20.0,
+    "ServiceCharge": 200000,
     "Status": "",
     "Description": "Premium: This corresponds to the highest-quality seat."
   },
   {
     "Name": "B",
-    "ServiceCharge": 10.0,
+    "ServiceCharge": 100000,
     "Status": "",
     "Description": "Deluxe: This seat is of good quality."
   },

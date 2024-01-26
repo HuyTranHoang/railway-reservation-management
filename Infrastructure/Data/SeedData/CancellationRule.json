@@ -6,17 +6,17 @@
   },
   {
     "departureDateDifference": 20,
-    "fee": 10,
+    "fee": 50000,
     "status": "Active"
   },
   {
     "departureDateDifference": 10,
-    "fee": 20,
+    "fee": 100000,
     "status": "Active"
   },
   {
     "departureDateDifference": 5,
-    "fee": 30,
+    "fee": 200000,
     "status": "Active"
   }
 ]
