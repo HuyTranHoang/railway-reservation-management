@@ -99,6 +99,7 @@ export class SeatSelectionComponent implements OnInit {
       for (let j = 0; j < seatsPerRow; j++) {
         const seatIndex = i + j * numberOfRows
         if (seatIndex < this.compartmentOfCarriage[1].seats.length) {
+          this.updateSeatDetails(this.compartmentOfCarriage[1].seats[seatIndex])
           row.push(this.compartmentOfCarriage[1].seats[seatIndex])
         }
       }

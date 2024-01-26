@@ -30,6 +30,13 @@ public class SeatRepository : ISeatRepository
         return _context.Seats.ToListAsync();
     }
 
+    public async Task<Seat> GetByIdWithCompartment(int seatId)
+    {
+        return await _context.Seats
+            .Include(s => s.Compartment)
+            .FirstOrDefaultAsync(s => s.Id == seatId);
+    }
+
     public async Task<Seat> GetByIdAsync(int id)
     {
         return await _context.Seats

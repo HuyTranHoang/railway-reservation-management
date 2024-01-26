@@ -57,6 +57,7 @@ export class PaymentComponent implements OnInit {
       // Nếu trạng thái là Success, tự động thực hiện addTicket
       if (status === 'PaymentSuccess') {
         this.addTicket()
+        this.paymentService.setPaymentStatus('Pending')
       } else if (status === 'PaymentFailed') {
         this.paymentStatus = 'PaymentFailed'
       } else if (status === 'PaymentCancel') {
@@ -114,7 +115,7 @@ export class PaymentComponent implements OnInit {
         // Mở một cửa sổ mới và chuyển hướng đến URL thanh toán
         window.open(res.paymentUrl, '_blank');
       },
-      error: (err: any) => {  
+      error: (err: any) => {
         console.log(err);
       }
     });
@@ -158,7 +159,6 @@ export class PaymentComponent implements OnInit {
 
         this.bookingService.addTicket(this.ticketForm.value).subscribe({
           next: (res) => {
-            this.paymentService.setPaymentStatus('Pending')
             this.hubConnection?.stop()
             this.router.navigateByUrl('/payment-success')
           },

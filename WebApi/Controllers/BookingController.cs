@@ -1,7 +1,10 @@
+using System.Globalization;
 using System.Security.Claims;
+using System.Text;
+using Application.Common.Models.Authentication;
+using Application.Services;
 using Domain.Exceptions;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json;
 
@@ -11,14 +14,35 @@ namespace WebApi.Controllers
     {
         private readonly IBookingService _bookingService;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IConfiguration _config;
+        private readonly IWebHostEnvironment _hostingEnvironment;
+        private readonly EmailService _emailService;
+        private readonly IScheduleService _scheduleService;
+        private readonly ICarriageService _carriageService;
+        private readonly ICompartmentService _compartmentService;
+        private readonly ISeatService _seatService;
         private readonly ITicketService _ticketService;
 
         public BookingController(IBookingService bookingService,
             UserManager<ApplicationUser> userManager,
+            IConfiguration config,
+            IWebHostEnvironment hostingEnvironment,
+            EmailService emailService,
+            IScheduleService scheduleService,
+            ICarriageService carriageService,
+            ICompartmentService compartmentService,
+            ISeatService seatService,
             ITicketService ticketService)
         {
             _bookingService = bookingService;
             _userManager = userManager;
+            _config = config;
+            _hostingEnvironment = hostingEnvironment;
+            _emailService = emailService;
+            _scheduleService = scheduleService;
+            _carriageService = carriageService;
+            _compartmentService = compartmentService;
+            _seatService = seatService;
             _ticketService = ticketService;
         }
 
@@ -81,6 +105,8 @@ namespace WebApi.Controllers
                 return BadRequest("Mismatched number of passengers and tickets.");
             }
 
+            var listTicketEmailDto = new List<TicketEmailDto>();
+
             for (int i = 0; i < paymentDto.Passengers.Count; i++)
             {
                 var passengerData = paymentDto.Passengers[i];
@@ -109,9 +135,82 @@ namespace WebApi.Controllers
                 };
 
                 await _ticketService.AddAsync(ticket);
+
+                // Thông tin cần để gửi email
+                var schedule = await _scheduleService.GetDtoByIdAsync(paymentDto.ScheduleId);
+                var carriage = await _carriageService.GetDtoByIdAsync(ticketData.CarriageId);
+                var seat = await _seatService.GetDtoByIdAsync(ticketData.SeatId);
+                var ticketEmailDto = new TicketEmailDto()
+                {
+                    DepartureStationName = schedule.DepartureStationName,
+                    ArrivalStationName = schedule.ArrivalStationName,
+                    DepartureDate = schedule.DepartureTime.ToString("dd/MM/yyyy"),
+                    DepartureTime = schedule.DepartureTime.ToString("HH:mm"),
+                    TicketCode = ticket.Code,
+                    TrainName = schedule.TrainName,
+                    PassengerName = passengerData.FullName,
+                    PassengerCardId = passengerData.CardId,
+                    CarriageTypeName = carriage.CarriageTypeName,
+                    CompartmentName = seat.CompartmentName,
+                    SeatName = seat.Name,
+                    Price = ticket.Price
+                };
+
+                listTicketEmailDto.Add(ticketEmailDto);
+            }
+
+            var sendEmailResult = await SendTicketEmail(user, listTicketEmailDto);
+
+            if (!sendEmailResult)
+            {
+                return BadRequest("Error sending email.");
             }
 
             return Ok(new JsonResult(new {message = "Payment successful."}));
+        }
+
+        private async Task<bool> SendTicketEmail(ApplicationUser user, List<TicketEmailDto> listTicketEmailDto)
+        {
+            // Lấy mẫu ticket không trước
+            var emailTicketBuilder = new StringBuilder();
+            var ticketTemplatePath = Path.Combine(_hostingEnvironment.WebRootPath, "ticket_template.html");
+
+            foreach (var item in listTicketEmailDto)
+            {
+                using (var ticketReader = new StreamReader(ticketTemplatePath))
+                {
+                    var ticketTemplate = await ticketReader.ReadToEndAsync();
+                    ticketTemplate = ticketTemplate.Replace("{DepartureStation}", item.DepartureStationName);
+                    ticketTemplate = ticketTemplate.Replace("{ArrivalStation}", item.ArrivalStationName);
+                    ticketTemplate = ticketTemplate.Replace("{TicketCode}", item.TicketCode);
+                    ticketTemplate = ticketTemplate.Replace("{DepartureDate}", item.DepartureDate);
+                    ticketTemplate = ticketTemplate.Replace("{DepartureTime}", item.DepartureTime);
+                    ticketTemplate = ticketTemplate.Replace("{TrainName}", item.TrainName);
+                    ticketTemplate = ticketTemplate.Replace("{SeatName}", item.SeatName);
+                    ticketTemplate = ticketTemplate.Replace("{CarriageTypeName}", item.CarriageTypeName);
+                    ticketTemplate = ticketTemplate.Replace("{CompartmentName}", item.CompartmentName);
+                    ticketTemplate = ticketTemplate.Replace("{PassengerName}", item.PassengerName);
+                    ticketTemplate = ticketTemplate.Replace("{PassengerCardId}", item.PassengerCardId);
+                    ticketTemplate = ticketTemplate.Replace("{Price}", item.Price.ToString(CultureInfo.InvariantCulture));
+                    emailTicketBuilder.AppendLine(ticketTemplate);
+                }
+            }
+
+            // Lấy mẫu email to và chèn ticket template vào
+            var templatePath = Path.Combine(_hostingEnvironment.WebRootPath, "e_ticket_template.html");
+            using (var reader = new StreamReader(templatePath))
+            {
+                var emailTemplate = await reader.ReadToEndAsync();
+
+                emailTemplate = emailTemplate.Replace("{FirstName}", CultureInfo.CurrentCulture.TextInfo.ToTitleCase(user.FirstName));
+                emailTemplate = emailTemplate.Replace("{LastName}", CultureInfo.CurrentCulture.TextInfo.ToTitleCase(user.LastName));
+                emailTemplate = emailTemplate.Replace("{ApplicationName}", _config["Email:ApplicationName"]);
+                emailTemplate = emailTemplate.Replace("{Ticket}", emailTicketBuilder.ToString());
+
+                var emailSend = new EmailSendDto(user.Email, "Your Confirmed Train Tickets", emailTemplate);
+
+                return await _emailService.SendEmailAsync(emailSend);
+            }
         }
 
         // [Authorize]
