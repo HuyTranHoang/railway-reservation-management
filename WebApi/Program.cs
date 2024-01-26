@@ -16,6 +16,8 @@ builder.Services
     .AddInfrastructure(builder.Configuration)
     .AddWebApi(builder.Configuration);
 
+builder.Services.AddHttpContextAccessor();
+
 builder.Services.AddHangfire(x => x.UseSqlServerStorage(
     builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -31,8 +33,6 @@ builder.Services.AddSession();
 builder.Host.UseSerilog();
 
 var app = builder.Build();
-
-// Configure the HTTP request pipeline.
 
 app.UseHangfireDashboard();
 
@@ -68,8 +68,14 @@ app.UseStaticFiles();
 
 app.UseHttpsRedirection();
 
+app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
+
 
 app.MapControllers();
 

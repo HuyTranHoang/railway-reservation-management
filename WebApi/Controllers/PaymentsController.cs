@@ -1,15 +1,28 @@
+using Application.Common.Models.Payments;
 using Application.Services;
 using Domain.Exceptions;
+using Sek.Module.Payment.VnPay;
+using Sek.Module.Payment.VnPay.AspNetCore;
+using Sek.Module.Payment.VnPay.Common;
 
 namespace WebApi.Controllers;
 
 public class PaymentsController : BaseApiController
 {
     private readonly IPaymentService _paymentService;
+    private readonly IConfiguration _configuration;
+    private readonly IVnPayService _vnPayService;
+    private readonly ILogger<PaymentsController> _logger;
 
-    public PaymentsController(IPaymentService paymentService)
+    public PaymentsController(IPaymentService paymentService,
+                            IConfiguration configuration,
+                            IVnPayService vnPayService,
+                            ILogger<PaymentsController> logger)
     {
         _paymentService = paymentService;
+        _configuration = configuration;
+        _vnPayService = vnPayService;
+        _logger = logger;
     }
 
     [HttpGet]
@@ -93,5 +106,45 @@ public class PaymentsController : BaseApiController
         await _paymentService.SoftDeleteAsync(payment);
 
         return NoContent();
+    }
+
+    [HttpPost("createUrlVnPay")]
+    public IActionResult CreateUrlVnPay([FromBody] PaymentInformationModel model)
+    {
+        try
+        {
+            var paymentUrl = _vnPayService.CreatePaymentUrl(model, HttpContext);
+            return Ok(new { PaymentUrl = paymentUrl });
+        }
+        catch (Exception ex)
+        {
+            // Ghi log chi tiết về ngoại lệ
+        _logger.LogError(ex, "Đã xảy ra lỗi trong hành động CreateUrlVnPay.");
+        
+            // Log or handle the exception as needed
+            return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error");
+        }
+    }
+
+    [HttpPost("callback")]
+    public IActionResult PaymentCallback()
+    {
+        try
+        {
+            var response = _vnPayService.PaymentExecute(Request.Query);
+
+            if (response.Success)
+            {
+                return new Json Result ( new { message = "Payment successful" } );
+            }
+            else
+            {
+                return BadRequest(new { Message = "Payment failed" });
+            }
+        }
+        catch (Exception)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error");
+        }
     }
 }
