@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core'
 import { BookingService } from '../booking.service'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { PaymentService } from './payment.service'
+import { PaymentInformation } from '../../core/models/paymentInformation'
 import { PaymentPassenger, PaymentTicket } from '../../core/models/paymentTransaction'
 import Swal from 'sweetalert2'
 import { Router } from '@angular/router'
@@ -12,11 +14,13 @@ import { Router } from '@angular/router'
 })
 export class PaymentComponent implements OnInit {
 
+  paymentInfo: PaymentInformation = {} as PaymentInformation
   paymentForm: FormGroup = new FormGroup({})
   ticketForm: FormGroup = new FormGroup({})
   totalAmount = 0
 
   constructor(public bookingService: BookingService,
+              private paymentService: PaymentService,
               private router: Router,
               private fb: FormBuilder) {}
 
@@ -76,6 +80,18 @@ export class PaymentComponent implements OnInit {
       })
     })
 
+    this.paymentInfo.orderType = 'booking'
+    this.paymentInfo.amount = 50000
+    this.paymentInfo.orderDescription = 'Booking ticket'
+    this.paymentInfo.name = 'Huy nek'
+
+    this.paymentService.createPaymentUrl(this.paymentInfo).subscribe({
+      next: (res: any) => {
+        console.log(res.paymentUrl)
+        // window.location.href = res.data
+      },
+      error: (err: any) => {
+        console.log(err)
     let tickets: PaymentTicket[] = []
 
     this.bookingService.currentSelectSeats?.forEach((s) => {
@@ -121,5 +137,4 @@ export class PaymentComponent implements OnInit {
       }
     })
   }
-
 }

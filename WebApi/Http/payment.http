@@ -66,3 +66,17 @@ Content-Type: application/json
   "PaymentCompanyId": 0,
   "Status": ""
 }
+
+###
+# @name createUrlVnPay
+POST {{url}}/{{router}}/createUrlVnPay
+Content-Type: application/json
+
+{
+  "Amount": 100000, 
+  "Name": "Tên đơn hàng",
+  "OrderDescription": "Mô tả đơn hàng",
+  "OrderType": "Thanh toán đơn hàng",
+  "CurrencyCode": "VND",
+  "ReturnUrl": "https://localhost:5001/api/payments/callback"
+}
