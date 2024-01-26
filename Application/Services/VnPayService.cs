@@ -32,21 +32,21 @@ namespace Application.Services
             var pay = new VnPayLibrary();
             var urlCallBack = _configuration["PaymentCallBack:ReturnUrl"];
 
-            pay.AddRequestData("vnp_Version", _configuration["Vnpay:Version"]);
-            pay.AddRequestData("vnp_Command", _configuration["Vnpay:Command"]);
-            pay.AddRequestData("vnp_TmnCode", _configuration["Vnpay:TmnCode"]);
+            pay.AddRequestData("vnp_Version", _configuration["VNPayConfig:Version"]);
+            pay.AddRequestData("vnp_Command", _configuration["VNPayConfig:Command"]);
+            pay.AddRequestData("vnp_TmnCode", _configuration["VNPayConfig:TmnCode"]);
             pay.AddRequestData("vnp_Amount", ((int)model.Amount * 100).ToString());
             pay.AddRequestData("vnp_CreateDate", timeNow.ToString("yyyyMMddHHmmss"));
-            pay.AddRequestData("vnp_CurrCode", _configuration["Vnpay:CurrCode"]);
+            pay.AddRequestData("vnp_CurrCode", _configuration["VNPayConfig:CurrCode"]);
             pay.AddRequestData("vnp_IpAddr", pay.GetIpAddress(context));
-            pay.AddRequestData("vnp_Locale", _configuration["Vnpay:Locale"]);
+            pay.AddRequestData("vnp_Locale", _configuration["VNPayConfig:Locale"]);
             pay.AddRequestData("vnp_OrderInfo", $"{model.Name} {model.OrderDescription} {model.Amount}");
             pay.AddRequestData("vnp_OrderType", model.OrderType);
             pay.AddRequestData("vnp_ReturnUrl", urlCallBack);
             pay.AddRequestData("vnp_TxnRef", tick);
 
             var paymentUrl =
-                pay.CreateRequestUrl(_configuration["Vnpay:BaseUrl"], _configuration["Vnpay:HashSecret"]);
+                pay.CreateRequestUrl(_configuration["VNPayConfig:BaseUrl"], _configuration["VNPayConfig:HashSecret"]);
 
             return paymentUrl;
         }
@@ -54,7 +54,7 @@ namespace Application.Services
         public PaymentResponseModel PaymentExecute(IQueryCollection collections)
         {
             var pay = new VnPayLibrary();
-            var response = pay.GetFullResponseData(collections, _configuration["Vnpay:HashSecret"]);
+            var response = pay.GetFullResponseData(collections, _configuration["VNPayConfig:HashSecret"]);
 
             return response;
         }

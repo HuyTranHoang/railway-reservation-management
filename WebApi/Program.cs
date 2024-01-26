@@ -1,5 +1,4 @@
 using Application;
-using Application.Services;
 using Hangfire;
 using Infrastructure;
 using Infrastructure.Data;
@@ -28,9 +27,10 @@ Log.Logger = new LoggerConfiguration()
     .CreateLogger();
 
 builder.Services.AddDistributedMemoryCache();
-builder.Services.AddSession();
 
 builder.Host.UseSerilog();
+
+builder.Services.AddSession();
 
 var app = builder.Build();
 
@@ -71,6 +71,9 @@ app.UseHttpsRedirection();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseSession();
+
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
@@ -80,7 +83,5 @@ app.UseEndpoints(endpoints =>
 app.MapControllers();
 
 app.MigrateAndSeedDatabase();
-
-app.UseSession();
 
 app.Run();

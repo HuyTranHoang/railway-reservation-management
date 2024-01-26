@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core'
 import { BookingService } from '../booking.service'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { PaymentService } from './payment.service'
+import { PaymentInformation } from '../../core/models/paymentInformation'
 
 @Component({
   selector: 'app-payment',
@@ -9,10 +11,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 })
 export class PaymentComponent implements OnInit {
 
+  paymentInfo: PaymentInformation = {} as PaymentInformation
   paymentForm: FormGroup = new FormGroup({})
   totalAmount = 0
 
-  constructor(public bookingService: BookingService, private fb: FormBuilder) {}
+  constructor(public bookingService: BookingService,
+              private paymentService: PaymentService,
+              private fb: FormBuilder) {}
 
   ngOnInit(): void {
     setTimeout(() => {
@@ -40,6 +45,19 @@ export class PaymentComponent implements OnInit {
 
   onSubmit() {
 
-  }
+    this.paymentInfo.orderType = 'booking'
+    this.paymentInfo.amount = 50000
+    this.paymentInfo.orderDescription = 'Booking ticket'
+    this.paymentInfo.name = 'Huy nek'
 
+    this.paymentService.createPaymentUrl(this.paymentInfo).subscribe({
+      next: (res: any) => {
+        console.log(res.paymentUrl)
+        // window.location.href = res.data
+      },
+      error: (err: any) => {
+        console.log(err)
+      }
+    })
+  }
 }

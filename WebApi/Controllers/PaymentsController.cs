@@ -135,7 +135,7 @@ public class PaymentsController : BaseApiController
 
             if (response.Success)
             {
-                return new Json Result ( new { message = "Payment successful" } );
+                return Ok(new JsonResult(new { message = "Payment successful" }));
             }
             else
             {
