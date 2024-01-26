@@ -62,6 +62,24 @@ export class PaymentComponent implements OnInit {
     return Math.floor(timeDiff / (1000 * 3600 * 24) / 365.25)
   }
 
+  createPaymentUrl() {
+    this.paymentInfo.orderType = 'booking'
+    this.paymentInfo.amount = 50000
+    this.paymentInfo.orderDescription = 'Booking ticket'
+    this.paymentInfo.name = 'Huy nek'
+
+
+    this.paymentService.createPaymentUrl(this.paymentInfo).subscribe({
+      next: (res: any) => {
+        console.log(res.paymentUrl)
+        // window.location.href = res.data
+      },
+      error: (err: any) => {
+        console.log(err)
+      }
+    })
+  }
+
   onSubmit() {
     // if (this.paymentForm.invalid) {
     //   return
@@ -80,18 +98,6 @@ export class PaymentComponent implements OnInit {
       })
     })
 
-    this.paymentInfo.orderType = 'booking'
-    this.paymentInfo.amount = 50000
-    this.paymentInfo.orderDescription = 'Booking ticket'
-    this.paymentInfo.name = 'Huy nek'
-
-    this.paymentService.createPaymentUrl(this.paymentInfo).subscribe({
-      next: (res: any) => {
-        console.log(res.paymentUrl)
-        // window.location.href = res.data
-      },
-      error: (err: any) => {
-        console.log(err)
     let tickets: PaymentTicket[] = []
 
     this.bookingService.currentSelectSeats?.forEach((s) => {
@@ -101,14 +107,6 @@ export class PaymentComponent implements OnInit {
       })
     })
 
-    // const paymentTransaction: PaymentTransaction = {
-    //   passengers: passengers,
-    //   tickets: tickets,
-    //   trainId: this.bookingService.currentSelectSchedule?.trainId || 0,
-    //   scheduleId: this.bookingService.currentSelectSchedule?.id || 0,
-    //   paymentId: 1 // Lấy khi thanh toán thành công
-    // }
-
     this.ticketForm.patchValue({
       passengers: passengers,
       tickets: tickets,
@@ -117,24 +115,16 @@ export class PaymentComponent implements OnInit {
       paymentId: 1 // Lấy khi thanh toán thành công
     })
 
+
     this.bookingService.addTicket(this.ticketForm.value).subscribe({
       next: (res) => {
-        // Swal.fire({
-        //   icon: 'success',
-        //   title: 'Đặt vé thành công',
-        //   showConfirmButton: false,
-        //   timer: 1500
-        // })
         this.router.navigateByUrl('/payment-success')
       },
       error: (err) => {
         console.log(err)
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: err.message
-        })
+        Swal.fire({icon: 'error',title: 'Oops...',text: err.message})
       }
     })
   }
+
 }
