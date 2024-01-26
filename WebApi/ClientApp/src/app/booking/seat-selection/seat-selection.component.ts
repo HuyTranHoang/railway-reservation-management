@@ -64,38 +64,46 @@ export class SeatSelectionComponent implements OnInit {
 
         if (this.bookingService.currentSelectSchedule?.selectedCarriageType?.id == 1)
           this.generateSeatRows()
+        else { // Cập nhật dữ liệu giường
+          this.compartmentOfCarriage.forEach(c => {
+            c.seats.forEach(s => {
+              this.updateSeatDetails(s)
+            })
+          })
+        }
       }
     })
   }
 
   generateSeatRows() {
-    const seatsPerRow = 8;
+    const seatsPerRow = 8
     const numberOfRows = 4
 
     for (let i = 0; i < numberOfRows; i++) {
-      const row: Seat[] = [];
+      const row: Seat[] = []
 
       for (let j = 0; j < seatsPerRow; j++) {
-        const seatIndex = i + j * numberOfRows;
+        const seatIndex = i + j * numberOfRows
         if (seatIndex < this.compartmentOfCarriage[0].seats.length) {
-          row.push(this.compartmentOfCarriage[0].seats[seatIndex]);
+          this.updateSeatDetails(this.compartmentOfCarriage[0].seats[seatIndex])
+          row.push(this.compartmentOfCarriage[0].seats[seatIndex])
         }
       }
 
-      this.seatRows.push(row);
+      this.seatRows.push(row)
     }
 
     for (let i = 0; i < numberOfRows; i++) {
-      const row: Seat[] = [];
+      const row: Seat[] = []
 
       for (let j = 0; j < seatsPerRow; j++) {
-        const seatIndex = i + j * numberOfRows;
+        const seatIndex = i + j * numberOfRows
         if (seatIndex < this.compartmentOfCarriage[1].seats.length) {
-          row.push(this.compartmentOfCarriage[1].seats[seatIndex]);
+          row.push(this.compartmentOfCarriage[1].seats[seatIndex])
         }
       }
 
-      this.seatRows.push(row);
+      this.seatRows.push(row)
     }
   }
 
@@ -109,10 +117,37 @@ export class SeatSelectionComponent implements OnInit {
     }
   }
 
+  updateSeatDetails(seat: Seat) {
+    seat.carriageId = this.currentSelectCarriage?.id || 0
+    seat.compartmentId = this.getCompartmentId(seat) || 0
+    seat.serviceCharge = this.getServiceCharge(seat) || 0
+    seat.seatTypeName = this.getSeatTypeName(seat) || ''
+
+    if (this.bookingService.currentSelectSchedule) {
+      seat.seatTotalPrice = seat.serviceCharge
+        + this.bookingService.currentSelectSchedule.price
+        + this.bookingService.currentSelectSchedule.selectedCarriageType.serviceCharge
+    }
+
+  }
+
+  getCompartmentId(seat: Seat): number | undefined {
+    return this.compartmentOfCarriage.find(c => c.seats.find(se => se.id === seat.id))?.id
+  }
+
+  getServiceCharge(seat: Seat): number | undefined {
+    return this.seatTypes.find(st => st.id === seat.seatTypeId)?.serviceCharge
+  }
+
+  getSeatTypeName(seat: Seat): string | undefined {
+    return this.seatTypes.find(st => st.id === seat.seatTypeId)?.name
+  }
+
   selectCarriage(carriage: Carriage) {
     this.currentSelectCarriage = carriage
     this.compartmentOfCarriage = this.currentSelectCarriage?.compartments || []
   }
+
 
   onSubmit() {
 
@@ -126,8 +161,9 @@ export class SeatSelectionComponent implements OnInit {
     }
 
     this.selectedSeats.forEach(s => {
-      s.serviceCharge = this.seatTypes.find(st => st.id === s.seatTypeId)?.serviceCharge || 0
-      s.seatTypeName = this.seatTypes.find(st => st.id === s.seatTypeId)?.name || ''
+      // s.compartmentId = this.compartmentOfCarriage.find(c => c.seats.find(se => se.id === s.id))?.id || 0
+      // s.serviceCharge = this.seatTypes.find(st => st.id === s.seatTypeId)?.serviceCharge || 0
+      // s.seatTypeName = this.seatTypes.find(st => st.id === s.seatTypeId)?.name || ''
     })
 
     this.bookingService.currentSelectSeats = []

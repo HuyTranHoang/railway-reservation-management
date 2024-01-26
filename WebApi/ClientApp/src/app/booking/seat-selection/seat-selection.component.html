@@ -87,20 +87,6 @@
 
     <div class="d-flex flex-column align-items-center justify-content-center">
       <div class="d-flex align-items-center justify-content-center">
-<!--        <div class="car-block">-->
-<!--          <div class="car-icon car-icon-sold-out">-->
-<!--            <img src="https://dsvn.vn/images/trainCar2.png">-->
-<!--          </div>-->
-<!--          <div class="text-center text-info car-label">3</div>-->
-<!--        </div>-->
-
-<!--        <div class="car-block">-->
-<!--          <div class="car-icon car-icon-selected">-->
-<!--            <img src="https://dsvn.vn/images/trainCar2.png">-->
-<!--          </div>-->
-<!--          <div class="text-center text-info car-label">2</div>-->
-<!--        </div>-->
-
         <div class="car-block">
           <div class="car-icon" style="transform: rotate(-180deg) scaleY(-1);">
             <img src="https://dsvn.vn/images/train2.png">
@@ -121,13 +107,15 @@
         </div>
       </div>
 
+
       <!--Ghế mềm-->
       <section class="seat-floor"
                *ngIf="bookingService.currentSelectSchedule?.selectedCarriageType?.id == 1">
-        <div class="d-flex">
+        <div class="d-flex justify-content-center">
           <div *ngIf="compartmentOfCarriage && compartmentOfCarriage[0] && compartmentOfCarriage[0].seats">
-            <div class="seat-row">
+            <div class="seat-row" *ngIf="this.bookingService.currentSelectSchedule">
               <button class="seat"
+                      tooltip="Price: {{ seat.seatTotalPrice | currency}}"
                       [ngClass]="seat.booked ? 'seat-unavailable' : 'seat-available'"
                       (click)="toggleSelectSeat(seat)"
                       [class.seat-selected]="seat.selected"
@@ -138,6 +126,7 @@
 
             <div class="seat-row mt-1">
               <button class="seat seat-available"
+                      tooltip="Price: {{ seat.seatTotalPrice | currency}}"
                       [ngClass]="seat.booked ? 'seat-unavailable' : 'seat-available'"
                       (click)="toggleSelectSeat(seat)"
                       [class.seat-selected]="seat.selected"
@@ -152,6 +141,7 @@
             <div class="seat-row">
               <div class="seat-row">
                 <button class="seat seat-available"
+                        tooltip="Price: {{ seat.seatTotalPrice | currency}}"
                         [ngClass]="seat.booked ? 'seat-unavailable' : 'seat-available'"
                         (click)="toggleSelectSeat(seat)"
                         [class.seat-selected]="seat.selected"
@@ -163,6 +153,7 @@
             <div class="seat-row mt-1">
               <div class="seat-row">
                 <button class="seat seat-available"
+                        tooltip="Price: {{ seat.seatTotalPrice | currency}}"
                         [ngClass]="seat.booked ? 'seat-unavailable' : 'seat-available'"
                         (click)="toggleSelectSeat(seat)"
                         [class.seat-selected]="seat.selected"
@@ -173,10 +164,11 @@
             </div>
           </div>
         </div>
-        <div class="d-flex mt-4">
+        <div class="d-flex justify-content-center mt-4">
           <div *ngIf="compartmentOfCarriage && compartmentOfCarriage[0] && compartmentOfCarriage[0].seats">
             <div class="seat-row">
               <button class="seat seat-available"
+                      tooltip="Price: {{ seat.seatTotalPrice | currency}}"
                       [ngClass]="seat.booked ? 'seat-unavailable' : 'seat-available'"
                       (click)="toggleSelectSeat(seat)"
                       [class.seat-selected]="seat.selected"
@@ -186,6 +178,7 @@
             </div>
             <div class="seat-row mt-1">
               <button class="seat seat-available"
+                      tooltip="Price: {{ seat.seatTotalPrice | currency}}"
                       [ngClass]="seat.booked ? 'seat-unavailable' : 'seat-available'"
                       (click)="toggleSelectSeat(seat)"
                       [class.seat-selected]="seat.selected"
@@ -198,6 +191,7 @@
           <div *ngIf="compartmentOfCarriage && compartmentOfCarriage[1] && compartmentOfCarriage[1].seats">
             <div class="seat-row">
               <button class="seat seat-available"
+                      tooltip="Price: {{ seat.seatTotalPrice | currency}}"
                       [ngClass]="seat.booked ? 'seat-unavailable' : 'seat-available'"
                       (click)="toggleSelectSeat(seat)"
                       [class.seat-selected]="seat.selected"
@@ -207,6 +201,7 @@
             </div>
             <div class="seat-row mt-1">
               <button class="seat seat-available"
+                      tooltip="Price: {{ seat.seatTotalPrice | currency}}"
                       [ngClass]="seat.booked ? 'seat-unavailable' : 'seat-available'"
                       (click)="toggleSelectSeat(seat)"
                       [class.seat-selected]="seat.selected"
@@ -242,6 +237,7 @@
           <div class="bed-border d-flex">
             <div>
               <button class="bed"
+                      tooltip="Price: {{ item.seats[1].seatTotalPrice | currency}}"
                       (click)="toggleSelectSeat(item.seats[1])"
                       [class.seat-selected]="item.seats[1].selected"
                       [ngClass]="item.seats[1].booked ? 'seat-unavailable' : 'seat-available'">
@@ -250,6 +246,7 @@
             </div>
             <div class="ml-2">
               <button class="bed"
+                      tooltip="Price: {{ item.seats[3].seatTotalPrice | currency}}"
                       (click)="toggleSelectSeat(item.seats[3])"
                       [class.seat-selected]="item.seats[3].selected"
                       [ngClass]="item.seats[3].booked ? 'seat-unavailable' : 'seat-available'">
@@ -261,6 +258,7 @@
           <div class="bed-border d-flex">
             <div>
               <button class="bed"
+                      tooltip="Price: {{ item.seats[0].seatTotalPrice | currency}}"
                       (click)="toggleSelectSeat(item.seats[0])"
                       [class.seat-selected]="item.seats[0].selected"
                       [ngClass]="item.seats[0].booked ? 'seat-unavailable' : 'seat-available'">
@@ -269,6 +267,7 @@
             </div>
             <div class="ml-2">
               <button class="bed"
+                      tooltip="Price: {{ item.seats[2].seatTotalPrice | currency}}"
                       (click)="toggleSelectSeat(item.seats[2])"
                       [class.seat-selected]="item.seats[2].selected"
                       [ngClass]="item.seats[2].booked ? 'seat-unavailable' : 'seat-available'">
@@ -298,6 +297,7 @@
           <div class="bed-border d-flex">
             <div>
               <button class="bed"
+                      tooltip="Price: {{ item.seats[2].seatTotalPrice | currency}}"
                       (click)="toggleSelectSeat(item.seats[2])"
                       [class.seat-selected]="item.seats[2].selected"
                       [ngClass]="item.seats[2].booked ? 'seat-unavailable' : 'seat-available'">
@@ -306,6 +306,7 @@
             </div>
             <div class="ml-2">
               <button class="bed"
+                      tooltip="Price: {{ item.seats[5].seatTotalPrice | currency}}"
                       (click)="toggleSelectSeat(item.seats[5])"
                       [class.seat-selected]="item.seats[5].selected"
                       [ngClass]="item.seats[5].booked ? 'seat-unavailable' : 'seat-available'">
@@ -317,6 +318,7 @@
           <div class="bed-border d-flex">
             <div>
               <button class="bed"
+                      tooltip="Price: {{ item.seats[1].seatTotalPrice | currency}}"
                       (click)="toggleSelectSeat(item.seats[1])"
                       [class.seat-selected]="item.seats[1].selected"
                       [ngClass]="item.seats[1].booked ? 'seat-unavailable' : 'seat-available'">
@@ -325,6 +327,7 @@
             </div>
             <div class="ml-2">
               <button class="bed"
+                      tooltip="Price: {{ item.seats[4].seatTotalPrice | currency}}"
                       (click)="toggleSelectSeat(item.seats[4])"
                       [class.seat-selected]="item.seats[4].selected"
                       [ngClass]="item.seats[4].booked ? 'seat-unavailable' : 'seat-available'">
@@ -336,6 +339,7 @@
           <div class="bed-border d-flex">
             <div>
               <button class="bed"
+                      tooltip="Price: {{ item.seats[0].seatTotalPrice | currency}}"
                       (click)="toggleSelectSeat(item.seats[0])"
                       [class.seat-selected]="item.seats[0].selected"
                       [ngClass]="item.seats[0].booked ? 'seat-unavailable' : 'seat-available'">
@@ -344,6 +348,7 @@
             </div>
             <div class="ml-2">
               <button class="bed"
+                      tooltip="Price: {{ item.seats[3].seatTotalPrice | currency}}"
                       (click)="toggleSelectSeat(item.seats[3])"
                       [class.seat-selected]="item.seats[3].selected"
                       [ngClass]="item.seats[3].booked ? 'seat-unavailable' : 'seat-available'">
@@ -398,6 +403,6 @@
 <!--  compartmentOfCarriage-->
 <!--  {{ compartmentOfCarriage | json }}-->
 <!--  &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
-<!--  selectedSeat-->
-<!--  {{ selectedSeat | json }}-->
+<!--  selectedSeats-->
+<!--  {{ selectedSeats | json }}-->
 <!--</pre>-->

@@ -11,9 +11,8 @@
   to
   <span class="blue-text bold">{{ departureService.scheduleInfo?.toStationName }}</span>
   on
-  <span>{{ departureService.scheduleInfo?.departureDate | date }}</span>
+  <span>{{ departureService.scheduleInfo?.departureDate | date:'mediumDate':'utc' }}</span>
 </h5>
-
 
 <table class="table">
   <thead>

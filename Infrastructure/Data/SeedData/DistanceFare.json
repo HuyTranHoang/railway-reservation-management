@@ -2,226 +2,361 @@
   {
     "TrainCompanyId": 1,
     "Distance": 0,
+    "Price": 5
+  },
+  {
+    "TrainCompanyId": 1,
+    "Distance": 50,
+    "Price": 10
+  },
+  {
+    "TrainCompanyId": 1,
+    "Distance": 100,
+    "Price": 15
+  },
+  {
+    "TrainCompanyId": 1,
+    "Distance": 300,
+    "Price": 20
+  },
+  {
+    "TrainCompanyId": 1,
+    "Distance": 600,
+    "Price": 25
+  },
+  {
+    "TrainCompanyId": 1,
+    "Distance": 1000,
+    "Price": 35
+  },
+  {
+    "TrainCompanyId": 1,
+    "Distance": 1400,
     "Price": 50
   },
   {
     "TrainCompanyId": 1,
-    "Distance": 500,
-    "Price": 100
-  },
-  {
-    "TrainCompanyId": 1,
-    "Distance": 1000,
-    "Price": 150
-  },
-  {
-    "TrainCompanyId": 1,
-    "Distance": 2000,
-    "Price": 200
-  },
-  {
-    "TrainCompanyId": 1,
-    "Distance": 3000,
-    "Price": 250
+    "Distance": 1600,
+    "Price": 60
   },
   {
     "TrainCompanyId": 2,
     "Distance": 0,
-    "Price": 50
+    "Price": 4
   },
   {
     "TrainCompanyId": 2,
-    "Distance": 500,
-    "Price": 100
+    "Distance": 50,
+    "Price": 9
+  },
+  {
+    "TrainCompanyId": 2,
+    "Distance": 100,
+    "Price": 14
+  },
+  {
+    "TrainCompanyId": 2,
+    "Distance": 300,
+    "Price": 18
+  },
+  {
+    "TrainCompanyId": 2,
+    "Distance": 600,
+    "Price": 22
   },
   {
     "TrainCompanyId": 2,
     "Distance": 1000,
-    "Price": 150
+    "Price": 32
   },
   {
     "TrainCompanyId": 2,
-    "Distance": 2000,
-    "Price": 200
+    "Distance": 1400,
+    "Price": 45
   },
   {
     "TrainCompanyId": 2,
-    "Distance": 3000,
-    "Price": 250
+    "Distance": 1600,
+    "Price": 55
   },
   {
     "TrainCompanyId": 3,
     "Distance": 0,
-    "Price": 50
+    "Price": 3
   },
   {
     "TrainCompanyId": 3,
-    "Distance": 500,
-    "Price": 100
+    "Distance": 50,
+    "Price": 8
+  },
+  {
+    "TrainCompanyId": 3,
+    "Distance": 100,
+    "Price": 13
+  },
+  {
+    "TrainCompanyId": 3,
+    "Distance": 300,
+    "Price": 17
+  },
+  {
+    "TrainCompanyId": 3,
+    "Distance": 600,
+    "Price": 21
   },
   {
     "TrainCompanyId": 3,
     "Distance": 1000,
-    "Price": 150
+    "Price": 31
   },
   {
     "TrainCompanyId": 3,
-    "Distance": 2000,
-    "Price": 200
+    "Distance": 1400,
+    "Price": 44
   },
   {
     "TrainCompanyId": 3,
-    "Distance": 3000,
-    "Price": 250
+    "Distance": 1600,
+    "Price": 54
   },
   {
     "TrainCompanyId": 4,
     "Distance": 0,
-    "Price": 50
+    "Price": 2
   },
   {
     "TrainCompanyId": 4,
-    "Distance": 500,
-    "Price": 100
+    "Distance": 50,
+    "Price": 7
+  },
+  {
+    "TrainCompanyId": 4,
+    "Distance": 100,
+    "Price": 12
+  },
+  {
+    "TrainCompanyId": 4,
+    "Distance": 300,
+    "Price": 16
+  },
+  {
+    "TrainCompanyId": 4,
+    "Distance": 600,
+    "Price": 20
   },
   {
     "TrainCompanyId": 4,
     "Distance": 1000,
-    "Price": 150
+    "Price": 30
   },
   {
     "TrainCompanyId": 4,
-    "Distance": 2000,
-    "Price": 200
+    "Distance": 1400,
+    "Price": 43
   },
   {
     "TrainCompanyId": 4,
-    "Distance": 3000,
-    "Price": 250
+    "Distance": 1600,
+    "Price": 53
   },
   {
     "TrainCompanyId": 5,
     "Distance": 0,
-    "Price": 50
+    "Price": 2
   },
   {
     "TrainCompanyId": 5,
-    "Distance": 500,
-    "Price": 100
+    "Distance": 50,
+    "Price": 6
+  },
+  {
+    "TrainCompanyId": 5,
+    "Distance": 100,
+    "Price": 11
+  },
+  {
+    "TrainCompanyId": 5,
+    "Distance": 300,
+    "Price": 15
+  },
+  {
+    "TrainCompanyId": 5,
+    "Distance": 600,
+    "Price": 19
   },
   {
     "TrainCompanyId": 5,
     "Distance": 1000,
-    "Price": 150
+    "Price": 29
   },
   {
     "TrainCompanyId": 5,
-    "Distance": 2000,
-    "Price": 200
+    "Distance": 1400,
+    "Price": 42
   },
   {
     "TrainCompanyId": 5,
-    "Distance": 3000,
-    "Price": 250
+    "Distance": 1600,
+    "Price": 52
   },
   {
     "TrainCompanyId": 6,
     "Distance": 0,
-    "Price": 50
+    "Price": 2
   },
   {
     "TrainCompanyId": 6,
-    "Distance": 500,
-    "Price": 100
+    "Distance": 50,
+    "Price": 7
+  },
+  {
+    "TrainCompanyId": 6,
+    "Distance": 100,
+    "Price": 10
+  },
+  {
+    "TrainCompanyId": 6,
+    "Distance": 300,
+    "Price": 14
+  },
+  {
+    "TrainCompanyId": 6,
+    "Distance": 600,
+    "Price": 18
   },
   {
     "TrainCompanyId": 6,
     "Distance": 1000,
-    "Price": 150
+    "Price": 28
   },
   {
     "TrainCompanyId": 6,
-    "Distance": 2000,
-    "Price": 200
+    "Distance": 1400,
+    "Price": 41
   },
   {
     "TrainCompanyId": 6,
-    "Distance": 3000,
-    "Price": 250
+    "Distance": 1600,
+    "Price": 51
   },
   {
     "TrainCompanyId": 7,
     "Distance": 0,
-    "Price": 50
+    "Price": 5
   },
   {
     "TrainCompanyId": 7,
-    "Distance": 500,
-    "Price": 100
+    "Distance": 50,
+    "Price": 6
+  },
+  {
+    "TrainCompanyId": 7,
+    "Distance": 100,
+    "Price": 9
+  },
+  {
+    "TrainCompanyId": 7,
+    "Distance": 300,
+    "Price": 15
+  },
+  {
+    "TrainCompanyId": 7,
+    "Distance": 600,
+    "Price": 23
   },
   {
     "TrainCompanyId": 7,
     "Distance": 1000,
-    "Price": 150
+    "Price": 33
   },
   {
     "TrainCompanyId": 7,
-    "Distance": 2000,
-    "Price": 200
+    "Distance": 1400,
+    "Price": 44
   },
   {
     "TrainCompanyId": 7,
-    "Distance": 3000,
-    "Price": 250
+    "Distance": 1600,
+    "Price": 55
   },
   {
     "TrainCompanyId": 8,
     "Distance": 0,
-    "Price": 50
+    "Price": 5
   },
   {
     "TrainCompanyId": 8,
-    "Distance": 500,
-    "Price": 100
+    "Distance": 50,
+    "Price": 10
+  },
+  {
+    "TrainCompanyId": 8,
+    "Distance": 100,
+    "Price": 15
+  },
+  {
+    "TrainCompanyId": 8,
+    "Distance": 300,
+    "Price": 20
+  },
+  {
+    "TrainCompanyId": 8,
+    "Distance": 600,
+    "Price": 25
   },
   {
     "TrainCompanyId": 8,
     "Distance": 1000,
-    "Price": 150
+    "Price": 35
   },
   {
     "TrainCompanyId": 8,
-    "Distance": 2000,
-    "Price": 200
+    "Distance": 1400,
+    "Price": 50
   },
   {
     "TrainCompanyId": 8,
-    "Distance": 3000,
-    "Price": 250
+    "Distance": 1600,
+    "Price": 60
   },
   {
     "TrainCompanyId": 9,
     "Distance": 0,
-    "Price": 50
+    "Price": 2
   },
   {
     "TrainCompanyId": 9,
-    "Distance": 500,
-    "Price": 100
+    "Distance": 50,
+    "Price": 7
+  },
+  {
+    "TrainCompanyId": 9,
+    "Distance": 100,
+    "Price": 10
+  },
+  {
+    "TrainCompanyId": 9,
+    "Distance": 300,
+    "Price": 14
+  },
+  {
+    "TrainCompanyId": 9,
+    "Distance": 600,
+    "Price": 18
   },
   {
     "TrainCompanyId": 9,
     "Distance": 1000,
-    "Price": 150
+    "Price": 28
   },
   {
     "TrainCompanyId": 9,
-    "Distance": 2000,
-    "Price": 200
+    "Distance": 1400,
+    "Price": 41
   },
   {
     "TrainCompanyId": 9,
-    "Distance": 3000,
-    "Price": 250
+    "Distance": 1600,
+    "Price": 51
   }
 ]

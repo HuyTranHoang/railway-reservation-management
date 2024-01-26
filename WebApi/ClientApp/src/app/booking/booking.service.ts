@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core'
 import { HttpClient, HttpParams } from '@angular/common/http'
 import { environment } from '../../environments/environment.development'
 import { BookingScheduleParams } from '../core/models/params/bookingScheduleParams'
 import { Schedule, ScheduleWithBookingParams } from '../core/models/schedule'
 import { Passenger, Seat } from '../core/models/trainDetail'
+import { PaymentTransaction } from '../core/models/paymentTransaction'
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class BookingService {
   currentSelectSchedule: Schedule | undefined
   currentSelectSeats: Seat[] | undefined
   currentSelectPassengers: Passenger[] | undefined
-  currentStep = 1;
+  currentStep = 1
 
   constructor(private http: HttpClient) { }
 
@@ -39,6 +40,10 @@ export class BookingService {
     }
 
     return this.http.get<ScheduleWithBookingParams>(this.baseUrl + 'booking/schedule', { params })
+  }
+
+  addTicket(payment: PaymentTransaction) {
+    return this.http.post(this.baseUrl + 'booking/payment', payment);
   }
 
 }

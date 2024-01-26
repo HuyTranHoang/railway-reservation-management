@@ -43,6 +43,7 @@ export class ErrorInterceptor implements HttpInterceptor {
           default:
             break
         }
+
         return throwError(() => new Error(error.message))
       })
     )

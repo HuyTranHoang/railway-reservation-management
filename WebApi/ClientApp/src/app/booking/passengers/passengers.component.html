@@ -1,10 +1,12 @@
-{{bookingService.currentSelectSeats | json}}
-
-{{passengerForm.value | json}}
-
-{{passengerForm.valid | json}}
-
-{{bookingService.currentSelectPassengers | json}}
+<!--<pre>-->
+<!--  {{bookingService.currentSelectSeats | json}}-->
+<!--  &#45;&#45;&#45;&#45;-->
+<!--  {{passengerForm.value | json}}-->
+<!--  &#45;&#45;&#45;&#45;-->
+<!--  {{passengerForm.valid | json}}-->
+<!--  &#45;&#45;&#45;&#45;-->
+<!--  {{bookingService.currentSelectPassengers | json}}-->
+<!--</pre>-->
 <h2>Passenger details</h2>
 <div class="horizontal-divider"></div>
 <p class="big-text mt-4">Please provide the passenger(s) information,
@@ -73,9 +75,13 @@
         </div>
 
         <div style="width: 295px;">
-          <input type="date"
+          <input type="text"
+                 class="form-control"
                  formControlName="dob"
-                 class="form-control" placeholder="date of birth">
+                 placeholder="date of birth"
+                 [bsConfig]="bsConfig"
+                 bsDatepicker>
+
           <span class="text-danger small"
                 *ngIf="isSubmitted && isFieldInvalid('passengers', i, 'dob')">
             Date of birth is required</span>
