@@ -167,13 +167,13 @@ public class PaymentsController : BaseApiController
                 if (response.VnPayResponseCode == "00")
                 {
                     await _hubContext.Clients.All.SendAsync("PaymentStatus", "PaymentSuccess");
-                    return Ok(new JsonResult(new { message = "Payment successful" }));
+                    return Content("<html><head></head><body><script>window.close();</script></body></html>", "text/html");
                 }
 
                 if (response.VnPayResponseCode == "24")
                 {
                     await _hubContext.Clients.All.SendAsync("PaymentStatus", "PaymentCancel");
-                    return Ok(new JsonResult(new { message = "Payment cancel" }));
+                    return Content("<html><head></head><body><script>window.close();</script></body></html>", "text/html");
                 }
 
                 await _hubContext.Clients.All.SendAsync("PaymentStatus", "PaymentPending");

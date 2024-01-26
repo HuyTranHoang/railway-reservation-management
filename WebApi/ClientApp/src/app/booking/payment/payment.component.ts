@@ -114,7 +114,7 @@ export class PaymentComponent implements OnInit {
         // Mở một cửa sổ mới và chuyển hướng đến URL thanh toán
         window.open(res.paymentUrl, '_blank');
       },
-      error: (err: any) => {
+      error: (err: any) => {  
         console.log(err);
       }
     });
