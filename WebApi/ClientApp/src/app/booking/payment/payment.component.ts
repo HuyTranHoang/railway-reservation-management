@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { BookingService } from '../booking.service'
-import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { FormBuilder, FormGroup } from '@angular/forms'
 import { PaymentService } from './payment.service'
 import { PaymentInformation } from '../../core/models/paymentInformation'
 import { PaymentPassenger, PaymentTicket } from '../../core/models/paymentTransaction'
@@ -18,6 +18,8 @@ import { User } from '../../core/models/auth/user'
 export class PaymentComponent implements OnInit {
 
   private hubConnection: signalR.HubConnection | undefined;
+
+  paymentStatus = 'Pending'
 
   currentUser: User = {} as User
   paymentInfo: PaymentInformation = {} as PaymentInformation
@@ -55,6 +57,10 @@ export class PaymentComponent implements OnInit {
       // Nếu trạng thái là Success, tự động thực hiện addTicket
       if (status === 'PaymentSuccess') {
         this.addTicket()
+      } else if (status === 'PaymentFailed') {
+        this.paymentStatus = 'PaymentFailed'
+      } else if (status === 'PaymentCancel') {
+        this.paymentStatus = 'PaymentCancel'
       }
     })
 
@@ -67,8 +73,8 @@ export class PaymentComponent implements OnInit {
       console.log('SignalR Connected');
     });
 
-    this.hubConnection.on('PaymentSuccess', (message: string) => {
-      console.log('Payment successful:', message);
+    this.hubConnection.on('PaymentStatus', (message: string) => {
+      console.log('PaymentStatus:', message);
       this.paymentService.setPaymentStatus(message);
     });
 
@@ -116,8 +122,6 @@ export class PaymentComponent implements OnInit {
 
 
   addTicket() {
-
-
     this.paymentService.addPaymentByEmail(this.currentUser.email).subscribe({
       next: (res: any) => {
         console.log(res)

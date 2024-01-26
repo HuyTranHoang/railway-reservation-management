@@ -4,6 +4,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker'
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { TabsModule } from 'ngx-bootstrap/tabs'
 import { TooltipModule } from 'ngx-bootstrap/tooltip'
+import { AlertModule } from 'ngx-bootstrap/alert'
 
 @NgModule({
   declarations: [],
@@ -12,7 +13,8 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip'
     BsDatepickerModule.forRoot(),
     AccordionModule.forRoot(),
     TabsModule.forRoot(),
-    TooltipModule.forRoot()
+    TooltipModule.forRoot(),
+    AlertModule.forRoot()
 
   ],
   exports: [
@@ -20,7 +22,8 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip'
     BsDatepickerModule,
     AccordionModule,
     TabsModule,
-    TooltipModule
+    TooltipModule,
+    AlertModule
   ]
 })
 export class SharedModule { }

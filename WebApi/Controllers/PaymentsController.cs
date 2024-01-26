@@ -164,13 +164,23 @@ public class PaymentsController : BaseApiController
 
             if (response.Success)
             {
-                await _hubContext.Clients.All.SendAsync("PaymentSuccess", "PaymentSuccess");
-                // await _hubContext.Clients.User(user.Id).SendAsync("PaymentSuccess", "PaymentSuccess");
+                if (response.VnPayResponseCode == "00")
+                {
+                    await _hubContext.Clients.All.SendAsync("PaymentStatus", "PaymentSuccess");
+                    return Ok(new JsonResult(new { message = "Payment successful" }));
+                }
 
-                return Ok(new JsonResult(new { message = "Payment successful" }));
+                if (response.VnPayResponseCode == "24")
+                {
+                    await _hubContext.Clients.All.SendAsync("PaymentStatus", "PaymentCancel");
+                    return Ok(new JsonResult(new { message = "Payment cancel" }));
+                }
+
+                await _hubContext.Clients.All.SendAsync("PaymentStatus", "PaymentPending");
             }
 
 
+            await _hubContext.Clients.All.SendAsync("PaymentStatus", "PaymentFailed");
             return BadRequest(new { Message = "Payment failed" });
         }
         catch (Exception)

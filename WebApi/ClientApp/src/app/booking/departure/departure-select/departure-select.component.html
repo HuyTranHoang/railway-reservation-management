@@ -69,7 +69,7 @@
 
       <td class="text-start" style="">
         <div class="yellow-text bold">
-          <span class="money">{{ item.price | currency }}</span>
+          <span class="money">{{ item.price | currency: 'VND' }}</span>
         </div>
       </td>
 
@@ -135,7 +135,7 @@
                           <br>
 
                           <div>
-                            <span class="yellow-text bold">{{ item.price + type.serviceCharge | currency }}</span>
+                            <span class="yellow-text bold">{{ item.price + type.serviceCharge | currency:'VND'}}</span>
                           </div>
                         </label>
                       </div>

@@ -59,7 +59,7 @@
            *ngIf="bookingService.currentSelectSchedule && bookingService.currentSelectSchedule.selectedCarriageType">
         {{
           bookingService.currentSelectSchedule.price
-          + bookingService.currentSelectSchedule.selectedCarriageType.serviceCharge | currency
+          + bookingService.currentSelectSchedule.selectedCarriageType.serviceCharge | currency:'VND'
         }}
       </div>
 
@@ -68,7 +68,7 @@
       </div>
 
       <div class="col-3 text-end yellow-text" *ngIf="bookingService.currentSelectSeats">
-        {{ bookingService.currentSelectSeats[i].serviceCharge | currency }}
+        {{ bookingService.currentSelectSeats[i].serviceCharge | currency:'VND' }}
       </div>
     </div>
   </div>
@@ -86,7 +86,7 @@
 
       <div class="col-3 text-end yellow-text">
         <span class="bold yellow-text">
-          {{ totalAmount | currency }}
+          {{ totalAmount | currency:'VND' }}
         </span>
       </div>
     </div>
@@ -94,6 +94,17 @@
   </div>
 </div>
 
+<div class="mt-2 mb-2" *ngIf="paymentStatus == 'PaymentCancel'">
+  <alert type="danger">
+    Your transaction has been cancelled!
+  </alert>
+</div>
+
+<div class="mt-2 mb-2" *ngIf="paymentStatus == 'PaymentFailed'">
+  <alert type="danger">
+    Your transaction has been failed! Please try again.
+  </alert>
+</div>
 
 <div class="mt-3 mb-5">
   <a class="btn green w-100" (click)="onSubmit()">
