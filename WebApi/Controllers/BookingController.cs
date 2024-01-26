@@ -191,7 +191,7 @@ namespace WebApi.Controllers
                     ticketTemplate = ticketTemplate.Replace("{CompartmentName}", item.CompartmentName);
                     ticketTemplate = ticketTemplate.Replace("{PassengerName}", item.PassengerName);
                     ticketTemplate = ticketTemplate.Replace("{PassengerCardId}", item.PassengerCardId);
-                    ticketTemplate = ticketTemplate.Replace("{Price}", item.Price.ToString(CultureInfo.InvariantCulture));
+                    ticketTemplate = ticketTemplate.Replace("{Price}", item.Price.ToString(CultureInfo.InvariantCulture) + " VND");
                     emailTicketBuilder.AppendLine(ticketTemplate);
                 }
             }

@@ -82,7 +82,6 @@ export class PaymentComponent implements OnInit {
   }
 
   loadTotalAmount() {
-
     const distancePrice = this.bookingService.currentSelectSchedule?.price || 0
     const carriageTypePrice = this.bookingService.currentSelectSchedule?.selectedCarriageType?.serviceCharge || 0
 
