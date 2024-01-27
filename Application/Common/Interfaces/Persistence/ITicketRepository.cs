@@ -6,5 +6,6 @@ namespace Application.Common.Interfaces.Persistence
         Task<Ticket> GetByCodeAndPhone(string code, string phone);
         List<Ticket> GetAllTickets();
         Task<List<Ticket>> GetAllNoPagingAsync();
+        Task<List<Ticket>> GetByIdWithPaymentAsync(int id);
     }
 }

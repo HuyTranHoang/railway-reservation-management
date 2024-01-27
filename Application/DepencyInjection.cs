@@ -38,7 +38,8 @@ public static class DepencyInjection
     services.AddScoped<IBookingService, BookingService>();
     services.AddScoped<ITrainComponentService, TrainComponentService>();
     services.AddScoped<ILookUpService, LookUpService>();
-    
+    services.AddScoped<IBookingHistoryService, BookingHistoryService>();
+
     return services;
 
   }

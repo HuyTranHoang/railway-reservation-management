@@ -1,5 +1,5 @@
 @url = https://localhost:5001
-@router = api/booking
+@router = api/bookinghistory
 
 ### 
 
@@ -17,9 +17,9 @@ GET {{url}}/{{router}}/schedule?
 ### 
 
 # @name getTrainDetailsByScheduleId
-@id = 1
+@id = 99606985-04a3-442c-a3a0-169ebeac522f
 
-GET {{url}}/{{router}}/schedule/{{id}}
+GET {{url}}/{{router}}/{{id}}
 
 ###
 

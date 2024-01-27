@@ -1,7 +1,10 @@
 <div class="banner">
-  <div class="bg-banner"
-       style="background: url(assets/banner/booking-history.jpg) center center no-repeat;background-size: cover">
-  </div>
+  <div
+    class="bg-banner"
+    style="
+      background: url(assets/banner/booking-history.jpg) center center no-repeat;
+      background-size: cover;
+    "></div>
   <div class="banner-content">
     <div class="container">
       <h1 class="teko text-uppercase">Booking history</h1>
@@ -9,15 +12,74 @@
   </div>
 </div>
 
-
 <tabset class="user-booking-history">
   <tab class="container" heading="Upcoming">
-    Tab 1 content
+    <table>
+      <thead>
+        <tr>
+          <th>Train</th>
+          <th>Date</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Train 1</td>
+          <td>2022-10-01</td>
+          <td>Confirmed</td>
+        </tr>
+        <tr>
+          <td>Train 2</td>
+          <td>2022-10-05</td>
+          <td>Booked</td>
+        </tr>
+      </tbody>
+    </table>
   </tab>
   <tab class="container" heading="Past Trips">
-    Tab 2 content
+    <table>
+      <thead>
+        <tr>
+          <th>Train</th>
+          <th>Date</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Train 3</td>
+          <td>2022-09-20</td>
+          <td>Completed</td>
+        </tr>
+        <tr>
+          <td>Train 4</td>
+          <td>2022-09-25</td>
+          <td>Cancelled</td>
+        </tr>
+      </tbody>
+    </table>
   </tab>
   <tab class="container" heading="Cancelled">
-    Tab 3 content
+    <table>
+      <thead>
+        <tr>
+          <th>Train</th>
+          <th>Date</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Train 5</td>
+          <td>2022-08-15</td>
+          <td>Cancelled</td>
+        </tr>
+        <tr>
+          <td>Train 6</td>
+          <td>2022-08-20</td>
+          <td>Cancelled</td>
+        </tr>
+      </tbody>
+    </table>
   </tab>
 </tabset>
