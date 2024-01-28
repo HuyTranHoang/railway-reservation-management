@@ -13,8 +13,12 @@ export class BookingService {
   baseUrl = environment.apiUrl
 
   currentBookingScheduleParams: BookingScheduleParams | undefined
-  currentSelectSchedule: Schedule | undefined
-  currentSelectSeats: Seat[] | undefined
+  currentSelectDepartureSchedule: Schedule | undefined
+  currentSelectReturnSchedule: Schedule | undefined
+
+  currentSelectDepartureSeats: Seat[] | undefined
+  currentSelectReturnSeats: Seat[] | undefined
+
   currentSelectPassengers: Passenger[] | undefined
   currentStep = 1
 

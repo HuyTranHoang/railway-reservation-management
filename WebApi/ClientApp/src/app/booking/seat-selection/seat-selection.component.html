@@ -110,10 +110,10 @@
 
       <!--Ghế mềm-->
       <section class="seat-floor"
-               *ngIf="bookingService.currentSelectSchedule?.selectedCarriageType?.id == 1">
+               *ngIf="bookingService.currentSelectDepartureSchedule?.selectedCarriageType?.id == 1">
         <div class="d-flex justify-content-center">
           <div *ngIf="compartmentOfCarriage && compartmentOfCarriage[0] && compartmentOfCarriage[0].seats">
-            <div class="seat-row" *ngIf="this.bookingService.currentSelectSchedule">
+            <div class="seat-row" *ngIf="this.bookingService.currentSelectDepartureSchedule">
               <button class="seat"
                       tooltip="Price: {{ seat.seatTotalPrice | currency: 'VND'}}"
                       [ngClass]="seat.booked ? 'seat-unavailable' : 'seat-available'"
@@ -221,7 +221,7 @@
 
       <!--Giường 4 khoang-->
 
-      <section *ngIf="bookingService.currentSelectSchedule?.selectedCarriageType?.id == 2"
+      <section *ngIf="bookingService.currentSelectDepartureSchedule?.selectedCarriageType?.id == 2"
                class="seat-floor d-flex align-items-end">
 
         <div class="d-flex flex-column mb-2" *ngIf="currentSelectCarriage?.compartments">
@@ -280,7 +280,7 @@
 
       <!--Giường 6 khoang-->
 
-      <section *ngIf="bookingService.currentSelectSchedule?.selectedCarriageType?.id == 3" class="seat-floor d-flex align-items-end">
+      <section *ngIf="bookingService.currentSelectDepartureSchedule?.selectedCarriageType?.id == 3" class="seat-floor d-flex align-items-end">
         <div class="d-flex flex-column mb-2" *ngIf="currentSelectCarriage?.compartments">
           <button class="btn">
             T3

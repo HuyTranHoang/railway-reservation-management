@@ -12,6 +12,8 @@ export class DepartureService {
   schedules: Schedule[] = []
   scheduleInfo: { fromStationName: string, toStationName: string, departureDate: string } | undefined
 
+  isFromRoundTrip = false
+
   constructor(private trainStationService: TrainStationService,
               private bookingService: BookingService) { }
 

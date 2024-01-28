@@ -1,4 +1,5 @@
-<h2>Select your departing trip</h2>
+<h2 *ngIf="!departureService.isFromRoundTrip">Select your departing trip</h2>
+<h2 *ngIf="departureService.isFromRoundTrip">Select your returning trip</h2>
 
 <!--<pre>-->
 <!--  {{ departureService.schedules | json }}-->

@@ -82,11 +82,11 @@ export class PaymentComponent implements OnInit {
   }
 
   loadTotalAmount() {
-    const distancePrice = this.bookingService.currentSelectSchedule?.price || 0
-    const carriageTypePrice = this.bookingService.currentSelectSchedule?.selectedCarriageType?.serviceCharge || 0
+    const distancePrice = this.bookingService.currentSelectDepartureSchedule?.price || 0
+    const carriageTypePrice = this.bookingService.currentSelectDepartureSchedule?.selectedCarriageType?.serviceCharge || 0
 
-    if (this.bookingService.currentSelectSeats) {
-      this.totalAmount = this.bookingService.currentSelectSeats
+    if (this.bookingService.currentSelectDepartureSeats) {
+      this.totalAmount = this.bookingService.currentSelectDepartureSeats
         .reduce((total, seat) =>
           total + seat.serviceCharge + distancePrice + carriageTypePrice, 0) || 0
     }
@@ -141,7 +141,7 @@ export class PaymentComponent implements OnInit {
 
         let tickets: PaymentTicket[] = []
 
-        this.bookingService.currentSelectSeats?.forEach((s) => {
+        this.bookingService.currentSelectDepartureSeats?.forEach((s) => {
           tickets.push({
             carriageId: s.carriageId,
             seatId: s.id
@@ -151,8 +151,8 @@ export class PaymentComponent implements OnInit {
         this.ticketForm.patchValue({
           passengers: passengers,
           tickets: tickets,
-          trainId: this.bookingService.currentSelectSchedule?.trainId || 0,
-          scheduleId: this.bookingService.currentSelectSchedule?.id || 0,
+          trainId: this.bookingService.currentSelectDepartureSchedule?.trainId || 0,
+          scheduleId: this.bookingService.currentSelectDepartureSchedule?.id || 0,
           paymentId: res.paymentId
         })
 

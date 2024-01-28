@@ -39,8 +39,8 @@ export class SeatSelectionComponent implements OnInit {
 
     this.getSeatTypes()
 
-    if (this.bookingService.currentSelectSchedule) {
-      this.getTrainDetailsByScheduleId(this.bookingService.currentSelectSchedule.id)
+    if (this.bookingService.currentSelectDepartureSchedule) {
+      this.getTrainDetailsByScheduleId(this.bookingService.currentSelectDepartureSchedule.id)
     }
   }
 
@@ -57,12 +57,12 @@ export class SeatSelectionComponent implements OnInit {
       next: (res) => {
         this.trainDetail = res
         this.carriageMatchType = this.trainDetail.carriages
-          .filter(c => c.type.id === this.bookingService.currentSelectSchedule?.selectedCarriageType?.id)
+          .filter(c => c.type.id === this.bookingService.currentSelectDepartureSchedule?.selectedCarriageType?.id)
 
         this.currentSelectCarriage = this.carriageMatchType[0]
         this.compartmentOfCarriage = this.currentSelectCarriage?.compartments || []
 
-        if (this.bookingService.currentSelectSchedule?.selectedCarriageType?.id == 1)
+        if (this.bookingService.currentSelectDepartureSchedule?.selectedCarriageType?.id == 1)
           this.generateSeatRows()
         else { // Cập nhật dữ liệu giường
           this.compartmentOfCarriage.forEach(c => {
@@ -124,10 +124,10 @@ export class SeatSelectionComponent implements OnInit {
     seat.serviceCharge = this.getServiceCharge(seat) || 0
     seat.seatTypeName = this.getSeatTypeName(seat) || ''
 
-    if (this.bookingService.currentSelectSchedule) {
+    if (this.bookingService.currentSelectDepartureSchedule) {
       seat.seatTotalPrice = seat.serviceCharge
-        + this.bookingService.currentSelectSchedule.price
-        + this.bookingService.currentSelectSchedule.selectedCarriageType.serviceCharge
+        + this.bookingService.currentSelectDepartureSchedule.price
+        + this.bookingService.currentSelectDepartureSchedule.selectedCarriageType.serviceCharge
     }
 
   }
@@ -167,8 +167,8 @@ export class SeatSelectionComponent implements OnInit {
       // s.seatTypeName = this.seatTypes.find(st => st.id === s.seatTypeId)?.name || ''
     })
 
-    this.bookingService.currentSelectSeats = []
-    this.bookingService.currentSelectSeats = this.selectedSeats
+    this.bookingService.currentSelectDepartureSeats = []
+    this.bookingService.currentSelectDepartureSeats = this.selectedSeats
     this.router.navigate(['/booking/passengers'])
   }
 
