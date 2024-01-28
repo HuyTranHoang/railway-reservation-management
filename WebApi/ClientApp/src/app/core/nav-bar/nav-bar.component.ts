@@ -18,7 +18,10 @@ export class NavBarComponent implements OnInit {
     '/server-error',
     '/not-found',
     '/booking',
-    '/user/profile'
+    '/payment-success',
+    '/user/profile',
+    '/management',
+    '/management/ticket'
   ];
 
   constructor(public authService: AuthService,

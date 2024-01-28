@@ -93,8 +93,8 @@ public class SeatService : ISeatService
 
     public async Task<SeatDto> GetDtoByIdAsync(int id)
     {
-        var seatDto = await _repository.GetByIdAsync(id);
-        return _mapper.Map<SeatDto>(seatDto);
+        var seat = await _repository.GetByIdWithCompartment(id);
+        return _mapper.Map<SeatDto>(seat);
     }
 
     public async Task SoftDeleteAsync(Seat seat)

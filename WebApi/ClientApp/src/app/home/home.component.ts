@@ -40,6 +40,9 @@ export class HomeComponent implements OnInit {
       this.fromResultStations = [...res]
       this.toResultStations = [...res]
     })
+
+    this.isFromActivated = false
+    this.isToActivated = false
   }
 
 
@@ -164,18 +167,23 @@ export class HomeComponent implements OnInit {
       return
     }
 
+    if (this.roundTrip && !this.returnDate) {
+      Swal.fire('Oops', 'Please select a return date', 'error')
+      return
+    }
+
     if (this.roundTrip && this.returnDate < this.departureTime) {
       Swal.fire('Oops', 'Return date cannot be before departure date', 'error')
       return
     }
 
-    const departureTime = new Date(this.departureTime.getTime() + (7 * 60 * 60 * 1000)).toUTCString();
-    // const departureTime = this.departureTime.toUTCString()
+    // const departureTime = new Date(this.departureTime.getTime() + (7 * 60 * 60 * 1000)).toUTCString();
+    const departureTime = this.departureTime.toUTCString() // Đúng sau 6h tối
     let returnDate = null
 
     if (this.returnDate) {
-      returnDate = new Date(this.returnDate.getTime() + (7 * 60 * 60 * 1000)).toUTCString();
-      // returnDate = this.returnDate.toUTCString()
+      // returnDate = new Date(this.returnDate.getTime() + (7 * 60 * 60 * 1000)).toUTCString();
+      returnDate = this.returnDate.toUTCString() // Đúng sau 6h tối
     }
 
     const queryParams: BookingScheduleParams = {

@@ -34,6 +34,22 @@ namespace WebApi.Controllers
             return Ok(roundTrips);
         }
 
+        [HttpGet("trainCompany/{id}")]
+        public async Task<ActionResult<IEnumerable<RoundTripDto>>> GetRoundTripsByTrainCompanyId(int id)
+        {
+            var roundTrips = await _roundTripService.GetDtoByTrainCompanyIdAsync(id);
+
+            if (roundTrips is null)
+            {
+                return Ok(new RoundTripDto
+                {
+                    Discount = 0,
+                });
+            }
+
+            return Ok(roundTrips);
+        }
+
         [HttpPost]
         public async Task<ActionResult> AddRoundTrip([FromBody] RoundTrip roundTrip)
         {

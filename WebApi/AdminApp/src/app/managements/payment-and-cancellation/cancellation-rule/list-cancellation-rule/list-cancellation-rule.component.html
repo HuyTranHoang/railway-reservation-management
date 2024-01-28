@@ -67,7 +67,7 @@
       <tr *ngFor="let item of cancellationRules; let index = index">
         <th scope="row">{{ index + 1 }}</th>
         <td>{{ item.departureDateDifference }}</td>
-        <td>{{ item.fee | currency }}</td>
+        <td>{{ item.fee | currency:'VND' }}</td>
         <td>{{ item.status }}</td>
         <td>{{ item.createdAt | date: 'medium' }}</td>
         <td class="text-right">

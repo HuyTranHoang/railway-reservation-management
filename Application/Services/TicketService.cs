@@ -38,13 +38,12 @@ namespace Application.Services
         {
             var tickets = await _repository.GetAllNoPagingAsync();
 
-
             ticket.Code = GenerateUniqueCode(ticket);
-
-            ticket.Price = await CalculatePrice(ticket);
 
             int distanceFareId = await CaculateDistanceFareId(ticket);
             ticket.DistanceFareId = distanceFareId;
+
+            ticket.Price = await CalculatePrice(ticket);
 
             bool isSeatAndScheduleExistsInTickets = tickets.Any(t =>
                 t.SeatId == ticket.SeatId && t.ScheduleId == ticket.ScheduleId);
@@ -55,6 +54,7 @@ namespace Application.Services
             }
 
             await _repository.Add(ticket);
+            
             await _unitOfWork.SaveChangesAsync();
         }
 
@@ -197,7 +197,7 @@ namespace Application.Services
             return _mapper.Map<List<TicketDto>>(tickets);
         }
 
-        public async Task<int> CaculateDistanceFareId(Ticket ticket)
+        private async Task<int> CaculateDistanceFareId(Ticket ticket)
         {
             var schedule = await _schedule.GetByIdAsync(ticket.ScheduleId);
             var train = await _train.GetByIdAsync(schedule.TrainId);

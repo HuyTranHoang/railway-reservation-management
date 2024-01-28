@@ -46,6 +46,8 @@ export class DepartureComponent implements OnInit {
 
   ngOnInit(): void {
     setTimeout(() => {
+      this.departureService.isFromRoundTrip = false
+      this.bookingService.isRoundTrip = false
       this.bookingService.currentStep = 1
     }, 0)
 
@@ -70,13 +72,29 @@ export class DepartureComponent implements OnInit {
         }
       }
 
-      this.schedulesParams = { departureStationId, arrivalStationId, departureTime, returnDate, roundTrip }
+      if (!departureStationId || !arrivalStationId || !departureTime) {
+        Swal.fire('Oops', 'Please select a valid departure station, arrival station and departure date', 'error')
+        this.router.navigate(['/'])
+      }
+
+      if (roundTrip) {
+        this.roundTrip = roundTrip === 'true'
+      }
+
+      this.schedulesParams = {
+        departureStationId,
+        arrivalStationId,
+        departureTime,
+        returnDate,
+        roundTrip: this.roundTrip
+      }
+
       this.bookingService.currentBookingScheduleParams = this.schedulesParams
 
       if (departureStationId && arrivalStationId && departureTime) {
         this.departureService.loadScheduleInfo(departureStationId, arrivalStationId, departureTime)
-        this.fromCurrentStation = this.departureService.scheduleInfo?.fromStationName || 'City, station'
-        this.toCurrentStation = this.departureService.scheduleInfo?.toStationName || 'City, station'
+        //this.fromCurrentStation = this.departureService.scheduleInfo?.fromStationName || 'City, station'
+        //this.toCurrentStation = this.departureService.scheduleInfo?.toStationName || 'City, station'
       }
 
       if (this.schedulesParams) {
@@ -85,10 +103,6 @@ export class DepartureComponent implements OnInit {
 
       if (departureTime) {
         this.currentDepartureDate = new Date(departureTime)
-      }
-
-      if (roundTrip) {
-        this.roundTrip = roundTrip === 'true'
       }
 
     })
@@ -244,6 +258,8 @@ export class DepartureComponent implements OnInit {
       roundTrip: this.roundTrip
     }
 
+    this.departureService.isFromRoundTrip = false
+
     this.router.navigate(['/booking'], { queryParams })
   }
 
@@ -253,8 +269,33 @@ export class DepartureComponent implements OnInit {
   }
 
   onBookNowClick(currentSelectSchedule: Schedule) {
-    this.bookingService.currentSelectSchedule = currentSelectSchedule
-    this.router.navigate(['/booking/seat-selection'])
+
+    if (!this.roundTrip) {
+      this.bookingService.currentSelectDepartureSchedule = currentSelectSchedule
+      this.router.navigate(['/booking/seat-selection'])
+      return
+    }
+
+    if (this.roundTrip && !this.departureService.isFromRoundTrip) {
+      this.bookingService.currentSelectDepartureSchedule = currentSelectSchedule
+      //Đánh dấu đã lấy schedule đi
+      this.departureService.isFromRoundTrip = true
+      this.bookingService.isRoundTrip = true
+      //Load lại return schedule
+      const returnParams: BookingScheduleParams = {
+        departureStationId: this.schedulesParams!.arrivalStationId,
+        arrivalStationId: this.schedulesParams!.departureStationId,
+        departureTime: this.schedulesParams!.returnDate || '',
+        returnDate: this.schedulesParams!.departureTime,
+        roundTrip: this.roundTrip
+      }
+      this.departureService.loadSchedule(returnParams)
+      this.departureService.loadScheduleInfo(returnParams.departureStationId, returnParams.arrivalStationId, returnParams.departureTime)
+
+    } else if (this.roundTrip && this.departureService.isFromRoundTrip) {
+      this.bookingService.currentSelectReturnSchedule = currentSelectSchedule
+      this.router.navigate(['/booking/seat-selection'])
+    }
   }
 
   // End of departure section

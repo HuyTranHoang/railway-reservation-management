@@ -4,5 +4,6 @@ namespace Application.Common.Interfaces.Services
     {
         Task<PagedList<RoundTripDto>> GetAllDtoAsync(RoundTripParams queryParams);
         Task<RoundTripDto> GetDtoByIdAsync(int id);
+        Task<RoundTripDto> GetDtoByTrainCompanyIdAsync(int trainCompanyId);
     }
 }

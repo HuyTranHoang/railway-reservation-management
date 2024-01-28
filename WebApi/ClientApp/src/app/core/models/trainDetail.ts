@@ -32,9 +32,12 @@ export interface Compartment {
 export interface Seat {
   id: number
   name: string
+  carriageId: number
+  compartmentId: number
   seatTypeId: number
   seatTypeName: string
   serviceCharge: number
+  seatTotalPrice: number
   booked: boolean
   selected: boolean
 }

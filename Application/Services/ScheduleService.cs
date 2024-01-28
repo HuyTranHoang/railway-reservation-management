@@ -200,7 +200,7 @@ public class ScheduleService : IScheduleService
         var departure = await _trainStationRepository.GetByIdAsync(schedule.DepartureStationId);
         var arrival = await _trainStationRepository.GetByIdAsync(schedule.ArrivalStationId);
 
-        int distance = arrival.CoordinateValue - departure.CoordinateValue;
+        int distance = Math.Abs(arrival.CoordinateValue - departure.CoordinateValue);
         var train = await _trainRepository.GetByIdAsync(schedule.TrainId);
 
         var distanceFare = await _distanceFareRepository.GetByDistanceAsync(distance, train.TrainCompanyId);

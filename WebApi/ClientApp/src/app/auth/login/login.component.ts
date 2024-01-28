@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Inject, OnInit, Renderer2, ViewChild } from '@angular/core'
+import { AfterViewInit, Component, ElementRef, Inject, NgZone, OnInit, Renderer2, ViewChild } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { AuthService } from '../auth.service'
 import { ActivatedRoute, Router } from '@angular/router'
@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
               private fb: FormBuilder,
               private renderer2: Renderer2,
               @Inject(DOCUMENT) private document: Document,
+              private zone: NgZone,
               private activatedRouter: ActivatedRoute,
               private router: Router) {
     this.authService.user$.pipe(take(1)).subscribe({
@@ -124,12 +125,23 @@ export class LoginComponent implements OnInit, AfterViewInit {
             console.log(">>>>>", isUserRegistered)
             if (isUserRegistered) {
               // Người dùng đã đăng ký, chuyển hướng đến trang chủ hoặc trang đích
-              this.router.navigateByUrl('/');
+              this.zone.run(() => {
+                if (this.returnUrl)
+                  this.router.navigateByUrl(this.returnUrl)
+                else
+                  this.router.navigateByUrl('/')
+              });
+
             } else {
               const model = new RegisterWithExternal(firstName, lastName, email, userId, accessToken, 'facebook')
               this.authService.registerWithThirdParty(model).subscribe({
                 next: _ => {
-                  this.router.navigateByUrl('/')
+                  this.zone.run(() => {
+                    if (this.returnUrl)
+                      this.router.navigateByUrl(this.returnUrl)
+                    else
+                      this.router.navigateByUrl('/')
+                  });
                 },
                 error: err => {
                   console.log(err.errors)
@@ -192,12 +204,22 @@ export class LoginComponent implements OnInit, AfterViewInit {
         console.log('>>>>>', isUserRegistered)
         if (isUserRegistered) {
           // Người dùng đã đăng ký, chuyển hướng đến trang chủ hoặc trang đích
-          this.router.navigateByUrl('/')
+          this.zone.run(() => {
+            if (this.returnUrl)
+              this.router.navigateByUrl(this.returnUrl)
+            else
+              this.router.navigateByUrl('/')
+          });
         } else {
           const model = new RegisterWithExternal(firstName, lastName, email, userId, accessToken, 'google')
           this.authService.registerWithThirdParty(model).subscribe({
             next: _ => {
-              this.router.navigateByUrl('/')
+              this.zone.run(() => {
+                if (this.returnUrl)
+                  this.router.navigateByUrl(this.returnUrl)
+                else
+                  this.router.navigateByUrl('/')
+              });
             },
             error: err => {
               console.log(err.errors)

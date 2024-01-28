@@ -4,5 +4,7 @@ namespace Application.Common.Interfaces.Persistence
     {
         Task<IQueryable<RoundTrip>> GetQueryWithTrainCompanyAsync();
         Task<RoundTrip> GetByIdWithTrainCompanyAsync(int id);
+
+        Task<RoundTrip> GetByTrainCompanyIdAsync(int trainCompanyId);
     }
 }

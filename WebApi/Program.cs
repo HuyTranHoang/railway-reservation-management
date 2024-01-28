@@ -1,9 +1,9 @@
 using Application;
-using Application.Services;
 using Hangfire;
 using Infrastructure;
 using Infrastructure.Data;
 using Serilog;
+using WebApi.Controllers;
 using WebApi.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +16,8 @@ builder.Services
     .AddInfrastructure(builder.Configuration)
     .AddWebApi(builder.Configuration);
 
+builder.Services.AddHttpContextAccessor();
+
 builder.Services.AddHangfire(x => x.UseSqlServerStorage(
     builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -26,13 +28,14 @@ Log.Logger = new LoggerConfiguration()
     .CreateLogger();
 
 builder.Services.AddDistributedMemoryCache();
-builder.Services.AddSession();
 
 builder.Host.UseSerilog();
 
-var app = builder.Build();
+builder.Services.AddSignalR();
 
-// Configure the HTTP request pipeline.
+builder.Services.AddSession();
+
+var app = builder.Build();
 
 app.UseHangfireDashboard();
 
@@ -68,13 +71,21 @@ app.UseStaticFiles();
 
 app.UseHttpsRedirection();
 
+app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseSession();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapHub<PaymentHub>("/paymentHub");
+    endpoints.MapControllers();
+});
+
 
 app.MapControllers();
 
 app.MigrateAndSeedDatabase();
-
-app.UseSession();
 
 app.Run();

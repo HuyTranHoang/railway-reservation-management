@@ -1,0 +1,65 @@
+<div class="col-md-6">
+
+  <nb-card>
+    <nb-card-header>
+      <div class="d-flex justify-content-between">
+        Define New User
+        <button type="submit" nbButton
+                routerLink="/managements/user"
+                status="primary">Back to list
+        </button>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+
+        <app-input-field [control]="userForm.get('firstName')"
+                         [label]="'First Name'"
+                         [isSubmitted]="isSubmitted"
+                         [placeholder]="'First name..'">
+        </app-input-field>
+
+        <app-input-field [control]="userForm.get('lastName')"
+                         [label]="'Last name'"
+                         [isSubmitted]="isSubmitted"
+                         [placeholder]="'Last name..'">
+        </app-input-field>
+
+        <app-input-field [control]="userForm.get('userName')"
+                         [label]="'Email'"
+                         [isSubmitted]="isSubmitted"
+                         [placeholder]="'Email..'">
+        </app-input-field>
+
+        <app-input-field [control]="userForm.get('password')"
+                         [label]="'Password'"
+                         [type]="'password'"
+                         [isSubmitted]="isSubmitted"
+                         [placeholder]="'Password..'">
+        </app-input-field>
+
+          <div class="form-group">
+              <label class="label">Role</label>
+              <nb-select formControlName="roles"
+                         [class.status-danger]="userForm.get('roles')?.invalid && (userForm.get('roles')?.touched || isSubmitted)"
+                         placeholder="Select train company.."
+                         fullWidth>
+                  <nb-option *ngFor="let item of roles" [value]="item">{{item}}</nb-option>
+              </nb-select>
+
+              <span class="text-danger"
+                    *ngIf="userForm.get('roles')?.hasError('required')
+                && (userForm.get('roles')?.touched || isSubmitted)">
+            Role is required
+          </span>
+          </div>
+
+        <ul *ngIf="errorMessages.length > 0">
+          <li class="text-danger" *ngFor="let item of errorMessages">{{item}}</li>
+        </ul>
+
+        <button type="submit" nbButton status="success" class="float-right">Submit</button>
+      </form>
+    </nb-card-body>
+  </nb-card>
+</div>

@@ -37,6 +37,12 @@ namespace Infrastructure.Persistence
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
 
+        public async Task<RoundTrip> GetByTrainCompanyIdAsync(int trainCompanyId)
+        {
+            return await _context.RoundTrips
+                .FirstOrDefaultAsync(x => x.TrainCompanyId == trainCompanyId);
+        }
+
         public async Task<IQueryable<RoundTrip>> GetQueryAsync()
         {
             return await Task.FromResult(

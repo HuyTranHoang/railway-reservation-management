@@ -1,28 +1,58 @@
-<div class="container-fluid text-center "
-     style="padding-top: 120px; padding-bottom: 120px ;
-     background: url(https://1.bp.blogspot.com/-TJAu7FF76Do/YT3KhmMNr_I/AAAAAAAAHys/B-EAKcjW4fcp_XgC3-Rn-GYrF_cNtHYmwCLcBGAsYHQ/s0-rw/bo-hinh-nen-phong-canh-chat-luong-cao-full-hd-dep-nhat-15.jpg) center center no-repeat;
-     background-size: cover">
+<div class="container d-flex flex-column align-items-center justify-content-center p-2" style="margin-top: 100px">
 
-  <h1 class="teko" style="color: #F79A24;">
-    BOOKED WITH US?
-  </h1>
+  <form [formGroup]="lookUpForm" (ngSubmit)="onSubmit()" style="width: 800px">
+    <div class="row bg-white ms-0 me-0">
+      <div class="col" style="padding: 20px 3% 15px 3%;">
+        <span class="bold">
+          To access an existing ticket, please enter your Ticket code and your Email address below.
+        </span>
+      </div>
 
-  <p style=" color: #fff;" class="card-title">
-    To access an existing ticket, please enter your Ticket code and your Email address below.
-  </p>
+      <div class="horizontal-divider"></div>
+      <div class="col-12 d-flex" style="padding: 14px 3% 18px 3%;">
+        <div class="me-3" style="width: 100%">
+          <input type="text"
+                 formControlName="code"
+                 class="form-control" placeholder="ticket code">
+          <span class="text-danger small" *ngIf="lookUpForm.controls['code'].invalid
+            && (lookUpForm.controls['code'].touched || isSubmitted)">
+          Ticket code is required
+        </span>
+        </div>
+      </div>
 
-  <form (ngSubmit)="onSubmit()" class="form form-control w-50 m-auto mt-5" style="background: rgba(0,0,0,0.5); ">
+      <div class="col-12 d-flex" style="padding: 14px 3% 28px 3%;">
+        <div class="me-3" style="width: 100%">
+          <input type="text"
+                 formControlName="email"
+                 class="form-control" placeholder="email address">
+          <span class="text-danger small" *ngIf="lookUpForm.controls['email'].invalid
+            && (lookUpForm.controls['email'].touched || isSubmitted)">
+          Email address is required
+        </span>
+        </div>
+      </div>
+    </div>
 
-    <label class="form-label p-2">Ticket code</label>
-    <input class="form-control p-2" type="text"
-           [(ngModel)]="code" name="code" required>
-
-    <label class="form-label p-2">Phone number</label>
-    <input class="form-control p-2" type="text"
-           [(ngModel)]="email" name="phoneNumber" required>
-    <button class="form-control w-100 p-2" type="submit">Submit
+    <button type="submit" class="btn green w-100">
+      <span class="bold">CONTINUE</span>
     </button>
-    <p class="text-bg-danger ">{{ wrong }}</p>
-  </form>
-</div>
 
+  </form>
+
+
+  <div class="row mt-5">
+    <div class="col-12">
+      <div class="horizontal-divider"></div>
+    </div>
+
+    <div class="col-12 d-flex justify-content-center mt-3">
+      <span class="bold">OR</span>
+    </div>
+
+    <div class="col-12 d-flex flex-column align-items-center justify-content-center mt-3">
+      <span>If you have an account that has booked that ticket</span>
+      <a routerLink="/user/booking" style="color: #a8a8a8" class="mt-2 pb-5 bold">CHECKOUT BOOKING HISTORY</a>
+    </div>
+  </div>
+</div>

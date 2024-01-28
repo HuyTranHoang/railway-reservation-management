@@ -16,15 +16,24 @@ export class SeatSelectionComponent implements OnInit {
 
   seatTypes: SeatType[] = []
 
-  trainDetail: TrainDetail | undefined
+  // Departure _de
+  trainDetail_de: TrainDetail | undefined
+  carriageMatchType_de: Carriage[] = []
+  currentSelectCarriage_de: Carriage | undefined
+  compartmentOfCarriage_de: Compartment[] = []
+  selectedDepartureSeats_de: Seat[] = []
+  seatRows_de: Seat[][] = []
+  // End of departure
 
-  carriageMatchType: Carriage[] = []
-  currentSelectCarriage: Carriage | undefined
-  compartmentOfCarriage: Compartment[] = []
+  // Return _re
+  trainDetail_re: TrainDetail | undefined
+  carriageMatchType_re: Carriage[] = []
+  currentSelectCarriage_re: Carriage | undefined
+  compartmentOfCarriage_re: Compartment[] = []
+  selectedDepartureSeats_re: Seat[] = []
+  seatRows_re: Seat[][] = []
 
-  selectedSeats: Seat[] = []
-
-  seatRows: Seat[][] = []
+  // End of return
 
   constructor(public bookingService: BookingService,
               private seatSelectionService: SeatSelectionService,
@@ -39,8 +48,8 @@ export class SeatSelectionComponent implements OnInit {
 
     this.getSeatTypes()
 
-    if (this.bookingService.currentSelectSchedule) {
-      this.getTrainDetailsByScheduleId(this.bookingService.currentSelectSchedule.id)
+    if (this.bookingService.currentSelectDepartureSchedule) {
+      this.getTrainDetailsByScheduleId()
     }
   }
 
@@ -52,86 +61,236 @@ export class SeatSelectionComponent implements OnInit {
     })
   }
 
-  getTrainDetailsByScheduleId(scheduleId: number) {
-    this.seatSelectionService.getTrainDetailsByScheduleId(scheduleId).subscribe({
+  getTrainDetailsByScheduleId() {
+    const scheduleId_de = this.bookingService.currentSelectDepartureSchedule?.id || 0
+
+    this.seatSelectionService.getTrainDetailsByScheduleId(scheduleId_de).subscribe({
       next: (res) => {
-        this.trainDetail = res
-        this.carriageMatchType = this.trainDetail.carriages
-          .filter(c => c.type.id === this.bookingService.currentSelectSchedule?.selectedCarriageType?.id)
+        this.trainDetail_de = res
+        this.carriageMatchType_de = this.trainDetail_de.carriages
+          .filter(c => c.type.id === this.bookingService.currentSelectDepartureSchedule?.selectedCarriageType?.id)
 
-        this.currentSelectCarriage = this.carriageMatchType[0]
-        this.compartmentOfCarriage = this.currentSelectCarriage?.compartments || []
+        this.currentSelectCarriage_de = this.carriageMatchType_de[0]
+        this.compartmentOfCarriage_de = this.currentSelectCarriage_de?.compartments || []
 
-        if (this.bookingService.currentSelectSchedule?.selectedCarriageType?.id == 1)
-          this.generateSeatRows()
+        if (this.bookingService.currentSelectDepartureSchedule?.selectedCarriageType?.id == 1)
+          this.generateSeatRows_de()
+        else { // Cập nhật dữ liệu giường
+          this.compartmentOfCarriage_de.forEach(c => {
+            c.seats.forEach(s => {
+              this.updateSeatDepartureDetails(s)
+            })
+          })
+        }
       }
     })
+
+    if (this.bookingService.isRoundTrip) {
+      const scheduleId_re = this.bookingService.currentSelectReturnSchedule?.id || 0
+      this.seatSelectionService.getTrainDetailsByScheduleId(scheduleId_re).subscribe({
+        next: (res) => {
+          this.trainDetail_re = res
+          this.carriageMatchType_re = this.trainDetail_re.carriages
+            .filter(c => c.type.id === this.bookingService.currentSelectReturnSchedule?.selectedCarriageType?.id)
+
+          this.currentSelectCarriage_re = this.carriageMatchType_re[0]
+          this.compartmentOfCarriage_re = this.currentSelectCarriage_re?.compartments || []
+
+          if (this.bookingService.currentSelectReturnSchedule?.selectedCarriageType?.id == 1)
+            this.generateSeatRows_re()
+          else { // Cập nhật dữ liệu giường
+            this.compartmentOfCarriage_re.forEach(c => {
+              c.seats.forEach(s => {
+                this.updateSeatReturnDetails(s)
+              })
+            })
+          }
+        }
+      })
+    }
+
   }
 
-  generateSeatRows() {
-    const seatsPerRow = 8;
+  generateSeatRows_de() {
+    const seatsPerRow = 8
     const numberOfRows = 4
 
     for (let i = 0; i < numberOfRows; i++) {
-      const row: Seat[] = [];
+      const row: Seat[] = []
 
       for (let j = 0; j < seatsPerRow; j++) {
-        const seatIndex = i + j * numberOfRows;
-        if (seatIndex < this.compartmentOfCarriage[0].seats.length) {
-          row.push(this.compartmentOfCarriage[0].seats[seatIndex]);
+        const seatIndex = i + j * numberOfRows
+        if (seatIndex < this.compartmentOfCarriage_de[0].seats.length) {
+          this.updateSeatDepartureDetails(this.compartmentOfCarriage_de[0].seats[seatIndex])
+          row.push(this.compartmentOfCarriage_de[0].seats[seatIndex])
         }
       }
 
-      this.seatRows.push(row);
+      this.seatRows_de.push(row)
     }
 
     for (let i = 0; i < numberOfRows; i++) {
-      const row: Seat[] = [];
+      const row: Seat[] = []
 
       for (let j = 0; j < seatsPerRow; j++) {
-        const seatIndex = i + j * numberOfRows;
-        if (seatIndex < this.compartmentOfCarriage[1].seats.length) {
-          row.push(this.compartmentOfCarriage[1].seats[seatIndex]);
+        const seatIndex = i + j * numberOfRows
+        if (seatIndex < this.compartmentOfCarriage_de[1].seats.length) {
+          this.updateSeatDepartureDetails(this.compartmentOfCarriage_de[1].seats[seatIndex])
+          row.push(this.compartmentOfCarriage_de[1].seats[seatIndex])
         }
       }
 
-      this.seatRows.push(row);
+      this.seatRows_de.push(row)
     }
   }
 
-  toggleSelectSeat(seat: Seat) {
+  generateSeatRows_re() {
+    const seatsPerRow = 8
+    const numberOfRows = 4
+
+    for (let i = 0; i < numberOfRows; i++) {
+      const row: Seat[] = []
+
+      for (let j = 0; j < seatsPerRow; j++) {
+        const seatIndex = i + j * numberOfRows
+        if (seatIndex < this.compartmentOfCarriage_re[0].seats.length) {
+          this.updateSeatReturnDetails(this.compartmentOfCarriage_re[0].seats[seatIndex])
+          row.push(this.compartmentOfCarriage_re[0].seats[seatIndex])
+        }
+      }
+
+      this.seatRows_re.push(row)
+    }
+
+    for (let i = 0; i < numberOfRows; i++) {
+      const row: Seat[] = []
+
+      for (let j = 0; j < seatsPerRow; j++) {
+        const seatIndex = i + j * numberOfRows
+        if (seatIndex < this.compartmentOfCarriage_re[1].seats.length) {
+          this.updateSeatReturnDetails(this.compartmentOfCarriage_re[1].seats[seatIndex])
+          row.push(this.compartmentOfCarriage_re[1].seats[seatIndex])
+        }
+      }
+
+      this.seatRows_re.push(row)
+    }
+  }
+
+  toggleSelectDepartureSeat(seat: Seat) {
     seat.selected = !seat.selected
 
     if (seat.selected && !seat.booked) {
-      this.selectedSeats.push(seat)
+      this.selectedDepartureSeats_de.push(seat)
     } else {
-      this.selectedSeats = this.selectedSeats.filter(s => s.id !== seat.id)
+      this.selectedDepartureSeats_de = this.selectedDepartureSeats_de.filter(s => s.id !== seat.id)
     }
   }
 
-  selectCarriage(carriage: Carriage) {
-    this.currentSelectCarriage = carriage
-    this.compartmentOfCarriage = this.currentSelectCarriage?.compartments || []
+  toggleSelectReturnSeat(seat: Seat) {
+    seat.selected = !seat.selected
+
+    if (seat.selected && !seat.booked) {
+      this.selectedDepartureSeats_re.push(seat)
+    } else {
+      this.selectedDepartureSeats_re = this.selectedDepartureSeats_re.filter(s => s.id !== seat.id)
+    }
   }
 
-  onSubmit() {
+  updateSeatDepartureDetails(seat: Seat) {
+    seat.carriageId = this.currentSelectCarriage_de?.id || 0
+    seat.compartmentId = this.getCompartmentId(seat) || 0
+    seat.serviceCharge = this.getServiceCharge(seat) || 0
+    seat.seatTypeName = this.getSeatTypeName(seat) || ''
 
-    if (this.selectedSeats.length === 0) {
+    if (this.bookingService.currentSelectDepartureSchedule) {
+      seat.seatTotalPrice = seat.serviceCharge
+        + this.bookingService.currentSelectDepartureSchedule.price
+        + this.bookingService.currentSelectDepartureSchedule.selectedCarriageType.serviceCharge
+    }
+  }
+
+  updateSeatReturnDetails(seat: Seat) {
+    seat.carriageId = this.currentSelectCarriage_re?.id || 0
+    seat.compartmentId = this.getCompartmentId(seat) || 0
+    seat.serviceCharge = this.getServiceCharge(seat) || 0
+    seat.seatTypeName = this.getSeatTypeName(seat) || ''
+
+    if (this.bookingService.currentSelectReturnSchedule) {
+      seat.seatTotalPrice = seat.serviceCharge
+        + this.bookingService.currentSelectReturnSchedule.price
+        + this.bookingService.currentSelectReturnSchedule.selectedCarriageType.serviceCharge
+    }
+  }
+
+  getCompartmentId(seat: Seat): number | undefined {
+    return this.compartmentOfCarriage_de.find(c => c.seats.find(se => se.id === seat.id))?.id
+  }
+
+  getServiceCharge(seat: Seat): number | undefined {
+    return this.seatTypes.find(st => st.id === seat.seatTypeId)?.serviceCharge
+  }
+
+  getSeatTypeName(seat: Seat): string | undefined {
+    return this.seatTypes.find(st => st.id === seat.seatTypeId)?.name
+  }
+
+  selectCarriage_de(carriage: Carriage) {
+    this.currentSelectCarriage_de = carriage
+    this.compartmentOfCarriage_de = this.currentSelectCarriage_de?.compartments || []
+    if (this.bookingService.currentSelectDepartureSchedule?.selectedCarriageType?.id == 1) {
+      this.seatRows_de = []
+      this.generateSeatRows_de()
+    }
+  }
+
+  selectCarriage_re(carriage: Carriage) {
+    this.currentSelectCarriage_re = carriage
+    this.compartmentOfCarriage_re = this.currentSelectCarriage_re?.compartments || []
+    if (this.bookingService.currentSelectReturnSchedule?.selectedCarriageType?.id == 1) {
+      this.seatRows_re = []
+      this.generateSeatRows_re()
+    }
+  }
+
+
+  onSubmit() {
+    if (this.selectedDepartureSeats_de.length === 0) {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: 'Please select at least one seat'
+        text: 'Please select at least one seat for departure'
       })
       return
     }
 
-    this.selectedSeats.forEach(s => {
-      s.serviceCharge = this.seatTypes.find(st => st.id === s.seatTypeId)?.serviceCharge || 0
-      s.seatTypeName = this.seatTypes.find(st => st.id === s.seatTypeId)?.name || ''
-    })
-
     this.bookingService.currentSelectSeats = []
-    this.bookingService.currentSelectSeats = this.selectedSeats
+
+    if (!this.bookingService.isRoundTrip)
+      this.bookingService.currentSelectSeats = this.selectedDepartureSeats_de
+    else {
+      if (this.selectedDepartureSeats_re.length === 0) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Please select at least one seat for return'
+        })
+        return
+      }
+
+      if (this.selectedDepartureSeats_de.length !== this.selectedDepartureSeats_re.length) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Please select the same number of seats for departure and return'
+        })
+        return
+      }
+
+      this.bookingService.currentSelectSeats = [...this.selectedDepartureSeats_de, ...this.selectedDepartureSeats_re]
+    }
+
+
     this.router.navigate(['/booking/passengers'])
   }
 

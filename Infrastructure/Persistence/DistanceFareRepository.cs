@@ -46,7 +46,7 @@ public class DistanceFareRepository : IDistanceFareRepository
     {
         var distanceFare = await _context.DistanceFares
             .Where(d => d.Id == id)
-            .Select(d => d.Distance)
+            .Select(d => d.Price)
             .FirstOrDefaultAsync();
 
         return distanceFare;

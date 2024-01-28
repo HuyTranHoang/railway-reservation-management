@@ -3,7 +3,7 @@ export interface Ticket {
   code: string,
   passengerId: number,
   passengerName: string,
-   trainId: number,
+  trainId: number,
   trainName: string,
   carriageId: number,
   carriageName: string,
@@ -14,6 +14,7 @@ export interface Ticket {
   scheduleName: string,
   paymentId: number,
   price: number,
+  isCancel: boolean,
   status: string,
   createdAt: string
 }

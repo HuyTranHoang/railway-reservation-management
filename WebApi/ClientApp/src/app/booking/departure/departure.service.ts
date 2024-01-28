@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { TrainStationService } from '../../core/services/train-station.service'
-import { Schedule, ScheduleWithBookingParams } from '../../core/models/schedule'
+import { Schedule } from '../../core/models/schedule'
 import { BookingService } from '../booking.service'
 import { BookingScheduleParams } from '../../core/models/params/bookingScheduleParams'
 
@@ -11,6 +11,8 @@ export class DepartureService {
 
   schedules: Schedule[] = []
   scheduleInfo: { fromStationName: string, toStationName: string, departureDate: string } | undefined
+
+  isFromRoundTrip = false
 
   constructor(private trainStationService: TrainStationService,
               private bookingService: BookingService) { }
@@ -32,8 +34,8 @@ export class DepartureService {
   loadSchedule(scheduleParams: BookingScheduleParams) {
 
     this.bookingService.getBookingSchedule(scheduleParams).subscribe({
-      next: (schedules: ScheduleWithBookingParams) => {
-        this.schedules = schedules.schedule
+      next: (schedules: Schedule[]) => {
+        this.schedules = schedules
       },
       error: (err: any) => {
         console.log(err)

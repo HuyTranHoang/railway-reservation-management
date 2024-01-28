@@ -1,4 +1,5 @@
-<h2>Select your departing trip</h2>
+<h2 *ngIf="!departureService.isFromRoundTrip">Select your departing trip</h2>
+<h2 *ngIf="departureService.isFromRoundTrip">Select your returning trip</h2>
 
 <!--<pre>-->
 <!--  {{ departureService.schedules | json }}-->
@@ -11,9 +12,8 @@
   to
   <span class="blue-text bold">{{ departureService.scheduleInfo?.toStationName }}</span>
   on
-  <span>{{ departureService.scheduleInfo?.departureDate | date }}</span>
+  <span>{{ departureService.scheduleInfo?.departureDate | date:'mediumDate':'utc' }}</span>
 </h5>
-
 
 <table class="table">
   <thead>
@@ -70,7 +70,7 @@
 
       <td class="text-start" style="">
         <div class="yellow-text bold">
-          <span class="money">{{ item.price | currency }}</span>
+          <span class="money">{{ item.price | currency: 'VND' }}</span>
         </div>
       </td>
 
@@ -136,7 +136,7 @@
                           <br>
 
                           <div>
-                            <span class="yellow-text bold">{{ item.price + type.serviceCharge | currency }}</span>
+                            <span class="yellow-text bold">{{ item.price + type.serviceCharge | currency:'VND'}}</span>
                           </div>
                         </label>
                       </div>

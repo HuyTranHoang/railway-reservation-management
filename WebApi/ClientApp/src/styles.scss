@@ -100,8 +100,16 @@ tabset.user-booking-history {
       }
     }
   }
-
 }
 
-//html, body { height: 100%; }
-//body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+// Tool tip
+.tooltip-inner {
+  font-family: 'Montserrat', sans-serif;
+  background-color: #fb0;
+  font-weight: 600;
+  color: #fff;
+}
+.tooltip.top .tooltip-arrow:before,
+.tooltip.top .tooltip-arrow {
+  border-top-color: #fb0;
+}

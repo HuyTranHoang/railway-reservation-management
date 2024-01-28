@@ -85,8 +85,8 @@ public class CarriageService : ICarriageService
 
     public async Task<CarriageDto> GetDtoByIdAsync(int id)
     {
-        var carriageDto = await _repository.GetByIdAsync(id);
-        return _mapper.Map<CarriageDto>(carriageDto);
+        var carriage = await _repository.GetByIdWithCarriageTypeAsync(id);
+        return _mapper.Map<CarriageDto>(carriage);
     }
 
     public async Task SoftDeleteAsync(Carriage carriage)

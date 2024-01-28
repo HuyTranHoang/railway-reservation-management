@@ -99,12 +99,13 @@ export class AddCancellationComponent implements OnInit {
         this.errorMessages = [];
       },
       error: (err) => {
+        console.log(err)
         this.showToast('danger', 'Failed', 'Add cancellation failed!');
-        if (err.error.errors) {
-          this.errorMessages = err.error.errors;
-        } else {
-          this.errorMessages = err.error.errorMessages;
-        }
+        // if (err.error.errors) {
+        //   this.errorMessages = err.error.errors;
+        // } else {
+        //   this.errorMessages = err.error.errorMessages;
+        // }
       },
     });
   }

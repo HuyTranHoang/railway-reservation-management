@@ -24,6 +24,10 @@ export class DepartureSelectComponent {
       item.selectedCarriageType = item.scheduleCarriageTypes[0];
     }
 
+    for (let i = 0; i < this.departureService.schedules.length; i++) {
+      this.openStates[i] = false;
+    }
+
     this.bookNow.emit(item); // Emit đến departure.component.ts
   }
 

@@ -32,6 +32,8 @@ namespace Application.Common.Models
 
         public double Price { get; set; }
 
+        public bool IsCancel { get; set; }
+
         public string Status { get; set; }
 
         public DateTime CreatedAt { get; set; }

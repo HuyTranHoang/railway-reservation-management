@@ -1,15 +1,32 @@
-using Application.Services;
+using System.Security.Claims;
 using Domain.Exceptions;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.SignalR;
 
 namespace WebApi.Controllers;
 
 public class PaymentsController : BaseApiController
 {
     private readonly IPaymentService _paymentService;
+    private readonly IConfiguration _configuration;
+    private readonly IVnPayService _vnPayService;
+    private readonly IHubContext<PaymentHub> _hubContext;
+    private readonly UserManager<ApplicationUser> _userManager;
+    private readonly ILogger<PaymentsController> _logger;
 
-    public PaymentsController(IPaymentService paymentService)
+    public PaymentsController(IPaymentService paymentService,
+        IConfiguration configuration,
+        IVnPayService vnPayService,
+        IHubContext<PaymentHub> hubContext,
+        UserManager<ApplicationUser> userManager,
+        ILogger<PaymentsController> logger)
     {
         _paymentService = paymentService;
+        _configuration = configuration;
+        _vnPayService = vnPayService;
+        _hubContext = hubContext;
+        _userManager = userManager;
+        _logger = logger;
     }
 
     [HttpGet]
@@ -38,7 +55,6 @@ public class PaymentsController : BaseApiController
     [HttpPost]
     public async Task<ActionResult> PostPayment([FromBody] Payment payment)
     {
-
         if (!ModelState.IsValid)
         {
             return BadRequest(ModelState);
@@ -55,6 +71,32 @@ public class PaymentsController : BaseApiController
         }
 
         return CreatedAtAction("GetPayment", new { id = payment.Id }, payment);
+    }
+
+    [HttpPost("addPaymentByEmail/{email}")]
+    public async Task<ActionResult> PostPaymentByEmail(string email)
+    {
+        var user = await _userManager.FindByEmailAsync(email);
+        if (user is null) return NotFound(new ErrorResponse(404));
+
+        var payment = new Payment
+        {
+            AspNetUserId = user.Id,
+            Status = "Success"
+        };
+
+        try
+        {
+            await _paymentService.AddAsync(payment);
+        }
+        catch (BadRequestException ex)
+        {
+            var errorResponse = new ValidateInputError(400, new List<string> { ex.Message });
+            return BadRequest(errorResponse);
+        }
+
+        return Ok(new { paymentId = payment.Id, message = "Add payment successful" });
+        // return CreatedAtAction("GetPayment", new { id = payment.Id }, payment);
     }
 
     [HttpPut("{id}")]
@@ -93,5 +135,57 @@ public class PaymentsController : BaseApiController
         await _paymentService.SoftDeleteAsync(payment);
 
         return NoContent();
+    }
+
+    [HttpPost("createUrlVnPay")]
+    public IActionResult CreateUrlVnPay([FromBody] PaymentInformationModel model)
+    {
+        try
+        {
+            var paymentUrl = _vnPayService.CreatePaymentUrl(model, HttpContext);
+            return Ok(new { PaymentUrl = paymentUrl });
+        }
+        catch (Exception ex)
+        {
+            // Ghi log chi tiết về ngoại lệ
+            _logger.LogError(ex, "Đã xảy ra lỗi trong hành động CreateUrlVnPay.");
+
+            // Log or handle the exception as needed
+            return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error");
+        }
+    }
+
+    [HttpGet("callback")]
+    public async Task<IActionResult> PaymentCallback()
+    {
+        try
+        {
+            var response = _vnPayService.PaymentExecute(Request.Query);
+
+            if (response.Success)
+            {
+                if (response.VnPayResponseCode == "00")
+                {
+                    await _hubContext.Clients.All.SendAsync("PaymentStatus", "PaymentSuccess");
+                    return Content("<html><head></head><body><script>window.close();</script></body></html>", "text/html");
+                }
+
+                if (response.VnPayResponseCode == "24")
+                {
+                    await _hubContext.Clients.All.SendAsync("PaymentStatus", "PaymentCancel");
+                    return Content("<html><head></head><body><script>window.close();</script></body></html>", "text/html");
+                }
+
+                await _hubContext.Clients.All.SendAsync("PaymentStatus", "PaymentPending");
+            }
+
+
+            await _hubContext.Clients.All.SendAsync("PaymentStatus", "PaymentFailed");
+            return BadRequest(new { Message = "Payment failed" });
+        }
+        catch (Exception)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error");
+        }
     }
 }

@@ -4,8 +4,8 @@
 ### 
 
 # @name getTicketByCodeAndPhone
-@code = 2401240327231111
-@phone = +1 (103) 667-1899
+@code = 240124052456631823
+@email = sa@gmail.com
 
-GET {{url}}/api/lookup/{{code}}/{{phone}}
+GET {{url}}/api/lookup/{{code}}/{{email}}
 ### 

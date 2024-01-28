@@ -14,6 +14,7 @@
       </form>
 
       <button nbButton status="primary" class="mr-3"
+              *ngIf="(authService.user$ | async)?.roles.includes('SuperAdmin')"
               routerLink="/managements/user/add">
         Create User
       </button>
@@ -111,10 +112,11 @@
         <td>{{ item.roles }}</td>
         <td>{{ item.createdAt | date:'medium' }}</td>
         <td class="text-right">
-          <button nbButton status="info" class="mr-3">
-            <nb-icon icon="eye-outline" pack="eva"></nb-icon>
-          </button>
+<!--          <button nbButton status="info" class="mr-3">-->
+<!--            <nb-icon icon="eye-outline" pack="eva"></nb-icon>-->
+<!--          </button>-->
           <button nbButton status="primary" class="mr-3"
+                  *ngIf="(authService.user$ | async)?.roles.includes('SuperAdmin')"
                   routerLink="/managements/user/{{item.id}}/edit">
             <nb-icon icon="edit-outline" pack="eva"></nb-icon>
           </button>

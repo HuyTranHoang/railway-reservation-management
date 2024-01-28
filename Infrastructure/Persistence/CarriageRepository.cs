@@ -55,6 +55,13 @@ public class CarriageRepository : ICarriageRepository
             .FirstOrDefaultAsync(p => p.Id == id);
     }
 
+    public async Task<Carriage> GetByIdWithCarriageTypeAsync(int id)
+    {
+        return await _context.Carriages
+            .Include(c => c.CarriageType)
+            .FirstOrDefaultAsync(p => p.Id == id);
+    }
+
     public async Task SoftDelete(Carriage carriage)
     {
         carriage.IsDeleted = true;

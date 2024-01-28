@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
-import { ManageBookingService } from '../manage-booking.service';
-import {  Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core'
+import { ManageBookingService } from '../manage-booking.service'
+import { Router } from '@angular/router'
+import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 
 
 @Component({
@@ -8,40 +9,55 @@ import {  Router } from '@angular/router';
   templateUrl: './management-booking.component.html',
   styleUrls: ['./management-booking.component.scss']
 })
-export class ManagementBookingComponent {
-  code: string = '';
-  email: string = '';
-  wrong : string = "";
+export class ManagementBookingComponent implements OnInit {
 
-  
-  constructor(private manageService : ManageBookingService,
-    private router: Router,
-    
-    ) {
+  lookUpForm: FormGroup = this.fb.group({})
+
+  isSubmitted = false
+  errorMessages: string[] = []
+
+  constructor(private manageService: ManageBookingService,
+              private fb: FormBuilder,
+              private router: Router) {
   }
+
+  ngOnInit(): void {
+    this.initForm()
+    this.manageService.currentTicket = undefined
+  }
+
+  initForm() {
+    this.lookUpForm = this.fb.group({
+      email: ['', Validators.required],
+      code: ['', Validators.required]
+    })
+  }
+
   onSubmit() {
-    this.manageService.getLookUpByEmailAndCode(this.code , this.email).subscribe({
-      next: (respon) => {
-        console.log(respon);
-        this.router.navigateByUrl('management/ticket');
-        this.router.navigate(['management/ticket'], { queryParams: {
-           email: this.email,
-           code: this.code,
-           passengerName : respon.passengerName,
-           trainName : respon.trainName,
-           carriageName : respon.carriageName,
-           seatName : respon.seatName,
-           scheduleName : respon.scheduleName,
-           price : respon.price,
-           scheduleId : respon.scheduleId,
-          } });
+    console.log(this.lookUpForm.value)
+    this.isSubmitted = true
+
+    if (this.lookUpForm.invalid) {
+      return
+    }
+
+    const email = this.lookUpForm.value.email
+    const code = this.lookUpForm.value.code
+
+    this.manageService.getLookUpByEmailAndCode(code, email).subscribe({
+      next: (res) => {
+        console.log(res)
+        if (res) {
+          this.manageService.currentTicket = res
+          this.router.navigate(['management/ticket'])
+          this.isSubmitted = false
+          this.errorMessages = []
+        }
       },
       error: (error: any) => {
-        console.log(error);
-        this.router.navigateByUrl('management');
-        this.wrong = "Failed wrong Email or Code please try again !"
+        this.errorMessages = error.errors
       }
-    });               
+    })
   }
 
 }
