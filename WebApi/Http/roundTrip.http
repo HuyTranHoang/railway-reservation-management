@@ -20,12 +20,21 @@ GET {{url}}/{{router}}?
   &pageSize=10
   # &searchTerm= 
   # &sort= discountDesc
+
 ###
 
 # @name getRoundTripById
-@id = 11
+@id = 2
 
 GET {{url}}/{{router}}/{{id}}
+
+  
+###
+
+# @name getRoundTripByTrainCompanyId
+@trainCompanyId = 7
+
+GET {{url}}/{{router}}/trainCompany/{{trainCompanyId}}
 
 ### 
 

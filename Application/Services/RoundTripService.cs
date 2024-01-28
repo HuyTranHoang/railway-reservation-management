@@ -74,6 +74,12 @@ namespace Application.Services
             return _mapper.Map<RoundTripDto>(roundTrip);
         }
 
+        public async Task<RoundTripDto> GetDtoByTrainCompanyIdAsync(int trainCompanyId)
+        {
+            var roundTrip = await _repository.GetByTrainCompanyIdAsync(trainCompanyId);
+            return _mapper.Map<RoundTripDto>(roundTrip);
+        }
+
         public async Task SoftDeleteAsync(RoundTrip roundTrip)
         {
             await _repository.SoftDelete(roundTrip);

@@ -6,7 +6,6 @@
 <!--  currentSelectSchedule-->
 <!--  {{ bookingService.currentSelectSchedule | json }}-->
 <!--</pre>-->
-
 <h2>Price breakdown</h2>
 <div class="horizontal-divider"></div>
 <div class="row bg-white mb-3 ms-0 me-0">
@@ -157,6 +156,18 @@
        *ngIf="bookingService.isRoundTrip"
        style="padding: 14px 3% 18px 3%;">
     <div class="row w-100">
+
+      <div class="offset-6 col-3">
+        Discount
+      </div>
+
+      <div class="col-1 yellow-text">
+        ({{ discountRoundTrip }}%)
+      </div>
+
+      <div class="col-2 text-end yellow-text">
+        - {{ totalRoundTripDiscount | currency:'VND' }}
+      </div>
 
       <div class="offset-6 col-3">
         Sub total

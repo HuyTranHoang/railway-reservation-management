@@ -29,6 +29,8 @@ export class PaymentComponent implements OnInit {
   departureSubTotal = 0
   returnSubTotal = 0
   totalSeats = 0
+  totalRoundTripDiscount = 0
+  discountRoundTrip = 0
 
   constructor(public bookingService: BookingService,
               private authService: AuthService,
@@ -89,6 +91,7 @@ export class PaymentComponent implements OnInit {
 
   }
 
+
   loadTotalAmount() {
     let distancePrice = this.bookingService.currentSelectDepartureSchedule?.price || 0
     let carriageTypePrice = this.bookingService.currentSelectDepartureSchedule?.selectedCarriageType?.serviceCharge || 0
@@ -113,7 +116,18 @@ export class PaymentComponent implements OnInit {
         }
       }
 
-      this.returnSubTotal = this.totalAmount - this.departureSubTotal
+      this.paymentService.getRoundTripByTrainCompanyId(this.bookingService.currentSelectDepartureSchedule?.trainCompanyId || 0)
+        .subscribe({
+          next: (res) => {
+            this.discountRoundTrip = res.discount
+            this.returnSubTotal = this.totalAmount - this.departureSubTotal
+            this.totalRoundTripDiscount = (this.returnSubTotal * this.discountRoundTrip) / 100
+            this.totalAmount = this.totalAmount - this.totalRoundTripDiscount
+          },
+          error: (err) => {
+            console.log(err)
+          }
+        })
     }
 
     // if (this.bookingService.currentSelectSeats) {

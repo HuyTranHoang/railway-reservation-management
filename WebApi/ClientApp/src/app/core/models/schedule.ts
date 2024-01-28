@@ -1,13 +1,9 @@
-export interface ScheduleWithBookingParams {
-  schedule: Schedule[]
-  bookingParams: string
-}
-
 export interface Schedule {
   id: number
   name: string
   trainId: number
   trainName: string
+  trainCompanyId: number
   trainCompanyName: string
   trainCompanyLogo: string
   departureStationId: number

@@ -3,6 +3,7 @@ import { environment } from '../../../environments/environment.development'
 import { HttpClient } from '@angular/common/http'
 import { PaymentInformation } from '../../core/models/paymentInformation'
 import { BehaviorSubject, Observable } from 'rxjs'
+import { RoundTrip } from '../../core/models/roundTrip'
 
 @Injectable({
   providedIn: 'root'
@@ -26,5 +27,9 @@ export class PaymentService {
 
   setPaymentStatus(status: string): void {
     this.paymentStatusSource.next(status)
+  }
+
+  getRoundTripByTrainCompanyId(trainCompanyId: number){
+    return this.http.get<RoundTrip>(this.baseUrl + 'roundTrip/trainCompany/' + trainCompanyId)
   }
 }

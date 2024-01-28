@@ -84,6 +84,7 @@ public class BookingService : IBookingService
             Name = t.Name,
             TrainId = t.TrainId,
             TrainName = t.Train.Name,
+            TrainCompanyId = t.Train.TrainCompanyId,
             TrainCompanyName = t.Train.TrainCompany.Name,
             TrainCompanyLogo = t.Train.TrainCompany.Logo,
             DepartureStationId = t.DepartureStationId,
