@@ -9,5 +9,7 @@ namespace Application.Common.Models
         public double TotalReceived { get; set; }
 
         public double TotalRefunded { get; set; }
+
+        public DateTime CreatedAt { get; set; }
     }
 }

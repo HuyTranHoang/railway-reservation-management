@@ -24,6 +24,11 @@ namespace Infrastructure.Persistence
             await Task.CompletedTask;
         }
 
+        public async Task<List<DailyCashTransaction>> GetAllNoPagingAsync()
+        {
+            return await _context.DailyCashTransactions.ToListAsync();
+        }
+
         public async Task<DailyCashTransaction> GetByIdAsync(int id)
         {
             return await _context.DailyCashTransactions

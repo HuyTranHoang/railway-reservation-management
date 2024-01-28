@@ -8,13 +8,17 @@ namespace Application.Services
         private readonly IDailyCashTransactionRepository _dailyCashTransactionRepository;
         private readonly IPaymentRepository _paymentRepository;
 
+        private readonly IMapper _mapper;
+
         public DailyCashTransactionService(IUnitOfWork unitOfWork,
                                             IPaymentRepository paymentRepository,
-                                            IDailyCashTransactionRepository dailyCashTransactionRepository)
+                                            IDailyCashTransactionRepository dailyCashTransactionRepository,
+                                            IMapper mapper)
         {
             _paymentRepository = paymentRepository;
             _unitOfWork = unitOfWork;
             _dailyCashTransactionRepository = dailyCashTransactionRepository;
+            _mapper = mapper;
         }
 
 
@@ -50,9 +54,29 @@ namespace Application.Services
         }
 
 
-        public Task<PagedList<DailyCashTransactionDto>> GetAllDtoAsync(QueryParams queryParams)
+        public async Task<PagedList<DailyCashTransactionDto>> GetAllDtoAsync(QueryParams queryParams)
         {
-            throw new NotImplementedException();
+            var query = await _dailyCashTransactionRepository.GetQueryAsync();
+
+            if (!string.IsNullOrEmpty(queryParams.SearchTerm))
+                query = query.Where(ct => ct.Date.ToString().Contains(queryParams.SearchTerm.Trim()));
+
+            query = queryParams.Sort switch
+            {
+                "dateAsc" => query.OrderBy(ct => ct.Date),
+                "dateDesc" => query.OrderByDescending(ct => ct.Date),
+                "totalReceivedAsc" => query.OrderBy(ct => ct.TotalReceived),
+                "totalReceivedDesc" => query.OrderByDescending(ct => ct.TotalReceived),
+                "totalRefundedAsc" => query.OrderBy(ct => ct.TotalRefunded),
+                "totalRefundedDesc" => query.OrderByDescending(ct => ct.TotalRefunded),
+                "createdAtDesc" => query.OrderByDescending(ct => ct.CreatedAt),
+                _ => query.OrderBy(ct => ct.CreatedAt)
+            };
+
+            var dailyCashTransactionDtoQuery = query.Select(ct => _mapper.Map<DailyCashTransactionDto>(ct));
+
+            return await PagedList<DailyCashTransactionDto>.CreateAsync(dailyCashTransactionDtoQuery, queryParams.PageNumber,
+                queryParams.PageSize);
         }
 
         public Task<DailyCashTransaction> GetByIdAsync(int id)
@@ -92,6 +116,18 @@ namespace Application.Services
             await _dailyCashTransactionRepository.SaveDailyCashTransaction(result.Item1, result.Item2);
             await _unitOfWork.SaveChangesAsync();
             return true;
+        }
+
+        public async Task<DailyCashTransactionDto> GetDtoByIdAsync(int id)
+        {
+            var dailyCashTransaction = await _dailyCashTransactionRepository.GetByIdAsync(id);
+            return _mapper.Map<DailyCashTransactionDto>(dailyCashTransaction);
+        }
+
+        public async Task<List<DailyCashTransactionDto>> GetAllDtoNoPagingAsync()
+        {
+            var dailyCashTransaction = await _dailyCashTransactionRepository.GetAllNoPagingAsync();
+            return _mapper.Map<List<DailyCashTransactionDto>>(dailyCashTransaction);
         }
     }
 }
