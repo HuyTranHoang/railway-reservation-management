@@ -93,8 +93,8 @@ export class DepartureComponent implements OnInit {
 
       if (departureStationId && arrivalStationId && departureTime) {
         this.departureService.loadScheduleInfo(departureStationId, arrivalStationId, departureTime)
-        this.fromCurrentStation = this.departureService.scheduleInfo?.fromStationName || 'City, station'
-        this.toCurrentStation = this.departureService.scheduleInfo?.toStationName || 'City, station'
+        //this.fromCurrentStation = this.departureService.scheduleInfo?.fromStationName || 'City, station'
+        //this.toCurrentStation = this.departureService.scheduleInfo?.toStationName || 'City, station'
       }
 
       if (this.schedulesParams) {
