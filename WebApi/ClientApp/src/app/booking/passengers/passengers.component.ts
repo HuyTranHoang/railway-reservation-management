@@ -30,9 +30,13 @@ export class PassengersComponent implements OnInit {
       passengers: this.fb.array([])
     });
 
-    for (const item of this.bookingService.currentSelectDepartureSeats!) {
-      this.addPassenger();
+
+    if (this.bookingService.currentSelectSeats) {
+      for (let i = 0; i < this.bookingService.currentSelectSeats.length/2; i++) {
+        this.addPassenger();
+      }
     }
+    
   }
 
   get passengers(): FormArray {

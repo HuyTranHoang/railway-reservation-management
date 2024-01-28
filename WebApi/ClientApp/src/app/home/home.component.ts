@@ -167,6 +167,11 @@ export class HomeComponent implements OnInit {
       return
     }
 
+    if (this.roundTrip && !this.returnDate) {
+      Swal.fire('Oops', 'Please select a return date', 'error')
+      return
+    }
+
     if (this.roundTrip && this.returnDate < this.departureTime) {
       Swal.fire('Oops', 'Return date cannot be before departure date', 'error')
       return

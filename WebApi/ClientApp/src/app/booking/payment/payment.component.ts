@@ -85,8 +85,8 @@ export class PaymentComponent implements OnInit {
     const distancePrice = this.bookingService.currentSelectDepartureSchedule?.price || 0
     const carriageTypePrice = this.bookingService.currentSelectDepartureSchedule?.selectedCarriageType?.serviceCharge || 0
 
-    if (this.bookingService.currentSelectDepartureSeats) {
-      this.totalAmount = this.bookingService.currentSelectDepartureSeats
+    if (this.bookingService.currentSelectSeats) {
+      this.totalAmount = this.bookingService.currentSelectSeats
         .reduce((total, seat) =>
           total + seat.serviceCharge + distancePrice + carriageTypePrice, 0) || 0
     }
@@ -141,7 +141,7 @@ export class PaymentComponent implements OnInit {
 
         let tickets: PaymentTicket[] = []
 
-        this.bookingService.currentSelectDepartureSeats?.forEach((s) => {
+        this.bookingService.currentSelectSeats?.forEach((s) => {
           tickets.push({
             carriageId: s.carriageId,
             seatId: s.id

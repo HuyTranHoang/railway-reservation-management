@@ -47,6 +47,7 @@ export class DepartureComponent implements OnInit {
   ngOnInit(): void {
     setTimeout(() => {
       this.departureService.isFromRoundTrip = false
+      this.bookingService.isRoundTrip = false
       this.bookingService.currentStep = 1
     }, 0)
 
@@ -277,6 +278,7 @@ export class DepartureComponent implements OnInit {
       this.bookingService.currentSelectDepartureSchedule = currentSelectSchedule
       //Đánh dấu đã lấy schedule đi
       this.departureService.isFromRoundTrip = true
+      this.bookingService.isRoundTrip = true
       //Load lại return schedule
       const returnParams: BookingScheduleParams = {
         departureStationId: this.schedulesParams!.arrivalStationId,

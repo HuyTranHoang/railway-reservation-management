@@ -63,12 +63,12 @@
         }}
       </div>
 
-      <div class="offset-6 col-3" *ngIf="bookingService.currentSelectDepartureSeats">
-        Seat type {{ bookingService.currentSelectDepartureSeats[i].seatTypeName }}
+      <div class="offset-6 col-3" *ngIf="bookingService.currentSelectSeats">
+        Seat type {{ bookingService.currentSelectSeats[i].seatTypeName }}
       </div>
 
-      <div class="col-3 text-end yellow-text" *ngIf="bookingService.currentSelectDepartureSeats">
-        {{ bookingService.currentSelectDepartureSeats[i].serviceCharge | currency:'VND' }}
+      <div class="col-3 text-end yellow-text" *ngIf="bookingService.currentSelectSeats">
+        {{ bookingService.currentSelectSeats[i].serviceCharge | currency:'VND' }}
       </div>
     </div>
   </div>

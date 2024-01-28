@@ -16,10 +16,11 @@ export class BookingService {
   currentSelectDepartureSchedule: Schedule | undefined
   currentSelectReturnSchedule: Schedule | undefined
 
-  currentSelectDepartureSeats: Seat[] | undefined
+  currentSelectSeats: Seat[] | undefined
   currentSelectReturnSeats: Seat[] | undefined
 
   currentSelectPassengers: Passenger[] | undefined
+  isRoundTrip = false
   currentStep = 1
 
   constructor(private http: HttpClient) { }
