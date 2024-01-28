@@ -38,6 +38,8 @@ public class AutoMapperProfile : Profile
 
         CreateMap<CarriageType, CarriageTypeDto>();
 
+        CreateMap<DailyCashTransaction, DailyCashTransactionDto>();
+
 
         CreateMap<CancellationRule, CancellationRuleDto>();
         CreateMap<TrainStation, TrainStationDto>();

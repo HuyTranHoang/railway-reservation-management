@@ -4,5 +4,7 @@ namespace Application.Common.Interfaces.Services
     {
         Task<PagedList<DailyCashTransactionDto>> GetAllDtoAsync(QueryParams queryParams);
         Task<bool> DoWork();
+        Task<DailyCashTransactionDto> GetDtoByIdAsync(int id);
+        Task<List<DailyCashTransactionDto>> GetAllDtoNoPagingAsync();
     }
 }
