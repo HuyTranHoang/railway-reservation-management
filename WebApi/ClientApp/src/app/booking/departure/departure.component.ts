@@ -258,6 +258,8 @@ export class DepartureComponent implements OnInit {
       roundTrip: this.roundTrip
     }
 
+    this.departureService.isFromRoundTrip = false
+
     this.router.navigate(['/booking'], { queryParams })
   }
 
