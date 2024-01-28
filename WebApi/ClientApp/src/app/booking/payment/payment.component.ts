@@ -55,9 +55,10 @@ export class PaymentComponent implements OnInit {
     this.ticketForm = this.fb.group({
       passengers: [],
       tickets: [],
-      trainId: [0],
-      scheduleId: [0],
-      paymentId: [0] // Lấy khi thanh toán thành công
+      trainId: [],
+      scheduleId: [],
+      paymentId: [0], // Lấy khi thanh toán thành công,
+      isRoundTrip: [this.bookingService.isRoundTrip]
     })
 
     this.paymentService.paymentStatus$.subscribe(status => {
@@ -178,12 +179,28 @@ export class PaymentComponent implements OnInit {
           })
         })
 
+        let trainId: number[] = []
+        let scheduleId: number[] = []
+
+        if (this.bookingService.isRoundTrip) {
+          trainId.push(this.bookingService.currentSelectDepartureSchedule?.trainId || 0)
+          trainId.push(this.bookingService.currentSelectReturnSchedule?.trainId || 0)
+
+          scheduleId.push(this.bookingService.currentSelectDepartureSchedule?.id || 0)
+          scheduleId.push(this.bookingService.currentSelectReturnSchedule?.id || 0)
+        } else {
+          trainId.push(this.bookingService.currentSelectDepartureSchedule?.trainId || 0)
+          scheduleId.push(this.bookingService.currentSelectDepartureSchedule?.id || 0)
+        }
+
+
         this.ticketForm.patchValue({
           passengers: passengers,
           tickets: tickets,
-          trainId: this.bookingService.currentSelectDepartureSchedule?.trainId || 0,
-          scheduleId: this.bookingService.currentSelectDepartureSchedule?.id || 0,
-          paymentId: res.paymentId
+          trainId: trainId,
+          scheduleId: scheduleId,
+          paymentId: res.paymentId,
+          isRoundTrip: this.bookingService.isRoundTrip
         })
 
         this.bookingService.addTicket(this.ticketForm.value).subscribe({

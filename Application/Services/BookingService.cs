@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Serilog;
 
 namespace Application.Services;
 

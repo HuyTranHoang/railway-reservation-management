@@ -4,14 +4,18 @@ namespace Application.Common.Models;
 
 public class PaymentTransactionDto
 {
+    [Required]
     public List<PaymentPassengerDto> Passengers { get; set; }
+    [Required]
     public List<PaymentTicketDto> Tickets { get; set; }
     [Required]
     public int PaymentId { get; set; }
     [Required]
-    public int TrainId { get; set; }
+    public List<int> TrainId { get; set; }
     [Required]
-    public int ScheduleId { get; set; }
+    public List<int> ScheduleId { get; set; }
+    [Required]
+    public bool IsRoundTrip { get; set; }
 }
 
 public class PaymentPassengerDto

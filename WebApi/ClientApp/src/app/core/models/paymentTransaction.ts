@@ -2,8 +2,9 @@ export interface PaymentTransaction {
   passengers: PaymentPassenger[]
   tickets: PaymentTicket[]
   paymentId: number
-  trainId: number
-  scheduleId: number
+  trainId: number[]
+  scheduleId: number[]
+  isRoundTrip: boolean
 }
 
 export interface PaymentPassenger {
