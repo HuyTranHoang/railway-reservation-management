@@ -5,119 +5,87 @@ style="padding: 40px; background: url(https://1.bp.blogspot.com/-TJAu7FF76Do/YT3
 <!--Hey! This is the original version
 of Simple CSS Waves-->
 
-<div class="header">
-
-  <!--Content before waves-->
-  <div class="inner-header flex">
-  <!--Just the logo.. Don't mind this-->
-  <svg version="1.1" class="logo" baseProfile="tiny" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
-  xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 500 500" xml:space="preserve">
-  <path fill="#FFFFFF" stroke="#000000" stroke-width="10" stroke-miterlimit="10" d="M57,283" />
-  <g><path fill="#fff"
-  d="M250.4,0.8C112.7,0.8,1,112.4,1,250.2c0,137.7,111.7,249.4,249.4,249.4c137.7,0,249.4-111.7,249.4-249.4
-  C499.8,112.4,388.1,0.8,250.4,0.8z M383.8,326.3c-62,0-101.4-14.1-117.6-46.3c-17.1-34.1-2.3-75.4,13.2-104.1
-  c-22.4,3-38.4,9.2-47.8,18.3c-11.2,10.9-13.6,26.7-16.3,45c-3.1,20.8-6.6,44.4-25.3,62.4c-19.8,19.1-51.6,26.9-100.2,24.6l1.8-39.7		c35.9,1.6,59.7-2.9,70.8-13.6c8.9-8.6,11.1-22.9,13.5-39.6c6.3-42,14.8-99.4,141.4-99.4h41L333,166c-12.6,16-45.4,68.2-31.2,96.2	c9.2,18.3,41.5,25.6,91.2,24.2l1.1,39.8C390.5,326.2,387.1,326.3,383.8,326.3z" />
-  </g>
-  </svg>
-  <h1>Ticket</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova Cinemas</title>
+</head>
+<body>  
+  <div class="ticket shadow mt-5 p-2 ">
+    <div class="stub">
+      <div class="top">
+        <span class="admit">Swift <strong style="color: #F79A24; font-size: 20px;">Rails</strong></span>
+        <span class="line"></span>
+        <span class="num">
+          CODE
+          <span>{{code}}</span>
+        </span>
+      </div>
+      <div class="number">{{seatName}}</div>
+      
+      <div class="invite">
+        {{passengerName}}
+      </div>
+    </div>
+    <div class="check">
+      <div class="big text-uppercase " style="text-align: center;"><br>
+        {{trainName}} <br>
+      </div>
+      From :
+      <div class="number  " >{{arrivalStationName}}</div>
+      To :  
+      <div class="number  " >{{departureStationName }}</div>
+      <div class="info">
+        <section>
+          <div class="title">Arrival</div>
+          <div>{{arrivalTime}}</div>
+        </section>
+        <section>
+          <div class="title">Departure</div>
+          <div>{{departureTime}}</div>
+        </section>
+        <section>
+          <div class="title" class="bold" >Price</div>
+          <div style="font-size: 20px;">$ {{price}}</div>
+        </section>
+      </div>
+    </div>
   </div>
+    <div class="disclaimer m-5">
   
-  <!--Waves Container-->
-  <div>
-  <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-  viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
-  <defs>
-  <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
-  </defs>
-  <g class="parallax">
-  <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.7" />
-  <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.5)" />
-  <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.3)" />
-  <use xlink:href="#gentle-wave" x="48" y="7" fill="#fff" />
-  </g>
-  </svg>
-  </div>
-  </div>
-<div>
+Welcome to SwiftRails Train - an online sales agent for Vietnam Railways providing Vietnam train tickets for your trip to all of the destinations in Vietnam.
+    </div>
+    <div class="warning m-5 ">
+      <strong class="text-uppercase mt-2 ">1. If I lose my tickets of reunification train, How can I get on train ? </strong> <br>
+      For reunification train, the ticket is original ticket, paper ticket. so we just print once time, and deliver to you via email. If you lose tickets, you have to contact us immediately to get new tickets for your trip. 
+      
+      So, Please don't worry when the tickets lost or destroyed.
+      <br>
+     <strong class="text-uppercase mt-2">2 . I purchased your train tickets, but I can’t get the train at my booking date.</strong>   <br>
+       What are the refund regulations for train in Vietnam?
+Cancellation policies vary, depending upon the type of ticket booking, the time of year, and the reason for cancellation. Below are the rules for cancellation & refund after the tickets have been issued:
 
+•  35% cost of ticket will be charged in case of cancellation or amendment after 15 days departure.
 
-<div class="container-fluid">
-    <div class="row">
-      <div class="col-12 mb-5">
-         
-<div class="boarding-pass m-2">
-  <header>
-    <svg class="logo">
-      <use xlink:href="#alitalia"></use>
-    </svg>
-    <div class="flight" style="float: left;">
-      <small style="font-size: 14px;">Carriage</small>
-      <strong>{{carriageName}}</strong>
-    </div>
-    <div class="flight">
-      <small style="font-size: 14px;">Train</small>
-      <strong>{{trainName}}</strong>
-    </div>
-  </header>
-  <section  class="cities">
-    <div  class="city">
-      <strong style="font-size: 18px;">From</strong>
-      <small>{{arrivalStationName}}</small>
+• 50% cost of ticket will be charged in case of cancellation or amendment from 2 – 14 days  before departure.
 
-     
-    </div>
-    <div class="city">
-      <small style="font-size: 18px; color: #000;">To</small>
-      <small>{{departureStationName}}</small>
-    </div>
-    <svg class="airplane">
-      <use xlink:href="#airplane"></use>
-    </svg>
-  </section>
-  <section class="infos">
-    <div class="places">
-      <div class="box">
-        <small>Schedule</small>
-        <strong><em>{{scheduleName}}</em></strong>
-      </div>
-      <div class="box">
-        <small>Code</small>
-        <strong><em>{{code}}</em></strong>
-      </div>
-      <div class="box">
-        <small>Seat</small>
-        <strong>{{seatName}}</strong>
-      </div>
-      <div class="box">
-        <small>Price</small>
-        <strong>$ {{price}}  </strong>
-      </div>
-    </div>
-    <div class="times">
-      <div class="box">
-        <small>Departure</small>
-        <strong>{{departureTime}}</strong>
-      </div>
-      <div class="box">
-        <small>Arrival</small>
-        <strong>{{arrivalTime}}</strong>
-      </div>
-    </div>
-  </section>
-  <section class="strap">
-    <div class="box">
-      <div class="passenger">
-        <small>passenger</small>
-        <strong>{{passengerName}}</strong>
-      </div>
-    </div>
-    <div class="qrcode" style="padding: 40px; background: url(https://img.freepik.com/premium-vector/user-profile-icon-flat-style-member-avatar-vector-illustration-isolated-background-human-permission-sign-business-concept_157943-15752.jpg) center center no-repeat;background-size: cover">
-     
-    </div>
-  </section>
-</div>
-      </div>
-    </div>
-  </div>
-</div>
+• 100% cost of ticket will be charged in case of cancellation or amendment within 24 hours  before departure.
 
+• About the tourist train from Hanoi to Sapa and returning (The Orient express train): The train ticket is not refundable in any case.
+
+We reserves the rights to cancel your booking with a prior notice. In such case, a full refund of 100% will be credited to your account.
+
+In some case as storm, typhoon... you can't get on train on your departure time, but you cancel before your departure date 1 -2 days
+
+- The train still runs as normally, you will have no refund.
+
+- The train can't run, we will confirm by e-mail for you, but you have to ask your hotel receptionist to give us back your original send tickets ( because normally we have delivered your tickets to your hotel before your departure date 5 - 6 days ) and refund 100% to your credit card within 15 days later. 
+    </div>
+    <h5 class="py-5 m-5">
+      If you could not find your question listed, please feel free to <a class="fw-semibold" style="color: #F79A24;" routerLink="/contact">Contact Us</a>
+    </h5>
+</body>
+</html>

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { environment } from 'src/environments/environment'
-import { Ticket } from '../core/models/trainStaion copy'
+import { Ticket } from '../core/models/ticket'
 import { HttpClient } from '@angular/common/http'
 import { Schedule } from '../core/models/schedule'
 
