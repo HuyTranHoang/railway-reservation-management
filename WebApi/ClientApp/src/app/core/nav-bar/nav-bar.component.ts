@@ -19,7 +19,8 @@ export class NavBarComponent implements OnInit {
     '/not-found',
     '/booking',
     '/payment-success',
-    '/user/profile'
+    '/user/profile',
+    '/management/ticket'
   ];
 
   constructor(public authService: AuthService,

@@ -10,6 +10,8 @@ import { Schedule } from '../core/models/schedule'
 export class ManageBookingService {
   baseUrl = environment.apiUrl
 
+  currentTicket: Ticket | undefined
+
   constructor(private http: HttpClient) {
   }
 

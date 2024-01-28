@@ -1,91 +1,44 @@
-<div class="container-fluid  text-center "   
-style="padding: 40px; background: url(https://1.bp.blogspot.com/-TJAu7FF76Do/YT3KhmMNr_I/AAAAAAAAHys/B-EAKcjW4fcp_XgC3-Rn-GYrF_cNtHYmwCLcBGAsYHQ/s0-rw/bo-hinh-nen-phong-canh-chat-luong-cao-full-hd-dep-nhat-15.jpg) center center no-repeat;background-size: cover">
-
-</div>
-<!--Hey! This is the original version
-of Simple CSS Waves-->
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nova Cinemas</title>
-</head>
-<body>  
-  <div class="ticket shadow mt-5 p-2 ">
-    <div class="stub">
-      <div class="top">
-        <span class="admit">Swift <strong style="color: #F79A24; font-size: 20px;">Rails</strong></span>
-        <span class="line"></span>
-        <span class="num">
-          CODE
-          <span>{{code}}</span>
-        </span>
-      </div>
-      <div class="number">{{seatName}}</div>
-      
-      <div class="invite">
-        {{passengerName}}
+<div class="ticket shadow mt-5 p-2 ">
+  <div class="stub">
+    <div class="top">
+      <span class="admit"><strong style="font-size: 20px;">Seat</strong></span>
+      <span class="line"></span>
+      <div class="d-flex flex-column">
+        Train Code
+        <span style="color: #fb0">{{ trainName }}</span>
       </div>
     </div>
-    <div class="check">
-      <div class="big text-uppercase " style="text-align: center;"><br>
-        {{trainName}} <br>
-      </div>
-      From :
-      <div class="number  " >{{arrivalStationName}}</div>
-      To :  
-      <div class="number  " >{{departureStationName }}</div>
-      <div class="info">
-        <section>
-          <div class="title">Arrival</div>
-          <div>{{arrivalTime}}</div>
-        </section>
-        <section>
-          <div class="title">Departure</div>
-          <div>{{departureTime}}</div>
-        </section>
-        <section>
-          <div class="title" class="bold" >Price</div>
-          <div style="font-size: 20px;">$ {{price}}</div>
-        </section>
-      </div>
+    <div class="number">{{ seatName }}</div>
+
+    <div class="passenger-name d-flex flex-column">
+      Passenger name:
+      <span style="color: #fb0">{{ passengerName | titlecase }}</span>
     </div>
   </div>
-    <div class="disclaimer m-5">
-  
-Welcome to SwiftRails Train - an online sales agent for Vietnam Railways providing Vietnam train tickets for your trip to all of the destinations in Vietnam.
+
+  <div class="check">
+    <div class="text-uppercase text-end">
+      {{ code }}
     </div>
-    <div class="warning m-5 ">
-      <strong class="text-uppercase mt-2 ">1. If I lose my tickets of reunification train, How can I get on train ? </strong> <br>
-      For reunification train, the ticket is original ticket, paper ticket. so we just print once time, and deliver to you via email. If you lose tickets, you have to contact us immediately to get new tickets for your trip. 
-      
-      So, Please don't worry when the tickets lost or destroyed.
-      <br>
-     <strong class="text-uppercase mt-2">2 . I purchased your train tickets, but I can’t get the train at my booking date.</strong>   <br>
-       What are the refund regulations for train in Vietnam?
-Cancellation policies vary, depending upon the type of ticket booking, the time of year, and the reason for cancellation. Below are the rules for cancellation & refund after the tickets have been issued:
 
-•  35% cost of ticket will be charged in case of cancellation or amendment after 15 days departure.
+    From :
+    <div class="number  ">{{ arrivalStationName | titlecase }}</div>
+    To :
+    <div class="number  ">{{ departureStationName | titlecase }}</div>
 
-• 50% cost of ticket will be charged in case of cancellation or amendment from 2 – 14 days  before departure.
-
-• 100% cost of ticket will be charged in case of cancellation or amendment within 24 hours  before departure.
-
-• About the tourist train from Hanoi to Sapa and returning (The Orient express train): The train ticket is not refundable in any case.
-
-We reserves the rights to cancel your booking with a prior notice. In such case, a full refund of 100% will be credited to your account.
-
-In some case as storm, typhoon... you can't get on train on your departure time, but you cancel before your departure date 1 -2 days
-
-- The train still runs as normally, you will have no refund.
-
-- The train can't run, we will confirm by e-mail for you, but you have to ask your hotel receptionist to give us back your original send tickets ( because normally we have delivered your tickets to your hotel before your departure date 5 - 6 days ) and refund 100% to your credit card within 15 days later. 
+    <div class="info">
+      <section>
+        <div class="title">Departure date</div>
+        <div>{{ departureTime | date }}</div>
+      </section>
+      <section>
+        <div class="title">Departure time</div>
+        <div>{{ departureTime | date: 'shortTime' }}</div>
+      </section>
+      <section>
+        <div class="title bold">Price</div>
+        <div style="font-size: 20px;">{{ price | currency:'VND' }}</div>
+      </section>
     </div>
-    <h5 class="py-5 m-5">
-      If you could not find your question listed, please feel free to <a class="fw-semibold" style="color: #F79A24;" routerLink="/contact">Contact Us</a>
-    </h5>
-</body>
-</html>
+  </div>
+</div>

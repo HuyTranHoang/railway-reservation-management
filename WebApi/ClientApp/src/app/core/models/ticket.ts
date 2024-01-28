@@ -3,7 +3,7 @@ export interface Ticket {
   code: string,
   passengerId: number,
   passengerName: string,
-   trainId: number,
+  trainId: number,
   trainName: string,
   carriageId: number,
   carriageName: string,

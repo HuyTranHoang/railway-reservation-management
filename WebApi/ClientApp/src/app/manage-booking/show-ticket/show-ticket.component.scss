@@ -6,7 +6,7 @@
   align-items: center;
   width: 700px;
   margin: 20px auto;
-  
+
   .stub, .check {
     box-sizing: border-box;
   }
@@ -19,7 +19,7 @@
   color: white;
   padding: 20px;
   position: relative;
-  
+
   &:before {
     content: '';
     position: absolute;
@@ -36,13 +36,13 @@
     border-left: 20px solid #ef5658;
     width: 0;
   }
-  
+
   .top {
     display: flex;
     align-items: center;
     height: 40px;
     text-transform: uppercase;
-    
+
     .line {
       display: block;
       background: #fff;
@@ -50,32 +50,27 @@
       width: 3px;
       margin: 0 20px;
     }
-    .num {
-      font-size: 10px;
-      span {
-        color: #000;
-      }
-    }
+
   }
   .number {
     position: absolute;
     left: 40px;
     font-size: 70px;
   }
-  .invite {
+
+  .passenger-name {
     position: absolute;
-    left: 150px;
-    bottom: 45px;
-    color: #000;
-    width: 35%;
-    
+    left: 10px;
+    bottom: 25px;
+    color: #ffffff;
+
     &:before {
       content: '';
       background: #fff;
       display: block;
       width: 40px;
       height: 3px;
-      margin-bottom: 5px;     
+      margin-bottom: 5px;
     }
   }
 }
@@ -86,7 +81,7 @@
   width: 450px;
   padding: 15px;
   position: relative;
-  
+
   &:before {
     content: '';
     position: absolute;
@@ -103,7 +98,7 @@
     border-right: 20px solid #fff;
     width: 0;
   }
-  
+
   .big {
     font-size: 20px;
     font-weight: 500;
@@ -117,11 +112,11 @@
   .info {
     display: flex;
     justify-content: flex-start;
-    
+
     font-size: 12px;
     margin-top: 20px;
     width: 100%;
-    
+
     section {
       margin-right: 50px;
       &:before {

@@ -13,7 +13,6 @@ export class ManagementBookingComponent {
   email: string = ''
   wrong: string = ''
 
-
   constructor(private manageService: ManageBookingService,
               private router: Router
   ) {
@@ -22,25 +21,13 @@ export class ManagementBookingComponent {
   onSubmit() {
     this.manageService.getLookUpByEmailAndCode(this.code, this.email).subscribe({
       next: (res) => {
-        this.router.navigate(['management/ticket'], {
-          queryParams: {
-            email: this.email,
-            code: this.code,
-            passengerName: res.passengerName,
-            trainName: res.trainName,
-            carriageName: res.carriageName,
-            seatName: res.seatName,
-            scheduleName: res.scheduleName,
-            price: res.price,
-            scheduleId: res.scheduleId
-          }
-        })
+        if (res) {
+          this.manageService.currentTicket = res
+          this.router.navigate(['management/ticket'])
+        }
       },
-
       error: (error: any) => {
-        console.log(error)
-        this.router.navigateByUrl('management')
-        this.wrong = 'Failed wrong Email or Code please try again !'
+        this.wrong = 'Email or ticket code is wrong!'
       }
     })
   }
