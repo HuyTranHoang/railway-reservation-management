@@ -17,8 +17,6 @@ export class BookingService {
   currentSelectReturnSchedule: Schedule | undefined
 
   currentSelectSeats: Seat[] | undefined
-  currentSelectReturnSeats: Seat[] | undefined
-
   currentSelectPassengers: Passenger[] | undefined
   isRoundTrip = false
   currentStep = 1

@@ -6,7 +6,7 @@ import { PaymentInformation } from '../../core/models/paymentInformation'
 import { PaymentPassenger, PaymentTicket } from '../../core/models/paymentTransaction'
 import Swal from 'sweetalert2'
 import { Router } from '@angular/router'
-import * as signalR from '@microsoft/signalr';
+import * as signalR from '@microsoft/signalr'
 import { AuthService } from '../../auth/auth.service'
 import { User } from '../../core/models/auth/user'
 
@@ -17,7 +17,7 @@ import { User } from '../../core/models/auth/user'
 })
 export class PaymentComponent implements OnInit {
 
-  private hubConnection: signalR.HubConnection | undefined;
+  private hubConnection: signalR.HubConnection | undefined
 
   paymentStatus = 'Pending'
 
@@ -25,6 +25,10 @@ export class PaymentComponent implements OnInit {
   paymentInfo: PaymentInformation = {} as PaymentInformation
   ticketForm: FormGroup = new FormGroup({})
   totalAmount = 0
+
+  departureSubTotal = 0
+  returnSubTotal = 0
+  totalSeats = 0
 
   constructor(public bookingService: BookingService,
               private authService: AuthService,
@@ -42,6 +46,9 @@ export class PaymentComponent implements OnInit {
         if (user) this.currentUser = user
       }
     })
+
+
+    this.totalSeats = this.bookingService.currentSelectSeats?.length || 0
 
     this.loadTotalAmount()
 
@@ -68,28 +75,51 @@ export class PaymentComponent implements OnInit {
 
     this.hubConnection = new signalR.HubConnectionBuilder()
       .withUrl('https://localhost:5001/paymentHub')
-      .build();
+      .build()
 
     this.hubConnection.start().then(() => {
-      console.log('SignalR Connected');
-    });
+      console.log('SignalR Connected')
+    })
 
     this.hubConnection.on('PaymentStatus', (message: string) => {
-      console.log('PaymentStatus:', message);
-      this.paymentService.setPaymentStatus(message);
-    });
+      console.log('PaymentStatus:', message)
+      this.paymentService.setPaymentStatus(message)
+    })
 
   }
 
   loadTotalAmount() {
-    const distancePrice = this.bookingService.currentSelectDepartureSchedule?.price || 0
-    const carriageTypePrice = this.bookingService.currentSelectDepartureSchedule?.selectedCarriageType?.serviceCharge || 0
+    let distancePrice = this.bookingService.currentSelectDepartureSchedule?.price || 0
+    let carriageTypePrice = this.bookingService.currentSelectDepartureSchedule?.selectedCarriageType?.serviceCharge || 0
 
     if (this.bookingService.currentSelectSeats) {
-      this.totalAmount = this.bookingService.currentSelectSeats
-        .reduce((total, seat) =>
-          total + seat.serviceCharge + distancePrice + carriageTypePrice, 0) || 0
+      for (let i = 0; i < this.totalSeats / 2; i++) {
+        this.totalAmount += this.bookingService.currentSelectSeats[i].serviceCharge
+          + distancePrice + carriageTypePrice
+      }
+
+      this.departureSubTotal = this.totalAmount
     }
+
+    if (this.bookingService.isRoundTrip) {
+      distancePrice = this.bookingService.currentSelectReturnSchedule?.price || 0
+      carriageTypePrice = this.bookingService.currentSelectReturnSchedule?.selectedCarriageType?.serviceCharge || 0
+
+      if (this.bookingService.currentSelectSeats) {
+        for (let i = this.totalSeats / 2; i < this.totalSeats; i++) {
+          this.totalAmount += this.bookingService.currentSelectSeats[i].serviceCharge
+            + distancePrice + carriageTypePrice
+        }
+      }
+
+      this.returnSubTotal = this.totalAmount - this.departureSubTotal
+    }
+
+    // if (this.bookingService.currentSelectSeats) {
+    //   this.totalAmount = this.bookingService.currentSelectSeats
+    //     .reduce((total, seat) =>
+    //       total + seat.serviceCharge + distancePrice + carriageTypePrice, 0) || 0
+    // }
   }
 
   calculatedAge(dob: string) {
@@ -99,25 +129,25 @@ export class PaymentComponent implements OnInit {
   }
 
   createPaymentUrl() {
-    this.paymentInfo.orderType = 'booking';
-    this.paymentInfo.amount = this.totalAmount; // Sử dụng tổng số tiền cần thanh toán
-    this.paymentInfo.orderDescription = 'Booking ticket';
-    this.paymentInfo.name = this.currentUser.firstName + ' ' + this.currentUser.lastName;
+    this.paymentInfo.orderType = 'booking'
+    this.paymentInfo.amount = this.totalAmount // Sử dụng tổng số tiền cần thanh toán
+    this.paymentInfo.orderDescription = 'Booking ticket'
+    this.paymentInfo.name = this.currentUser.firstName + ' ' + this.currentUser.lastName
 
     this.paymentService.createPaymentUrl(this.paymentInfo).subscribe({
       next: (res: any) => {
-        console.log(res.paymentUrl);
+        console.log(res.paymentUrl)
 
         // Lưu trạng thái thanh toán khi đã tạo URL thành công
         // this.paymentStatus = 'PaymentPending';
 
         // Mở một cửa sổ mới và chuyển hướng đến URL thanh toán
-        window.open(res.paymentUrl, '_blank');
+        window.open(res.paymentUrl, '_blank')
       },
       error: (err: any) => {
-        console.log(err);
+        console.log(err)
       }
-    });
+    })
   }
 
 

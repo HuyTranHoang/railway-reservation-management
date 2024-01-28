@@ -72,7 +72,101 @@
       </div>
     </div>
   </div>
+  <div class="col-12 d-flex border-top"
+       *ngIf="bookingService.isRoundTrip"
+       style="padding: 14px 3% 18px 3%;">
+    <div class="row w-100">
 
+      <div class="offset-6 col-3">
+        Sub total
+      </div>
+
+      <div class="col-3 text-end yellow-text">
+        {{ departureSubTotal | currency:'VND' }}
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<div class="row bg-white mb-3 ms-0 me-0" *ngIf="bookingService.isRoundTrip">
+  <div class="col" style="padding: 20px 3% 24px;">
+    <span class="bold station-title">
+      {{ bookingService.currentSelectReturnSchedule?.departureStationName }}
+      <i class="fa-solid fa-train"></i>
+      {{ bookingService.currentSelectReturnSchedule?.arrivalStationName }}
+    </span>
+  </div>
+
+  <div class="horizontal-divider"></div>
+  <div class="col-12 d-flex" style="padding: 14px 3% 18px 3%;">
+    <div class="row w-100">
+      <div class="col-3">
+        <i class="fa-light fa-calendar-days me-2"></i>
+        {{ bookingService.currentSelectReturnSchedule?.departureTime | date: 'fullDate' }}
+      </div>
+      <div class="col-3">
+        <i class="fa-light fa-clock"></i>
+        <span class="blue-text bold">
+          {{ bookingService.currentSelectReturnSchedule?.departureTime | date: 'shortTime' }}
+        </span>
+      </div>
+      <div class="col-3">
+        <span class="bold">
+          {{ bookingService.currentSelectReturnSchedule?.trainCompanyName }}
+        </span>
+        {{ bookingService.currentSelectReturnSchedule?.trainName }}
+      </div>
+    </div>
+  </div>
+  <div class="col-12 d-flex border-top"
+       *ngFor="let item of bookingService.currentSelectPassengers; let i = index"
+       style="padding: 14px 3% 18px 3%;">
+    <div class="row w-100">
+      <div class="col-3">
+        <span class="bold">
+          {{ i + 1 }}. {{ item.title == 'male' ? 'Mr.' : 'Ms.' }} {{ item.fullName | titlecase }}
+        </span>
+      </div>
+      <div class="col-3">
+        {{ item.passportNumber }}
+      </div>
+      <div class="col-3">
+        {{ bookingService.currentSelectReturnSchedule?.selectedCarriageType?.name }}
+      </div>
+
+      <div class="col-3 text-end yellow-text"
+           *ngIf="bookingService.currentSelectReturnSchedule && bookingService.currentSelectReturnSchedule.selectedCarriageType">
+        {{
+          bookingService.currentSelectReturnSchedule.price
+          + bookingService.currentSelectReturnSchedule.selectedCarriageType.serviceCharge | currency:'VND'
+        }}
+      </div>
+
+      <div class="offset-6 col-3" *ngIf="bookingService.currentSelectSeats">
+        Seat type {{ bookingService.currentSelectSeats[i + totalSeats/2].seatTypeName }}
+      </div>
+
+      <div class="col-3 text-end yellow-text" *ngIf="bookingService.currentSelectSeats">
+        {{ bookingService.currentSelectSeats[i + totalSeats/2].serviceCharge | currency:'VND' }}
+      </div>
+    </div>
+  </div>
+  <div class="col-12 d-flex border-top"
+       *ngIf="bookingService.isRoundTrip"
+       style="padding: 14px 3% 18px 3%;">
+    <div class="row w-100">
+
+      <div class="offset-6 col-3">
+        Sub total
+      </div>
+
+      <div class="col-3 text-end yellow-text">
+        {{ returnSubTotal | currency:'VND' }}
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="row bg-white mb-3 ms-0 me-0 mt-3">
