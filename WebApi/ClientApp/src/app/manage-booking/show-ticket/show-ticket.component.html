@@ -1,44 +1,69 @@
-<div class="ticket shadow mt-5 p-2 ">
-  <div class="stub">
-    <div class="top">
-      <span class="admit"><strong style="font-size: 20px;">Seat</strong></span>
-      <span class="line"></span>
-      <div class="d-flex flex-column">
-        Train Code
-        <span style="color: #fb0">{{ trainName }}</span>
+<div class="container mt-5 p-2">
+  <h4>
+    Ticket information
+  </h4>
+
+  <div class="ticket shadow p-2" *ngIf="manageService.currentTicket">
+    <div class="stub">
+      <div class="top">
+        <span class="admit"><strong style="font-size: 20px;">Seat</strong></span>
+        <span class="line"></span>
+        <div class="d-flex flex-column">
+          Train Code
+          <span style="color: #fb0">{{ manageService.currentTicket.trainName }}</span>
+        </div>
+      </div>
+      <div class="number">{{ manageService.currentTicket.seatName }}</div>
+
+      <div class="passenger-name d-flex flex-column">
+        Passenger name:
+        <span style="color: #fb0">{{ manageService.currentTicket.passengerName | titlecase }}</span>
       </div>
     </div>
-    <div class="number">{{ seatName }}</div>
 
-    <div class="passenger-name d-flex flex-column">
-      Passenger name:
-      <span style="color: #fb0">{{ passengerName | titlecase }}</span>
+    <div class="check">
+      <div class="text-uppercase text-end">
+        {{ manageService.currentTicket.code }}
+      </div>
+
+      From :
+      <div class="number">{{ arrivalStationName | titlecase }}</div>
+      To :
+      <div class="number">{{ departureStationName | titlecase }}</div>
+
+      <div class="info">
+        <section>
+          <div class="title">Departure date</div>
+          <div>{{ departureTime | date }}</div>
+        </section>
+        <section>
+          <div class="title">Departure time</div>
+          <div>{{ departureTime | date: 'shortTime' }}</div>
+        </section>
+        <section>
+          <div class="title bold">Price</div>
+          <div style="font-size: 20px;">{{ manageService.currentTicket.price | currency:'VND' }}</div>
+        </section>
+      </div>
     </div>
   </div>
 
-  <div class="check">
-    <div class="text-uppercase text-end">
-      {{ code }}
-    </div>
 
-    From :
-    <div class="number  ">{{ arrivalStationName | titlecase }}</div>
-    To :
-    <div class="number  ">{{ departureStationName | titlecase }}</div>
+  <div class="mt-5">
+    <h5>
+      Ticket Status:
+      <span class="text-uppercase" [ngClass]="{
+        'text-success': status === 'Departed',
+        'text-danger': status === 'Cancelled',
+        'text-warning': status === 'Upcoming'
+      }">
+        {{ status }}
+      </span>
+    </h5>
 
-    <div class="info">
-      <section>
-        <div class="title">Departure date</div>
-        <div>{{ departureTime | date }}</div>
-      </section>
-      <section>
-        <div class="title">Departure time</div>
-        <div>{{ departureTime | date: 'shortTime' }}</div>
-      </section>
-      <section>
-        <div class="title bold">Price</div>
-        <div style="font-size: 20px;">{{ price | currency:'VND' }}</div>
-      </section>
-    </div>
+    <h5 *ngIf="departureTime && status === 'Upcoming'" >
+      Time until departure: {{ departureTime | dateDiff }}
+    </h5>
   </div>
+
 </div>

@@ -20,7 +20,7 @@ import { UserComponent } from './user/user.component';
 import { HelpContactComponent } from './help/help-contact/help-contact.component';
 import { HelpFaqsComponent } from './help/help-faqs/help-faqs.component';
 import { ManageBookingModule } from './manage-booking/manage-booking.module';
-import { PaymentSuccessComponent } from './payment-success/payment-success.component'
+import { PaymentSuccessComponent } from './payment-success/payment-success.component';
 
 @NgModule({
   declarations: [

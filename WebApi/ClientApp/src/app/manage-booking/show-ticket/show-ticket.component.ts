@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'
-import { ActivatedRoute } from '@angular/router'
 import { ManageBookingService } from '../manage-booking.service'
+import { Router } from '@angular/router'
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-show-ticket',
@@ -8,46 +9,50 @@ import { ManageBookingService } from '../manage-booking.service'
   styleUrls: ['./show-ticket.component.scss']
 })
 export class ShowTicketComponent implements OnInit {
-  email: string = ''
-  code: string = ''
-  passengerName: string = ''
-  trainName: string = ''
-  carriageName: string = ''
-  seatName: string = ''
-  scheduleName: string = ''
-  price: number = 0
-  scheduleId: number = 0
+
+  status: string | undefined
+
   departureStationName: string | undefined
   arrivalStationName: string | undefined
-  departureTime: string | undefined
-  arrivalTime: string | undefined
+  departureTime: Date | undefined
+  arrivalTime: Date | undefined
 
-
-  constructor(private route: ActivatedRoute, private manageService: ManageBookingService) { }
+  constructor(public manageService: ManageBookingService,
+              private router: Router) { }
 
   ngOnInit() {
-    this.route.queryParams.subscribe(params => {
-      this.email = params['email']
-      this.code = params['code']
-      this.passengerName = params['passengerName']
-      this.trainName = params['trainName']
-      this.carriageName = params['carriageName']
-      this.seatName = params['seatName']
-      this.scheduleName = params['scheduleName']
-      this.price = params['price']
-      this.scheduleId = params['scheduleId']
-    })
+    if (!this.manageService.currentTicket) {
+      this.router.navigate(['management'])
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Please enter your email and code again!'
+      })
+    }
 
     this.loadSchedule()
   }
 
   loadSchedule() {
-    this.manageService.getScheduleById(this.scheduleId).subscribe({
+    if (!this.manageService.currentTicket) {
+      return
+    }
+
+    this.manageService.getScheduleById(this.manageService.currentTicket?.scheduleId).subscribe({
       next: (response) => {
         this.arrivalStationName = response.arrivalStationName
         this.departureStationName = response.departureStationName
-        this.arrivalTime = response.arrivalTime
-        this.departureTime = response.departureTime
+        this.arrivalTime = new Date(response.arrivalTime)
+        this.departureTime = new Date(response.departureTime)
+
+        if (this.manageService.currentTicket && this.manageService.currentTicket.isCancel) {
+          this.status = 'Cancelled'
+        } else if (this.departureTime.getTime() < new Date().getTime()) {
+          this.status = 'Departed'
+        } else {
+          this.status = 'Upcoming'
+        }
+
       },
       error: (error: any) => {
         console.log(error)

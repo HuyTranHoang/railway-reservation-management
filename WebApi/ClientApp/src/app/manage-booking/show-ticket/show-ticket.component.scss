@@ -1,11 +1,7 @@
-
-
 .ticket {
   display: flex;
-  justify-content: center;
-  align-items: center;
   width: 700px;
-  margin: 20px auto;
+  margin: 20px 0;
 
   .stub, .check {
     box-sizing: border-box;

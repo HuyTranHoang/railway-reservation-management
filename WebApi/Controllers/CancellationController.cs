@@ -12,12 +12,13 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CancellationDto>>> GetCancellationss([FromQuery] CancellationQueryParams queryParams)
+        public async Task<ActionResult<IEnumerable<CancellationDto>>> GetCancellationss(
+            [FromQuery] CancellationQueryParams queryParams)
         {
             var cancellationsDto = await _cancellationService.GetAllDtoAsync(queryParams);
 
-            var paginationHeader = new PaginationHeader(queryParams.PageNumber, queryParams.PageSize, 
-            cancellationsDto.TotalCount, cancellationsDto.TotalPages);
+            var paginationHeader = new PaginationHeader(queryParams.PageNumber, queryParams.PageSize,
+                cancellationsDto.TotalCount, cancellationsDto.TotalPages);
 
             Response.AddPaginationHeader(paginationHeader);
 
@@ -37,7 +38,6 @@ namespace WebApi.Controllers
         [HttpPost]
         public async Task<ActionResult> AddCancellation([FromBody] Cancellation cancellation)
         {
-
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
             try
@@ -60,7 +60,7 @@ namespace WebApi.Controllers
         {
             if (id != cancellation.Id) return BadRequest(new ErrorResponse(400));
 
-            if(!ModelState.IsValid) return BadRequest(ModelState);
+            if (!ModelState.IsValid) return BadRequest(ModelState);
 
             try
             {
@@ -84,7 +84,7 @@ namespace WebApi.Controllers
         {
             var cancellation = await _cancellationService.GetByIdAsync(id);
 
-            if(cancellation == null) return NotFound(new ErrorResponse(404));
+            if (cancellation == null) return NotFound(new ErrorResponse(404));
 
             await _cancellationService.SoftDeleteAsync(cancellation);
 

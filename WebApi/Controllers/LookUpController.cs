@@ -16,7 +16,7 @@ namespace WebApi.Controllers
         {
             var ticketDto = await _lookUpService.GetByCodeAndEmailAsync(code, email);
 
-            if (ticketDto is null) return NotFound(new ErrorResponse(404));
+            if (ticketDto is null) return BadRequest(new ValidateInputError(400, "Ticket not found"));
 
             return Ok(ticketDto);
         }

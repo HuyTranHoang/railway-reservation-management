@@ -51,6 +51,15 @@ namespace Infrastructure.Persistence
                 .FirstOrDefaultAsync(t => t.TicketId == ticketId);
         }
 
+        public async Task<bool> IsTicketCancelledAsync(int ticketId)
+        {
+            var cancellation = await _context.Cancellations
+                .Include(t => t.Ticket)
+                .FirstOrDefaultAsync(t => t.TicketId == ticketId);
+
+            return cancellation != null;
+        }
+
         public async Task SoftDelete(Cancellation cancellation)
         {
             cancellation.IsDeleted = true;

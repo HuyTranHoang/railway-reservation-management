@@ -14,6 +14,7 @@ export interface Ticket {
   scheduleName: string,
   paymentId: number,
   price: number,
+  isCancel: boolean,
   status: string,
   createdAt: string
 }

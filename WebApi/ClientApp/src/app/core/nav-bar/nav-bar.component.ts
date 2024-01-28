@@ -20,6 +20,7 @@ export class NavBarComponent implements OnInit {
     '/booking',
     '/payment-success',
     '/user/profile',
+    '/management',
     '/management/ticket'
   ];
 

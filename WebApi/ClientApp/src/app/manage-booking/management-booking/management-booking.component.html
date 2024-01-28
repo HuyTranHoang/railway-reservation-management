@@ -1,28 +1,51 @@
-<div class="container-fluid text-center "
-     style="padding-top: 120px; padding-bottom: 120px ;
-     background: url(https://1.bp.blogspot.com/-TJAu7FF76Do/YT3KhmMNr_I/AAAAAAAAHys/B-EAKcjW4fcp_XgC3-Rn-GYrF_cNtHYmwCLcBGAsYHQ/s0-rw/bo-hinh-nen-phong-canh-chat-luong-cao-full-hd-dep-nhat-15.jpg) center center no-repeat;
-     background-size: cover">
+<div class="container mt-5 p-2">
 
-  <h1 class="teko" style="color: #F79A24;">
-    BOOKED WITH US?
-  </h1>
-
-  <p style=" color: #fff;" class="card-title">
+  <p>
     To access an existing ticket, please enter your Ticket code and your Email address below.
   </p>
 
-  <form (ngSubmit)="onSubmit()" class="form form-control w-50 m-auto mt-5" style="background: rgba(0,0,0,0.5); ">
+  <form [formGroup]="lookUpForm"
+        (ngSubmit)="onSubmit()"
+        class="p-5 bg-body-secondary rounded">
 
-    <label class="form-label p-2">Ticket code</label>
-    <input class="form-control p-2" type="text"
-           [(ngModel)]="code" name="code" required>
 
-    <label class="form-label p-2">Email address</label>
-    <input class="form-control p-2" type="text"
-           [(ngModel)]="email" name="email" required>
-    <button class="form-control w-100 p-2" type="submit">Submit
+    <div>
+      <label class="form-label">Ticket code</label>
+      <input class="form-control"
+             formControlName="code"
+             [class.is-invalid]="lookUpForm.controls['code'].invalid
+            && (lookUpForm.controls['code'].touched || isSubmitted)"
+             type="text" name="code">
+      <span class="text-danger"
+            *ngIf="lookUpForm.controls['code'].invalid && (lookUpForm.controls['code'].touched || isSubmitted)">
+        Ticket code is required
+      </span>
+    </div>
+
+
+    <div class="mt-3">
+      <label class="form-label">Email address</label>
+      <input class="form-control"
+             formControlName="email"
+             [class.is-invalid]="lookUpForm.controls['email'].invalid
+            && (lookUpForm.controls['email'].touched || isSubmitted)"
+             type="text" name="email">
+      <span class="text-danger"
+            *ngIf="lookUpForm.controls['email'].invalid && (lookUpForm.controls['email'].touched || isSubmitted)">
+        Email address is required
+      </span>
+    </div>
+
+    <ul class="mt-2">
+      <li class="text-danger" *ngFor="let item of errorMessages">
+        {{ item }}
+      </li>
+    </ul>
+
+    <button class="btn btn-primary mt-2" type="submit">
+      Submit
     </button>
-    <p class="text-bg-danger ">{{ wrong }}</p>
+
   </form>
 </div>
 
