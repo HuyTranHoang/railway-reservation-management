@@ -238,11 +238,19 @@ export class SeatSelectionComponent implements OnInit {
   selectCarriage_de(carriage: Carriage) {
     this.currentSelectCarriage_de = carriage
     this.compartmentOfCarriage_de = this.currentSelectCarriage_de?.compartments || []
+    if (this.bookingService.currentSelectDepartureSchedule?.selectedCarriageType?.id == 1) {
+      this.seatRows_de = []
+      this.generateSeatRows_de()
+    }
   }
 
   selectCarriage_re(carriage: Carriage) {
     this.currentSelectCarriage_re = carriage
     this.compartmentOfCarriage_re = this.currentSelectCarriage_re?.compartments || []
+    if (this.bookingService.currentSelectReturnSchedule?.selectedCarriageType?.id == 1) {
+      this.seatRows_re = []
+      this.generateSeatRows_re()
+    }
   }
 
 
