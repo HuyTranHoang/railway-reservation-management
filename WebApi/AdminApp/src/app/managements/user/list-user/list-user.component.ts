@@ -7,6 +7,7 @@ import {PaginatedResult} from '../../../@models/paginatedResult';
 import {UserService} from '../user.service';
 import {User} from '../../../@models/auth/applicationUser';
 import {ConfirmLockUserComponent} from '../confirm-lock-user/confirm-lock-user.component';
+import {AuthService} from '../../../auth/auth.service';
 
 @Component({
   selector: 'ngx-list-user',
@@ -37,6 +38,7 @@ export class ListUserComponent implements OnInit {
   };
 
   constructor(private userService: UserService,
+              public authService: AuthService,
               private sharedService: SharedService,
               private dialogService: NbDialogService) {
   }

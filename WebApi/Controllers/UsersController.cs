@@ -109,11 +109,10 @@ public class UsersController : BaseApiController
         return Ok(userDto);
     }
 
+    [Authorize(policy: "SuperAdminPolicy")]
     [HttpPost("add-edit-user")]
     public async Task<IActionResult> AddEditUser(UserAddEditDto userDto)
     {
-        ApplicationUser user;
-
         if (string.IsNullOrEmpty(userDto.Id))
         {
             if (string.IsNullOrEmpty(userDto.Password) || userDto.Password.Length < 6)
@@ -121,13 +120,62 @@ public class UsersController : BaseApiController
                 ModelState.AddModelError("errors", "Password is required and must be at least 6 characters.");
                 return BadRequest(ModelState);
             }
+
+            var user = new ApplicationUser
+            {
+                FirstName = userDto.FirstName,
+                LastName = userDto.LastName,
+                UserName = userDto.UserName,
+                Email = userDto.UserName,
+                EmailConfirmed = true,
+                CreatedAt = DateTime.Now
+            };
+
+            var result = await _userManager.CreateAsync(user, userDto.Password);
+
+            if (!result.Succeeded)
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("errors", error.Description);
+                }
+
+                return BadRequest(ModelState);
+            }
+
+            await _userManager.AddToRolesAsync(user, userDto.Roles.Split(","));
+
+            return Ok();
         }
         else
         {
+            var user = await _userManager.FindByIdAsync(userDto.Id);
 
+            if (user is null) return BadRequest(new ValidateInputError(400, "User with this id does not exist."));
+
+            user.FirstName = userDto.FirstName;
+            user.LastName = userDto.LastName;
+            user.UserName = userDto.UserName;
+            user.Email = userDto.UserName;
+
+            var result = await _userManager.UpdateAsync(user);
+
+            if (!result.Succeeded)
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("errors", error.Description);
+                }
+
+                return BadRequest(ModelState);
+            }
+
+            await _userManager.RemoveFromRolesAsync(user, _userManager.GetRolesAsync(user).Result.ToArray());
+            await _userManager.AddToRolesAsync(user, userDto.Roles.Split(","));
+
+            return Ok();
         }
 
-        return Ok();
     }
 
     [Authorize(policy: "SuperAdminOrAdminPolicy")]

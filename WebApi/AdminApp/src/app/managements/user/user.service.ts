@@ -35,11 +35,23 @@ export class UserService {
     return this.http.get<User>(this.baseUrl + '/users/' + email);
   }
 
+  getUserById(id: string) {
+    return this.http.get<User>(this.baseUrl + '/users/get-user-by-id/' + id);
+  }
+
   lockUser(id: string) {
     return this.http.put(this.baseUrl + '/users/lock-user/' + id, {});
   }
 
   unlockUser(id: string) {
     return this.http.put(this.baseUrl + '/users/unlock-user/' + id, {});
+  }
+
+  getAllRoles() {
+    return this.http.get<string[]>(this.baseUrl + '/users/get-application-roles');
+  }
+
+  addOrEditUser(user: User) {
+    return this.http.post(this.baseUrl + '/users/add-edit-user', user);
   }
 }
