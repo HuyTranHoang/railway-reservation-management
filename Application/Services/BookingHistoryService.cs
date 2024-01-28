@@ -1,4 +1,6 @@
 
+using Domain.Exceptions;
+
 namespace Application.Services;
 
 public class BookingHistoryService : IBookingHistoryService
@@ -22,7 +24,15 @@ public class BookingHistoryService : IBookingHistoryService
     {
         var payments = await _paymentRepository.GetPaymentWithAspNetUserByIdStringAsync(Id);
 
-        var tickets = await _ticketRepository.GetByIdWithPaymentAsync(payments.Id);
+        if (payments is null)
+        {
+            return new BookingHistoryDto
+            {
+                UpcomingTrips = new List<TicketDto>(),
+                PastTrips = new List<TicketDto>(),
+                Cancellations = new List<TicketDto>()
+            };
+        }
 
         var bookingHistoryDto = new BookingHistoryDto
         {
@@ -31,32 +41,34 @@ public class BookingHistoryService : IBookingHistoryService
             Cancellations = new List<TicketDto>()
         };
 
-        var currentDate = DateTime.Now;
-
-        foreach (var ticket in tickets)
+        foreach (var payment in payments)
         {
-            var ticketDto = _mapper.Map<TicketDto>(ticket);
-            //vé tàu đang khởi hành
-            if (ticket.Schedule.DepartureTime > currentDate)
+            var tickets = await _ticketRepository.GetByIdWithPaymentAsync(payment.Id);
+
+            foreach (var ticket in tickets)
             {
-                bookingHistoryDto.UpcomingTrips.Add(ticketDto);
-            }
-            // vé tàu chuẩn bị khởi hành 10p
-            else if (ticket.Schedule.DepartureTime > currentDate.AddMinutes(10))
-            {
-                bookingHistoryDto.UpcomingTrips.Add(ticketDto);
-            }
-            // vé đã chạy xong
-            else if (ticket.Schedule.ArrivalTime < currentDate)
-            {
-                bookingHistoryDto.PastTrips.Add(ticketDto);
-            }
-            // vé đã huỷ (chưa xongg)
-            if (ticket.Cancellation != null)
-            {
-                bookingHistoryDto.Cancellations.Add(ticketDto);
+                var isComing = ticket.Schedule.DepartureTime > DateTime.Now;
+                var isPastTrip = ticket.Schedule.ArrivalTime < DateTime.Now;
+                var isCancelled = ticket.Cancellation != null;
+
+                var ticketDto = _mapper.Map<TicketDto>(ticket);
+
+                if (isCancelled)
+                {
+                    bookingHistoryDto.Cancellations.Add(ticketDto);
+                }
+                else if (isComing)
+                {
+                    bookingHistoryDto.UpcomingTrips.Add(ticketDto);
+                }
+                else if (isPastTrip)
+                {
+                    bookingHistoryDto.PastTrips.Add(ticketDto);
+                }
+
             }
         }
+
         return bookingHistoryDto;
     }
 

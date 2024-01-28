@@ -423,6 +423,7 @@ public class AccountController : BaseApiController
     {
         return new UserDto
         {
+            Id = user.Id,
             FirstName = user.FirstName,
             LastName = user.LastName,
             Email = user.Email,

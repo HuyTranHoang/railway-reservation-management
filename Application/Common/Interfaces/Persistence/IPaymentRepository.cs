@@ -5,6 +5,5 @@ public interface IPaymentRepository : IRepository<Payment>
     Task<IQueryable<Payment>> GetQueryWithAspNetUserAsync();
     Task<IEnumerable<Payment>> GetAllPaymentsForDateRange(DateTime startDate, DateTime endDate);
     Task<Payment> GetPaymentWithAspNetUserByIdAsync(int id);
-
-    Task<Payment> GetPaymentWithAspNetUserByIdStringAsync(string id);
+    Task<List<Payment>> GetPaymentWithAspNetUserByIdStringAsync(string id);
 }

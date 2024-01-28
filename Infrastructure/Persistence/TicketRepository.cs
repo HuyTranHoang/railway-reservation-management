@@ -72,7 +72,8 @@ namespace Infrastructure.Persistence
                     .Include(t => t.Seat)
                     .Include(t => t.Schedule)
                     .Include(t => t.Payment)
-                .Where(t => t.Id == id)
+                    .Include(t => t.Cancellation)
+                .Where(t => t.PaymentId == id)
                 .ToListAsync();
         }
 

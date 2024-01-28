@@ -8,13 +8,13 @@ POST {{url}}/{{router}}
 Content-Type: application/json
 
 {
-  "PassengerId" : 1 ,
+  "PassengerId" : 2,
   "TrainId" : 1,
   "DistanceFareId" : 1,
-  "CarriageId" : 1,
-  "SeatId" : 1,
-  "ScheduleId" : 7,
-  "PaymentId": 3,
+  "CarriageId" : 2,
+  "SeatId" : 4,
+  "ScheduleId" : 3,
+  "PaymentId": 1,
   "Status" : "Active"
 }
 
@@ -34,7 +34,7 @@ GET {{url}}/{{router}}?
 ### 
 
 # @name getTicketById
-@id = 5
+@id = 4
 
 GET {{url}}/{{router}}/{{id}}
 
@@ -42,7 +42,7 @@ GET {{url}}/{{router}}/{{id}}
 ### 
 
 # @name UpdateTicket
-@updateId = 7
+@updateId = 1
 
 PUT {{url}}/{{router}}/{{updateId}}
 Content-Type: application/json
@@ -61,7 +61,7 @@ Content-Type: application/json
 ### 
 
 # @name SoftDeleteTicket
-@deleteId = 1
+@deleteId = 3
 
 PATCH {{url}}/{{router}}/{{deleteId}}
 

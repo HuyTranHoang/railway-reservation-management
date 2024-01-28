@@ -18,7 +18,7 @@ Content-Type: application/json
 
 # @name getListOfSeats
 GET {{url}}/{{router}}?
-  &pageNumber=4
+  &pageNumber=1
   &pageSize=50
   # &searchTerm=Pokimane
   # &sort=ageDesc

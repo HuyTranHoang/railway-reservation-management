@@ -14,15 +14,15 @@ namespace WebApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<List<BookingHistoryDto>>> GetBookingHistoryById(string id)
         {
-            try
+            var bookingHistory = await _bookingHistoryService.GetBookingHistoryDtoAsync(id);
+
+            if (bookingHistory is null)
             {
-                var bookingHistory = await _bookingHistoryService.GetBookingHistoryDtoAsync(id);
-                return Ok(bookingHistory);
+                return NotFound(new ErrorResponse(404));
             }
-            catch (NotFoundException e)
-            {
-                return NotFound(e.Message);
-            }
+
+            return Ok(bookingHistory);
         }
+
     }
 }

@@ -13,7 +13,100 @@
 </div>
 
 <tabset class="user-booking-history">
-  <tab class="container" heading="Upcoming"> Tab 1 content </tab>
-  <tab class="container" heading="Past Trips"> Tab 2 content </tab>
-  <tab class="container" heading="Cancelled"> Tab 3 content </tab>
+  <tab class="container" heading="Upcoming">
+    <div *ngIf="upcomingTrips.length > 0">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Code</th>
+            <th>Passenger Name</th>
+            <th>Train Name</th>
+            <th>Carriage Name</th>
+            <th>Seat Name</th>
+            <th>Schedule Name</th>
+            <th>Price</th>
+            <th>Status</th>
+            <th>Created At</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of upcomingTrips">
+            <td>{{ item.code }}</td>
+            <td>{{ item.passengerName }}</td>
+            <td>{{ item.trainName }}</td>
+            <td>{{ item.carriageName }}</td>
+            <td>{{ item.seatName }}</td>
+            <td>{{ item.scheduleName }}</td>
+            <td>{{ item.price | currency }}</td>
+            <td>{{ item.status }}</td>
+            <td>{{ item.createdAt | date }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </tab>
+  <tab class="container" heading="Past Trips">
+    <div *ngIf="pastTrips.length > 0">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Code</th>
+            <th>Passenger Name</th>
+            <th>Train Name</th>
+            <th>Carriage Name</th>
+            <th>Seat Name</th>
+            <th>Schedule Name</th>
+            <th>Price</th>
+            <th>Status</th>
+            <th>Created At</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of pastTrips">
+            <td>{{ item.code }}</td>
+            <td>{{ item.passengerName }}</td>
+            <td>{{ item.trainName }}</td>
+            <td>{{ item.carriageName }}</td>
+            <td>{{ item.seatName }}</td>
+            <td>{{ item.scheduleName }}</td>
+            <td>{{ item.price | currency }}</td>
+            <td>{{ item.status }}</td>
+            <td>{{ item.createdAt | date }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </tab>
+  <tab class="container" heading="Cancelled">
+    <div *ngIf="cancellations.length > 0">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Code</th>
+            <th>Passenger Name</th>
+            <th>Train Name</th>
+            <th>Carriage Name</th>
+            <th>Seat Name</th>
+            <th>Schedule Name</th>
+            <th>Price</th>
+            <th>Status</th>
+            <th>Created At</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of cancellations">
+            <td>{{ item.code }}</td>
+            <td>{{ item.passengerName }}</td>
+            <td>{{ item.trainName }}</td>
+            <td>{{ item.carriageName }}</td>
+            <td>{{ item.seatName }}</td>
+            <td>{{ item.scheduleName }}</td>
+            <td>{{ item.price | currency }}</td>
+            <td>{{ item.status }}</td>
+            <td>{{ item.createdAt | date }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </tab>
 </tabset>
