@@ -46,6 +46,7 @@ export class DepartureComponent implements OnInit {
 
   ngOnInit(): void {
     setTimeout(() => {
+      this.departureService.isFromRoundTrip = false
       this.bookingService.currentStep = 1
     }, 0)
 
