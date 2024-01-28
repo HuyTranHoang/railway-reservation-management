@@ -34,6 +34,7 @@ export class ManagementBookingComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log(this.lookUpForm.value)
     this.isSubmitted = true
 
     if (this.lookUpForm.invalid) {
