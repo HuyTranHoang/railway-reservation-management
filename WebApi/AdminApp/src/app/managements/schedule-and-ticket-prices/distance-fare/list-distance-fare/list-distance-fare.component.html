@@ -71,7 +71,7 @@
           </div>
         </td>
         <td>{{ item.distance }}</td>
-        <td>{{ item.price | currency }}</td>
+        <td>{{ item.price | currency:'VND' }}</td>
         <td>{{ item.createdAt | date: 'medium' }}</td>
         <td class="text-right">
           <button nbButton status="info" class="mr-3" (click)="openShowDialog(item.id)">

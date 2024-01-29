@@ -19,7 +19,7 @@
         <div class="form-group row">
           <label class="label col-sm-3 col-form-label">Price</label>
           <div class="col-sm-9">
-            <input type="text" nbInput fullWidth  [value]="price" disabled>
+            <input type="text" nbInput fullWidth  [value]="price | currency:'VND'" disabled>
           </div>
         </div>
 

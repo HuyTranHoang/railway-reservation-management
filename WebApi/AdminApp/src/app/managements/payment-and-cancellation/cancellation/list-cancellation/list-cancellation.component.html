@@ -77,7 +77,7 @@
           <th scope="row">{{ index + 1 }}</th>
           <td>{{ item.ticketCode }}</td>
           <td>{{ item.cancellationRuleDepartureDateDifference }}</td>
-          <td>{{ item.cancellationRuleFee | currency }}</td>
+          <td>{{ item.cancellationRuleFee | currency:'VND' }}</td>
           <td>{{ item.reason }}</td>
           <td>{{ item.createdAt | date: 'medium' }}</td>
           <td class="text-right">

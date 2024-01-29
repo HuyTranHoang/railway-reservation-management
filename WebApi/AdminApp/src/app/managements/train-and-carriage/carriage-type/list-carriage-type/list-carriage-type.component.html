@@ -68,7 +68,7 @@
         <th scope="row">{{ index + 1 }}</th>
         <td>{{ item.name }}</td>
         <td>{{ item.numberOfCompartments }}</td>
-        <td>{{ item.serviceCharge | currency }}</td>
+        <td>{{ item.serviceCharge | currency:'VND' }}</td>
         <td>{{ item.createdAt |date: 'medium' }}</td>
         <td class="text-right">
           <button nbButton status="info" class="mr-3" (click)="openShowDialog(item.id)">
