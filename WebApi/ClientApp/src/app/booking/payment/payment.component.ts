@@ -240,7 +240,14 @@ export class PaymentComponent implements OnInit, OnDestroy {
           },
           error: (err) => {
             console.log(err)
-            Swal.fire({ icon: 'error', title: 'Oops...', text: 'Something went wrong!' })
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'It seems someone has already booked the selected seat. Please choose another seat.'
+            })
+
+            this.router.navigateByUrl('/booking/seat-selection')
+            this.hubConnection?.stop()
           }
         })
       },

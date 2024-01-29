@@ -171,17 +171,24 @@ public class PaymentsController : BaseApiController
                 if (response.VnPayResponseCode == "00")
                 {
                     // await _hubContext.Clients.All.SendAsync("PaymentStatus", "PaymentSuccess");
-                    await _hubContext.Clients.Group(response.OrderDescription).SendAsync("PaymentStatus", "PaymentSuccess");
+                    await _hubContext.Clients.Group(response.OrderDescription)
+                        .SendAsync("PaymentStatus", "PaymentSuccess");
 
                     // await _hubContext.Clients.User(response.OrderDescription).SendAsync("PaymentStatus", "PaymentSuccess");
-                    return Content("<html><head></head><body><script>window.close();</script></body></html>", "text/html");
+                    return Content("<html><head></head><body><script>window.close();</script></body></html>",
+                        "text/html");
                     // return Ok(new { message = "Payment success" });
                 }
 
                 if (response.VnPayResponseCode == "24")
                 {
-                    await _hubContext.Clients.All.SendAsync("PaymentStatus", "PaymentCancel");
-                    return Content("<html><head></head><body><script>window.close();</script></body></html>", "text/html");
+                    // await _hubContext.Clients.All.SendAsync("PaymentStatus", "PaymentCancel");
+                    await _hubContext.Clients.Group(response.OrderDescription)
+                        .SendAsync("PaymentStatus", "PaymentCancel");
+
+                    return Content("<html><head></head><body><script>window.close();</script></body></html>",
+                        "text/html");
+                    // return Ok(new { message = "Payment success" });
                 }
 
                 await _hubContext.Clients.All.SendAsync("PaymentStatus", "PaymentPending");

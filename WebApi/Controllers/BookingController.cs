@@ -46,7 +46,8 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("schedule")]
-        public async Task<ActionResult<List<ScheduleDto>>> GetBookingSchedule([FromQuery] BookingQueryParams queryParams)
+        public async Task<ActionResult<List<ScheduleDto>>> GetBookingSchedule(
+            [FromQuery] BookingQueryParams queryParams)
         {
             var schedulesDto = await _bookingService.GetBookingInfoWithScheduleAsync(queryParams);
             return Ok(schedulesDto);
@@ -94,66 +95,13 @@ namespace WebApi.Controllers
                 return BadRequest(new ErrorResponse(400, "Mismatched number of passengers and tickets."));
             }
 
-            // Thêm vé cho lịch trình khởi hành
-            for (int i = 0; i < paymentDto.Passengers.Count; i++)
+
+            try
             {
-                var passengerData = paymentDto.Passengers[i];
-                var ticketData = paymentDto.Tickets[i];
-
-                var passengerToAdd = new Passenger
+                // Thêm vé cho lịch trình khởi hành
+                for (int i = 0; i < paymentDto.Passengers.Count; i++)
                 {
-                    FullName = passengerData.FullName,
-                    CardId = passengerData.CardId,
-                    Gender = passengerData.Gender,
-                    Age = passengerData.Age,
-                    Phone = passengerData.Phone,
-                    Email = passengerData.Email
-                };
-
-                var passenger = await _bookingService.AddPassengerAsync(passengerToAdd);
-
-                var ticket = new Ticket
-                {
-                    PassengerId = passenger.Id,
-                    TrainId = paymentDto.TrainId[0],
-                    CarriageId = ticketData.CarriageId,
-                    SeatId = ticketData.SeatId,
-                    ScheduleId = paymentDto.ScheduleId[0],
-                    PaymentId = paymentDto.PaymentId
-                };
-
-                await _ticketService.AddAsync(ticket);
-
-                // Thông tin cần để gửi email
-                var schedule = await _scheduleService.GetDtoByIdAsync(paymentDto.ScheduleId[0]);
-                var carriage = await _carriageService.GetDtoByIdAsync(ticketData.CarriageId);
-                var seat = await _seatService.GetDtoByIdAsync(ticketData.SeatId);
-                var ticketEmailDto = new TicketEmailDto()
-                {
-                    DepartureStationName = schedule.DepartureStationName,
-                    ArrivalStationName = schedule.ArrivalStationName,
-                    DepartureDate = schedule.DepartureTime.ToString("dd/MM/yyyy"),
-                    DepartureTime = schedule.DepartureTime.ToString("HH:mm"),
-                    TicketCode = ticket.Code,
-                    TrainName = schedule.TrainName,
-                    PassengerName = passengerData.FullName,
-                    PassengerCardId = passengerData.CardId,
-                    CarriageTypeName = carriage.CarriageTypeName,
-                    CompartmentName = seat.CompartmentName,
-                    SeatName = seat.Name,
-                    Price = ticket.Price
-                };
-
-                listTicketEmailDto.Add(ticketEmailDto);
-            }
-
-            // Nếu có roundtrip thì thêm vé cho lịch trình trở về, cùng thông tin hành khách
-            if (paymentDto.IsRoundTrip)
-            {
-                var totalTicket = paymentDto.Tickets.Count;
-                for (int i = totalTicket / 2; i < totalTicket; i++)
-                {
-                    var passengerData = paymentDto.Passengers[i - totalTicket / 2];
+                    var passengerData = paymentDto.Passengers[i];
                     var ticketData = paymentDto.Tickets[i];
 
                     var passengerToAdd = new Passenger
@@ -171,24 +119,17 @@ namespace WebApi.Controllers
                     var ticket = new Ticket
                     {
                         PassengerId = passenger.Id,
-                        TrainId = paymentDto.TrainId[1],
+                        TrainId = paymentDto.TrainId[0],
                         CarriageId = ticketData.CarriageId,
                         SeatId = ticketData.SeatId,
-                        ScheduleId = paymentDto.ScheduleId[1],
+                        ScheduleId = paymentDto.ScheduleId[0],
                         PaymentId = paymentDto.PaymentId
                     };
 
-                    try
-                    {
-                        await _ticketService.AddAsync(ticket);
-                    }
-                    catch (BadRequestException e)
-                    {
-                        return BadRequest(new ErrorResponse(400));
-                    }
+                    await _ticketService.AddAsync(ticket);
 
                     // Thông tin cần để gửi email
-                    var schedule = await _scheduleService.GetDtoByIdAsync(paymentDto.ScheduleId[1]);
+                    var schedule = await _scheduleService.GetDtoByIdAsync(paymentDto.ScheduleId[0]);
                     var carriage = await _carriageService.GetDtoByIdAsync(ticketData.CarriageId);
                     var seat = await _seatService.GetDtoByIdAsync(ticketData.SeatId);
                     var ticketEmailDto = new TicketEmailDto()
@@ -209,13 +150,75 @@ namespace WebApi.Controllers
 
                     listTicketEmailDto.Add(ticketEmailDto);
                 }
+
+                // Nếu có roundtrip thì thêm vé cho lịch trình trở về, cùng thông tin hành khách
+                if (paymentDto.IsRoundTrip)
+                {
+                    var totalTicket = paymentDto.Tickets.Count;
+                    for (int i = totalTicket / 2; i < totalTicket; i++)
+                    {
+                        var passengerData = paymentDto.Passengers[i - totalTicket / 2];
+                        var ticketData = paymentDto.Tickets[i];
+
+                        var passengerToAdd = new Passenger
+                        {
+                            FullName = passengerData.FullName,
+                            CardId = passengerData.CardId,
+                            Gender = passengerData.Gender,
+                            Age = passengerData.Age,
+                            Phone = passengerData.Phone,
+                            Email = passengerData.Email
+                        };
+
+                        var passenger = await _bookingService.AddPassengerAsync(passengerToAdd);
+
+                        var ticket = new Ticket
+                        {
+                            PassengerId = passenger.Id,
+                            TrainId = paymentDto.TrainId[1],
+                            CarriageId = ticketData.CarriageId,
+                            SeatId = ticketData.SeatId,
+                            ScheduleId = paymentDto.ScheduleId[1],
+                            PaymentId = paymentDto.PaymentId
+                        };
+
+
+                        await _ticketService.AddAsync(ticket);
+
+                        // Thông tin cần để gửi email
+                        var schedule = await _scheduleService.GetDtoByIdAsync(paymentDto.ScheduleId[1]);
+                        var carriage = await _carriageService.GetDtoByIdAsync(ticketData.CarriageId);
+                        var seat = await _seatService.GetDtoByIdAsync(ticketData.SeatId);
+                        var ticketEmailDto = new TicketEmailDto()
+                        {
+                            DepartureStationName = schedule.DepartureStationName,
+                            ArrivalStationName = schedule.ArrivalStationName,
+                            DepartureDate = schedule.DepartureTime.ToString("dd/MM/yyyy"),
+                            DepartureTime = schedule.DepartureTime.ToString("HH:mm"),
+                            TicketCode = ticket.Code,
+                            TrainName = schedule.TrainName,
+                            PassengerName = passengerData.FullName,
+                            PassengerCardId = passengerData.CardId,
+                            CarriageTypeName = carriage.CarriageTypeName,
+                            CompartmentName = seat.CompartmentName,
+                            SeatName = seat.Name,
+                            Price = ticket.Price
+                        };
+
+                        listTicketEmailDto.Add(ticketEmailDto);
+                    }
+                }
+
+                var sendEmailResult = await SendTicketEmail(user, listTicketEmailDto);
+
+                if (!sendEmailResult)
+                {
+                    return BadRequest("Error sending email.");
+                }
             }
-
-            var sendEmailResult = await SendTicketEmail(user, listTicketEmailDto);
-
-            if (!sendEmailResult)
+            catch (BadRequestException)
             {
-                return BadRequest("Error sending email.");
+                return BadRequest(new ErrorResponse(400, "Invalid data."));
             }
 
             return Ok(new JsonResult(new { message = "Payment successful." }));
