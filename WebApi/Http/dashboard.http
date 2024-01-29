@@ -12,3 +12,9 @@ GET {{url}}/{{router}}/dashboardDataToday
 GET {{url}}/{{router}}/last7Days
 
 ### 
+
+# @name getDashboardUpcomingSchedules
+@count = 5
+GET {{url}}/{{router}}/upcomingSchedules/{{count}}
+
+### 

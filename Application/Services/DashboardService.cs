@@ -1,5 +1,6 @@
 
 
+
 namespace Application.Services
 {
     public class DashboardService : IDashboardService
@@ -8,19 +9,25 @@ namespace Application.Services
         private readonly ITicketRepository _ticketRepository;
         private readonly ICancellationRepository _cancellationRepository;
         private readonly IUserRepository _userRepository;
+        private readonly IScheduleRepository _scheduleRepository;
+        private readonly ISeatRepository _seatRepository;
         private readonly IUnitOfWork _unitOfWork;
 
         public DashboardService(IUnitOfWork unitOfWork,
                                 IMapper mapper,
                                 ITicketRepository ticketRepository,
                                 ICancellationRepository cancellationRepository,
-                                IUserRepository userRepository)
+                                IUserRepository userRepository,
+                                IScheduleRepository scheduleRepository,
+                                ISeatRepository seatRepository)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _ticketRepository = ticketRepository;
             _cancellationRepository = cancellationRepository;
             _userRepository = userRepository;
+            _scheduleRepository = scheduleRepository;
+            _seatRepository = seatRepository;
         }
 
         public async Task<int> GetTicketCountTodayAsync()
@@ -75,6 +82,32 @@ namespace Application.Services
             }
 
             return ticketPriceSum;
+        }
+
+        public async Task<List<UpcomingScheduleDto>> GetUpcomingSchedulesWithSeatInfoAsync(int count)
+        {
+            var upcomingSchedules = await _scheduleRepository.GetUpcomingSchedules(count);
+            var upcomingScheduleDtos = new List<UpcomingScheduleDto>();
+
+            foreach (var schedule in upcomingSchedules)
+            {
+                var totalSeats = await _seatRepository.GetTotalNumberOfSeatsInTrain(schedule.TrainId);
+
+                var seatsBooked = await _ticketRepository.GetSeatsBookedInSchedule(schedule.Id);
+
+                var upcomingScheduleDto = new UpcomingScheduleDto
+                {
+                    ScheduleId = schedule.Id,
+                    ScheduleName = schedule.Name,
+                    DepartureTime = schedule.DepartureTime,
+                    TotalSeats = totalSeats,
+                    SeatsBooked = seatsBooked
+                };
+
+                upcomingScheduleDtos.Add(upcomingScheduleDto);
+            }
+
+            return upcomingScheduleDtos;
         }
     }
 }

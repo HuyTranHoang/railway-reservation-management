@@ -8,6 +8,7 @@ namespace Application.Common.Interfaces.Services
         Task<int> GetUserCountTodayAsync();
         Task<double[]> GetTicketPriceSumLast7DaysAsync();
         Task<double[]> GetTicketPriceCancelSumLast7DaysAsync();
+        Task<List<UpcomingScheduleDto>> GetUpcomingSchedulesWithSeatInfoAsync(int count);
 
     }
 }

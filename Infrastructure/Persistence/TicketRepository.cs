@@ -122,5 +122,12 @@ namespace Infrastructure.Persistence
                 .Where(ticket => ticket.CreatedAt.Date == date.Date)
                 .SumAsync(ticket => ticket.Price);
         }
+
+        public async Task<int> GetSeatsBookedInSchedule(int scheduleId)
+        {
+            return await _context.Tickets
+                .Where(ticket => ticket.ScheduleId == scheduleId)
+                .CountAsync();
+        }
     }
 }

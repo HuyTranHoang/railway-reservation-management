@@ -9,5 +9,6 @@ namespace Application.Common.Interfaces.Persistence
         Task<int> GetTicketCountTodayAsync();
         // Task<double> GetTicketPriceTodayAsync();
         Task<double> GetTicketPriceSumByDateAsync(DateTime date);
+        Task<int> GetSeatsBookedInSchedule(int scheduleId);
     }
 }

@@ -9,4 +9,5 @@ public interface ISeatRepository : IRepository<Seat>
     Task<double> GetServiceChargeByIdAsync(int seatId);
     Task<List<Seat>> GetSeatsByCompartmentIdAsync(int compartmentId);
     Task AddRangeAsync(List<Seat> seats);
+    Task<int> GetTotalNumberOfSeatsInTrain(int trainId);
 }

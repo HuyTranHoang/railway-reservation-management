@@ -94,4 +94,14 @@ public class SeatRepository : ISeatRepository
     {
         await _context.Seats.AddRangeAsync(seats);
     }
+
+    public async Task<int> GetTotalNumberOfSeatsInTrain(int trainId)
+    {
+        return await _context.Seats
+        .Include(s => s.Compartment)
+            .ThenInclude(c => c.Carriage)
+                .ThenInclude(c => c.Train)
+        .Where(s => s.Compartment.Carriage.Train.Id == trainId)
+        .CountAsync();
+    }
 }

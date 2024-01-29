@@ -56,5 +56,20 @@ namespace WebApi.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+
+        [HttpGet("upcomingSchedules/{count}")]
+        public async Task<IActionResult> GetUpcomingSchedulesWithSeatInfo(int count)
+        {
+            try
+            {
+                var upcomingSchedulesWithSeatInfo = await _dashboardService.GetUpcomingSchedulesWithSeatInfoAsync(count);
+                return Ok(upcomingSchedulesWithSeatInfo);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
     }
 }
