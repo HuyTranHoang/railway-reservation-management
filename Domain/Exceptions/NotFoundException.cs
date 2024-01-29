@@ -2,7 +2,7 @@ namespace Domain.Exceptions;
 
 public class NotFoundException : Exception
 {
-    public NotFoundException(int v)
+    public NotFoundException()
     {
     }
 

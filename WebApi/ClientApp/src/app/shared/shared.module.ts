@@ -5,7 +5,8 @@ import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { TabsModule } from 'ngx-bootstrap/tabs'
 import { TooltipModule } from 'ngx-bootstrap/tooltip'
 import { AlertModule } from 'ngx-bootstrap/alert'
-import { ModalModule} from 'ngx-bootstrap/modal'
+import { ModalModule } from 'ngx-bootstrap/modal';
+
 @NgModule({
   declarations: [],
   imports: [
@@ -16,7 +17,6 @@ import { ModalModule} from 'ngx-bootstrap/modal'
     TooltipModule.forRoot(),
     AlertModule.forRoot(),
     ModalModule.forRoot(),
-
   ],
   exports: [
     NgxSpinnerModule,

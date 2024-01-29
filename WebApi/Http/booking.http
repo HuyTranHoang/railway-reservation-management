@@ -1,5 +1,5 @@
 @url = https://localhost:5001
-@router = api/bookinghistory
+@router = api/booking
 
 ### 
 
@@ -17,9 +17,9 @@ GET {{url}}/{{router}}/schedule?
 ### 
 
 # @name getTrainDetailsByScheduleId
-@id = ef6f88aa-f940-4bc8-aeb6-a6731ad8e7e2
+@id = 1
 
-GET {{url}}/{{router}}/{{id}}
+GET {{url}}/{{router}}/schedule/{{id}}
 
 ###
 
@@ -45,10 +45,10 @@ Content-Type: application/json
   [
     {
       "carriageId": 3,
-      "seatId": 1
+      "seatId": 129
     }
   ],
-  "PaymentId": 2, // Payment id sẽ có trước khi có ticket, sẽ lấy để truyền vào
+  "PaymentId": 1, // Payment id sẽ có trước khi có ticket, sẽ lấy để truyền vào
   "TrainId": 1,
   "ScheduleId": 1,
 }
@@ -59,4 +59,3 @@ Content-Type: application/json
 # }
 
 ### 
-

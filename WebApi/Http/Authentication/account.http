@@ -23,7 +23,7 @@ POST {{url}}/{{router}}/login
 Content-Type: application/json
 
 {
-    "username": "xjenkers@gmail.com",
+    "username": "user@gmail.com",
     "password": "123456"
 }
 
