@@ -51,6 +51,11 @@ export class SeatSelectionComponent implements OnInit {
     if (this.bookingService.currentSelectDepartureSchedule) {
       this.getTrainDetailsByScheduleId()
     }
+
+    if (!this.bookingService.currentBookingScheduleParams) {
+      Swal.fire('Oops', 'Please select a valid departure station, arrival station and departure date', 'error')
+      this.router.navigate(['/'])
+    }
   }
 
   getSeatTypes() {
@@ -264,6 +269,15 @@ export class SeatSelectionComponent implements OnInit {
       return
     }
 
+    if (this.selectedDepartureSeats_de.length > 10) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'You can only book up to 10 seats'
+      })
+      return
+    }
+
     this.bookingService.currentSelectSeats = []
 
     if (!this.bookingService.isRoundTrip)
@@ -274,6 +288,15 @@ export class SeatSelectionComponent implements OnInit {
           icon: 'error',
           title: 'Oops...',
           text: 'Please select at least one seat for return'
+        })
+        return
+      }
+
+      if (this.selectedDepartureSeats_re.length > 10) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'You can only book up to 10 seats'
         })
         return
       }

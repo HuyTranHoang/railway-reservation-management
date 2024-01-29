@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnDestroy, OnInit } from '@angular/core'
 import { BookingService } from '../booking.service'
 import { FormBuilder, FormGroup } from '@angular/forms'
 import { PaymentService } from './payment.service'
@@ -15,7 +15,7 @@ import { User } from '../../core/models/auth/user'
   templateUrl: './payment.component.html',
   styleUrls: ['./payment.component.scss']
 })
-export class PaymentComponent implements OnInit {
+export class PaymentComponent implements OnInit, OnDestroy {
 
   private hubConnection: signalR.HubConnection | undefined
 
@@ -37,6 +37,10 @@ export class PaymentComponent implements OnInit {
               private paymentService: PaymentService,
               private router: Router,
               private fb: FormBuilder) {}
+
+  ngOnDestroy(): void {
+    this.hubConnection?.stop()
+  }
 
   ngOnInit(): void {
     setTimeout(() => {
@@ -75,6 +79,10 @@ export class PaymentComponent implements OnInit {
       }
     })
 
+    if (!this.bookingService.currentBookingScheduleParams) {
+      Swal.fire('Oops', 'Please select a valid departure station, arrival station and departure date', 'error')
+      this.router.navigate(['/'])
+    }
 
     this.hubConnection = new signalR.HubConnectionBuilder()
       .withUrl('https://localhost:5001/paymentHub')
@@ -88,7 +96,6 @@ export class PaymentComponent implements OnInit {
       console.log('PaymentStatus:', message)
       this.paymentService.setPaymentStatus(message)
     })
-
   }
 
 
