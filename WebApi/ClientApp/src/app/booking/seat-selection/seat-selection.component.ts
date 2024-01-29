@@ -246,6 +246,12 @@ export class SeatSelectionComponent implements OnInit {
     if (this.bookingService.currentSelectDepartureSchedule?.selectedCarriageType?.id == 1) {
       this.seatRows_de = []
       this.generateSeatRows_de()
+    } else { // Cập nhật dữ liệu giường
+      this.compartmentOfCarriage_de.forEach(c => {
+        c.seats.forEach(s => {
+          this.updateSeatDepartureDetails(s)
+        })
+      })
     }
   }
 
@@ -255,6 +261,12 @@ export class SeatSelectionComponent implements OnInit {
     if (this.bookingService.currentSelectReturnSchedule?.selectedCarriageType?.id == 1) {
       this.seatRows_re = []
       this.generateSeatRows_re()
+    } else { // Cập nhật dữ liệu giường
+      this.compartmentOfCarriage_re.forEach(c => {
+        c.seats.forEach(s => {
+          this.updateSeatReturnDetails(s)
+        })
+      })
     }
   }
 
