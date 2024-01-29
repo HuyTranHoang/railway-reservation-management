@@ -7,3 +7,8 @@
 GET {{url}}/{{router}}/dashboardDataToday
 
 ### 
+
+# @name getDashboardLast7Days
+GET {{url}}/{{router}}/last7Days
+
+### 

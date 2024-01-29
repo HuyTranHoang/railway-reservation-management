@@ -7,6 +7,7 @@ namespace Application.Common.Interfaces.Persistence
         List<Ticket> GetAllTickets();
         Task<List<Ticket>> GetAllNoPagingAsync();
         Task<int> GetTicketCountTodayAsync();
-        Task<double> GetTicketPriceTodayAsync();
+        // Task<double> GetTicketPriceTodayAsync();
+        Task<double> GetTicketPriceSumByDateAsync(DateTime date);
     }
 }

@@ -31,13 +31,15 @@ namespace Application.Services
 
         public async Task<double> GetTicketPriceTodayAsync()
         {
-            var ticketPrice = await _ticketRepository.GetTicketPriceTodayAsync();
+            DateTime today = DateTime.UtcNow.Date;
+            var ticketPrice = await _ticketRepository.GetTicketPriceSumByDateAsync(today);
             return ticketPrice;
         }
 
         public async Task<double> GetTicketPriceCancelTodayAsync()
         {
-            var ticketPriceCancel = await _cancellationRepository.GetTicketPriceCancelTodayAsync();
+            DateTime today = DateTime.UtcNow.Date;
+            var ticketPriceCancel = await _cancellationRepository.GetTicketPriceCancelByDateAsync(today);
             return ticketPriceCancel;
         }
 
@@ -45,6 +47,34 @@ namespace Application.Services
         {
             var userCount = await _userRepository.GetUserCountTodayAsync();
             return userCount;
+        }
+
+        public async Task<double[]> GetTicketPriceSumLast7DaysAsync()
+        {
+            double[] ticketPriceSum = new double[7];
+
+            for (int i = 0; i < 7; i++)
+            {
+                DateTime currentDate = DateTime.Today.AddDays(-i);
+                double priceSum = await _ticketRepository.GetTicketPriceSumByDateAsync(currentDate);
+                ticketPriceSum[i] = priceSum;
+            }
+
+            return ticketPriceSum;
+        }
+
+        public async Task<double[]> GetTicketPriceCancelSumLast7DaysAsync()
+        {
+            double[] ticketPriceSum = new double[7];
+
+            for (int i = 0; i < 7; i++)
+            {
+                DateTime currentDate = DateTime.Today.AddDays(-i);
+                double priceSum = await _cancellationRepository.GetTicketPriceCancelByDateAsync(currentDate);
+                ticketPriceSum[i] = priceSum;
+            }
+
+            return ticketPriceSum;
         }
     }
 }

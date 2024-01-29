@@ -105,15 +105,22 @@ namespace Infrastructure.Persistence
             return ticketCount;
         }
 
-        public async Task<double> GetTicketPriceTodayAsync()
+        // public async Task<double> GetTicketPriceTodayAsync()
+        // {
+        //     DateTime today = DateTime.UtcNow.Date;
+
+        //     double totalPrice = await _context.Tickets
+        //         .Where(ticket => ticket.CreatedAt.Date == today)
+        //         .SumAsync(ticket => ticket.Price);
+
+        //     return totalPrice;
+        // }
+
+        public async Task<double> GetTicketPriceSumByDateAsync(DateTime date)
         {
-            DateTime today = DateTime.UtcNow.Date;
-
-            double totalPrice = await _context.Tickets
-                .Where(ticket => ticket.CreatedAt.Date == today)
+            return await _context.Tickets
+                .Where(ticket => ticket.CreatedAt.Date == date.Date)
                 .SumAsync(ticket => ticket.Price);
-
-            return totalPrice;
         }
     }
 }
