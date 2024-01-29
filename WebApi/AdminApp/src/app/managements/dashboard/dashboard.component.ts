@@ -27,7 +27,7 @@ export interface UpcomingSchedule {
 
 export class DashboardComponent implements OnInit {
 
-  dashboardDataToday: DashboardDataToday;
+  dashboardDataToday: DashboardDataToday | undefined;
   upcomingSchedules: UpcomingSchedule[] = [];
 
   constructor(private dashboardService: DashboardService) {

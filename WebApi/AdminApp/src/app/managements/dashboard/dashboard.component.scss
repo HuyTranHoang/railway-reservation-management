@@ -8,3 +8,26 @@
   height: 60px;
   width: 60px;
 }
+
+.upcoming-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #000000;
+}
+
+.upcoming-row {
+  padding: 10px 0;
+}
+
+
+app-barchartjs {
+  display: block;
+  height: 500px;
+  width: 100%;
+
+  ::ng-deep chart {
+    display: block;
+    height: 100%;
+    width: 100%;
+  }
+}
