@@ -18,6 +18,7 @@ public class BookingService : IBookingService
     private readonly IPaymentRepository _paymentRepository;
     private readonly IPassengerRepository _passengerRepository;
     private readonly ITicketRepository _ticketRepository;
+    private readonly ICancellationRepository _cancellationRepository;
 
     public BookingService(
         IUnitOfWork unitOfWork,
@@ -33,7 +34,8 @@ public class BookingService : IBookingService
         ISeatRepository seatRepository,
         IPaymentRepository paymentRepository,
         IPassengerRepository passengerRepository,
-        ITicketRepository ticketRepository
+        ITicketRepository ticketRepository,
+        ICancellationRepository cancellationRepository
     )
     {
         _unitOfWork = unitOfWork;
@@ -50,6 +52,7 @@ public class BookingService : IBookingService
         _paymentRepository = paymentRepository;
         _passengerRepository = passengerRepository;
         _ticketRepository = ticketRepository;
+        _cancellationRepository = cancellationRepository;
     }
 
     //Lấy danh sách các lịch trình kèm filter
@@ -182,8 +185,10 @@ public class BookingService : IBookingService
                 {
                     List<Ticket> tickets = _ticketRepository.GetAllTickets();
 
-                    bool isSeatAndScheduleExistsInTickets = tickets.Any(ticket =>
-                        ticket.SeatId == seat.Id && ticket.ScheduleId == scheduleId);
+                    bool isSeatAndScheduleExistsInTickets =
+                        tickets.Any(ticket => ticket.SeatId == seat.Id
+                                              && ticket.ScheduleId == scheduleId
+                                              && !_cancellationRepository.IsTicketCancelledAsync(ticket.Id).Result);
 
                     var seatDtoDetail = new SeatDtoDetail
                     {

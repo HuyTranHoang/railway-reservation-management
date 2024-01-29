@@ -11,6 +11,7 @@ namespace Application.Services
         private readonly IDistanceFareRepository _distanceFare;
         private readonly ICarriageRepository _carriage;
         private readonly ISeatRepository _seat;
+        private readonly ICancellationRepository _cancellationRepository;
         private readonly ITrainStationRepository _trainStation;
         private readonly IScheduleRepository _schedule;
         private readonly ITrainRepository _train;
@@ -19,6 +20,7 @@ namespace Application.Services
             IDistanceFareRepository distanceFare,
             ICarriageRepository carriage,
             ISeatRepository seat,
+            ICancellationRepository cancellationRepository,
             ITrainStationRepository trainStation,
             IScheduleRepository schedule,
             ITrainRepository train)
@@ -29,6 +31,7 @@ namespace Application.Services
             _distanceFare = distanceFare;
             _carriage = carriage;
             _seat = seat;
+            _cancellationRepository = cancellationRepository;
             _trainStation = trainStation;
             _schedule = schedule;
             _train = train;
@@ -45,8 +48,10 @@ namespace Application.Services
 
             ticket.Price = await CalculatePrice(ticket);
 
-            bool isSeatAndScheduleExistsInTickets = tickets.Any(t =>
-                t.SeatId == ticket.SeatId && t.ScheduleId == ticket.ScheduleId);
+            bool isSeatAndScheduleExistsInTickets =
+                tickets.Any(t => t.SeatId == ticket.SeatId
+                                 && t.ScheduleId == ticket.ScheduleId
+                                 && !_cancellationRepository.IsTicketCancelledAsync(t.Id).Result);
 
             if (isSeatAndScheduleExistsInTickets)
             {
@@ -54,7 +59,7 @@ namespace Application.Services
             }
 
             await _repository.Add(ticket);
-            
+
             await _unitOfWork.SaveChangesAsync();
         }
 
