@@ -1,0 +1,20 @@
+@url = https://localhost:5001
+@router = api/dashboard
+
+###
+
+# @name getDashboardToday
+GET {{url}}/{{router}}/dashboardDataToday
+
+### 
+
+# @name getDashboardLast7Days
+GET {{url}}/{{router}}/last7Days
+
+### 
+
+# @name getDashboardUpcomingSchedules
+@count = 5
+GET {{url}}/{{router}}/upcomingSchedules/{{count}}
+
+### 

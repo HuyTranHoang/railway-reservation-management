@@ -6,5 +6,9 @@ namespace Application.Common.Interfaces.Persistence
         Task<Ticket> GetByCodeAndEmail(string code, string email);
         List<Ticket> GetAllTickets();
         Task<List<Ticket>> GetAllNoPagingAsync();
+        Task<int> GetTicketCountTodayAsync();
+        // Task<double> GetTicketPriceTodayAsync();
+        Task<double> GetTicketPriceSumByDateAsync(DateTime date);
+        Task<int> GetSeatsBookedInSchedule(int scheduleId);
     }
 }

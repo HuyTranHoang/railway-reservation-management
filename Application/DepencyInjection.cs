@@ -39,6 +39,7 @@ public static class DepencyInjection
     services.AddScoped<ITrainComponentService, TrainComponentService>();
     services.AddScoped<ILookUpService, LookUpService>();
     services.AddScoped<IVnPayService, VnPayService>();
+    services.AddScoped<IDashboardService, DashboardService>();
     
     return services;
 

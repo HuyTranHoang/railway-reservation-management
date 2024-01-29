@@ -87,4 +87,14 @@ public class ScheduleRepository : IScheduleRepository
             .Where(schedule => schedule.TrainId == trainId)
             .ToListAsync();
     }
+
+    public async Task<List<Schedule>> GetUpcomingSchedules(int numberOfSchedules)
+    {
+        return await _context.Schedules
+            .Where(s => s.DepartureTime > DateTime.Now)
+            .OrderBy(s => s.DepartureTime)
+            .Take(numberOfSchedules)
+            .ToListAsync();
+    }
+
 };

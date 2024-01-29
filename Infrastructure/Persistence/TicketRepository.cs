@@ -81,6 +81,7 @@ namespace Infrastructure.Persistence
                     .AsQueryable());
         }
 
+
         public async Task SoftDelete(Ticket ticket)
         {
             ticket.IsDeleted = true;
@@ -92,6 +93,41 @@ namespace Infrastructure.Persistence
         {
             _context.Entry(ticket).State = EntityState.Modified;
             await Task.CompletedTask;
+        }
+        
+        public async Task<int> GetTicketCountTodayAsync()
+        {
+            DateTime today = DateTime.UtcNow.Date;
+
+            int ticketCount = await _context.Tickets
+                .CountAsync(ticket => ticket.CreatedAt.Date == today);
+
+            return ticketCount;
+        }
+
+        // public async Task<double> GetTicketPriceTodayAsync()
+        // {
+        //     DateTime today = DateTime.UtcNow.Date;
+
+        //     double totalPrice = await _context.Tickets
+        //         .Where(ticket => ticket.CreatedAt.Date == today)
+        //         .SumAsync(ticket => ticket.Price);
+
+        //     return totalPrice;
+        // }
+
+        public async Task<double> GetTicketPriceSumByDateAsync(DateTime date)
+        {
+            return await _context.Tickets
+                .Where(ticket => ticket.CreatedAt.Date == date.Date)
+                .SumAsync(ticket => ticket.Price);
+        }
+
+        public async Task<int> GetSeatsBookedInSchedule(int scheduleId)
+        {
+            return await _context.Tickets
+                .Where(ticket => ticket.ScheduleId == scheduleId)
+                .CountAsync();
         }
     }
 }
