@@ -159,12 +159,6 @@ public class CarriageService : ICarriageService
 
         foreach (var compartment in compartments)
         {
-            // var seatType = await _seatTypeRepository.GetByIdAsync(carriageType.SeatTypeId);
-            // if (seatType == null)
-            // {
-            //     throw new NotFoundException(nameof(SeatType), carriageType.SeatTypeId);
-            // }
-
             for (var i = 1; i <= numberOfSeatsPerCompartment; i++)
             {
                 var seat = new Seat
