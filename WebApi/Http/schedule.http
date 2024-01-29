@@ -9,11 +9,11 @@ Content-Type: application/json
 
 {
 
-  "name": "B",
-  "trainId":20,
+  "name": "Catana",
+  "trainId":1,
   "departureStationId": 1,
   "arrivalStationId": 5,
-  "departureTime": "2024-01-22T21:00:00",
+  "departureTime": "2024-01-30T21:00:00",
   "status": "Scheduled"
 }
 

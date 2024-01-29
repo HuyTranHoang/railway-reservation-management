@@ -84,6 +84,7 @@ public static class DepencyInjection
         services.AddScoped<IPaymentRepository, PaymentRepository>();
         services.AddScoped<ICancellationRepository, CancellationRepository>();
         services.AddScoped<IDailyCashTransactionRepository, DailyCashTransactionRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped(typeof(IRepository<>), typeof(TemplateRepository<>));
         return services;
     }

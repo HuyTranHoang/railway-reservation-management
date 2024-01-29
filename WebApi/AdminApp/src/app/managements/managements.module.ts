@@ -11,6 +11,8 @@ import {HttpClientModule} from '@angular/common/http';
 import {SharedModule} from './shared/shared.module';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {DailyTransactionComponent} from './daily-transaction/daily-transaction.component';
+import { BarchartjsComponent } from './dashboard/barchartjs/barchartjs.component';
+import {ChartModule} from 'angular2-chartjs';
 
 
 @NgModule({
@@ -18,6 +20,7 @@ import {DailyTransactionComponent} from './daily-transaction/daily-transaction.c
     ManagementsComponent,
     DashboardComponent,
     DailyTransactionComponent,
+    BarchartjsComponent,
   ],
   imports: [
     CommonModule,
@@ -31,6 +34,7 @@ import {DailyTransactionComponent} from './daily-transaction/daily-transaction.c
     NbInputModule,
 
     SharedModule,
+    ChartModule,
   ],
 })
 export class ManagementsModule {

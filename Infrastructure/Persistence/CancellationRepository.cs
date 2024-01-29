@@ -72,5 +72,25 @@ namespace Infrastructure.Persistence
             _context.Entry(cancellation).State = EntityState.Modified;
             await Task.CompletedTask;
         }
+
+        // public async Task<double> GetTicketPriceCancelTodayAsync()
+        // {
+        //     DateTime today = DateTime.UtcNow.Date;
+
+        //     var cancellation = await _context.Cancellations
+        //         .Where(c => c.CreatedAt.Date == today)
+        //         .Include(t => t.Ticket)
+        //         .SumAsync(c => c.Ticket.Price);
+
+        //     return cancellation;
+        // }
+
+        public async Task<double> GetTicketPriceCancelByDateAsync(DateTime dateTime)
+        {
+            return await _context.Cancellations
+                .Where(c => c.CreatedAt.Date == dateTime.Date)
+                .Include(t => t.Ticket)
+                .SumAsync(c => c.Ticket.Price);
+        }
     }
 }

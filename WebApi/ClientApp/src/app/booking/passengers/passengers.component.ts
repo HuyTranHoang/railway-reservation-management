@@ -3,6 +3,7 @@ import { BookingService } from '../booking.service'
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router'
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker'
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-passengers',
@@ -32,11 +33,20 @@ export class PassengersComponent implements OnInit {
 
 
     if (this.bookingService.currentSelectSeats) {
-      for (let i = 0; i < this.bookingService.currentSelectSeats.length/2; i++) {
-        this.addPassenger();
-      }
+      if(this.bookingService.isRoundTrip)
+        for (let i = 0; i < this.bookingService.currentSelectSeats.length/2; i++) {
+          this.addPassenger();
+        }
+      else
+        for (let i = 0; i < this.bookingService.currentSelectSeats.length; i++) {
+          this.addPassenger();
+        }
     }
 
+    if (!this.bookingService.currentBookingScheduleParams) {
+      Swal.fire('Oops', 'Please select a valid departure station, arrival station and departure date', 'error')
+      this.router.navigate(['/'])
+    }
   }
 
   get passengers(): FormArray {

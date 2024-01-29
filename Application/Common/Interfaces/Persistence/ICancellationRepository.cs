@@ -5,5 +5,7 @@ namespace Application.Common.Interfaces.Persistence
          Task<IQueryable<Cancellation>> GetQueryWithCancellationRuleAndTicketAsync();
          Task<Cancellation> GetByTicketIdAsync(int ticketId);
          Task<bool> IsTicketCancelledAsync(int ticketId);
+        //  Task<double> GetTicketPriceCancelTodayAsync();
+         Task<double> GetTicketPriceCancelByDateAsync(DateTime dateTime);
     }
 }

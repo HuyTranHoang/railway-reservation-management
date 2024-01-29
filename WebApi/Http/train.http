@@ -9,7 +9,7 @@ Content-Type: application/json
 
 {
   "Name": "New Train test",
-  "TrainCompanyId": 2,
+  "TrainCompanyId": 1,
   "Status": ""
 }
 

@@ -17,4 +17,15 @@ Content-Type: application/json
 
 ### 
 
+# @name updateCarriage
+@id = 4
+POST {{url}}/{{router}}/update-carriage/{{id}}
+Content-Type: application/json
+
+{
+  "Name": "Test Carriage 1",
+  "TrainId": 1,
+  "CarriageTypeId": 3,
+  "Status": "Active"
+}
 ### 

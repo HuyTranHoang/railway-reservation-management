@@ -1,38 +1,38 @@
 <nb-card>
-    <nb-card-header>Round Trip details</nb-card-header>
-    <nb-card-body>
-      <section style="min-width: 600px">
-        <div class="form-group row">
-          <label class="label col-sm-3 col-form-label">Train Company Name</label>
-          <div class="col-sm-9">
-            <input type="text" nbInput fullWidth [value]="this.trainCompanyName" disabled>
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <label class="label col-sm-3 col-form-label">Discount</label>
-          <div class="col-sm-9">
-            <input type="text" nbInput fullWidth [value]="discount" disabled>
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <label class="label col-sm-3 col-form-label">Created At</label>
-          <div class="col-sm-9">
-            <input type="text" nbInput fullWidth [value]="createdAt | date: 'medium'" disabled>
-          </div>
-        </div>
-      </section>
-
-    </nb-card-body>
-    <nb-card-footer>
-      <div class="d-flex justify-content-between">
-        <button nbButton hero status="primary" (click)="dismiss()">Dismiss Dialog</button>
-
-        <div>
-          <button nbButton hero status="primary" class="mr-3" (click)="onEdit()">Edit</button>
-          <button nbButton hero status="danger" (click)="onDelete()">Delete</button>
+  <nb-card-header>Round Trip details</nb-card-header>
+  <nb-card-body>
+    <section style="min-width: 600px">
+      <div class="form-group row">
+        <label class="label col-sm-3 col-form-label">Train Company Name</label>
+        <div class="col-sm-9">
+          <input type="text" nbInput fullWidth [value]="this.trainCompanyName" disabled>
         </div>
       </div>
-    </nb-card-footer>
-  </nb-card>
+
+      <div class="form-group row">
+        <label class="label col-sm-3 col-form-label">Discount</label>
+        <div class="col-sm-9">
+          <input type="text" nbInput fullWidth [value]="discount | currency:'VND'" disabled>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="label col-sm-3 col-form-label">Created At</label>
+        <div class="col-sm-9">
+          <input type="text" nbInput fullWidth [value]="createdAt | date: 'medium'" disabled>
+        </div>
+      </div>
+    </section>
+
+  </nb-card-body>
+  <nb-card-footer>
+    <div class="d-flex justify-content-between">
+      <button nbButton hero status="primary" (click)="dismiss()">Dismiss Dialog</button>
+
+      <div>
+        <button nbButton hero status="primary" class="mr-3" (click)="onEdit()">Edit</button>
+        <button nbButton hero status="danger" (click)="onDelete()">Delete</button>
+      </div>
+    </div>
+  </nb-card-footer>
+</nb-card>

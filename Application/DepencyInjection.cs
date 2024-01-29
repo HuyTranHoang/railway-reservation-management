@@ -40,6 +40,8 @@ public static class DepencyInjection
     services.AddScoped<ILookUpService, LookUpService>();
     services.AddScoped<IBookingHistoryService, BookingHistoryService>();
     services.AddScoped<IVnPayService, VnPayService>();
+    services.AddScoped<IDashboardService, DashboardService>();
+    
     return services;
 
   }
