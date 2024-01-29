@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
-import {DashboardDataToday, UpcomingSchedule} from './dashboard.component';
+import {DashboardDataToday, Last7DaysSummary, UpcomingSchedule} from './dashboard.component';
 
 @Injectable({
   providedIn: 'root',
@@ -18,5 +18,9 @@ export class DashboardService {
 
   getUpcomingSchedules() {
     return this.http.get<UpcomingSchedule[]>(this.baseUrl + '/dashboard/upcomingSchedules/5');
+  }
+
+  getLast7DaysSummary() {
+    return this.http.get<Last7DaysSummary[]>(this.baseUrl + '/dashboard/last7Days');
   }
 }

@@ -1,12 +1,15 @@
-import {Component, OnDestroy} from '@angular/core';
+import {Component, Input, OnChanges, OnDestroy, SimpleChanges} from '@angular/core';
 import {NbColorHelper, NbThemeService} from '@nebular/theme';
+import {Last7DaysSummary} from '../dashboard.component';
 
 @Component({
   selector: 'app-barchartjs',
   templateUrl: './barchartjs.component.html',
   styleUrls: ['./barchartjs.component.scss'],
 })
-export class BarchartjsComponent implements OnDestroy {
+export class BarchartjsComponent implements OnChanges, OnDestroy {
+  @Input() last7DaysSummary: Last7DaysSummary[] = [];
+
   currentDate = new Date();
   dateArray = [];
 
@@ -14,7 +17,20 @@ export class BarchartjsComponent implements OnDestroy {
   options: any;
   themeSubscription: any;
 
+  config: any;
+
   constructor(private theme: NbThemeService) {
+    this.generateDateArray();
+    this.setupChart();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.last7DaysSummary) {
+      this.convertDataForChart();
+    }
+  }
+
+  private generateDateArray(): void {
     for (let i = 0; i < 7; i++) {
       let day = this.currentDate.getDate() - i;
       let month = this.currentDate.getMonth() + 1; // Tháng bắt đầu từ 0
@@ -32,24 +48,30 @@ export class BarchartjsComponent implements OnDestroy {
 
       this.dateArray.unshift(`${month.toString().padStart(2, '0')}/${day.toString().padStart(2, '0')}`);
     }
+  }
 
+  private convertDataForChart(): void {
+
+    const colors: any = this.config.variables;
+    this.data = {
+      labels: this.dateArray,
+      datasets: [{
+        data: this.last7DaysSummary.map(x => (x.ticketPriceSum / 1000000).toFixed(2)), // Chuyển đổi thành triệu
+        label: 'Revenue (Million VND)',
+        backgroundColor: NbColorHelper.hexToRgbA(colors.primaryLight, 0.8),
+      }, {
+        data: this.last7DaysSummary.map(x => (x.ticketPriceCancelSum / 1000000).toFixed(2)), // Chuyển đổi thành triệu
+        label: 'Refund (Million VND)',
+        backgroundColor: NbColorHelper.hexToRgbA(colors.infoLight, 0.8),
+      }],
+    };
+  }
+
+  private setupChart(): void {
     this.themeSubscription = this.theme.getJsTheme().subscribe(config => {
 
-      const colors: any = config.variables;
       const chartjs: any = config.variables.chartjs;
-
-      this.data = {
-        labels: this.dateArray  ,
-        datasets: [{
-          data: [65, 59, 80, 81, 56, 55, 40],
-          label: 'Revenue',
-          backgroundColor: NbColorHelper.hexToRgbA(colors.primaryLight, 0.8),
-        }, {
-          data: [28, 48, 40, 19, 86, 27, 90],
-          label: 'Refund',
-          backgroundColor: NbColorHelper.hexToRgbA(colors.infoLight, 0.8),
-        }],
-      };
+      this.config = config;
 
       this.options = {
         maintainAspectRatio: false,

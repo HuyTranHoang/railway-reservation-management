@@ -18,6 +18,10 @@ export interface UpcomingSchedule {
   seatsAvailable: number;
 }
 
+export interface Last7DaysSummary {
+  ticketPriceSum: number;
+  ticketPriceCancelSum: number;
+}
 
 @Component({
   selector: 'ngx-dashboard',
@@ -29,6 +33,7 @@ export class DashboardComponent implements OnInit {
 
   dashboardDataToday: DashboardDataToday | undefined;
   upcomingSchedules: UpcomingSchedule[] = [];
+  last7DaysSummary: Last7DaysSummary[] = [];
 
   constructor(private dashboardService: DashboardService) {
   }
@@ -36,6 +41,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.loadDashboardToday();
     this.loadUpcomingSchedules();
+    this.loadLast7DaysSummary();
   }
 
   loadDashboardToday() {
@@ -47,6 +53,12 @@ export class DashboardComponent implements OnInit {
   loadUpcomingSchedules() {
     this.dashboardService.getUpcomingSchedules().subscribe((data) => {
       this.upcomingSchedules = data;
+    });
+  }
+
+  loadLast7DaysSummary() {
+    this.dashboardService.getLast7DaysSummary().subscribe((data) => {
+      this.last7DaysSummary = data;
     });
   }
 

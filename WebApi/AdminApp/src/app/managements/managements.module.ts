@@ -9,10 +9,10 @@ import {MiscellaneousModule} from '../pages/miscellaneous/miscellaneous.module';
 import {ManagementsRoutingModule} from './managements-routing.module';
 import {HttpClientModule} from '@angular/common/http';
 import {SharedModule} from './shared/shared.module';
-import {DashboardComponent} from './dashboard/dashboard.component';
 import {DailyTransactionComponent} from './daily-transaction/daily-transaction.component';
 import { BarchartjsComponent } from './dashboard/barchartjs/barchartjs.component';
 import {ChartModule} from 'angular2-chartjs';
+import {DashboardComponent} from './dashboard/dashboard.component';
 
 
 @NgModule({
