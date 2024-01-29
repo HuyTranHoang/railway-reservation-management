@@ -104,9 +104,16 @@ export class PaymentComponent implements OnInit, OnDestroy {
     let carriageTypePrice = this.bookingService.currentSelectDepartureSchedule?.selectedCarriageType?.serviceCharge || 0
 
     if (this.bookingService.currentSelectSeats) {
-      for (let i = 0; i < this.totalSeats / 2; i++) {
-        this.totalAmount += this.bookingService.currentSelectSeats[i].serviceCharge
-          + distancePrice + carriageTypePrice
+      if (this.bookingService.isRoundTrip) {
+        for (let i = 0; i < this.totalSeats / 2; i++) {
+          this.totalAmount += this.bookingService.currentSelectSeats[i].serviceCharge
+            + distancePrice + carriageTypePrice
+        }
+      } else {
+        for (let i = 0; i < this.totalSeats; i++) {
+          this.totalAmount += this.bookingService.currentSelectSeats[i].serviceCharge
+            + distancePrice + carriageTypePrice
+        }
       }
 
       this.departureSubTotal = this.totalAmount

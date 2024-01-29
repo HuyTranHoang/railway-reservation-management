@@ -9,7 +9,7 @@
         </div>
 
         <div class="ml-3">
-          <div class="h5">11</div>
+          <div class="h5">{{ dashboardDataToday.userRegistered }}</div>
           <div class="status paragraph-1">Newly registered user</div>
         </div>
       </div>
@@ -26,7 +26,7 @@
         </div>
 
         <div class="ml-3">
-          <div class="h5">30</div>
+          <div class="h5">{{ dashboardDataToday.ticketSold }}</div>
           <div class="status paragraph-1">Tickets were sold today</div>
         </div>
       </div>
@@ -43,7 +43,7 @@
         </div>
 
         <div class="ml-3">
-          <div class="h5">{{123456 | currency}}</div>
+          <div class="h5">{{ dashboardDataToday.totalRevenue | currency: 'VND' }}</div>
           <div class="status paragraph-1">Total revenue today</div>
         </div>
       </div>
@@ -60,10 +60,38 @@
         </div>
 
         <div class="ml-3">
-          <div class="h5">{{123456 | currency}}</div>
+          <div class="h5">{{ dashboardDataToday.refundAmount | currency: 'VND' }}</div>
           <div class="status paragraph-1">Total ticket refund amount</div>
         </div>
       </div>
+    </nb-card>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <nb-card>
+      <nb-card-header>Upcoming Schedules</nb-card-header>
+      <nb-card-body>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="d-flex justify-content-between">
+              <div class="h5">Schedule</div>
+              <div class="h5">Date</div>
+              <div class="h5">Time</div>
+            </div>
+            <div class="divider"></div>
+            <div *ngFor="let schedule of upcomingSchedules">
+              <div class="d-flex justify-content-between">
+                <div class="paragraph-1">{{ schedule.scheduleName }}</div>
+                <div class="paragraph-1">{{ schedule.departureTime | date:'mediumDate' }}</div>
+                <div class="paragraph-1">{{ schedule.departureTime | date: 'shortTime' }}</div>
+              </div>
+              <div class="divider"></div>
+            </div>
+          </div>
+        </div>
+      </nb-card-body>
     </nb-card>
   </div>
 </div>
