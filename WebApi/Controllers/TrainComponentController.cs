@@ -48,25 +48,23 @@ namespace WebApi.Controllers
             }
         }
 
+        [HttpPost("update-carriage/{currentCarriageId}")]
+        public async Task<ActionResult> UpdateCarriage([FromBody] Carriage carriage, int currentCarriageId)
+        {
+            if(!ModelState.IsValid) return BadRequest(ModelState);
+            
+            try
+            {
+                await _trainComponentService.UpdateTrainComponentsAsync(carriage, currentCarriageId);
+            }
+            catch (BadRequestException ex)
+            {
+                var errorResponse = new ValidateInputError(400, new List<string> { ex.Message });
+                return BadRequest(errorResponse);
+            }
 
-        // [HttpPost("{id}")]
-        // public async Task<ActionResult<List<object>>> PostTrainComponents([FromBody] Carriage carriage, int id)
-        // {
-        //     if(!ModelState.IsValid) return BadRequest(ModelState);
-        //
-        //     try
-        //     {
-        //         await _trainComponentService.AddTrainComponentsAsync(carriage, id);
-        //
-        //         var compartments = await _compartmentService.GetCompartmentsByCarriageIdAsync(carriage.Id);
-        //
-        //         return Ok(new JsonResult(new {message = "Success", id = carriage.Id }));
-        //     }
-        //     catch (BadRequestException ex)
-        //     {
-        //         var errorResponse = new ValidateInputError(400, new List<string> { ex.Message });
-        //         return BadRequest(errorResponse);
-        //     }
-        // }
+            return Ok(new JsonResult(new {message = "Success", id = carriage.Id }));
+        }
+
     }
 }
