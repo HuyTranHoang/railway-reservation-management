@@ -81,4 +81,12 @@ public class PaymentRepository : IPaymentRepository
             .Include(p => p.AspNetUser)
             .FirstOrDefaultAsync(p => p.Id == id);
     }
+
+    public Task<List<Payment>> GetPaymentWithAspNetUserByIdStringAsync(string id)
+    {
+        return _context.Payments
+            .Include(p => p.AspNetUser)
+            .Where(p => p.AspNetUser.Id == id)
+            .ToListAsync();
+    }
 }

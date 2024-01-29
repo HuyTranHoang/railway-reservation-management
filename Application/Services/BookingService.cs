@@ -224,10 +224,18 @@ public class BookingService : IBookingService
         return _mapper.Map<PaymentDto>(payment);
     }
 
-
     public async Task<List<CarriageTypeDto>> GetCarriageTypesByTrainIdAsync(int trainId)
     {
         var carriageTypes = await _carriageTypeRepository.GetCarriageTypeByTrainIdAsync(trainId);
         return _mapper.Map<List<CarriageTypeDto>>(carriageTypes);
+    }
+
+    public async Task<TicketDto> GetBookingHistoryAsync(int userId)
+    {
+        var payments = await _paymentRepository.GetPaymentWithAspNetUserByIdAsync(userId);
+
+        var tickets = await _ticketRepository.GetByIdAsync(payments.Id);
+
+        return _mapper.Map<TicketDto>(tickets);
     }
 }

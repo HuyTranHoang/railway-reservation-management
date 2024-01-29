@@ -1,14 +1,17 @@
-<nb-card style="min-width: 600px;">
-  <nb-card-header>
-    Confirm Deletion
-  </nb-card-header>
+<nb-card style="min-width: 600px">
+  <nb-card-header> Confirm Deletion </nb-card-header>
   <nb-card-body>
-    Are you sure you want to cancellation this ticket<b class="text-primary">{{code}}</b> ?
+    Are you sure you want to cancellation this ticket<b class="text-primary">{{
+      code
+    }}</b>
+    ?
     <p class="mt-3">This action cannot be undone.</p>
   </nb-card-body>
   <nb-card-footer>
     <div class="d-flex justify-content-end">
-      <button nbButton hero status="danger" class="mr-3" (click)="onCancel()">Ticket cancellation</button>
+      <button nbButton hero status="danger" class="mr-3" (click)="onCancel()">
+        Ticket cancellation
+      </button>
       <button nbButton hero status="primary" (click)="dismiss()">Cancel</button>
     </div>
   </nb-card-footer>

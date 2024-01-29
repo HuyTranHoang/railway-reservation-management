@@ -62,6 +62,21 @@ namespace Infrastructure.Persistence
             return await _context.Tickets.FindAsync(id);
         }
 
+        public async Task<List<Ticket>> GetByIdWithPaymentAsync(int id)
+        {
+            return await _context.Tickets
+                    .Include(t => t.Passenger)
+                    .Include(t => t.Train)
+                    .Include(t => t.DistanceFare)
+                    .Include(t => t.Carriage)
+                    .Include(t => t.Seat)
+                    .Include(t => t.Schedule)
+                    .Include(t => t.Payment)
+                    .Include(t => t.Cancellation)
+                .Where(t => t.PaymentId == id)
+                .ToListAsync();
+        }
+
         public async Task<IQueryable<Ticket>> GetQueryAsync()
         {
             return await Task.FromResult(_context.Tickets.AsQueryable());

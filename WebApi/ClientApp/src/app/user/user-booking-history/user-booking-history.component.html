@@ -1,7 +1,10 @@
 <div class="banner">
-  <div class="bg-banner"
-       style="background: url(assets/banner/booking-history.jpg) center center no-repeat;background-size: cover">
-  </div>
+  <div
+    class="bg-banner"
+    style="
+      background: url(assets/banner/booking-history.jpg) center center no-repeat;
+      background-size: cover;
+    "></div>
   <div class="banner-content">
     <div class="container">
       <h1 class="teko text-uppercase">Booking history</h1>
@@ -9,15 +12,109 @@
   </div>
 </div>
 
-
 <tabset class="user-booking-history">
   <tab class="container" heading="Upcoming">
-    Tab 1 content
+    <div *ngIf="upcomingTrips.length > 0">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Code</th>
+            <th>Passenger Name</th>
+            <th>Train Name</th>
+            <th>Carriage Name</th>
+            <th>Seat Name</th>
+            <th>Schedule Name</th>
+            <th>Price</th>
+            <th>Status</th>
+            <th>Created At</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of upcomingTrips">
+            <td>{{ item.code }}</td>
+            <td>{{ item.passengerName }}</td>
+            <td>{{ item.trainName }}</td>
+            <td>{{ item.carriageName }}</td>
+            <td>{{ item.seatName }}</td>
+            <td>{{ item.scheduleName }}</td>
+            <td>{{ item.price | currency }}</td>
+            <td>{{ item.status }}</td>
+            <td>{{ item.createdAt | date }}</td>
+            <td>
+              <button
+                class="btn btn-danger"
+                (click)="openConfirmModal(item.id, item.code)">
+                <i class="fa-regular fa-rectangle-xmark"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </tab>
   <tab class="container" heading="Past Trips">
-    Tab 2 content
+    <div *ngIf="pastTrips.length > 0">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Code</th>
+            <th>Passenger Name</th>
+            <th>Train Name</th>
+            <th>Carriage Name</th>
+            <th>Seat Name</th>
+            <th>Schedule Name</th>
+            <th>Price</th>
+            <th>Status</th>
+            <th>Created At</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of pastTrips">
+            <td>{{ item.code }}</td>
+            <td>{{ item.passengerName }}</td>
+            <td>{{ item.trainName }}</td>
+            <td>{{ item.carriageName }}</td>
+            <td>{{ item.seatName }}</td>
+            <td>{{ item.scheduleName }}</td>
+            <td>{{ item.price | currency }}</td>
+            <td>{{ item.status }}</td>
+            <td>{{ item.createdAt | date }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </tab>
   <tab class="container" heading="Cancelled">
-    Tab 3 content
+    <div *ngIf="cancellations.length > 0">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Code</th>
+            <th>Passenger Name</th>
+            <th>Train Name</th>
+            <th>Carriage Name</th>
+            <th>Seat Name</th>
+            <th>Schedule Name</th>
+            <th>Price</th>
+            <th>Status</th>
+            <th>Created At</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of cancellations">
+            <td>{{ item.code }}</td>
+            <td>{{ item.passengerName }}</td>
+            <td>{{ item.trainName }}</td>
+            <td>{{ item.carriageName }}</td>
+            <td>{{ item.seatName }}</td>
+            <td>{{ item.scheduleName }}</td>
+            <td>{{ item.price | currency }}</td>
+            <td>{{ item.status }}</td>
+            <td>{{ item.createdAt | date }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </tab>
 </tabset>
