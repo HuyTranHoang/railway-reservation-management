@@ -1,0 +1,9 @@
+@url = https://localhost:5001
+@router = api/dashboard
+
+###
+
+# @name getDashboardToday
+GET {{url}}/{{router}}/dashboardDataToday
+
+### 
