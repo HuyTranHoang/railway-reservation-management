@@ -10,14 +10,14 @@ namespace Application.Services
         private readonly IConfiguration _configuration;
 
         public VnPayService(IHttpContextAccessor httpContextAccessor,
-                            IConfiguration configuration)
+            IConfiguration configuration)
         {
             _httpContextAccessor = httpContextAccessor;
             _configuration = configuration;
         }
-        public string CreatePaymentUrl(PaymentInformationModel model, HttpContext context)
-        {
 
+        public string CreatePaymentUrl(PaymentInformationModel model, HttpContext context, ApplicationUser user)
+        {
             string timeZoneId = _configuration["TimeZoneId"];
 
             if (string.IsNullOrEmpty(timeZoneId))
@@ -40,7 +40,8 @@ namespace Application.Services
             pay.AddRequestData("vnp_CurrCode", _configuration["VNPayConfig:CurrCode"]);
             pay.AddRequestData("vnp_IpAddr", pay.GetIpAddress(context));
             pay.AddRequestData("vnp_Locale", _configuration["VNPayConfig:Locale"]);
-            pay.AddRequestData("vnp_OrderInfo", $"{model.Name} {model.OrderDescription} {model.Amount}");
+            // pay.AddRequestData("vnp_OrderInfo", $"{model.Name} {model.OrderDescription} {model.Amount}");
+            pay.AddRequestData("vnp_OrderInfo", user.Id);
             pay.AddRequestData("vnp_OrderType", model.OrderType);
             pay.AddRequestData("vnp_ReturnUrl", urlCallBack);
             pay.AddRequestData("vnp_TxnRef", tick);

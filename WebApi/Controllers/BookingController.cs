@@ -178,7 +178,14 @@ namespace WebApi.Controllers
                         PaymentId = paymentDto.PaymentId
                     };
 
-                    await _ticketService.AddAsync(ticket);
+                    try
+                    {
+                        await _ticketService.AddAsync(ticket);
+                    }
+                    catch (BadRequestException e)
+                    {
+                        return BadRequest(new ErrorResponse(400));
+                    }
 
                     // Thông tin cần để gửi email
                     var schedule = await _scheduleService.GetDtoByIdAsync(paymentDto.ScheduleId[1]);

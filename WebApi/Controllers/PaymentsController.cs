@@ -1,5 +1,6 @@
 using System.Security.Claims;
 using Domain.Exceptions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SignalR;
 
@@ -137,12 +138,15 @@ public class PaymentsController : BaseApiController
         return NoContent();
     }
 
+    [Authorize]
     [HttpPost("createUrlVnPay")]
-    public IActionResult CreateUrlVnPay([FromBody] PaymentInformationModel model)
+    public async Task<IActionResult> CreateUrlVnPay([FromBody] PaymentInformationModel model)
     {
+        var user = await _userManager.FindByNameAsync(User.FindFirstValue(ClaimTypes.Email));
+        if (user == null) return Unauthorized("Invalid username or password");
         try
         {
-            var paymentUrl = _vnPayService.CreatePaymentUrl(model, HttpContext);
+            var paymentUrl = _vnPayService.CreatePaymentUrl(model, HttpContext, user);
             return Ok(new { PaymentUrl = paymentUrl });
         }
         catch (Exception ex)
@@ -166,8 +170,12 @@ public class PaymentsController : BaseApiController
             {
                 if (response.VnPayResponseCode == "00")
                 {
-                    await _hubContext.Clients.All.SendAsync("PaymentStatus", "PaymentSuccess");
+                    // await _hubContext.Clients.All.SendAsync("PaymentStatus", "PaymentSuccess");
+                    await _hubContext.Clients.Group(response.OrderDescription).SendAsync("PaymentStatus", "PaymentSuccess");
+
+                    // await _hubContext.Clients.User(response.OrderDescription).SendAsync("PaymentStatus", "PaymentSuccess");
                     return Content("<html><head></head><body><script>window.close();</script></body></html>", "text/html");
+                    // return Ok(new { message = "Payment success" });
                 }
 
                 if (response.VnPayResponseCode == "24")

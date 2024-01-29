@@ -85,7 +85,9 @@ export class PaymentComponent implements OnInit, OnDestroy {
     }
 
     this.hubConnection = new signalR.HubConnectionBuilder()
-      .withUrl('https://localhost:5001/paymentHub')
+      .withUrl('https://localhost:5001/paymentHub', {
+        accessTokenFactory: () => this.currentUser.jwt
+      })
       .build()
 
     this.hubConnection.start().then(() => {
