@@ -27,6 +27,7 @@
             <th>Price</th>
             <th>Status</th>
             <th>Created At</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -40,6 +41,13 @@
             <td>{{ item.price | currency }}</td>
             <td>{{ item.status }}</td>
             <td>{{ item.createdAt | date }}</td>
+            <td>
+              <button
+                class="btn btn-danger"
+                (click)="openConfirmModal(item.id, item.code)">
+                <i class="fa-regular fa-rectangle-xmark"></i>
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>

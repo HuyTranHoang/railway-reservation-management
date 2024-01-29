@@ -5,6 +5,8 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { UserService } from '../user.service';
 import { BookingHistory, Cancellations, PastTrips, UpcomingTrip } from 'src/app/core/models/bookingHistory';
 import { Router } from '@angular/router';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { ConfirmCanceledTicketComponent } from '../confirm-canceled-ticket/confirm-canceled-ticket.component';
 
 @Component({
   selector: 'app-user-booking-history',
@@ -17,9 +19,12 @@ export class UserBookingHistoryComponent implements OnInit {
   pastTrips: PastTrips[] = [];
   cancellations: Cancellations[] = [];
 
+
+
   constructor(public authService : AuthService,
               private userService : UserService,
-              private router: Router){
+              private router: Router,
+              private bsModalService: BsModalService){
   }
 
   ngOnInit(): void {
@@ -45,4 +50,18 @@ export class UserBookingHistoryComponent implements OnInit {
       },
     });
   }
+
+  openConfirmModal(id: string, code: string) {
+    const modalRef = this.bsModalService.show(ConfirmCanceledTicketComponent, {
+      initialState: {
+        id : id,
+        code : code
+      }
+    });
+
+    modalRef.content?.onConfirmCancel.subscribe(() => {
+      this.loadBookingHistory();
+    });
+  }
 }
+

@@ -8,16 +8,29 @@ public class BookingHistoryService : IBookingHistoryService
     private readonly IMapper _mapper;
     private readonly IPaymentRepository _paymentRepository;
     private readonly ITicketRepository _ticketRepository;
+    private readonly ICancellationRepository _cancellationRepository;
+    private readonly ICancellationRuleRepository _cancellationRuleRepository;
+    private readonly IUnitOfWork _unitOfWork;
+    private readonly IScheduleRepository _scheduleRepository;
 
     public BookingHistoryService(
         IMapper mapper,
         IPaymentRepository paymentRepository,
-        ITicketRepository ticketRepository
+        ITicketRepository ticketRepository,
+        ICancellationRepository cancellationRepository,
+        ICancellationRuleRepository cancellationRuleRepository,
+        IUnitOfWork unitOfWork,
+        IScheduleRepository scheduleRepository
     )
     {
         _mapper = mapper;
         _paymentRepository = paymentRepository;
         _ticketRepository = ticketRepository;
+        _cancellationRepository = cancellationRepository;
+        _cancellationRuleRepository = cancellationRuleRepository;
+        _unitOfWork = unitOfWork;
+        _scheduleRepository = scheduleRepository;
+
     }
 
     public async Task<BookingHistoryDto> GetBookingHistoryDtoAsync(string Id)
@@ -68,8 +81,35 @@ public class BookingHistoryService : IBookingHistoryService
 
             }
         }
-
         return bookingHistoryDto;
+    }
+
+    public async Task CanncleTicket(Cancellation cancellation)
+    {
+        var today = DateTime.UtcNow;
+
+        var ticket = await _ticketRepository.GetByIdAsync(cancellation.TicketId);
+        if (ticket == null) throw new NotFoundException(nameof(Ticket), cancellation.TicketId);
+
+        var schedule = await _scheduleRepository.GetByIdAsync(ticket.ScheduleId);
+        if (schedule == null) throw new NotFoundException(nameof(Schedule), ticket.ScheduleId);
+
+        var isCancelled = await _cancellationRepository.GetByTicketIdAsync(cancellation.TicketId);
+        if (isCancelled != null) throw new BadRequestException(400, "Ticket has been cancelled");
+
+        if (schedule.DepartureTime < today)
+        {
+            throw new BadRequestException(400, "Cannot cancel ticket after departure time");
+        }
+
+        var dateDifference = (schedule.DepartureTime - today).Days;
+
+        var cancellationRule = await _cancellationRuleRepository.GetByDifferenDateAsync(dateDifference);
+
+        cancellation.CancellationRuleId = cancellationRule.Id;
+
+        await _cancellationRepository.Add(cancellation);
+        await _unitOfWork.SaveChangesAsync();
     }
 
 }

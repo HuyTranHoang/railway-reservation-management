@@ -24,5 +24,22 @@ namespace WebApi.Controllers
             return Ok(bookingHistory);
         }
 
+        [HttpPost]
+        public async Task<ActionResult> CancelTicket([FromBody] Cancellation cancellation)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            try
+            {
+                await _bookingHistoryService.CanncleTicket(cancellation);
+            }
+            catch (BadRequestException ex)
+            {
+                var errorResponse = new ValidateInputError(400, new List<string> { ex.Message });
+                return BadRequest(errorResponse);
+            }
+
+            return Ok(new JsonResult(new { message = "Cancellation added successfully" }));
+        }
     }
 }

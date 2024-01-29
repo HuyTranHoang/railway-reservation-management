@@ -5,7 +5,7 @@ import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { TabsModule } from 'ngx-bootstrap/tabs'
 import { TooltipModule } from 'ngx-bootstrap/tooltip'
 import { AlertModule } from 'ngx-bootstrap/alert'
-
+import { ModalModule} from 'ngx-bootstrap/modal'
 @NgModule({
   declarations: [],
   imports: [
@@ -14,7 +14,8 @@ import { AlertModule } from 'ngx-bootstrap/alert'
     AccordionModule.forRoot(),
     TabsModule.forRoot(),
     TooltipModule.forRoot(),
-    AlertModule.forRoot()
+    AlertModule.forRoot(),
+    ModalModule.forRoot(),
 
   ],
   exports: [
@@ -23,7 +24,8 @@ import { AlertModule } from 'ngx-bootstrap/alert'
     AccordionModule,
     TabsModule,
     TooltipModule,
-    AlertModule
+    AlertModule,
+    ModalModule,
   ]
 })
 export class SharedModule { }
