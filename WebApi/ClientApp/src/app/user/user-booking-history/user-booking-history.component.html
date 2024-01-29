@@ -14,107 +14,49 @@
 
 <tabset class="user-booking-history">
   <tab class="container" heading="Upcoming">
-    <div *ngIf="upcomingTrips.length > 0">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Code</th>
-            <th>Passenger Name</th>
-            <th>Train Name</th>
-            <th>Carriage Name</th>
-            <th>Seat Name</th>
-            <th>Schedule Name</th>
-            <th>Price</th>
-            <th>Status</th>
-            <th>Created At</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let item of upcomingTrips">
-            <td>{{ item.code }}</td>
-            <td>{{ item.passengerName }}</td>
-            <td>{{ item.trainName }}</td>
-            <td>{{ item.carriageName }}</td>
-            <td>{{ item.seatName }}</td>
-            <td>{{ item.scheduleName }}</td>
-            <td>{{ item.price | currency }}</td>
-            <td>{{ item.status }}</td>
-            <td>{{ item.createdAt | date }}</td>
-            <td>
-              <button
-                class="btn btn-danger"
-                (click)="openConfirmModal(item.id, item.code)">
-                <i class="fa-regular fa-rectangle-xmark"></i>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <div *ngIf="upcomingTrips.length > 0; else noUpcomingTrips">
+      <app-ticket-table [tickets]="upcomingTrips"
+                        (onConfirmCancel)="onConfirmCancel()"
+                        [isUpcoming]="true"></app-ticket-table>
     </div>
+    <ng-template #noUpcomingTrips>
+      <div class="mt-5">
+        <h3 class="text-center text-secondary">No upcoming trips</h3>
+
+        <div class="text-center">
+          <a routerLink="/user/profile" class="text-secondary">Go to profile</a>
+        </div>
+      </div>
+    </ng-template>
   </tab>
   <tab class="container" heading="Past Trips">
-    <div *ngIf="pastTrips.length > 0">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Code</th>
-            <th>Passenger Name</th>
-            <th>Train Name</th>
-            <th>Carriage Name</th>
-            <th>Seat Name</th>
-            <th>Schedule Name</th>
-            <th>Price</th>
-            <th>Status</th>
-            <th>Created At</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let item of pastTrips">
-            <td>{{ item.code }}</td>
-            <td>{{ item.passengerName }}</td>
-            <td>{{ item.trainName }}</td>
-            <td>{{ item.carriageName }}</td>
-            <td>{{ item.seatName }}</td>
-            <td>{{ item.scheduleName }}</td>
-            <td>{{ item.price | currency }}</td>
-            <td>{{ item.status }}</td>
-            <td>{{ item.createdAt | date }}</td>
-          </tr>
-        </tbody>
-      </table>
+    <div *ngIf="pastTrips.length > 0; else noPastTrips">
+      <app-ticket-table [tickets]="pastTrips"></app-ticket-table>
     </div>
+
+    <ng-template #noPastTrips>
+      <div class="mt-5">
+        <h3 class="text-center text-secondary">No past trips</h3>
+
+        <div class="text-center">
+          <a routerLink="/user/profile" class="text-secondary">Go to profile</a>
+        </div>
+      </div>
+    </ng-template>
   </tab>
   <tab class="container" heading="Cancelled">
-    <div *ngIf="cancellations.length > 0">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Code</th>
-            <th>Passenger Name</th>
-            <th>Train Name</th>
-            <th>Carriage Name</th>
-            <th>Seat Name</th>
-            <th>Schedule Name</th>
-            <th>Price</th>
-            <th>Status</th>
-            <th>Created At</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let item of cancellations">
-            <td>{{ item.code }}</td>
-            <td>{{ item.passengerName }}</td>
-            <td>{{ item.trainName }}</td>
-            <td>{{ item.carriageName }}</td>
-            <td>{{ item.seatName }}</td>
-            <td>{{ item.scheduleName }}</td>
-            <td>{{ item.price | currency }}</td>
-            <td>{{ item.status }}</td>
-            <td>{{ item.createdAt | date }}</td>
-          </tr>
-        </tbody>
-      </table>
+    <div *ngIf="cancellations.length > 0; else noCancellationTrips">
+      <app-ticket-table [tickets]="cancellations"></app-ticket-table>
     </div>
+
+    <ng-template #noCancellationTrips>
+      <div class="mt-5">
+        <h3 class="text-center text-secondary">No cancellation trips</h3>
+
+        <div class="text-center">
+          <a routerLink="/user/profile" class="text-secondary">Go to profile</a>
+        </div>
+      </div>
+    </ng-template>
   </tab>
 </tabset>

@@ -1,37 +1,11 @@
 export interface BookingHistory {
-  upcomingTrips: UpcomingTrip[]
-  pastTrips: PastTrips[]
-  cancellations: Cancellations[]
+  upcomingTrips: Ticket[]
+  pastTrips: Ticket[]
+  cancellations: Ticket[]
 }
 
-export interface UpcomingTrip {
-  id : string
-  code: string
-  passengerName: string
-  trainName: string
-  carriageName: string
-  seatName: any
-  scheduleName: string
-  price: number
-  status: string
-  createdAt: string
-}
-
-export interface PastTrips {
-  id : string
-  code: string
-  passengerName: string
-  trainName: string
-  carriageName: string
-  seatName: any
-  scheduleName: string
-  price: number
-  status: string
-  createdAt: string
-}
-
-export interface Cancellations {
-  id : string
+export interface Ticket {
+  id: string
   code: string
   passengerName: string
   trainName: string

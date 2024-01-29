@@ -1,24 +1,44 @@
 <div class="modal-header">
-  <h4 class="modal-title" id="modal-title">Confirm Deletion</h4>
+  <h4 class="modal-title" id="modal-title">Confirm Cancellation</h4>
   <button
     type="button"
     class="btn-close"
     aria-describedby="modal-title"
     (click)="dismiss()"></button>
 </div>
-<div class="modal-body">
-  <p>
-    Are you sure you want to cancelled ticket:
-    <b class="text-primary">{{ code }}</b> ?
-  </p>
 
-  <p class="mt-3">This action cannot be undone.</p>
+<div class="modal-body">
+  <form [formGroup]="cancellationForm">
+    <h5>Information review: </h5>
+    <div class="row">
+      <div class="col-12 mt-2">
+        <label>Ticket Code</label>
+        <input type="text" class="form-control"
+               value="{{ticket?.code}}"
+               disabled/>
+      </div>
+      <div class="col-12 mt-2">
+        <label>Passenger Name</label>
+        <input type="text" class="form-control"
+               value="{{ticket?.passengerName}}"
+               disabled/>
+      </div>
+    </div>
+
+    <div class="mt-5">
+      <label>Reason for cancellation.</label>
+      <textarea class="form-control" formControlName="reason"></textarea>
+    </div>
+
+    <p class="mt-3">This action cannot be undone.</p>
+  </form>
 </div>
+
 <div class="modal-footer">
   <button type="button" class="btn btn-danger" (click)="onCancel()">
-    Ticket cancellation
+    Confirm Cancellation
   </button>
-  <button type="button" (click)="dismiss()" class="btn btn-primary">
-    Cancel
+  <button type="button" (click)="dismiss()" class="btn text-white" style="background-color: #9ccd19">
+    Keep Ticket
   </button>
 </div>

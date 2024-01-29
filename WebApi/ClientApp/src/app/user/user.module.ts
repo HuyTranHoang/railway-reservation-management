@@ -6,6 +6,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserBookingHistoryComponent } from './user-booking-history/user-booking-history.component';
 import { ConfirmCanceledTicketComponent } from './confirm-canceled-ticket/confirm-canceled-ticket.component';
+import { TicketTableComponent } from './user-booking-history/ticket-table/ticket-table.component';
 
 
 @NgModule({
@@ -13,6 +14,7 @@ import { ConfirmCanceledTicketComponent } from './confirm-canceled-ticket/confir
     UserProfileComponent,
     UserBookingHistoryComponent,
     ConfirmCanceledTicketComponent,
+    TicketTableComponent,
   ],
   imports: [
     CommonModule,
