@@ -20,6 +20,8 @@ export class AddScheduleComponent implements OnInit {
   isSubmitted: boolean = false;
   errorMessages: string[] = [];
 
+  isLoading = false;
+
   constructor(private scheduleService: ScheduleService,
               private trainService: TrainService,
               private trainStationService: TrainStationService,
@@ -53,9 +55,11 @@ export class AddScheduleComponent implements OnInit {
       const departureTime = new Date(this.scheduleForm.value.departureTime);
       departureTime.setHours(departureTime.getHours() + 7);
       this.scheduleForm.patchValue({ departureTime });
+      this.isLoading = true;
 
       this.scheduleService.addSchedule(this.scheduleForm.value).subscribe({
         next: (res) => {
+          this.isLoading = false;
           this.showToast('success', 'Success', 'Add schedule successfully!');
           this.scheduleForm.reset();
           this.isSubmitted = false;
