@@ -66,6 +66,7 @@ export class AddScheduleComponent implements OnInit {
           this.errorMessages = [];
         },
         error: (err) => {
+          this.isLoading = false;
           this.errorMessages = err.error.errors;
           this.showToast('danger', 'Failed', 'Add schedule failed!');
         },
