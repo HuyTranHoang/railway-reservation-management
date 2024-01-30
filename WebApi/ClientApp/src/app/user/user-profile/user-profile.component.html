@@ -99,9 +99,10 @@
               </form>
             </div>
           </tab>
-          <tab heading="Change password">
+          <tab heading="Change password" *ngIf="(authService.user$ | async) as user">
             <div class="p-4 bg-body rounded-3 shadow">
-              <form [formGroup]="passwordForm" (ngSubmit)="onChangePasswordSubmit()" class="row" autocomplete="off">
+              <form [formGroup]="passwordForm" *ngIf="user.provider == ''"
+                    (ngSubmit)="onChangePasswordSubmit()" class="row" autocomplete="off">
                 <div class="col-6 me-5">
                   <label class="form-label fw-normal text-body-secondary">
                     Current password <span class="text-danger">*</span>
@@ -163,6 +164,12 @@
                   <button type="submit" class="btn btn-warning shadow">Update</button>
                 </div>
               </form>
+              <div *ngIf="user.provider != ''">
+                <p class="text-body-secondary">
+                  You are using <span class="text-primary fw-semibold">{{ user.provider | titlecase }}</span> to login.
+                  You can't change password.
+                </p>
+              </div>
             </div>
           </tab>
         </tabset>

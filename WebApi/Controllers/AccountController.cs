@@ -429,6 +429,7 @@ public class AccountController : BaseApiController
             Email = user.Email,
             PhoneNumber = user.PhoneNumber,
             Roles = _userManager.GetRolesAsync(user).Result,
+            Provider = user.Provider,
             Jwt = _jwtService.GenerateJwtToken(user)
         };
     }

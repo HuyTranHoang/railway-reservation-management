@@ -5,5 +5,6 @@ export interface User {
   email: string
   phoneNumber: any
   roles: string[]
+  provider: string
   jwt: string
 }
