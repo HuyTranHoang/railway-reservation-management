@@ -29,6 +29,13 @@ namespace Infrastructure.Persistence
             return await _context.DailyCashTransactions.ToListAsync();
         }
 
+        public async Task<List<DailyCashTransaction>> GetTransactionsByDateRangeAsync(DateTime startDate, DateTime endDate)
+        {
+            return await _context.DailyCashTransactions
+                .Where(transaction => transaction.Date >= startDate && transaction.Date <= endDate)
+                .ToListAsync();
+        }
+
         public async Task<DailyCashTransaction> GetByIdAsync(int id)
         {
             return await _context.DailyCashTransactions

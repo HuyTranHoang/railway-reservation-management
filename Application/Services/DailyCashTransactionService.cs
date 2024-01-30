@@ -58,8 +58,10 @@ namespace Application.Services
         {
             var query = await _dailyCashTransactionRepository.GetQueryAsync();
 
-            if (!string.IsNullOrEmpty(queryParams.SearchTerm))
-                query = query.Where(ct => ct.Date.ToString().Contains(queryParams.SearchTerm.Trim()));
+            if (!string.IsNullOrEmpty(queryParams.SearchTerm) && DateTime.TryParse(queryParams.SearchTerm, out DateTime searchDate))
+            {
+                query = query.Where(ct => ct.Date >= searchDate.Date && ct.Date <= DateTime.Now.Date);
+            }
 
             query = queryParams.Sort switch
             {
@@ -127,6 +129,12 @@ namespace Application.Services
         public async Task<List<DailyCashTransactionDto>> GetAllDtoNoPagingAsync()
         {
             var dailyCashTransaction = await _dailyCashTransactionRepository.GetAllNoPagingAsync();
+            return _mapper.Map<List<DailyCashTransactionDto>>(dailyCashTransaction);
+        }
+
+        public async Task<List<DailyCashTransactionDto>> GetAllDtoByDateRangeAsync(DateTime startDate, DateTime endDate)
+        {
+            var dailyCashTransaction = await _dailyCashTransactionRepository.GetTransactionsByDateRangeAsync(startDate, endDate);
             return _mapper.Map<List<DailyCashTransactionDto>>(dailyCashTransaction);
         }
     }

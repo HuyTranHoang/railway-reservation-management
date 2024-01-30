@@ -33,6 +33,14 @@ public class DailyCashTransactionsController : BaseApiController
         return Ok(dailyCashTransactionDto);
     }
 
+    [HttpGet("by-date/{startDate}/{endDate}")]
+    public async Task<ActionResult<List<DailyCashTransactionDto>>> GetAllDailyCashTransactionByDate(DateTime startDate, DateTime endDate)
+    {
+        var dailyCashTransactionDto = await _dailyCashTransactionService.GetAllDtoByDateRangeAsync(startDate, endDate);
+
+        return Ok(dailyCashTransactionDto);
+    }
+
     [HttpGet("{id}")]
     public async Task<ActionResult<DailyCashTransactionDto>> GetDailyCashTransaction(int id)
     {

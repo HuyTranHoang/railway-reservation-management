@@ -2,7 +2,7 @@
     <nb-card-header>
       <div class="d-flex justify-content-between align-items-center">
         <form class="position-relative" (ngSubmit)="onSearch()">
-          <input nbInput placeholder="Search by date.."
+          <!-- <input nbInput placeholder="Search by date.."
                  name="searchTerm"
                  (keyup.escape)="onResetSearch()"
                  [(ngModel)]="currentSearchTerm"
@@ -11,9 +11,33 @@
                    class="position-absolute"
                    (click)="onSearch()"
                    style="top: 25%; right: 8px; cursor: pointer;"></nb-icon>
+           -->
+                   <input class="ml-3" nbInput
+                   name="searchTerm"
+                   [(ngModel)]="currentSearchTerm"
+                   #departureTime
+                   placeholder="Start Date"
+                   [nbDatepicker]="departureDate">
+            <nb-datepicker #departureDate (dateChange)="onFilterFromDate($event)"></nb-datepicker>
+
+            <button *ngIf="queryParams.searchTerm !== null"
+                nbButton hero status="danger" class="ml-3"
+                (click)="onResetSearch()">
+              Reset
+            </button>
+
         </form>
 
-        <button nbButton status="primary" class="mr-3"
+        <div class="form-group">
+          <label for="start-date">From:</label>
+          <input type="date" class="form-control" id="start-date" [(ngModel)]="startDate" placeholder="Start Date">
+        </div>
+        <div class="form-group">
+          <label for="end-date">To</label>
+          <input type="date" class="form-control" id="end-date" [(ngModel)]="endDate" placeholder="End Date">
+        </div>        
+        
+        <button nbButton status="primary" class="mr-3" (click)="exportDataToExcel()"
                 routerLink="/managements/daily-transaction">
           Export excel file
         </button>

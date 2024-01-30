@@ -6,5 +6,6 @@ namespace Application.Common.Interfaces.Services
         Task<bool> DoWork();
         Task<DailyCashTransactionDto> GetDtoByIdAsync(int id);
         Task<List<DailyCashTransactionDto>> GetAllDtoNoPagingAsync();
+        Task<List<DailyCashTransactionDto>> GetAllDtoByDateRangeAsync(DateTime startDate, DateTime endDate);
     }
 }
