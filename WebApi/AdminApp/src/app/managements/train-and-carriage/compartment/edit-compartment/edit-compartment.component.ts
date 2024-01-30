@@ -37,7 +37,6 @@ export class EditCompartmentComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadAllCarriage();
     this.initForm();
   }
 
@@ -51,23 +50,31 @@ export class EditCompartmentComponent implements OnInit {
 
     const id = this.activatedRoute.snapshot.params.id;
     this.isLoading = true;
-    this.compartmentService.getCompartmentById(id).subscribe({
-      next: (res) => {
-        this.updateForm.patchValue(res);
 
-        const matchingCarriage = this.options.find(carriage => carriage.id === res.carriageId);
-        if (matchingCarriage) {
-          this.input.nativeElement.value = matchingCarriage.name;
-          this.isCarriageSelected = true;
-        }
 
-        this.isLoading = false;
-      },
-      error: (err) => {
-        this.showToast('danger', 'Failed', 'Compartment does not exist!');
-        this.router.navigateByUrl('/managements/train-and-carriage/compartment');
-      },
+    this.carriageService.getAllCarriageNoPaging().subscribe(res => {
+      this.options = res;
+      this.filteredOptions$ = of(this.options);
+
+      this.compartmentService.getCompartmentById(id).subscribe({
+        next: (compartment) => {
+          this.updateForm.patchValue(compartment);
+
+          const matchingCarriage = this.options.find(carriage => carriage.id === compartment.carriageId);
+          if (matchingCarriage) {
+            this.input.nativeElement.value = matchingCarriage.name;
+            this.isCarriageSelected = true;
+          }
+
+          this.isLoading = false;
+        },
+        error: (err) => {
+          this.showToast('danger', 'Failed', 'Compartment does not exist!');
+          this.router.navigateByUrl('/managements/train-and-carriage/compartment');
+        },
+      });
     });
+
   }
 
   onSubmit() {
@@ -103,13 +110,6 @@ export class EditCompartmentComponent implements OnInit {
       position: NbGlobalPhysicalPosition.TOP_RIGHT,
     };
     this.toastrService.show(body, title, config);
-  }
-
-  loadAllCarriage() {
-    this.carriageService.getAllCarriageNoPaging().subscribe(res => {
-      this.options = res;
-      this.filteredOptions$ = of(this.options);
-    });
   }
 
   private filter(value: string): Carriage[] {
