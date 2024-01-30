@@ -12,10 +12,16 @@
                    (click)="onSearch()"
                    style="top: 25%; right: 8px; cursor: pointer;"></nb-icon>
         </form>
-        <label for="">From</label>
-        <input type="date" [(ngModel)]="startDate" placeholder="Start Date">
-        <label for="">To</label>
-        <input type="date" [(ngModel)]="endDate" placeholder="End Date">
+
+        <div class="form-group">
+          <label for="start-date">From:</label>
+          <input type="date" class="form-control" id="start-date" [(ngModel)]="startDate" placeholder="Start Date">
+        </div>
+        <div class="form-group">
+          <label for="end-date">To</label>
+          <input type="date" class="form-control" id="end-date" [(ngModel)]="endDate" placeholder="End Date">
+        </div>        
+        
         <button nbButton status="primary" class="mr-3" (click)="exportDataToExcel()"
                 routerLink="/managements/daily-transaction">
           Export excel file
