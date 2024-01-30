@@ -6,6 +6,7 @@ import { DailyTransactionService } from './daily-transaction.service';
 import {NbDialogService} from '@nebular/theme';
 import { PaginatedResult } from '../../@models/paginatedResult';
 import { SharedService } from '../shared/shared.service';
+import { ExcelService } from './excel.service';
 
 @Component({
   selector: 'ngx-daily-transaction',
@@ -14,7 +15,12 @@ import { SharedService } from '../shared/shared.service';
 })
 export class DailyTransactionComponent implements OnInit {
   dailyCashTransactions: DailyCashTransaction[] = [];
+  dailyCashTransactionsNoPagin: DailyCashTransaction[] = [];
   pagination: Pagination;
+
+  startDate: string = '';
+  endDate: string = '';
+
 
   currentSearchTerm: string = '';
   currentSort: string = '';
@@ -35,11 +41,13 @@ export class DailyTransactionComponent implements OnInit {
 
   constructor(private dailyCashTransactionService: DailyTransactionService,
               private sharedService: SharedService,
-              private dialogService: NbDialogService) {
+              private dialogService: NbDialogService,
+              private excelService: ExcelService) {
   }
 
   ngOnInit(): void {
     this.getAllDailyTransaction();
+    this.getAllDailyCashTransactionNoPaging();
   }
 
   getAllDailyTransaction() {
@@ -47,6 +55,14 @@ export class DailyTransactionComponent implements OnInit {
       next: (res: PaginatedResult<DailyCashTransaction[]>) => {
         this.dailyCashTransactions = res.result;
         this.pagination = res.pagination;
+      },
+    });
+  }
+
+  getAllDailyCashTransactionNoPaging() {
+    this.dailyCashTransactionService.getAllDailyCashTransactionNoPaging().subscribe({
+      next: (res: DailyCashTransaction[]) => {
+        this.dailyCashTransactionsNoPagin = res;
       },
     });
   }
@@ -79,5 +95,29 @@ export class DailyTransactionComponent implements OnInit {
   onPageSizeChanged(newSize: number) {
     this.queryParams.pageSize = newSize;
     this.getAllDailyTransaction();
+  }
+
+  exportDataToExcel() {
+    if (!this.startDate || !this.endDate) {
+      alert('Please enter both start and end dates.');
+
+      this.startDate = '';
+      this.endDate = '';
+
+      return;
+    }
+    const headers = ['Date', 'Total Received', 'Total Refunded', 'Created At'];
+    const data = this.dailyCashTransactionsNoPagin
+      .filter(transaction => transaction.date.split('T')[0] >= this.startDate && transaction.date.split('T')[0] <= this.endDate)
+      .map(transaction => {
+        return [
+          transaction.date.split('T')[0],
+          transaction.totalReceived,
+          transaction.totalRefunded,
+          transaction.createdAt
+        ];
+      });
+    
+    this.excelService.exportToExcel(data, 'daily_cash_transaction', headers);
   }
 }

@@ -12,8 +12,11 @@
                    (click)="onSearch()"
                    style="top: 25%; right: 8px; cursor: pointer;"></nb-icon>
         </form>
-
-        <button nbButton status="primary" class="mr-3"
+        <label for="">From</label>
+        <input type="date" [(ngModel)]="startDate" placeholder="Start Date">
+        <label for="">To</label>
+        <input type="date" [(ngModel)]="endDate" placeholder="End Date">
+        <button nbButton status="primary" class="mr-3" (click)="exportDataToExcel()"
                 routerLink="/managements/daily-transaction">
           Export excel file
         </button>

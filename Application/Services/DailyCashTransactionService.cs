@@ -129,5 +129,11 @@ namespace Application.Services
             var dailyCashTransaction = await _dailyCashTransactionRepository.GetAllNoPagingAsync();
             return _mapper.Map<List<DailyCashTransactionDto>>(dailyCashTransaction);
         }
+
+        public async Task<List<DailyCashTransactionDto>> GetAllDtoByDateRangeAsync(DateTime startDate, DateTime endDate)
+        {
+            var dailyCashTransaction = await _dailyCashTransactionRepository.GetTransactionsByDateRangeAsync(startDate, endDate);
+            return _mapper.Map<List<DailyCashTransactionDto>>(dailyCashTransaction);
+        }
     }
 }
