@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using Domain.Common;
 
 namespace Domain.Entities
@@ -9,7 +8,13 @@ namespace Domain.Entities
         [Required] public int Id { get; set; }
         [Required] public string AspNetUserId { get; set; }
         public ApplicationUser AspNetUser { get; set; }
-        [StringLength(100)] public string Status { get; set; }
+
+        [Required]
+        [StringLength(100)]
+        public string TransactionId { get; set; }
+
+        [StringLength(100)]
+        public string Status { get; set; }
         public ICollection<Ticket> Tickets { get; set; }
     }
 }

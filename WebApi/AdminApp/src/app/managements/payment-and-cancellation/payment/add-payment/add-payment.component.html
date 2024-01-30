@@ -19,6 +19,11 @@
                          [placeholder]="'Email of user..'">
         </app-input-field>
 
+        <app-input-field [control]="paymentForm.get('transactionId')"
+                         [label]="'Transaction Id'"
+                         [isSubmitted]="isSubmitted"
+                         [placeholder]="'Transaction id..'">
+        </app-input-field>
 
         <app-input-field [control]="paymentForm.get('status')"
                          [label]="'Status'"

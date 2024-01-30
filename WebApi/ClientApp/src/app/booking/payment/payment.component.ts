@@ -26,6 +26,8 @@ export class PaymentComponent implements OnInit, OnDestroy {
   ticketForm: FormGroup = new FormGroup({})
   totalAmount = 0
 
+  transactionId = ''
+
   departureSubTotal = 0
   returnSubTotal = 0
   totalSeats = 0
@@ -92,6 +94,11 @@ export class PaymentComponent implements OnInit, OnDestroy {
 
     this.hubConnection.start().then(() => {
       console.log('SignalR Connected')
+    })
+
+    this.hubConnection.on('TransactionId', (message: string) => {
+      console.log('TransactionId:', message)
+      this.transactionId = message
     })
 
     this.hubConnection.on('PaymentStatus', (message: string) => {
@@ -184,7 +191,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
 
 
   addTicket() {
-    this.paymentService.addPaymentByEmail(this.currentUser.email).subscribe({
+    this.paymentService.addPaymentByEmail(this.currentUser.email, this.transactionId).subscribe({
       next: (res: any) => {
         console.log(res)
 

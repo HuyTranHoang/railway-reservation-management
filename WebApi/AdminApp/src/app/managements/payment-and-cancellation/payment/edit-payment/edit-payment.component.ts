@@ -38,6 +38,7 @@ export class EditPaymentComponent implements OnInit {
       id: ['', Validators.required],
       aspNetUserId: ['', Validators.required],
       email: ['', Validators.required],
+      transactionId: ['', Validators.required],
       status: [''],
     });
 
@@ -46,6 +47,10 @@ export class EditPaymentComponent implements OnInit {
     this.paymentService.getPaymentById(id).subscribe({
       next: (res) => {
         this.paymentForm.patchValue(res);
+        this.paymentForm.patchValue({
+          email: res.aspNetUserEmail,
+        });
+        
         this.isLoading = false;
       },
       error: (err) => {

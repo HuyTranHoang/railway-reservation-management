@@ -74,8 +74,8 @@ public class PaymentsController : BaseApiController
         return CreatedAtAction("GetPayment", new { id = payment.Id }, payment);
     }
 
-    [HttpPost("addPaymentByEmail/{email}")]
-    public async Task<ActionResult> PostPaymentByEmail(string email)
+    [HttpPost("addPaymentByEmail/{email}/{transactionId}")]
+    public async Task<ActionResult> PostPaymentByEmail(string email, string transactionId)
     {
         var user = await _userManager.FindByEmailAsync(email);
         if (user is null) return NotFound(new ErrorResponse(404));
@@ -83,6 +83,7 @@ public class PaymentsController : BaseApiController
         var payment = new Payment
         {
             AspNetUserId = user.Id,
+            TransactionId = transactionId,
             Status = "Success"
         };
 
@@ -171,6 +172,8 @@ public class PaymentsController : BaseApiController
                 if (response.VnPayResponseCode == "00")
                 {
                     // await _hubContext.Clients.All.SendAsync("PaymentStatus", "PaymentSuccess");
+                    await _hubContext.Clients.Group(response.OrderDescription)
+                        .SendAsync("TransactionId", response.PaymentId);
                     await _hubContext.Clients.Group(response.OrderDescription)
                         .SendAsync("PaymentStatus", "PaymentSuccess");
 

@@ -31,6 +31,7 @@ export class AddPaymentComponent implements OnInit {
     this.paymentForm = this.fb.group({
       aspNetUserId: ['', Validators.required],
       email: ['', Validators.required],
+      transactionId: ['', Validators.required],
       status: [''],
     });
   }

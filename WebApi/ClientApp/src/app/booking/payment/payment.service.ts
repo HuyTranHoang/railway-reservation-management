@@ -17,8 +17,8 @@ export class PaymentService {
 
   constructor(private http: HttpClient) { }
 
-  addPaymentByEmail(email: string) {
-    return this.http.post(this.baseUrl + 'payments/addPaymentByEmail/' + email, {})
+  addPaymentByEmail(email: string, transactionId: string) {
+    return this.http.post(this.baseUrl + 'payments/addPaymentByEmail/' + email + '/' + transactionId, {})
   }
 
   createPaymentUrl(paymentInfo: PaymentInformation): Observable<any> {
@@ -29,7 +29,7 @@ export class PaymentService {
     this.paymentStatusSource.next(status)
   }
 
-  getRoundTripByTrainCompanyId(trainCompanyId: number){
+  getRoundTripByTrainCompanyId(trainCompanyId: number) {
     return this.http.get<RoundTrip>(this.baseUrl + 'roundTrip/trainCompany/' + trainCompanyId)
   }
 }

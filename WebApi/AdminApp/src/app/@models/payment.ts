@@ -3,6 +3,7 @@ export interface Payment {
   aspNetUserId: string;
   aspNetUserFullName: string;
   aspNetUserEmail: string;
+  transactionId: string;
   status: string;
   createdAt: string;
 }

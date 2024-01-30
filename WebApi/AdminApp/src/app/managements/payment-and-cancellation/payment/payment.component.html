@@ -41,6 +41,12 @@
 
         <th scope="col" style="width: 15%">
           <span>
+            Transaction ID
+          </span>
+        </th>
+
+        <th scope="col" style="width: 10%">
+          <span>
             Status
           </span>
         </th>
@@ -60,8 +66,9 @@
       <tbody>
       <tr *ngFor="let item of payments; let index = index">
         <th scope="row">{{ index + 1 }}</th>
-        <td>{{ item.aspNetUserFullName }}</td>
+        <td>{{ item.aspNetUserFullName | titlecase }}</td>
         <td>{{ item.aspNetUserEmail }}</td>
+        <td>{{ item.transactionId }}</td>
         <td>{{ item.status }}</td>
         <td>{{ item.createdAt |date: 'medium' }}</td>
         <td class="text-right">

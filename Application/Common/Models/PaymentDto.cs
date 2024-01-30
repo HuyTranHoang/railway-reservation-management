@@ -6,6 +6,7 @@ namespace Application.Common.Models
         public string AspNetUserId { get; set; }
         public string AspNetUserFullName { get; set; }
         public string AspNetUserEmail { get; set; }
+        public string TransactionId { get; set; }
         public string Status { get; set; }
         public DateTime CreatedAt { get; set; }
         public List<Passenger> Passengers { get; set; }
