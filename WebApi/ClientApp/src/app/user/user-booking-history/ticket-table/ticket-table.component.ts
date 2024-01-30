@@ -13,6 +13,8 @@ export class TicketTableComponent {
   @Input() isUpcoming: boolean = false
   @Output() onConfirmCancel = new EventEmitter<void>()
 
+  searchText: string = ''
+
   constructor(
     private bsModalService: BsModalService) {}
 

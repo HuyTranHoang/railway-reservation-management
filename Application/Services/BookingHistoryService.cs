@@ -33,19 +33,9 @@ public class BookingHistoryService : IBookingHistoryService
 
     }
 
-    public async Task<BookingHistoryDto> GetBookingHistoryDtoAsync(string Id)
+    public async Task<BookingHistoryDto> GetBookingHistoryDtoAsync(string userId)
     {
-        var payments = await _paymentRepository.GetPaymentWithAspNetUserByIdStringAsync(Id);
-
-        if (payments is null)
-        {
-            return new BookingHistoryDto
-            {
-                UpcomingTrips = new List<TicketDto>(),
-                PastTrips = new List<TicketDto>(),
-                Cancellations = new List<TicketDto>()
-            };
-        }
+        var payments = await _paymentRepository.GetPaymentWithAspNetUserByIdStringAsync(userId);
 
         var bookingHistoryDto = new BookingHistoryDto
         {
@@ -53,6 +43,8 @@ public class BookingHistoryService : IBookingHistoryService
             PastTrips = new List<TicketDto>(),
             Cancellations = new List<TicketDto>()
         };
+
+        if (payments is null) return bookingHistoryDto;
 
         foreach (var payment in payments)
         {

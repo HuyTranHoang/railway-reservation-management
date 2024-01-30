@@ -1,27 +1,42 @@
+<div class="row my-3">
+  <div class="col-2 position-relative">
+    <input class="form-control"
+           [(ngModel)]="searchText"
+           style="padding-right: 30px"
+           type="text"
+           placeholder="Ticket code">
+    <i class="fa-solid fa-magnifying-glass position-absolute" style="top: 30%; right: 20px; cursor: pointer"></i>
+  </div>
+  <div class="col-2" *ngIf="searchText != ''">
+    <button (click)="searchText=''" class="btn btn-outline-primary">Reset</button>
+  </div>
+</div>
+
 <table class="table table-striped">
   <thead>
   <tr>
     <th>Ticket Code</th>
     <th>Passenger Name</th>
     <th>Train Name</th>
-    <th>Seat Name</th>
+    <th>Seat No.</th>
     <th>Price</th>
     <th>Created At</th>
-    <th *ngIf="isUpcoming"></th>
+    <th></th>
   </tr>
   </thead>
-  <tbody>
-  <tr *ngFor="let item of tickets">
+  <tbody *ngIf="tickets">
+  <tr *ngFor="let item of tickets | ticketCodeFilter: searchText">
     <td>{{ item.code }}</td>
     <td>{{ item.passengerName }}</td>
     <td>{{ item.trainName }}</td>
     <td>{{ item.seatName }}</td>
     <td>{{ item.price | currency:'VND' }}</td>
     <td>{{ item.createdAt | date:'medium' }}</td>
-    <td *ngIf="isUpcoming">
-      <button
-        class="btn btn-danger"
-        (click)="openConfirmModal(item)">
+    <td>
+      <button class="btn btn-sm text-white me-2" style="background-color: #9ccd19">
+        Details
+      </button>
+      <button *ngIf="isUpcoming" class="btn btn-sm btn-danger" (click)="openConfirmModal(item)">
         Cancellation
       </button>
     </td>

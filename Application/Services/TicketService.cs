@@ -179,9 +179,9 @@ namespace Application.Services
         private static string GenerateUniqueCode(Ticket ticket)
         {
             DateTime currentDate = DateTime.Now;
-            string datePart = currentDate.ToString("ddMMyy");
+            string datePart = currentDate.ToString("ddMM");
             string timePart = currentDate.ToString("HHmmss");
-            var code = $"{datePart}{timePart}{ticket.PassengerId}{ticket.TrainId}{ticket.CarriageId}{ticket.SeatId}";
+            var code = $"{datePart}{timePart}{ticket.PassengerId}";
             return code;
         }
 
