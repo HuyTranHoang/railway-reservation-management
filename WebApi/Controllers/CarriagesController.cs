@@ -87,7 +87,8 @@ public class CarriagesController : BaseApiController
 
         try
         {
-            await _carriageService.UpdateAsync(carriage);
+            // await _carriageService.UpdateAsync(carriage);
+            await _trainComponentService.UpdateTrainComponentsAsync(carriage, id);
         }
         catch (NotFoundException ex)
         {

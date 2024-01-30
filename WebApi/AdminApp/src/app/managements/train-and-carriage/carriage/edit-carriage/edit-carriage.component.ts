@@ -67,9 +67,10 @@ export class EditCarriageComponent implements OnInit {
 
   initForm() {
     this.carriageForm = this.fb.group({
-      name: ['', [Validators.required]],
-      trainId: ['', [Validators.required]],
-      carriageTypeId: ['', [Validators.required]],
+      id: [0, Validators.required],
+      name: ['', Validators.required],
+      trainId: ['', Validators.required],
+      carriageTypeId: ['', Validators.required],
       status: [''],
     });
 
@@ -155,13 +156,13 @@ export class EditCarriageComponent implements OnInit {
 
     this.carriageService.updateCarriage(this.carriageForm.value).subscribe({
       next: _ => {
-        this.showToast('success', 'Success', 'Add carriage, compartment and seat successfully!');
-        this.carriageForm.reset();
+        this.showToast('success', 'Success', 'Update carriage successfully!');
+        this.router.navigateByUrl('/managements/train-and-carriage/carriage');
         this.isSubmitted = false;
         this.errorMessages = [];
       },
       error: (err) => {
-        this.showToast('danger', 'Failed', 'Add carriage, compartment and seat failed!');
+        this.showToast('danger', 'Failed', 'Update carriage failed!');
         this.errorMessages = err.error.errorMessages;
       },
     });

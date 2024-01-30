@@ -8,6 +8,7 @@ import {CarriageTypeService} from '../../carriage-type/carriage-type.service';
 import {CarriageType} from '../../../../@models/carriageType';
 import {CarriageService} from '../carriage.service';
 import {NbGlobalPhysicalPosition, NbToastrService} from '@nebular/theme';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'ngx-add-carriage',
@@ -36,6 +37,7 @@ export class AddCarriageComponent implements OnInit {
               private carriageService: CarriageService,
               private carriageTypeService: CarriageTypeService,
               private toastrService: NbToastrService,
+              private router: Router,
               private fb: FormBuilder) {
   }
 
@@ -130,6 +132,7 @@ export class AddCarriageComponent implements OnInit {
     this.carriageService.addCarriage(this.carriageForm.value).subscribe({
       next: _ => {
         this.showToast('success', 'Success', 'Add carriage, compartment and seat successfully!');
+        this.router.navigateByUrl('/managements/train-and-carriage/carriage');
         this.carriageForm.reset();
         this.isSubmitted = false;
         this.errorMessages = [];

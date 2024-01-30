@@ -10,6 +10,8 @@
 
           <form [formGroup]="carriageForm" class="my-4 p-0">
 
+            <input type="hidden" formControlName="id">
+
             <div class="form-group">
               <label class="label">Train name/code</label>
               <input #autoInput
@@ -21,7 +23,7 @@
                      (input)="onChange()"
                      (blur)="onInputBlur()"
                      placeholder="Choose train name/code.."
-                     [nbAutocomplete]="autoTrainName" />
+                     [nbAutocomplete]="autoTrainName"/>
               <nb-autocomplete #autoTrainName (selectedChange)="onSelectionChange($event)">
                 <nb-option *ngFor="let option of filteredOptions$ | async" [value]="option">
                   {{ option.name }}
@@ -73,11 +75,14 @@
         <h4>Preview compartment belong to this carriage</h4>
         <hr>
         <p>
-          This section provides an automated preview of the compartment and seating layout based on your <b>previously selected carriage type</b>.
-          It is designed to help you visualize the interior configuration and ensure the arrangement meets your requirements for space and comfort.
+          This section provides an automated preview of the compartment and seating layout based on your <b>previously
+          selected carriage type</b>.
+          It is designed to help you visualize the interior configuration and ensure the arrangement meets your
+          requirements for space and comfort.
         </p>
         <p>
-          Please review the compartment and seat details shown here to confirm they align with your expectations for the carriage design.
+          Please review the compartment and seat details shown here to confirm they align with your expectations for the
+          carriage design.
         </p>
         <div class="row">
           <div class="col-4" *ngIf="currentCarriageType">
@@ -88,7 +93,8 @@
             </div>
             <div class="form-group">
               <label class="label">Total compartments</label>
-              <input type="text" class="text-black-50" nbInput fullWidth disabled [value]="currentCarriageType.numberOfCompartments">
+              <input type="text" class="text-black-50" nbInput fullWidth disabled
+                     [value]="currentCarriageType.numberOfCompartments">
             </div>
             <div class="form-group">
               <label class="label">Number of seats (per compartment)</label>
