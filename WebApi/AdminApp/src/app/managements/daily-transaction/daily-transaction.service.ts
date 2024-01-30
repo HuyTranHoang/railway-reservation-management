@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import { environment } from '../../../environments/environment';
-import { DailyCashTransaction } from '../../@models/dailyCashTransaction';
-import { QueryParams } from '../../@models/params/queryParams';
-import { PaginationService } from '../shared/pagination.service';
+import {environment} from '../../../environments/environment';
+import {DailyCashTransaction} from '../../@models/dailyCashTransaction';
+import {QueryParams} from '../../@models/params/queryParams';
+import {PaginationService} from '../shared/pagination.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 
 

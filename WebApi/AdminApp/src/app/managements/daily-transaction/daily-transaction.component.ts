@@ -1,12 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import { DailyCashTransaction } from '../../@models/dailyCashTransaction';
-import { Pagination } from '../../@models/pagination';
-import { QueryParams } from '../../@models/params/queryParams';
-import { DailyTransactionService } from './daily-transaction.service';
-import {NbDialogService} from '@nebular/theme';
-import { PaginatedResult } from '../../@models/paginatedResult';
-import { SharedService } from '../shared/shared.service';
-import { ExcelService } from './excel.service';
+import {DailyCashTransaction} from '../../@models/dailyCashTransaction';
+import {Pagination} from '../../@models/pagination';
+import {QueryParams} from '../../@models/params/queryParams';
+import {DailyTransactionService} from './daily-transaction.service';
+import {NbDialogService, NbGlobalPhysicalPosition, NbToastrService} from '@nebular/theme';
+import {PaginatedResult} from '../../@models/paginatedResult';
+import {SharedService} from '../shared/shared.service';
+import {ExcelService} from './excel.service';
+import {ShowExportExcelComponent} from './show-export-excel/show-export-excel.component';
 
 @Component({
   selector: 'ngx-daily-transaction',
@@ -17,9 +18,6 @@ export class DailyTransactionComponent implements OnInit {
   dailyCashTransactions: DailyCashTransaction[] = [];
   dailyCashTransactionsNoPagin: DailyCashTransaction[] = [];
   pagination: Pagination;
-
-  startDate: string = '';
-  endDate: string = '';
 
   currentSearchTerm: string = '';
   currentSort: string = '';
@@ -41,6 +39,7 @@ export class DailyTransactionComponent implements OnInit {
   constructor(private dailyCashTransactionService: DailyTransactionService,
               private sharedService: SharedService,
               private dialogService: NbDialogService,
+              private toastrService: NbToastrService,
               private excelService: ExcelService) {
   }
 
@@ -104,27 +103,55 @@ export class DailyTransactionComponent implements OnInit {
     this.getAllDailyTransaction();
   }
 
-  exportDataToExcel() {
-    if (!this.startDate || !this.endDate) {
-      alert('Please enter both start and end dates.');
+  openShowDialog() {
+    const dialogRef = this.dialogService.open(ShowExportExcelComponent);
 
-      this.startDate = '';
-      this.endDate = '';
+    dialogRef.componentRef.instance.onShowExport.subscribe(obj => {
 
+      if (!obj.startDate || !obj.endDate) {
+        this.showToast('danger', 'Failed', 'Please choose start date and end date!');
+        return;
+      }
+
+      this.exportDataToExcel(obj.startDate, obj.endDate);
+    });
+
+  }
+
+  exportDataToExcel(startDate: Date, endDate: Date) {
+    const filteredData = this.dailyCashTransactionsNoPagin
+      .filter(transaction => new Date(transaction.date) >= startDate
+        && new Date(transaction.date) <= endDate);
+
+    if (filteredData.length === 0) {
+      this.showToast('danger', 'Failed', 'No data to export!');
       return;
     }
+
     const headers = ['Date', 'Total Received', 'Total Refunded', 'Created At'];
-    const data = this.dailyCashTransactionsNoPagin
-      .filter(transaction => transaction.date.split('T')[0] >= this.startDate && transaction.date.split('T')[0] <= this.endDate)
-      .map(transaction => {
-        return [
-          transaction.date.split('T')[0],
-          transaction.totalReceived,
-          transaction.totalRefunded,
-          transaction.createdAt
-        ];
-      });
-    
+    const data = filteredData.map(transaction => {
+      const transactionDate = new Date(transaction.createdAt);
+      const timeString = transactionDate.toLocaleTimeString();
+      return [
+        transaction.date.split('T')[0],
+        transaction.totalReceived,
+        transaction.totalRefunded,
+        timeString,
+      ];
+    });
+
     this.excelService.exportToExcel(data, 'daily_cash_transaction', headers);
   }
+
+  private showToast(type: string, title: string, body: string) {
+    const config = {
+      status: type,
+      destroyByClick: true,
+      duration: 3000,
+      hasIcon: true,
+      position: NbGlobalPhysicalPosition.TOP_RIGHT,
+    };
+    this.toastrService.show(body, title, config);
+  }
+
 }

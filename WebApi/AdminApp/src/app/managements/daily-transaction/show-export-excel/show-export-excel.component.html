@@ -1,0 +1,38 @@
+<nb-card>
+  <nb-card-header>Export excel file</nb-card-header>
+  <nb-card-body>
+    <section style="min-width: 600px">
+      <div class="form-group">
+        <label style="min-width: 100px">Start date</label>
+        <input class="ml-3" nbInput
+               autocomplete="off"
+               name="searchTerm"
+               [(ngModel)]="startDateString"
+               placeholder="Start Date"
+               [nbDatepicker]="startDate">
+        <nb-datepicker #startDate></nb-datepicker>
+      </div>
+
+      <div class="form-group">
+        <label style="min-width: 100px">End date</label>
+        <input class="ml-3" nbInput
+               autocomplete="off"
+               name="searchTerm"
+               [(ngModel)]="endDateString"
+               placeholder="End Date"
+               [nbDatepicker]="endDate">
+        <nb-datepicker #endDate></nb-datepicker>
+      </div>
+    </section>
+
+  </nb-card-body>
+  <nb-card-footer>
+    <div class="d-flex justify-content-between">
+      <button nbButton hero status="primary" (click)="dismiss()">Dismiss Dialog</button>
+
+      <div>
+        <button nbButton hero status="primary" class="mr-3" (click)="onExport()">Export</button>
+      </div>
+    </div>
+  </nb-card-footer>
+</nb-card>

@@ -1,12 +1,13 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import * as ExcelJS from 'exceljs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ExcelService {
 
-  constructor() { }
+  constructor() {
+  }
 
   public exportToExcel(data: any[], fileName: string, headers: string[]): void {
     const workbook = new ExcelJS.Workbook();
@@ -19,7 +20,7 @@ export class ExcelService {
     });
 
     workbook.xlsx.writeBuffer().then((buffer: ArrayBuffer) => {
-      const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      const blob = new Blob([buffer], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
 
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement('a');

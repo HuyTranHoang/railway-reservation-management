@@ -13,6 +13,7 @@ import {DailyTransactionComponent} from './daily-transaction/daily-transaction.c
 import { BarchartjsComponent } from './dashboard/barchartjs/barchartjs.component';
 import {ChartModule} from 'angular2-chartjs';
 import {DashboardComponent} from './dashboard/dashboard.component';
+import { ShowExportExcelComponent } from './daily-transaction/show-export-excel/show-export-excel.component';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import {DashboardComponent} from './dashboard/dashboard.component';
     DashboardComponent,
     DailyTransactionComponent,
     BarchartjsComponent,
+    ShowExportExcelComponent,
   ],
   imports: [
     CommonModule,
