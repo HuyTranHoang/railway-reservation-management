@@ -113,3 +113,28 @@ tabset.user-booking-history {
 .tooltip.top .tooltip-arrow {
   border-top-color: #fb0;
 }
+
+// Pagination
+
+.page-link {
+  color: black;
+}
+
+//.page-link:hover {
+//  z-index: 2;
+//  color: var(--bs-pagination-hover-color);
+//  background-color: var(--bs-pagination-hover-bg);
+//  border-color: var(--bs-pagination-hover-border-color);
+//}
+
+.page-link.active, .active > .page-link
+{
+  z-index: 3;
+  color: #ffffff;
+  background-color: #fb0;
+  border-color: #fb0;
+}
+
+.pagination li.pagination-page {
+  border-bottom: 0;
+}

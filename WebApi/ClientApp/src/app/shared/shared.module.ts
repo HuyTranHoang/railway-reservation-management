@@ -6,6 +6,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs'
 import { TooltipModule } from 'ngx-bootstrap/tooltip'
 import { AlertModule } from 'ngx-bootstrap/alert'
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { PaginationModule } from 'ngx-bootstrap/pagination'
 
 @NgModule({
   declarations: [],
@@ -17,6 +18,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     TooltipModule.forRoot(),
     AlertModule.forRoot(),
     ModalModule.forRoot(),
+    PaginationModule.forRoot(),
   ],
   exports: [
     NgxSpinnerModule,
@@ -26,6 +28,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     TooltipModule,
     AlertModule,
     ModalModule,
+    PaginationModule
   ]
 })
 export class SharedModule { }

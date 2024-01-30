@@ -3,6 +3,7 @@
     <input class="form-control"
            [(ngModel)]="searchText"
            (change)="filterTickets()"
+           (keyup.escape)="searchText=''"
            style="padding-right: 30px"
            type="text"
            placeholder="Ticket code, name..">
@@ -26,7 +27,8 @@
   </tr>
   </thead>
   <tbody *ngIf="tickets && tickets.length > 0">
-  <tr *ngFor="let item of filterTickets()">
+  <tr
+    *ngFor="let item of filterTickets() | slice:(currentPage - 1) * itemsPerPage : (currentPage - 1) * itemsPerPage + itemsPerPage">
     <td>{{ item.code }}</td>
     <td>{{ item.passengerName }}</td>
     <td>{{ item.trainName }}</td>
@@ -50,3 +52,19 @@
   </tr>
   </tbody>
 </table>
+
+<div class="row">
+  <div class="col d-flex">
+    <p class="me-5">
+      Showing {{ displayedItemsStart }} - {{ displayedItemsEnd }} of {{ filterTickets().length }} items
+    </p>
+
+    <pagination [totalItems]="filterTickets().length"
+                [(ngModel)]="currentPage"
+                [itemsPerPage]="itemsPerPage"
+                (pageChanged)="pageChanged($event)"
+                *ngIf="filterTickets().length > itemsPerPage"
+                class="pagination-sm">
+    </pagination>
+  </div>
+</div>
