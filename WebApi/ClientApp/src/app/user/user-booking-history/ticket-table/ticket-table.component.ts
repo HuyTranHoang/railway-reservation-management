@@ -26,7 +26,7 @@ export class TicketTableComponent implements OnInit {
     private bsModalService: BsModalService) {}
 
   ngOnInit(): void {
-    this.updateDisplayedItemsRange();
+    this.updateDisplayedItemsRange()
   }
 
   openConfirmModal(ticket: Ticket) {
@@ -63,18 +63,23 @@ export class TicketTableComponent implements OnInit {
 
   pageChanged(event: any): void {
     this.currentPage = event.page
-    this.updateDisplayedItemsRange();
+    this.updateDisplayedItemsRange()
   }
 
   private updateDisplayedItemsRange(): void {
     this.displayedItemsStart = Math.min(
       (this.currentPage - 1) * this.itemsPerPage + 1,
       this.filterTickets().length
-    );
+    )
     this.displayedItemsEnd = Math.min(
       this.currentPage * this.itemsPerPage,
       this.filterTickets().length
-    );
+    )
+  }
+
+  resetSearchText() {
+    this.searchText = ''
+    this.updateDisplayedItemsRange()
   }
 
 }

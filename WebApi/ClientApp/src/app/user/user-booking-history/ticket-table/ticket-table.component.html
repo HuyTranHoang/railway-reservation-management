@@ -3,14 +3,14 @@
     <input class="form-control"
            [(ngModel)]="searchText"
            (change)="filterTickets()"
-           (keyup.escape)="searchText=''"
+           (keyup.escape)="resetSearchText()"
            style="padding-right: 30px"
            type="text"
            placeholder="Ticket code, name..">
     <i class="fa-solid fa-magnifying-glass position-absolute" style="top: 30%; right: 20px; cursor: pointer"></i>
   </div>
   <div class="col-2" *ngIf="searchText != ''">
-    <button (click)="searchText=''" class="btn btn-outline-primary">Reset</button>
+    <button (click)="resetSearchText()" class="btn btn-outline-primary">Reset</button>
   </div>
 </div>
 
