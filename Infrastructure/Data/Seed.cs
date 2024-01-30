@@ -30,7 +30,7 @@ public static class Seed
 
     public static async Task SeedAllData(ApplicationDbContext context)
     {
-        await SeedData<Passenger>(context, "Passenger.json", c => c.Passengers);
+        // await SeedData<Passenger>(context, "Passenger.json", c => c.Passengers);
         await SeedData<TrainCompany>(context, "TrainCompany.json", c => c.TrainCompanies);
 
         await SeedData<SeatType>(context, "SeatType.json", c => c.SeatTypes);
