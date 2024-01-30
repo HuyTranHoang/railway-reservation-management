@@ -21,7 +21,6 @@ export class DailyTransactionComponent implements OnInit {
   startDate: string = '';
   endDate: string = '';
 
-
   currentSearchTerm: string = '';
   currentSort: string = '';
 
@@ -94,6 +93,14 @@ export class DailyTransactionComponent implements OnInit {
 
   onPageSizeChanged(newSize: number) {
     this.queryParams.pageSize = newSize;
+    this.getAllDailyTransaction();
+  }
+
+  onFilterFromDate(date: Date) {
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1; // getMonth() trả về giá trị từ 0 đến 11
+    const day = date.getDate();
+    this.queryParams.searchTerm = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
     this.getAllDailyTransaction();
   }
 
