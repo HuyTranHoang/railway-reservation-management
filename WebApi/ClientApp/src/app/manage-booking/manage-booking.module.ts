@@ -24,7 +24,9 @@ import { DateDiffPipe } from './date-diff.pipe'
     ReactiveFormsModule,
     SharedModule,
     RouterLink,
-
+  ],
+  exports: [
+    DateDiffPipe
   ]
 })
 export class ManageBookingModule { }

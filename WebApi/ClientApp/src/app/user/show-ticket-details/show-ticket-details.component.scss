@@ -1,0 +1,132 @@
+.ticket {
+  display: flex;
+  width: 700px;
+  margin: 20px 0;
+
+  .stub, .check {
+    box-sizing: border-box;
+  }
+}
+
+.stub {
+  background: #ef5658;
+  height: 250px;
+  width: 250px;
+  color: white;
+  padding: 20px;
+  position: relative;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    border-top: 20px solid #dd3f3e;
+    border-left: 20px solid #ef5658;
+    width: 0;
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    bottom: 0; right: 0;
+    border-bottom: 20px solid #dd3f3e;
+    border-left: 20px solid #ef5658;
+    width: 0;
+  }
+
+  .top {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    text-transform: uppercase;
+
+    .line {
+      display: block;
+      background: #fff;
+      height: 40px;
+      width: 3px;
+      margin: 0 20px;
+    }
+
+  }
+  .number {
+    position: absolute;
+    left: 40px;
+    font-size: 70px;
+  }
+
+  .passenger-name {
+    position: absolute;
+    left: 10px;
+    bottom: 25px;
+    color: #ffffff;
+
+    &:before {
+      content: '';
+      background: #fff;
+      display: block;
+      width: 40px;
+      height: 3px;
+      margin-bottom: 5px;
+    }
+  }
+}
+
+.check {
+  background: #fff;
+  height: 250px;
+  width: 450px;
+  padding: 15px;
+  position: relative;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    border-top: 20px solid #dd3f3e;
+    border-right: 20px solid #fff;
+    width: 0;
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    border-bottom: 20px solid #dd3f3e;
+    border-right: 20px solid #fff;
+    width: 0;
+  }
+
+  .big {
+    font-size: 20px;
+    font-weight: 500;
+    line-height: .8em;
+  }
+  .number {
+
+    color: #ef5658;
+    font-size: 20px;
+  }
+  .info {
+    display: flex;
+    justify-content: flex-start;
+
+    font-size: 12px;
+    margin-top: 20px;
+    width: 100%;
+
+    section {
+      margin-right: 50px;
+      &:before {
+        content: '';
+        background: #ef5658;
+        display: block;
+        width: 40px;
+        height: 3px;
+        margin-bottom: 5px;
+      }
+      .title {
+        font-size: 10px;
+        text-transform: uppercase;
+      }
+    }
+  }
+}

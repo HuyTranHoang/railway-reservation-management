@@ -36,7 +36,7 @@
     <td>{{ item.price | currency:'VND' }}</td>
     <td>{{ item.createdAt | date:'medium' }}</td>
     <td>
-      <button class="btn btn-sm text-white me-2" style="background-color: #9ccd19">
+      <button class="btn btn-sm text-white me-2" style="background-color: #9ccd19" (click)="openShowModal(item)">
         Details
       </button>
       <button *ngIf="isUpcoming" class="btn btn-sm btn-danger" (click)="openConfirmModal(item)">

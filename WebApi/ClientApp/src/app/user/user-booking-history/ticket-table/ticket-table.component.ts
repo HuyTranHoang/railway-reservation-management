@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
 import { Ticket } from '../../../core/models/bookingHistory'
 import { ConfirmCanceledTicketComponent } from '../../confirm-canceled-ticket/confirm-canceled-ticket.component'
 import { BsModalService } from 'ngx-bootstrap/modal'
+import { ShowTicketDetailsComponent } from '../../show-ticket-details/show-ticket-details.component'
 
 @Component({
   selector: 'app-ticket-table',
@@ -27,6 +28,13 @@ export class TicketTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.updateDisplayedItemsRange()
+  }
+
+  openShowModal(ticket: Ticket) {
+    const modalRef = this.bsModalService.show(ShowTicketDetailsComponent, {
+      initialState: { ticket },
+      class: 'modal-lg'
+    })
   }
 
   openConfirmModal(ticket: Ticket) {

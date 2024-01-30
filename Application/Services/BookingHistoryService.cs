@@ -1,4 +1,3 @@
-
 using Domain.Exceptions;
 
 namespace Application.Services;
@@ -30,7 +29,6 @@ public class BookingHistoryService : IBookingHistoryService
         _cancellationRuleRepository = cancellationRuleRepository;
         _unitOfWork = unitOfWork;
         _scheduleRepository = scheduleRepository;
-
     }
 
     public async Task<BookingHistoryDto> GetBookingHistoryDtoAsync(string userId)
@@ -57,6 +55,7 @@ public class BookingHistoryService : IBookingHistoryService
                 var isCancelled = ticket.Cancellation != null;
 
                 var ticketDto = _mapper.Map<TicketDto>(ticket);
+                ticketDto.IsCancel = await _cancellationRepository.IsTicketCancelledAsync(ticket.Id);
 
                 if (isCancelled)
                 {
@@ -70,9 +69,9 @@ public class BookingHistoryService : IBookingHistoryService
                 {
                     bookingHistoryDto.PastTrips.Add(ticketDto);
                 }
-
             }
         }
+
         return bookingHistoryDto;
     }
 
@@ -103,7 +102,4 @@ public class BookingHistoryService : IBookingHistoryService
         await _cancellationRepository.Add(cancellation);
         await _unitOfWork.SaveChangesAsync();
     }
-
 }
-
-

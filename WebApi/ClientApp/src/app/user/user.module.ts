@@ -7,6 +7,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { UserBookingHistoryComponent } from './user-booking-history/user-booking-history.component';
 import { ConfirmCanceledTicketComponent } from './confirm-canceled-ticket/confirm-canceled-ticket.component';
 import { TicketTableComponent } from './user-booking-history/ticket-table/ticket-table.component';
+import { ShowTicketDetailsComponent } from './show-ticket-details/show-ticket-details.component';
+import { ManageBookingModule } from '../manage-booking/manage-booking.module'
 
 
 @NgModule({
@@ -15,6 +17,7 @@ import { TicketTableComponent } from './user-booking-history/ticket-table/ticket
     UserBookingHistoryComponent,
     ConfirmCanceledTicketComponent,
     TicketTableComponent,
+    ShowTicketDetailsComponent,
   ],
   imports: [
     CommonModule,
@@ -22,6 +25,8 @@ import { TicketTableComponent } from './user-booking-history/ticket-table/ticket
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
+
+    ManageBookingModule
   ]
 })
 export class UserModule { }

@@ -10,9 +10,11 @@ export interface Ticket {
   passengerName: string
   trainName: string
   carriageName: string
-  seatName: any
+  seatName: string
+  scheduleId: number
   scheduleName: string
   price: number
+  isCancel: boolean
   status: string
   createdAt: string
 }
