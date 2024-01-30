@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core'
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core'
 import { Ticket } from '../../core/models/bookingHistory'
 import { BsModalRef } from 'ngx-bootstrap/modal'
 
