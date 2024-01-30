@@ -1,11 +1,9 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {LoginComponent} from './login/login.component';
-import {NotFoundComponent} from '../pages/miscellaneous/not-found/not-found.component';
 import {AuthComponent} from './auth.component';
-import { SendEmailComponent } from './send-email/send-email.component';
-import { ResetPasswordComponent } from './reset-password/reset-password.component';
-
+import {SendEmailComponent} from './send-email/send-email.component';
+import {ResetPasswordComponent} from './reset-password/reset-password.component';
 
 
 const routes: Routes = [{
@@ -13,8 +11,8 @@ const routes: Routes = [{
   component: AuthComponent,
   children: [
     {
-      path : '',
-      component : LoginComponent,
+      path: '',
+      component: LoginComponent,
     },
     {
       path: 'login',
@@ -22,15 +20,16 @@ const routes: Routes = [{
     },
     {
       path: 'send-email/:mode',
-      component: SendEmailComponent
+      component: SendEmailComponent,
     },
     {
       path: 'reset-password',
-      component: ResetPasswordComponent
+      component: ResetPasswordComponent,
     },
     {
       path: '**',
-      component: NotFoundComponent,
+      redirectTo: 'login',
+      // component: NotFoundComponent,
     },
   ],
 }];

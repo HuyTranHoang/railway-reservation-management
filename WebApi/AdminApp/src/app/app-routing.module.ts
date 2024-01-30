@@ -4,11 +4,6 @@ import {AuthorizationGuard} from './guards/authorization.guard';
 
 export const routes: Routes = [
   {
-    path: 'pages',
-    loadChildren: () => import('./pages/pages.module')
-      .then(m => m.PagesModule),
-  },
-  {
     path: 'managements',
     loadChildren: () => import('./managements/managements.module')
       .then(m => m.ManagementsModule),

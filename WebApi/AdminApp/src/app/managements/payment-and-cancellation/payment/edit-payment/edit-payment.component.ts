@@ -50,7 +50,7 @@ export class EditPaymentComponent implements OnInit {
         this.paymentForm.patchValue({
           email: res.aspNetUserEmail,
         });
-        
+
         this.isLoading = false;
       },
       error: (err) => {

@@ -6,22 +6,12 @@
     <a class="logo" href="#" (click)="navigateHome()">swift-rails-<span>admin</span></a>
   </div>
 
-  <nb-select [selected]="currentTheme"
-             (selectedChange)="changeTheme($event)"
-             style="margin-left: 60px"
-             status="primary">
-    <nb-option *ngFor="let theme of themes" [value]="theme.value"> {{ theme.name }}</nb-option>
-  </nb-select>
-
-  <div class="ml-5">
-    <button routerLink="/pages/" class="mr-3" nbButton status="primary">
-      Xem components
-    </button>
-
-    <button routerLink="/managements/" nbButton status="primary">
-      Xem Managements
-    </button>
-  </div>
+<!--  <nb-select [selected]="currentTheme"-->
+<!--             (selectedChange)="changeTheme($event)"-->
+<!--             style="margin-left: 60px"-->
+<!--             status="primary">-->
+<!--    <nb-option *ngFor="let theme of themes" [value]="theme.value"> {{ theme.name }}</nb-option>-->
+<!--  </nb-select>-->
 </div>
 
 <div class="header-container">
