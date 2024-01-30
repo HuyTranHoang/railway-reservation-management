@@ -32,6 +32,15 @@
         </span>
         </div>
       </div>
+
+      <div class="col-12">
+        <ul *ngIf="errorMessages.length > 0">
+          <li class="text-danger small" *ngFor="let item of errorMessages">
+            {{item}}
+          </li>
+        </ul>
+      </div>
+
     </div>
 
     <button type="submit" class="btn green w-100">

@@ -55,6 +55,7 @@ export class ManagementBookingComponent implements OnInit {
         }
       },
       error: (error: any) => {
+        console.log(error.errors)
         this.errorMessages = error.errors
       }
     })
