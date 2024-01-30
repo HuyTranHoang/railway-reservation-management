@@ -12,6 +12,7 @@ export class DepartureSelectComponent {
   @Output() bookNow = new EventEmitter<Schedule>();
   openStates: boolean[] = []; // Array to track open/closed state for each item
   currentSelectSchedule: Schedule | undefined;
+  currentDate = new Date();
 
   constructor(public departureService: DepartureService) {}
 
@@ -33,6 +34,11 @@ export class DepartureSelectComponent {
 
   onSelectSeatTypeClick(item: Schedule, type: ScheduleCarriageType) {
     item.selectedCarriageType = type;
+  }
+
+  isExpired(item: Schedule) {
+    const date = new Date(item.departureTime);
+    return date < this.currentDate;
   }
 
 }

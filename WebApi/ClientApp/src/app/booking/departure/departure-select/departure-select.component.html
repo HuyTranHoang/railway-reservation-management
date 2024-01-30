@@ -32,7 +32,7 @@
   <tbody>
 
   <ng-container *ngFor="let item of departureService.schedules; let i = index">
-    <tr [class.table-light]="openStates[i]">
+    <tr [class.table-light]="openStates[i]" [class.schedule-in-the-past]="isExpired(item)">
       <td style="text-align: center; width: 172px;">
         <img class="logo" src="https://localhost:5001/images/trainLogo/{{item.trainCompanyLogo}}" alt="logo">
         <div class="hidden-xs hidden-sm" style="font-size: 13px;">{{ item.trainName }}</div>
@@ -76,8 +76,12 @@
 
       <td>
         <i class="fa-solid fa-chevron-{{openStates[i] ? 'up' : 'down'}}"
+           *ngIf="!isExpired(item)"
            (click)="onChevronClick(i)"
            style="color: #65696e; cursor: pointer"></i>
+        <span *ngIf="isExpired(item)">
+          Stop selling
+        </span>
       </td>
     </tr>
     <tr>
