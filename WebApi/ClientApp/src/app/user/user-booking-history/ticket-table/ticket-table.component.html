@@ -2,9 +2,10 @@
   <div class="col-2 position-relative">
     <input class="form-control"
            [(ngModel)]="searchText"
+           (change)="filterTickets()"
            style="padding-right: 30px"
            type="text"
-           placeholder="Ticket code">
+           placeholder="Ticket code, name..">
     <i class="fa-solid fa-magnifying-glass position-absolute" style="top: 30%; right: 20px; cursor: pointer"></i>
   </div>
   <div class="col-2" *ngIf="searchText != ''">
@@ -24,8 +25,8 @@
     <th></th>
   </tr>
   </thead>
-  <tbody *ngIf="tickets">
-  <tr *ngFor="let item of tickets | ticketCodeFilter: searchText">
+  <tbody *ngIf="tickets && tickets.length > 0">
+  <tr *ngFor="let item of filterTickets()">
     <td>{{ item.code }}</td>
     <td>{{ item.passengerName }}</td>
     <td>{{ item.trainName }}</td>
@@ -40,6 +41,12 @@
         Cancellation
       </button>
     </td>
+  </tr>
+  </tbody>
+
+  <tbody *ngIf="searchText !== '' && filterTickets().length === 0">
+  <tr>
+    <td class="py-5 text-center" colspan="7">No result found</td>
   </tr>
   </tbody>
 </table>

@@ -28,4 +28,17 @@ export class TicketTableComponent {
     })
   }
 
+  filterTickets(): Ticket[] {
+    if (!this.tickets || !this.searchText) {
+      return this.tickets || [];
+    }
+
+    const searchTextLower = this.searchText.toLowerCase();
+    return this.tickets.filter(ticket =>
+        ticket.code.toLowerCase().includes(searchTextLower) ||
+        ticket.passengerName.toLowerCase().includes(searchTextLower) ||
+        ticket.trainName.toLowerCase().includes(searchTextLower)
+    );
+  }
+
 }

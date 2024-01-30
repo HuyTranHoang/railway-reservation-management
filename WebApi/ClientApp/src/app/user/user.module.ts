@@ -7,7 +7,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { UserBookingHistoryComponent } from './user-booking-history/user-booking-history.component';
 import { ConfirmCanceledTicketComponent } from './confirm-canceled-ticket/confirm-canceled-ticket.component';
 import { TicketTableComponent } from './user-booking-history/ticket-table/ticket-table.component';
-import { TicketCodeFilterPipe } from './user-booking-history/ticket-table/ticket-code-filter.pipe';
 
 
 @NgModule({
@@ -16,7 +15,6 @@ import { TicketCodeFilterPipe } from './user-booking-history/ticket-table/ticket
     UserBookingHistoryComponent,
     ConfirmCanceledTicketComponent,
     TicketTableComponent,
-    TicketCodeFilterPipe,
   ],
   imports: [
     CommonModule,
