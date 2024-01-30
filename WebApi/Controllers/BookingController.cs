@@ -183,7 +183,7 @@ namespace WebApi.Controllers
                         };
 
 
-                        await _ticketService.AddAsync(ticket);
+                        await _ticketService.AddRoundTripAsync(ticket);
 
                         // Thông tin cần để gửi email
                         var schedule = await _scheduleService.GetDtoByIdAsync(paymentDto.ScheduleId[1]);

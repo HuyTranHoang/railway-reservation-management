@@ -5,5 +5,7 @@ namespace Application.Common.Interfaces.Services
         Task<PagedList<TicketDto>> GetAllDtoAsync(TicketQueryParams queryParams);
         Task<TicketDto> GetDtoByIdAsync(int id);
         Task<List<TicketDto>> GetAllDtoNoPagingAsync();
+
+        Task AddRoundTripAsync(Ticket ticket);
     }
 }

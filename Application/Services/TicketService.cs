@@ -14,6 +14,7 @@ namespace Application.Services
         private readonly ICancellationRepository _cancellationRepository;
         private readonly ITrainStationRepository _trainStation;
         private readonly IScheduleRepository _schedule;
+        private readonly IRoundTripRepository _roundTrip;
         private readonly ITrainRepository _train;
 
         public TicketService(ITicketRepository repository, IUnitOfWork unitOfWork, IMapper mapper,
@@ -23,6 +24,7 @@ namespace Application.Services
             ICancellationRepository cancellationRepository,
             ITrainStationRepository trainStation,
             IScheduleRepository schedule,
+            IRoundTripRepository roundTrip,
             ITrainRepository train)
         {
             _repository = repository;
@@ -34,6 +36,7 @@ namespace Application.Services
             _cancellationRepository = cancellationRepository;
             _trainStation = trainStation;
             _schedule = schedule;
+            _roundTrip = roundTrip;
             _train = train;
         }
 
@@ -47,6 +50,32 @@ namespace Application.Services
             ticket.DistanceFareId = distanceFareId;
 
             ticket.Price = await CalculatePrice(ticket);
+
+            bool isSeatAndScheduleExistsInTickets =
+                tickets.Any(t => t.SeatId == ticket.SeatId
+                                 && t.ScheduleId == ticket.ScheduleId
+                                 && !_cancellationRepository.IsTicketCancelledAsync(t.Id).Result);
+
+            if (isSeatAndScheduleExistsInTickets)
+            {
+                throw new BadRequestException(400, "Seat has been booked");
+            }
+
+            await _repository.Add(ticket);
+
+            await _unitOfWork.SaveChangesAsync();
+        }
+
+        public async Task AddRoundTripAsync(Ticket ticket)
+        {
+            var tickets = await _repository.GetAllNoPagingAsync();
+
+            ticket.Code = GenerateUniqueCode(ticket);
+
+            int distanceFareId = await CaculateDistanceFareId(ticket);
+            ticket.DistanceFareId = distanceFareId;
+
+            ticket.Price = await CalculatePrice(ticket, true);
 
             bool isSeatAndScheduleExistsInTickets =
                 tickets.Any(t => t.SeatId == ticket.SeatId
@@ -185,7 +214,7 @@ namespace Application.Services
             return code;
         }
 
-        private async Task<double> CalculatePrice(Ticket ticket)
+        private async Task<double> CalculatePrice(Ticket ticket, bool isRoundTrip = false)
         {
             var distanceFare = await _distanceFare.GetDistanceFareByIdAsync(ticket.DistanceFareId);
             var carriageServiceCharge = await _carriage.GetServiceChargeByIdAsync(ticket.CarriageId);
@@ -193,6 +222,13 @@ namespace Application.Services
 
             double ticketAmount = distanceFare + carriageServiceCharge + seatTypeServiceCharge;
 
+            if (isRoundTrip)
+            {
+                var trainCompany = await _train.GetByIdAsync(ticket.TrainId);
+                var roundTrip = await _roundTrip.GetByTrainCompanyIdAsync(trainCompany.TrainCompanyId);
+                var discountAmount = ticketAmount * roundTrip.Discount / 100;
+                ticketAmount -= discountAmount;
+            }
             return ticketAmount;
         }
 
