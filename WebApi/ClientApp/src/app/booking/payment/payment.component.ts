@@ -138,6 +138,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
             this.discountRoundTrip = res.discount
             this.returnSubTotal = this.totalAmount - this.departureSubTotal
             this.totalRoundTripDiscount = (this.returnSubTotal * this.discountRoundTrip) / 100
+            this.returnSubTotal = this.returnSubTotal - this.totalRoundTripDiscount
             this.totalAmount = this.totalAmount - this.totalRoundTripDiscount
           },
           error: (err) => {
