@@ -46,7 +46,7 @@ export class BarchartjsComponent implements OnChanges, OnDestroy {
         }
       }
 
-      this.dateArray.unshift(`${month.toString().padStart(2, '0')}/${day.toString().padStart(2, '0')}`);
+      this.dateArray.push(`${month.toString().padStart(2, '0')}/${day.toString().padStart(2, '0')}`);
     }
   }
 
