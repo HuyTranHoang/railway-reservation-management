@@ -51,21 +51,36 @@ export class BarchartjsComponent implements OnChanges, OnDestroy {
   }
 
   private convertDataForChart(): void {
+    // Tạo một mảng mới với đúng 7 phần tử và chèn giá trị 0 vào phía trước nếu cần
+    const revenueData = this.fillArrayWithZeros(this.last7DaysSummary
+      .map(x => (x.ticketPriceSum / 1000000).toFixed(2)));
+    const refundData = this.fillArrayWithZeros(this.last7DaysSummary
+      .map(x => (x.ticketPriceCancelSum / 1000000).toFixed(2)));
 
     const colors: any = this.config.variables;
     this.data = {
       labels: this.dateArray,
-      datasets: [{
-        data: this.last7DaysSummary.map(x => (x.ticketPriceSum / 1000000).toFixed(2)), // Chuyển đổi thành triệu
-        label: 'Revenue (Million VND)',
-        backgroundColor: NbColorHelper.hexToRgbA(colors.primaryLight, 0.8),
-      }, {
-        data: this.last7DaysSummary.map(x => (x.ticketPriceCancelSum / 1000000).toFixed(2)), // Chuyển đổi thành triệu
-        label: 'Refund (Million VND)',
-        backgroundColor: NbColorHelper.hexToRgbA(colors.infoLight, 0.8),
-      }],
+      datasets: [
+        {
+          data: revenueData,
+          label: 'Revenue (Million VND)',
+          backgroundColor: NbColorHelper.hexToRgbA(colors.primaryLight, 0.8),
+        },
+        {
+          data: refundData,
+          label: 'Refund (Million VND)',
+          backgroundColor: NbColorHelper.hexToRgbA(colors.infoLight, 0.8),
+        },
+      ],
     };
   }
+
+  private fillArrayWithZeros(dataArray: string[]): number[] {
+    const numberOfZerosToAdd = 7 - dataArray.length;
+    const filledArray = Array(numberOfZerosToAdd).fill(0).concat(dataArray.map(Number));
+    return filledArray.slice(-7); // Giữ lại chỉ 7 phần tử cuối cùng
+  }
+
 
   private setupChart(): void {
     this.themeSubscription = this.theme.getJsTheme().subscribe(config => {
