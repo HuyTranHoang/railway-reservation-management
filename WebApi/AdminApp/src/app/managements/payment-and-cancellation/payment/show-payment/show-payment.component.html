@@ -1,18 +1,25 @@
 <nb-card>
-  <nb-card-header>Carriages type details</nb-card-header>
+  <nb-card-header>Payment details</nb-card-header>
   <nb-card-body>
     <section style="min-width: 600px">
       <div class="form-group row">
         <label class="label col-sm-3 col-form-label">Full Name</label>
         <div class="col-sm-9">
-          <input type="text" nbInput fullWidth [value]="fullName" disabled>
+          <input type="text" nbInput fullWidth [value]="aspNetUserFullName" disabled>
         </div>
       </div>
 
       <div class="form-group row">
         <label class="label col-sm-3 col-form-label">Email</label>
         <div class="col-sm-9">
-          <input type="text" nbInput fullWidth [value]="email" disabled>
+          <input type="text" nbInput fullWidth [value]="aspNetUserEmail" disabled>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="label col-sm-3 col-form-label">Transaction ID</label>
+        <div class="col-sm-9">
+          <input type="text" nbInput fullWidth [value]="transactionId" disabled>
         </div>
       </div>
 

@@ -11,6 +11,7 @@ export class ConfirmDeletePaymentComponent {
 
   @Input() id: number;
   @Input() name: string;
+  @Input() transactionId: string;
   @Output() onConfirmDelete = new EventEmitter<void>();
 
   constructor(protected ref: NbDialogRef<ConfirmDeletePaymentComponent>,

@@ -16,7 +16,6 @@ import {SharedService} from '../../shared/shared.service';
 })
 export class PaymentComponent implements OnInit {
 
-
   payments: Payment[] = [];
   pagination: Pagination;
 
@@ -93,13 +92,13 @@ export class PaymentComponent implements OnInit {
     });
 
     dialogRef.componentRef.instance.onShowDelete.subscribe(obj => {
-      this.openConfirmDialog(obj.id, obj.name);
+      this.openConfirmDialog(obj.id, obj.name, obj.transactionId);
     });
   }
 
-  openConfirmDialog(id: number, name: string) {
+  openConfirmDialog(id: number, name: string, transactionId: string) {
     const dialogRef = this.dialogService.open(ConfirmDeletePaymentComponent, {
-      context: {id, name},
+      context: {id, name, transactionId},
     });
 
     dialogRef.componentRef.instance.onConfirmDelete.subscribe(_ => {

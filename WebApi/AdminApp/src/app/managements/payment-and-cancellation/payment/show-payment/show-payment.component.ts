@@ -9,12 +9,13 @@ import {Router} from '@angular/router';
 })
 export class ShowPaymentComponent {
   @Input() id: number;
-  @Input() fullName: string;
-  @Input() email: string;
+  @Input() aspNetUserFullName: string;
+  @Input() aspNetUserEmail: string;
+  @Input() transactionId: string;
   @Input() status: string;
   @Input() createdAt: string;
 
-  @Output() onShowDelete = new EventEmitter<{ id: number, name: string }>();
+  @Output() onShowDelete = new EventEmitter<{ id: number, name: string, transactionId: string }>();
 
   constructor(protected ref: NbDialogRef<ShowPaymentComponent>,
               private router: Router) {
@@ -30,7 +31,7 @@ export class ShowPaymentComponent {
   }
 
   onDelete() {
-    this.onShowDelete.emit({id: this.id, name: this.fullName});
+    this.onShowDelete.emit({id: this.id, name: this.aspNetUserFullName, transactionId: this.transactionId});
     this.dismiss();
   }
 
