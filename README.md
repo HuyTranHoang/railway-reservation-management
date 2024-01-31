@@ -66,9 +66,10 @@ To get a local copy up and running follow these simple example steps.
 
 This is an example of how to list things you need to use the software and how to install them.
 
-- Dotnet: SDK 6.0.417
+- Dotnet: SDK 6.0.417, dotnet tool 6.0.25
   ```sh
   https://dotnet.microsoft.com/en-us/download/dotnet/6.0
+  dotnet tool update --global dotnet-ef --version 6.0.25
   ```
 - Nodejs: v16.20.2
   ```sh
