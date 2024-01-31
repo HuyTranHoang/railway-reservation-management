@@ -61,7 +61,7 @@
             <span>{{ item.trainCompanyName }}</span>
           </div>
         </td>
-        <td>{{ item.discount | currency:'VND' }}</td>
+        <td>{{ item.discount }}%</td>
         <td>{{ item.createdAt | date: 'medium' }}</td>
         <td class="text-right">
           <button nbButton status="info" class="mr-3" (click)="openShowDialog(item.id)">
