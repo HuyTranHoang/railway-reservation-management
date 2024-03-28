@@ -57,7 +57,6 @@ This Application enables us to choose the train even there is no necessary to fi
 
 ## Screenshot
 
-<div align="center">
 # Departure
 ![image](https://github.com/HuyTranHoang/railway-reservation-management/assets/20708669/180b45f2-b983-40c2-84f2-dfe092fca95f)
 # Seat Selection
@@ -72,13 +71,6 @@ This Application enables us to choose the train even there is no necessary to fi
 ![image](https://github.com/HuyTranHoang/railway-reservation-management/assets/20708669/3110c5a2-1676-4ed2-a6ba-83b70fb3fcec)
 ![image](https://github.com/HuyTranHoang/railway-reservation-management/assets/20708669/5ddfc5cd-3ce2-49d2-b5de-ecbfef63a3c4)
 ![image](https://github.com/HuyTranHoang/railway-reservation-management/assets/20708669/9090c33f-b583-4f6c-9c95-7678c7514641)
-
-
-
-
-
-
-</div>
 
 
 <!-- GETTING STARTED -->
