@@ -55,6 +55,32 @@ This Application enables us to choose the train even there is no necessary to fi
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+## Screenshot
+
+<div align="center">
+# Departure
+![image](https://github.com/HuyTranHoang/railway-reservation-management/assets/20708669/180b45f2-b983-40c2-84f2-dfe092fca95f)
+# Seat Selection
+![image](https://github.com/HuyTranHoang/railway-reservation-management/assets/20708669/810709f7-5059-4690-b179-e93e0ccf2b28)
+# Passneger information
+![image](https://github.com/HuyTranHoang/railway-reservation-management/assets/20708669/2c8b8576-37cf-4f7a-8743-2552bba91349)
+# Summary and payment
+![image](https://github.com/HuyTranHoang/railway-reservation-management/assets/20708669/0f0f012e-5b01-41e2-b4aa-7e1cd5fe2975)
+# Booking history
+![image](https://github.com/HuyTranHoang/railway-reservation-management/assets/20708669/a41ff6b4-eac5-4b85-b6d6-3f43c9b2d36b)
+# Admin panel
+![image](https://github.com/HuyTranHoang/railway-reservation-management/assets/20708669/3110c5a2-1676-4ed2-a6ba-83b70fb3fcec)
+![image](https://github.com/HuyTranHoang/railway-reservation-management/assets/20708669/5ddfc5cd-3ce2-49d2-b5de-ecbfef63a3c4)
+![image](https://github.com/HuyTranHoang/railway-reservation-management/assets/20708669/9090c33f-b583-4f6c-9c95-7678c7514641)
+
+
+
+
+
+
+</div>
+
+
 <!-- GETTING STARTED -->
 
 ## Getting Started
